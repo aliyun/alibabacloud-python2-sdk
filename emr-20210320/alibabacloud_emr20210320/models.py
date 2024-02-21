@@ -16,7 +16,7 @@ class AckConfig(TeaModel):
         # Pod的CPU限制值。
         self.limit_cpu = limit_cpu  # type: float
         # Pod的内存限制值。
-        self.limit_memory = limit_memory  # type: str
+        self.limit_memory = limit_memory  # type: float
         self.mount_host_cgroup = mount_host_cgroup  # type: bool
         # ack 命名空间
         self.namespace = namespace  # type: str
@@ -25,7 +25,7 @@ class AckConfig(TeaModel):
         # Pod的CPU请求值
         self.request_cpu = request_cpu  # type: float
         # Pod的内存请求值。
-        self.request_memory = request_memory  # type: str
+        self.request_memory = request_memory  # type: float
         # ack的节点污点容忍
         self.tolerations = tolerations  # type: list[Toleration]
 
@@ -1025,7 +1025,7 @@ class Cluster(TeaModel):
     def __init__(self, cluster_id=None, cluster_name=None, cluster_state=None, cluster_type=None, create_time=None,
                  deploy_mode=None, emr_default_role=None, end_time=None, expire_time=None, node_attributes=None,
                  payment_type=None, ready_time=None, region_id=None, release_version=None, resource_group_id=None,
-                 security_mode=None, state_change_reason=None, status=None, subscription_config=None, tags=None):
+                 security_mode=None, state_change_reason=None, subscription_config=None, tags=None):
         # 集群ID。
         self.cluster_id = cluster_id  # type: str
         # 集群名称。
@@ -1059,8 +1059,6 @@ class Cluster(TeaModel):
         # Kerberos安全模式。
         self.security_mode = security_mode  # type: str
         self.state_change_reason = state_change_reason  # type: ClusterStateChangeReason
-        # 集群状态，值同clusterState
-        self.status = status  # type: str
         # 预付费配置。
         self.subscription_config = subscription_config  # type: SubscriptionConfig
         # 集群标签。
@@ -1118,8 +1116,6 @@ class Cluster(TeaModel):
             result['SecurityMode'] = self.security_mode
         if self.state_change_reason is not None:
             result['StateChangeReason'] = self.state_change_reason.to_map()
-        if self.status is not None:
-            result['Status'] = self.status
         if self.subscription_config is not None:
             result['SubscriptionConfig'] = self.subscription_config.to_map()
         result['Tags'] = []
@@ -1166,8 +1162,6 @@ class Cluster(TeaModel):
         if m.get('StateChangeReason') is not None:
             temp_model = ClusterStateChangeReason()
             self.state_change_reason = temp_model.from_map(m['StateChangeReason'])
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
         if m.get('SubscriptionConfig') is not None:
             temp_model = SubscriptionConfig()
             self.subscription_config = temp_model.from_map(m['SubscriptionConfig'])
@@ -1281,7 +1275,7 @@ class ClusterStateChangeReason(TeaModel):
 class ClusterSummary(TeaModel):
     def __init__(self, cluster_id=None, cluster_name=None, cluster_state=None, cluster_type=None, create_time=None,
                  emr_default_role=None, end_time=None, expire_time=None, payment_type=None, ready_time=None, release_version=None,
-                 resource_group_id=None, state_change_reason=None, status=None, tags=None):
+                 resource_group_id=None, state_change_reason=None, tags=None):
         # 集群ID。
         self.cluster_id = cluster_id  # type: str
         # 集群名称。
@@ -1322,16 +1316,6 @@ class ClusterSummary(TeaModel):
         self.resource_group_id = resource_group_id  # type: str
         # 失败原因。
         self.state_change_reason = state_change_reason  # type: ClusterStateChangeReason
-        # 集群状态。取值范围：
-        # - STARTING：启动中。
-        # - START_FAILED：启动失败。
-        # - BOOTSTRAPPING：引导操作初始化。
-        # - RUNNING：运行中。
-        # - TERMINATING：终止中。
-        # - TERMINATED：已终止。
-        # - TERMINATED_WITH_ERRORS：发生异常导致终止。
-        # - TERMINATE_FAILED：终止失败。
-        self.status = status  # type: str
         # 标签列表。
         self.tags = tags  # type: list[Tag]
 
@@ -1375,8 +1359,6 @@ class ClusterSummary(TeaModel):
             result['ResourceGroupId'] = self.resource_group_id
         if self.state_change_reason is not None:
             result['StateChangeReason'] = self.state_change_reason.to_map()
-        if self.status is not None:
-            result['Status'] = self.status
         result['Tags'] = []
         if self.tags is not None:
             for k in self.tags:
@@ -1412,8 +1394,6 @@ class ClusterSummary(TeaModel):
         if m.get('StateChangeReason') is not None:
             temp_model = ClusterStateChangeReason()
             self.state_change_reason = temp_model.from_map(m['StateChangeReason'])
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
         self.tags = []
         if m.get('Tags') is not None:
             for k in m.get('Tags'):
@@ -1491,7 +1471,9 @@ class ComponentInstanceSelectorComponents(TeaModel):
 
 
 class ComponentInstanceSelector(TeaModel):
-    def __init__(self, application_name=None, component_instances=None, components=None, run_action_scope=None):
+    def __init__(self, action_scope=None, application_name=None, component_instances=None, components=None,
+                 run_action_scope=None):
+        self.action_scope = action_scope  # type: str
         # 应用名称。
         self.application_name = application_name  # type: str
         # 组件实例列表。actionScope为COPONENT_INSTANCE时使用。
@@ -1499,7 +1481,10 @@ class ComponentInstanceSelector(TeaModel):
         # 组件列表。
         # actionScope为COPONENT时使用。
         self.components = components  # type: list[ComponentInstanceSelectorComponents]
-        # 执行范围。
+        # 动作执行范围。取值范围：
+        # - APPLICATION：应用级别。
+        # - COMPONENT：组件级别。
+        # - COMPONENT_INSTANCE：组件实例级别。
         self.run_action_scope = run_action_scope  # type: str
 
     def validate(self):
@@ -1518,6 +1503,8 @@ class ComponentInstanceSelector(TeaModel):
             return _map
 
         result = dict()
+        if self.action_scope is not None:
+            result['ActionScope'] = self.action_scope
         if self.application_name is not None:
             result['ApplicationName'] = self.application_name
         result['ComponentInstances'] = []
@@ -1534,6 +1521,8 @@ class ComponentInstanceSelector(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ActionScope') is not None:
+            self.action_scope = m.get('ActionScope')
         if m.get('ApplicationName') is not None:
             self.application_name = m.get('ApplicationName')
         self.component_instances = []
@@ -2819,15 +2808,16 @@ class MetricsTrigger(TeaModel):
 
 
 class Node(TeaModel):
-    def __init__(self, auto_renew=None, auto_renew_duration=None, auto_renew_duration_unit=None, expire_time=None,
-                 instance_type=None, maintenance_status=None, node_group_id=None, node_group_type=None, node_id=None,
-                 node_name=None, node_state=None, private_ip=None, public_ip=None, zone_id=None):
+    def __init__(self, auto_renew=None, auto_renew_duration=None, auto_renew_duration_unit=None, create_time=None,
+                 expire_time=None, instance_type=None, maintenance_status=None, node_group_id=None, node_group_type=None,
+                 node_id=None, node_name=None, node_state=None, private_ip=None, public_ip=None, zone_id=None):
         # 节点是否自动续费。
         self.auto_renew = auto_renew  # type: bool
         # 节点自动续费时长。
         self.auto_renew_duration = auto_renew_duration  # type: int
         # 节点自动续费时长单位。
         self.auto_renew_duration_unit = auto_renew_duration_unit  # type: str
+        self.create_time = create_time  # type: long
         # 节点过期时间。
         self.expire_time = expire_time  # type: long
         # 实例类型。
@@ -2876,6 +2866,8 @@ class Node(TeaModel):
             result['AutoRenewDuration'] = self.auto_renew_duration
         if self.auto_renew_duration_unit is not None:
             result['AutoRenewDurationUnit'] = self.auto_renew_duration_unit
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
         if self.expire_time is not None:
             result['ExpireTime'] = self.expire_time
         if self.instance_type is not None:
@@ -2908,6 +2900,8 @@ class Node(TeaModel):
             self.auto_renew_duration = m.get('AutoRenewDuration')
         if m.get('AutoRenewDurationUnit') is not None:
             self.auto_renew_duration_unit = m.get('AutoRenewDurationUnit')
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
         if m.get('ExpireTime') is not None:
             self.expire_time = m.get('ExpireTime')
         if m.get('InstanceType') is not None:
@@ -3032,8 +3026,8 @@ class NodeGroup(TeaModel):
     def __init__(self, additional_security_group_ids=None, cost_optimized_config=None, data_disks=None,
                  deployment_set_strategy=None, graceful_shutdown=None, instance_types=None, node_group_id=None, node_group_name=None,
                  node_group_state=None, node_group_type=None, node_resize_strategy=None, payment_type=None, running_node_count=None,
-                 spot_bid_prices=None, spot_instance_remedy=None, spot_strategy=None, state_change_reason=None, system_disk=None,
-                 v_switch_ids=None, with_public_ip=None, zone_id=None):
+                 spot_bid_prices=None, spot_instance_remedy=None, spot_strategy=None, state_change_reason=None, status=None,
+                 system_disk=None, v_switch_ids=None, with_public_ip=None, zone_id=None):
         # 安全组ID。
         self.additional_security_group_ids = additional_security_group_ids  # type: list[str]
         # 成本优化模式配置。
@@ -3084,6 +3078,8 @@ class NodeGroup(TeaModel):
         self.spot_strategy = spot_strategy  # type: str
         # 状态变化原因。
         self.state_change_reason = state_change_reason  # type: NodeGroupStateChangeReason
+        # 节点组状态，NodeGroupState别名。
+        self.status = status  # type: str
         # 系统盘信息。
         self.system_disk = system_disk  # type: SystemDisk
         # 虚拟机交换机ID列表。
@@ -3155,6 +3151,8 @@ class NodeGroup(TeaModel):
             result['SpotStrategy'] = self.spot_strategy
         if self.state_change_reason is not None:
             result['StateChangeReason'] = self.state_change_reason.to_map()
+        if self.status is not None:
+            result['Status'] = self.status
         if self.system_disk is not None:
             result['SystemDisk'] = self.system_disk.to_map()
         if self.v_switch_ids is not None:
@@ -3209,6 +3207,8 @@ class NodeGroup(TeaModel):
         if m.get('StateChangeReason') is not None:
             temp_model = NodeGroupStateChangeReason()
             self.state_change_reason = temp_model.from_map(m['StateChangeReason'])
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
         if m.get('SystemDisk') is not None:
             temp_model = SystemDisk()
             self.system_disk = temp_model.from_map(m['SystemDisk'])
@@ -6140,56 +6140,57 @@ class CreateClusterRequest(TeaModel):
                  cluster_name=None, cluster_type=None, deploy_mode=None, node_attributes=None, node_groups=None,
                  payment_type=None, region_id=None, release_version=None, resource_group_id=None, security_mode=None,
                  subscription_config=None, tags=None):
-        # 应用配置。数组元素个数N的取值范围：1~1000。
+        # The configurations of the applications. Valid values of N: 1 to 1000.
         self.application_configs = application_configs  # type: list[ApplicationConfig]
-        # 应用列表。数组元素个数N的取值范围：1~100。
+        # The applications that you want to add to the cluster. Valid values of N: 1 to 100.
         self.applications = applications  # type: list[Application]
-        # 引导脚本。数组元素个数N的取值范围：1~10。
+        # The array of scripts for the bootstrap actions. Valid values of N: 1 to 10.
         self.bootstrap_scripts = bootstrap_scripts  # type: list[Script]
-        # 幂等客户端TOKEN。同一个ClientToken多次调用的返回结果一致，同一个ClientToken最多只创建一个集群。
+        # The idempotent client token. If you call the same ClientToken multiple times, the returned results are the same. Only one cluster can be created with the same ClientToken.
         self.client_token = client_token  # type: str
-        # 集群名称。长度为1~128个字符，必须以大小字母或中文开头，不能以http://和https://开头。可以包含中文、英文、数字、半角冒号（:）、下划线（_）、半角句号（.）或者短划线（-）
+        # The name of the cluster. The name must be 1 to 128 characters in length. It must start with a letter and cannot start with http:// or https://. It can contain letters, digits, colons (:), underscores (\_), periods (.), and hyphens (-).
         self.cluster_name = cluster_name  # type: str
-        # 创建的EMR集群类型。取值范围：
-        # - DATALAKE：新版数据湖。
-        # - OLAP：数据分析。
-        # - DATAFLOW：实时数据流。
-        # - DATASERVING：数据服务。
-        # - CUSTOM：自定义集群。
-        # - HADOOP：旧版数据湖（不推荐使用，建议使用新版数据湖）。
+        # The type of the cluster. Valid values:
+        # 
+        # *   DATALAKE: data lake
+        # *   OLAP: online analytical processing (OLAP)
+        # *   DATAFLOW: Dataflow
+        # *   DATASERVING: DataServing
+        # *   CUSTOM: a custom hybrid cluster.
+        # *   HADOOP: the old data lake. We recommend that you use the new data lake.
+        # 
+        # If you create an EMR cluster for the first time after 17:00 (UTC +8) on December 19, 2022, you cannot select the HADOOP, DATA_SCIENCE, PRESTO, or ZOOKEEPER cluster type.
         self.cluster_type = cluster_type  # type: str
-        # 集群中的应用部署模式。取值范围：
-        # - NORMAL：非高可用部署。集群1个MASTER节点。
-        # - HA：高可用部署。高可用部署要求至少3个MASTER节点。
+        # The deployment mode of applications in the cluster. Valid values:
         # 
-        # 默认值：NORMAL。
+        # *   NORMAL: regular mode. A master node is deployed in the cluster.
+        # *   HA: high availability mode. At least three master nodes are deployed in the cluster.
         self.deploy_mode = deploy_mode  # type: str
-        # 节点属性。集群中的ECS节点基础属性。
+        # The attributes of all Elastic Compute Service (ECS) nodes in the cluster. The basic attributes of all ECS nodes in the cluster.
         self.node_attributes = node_attributes  # type: NodeAttributes
-        # 节点组。数组元素个数N的取值范围：1~100。
-        # <p>
+        # The array of configurations of the node groups. Valid values of N: 1 to 100.
         self.node_groups = node_groups  # type: list[NodeGroupConfig]
-        # 集群的付费类型。取值范围：
-        # - PayAsYouGo：后付费。
-        # - Subscription：预付费。
+        # The billing cycle of the instance. Valid values:
         # 
-        # 默认值：PayAsYouGo。
+        # *   PayAsYouGo: pay-as-you-go
+        # *   Subscription: subscription
+        # 
+        # Default value: PayAsYouGo.
         self.payment_type = payment_type  # type: str
-        # 区域ID。
+        # The ID of the region in which you want to create the instance.
         self.region_id = region_id  # type: str
-        # EMR发行版。
+        # The version of EMR. You can view the EMR release version on the EMR cluster purchase page.
         self.release_version = release_version  # type: str
-        # 集群所在的企业资源组ID。
+        # The ID of the resource group to which to assign the ENI.
         self.resource_group_id = resource_group_id  # type: str
-        # Kerberos安全模式。取值范围：
-        # - NORMAL：普通模式，不开启Kerberos模式。
-        # - KERBEROS：开启Kerberos模式。
+        # The security mode of the cluster. Valid values:
         # 
-        # 默认值：NORMAL
+        # *   NORMAL: regular mode. Kerberos is not enabled.
+        # *   KERBEROS: Kerberos mode. Kerberos is enabled.
         self.security_mode = security_mode  # type: str
-        # 预付费配置。当PaymentType取值Subscription时该参数生效。
+        # The subscription configurations. This parameter is required when the PaymentType parameter is set to Subscription.
         self.subscription_config = subscription_config  # type: SubscriptionConfig
-        # 标签。数组元数个数N的取值范围：0~20。
+        # The tag that you want to add to the cloud desktop. Valid values of N: 0 to 20.
         self.tags = tags  # type: list[Tag]
 
     def validate(self):
@@ -6324,11 +6325,11 @@ class CreateClusterRequest(TeaModel):
 
 class CreateClusterResponseBody(TeaModel):
     def __init__(self, cluster_id=None, operation_id=None, request_id=None):
-        # 集群ID。
+        # The ID of cluster.
         self.cluster_id = cluster_id  # type: str
-        # 操作ID。
+        # The ID of the operation.
         self.operation_id = operation_id  # type: str
-        # 请求ID。
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -6366,9 +6367,6 @@ class CreateClusterResponse(TeaModel):
         self.body = body  # type: CreateClusterResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6475,9 +6473,6 @@ class CreateNodeGroupResponse(TeaModel):
         self.body = body  # type: CreateNodeGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6594,9 +6589,6 @@ class DecreaseNodesResponse(TeaModel):
         self.body = body  # type: DecreaseNodesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6695,9 +6687,6 @@ class DeleteClusterResponse(TeaModel):
         self.body = body  # type: DeleteClusterResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6723,6 +6712,479 @@ class DeleteClusterResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteClusterResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetApmDataRequest(TeaModel):
+    def __init__(self, cluster_id=None, component_name=None, language=None, provider=None, region_id=None,
+                 resource_group_id=None):
+        # 集群ID。非必传参数。
+        self.cluster_id = cluster_id  # type: str
+        self.component_name = component_name  # type: str
+        self.language = language  # type: str
+        self.provider = provider  # type: str
+        # 地域ID。
+        self.region_id = region_id  # type: str
+        # 如果存在clusterId，从Cluster中获取该值，如果clusterId为空，用户显式指定
+        self.resource_group_id = resource_group_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetApmDataRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cluster_id is not None:
+            result['ClusterId'] = self.cluster_id
+        if self.component_name is not None:
+            result['ComponentName'] = self.component_name
+        if self.language is not None:
+            result['Language'] = self.language
+        if self.provider is not None:
+            result['Provider'] = self.provider
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClusterId') is not None:
+            self.cluster_id = m.get('ClusterId')
+        if m.get('ComponentName') is not None:
+            self.component_name = m.get('ComponentName')
+        if m.get('Language') is not None:
+            self.language = m.get('Language')
+        if m.get('Provider') is not None:
+            self.provider = m.get('Provider')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        return self
+
+
+class GetApmDataResponseBodyData(TeaModel):
+    def __init__(self, data=None, type=None):
+        self.data = data  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetApmDataResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class GetApmDataResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        # Created on 2022/7/11 3:16 PM
+        self.data = data  # type: GetApmDataResponseBodyData
+        # 请求ID。
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetApmDataResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            temp_model = GetApmDataResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class GetApmDataResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetApmDataResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetApmDataResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetApmDataResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetApplicationRequest(TeaModel):
+    def __init__(self, application_name=None, cluster_id=None, region_id=None):
+        # 应用名称。
+        self.application_name = application_name  # type: str
+        # 集群ID。
+        self.cluster_id = cluster_id  # type: str
+        # 地域ID。
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetApplicationRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.application_name is not None:
+            result['ApplicationName'] = self.application_name
+        if self.cluster_id is not None:
+            result['ClusterId'] = self.cluster_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApplicationName') is not None:
+            self.application_name = m.get('ApplicationName')
+        if m.get('ClusterId') is not None:
+            self.cluster_id = m.get('ClusterId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class GetApplicationResponseBodyApplicationActionsActionParamsValueAttribute(TeaModel):
+    def __init__(self, description=None, value_increment_step=None, value_maximum=None, value_minimum=None,
+                 value_type=None, value_unit=None):
+        # 值表述。
+        self.description = description  # type: str
+        # 值步长。
+        self.value_increment_step = value_increment_step  # type: str
+        # 最大值。
+        self.value_maximum = value_maximum  # type: str
+        # 最小值。
+        self.value_minimum = value_minimum  # type: str
+        # 属性值类型。
+        self.value_type = value_type  # type: str
+        # 值单位。
+        self.value_unit = value_unit  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetApplicationResponseBodyApplicationActionsActionParamsValueAttribute, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.value_increment_step is not None:
+            result['ValueIncrementStep'] = self.value_increment_step
+        if self.value_maximum is not None:
+            result['ValueMaximum'] = self.value_maximum
+        if self.value_minimum is not None:
+            result['ValueMinimum'] = self.value_minimum
+        if self.value_type is not None:
+            result['ValueType'] = self.value_type
+        if self.value_unit is not None:
+            result['ValueUnit'] = self.value_unit
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('ValueIncrementStep') is not None:
+            self.value_increment_step = m.get('ValueIncrementStep')
+        if m.get('ValueMaximum') is not None:
+            self.value_maximum = m.get('ValueMaximum')
+        if m.get('ValueMinimum') is not None:
+            self.value_minimum = m.get('ValueMinimum')
+        if m.get('ValueType') is not None:
+            self.value_type = m.get('ValueType')
+        if m.get('ValueUnit') is not None:
+            self.value_unit = m.get('ValueUnit')
+        return self
+
+
+class GetApplicationResponseBodyApplicationActionsActionParams(TeaModel):
+    def __init__(self, description=None, key=None, value_attribute=None):
+        # 动作参数描述。
+        self.description = description  # type: str
+        # 动作参数KEY。
+        self.key = key  # type: str
+        # 动作参数属性。
+        self.value_attribute = value_attribute  # type: GetApplicationResponseBodyApplicationActionsActionParamsValueAttribute
+
+    def validate(self):
+        if self.value_attribute:
+            self.value_attribute.validate()
+
+    def to_map(self):
+        _map = super(GetApplicationResponseBodyApplicationActionsActionParams, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value_attribute is not None:
+            result['ValueAttribute'] = self.value_attribute.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('ValueAttribute') is not None:
+            temp_model = GetApplicationResponseBodyApplicationActionsActionParamsValueAttribute()
+            self.value_attribute = temp_model.from_map(m['ValueAttribute'])
+        return self
+
+
+class GetApplicationResponseBodyApplicationActions(TeaModel):
+    def __init__(self, action_name=None, action_params=None, command=None, component_name=None, description=None,
+                 run_action_scope=None):
+        # 操作名称。
+        self.action_name = action_name  # type: str
+        # 操作参数。
+        self.action_params = action_params  # type: list[GetApplicationResponseBodyApplicationActionsActionParams]
+        # 命令。
+        self.command = command  # type: str
+        # 组件名称。
+        self.component_name = component_name  # type: str
+        # 操作描述。
+        self.description = description  # type: str
+        # 执行范围。
+        self.run_action_scope = run_action_scope  # type: str
+
+    def validate(self):
+        if self.action_params:
+            for k in self.action_params:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetApplicationResponseBodyApplicationActions, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.action_name is not None:
+            result['ActionName'] = self.action_name
+        result['ActionParams'] = []
+        if self.action_params is not None:
+            for k in self.action_params:
+                result['ActionParams'].append(k.to_map() if k else None)
+        if self.command is not None:
+            result['Command'] = self.command
+        if self.component_name is not None:
+            result['ComponentName'] = self.component_name
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.run_action_scope is not None:
+            result['RunActionScope'] = self.run_action_scope
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ActionName') is not None:
+            self.action_name = m.get('ActionName')
+        self.action_params = []
+        if m.get('ActionParams') is not None:
+            for k in m.get('ActionParams'):
+                temp_model = GetApplicationResponseBodyApplicationActionsActionParams()
+                self.action_params.append(temp_model.from_map(k))
+        if m.get('Command') is not None:
+            self.command = m.get('Command')
+        if m.get('ComponentName') is not None:
+            self.component_name = m.get('ComponentName')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('RunActionScope') is not None:
+            self.run_action_scope = m.get('RunActionScope')
+        return self
+
+
+class GetApplicationResponseBodyApplication(TeaModel):
+    def __init__(self, actions=None, application_name=None, application_state=None, application_version=None,
+                 community_version=None):
+        # 操作列表。
+        self.actions = actions  # type: list[GetApplicationResponseBodyApplicationActions]
+        # 应用名称。
+        self.application_name = application_name  # type: str
+        # 应用操作状态。
+        self.application_state = application_state  # type: str
+        # 应用版本。
+        self.application_version = application_version  # type: str
+        # 社区版本。
+        self.community_version = community_version  # type: str
+
+    def validate(self):
+        if self.actions:
+            for k in self.actions:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetApplicationResponseBodyApplication, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Actions'] = []
+        if self.actions is not None:
+            for k in self.actions:
+                result['Actions'].append(k.to_map() if k else None)
+        if self.application_name is not None:
+            result['ApplicationName'] = self.application_name
+        if self.application_state is not None:
+            result['ApplicationState'] = self.application_state
+        if self.application_version is not None:
+            result['ApplicationVersion'] = self.application_version
+        if self.community_version is not None:
+            result['CommunityVersion'] = self.community_version
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.actions = []
+        if m.get('Actions') is not None:
+            for k in m.get('Actions'):
+                temp_model = GetApplicationResponseBodyApplicationActions()
+                self.actions.append(temp_model.from_map(k))
+        if m.get('ApplicationName') is not None:
+            self.application_name = m.get('ApplicationName')
+        if m.get('ApplicationState') is not None:
+            self.application_state = m.get('ApplicationState')
+        if m.get('ApplicationVersion') is not None:
+            self.application_version = m.get('ApplicationVersion')
+        if m.get('CommunityVersion') is not None:
+            self.community_version = m.get('CommunityVersion')
+        return self
+
+
+class GetApplicationResponseBody(TeaModel):
+    def __init__(self, application=None, request_id=None):
+        self.application = application  # type: GetApplicationResponseBodyApplication
+        # 请求ID。
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.application:
+            self.application.validate()
+
+    def to_map(self):
+        _map = super(GetApplicationResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.application is not None:
+            result['Application'] = self.application.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Application') is not None:
+            temp_model = GetApplicationResponseBodyApplication()
+            self.application = temp_model.from_map(m['Application'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class GetApplicationResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetApplicationResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetApplicationResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetApplicationResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -6770,7 +7232,7 @@ class GetAutoScalingActivityResponseBodyScalingActivity(TeaModel):
                  operation_id=None, rule_detail=None, rule_name=None, start_time=None):
         # The ID of the scaling activity.
         self.activity_id = activity_id  # type: str
-        # The instances corresponding to this scaling activity.
+        # The instances that correspond to the scaling activity.
         self.activity_results = activity_results  # type: list[ScalingActivityResult]
         # The status of the scaling activity. Valid values:
         # 
@@ -6892,6 +7354,7 @@ class GetAutoScalingActivityResponseBody(TeaModel):
     def __init__(self, request_id=None, scaling_activity=None):
         # The request ID.
         self.request_id = request_id  # type: str
+        # The information about the scaling activity.
         self.scaling_activity = scaling_activity  # type: GetAutoScalingActivityResponseBodyScalingActivity
 
     def validate(self):
@@ -6927,9 +7390,6 @@ class GetAutoScalingActivityResponse(TeaModel):
         self.body = body  # type: GetAutoScalingActivityResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7201,9 +7661,6 @@ class GetAutoScalingPolicyResponse(TeaModel):
         self.body = body  # type: GetAutoScalingPolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7235,9 +7692,9 @@ class GetAutoScalingPolicyResponse(TeaModel):
 
 class GetClusterRequest(TeaModel):
     def __init__(self, cluster_id=None, region_id=None):
-        # 集群ID。
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
-        # 地域ID。
+        # The ID of the region in which you want to create the instance.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -7266,8 +7723,9 @@ class GetClusterRequest(TeaModel):
 
 class GetClusterResponseBody(TeaModel):
     def __init__(self, cluster=None, request_id=None):
+        # The details of the master instance.
         self.cluster = cluster  # type: Cluster
-        # 请求ID。
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -7303,9 +7761,6 @@ class GetClusterResponse(TeaModel):
         self.body = body  # type: GetClusterResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7760,9 +8215,6 @@ class GetDoctorApplicationResponse(TeaModel):
         self.body = body  # type: GetDoctorApplicationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7794,7 +8246,15 @@ class GetDoctorApplicationResponse(TeaModel):
 
 class GetDoctorComputeSummaryRequestComponentInfo(TeaModel):
     def __init__(self, component_name=None, component_type=None):
+        # Set the filter condition name based on the value of ComponentType. For example, if you set ComponentType to queue, you can specify a specific queue name to obtain the resource usage of a specific queue.
         self.component_name = component_name  # type: str
+        # The resource type for filtering. Valid values:
+        # 
+        # *   engine: filters results by engine.
+        # *   queue: filters results by queue.
+        # *   cluster: displays the results at the cluster level.
+        # 
+        # If you do not specify this parameter, the information at the cluster level is displayed by default.
         self.component_type = component_type  # type: str
 
     def validate(self):
@@ -7823,11 +8283,13 @@ class GetDoctorComputeSummaryRequestComponentInfo(TeaModel):
 
 class GetDoctorComputeSummaryRequest(TeaModel):
     def __init__(self, cluster_id=None, component_info=None, date_time=None, region_id=None):
-        # 集群ID。
+        # The cluster ID.
         self.cluster_id = cluster_id  # type: str
+        # The resource information, which is used to filter the results.
         self.component_info = component_info  # type: GetDoctorComputeSummaryRequestComponentInfo
+        # Specify the date in the ISO 8601 standard. For example, 2023-01-01 represents January 1, 2023.
         self.date_time = date_time  # type: str
-        # 区域ID。
+        # The region ID.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -7867,11 +8329,17 @@ class GetDoctorComputeSummaryRequest(TeaModel):
 class GetDoctorComputeSummaryResponseBodyDataAnalysis(TeaModel):
     def __init__(self, healthy_job_count=None, need_attention_job_count=None, score=None,
                  score_day_growth_ratio=None, sub_healthy_job_count=None, unhealthy_job_count=None):
+        # The total number of healthy jobs.
         self.healthy_job_count = healthy_job_count  # type: long
+        # The total number of jobs that require attention.
         self.need_attention_job_count = need_attention_job_count  # type: long
+        # The score for jobs.
         self.score = score  # type: int
+        # The day-to-day growth rate of the score for jobs.
         self.score_day_growth_ratio = score_day_growth_ratio  # type: float
+        # The total number of sub-healthy jobs.
         self.sub_healthy_job_count = sub_healthy_job_count  # type: long
+        # The total number of unhealthy jobs.
         self.unhealthy_job_count = unhealthy_job_count  # type: long
 
     def validate(self):
@@ -7916,9 +8384,13 @@ class GetDoctorComputeSummaryResponseBodyDataAnalysis(TeaModel):
 
 class GetDoctorComputeSummaryResponseBodyDataMetricsMemSeconds(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -7955,9 +8427,13 @@ class GetDoctorComputeSummaryResponseBodyDataMetricsMemSeconds(TeaModel):
 
 class GetDoctorComputeSummaryResponseBodyDataMetricsMemSecondsDayGrowthRatio(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: float
 
     def validate(self):
@@ -7994,9 +8470,13 @@ class GetDoctorComputeSummaryResponseBodyDataMetricsMemSecondsDayGrowthRatio(Tea
 
 class GetDoctorComputeSummaryResponseBodyDataMetricsMemUtilization(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: float
 
     def validate(self):
@@ -8033,9 +8513,13 @@ class GetDoctorComputeSummaryResponseBodyDataMetricsMemUtilization(TeaModel):
 
 class GetDoctorComputeSummaryResponseBodyDataMetricsReadSize(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -8072,9 +8556,13 @@ class GetDoctorComputeSummaryResponseBodyDataMetricsReadSize(TeaModel):
 
 class GetDoctorComputeSummaryResponseBodyDataMetricsVcoreSeconds(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -8111,9 +8599,13 @@ class GetDoctorComputeSummaryResponseBodyDataMetricsVcoreSeconds(TeaModel):
 
 class GetDoctorComputeSummaryResponseBodyDataMetricsVcoreSecondsDayGrowthRatio(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: float
 
     def validate(self):
@@ -8150,9 +8642,13 @@ class GetDoctorComputeSummaryResponseBodyDataMetricsVcoreSecondsDayGrowthRatio(T
 
 class GetDoctorComputeSummaryResponseBodyDataMetricsVcoreUtilization(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: float
 
     def validate(self):
@@ -8189,9 +8685,13 @@ class GetDoctorComputeSummaryResponseBodyDataMetricsVcoreUtilization(TeaModel):
 
 class GetDoctorComputeSummaryResponseBodyDataMetricsWriteSize(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -8229,13 +8729,21 @@ class GetDoctorComputeSummaryResponseBodyDataMetricsWriteSize(TeaModel):
 class GetDoctorComputeSummaryResponseBodyDataMetrics(TeaModel):
     def __init__(self, mem_seconds=None, mem_seconds_day_growth_ratio=None, mem_utilization=None, read_size=None,
                  vcore_seconds=None, vcore_seconds_day_growth_ratio=None, vcore_utilization=None, write_size=None):
+        # The total memory consumption over time in seconds.
         self.mem_seconds = mem_seconds  # type: GetDoctorComputeSummaryResponseBodyDataMetricsMemSeconds
+        # The day-to-day growth rate of the total memory consumption over time in seconds.
         self.mem_seconds_day_growth_ratio = mem_seconds_day_growth_ratio  # type: GetDoctorComputeSummaryResponseBodyDataMetricsMemSecondsDayGrowthRatio
+        # The average memory usage.
         self.mem_utilization = mem_utilization  # type: GetDoctorComputeSummaryResponseBodyDataMetricsMemUtilization
+        # The total amount of data read from the file system.
         self.read_size = read_size  # type: GetDoctorComputeSummaryResponseBodyDataMetricsReadSize
+        # The total CPU consumption over time in seconds.
         self.vcore_seconds = vcore_seconds  # type: GetDoctorComputeSummaryResponseBodyDataMetricsVcoreSeconds
+        # The day-to-day growth rate of the total CPU consumption over time in seconds.
         self.vcore_seconds_day_growth_ratio = vcore_seconds_day_growth_ratio  # type: GetDoctorComputeSummaryResponseBodyDataMetricsVcoreSecondsDayGrowthRatio
+        # The average CPU utilization. The meaning is the same as the %CPU parameter in the output of the top command in Linux.
         self.vcore_utilization = vcore_utilization  # type: GetDoctorComputeSummaryResponseBodyDataMetricsVcoreUtilization
+        # The total amount of data written to the file system.
         self.write_size = write_size  # type: GetDoctorComputeSummaryResponseBodyDataMetricsWriteSize
 
     def validate(self):
@@ -8311,7 +8819,9 @@ class GetDoctorComputeSummaryResponseBodyDataMetrics(TeaModel):
 
 class GetDoctorComputeSummaryResponseBodyData(TeaModel):
     def __init__(self, analysis=None, metrics=None):
+        # The resource analysis information.
         self.analysis = analysis  # type: GetDoctorComputeSummaryResponseBodyDataAnalysis
+        # The metrics.
         self.metrics = metrics  # type: GetDoctorComputeSummaryResponseBodyDataMetrics
 
     def validate(self):
@@ -8345,8 +8855,9 @@ class GetDoctorComputeSummaryResponseBodyData(TeaModel):
 
 class GetDoctorComputeSummaryResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The details of resource usage.
         self.data = data  # type: GetDoctorComputeSummaryResponseBodyData
-        # 请求ID。
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -8382,9 +8893,6 @@ class GetDoctorComputeSummaryResponse(TeaModel):
         self.body = body  # type: GetDoctorComputeSummaryResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8416,10 +8924,11 @@ class GetDoctorComputeSummaryResponse(TeaModel):
 
 class GetDoctorHBaseClusterRequest(TeaModel):
     def __init__(self, cluster_id=None, date_time=None, region_id=None):
-        # 集群ID。
+        # The cluster ID.
         self.cluster_id = cluster_id  # type: str
+        # The date.
         self.date_time = date_time  # type: str
-        # 区域ID。
+        # The region ID.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -8452,6 +8961,7 @@ class GetDoctorHBaseClusterRequest(TeaModel):
 
 class GetDoctorHBaseClusterResponseBodyDataAnalysis(TeaModel):
     def __init__(self, hbase_score=None):
+        # The overall score of the HBase cluster.
         self.hbase_score = hbase_score  # type: int
 
     def validate(self):
@@ -8476,9 +8986,13 @@ class GetDoctorHBaseClusterResponseBodyDataAnalysis(TeaModel):
 
 class GetDoctorHBaseClusterResponseBodyDataMetricsAvgLoad(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: float
 
     def validate(self):
@@ -8515,9 +9029,13 @@ class GetDoctorHBaseClusterResponseBodyDataMetricsAvgLoad(TeaModel):
 
 class GetDoctorHBaseClusterResponseBodyDataMetricsDailyReadRequest(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -8554,9 +9072,13 @@ class GetDoctorHBaseClusterResponseBodyDataMetricsDailyReadRequest(TeaModel):
 
 class GetDoctorHBaseClusterResponseBodyDataMetricsDailyWriteRequest(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -8593,9 +9115,13 @@ class GetDoctorHBaseClusterResponseBodyDataMetricsDailyWriteRequest(TeaModel):
 
 class GetDoctorHBaseClusterResponseBodyDataMetricsMemHeap(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -8632,9 +9158,13 @@ class GetDoctorHBaseClusterResponseBodyDataMetricsMemHeap(TeaModel):
 
 class GetDoctorHBaseClusterResponseBodyDataMetricsNormalAvgLoad(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: float
 
     def validate(self):
@@ -8671,9 +9201,13 @@ class GetDoctorHBaseClusterResponseBodyDataMetricsNormalAvgLoad(TeaModel):
 
 class GetDoctorHBaseClusterResponseBodyDataMetricsRegionBalance(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: float
 
     def validate(self):
@@ -8710,9 +9244,13 @@ class GetDoctorHBaseClusterResponseBodyDataMetricsRegionBalance(TeaModel):
 
 class GetDoctorHBaseClusterResponseBodyDataMetricsRegionCount(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -8749,9 +9287,13 @@ class GetDoctorHBaseClusterResponseBodyDataMetricsRegionCount(TeaModel):
 
 class GetDoctorHBaseClusterResponseBodyDataMetricsRegionServerCount(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -8788,9 +9330,13 @@ class GetDoctorHBaseClusterResponseBodyDataMetricsRegionServerCount(TeaModel):
 
 class GetDoctorHBaseClusterResponseBodyDataMetricsStoreFileCount(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -8827,9 +9373,13 @@ class GetDoctorHBaseClusterResponseBodyDataMetricsStoreFileCount(TeaModel):
 
 class GetDoctorHBaseClusterResponseBodyDataMetricsTableCount(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -8866,9 +9416,13 @@ class GetDoctorHBaseClusterResponseBodyDataMetricsTableCount(TeaModel):
 
 class GetDoctorHBaseClusterResponseBodyDataMetricsTotalDataSize(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -8905,9 +9459,13 @@ class GetDoctorHBaseClusterResponseBodyDataMetricsTotalDataSize(TeaModel):
 
 class GetDoctorHBaseClusterResponseBodyDataMetricsTotalReadRequest(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -8944,9 +9502,13 @@ class GetDoctorHBaseClusterResponseBodyDataMetricsTotalReadRequest(TeaModel):
 
 class GetDoctorHBaseClusterResponseBodyDataMetricsTotalRequest(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -8983,9 +9545,13 @@ class GetDoctorHBaseClusterResponseBodyDataMetricsTotalRequest(TeaModel):
 
 class GetDoctorHBaseClusterResponseBodyDataMetricsTotalWriteRequest(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -9024,19 +9590,33 @@ class GetDoctorHBaseClusterResponseBodyDataMetrics(TeaModel):
     def __init__(self, avg_load=None, daily_read_request=None, daily_write_request=None, mem_heap=None,
                  normal_avg_load=None, region_balance=None, region_count=None, region_server_count=None, store_file_count=None,
                  table_count=None, total_data_size=None, total_read_request=None, total_request=None, total_write_request=None):
+        # The average load.
         self.avg_load = avg_load  # type: GetDoctorHBaseClusterResponseBodyDataMetricsAvgLoad
+        # The number of read requests in a day.
         self.daily_read_request = daily_read_request  # type: GetDoctorHBaseClusterResponseBodyDataMetricsDailyReadRequest
+        # The number of write requests in a day.
         self.daily_write_request = daily_write_request  # type: GetDoctorHBaseClusterResponseBodyDataMetricsDailyWriteRequest
+        # The memory size.
         self.mem_heap = mem_heap  # type: GetDoctorHBaseClusterResponseBodyDataMetricsMemHeap
+        # The normal average load.
         self.normal_avg_load = normal_avg_load  # type: GetDoctorHBaseClusterResponseBodyDataMetricsNormalAvgLoad
+        # The region balance degree.
         self.region_balance = region_balance  # type: GetDoctorHBaseClusterResponseBodyDataMetricsRegionBalance
+        # The number of regions.
         self.region_count = region_count  # type: GetDoctorHBaseClusterResponseBodyDataMetricsRegionCount
+        # The number of region servers.
         self.region_server_count = region_server_count  # type: GetDoctorHBaseClusterResponseBodyDataMetricsRegionServerCount
+        # The number of StoreFiles.
         self.store_file_count = store_file_count  # type: GetDoctorHBaseClusterResponseBodyDataMetricsStoreFileCount
+        # The number of tables.
         self.table_count = table_count  # type: GetDoctorHBaseClusterResponseBodyDataMetricsTableCount
+        # The size of the cluster.
         self.total_data_size = total_data_size  # type: GetDoctorHBaseClusterResponseBodyDataMetricsTotalDataSize
+        # The total number of read requests.
         self.total_read_request = total_read_request  # type: GetDoctorHBaseClusterResponseBodyDataMetricsTotalReadRequest
+        # The total number of requests in the cluster.
         self.total_request = total_request  # type: GetDoctorHBaseClusterResponseBodyDataMetricsTotalRequest
+        # The total number of write requests.
         self.total_write_request = total_write_request  # type: GetDoctorHBaseClusterResponseBodyDataMetricsTotalWriteRequest
 
     def validate(self):
@@ -9154,7 +9734,9 @@ class GetDoctorHBaseClusterResponseBodyDataMetrics(TeaModel):
 
 class GetDoctorHBaseClusterResponseBodyData(TeaModel):
     def __init__(self, analysis=None, metrics=None):
+        # The analysis result.
         self.analysis = analysis  # type: GetDoctorHBaseClusterResponseBodyDataAnalysis
+        # The metric information.
         self.metrics = metrics  # type: GetDoctorHBaseClusterResponseBodyDataMetrics
 
     def validate(self):
@@ -9188,8 +9770,9 @@ class GetDoctorHBaseClusterResponseBodyData(TeaModel):
 
 class GetDoctorHBaseClusterResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The returned data.
         self.data = data  # type: GetDoctorHBaseClusterResponseBodyData
-        # 请求ID。
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -9225,9 +9808,6 @@ class GetDoctorHBaseClusterResponse(TeaModel):
         self.body = body  # type: GetDoctorHBaseClusterResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9380,8 +9960,10 @@ class GetDoctorHBaseRegionResponseBodyDataMetricsDailyWriteRequest(TeaModel):
 class GetDoctorHBaseRegionResponseBodyDataMetricsStoreFileCount(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -9499,6 +10081,7 @@ class GetDoctorHBaseRegionResponseBodyDataMetrics(TeaModel):
                  total_read_request=None, total_write_request=None):
         self.daily_read_request = daily_read_request  # type: GetDoctorHBaseRegionResponseBodyDataMetricsDailyReadRequest
         self.daily_write_request = daily_write_request  # type: GetDoctorHBaseRegionResponseBodyDataMetricsDailyWriteRequest
+        # The number of StoreFiles.
         self.store_file_count = store_file_count  # type: GetDoctorHBaseRegionResponseBodyDataMetricsStoreFileCount
         self.total_read_request = total_read_request  # type: GetDoctorHBaseRegionResponseBodyDataMetricsTotalReadRequest
         self.total_write_request = total_write_request  # type: GetDoctorHBaseRegionResponseBodyDataMetricsTotalWriteRequest
@@ -9555,6 +10138,7 @@ class GetDoctorHBaseRegionResponseBodyDataMetrics(TeaModel):
 
 class GetDoctorHBaseRegionResponseBodyData(TeaModel):
     def __init__(self, metrics=None, region_server_host=None, table_name=None):
+        # The metric information.
         self.metrics = metrics  # type: GetDoctorHBaseRegionResponseBodyDataMetrics
         self.region_server_host = region_server_host  # type: str
         self.table_name = table_name  # type: str
@@ -9591,6 +10175,7 @@ class GetDoctorHBaseRegionResponseBodyData(TeaModel):
 
 class GetDoctorHBaseRegionResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The returned data.
         self.data = data  # type: GetDoctorHBaseRegionResponseBodyData
         # 请求ID。
         self.request_id = request_id  # type: str
@@ -9628,9 +10213,6 @@ class GetDoctorHBaseRegionResponse(TeaModel):
         self.body = body  # type: GetDoctorHBaseRegionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9662,11 +10244,13 @@ class GetDoctorHBaseRegionResponse(TeaModel):
 
 class GetDoctorHBaseRegionServerRequest(TeaModel):
     def __init__(self, cluster_id=None, date_time=None, region_id=None, region_server_host=None):
-        # 集群ID。
+        # The cluster ID.
         self.cluster_id = cluster_id  # type: str
+        # The date.
         self.date_time = date_time  # type: str
-        # 区域ID。
+        # The region ID.
         self.region_id = region_id  # type: str
+        # The host of the region server.
         self.region_server_host = region_server_host  # type: str
 
     def validate(self):
@@ -9703,9 +10287,13 @@ class GetDoctorHBaseRegionServerRequest(TeaModel):
 
 class GetDoctorHBaseRegionServerResponseBodyDataMetricsAvgGc(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: float
 
     def validate(self):
@@ -9742,9 +10330,13 @@ class GetDoctorHBaseRegionServerResponseBodyDataMetricsAvgGc(TeaModel):
 
 class GetDoctorHBaseRegionServerResponseBodyDataMetricsCacheRatio(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: float
 
     def validate(self):
@@ -9781,9 +10373,13 @@ class GetDoctorHBaseRegionServerResponseBodyDataMetricsCacheRatio(TeaModel):
 
 class GetDoctorHBaseRegionServerResponseBodyDataMetricsDailyReadRequest(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -9820,9 +10416,13 @@ class GetDoctorHBaseRegionServerResponseBodyDataMetricsDailyReadRequest(TeaModel
 
 class GetDoctorHBaseRegionServerResponseBodyDataMetricsDailyReadRequestDayGrowthRatio(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: float
 
     def validate(self):
@@ -9859,9 +10459,13 @@ class GetDoctorHBaseRegionServerResponseBodyDataMetricsDailyReadRequestDayGrowth
 
 class GetDoctorHBaseRegionServerResponseBodyDataMetricsDailyWriteRequest(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -9898,9 +10502,13 @@ class GetDoctorHBaseRegionServerResponseBodyDataMetricsDailyWriteRequest(TeaMode
 
 class GetDoctorHBaseRegionServerResponseBodyDataMetricsDailyWriteRequestDayGrowthRatio(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: float
 
     def validate(self):
@@ -9937,9 +10545,13 @@ class GetDoctorHBaseRegionServerResponseBodyDataMetricsDailyWriteRequestDayGrowt
 
 class GetDoctorHBaseRegionServerResponseBodyDataMetricsRegionCount(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -9976,9 +10588,13 @@ class GetDoctorHBaseRegionServerResponseBodyDataMetricsRegionCount(TeaModel):
 
 class GetDoctorHBaseRegionServerResponseBodyDataMetricsTotalReadRequest(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -10015,9 +10631,13 @@ class GetDoctorHBaseRegionServerResponseBodyDataMetricsTotalReadRequest(TeaModel
 
 class GetDoctorHBaseRegionServerResponseBodyDataMetricsTotalRequest(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -10054,9 +10674,13 @@ class GetDoctorHBaseRegionServerResponseBodyDataMetricsTotalRequest(TeaModel):
 
 class GetDoctorHBaseRegionServerResponseBodyDataMetricsTotalWriteRequest(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -10095,15 +10719,25 @@ class GetDoctorHBaseRegionServerResponseBodyDataMetrics(TeaModel):
     def __init__(self, avg_gc=None, cache_ratio=None, daily_read_request=None,
                  daily_read_request_day_growth_ratio=None, daily_write_request=None, daily_write_request_day_growth_ratio=None, region_count=None,
                  total_read_request=None, total_request=None, total_write_request=None):
+        # The average garbage collection (GC) duration.
         self.avg_gc = avg_gc  # type: GetDoctorHBaseRegionServerResponseBodyDataMetricsAvgGc
+        # The cache hit ratio.
         self.cache_ratio = cache_ratio  # type: GetDoctorHBaseRegionServerResponseBodyDataMetricsCacheRatio
+        # The number of daily read requests.
         self.daily_read_request = daily_read_request  # type: GetDoctorHBaseRegionServerResponseBodyDataMetricsDailyReadRequest
+        # The day-to-day increment rate of the number of daily read requests.
         self.daily_read_request_day_growth_ratio = daily_read_request_day_growth_ratio  # type: GetDoctorHBaseRegionServerResponseBodyDataMetricsDailyReadRequestDayGrowthRatio
+        # The number of daily write requests.
         self.daily_write_request = daily_write_request  # type: GetDoctorHBaseRegionServerResponseBodyDataMetricsDailyWriteRequest
+        # The day-to-day increment rate of the number of daily write requests.
         self.daily_write_request_day_growth_ratio = daily_write_request_day_growth_ratio  # type: GetDoctorHBaseRegionServerResponseBodyDataMetricsDailyWriteRequestDayGrowthRatio
+        # The number of regions.
         self.region_count = region_count  # type: GetDoctorHBaseRegionServerResponseBodyDataMetricsRegionCount
+        # The cumulative number of read requests.
         self.total_read_request = total_read_request  # type: GetDoctorHBaseRegionServerResponseBodyDataMetricsTotalReadRequest
+        # The cumulative number of total requests.
         self.total_request = total_request  # type: GetDoctorHBaseRegionServerResponseBodyDataMetricsTotalRequest
+        # The cumulative number of write requests.
         self.total_write_request = total_write_request  # type: GetDoctorHBaseRegionServerResponseBodyDataMetricsTotalWriteRequest
 
     def validate(self):
@@ -10193,6 +10827,7 @@ class GetDoctorHBaseRegionServerResponseBodyDataMetrics(TeaModel):
 
 class GetDoctorHBaseRegionServerResponseBodyData(TeaModel):
     def __init__(self, metrics=None):
+        # The metric information.
         self.metrics = metrics  # type: GetDoctorHBaseRegionServerResponseBodyDataMetrics
 
     def validate(self):
@@ -10219,8 +10854,9 @@ class GetDoctorHBaseRegionServerResponseBodyData(TeaModel):
 
 class GetDoctorHBaseRegionServerResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The returned data.
         self.data = data  # type: GetDoctorHBaseRegionServerResponseBodyData
-        # 请求ID。
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -10256,9 +10892,6 @@ class GetDoctorHBaseRegionServerResponse(TeaModel):
         self.body = body  # type: GetDoctorHBaseRegionServerResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10334,11 +10967,14 @@ class GetDoctorHBaseTableResponseBodyDataAnalysis(TeaModel):
                  request_hotspot_region_list=None, request_unbalance_suggestion=None, table_score=None,
                  write_request_hotspot_region_list=None, write_request_unbalance_suggestion=None):
         self.read_request_hotspot_region_list = read_request_hotspot_region_list  # type: list[str]
+        # The description of read imbalance.
         self.read_request_unbalance_suggestion = read_request_unbalance_suggestion  # type: str
         self.request_hotspot_region_list = request_hotspot_region_list  # type: list[str]
+        # The description of read/write imbalance.
         self.request_unbalance_suggestion = request_unbalance_suggestion  # type: str
         self.table_score = table_score  # type: int
         self.write_request_hotspot_region_list = write_request_hotspot_region_list  # type: list[str]
+        # The description of write imbalance.
         self.write_request_unbalance_suggestion = write_request_unbalance_suggestion  # type: str
 
     def validate(self):
@@ -11538,6 +12174,7 @@ class GetDoctorHBaseTableResponseBodyDataMetrics(TeaModel):
 
 class GetDoctorHBaseTableResponseBodyData(TeaModel):
     def __init__(self, analysis=None, metrics=None):
+        # The diagnosis result.
         self.analysis = analysis  # type: GetDoctorHBaseTableResponseBodyDataAnalysis
         self.metrics = metrics  # type: GetDoctorHBaseTableResponseBodyDataMetrics
 
@@ -11572,6 +12209,7 @@ class GetDoctorHBaseTableResponseBodyData(TeaModel):
 
 class GetDoctorHBaseTableResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The returned data.
         self.data = data  # type: GetDoctorHBaseTableResponseBodyData
         # 请求ID。
         self.request_id = request_id  # type: str
@@ -11609,9 +12247,6 @@ class GetDoctorHBaseTableResponse(TeaModel):
         self.body = body  # type: GetDoctorHBaseTableResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13992,9 +14627,6 @@ class GetDoctorHDFSClusterResponse(TeaModel):
         self.body = body  # type: GetDoctorHDFSClusterResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15497,11 +16129,11 @@ class GetDoctorHDFSDirectoryResponseBodyDataMetrics(TeaModel):
                  tiny_file_count_day_growth_ratio=None, tiny_file_day_growth_count=None, total_data_day_growth_size=None, total_data_size=None,
                  total_data_size_day_growth_ratio=None, total_file_count=None, total_file_count_day_growth_ratio=None,
                  total_file_day_growth_count=None, warm_data_day_growth_size=None, warm_data_size=None, warm_data_size_day_growth_ratio=None):
-        # The daily increment of the amount of cold data. Cold data refers to data that is not accessed for more than 30 days but is accessed in 90 days.
+        # The daily increment of the amount of cold data. Cold data refers to data that is not accessed for more than 30 days but is accessed in previous 90 days.
         self.cold_data_day_growth_size = cold_data_day_growth_size  # type: GetDoctorHDFSDirectoryResponseBodyDataMetricsColdDataDayGrowthSize
-        # The amount of cold data. Cold data refers to data that is not accessed for more than 30 days but is accessed in 90 days.
+        # The amount of cold data. Cold data refers to data that is not accessed for more than 30 days but is accessed in previous 90 days.
         self.cold_data_size = cold_data_size  # type: GetDoctorHDFSDirectoryResponseBodyDataMetricsColdDataSize
-        # The day-to-day growth rate of the amount of cold data. Cold data refers to data that is not accessed for more than 30 days but is accessed in 90 days.
+        # The day-to-day growth rate of the amount of cold data. Cold data refers to data that is not accessed for more than 30 days but is accessed in previous 90 days.
         self.cold_data_size_day_growth_ratio = cold_data_size_day_growth_ratio  # type: GetDoctorHDFSDirectoryResponseBodyDataMetricsColdDataSizeDayGrowthRatio
         # The number of empty files. Empty files are those with a size of 0 MB.
         self.empty_file_count = empty_file_count  # type: GetDoctorHDFSDirectoryResponseBodyDataMetricsEmptyFileCount
@@ -15515,11 +16147,11 @@ class GetDoctorHDFSDirectoryResponseBodyDataMetrics(TeaModel):
         self.freeze_data_size = freeze_data_size  # type: GetDoctorHDFSDirectoryResponseBodyDataMetricsFreezeDataSize
         # The day-to-day growth rate of the amount of very cold data. Very cold data refers to data that is not accessed for more than 90 days.
         self.freeze_data_size_day_growth_ratio = freeze_data_size_day_growth_ratio  # type: GetDoctorHDFSDirectoryResponseBodyDataMetricsFreezeDataSizeDayGrowthRatio
-        # The daily increment of the amount of hot data. Hot data refers to data that is accessed in recent seven days.
+        # The daily increment of the amount of hot data. Hot data refers to data that is accessed in previous seven days.
         self.hot_data_day_growth_size = hot_data_day_growth_size  # type: GetDoctorHDFSDirectoryResponseBodyDataMetricsHotDataDayGrowthSize
-        # The amount of hot data. Hot data refers to data that is accessed in recent seven days.
+        # The amount of hot data. Hot data refers to data that is accessed in previous seven days.
         self.hot_data_size = hot_data_size  # type: GetDoctorHDFSDirectoryResponseBodyDataMetricsHotDataSize
-        # The day-to-day growth rate of the amount of hot data. Hot data refers to data that is accessed in recent seven days.
+        # The day-to-day growth rate of the amount of hot data. Hot data refers to data that is accessed in previous seven days.
         self.hot_data_size_day_growth_ratio = hot_data_size_day_growth_ratio  # type: GetDoctorHDFSDirectoryResponseBodyDataMetricsHotDataSizeDayGrowthRatio
         # The number of large files. Large files are those with a size greater than 1 GB.
         self.large_file_count = large_file_count  # type: GetDoctorHDFSDirectoryResponseBodyDataMetricsLargeFileCount
@@ -15545,7 +16177,7 @@ class GetDoctorHDFSDirectoryResponseBodyDataMetrics(TeaModel):
         self.tiny_file_count_day_growth_ratio = tiny_file_count_day_growth_ratio  # type: GetDoctorHDFSDirectoryResponseBodyDataMetricsTinyFileCountDayGrowthRatio
         # The daily increment of the number of very small files. Very small files are those with a size greater than 0 MB and less than 10 MB.
         self.tiny_file_day_growth_count = tiny_file_day_growth_count  # type: GetDoctorHDFSDirectoryResponseBodyDataMetricsTinyFileDayGrowthCount
-        # The daily incremental of the total data volume.
+        # The daily incremental of the total amount of data.
         self.total_data_day_growth_size = total_data_day_growth_size  # type: GetDoctorHDFSDirectoryResponseBodyDataMetricsTotalDataDayGrowthSize
         # The total amount of data.
         self.total_data_size = total_data_size  # type: GetDoctorHDFSDirectoryResponseBodyDataMetricsTotalDataSize
@@ -15557,11 +16189,11 @@ class GetDoctorHDFSDirectoryResponseBodyDataMetrics(TeaModel):
         self.total_file_count_day_growth_ratio = total_file_count_day_growth_ratio  # type: GetDoctorHDFSDirectoryResponseBodyDataMetricsTotalFileCountDayGrowthRatio
         # The daily increment of the total number of files.
         self.total_file_day_growth_count = total_file_day_growth_count  # type: GetDoctorHDFSDirectoryResponseBodyDataMetricsTotalFileDayGrowthCount
-        # The daily increment of the amount of warm data. Warm data refers to data that is not accessed for more than 7 days but is accessed in 30 days.
+        # The daily increment of the amount of warm data. Warm data refers to data that is not accessed for more than 7 days but is accessed in previous 30 days.
         self.warm_data_day_growth_size = warm_data_day_growth_size  # type: GetDoctorHDFSDirectoryResponseBodyDataMetricsWarmDataDayGrowthSize
-        # The amount of warm data. Warm data refers to data that is not accessed for more than 7 days but is accessed in 30 days.
+        # The amount of warm data. Warm data refers to data that is not accessed for more than 7 days but is accessed in previous 30 days.
         self.warm_data_size = warm_data_size  # type: GetDoctorHDFSDirectoryResponseBodyDataMetricsWarmDataSize
-        # The day-to-day growth rate of the amount of warm data. Warm data refers to data that is not accessed for more than 7 days but is accessed in 30 days.
+        # The day-to-day growth rate of the amount of warm data. Warm data refers to data that is not accessed for more than 7 days but is accessed in previous 30 days.
         self.warm_data_size_day_growth_ratio = warm_data_size_day_growth_ratio  # type: GetDoctorHDFSDirectoryResponseBodyDataMetricsWarmDataSizeDayGrowthRatio
 
     def validate(self):
@@ -15895,9 +16527,6 @@ class GetDoctorHDFSDirectoryResponse(TeaModel):
         self.body = body  # type: GetDoctorHDFSDirectoryResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16220,9 +16849,6 @@ class GetDoctorHDFSUGIResponse(TeaModel):
         self.body = body  # type: GetDoctorHDFSUGIResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16337,11 +16963,11 @@ class GetDoctorHiveClusterResponseBodyDataFormats(TeaModel):
     def __init__(self, format_name=None, format_ratio=None, format_size=None, format_size_unit=None):
         # The name of the storage format.
         self.format_name = format_name  # type: str
-        # The proportion of data in a specific storage format.
+        # The proportion of the data in the format.
         self.format_ratio = format_ratio  # type: float
-        # The size of storage format-specific data.
+        # The amount of data in the format.
         self.format_size = format_size  # type: long
-        # The unit of the data size.
+        # The unit of the amount of data in the format.
         self.format_size_unit = format_size_unit  # type: str
 
     def validate(self):
@@ -18325,13 +18951,13 @@ class GetDoctorHiveClusterResponseBodyDataMetrics(TeaModel):
                  total_data_size_day_growth_ratio=None, total_file_count=None, total_file_count_day_growth_ratio=None,
                  total_file_day_growth_count=None, warm_data_day_growth_size=None, warm_data_ratio=None, warm_data_size=None,
                  warm_data_size_day_growth_ratio=None):
-        # The daily increment of the amount of cold data. Cold data refers to data that is not accessed for more than 30 days but is accessed in 90 days.
+        # The daily increment of the amount of cold data. Cold data refers to data that is not accessed for more than 30 days but is accessed in previous 90 days.
         self.cold_data_day_growth_size = cold_data_day_growth_size  # type: GetDoctorHiveClusterResponseBodyDataMetricsColdDataDayGrowthSize
-        # The proportion of cold data. Cold data refers to data that is not accessed for more than 30 days but is accessed in 90 days.
+        # The proportion of cold data. Cold data refers to data that is not accessed for more than 30 days but is accessed in previous 90 days.
         self.cold_data_ratio = cold_data_ratio  # type: GetDoctorHiveClusterResponseBodyDataMetricsColdDataRatio
-        # The amount of cold data. Cold data refers to data that is not accessed for more than 30 days but is accessed in 90 days.
+        # The amount of cold data. Cold data refers to data that is not accessed for more than 30 days but is accessed in previous 90 days.
         self.cold_data_size = cold_data_size  # type: GetDoctorHiveClusterResponseBodyDataMetricsColdDataSize
-        # The day-to-day growth rate of the amount of cold data. Cold data refers to data that is not accessed for more than 30 days but is accessed in 90 days.
+        # The day-to-day growth rate of the amount of cold data. Cold data refers to data that is not accessed for more than 30 days but is accessed in previous 90 days.
         self.cold_data_size_day_growth_ratio = cold_data_size_day_growth_ratio  # type: GetDoctorHiveClusterResponseBodyDataMetricsColdDataSizeDayGrowthRatio
         # The number of databases.
         self.database_count = database_count  # type: GetDoctorHiveClusterResponseBodyDataMetricsDatabaseCount
@@ -18351,13 +18977,13 @@ class GetDoctorHiveClusterResponseBodyDataMetrics(TeaModel):
         self.freeze_data_size = freeze_data_size  # type: GetDoctorHiveClusterResponseBodyDataMetricsFreezeDataSize
         # The day-to-day growth rate of the amount of very cold data. Very cold data refers to data that is not accessed for more than 90 days.
         self.freeze_data_size_day_growth_ratio = freeze_data_size_day_growth_ratio  # type: GetDoctorHiveClusterResponseBodyDataMetricsFreezeDataSizeDayGrowthRatio
-        # The daily increment of the amount of hot data. Hot data refers to data that is accessed in recent seven days.
+        # The daily increment of the amount of hot data. Hot data refers to data that is accessed in previous seven days.
         self.hot_data_day_growth_size = hot_data_day_growth_size  # type: GetDoctorHiveClusterResponseBodyDataMetricsHotDataDayGrowthSize
-        # The proportion of hot data. Hot data refers to data that is accessed in recent seven days.
+        # The proportion of hot data. Hot data refers to data that is accessed in previous seven days.
         self.hot_data_ratio = hot_data_ratio  # type: GetDoctorHiveClusterResponseBodyDataMetricsHotDataRatio
-        # The amount of hot data. Hot data refers to data that is accessed in recent seven days.
+        # The amount of hot data. Hot data refers to data that is accessed in previous seven days.
         self.hot_data_size = hot_data_size  # type: GetDoctorHiveClusterResponseBodyDataMetricsHotDataSize
-        # The day-to-day growth rate of the amount of hot data. Hot data refers to data that is accessed in recent seven days.
+        # The day-to-day growth rate of the amount of hot data. Hot data refers to data that is accessed in previous seven days.
         self.hot_data_size_day_growth_ratio = hot_data_size_day_growth_ratio  # type: GetDoctorHiveClusterResponseBodyDataMetricsHotDataSizeDayGrowthRatio
         # The number of large files. Large files are those with a size greater than 1 GB.
         self.large_file_count = large_file_count  # type: GetDoctorHiveClusterResponseBodyDataMetricsLargeFileCount
@@ -18395,7 +19021,7 @@ class GetDoctorHiveClusterResponseBodyDataMetrics(TeaModel):
         self.tiny_file_day_growth_count = tiny_file_day_growth_count  # type: GetDoctorHiveClusterResponseBodyDataMetricsTinyFileDayGrowthCount
         # The proportion of very small files. Very small files are those with a size greater than 0 MB and less than 10 MB.
         self.tiny_file_ratio = tiny_file_ratio  # type: GetDoctorHiveClusterResponseBodyDataMetricsTinyFileRatio
-        # The daily incremental of the total data volume.
+        # The daily incremental of the amount of total data.
         self.total_data_day_growth_size = total_data_day_growth_size  # type: GetDoctorHiveClusterResponseBodyDataMetricsTotalDataDayGrowthSize
         # The total amount of data.
         self.total_data_size = total_data_size  # type: GetDoctorHiveClusterResponseBodyDataMetricsTotalDataSize
@@ -18407,13 +19033,13 @@ class GetDoctorHiveClusterResponseBodyDataMetrics(TeaModel):
         self.total_file_count_day_growth_ratio = total_file_count_day_growth_ratio  # type: GetDoctorHiveClusterResponseBodyDataMetricsTotalFileCountDayGrowthRatio
         # The daily increment of the total number of files.
         self.total_file_day_growth_count = total_file_day_growth_count  # type: GetDoctorHiveClusterResponseBodyDataMetricsTotalFileDayGrowthCount
-        # The daily increment of the amount of warm data. Warm data refers to data that is not accessed for more than 7 days but is accessed in 30 days.
+        # The daily increment of the amount of warm data. Warm data refers to data that is not accessed for more than 7 days but is accessed in previous 30 days.
         self.warm_data_day_growth_size = warm_data_day_growth_size  # type: GetDoctorHiveClusterResponseBodyDataMetricsWarmDataDayGrowthSize
-        # The proportion of warm data. Warm data refers to data that is not accessed for more than 7 days but is accessed in 30 days.
+        # The proportion of warm data. Warm data refers to data that is not accessed for more than 7 days but is accessed in previous 30 days.
         self.warm_data_ratio = warm_data_ratio  # type: GetDoctorHiveClusterResponseBodyDataMetricsWarmDataRatio
-        # The amount of warm data. Warm data refers to data that is not accessed for more than 7 days but is accessed in 30 days.
+        # The amount of warm data. Warm data refers to data that is not accessed for more than 7 days but is accessed in previous 30 days.
         self.warm_data_size = warm_data_size  # type: GetDoctorHiveClusterResponseBodyDataMetricsWarmDataSize
-        # The day-to-day growth rate of the amount of warm data. Warm data refers to data that is not accessed for more than 7 days but is accessed in 30 days.
+        # The day-to-day growth rate of the amount of warm data. Warm data refers to data that is not accessed for more than 7 days but is accessed in previous 30 days.
         self.warm_data_size_day_growth_ratio = warm_data_size_day_growth_ratio  # type: GetDoctorHiveClusterResponseBodyDataMetricsWarmDataSizeDayGrowthRatio
 
     def validate(self):
@@ -18837,9 +19463,6 @@ class GetDoctorHiveClusterResponse(TeaModel):
         self.body = body  # type: GetDoctorHiveClusterResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -18915,9 +19538,9 @@ class GetDoctorHiveDatabaseRequest(TeaModel):
 class GetDoctorHiveDatabaseResponseBodyDataAnalysis(TeaModel):
     def __init__(self, hive_distribution_score=None, hive_format_score=None, hive_frequency_score=None,
                  hive_score=None):
-        # The score for the distribution of files of different sizes stored in the Hive database.
+        # The score for the file sizes of the Hive database.
         self.hive_distribution_score = hive_distribution_score  # type: int
-        # The score for the distribution of files stored in different formats in the Hive database.
+        # The score for the data formats of the Hive database.
         self.hive_format_score = hive_format_score  # type: int
         # The score for the access frequency of the Hive database.
         self.hive_frequency_score = hive_frequency_score  # type: int
@@ -18959,17 +19582,17 @@ class GetDoctorHiveDatabaseResponseBodyDataAnalysis(TeaModel):
 class GetDoctorHiveDatabaseResponseBodyDataFormats(TeaModel):
     def __init__(self, format_day_growth_size=None, format_name=None, format_ratio=None, format_size=None,
                  format_size_day_growth_ratio=None, format_size_unit=None):
-        # The daily increment of storage format-specific data.
+        # The daily increment of data in the format.
         self.format_day_growth_size = format_day_growth_size  # type: long
         # The name of the storage format.
         self.format_name = format_name  # type: str
-        # The proportion of data in a specific storage format.
+        # The proportion of the data in the format.
         self.format_ratio = format_ratio  # type: float
-        # The amount of storage format-specific data.
+        # The amount of data in the format.
         self.format_size = format_size  # type: long
-        # The day-to-day growth rate of storage format-specific data.
+        # The day-to-day growth rate of data in the format.
         self.format_size_day_growth_ratio = format_size_day_growth_ratio  # type: float
-        # The unit of the amount of storage format-specific data.
+        # The unit of the amount of data in the format.
         self.format_size_unit = format_size_unit  # type: str
 
     def validate(self):
@@ -20918,13 +21541,13 @@ class GetDoctorHiveDatabaseResponseBodyDataMetrics(TeaModel):
                  total_data_size_day_growth_ratio=None, total_file_count=None, total_file_count_day_growth_ratio=None,
                  total_file_day_growth_count=None, warm_data_day_growth_size=None, warm_data_ratio=None, warm_data_size=None,
                  warm_data_size_day_growth_ratio=None):
-        # The daily increment of the amount of cold data. Cold data refers to data that is not accessed for more than 30 days but is accessed in 90 days.
+        # The daily increment of the amount of cold data. Cold data refers to data that is not accessed for more than 30 days but is accessed in previous 90 days.
         self.cold_data_day_growth_size = cold_data_day_growth_size  # type: GetDoctorHiveDatabaseResponseBodyDataMetricsColdDataDayGrowthSize
-        # The proportion of cold data. Cold data refers to data that is not accessed for more than 30 days but is accessed in 90 days.
+        # The proportion of cold data. Cold data refers to data that is not accessed for more than 30 days but is accessed in previous 90 days.
         self.cold_data_ratio = cold_data_ratio  # type: GetDoctorHiveDatabaseResponseBodyDataMetricsColdDataRatio
-        # The amount of cold data. Cold data refers to data that is not accessed for more than 30 days but is accessed in 90 days.
+        # The amount of cold data. Cold data refers to data that is not accessed for more than 30 days but is accessed in previous 90 days.
         self.cold_data_size = cold_data_size  # type: GetDoctorHiveDatabaseResponseBodyDataMetricsColdDataSize
-        # The day-to-day growth rate of the amount of cold data. Cold data refers to data that is not accessed for more than 30 days but is accessed in 90 days.
+        # The day-to-day growth rate of the amount of cold data. Cold data refers to data that is not accessed for more than 30 days but is accessed in previous 90 days.
         self.cold_data_size_day_growth_ratio = cold_data_size_day_growth_ratio  # type: GetDoctorHiveDatabaseResponseBodyDataMetricsColdDataSizeDayGrowthRatio
         # The number of empty files. Empty files are those with a size of 0 MB.
         self.empty_file_count = empty_file_count  # type: GetDoctorHiveDatabaseResponseBodyDataMetricsEmptyFileCount
@@ -20942,13 +21565,13 @@ class GetDoctorHiveDatabaseResponseBodyDataMetrics(TeaModel):
         self.freeze_data_size = freeze_data_size  # type: GetDoctorHiveDatabaseResponseBodyDataMetricsFreezeDataSize
         # The day-to-day growth rate of the amount of very cold data. Very cold data refers to data that is not accessed for more than 90 days.
         self.freeze_data_size_day_growth_ratio = freeze_data_size_day_growth_ratio  # type: GetDoctorHiveDatabaseResponseBodyDataMetricsFreezeDataSizeDayGrowthRatio
-        # The daily increment of the amount of hot data. Hot data refers to data that is accessed in recent seven days.
+        # The daily increment of the amount of hot data. Hot data refers to data that is accessed in previous seven days.
         self.hot_data_day_growth_size = hot_data_day_growth_size  # type: GetDoctorHiveDatabaseResponseBodyDataMetricsHotDataDayGrowthSize
-        # The proportion of hot data. Hot data refers to data that is accessed in recent seven days.
+        # The proportion of hot data. Hot data refers to data that is accessed in previous seven days.
         self.hot_data_ratio = hot_data_ratio  # type: GetDoctorHiveDatabaseResponseBodyDataMetricsHotDataRatio
-        # The amount of hot data. Hot data refers to data that is accessed in recent seven days.
+        # The amount of hot data. Hot data refers to data that is accessed in previous seven days.
         self.hot_data_size = hot_data_size  # type: GetDoctorHiveDatabaseResponseBodyDataMetricsHotDataSize
-        # The day-to-day growth rate of the amount of hot data. Hot data refers to data that is accessed in recent seven days.
+        # The day-to-day growth rate of the amount of hot data. Hot data refers to data that is accessed in previous seven days.
         self.hot_data_size_day_growth_ratio = hot_data_size_day_growth_ratio  # type: GetDoctorHiveDatabaseResponseBodyDataMetricsHotDataSizeDayGrowthRatio
         # The number of large files. Large files are those with a size greater than 1 GB.
         self.large_file_count = large_file_count  # type: GetDoctorHiveDatabaseResponseBodyDataMetricsLargeFileCount
@@ -20986,7 +21609,7 @@ class GetDoctorHiveDatabaseResponseBodyDataMetrics(TeaModel):
         self.tiny_file_day_growth_count = tiny_file_day_growth_count  # type: GetDoctorHiveDatabaseResponseBodyDataMetricsTinyFileDayGrowthCount
         # The proportion of very small files. Very small files are those with a size greater than 0 MB and less than 10 MB.
         self.tiny_file_ratio = tiny_file_ratio  # type: GetDoctorHiveDatabaseResponseBodyDataMetricsTinyFileRatio
-        # The daily incremental of the total data volume.
+        # The daily incremental of the total amount of data.
         self.total_data_day_growth_size = total_data_day_growth_size  # type: GetDoctorHiveDatabaseResponseBodyDataMetricsTotalDataDayGrowthSize
         # The total amount of data.
         self.total_data_size = total_data_size  # type: GetDoctorHiveDatabaseResponseBodyDataMetricsTotalDataSize
@@ -20998,13 +21621,13 @@ class GetDoctorHiveDatabaseResponseBodyDataMetrics(TeaModel):
         self.total_file_count_day_growth_ratio = total_file_count_day_growth_ratio  # type: GetDoctorHiveDatabaseResponseBodyDataMetricsTotalFileCountDayGrowthRatio
         # The daily increment of the total number of files.
         self.total_file_day_growth_count = total_file_day_growth_count  # type: GetDoctorHiveDatabaseResponseBodyDataMetricsTotalFileDayGrowthCount
-        # The daily increment of the amount of warm data. Warm data refers to data that is not accessed for more than 7 days but is accessed in 30 days.
+        # The daily increment of the amount of warm data. Warm data refers to data that is not accessed for more than 7 days but is accessed in previous 30 days.
         self.warm_data_day_growth_size = warm_data_day_growth_size  # type: GetDoctorHiveDatabaseResponseBodyDataMetricsWarmDataDayGrowthSize
-        # The proportion of warm data. Warm data refers to data that is not accessed for more than 7 days but is accessed in 30 days.
+        # The proportion of warm data. Warm data refers to data that is not accessed for more than 7 days but is accessed in previous 30 days.
         self.warm_data_ratio = warm_data_ratio  # type: GetDoctorHiveDatabaseResponseBodyDataMetricsWarmDataRatio
-        # The amount of warm data. Warm data refers to data that is not accessed for more than 7 days but is accessed in 30 days.
+        # The amount of warm data. Warm data refers to data that is not accessed for more than 7 days but is accessed in previous 30 days.
         self.warm_data_size = warm_data_size  # type: GetDoctorHiveDatabaseResponseBodyDataMetricsWarmDataSize
-        # The day-to-day growth rate of the amount of warm data. Warm data refers to data that is not accessed for more than 7 days but is accessed in 30 days.
+        # The day-to-day growth rate of the amount of warm data. Warm data refers to data that is not accessed for more than 7 days but is accessed in previous 30 days.
         self.warm_data_size_day_growth_ratio = warm_data_size_day_growth_ratio  # type: GetDoctorHiveDatabaseResponseBodyDataMetricsWarmDataSizeDayGrowthRatio
 
     def validate(self):
@@ -21421,9 +22044,6 @@ class GetDoctorHiveDatabaseResponse(TeaModel):
         self.body = body  # type: GetDoctorHiveDatabaseResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -23959,9 +24579,6 @@ class GetDoctorHiveTableResponse(TeaModel):
         self.body = body  # type: GetDoctorHiveTableResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24294,9 +24911,6 @@ class GetDoctorJobResponse(TeaModel):
         self.body = body  # type: GetDoctorJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24373,6 +24987,7 @@ class GetDoctorReportComponentSummaryResponseBodyData(TeaModel):
     def __init__(self, score=None, suggestion=None, summary=None):
         self.score = score  # type: int
         self.suggestion = suggestion  # type: str
+        # The summary of the report.
         self.summary = summary  # type: str
 
     def validate(self):
@@ -24405,6 +25020,7 @@ class GetDoctorReportComponentSummaryResponseBodyData(TeaModel):
 
 class GetDoctorReportComponentSummaryResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The content of the report.
         self.data = data  # type: GetDoctorReportComponentSummaryResponseBodyData
         # 请求ID。
         self.request_id = request_id  # type: str
@@ -24442,9 +25058,6 @@ class GetDoctorReportComponentSummaryResponse(TeaModel):
         self.body = body  # type: GetDoctorReportComponentSummaryResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24551,9 +25164,6 @@ class GetNodeGroupResponse(TeaModel):
         self.body = body  # type: GetNodeGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24660,9 +25270,6 @@ class GetOperationResponse(TeaModel):
         self.body = body  # type: GetOperationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24813,9 +25420,6 @@ class IncreaseNodesResponse(TeaModel):
         self.body = body  # type: IncreaseNodesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24847,7 +25451,7 @@ class IncreaseNodesResponse(TeaModel):
 
 class JoinResourceGroupRequest(TeaModel):
     def __init__(self, region_id=None, resource_group_id=None, resource_id=None, resource_type=None):
-        # The ID of the region in which you want to create the instance.
+        # The region ID.
         self.region_id = region_id  # type: str
         # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
@@ -24922,9 +25526,6 @@ class JoinResourceGroupResponse(TeaModel):
         self.body = body  # type: JoinResourceGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24950,6 +25551,166 @@ class JoinResourceGroupResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = JoinResourceGroupResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListApmMetadataRequest(TeaModel):
+    def __init__(self, cluster_id=None, region_id=None, resource_group_id=None, type=None):
+        # 集群ID。非必传参数。
+        self.cluster_id = cluster_id  # type: str
+        # 地域ID。
+        self.region_id = region_id  # type: str
+        # 如果存在clusterId，从Cluster中获取该值，如果clusterId为空，用户显式指定
+        self.resource_group_id = resource_group_id  # type: str
+        # 元数据类型。
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListApmMetadataRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cluster_id is not None:
+            result['ClusterId'] = self.cluster_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClusterId') is not None:
+            self.cluster_id = m.get('ClusterId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class ListApmMetadataResponseBodyMetadata(TeaModel):
+    def __init__(self, value=None):
+        # 元数据值。
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListApmMetadataResponseBodyMetadata, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class ListApmMetadataResponseBody(TeaModel):
+    def __init__(self, max_results=None, metadata=None, next_token=None, request_id=None, total_count=None):
+        # 本次请求所返回的最大记录条数。
+        self.max_results = max_results  # type: int
+        self.metadata = metadata  # type: list[ListApmMetadataResponseBodyMetadata]
+        # 返回读取到的数据位置，空代表数据已经读取完毕。
+        self.next_token = next_token  # type: str
+        # 请求ID。
+        self.request_id = request_id  # type: str
+        # 本次请求条件下的数据总量。
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.metadata:
+            for k in self.metadata:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListApmMetadataResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        result['Metadata'] = []
+        if self.metadata is not None:
+            for k in self.metadata:
+                result['Metadata'].append(k.to_map() if k else None)
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        self.metadata = []
+        if m.get('Metadata') is not None:
+            for k in m.get('Metadata'):
+                temp_model = ListApmMetadataResponseBodyMetadata()
+                self.metadata.append(temp_model.from_map(k))
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class ListApmMetadataResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListApmMetadataResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListApmMetadataResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListApmMetadataResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -25044,11 +25805,11 @@ class ListApplicationConfigsResponseBodyApplicationConfigs(TeaModel):
         self.config_effect_state = config_effect_state  # type: str
         # The name of the configuration file.
         self.config_file_name = config_file_name  # type: str
-        # The name of the configuration item.
+        # The key of the configuration item.
         self.config_item_key = config_item_key  # type: str
         # The value of the configuration item.
         self.config_item_value = config_item_value  # type: str
-        # The time when the application was created.
+        # The creation time.
         self.create_time = create_time  # type: long
         # Indicates whether the configurations are custom.
         self.custom = custom  # type: bool
@@ -25058,11 +25819,11 @@ class ListApplicationConfigsResponseBodyApplicationConfigs(TeaModel):
         self.init_value = init_value  # type: str
         # The person who modified the configurations.
         self.modifier = modifier  # type: str
-        # The ID of the node group.
+        # The node group ID.
         self.node_group_id = node_group_id  # type: str
         # The node ID.
         self.node_id = node_id  # type: str
-        # The time when the application was updated.
+        # The update time.
         self.update_time = update_time  # type: long
 
     def validate(self):
@@ -25144,7 +25905,7 @@ class ListApplicationConfigsResponseBody(TeaModel):
         self.next_token = next_token  # type: str
         # The request ID.
         self.request_id = request_id  # type: str
-        # The total number of pages.
+        # The total number of pages returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -25198,9 +25959,6 @@ class ListApplicationConfigsResponse(TeaModel):
         self.body = body  # type: ListApplicationConfigsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25387,9 +26145,6 @@ class ListApplicationsResponse(TeaModel):
         self.body = body  # type: ListApplicationsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25669,9 +26424,6 @@ class ListAutoScalingActivitiesResponse(TeaModel):
         self.body = body  # type: ListAutoScalingActivitiesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25719,32 +26471,6 @@ class ListClustersRequest(TeaModel):
         # The billing methods. You can specify a maximum of 2 items.
         self.payment_types = payment_types  # type: list[str]
         # The region ID.
-        # 
-        # Valid values:
-        # 
-        # *   center
-        # *   cn-hangzhou
-        # *   cn-shanghai
-        # *   cn-qingdao
-        # *   cn-beijing
-        # *   cn-zhangjiakou
-        # *   cn-huhehaote
-        # *   cn-wulanchabu
-        # *   cn-shenzhen
-        # *   cn-chengdu
-        # *   cn-hongkong
-        # *   ap-southeast-1
-        # *   ap-southeast-2
-        # *   ap-southeast-3
-        # *   ap-southeast-5
-        # *   ap-northeast-1
-        # *   eu-central-1
-        # *   eu-west-1
-        # *   us-west-1
-        # *   us-east-1
-        # *   ap-south-1
-        # *   me-east-1
-        # *   me-central-1
         self.region_id = region_id  # type: str
         # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
@@ -25879,9 +26605,6 @@ class ListClustersResponse(TeaModel):
         self.body = body  # type: ListClustersResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25907,6 +26630,492 @@ class ListClustersResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListClustersResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListComponentInstancesRequest(TeaModel):
+    def __init__(self, application_names=None, cluster_id=None, component_names=None, component_states=None,
+                 max_results=None, next_token=None, node_ids=None, node_names=None, region_id=None):
+        # 应用名称列表。
+        self.application_names = application_names  # type: list[str]
+        # 集群ID。
+        self.cluster_id = cluster_id  # type: str
+        # 组件名称列表。
+        self.component_names = component_names  # type: list[str]
+        self.component_states = component_states  # type: list[str]
+        # 一次获取的最大记录数。取值范围：1~100。
+        self.max_results = max_results  # type: int
+        # 标记当前开始读取的位置，置空表示从头开始。
+        self.next_token = next_token  # type: str
+        # 节点ID列表。
+        self.node_ids = node_ids  # type: list[str]
+        # 节点名称列表。
+        self.node_names = node_names  # type: list[str]
+        # 地域ID。
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListComponentInstancesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.application_names is not None:
+            result['ApplicationNames'] = self.application_names
+        if self.cluster_id is not None:
+            result['ClusterId'] = self.cluster_id
+        if self.component_names is not None:
+            result['ComponentNames'] = self.component_names
+        if self.component_states is not None:
+            result['ComponentStates'] = self.component_states
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.node_ids is not None:
+            result['NodeIds'] = self.node_ids
+        if self.node_names is not None:
+            result['NodeNames'] = self.node_names
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApplicationNames') is not None:
+            self.application_names = m.get('ApplicationNames')
+        if m.get('ClusterId') is not None:
+            self.cluster_id = m.get('ClusterId')
+        if m.get('ComponentNames') is not None:
+            self.component_names = m.get('ComponentNames')
+        if m.get('ComponentStates') is not None:
+            self.component_states = m.get('ComponentStates')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('NodeIds') is not None:
+            self.node_ids = m.get('NodeIds')
+        if m.get('NodeNames') is not None:
+            self.node_names = m.get('NodeNames')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ListComponentInstancesResponseBodyComponentInstances(TeaModel):
+    def __init__(self, application_name=None, biz_state=None, commission_state=None, component_instance_state=None,
+                 component_name=None, create_time=None, desired_state=None, node_id=None, node_name=None):
+        # 应用名称。
+        self.application_name = application_name  # type: str
+        # 组件服务状态，取值如下：
+        # - active：主服务
+        # - standby：备用服务。
+        self.biz_state = biz_state  # type: str
+        # Commission状态，取值如下：
+        # - COMMISSIONED：已上线
+        # - COMMISSIONING：上线中
+        # - DECOMMISSIONED：已下线
+        # - DECOMMISSIONINPROGRESS：下线进程中
+        # - DECOMMISSIONFAILED：下线失败
+        # - INSERVICE：服务中
+        # - UNKNOWN：未知状态。
+        # <p>
+        self.commission_state = commission_state  # type: str
+        # 组件实例操作状态，取值如下：
+        # - WAITING：等待中
+        # - INSTALLING：安装中
+        # - INSTALLED：已安装
+        # - INSTALL_FAILED：安装失败
+        # - STARTING：启动中
+        # - STARTED：已启动
+        # - START_FAILED：启动失败
+        # - STOPPING：停止中
+        # - STOPPED：已停止
+        # - STOP_FAILED：停止失败
+        self.component_instance_state = component_instance_state  # type: str
+        # 组件名称。
+        self.component_name = component_name  # type: str
+        # 安装时间戳。
+        self.create_time = create_time  # type: long
+        # 期望状态，取值如下：
+        # - WAITING：等待中
+        # - INSTALLING：安装中
+        # - INSTALLED：已安装
+        # - INSTALL_FAILED：安装失败
+        # - STARTING：启动中
+        # - STARTED：已启动
+        # - START_FAILED：启动失败
+        # - STOPPING：停止中
+        # - STOPPED：已停止
+        # - STOP_FAILED：停止失败。
+        self.desired_state = desired_state  # type: str
+        # 节点ID。
+        self.node_id = node_id  # type: str
+        # 节点名称。
+        self.node_name = node_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListComponentInstancesResponseBodyComponentInstances, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.application_name is not None:
+            result['ApplicationName'] = self.application_name
+        if self.biz_state is not None:
+            result['BizState'] = self.biz_state
+        if self.commission_state is not None:
+            result['CommissionState'] = self.commission_state
+        if self.component_instance_state is not None:
+            result['ComponentInstanceState'] = self.component_instance_state
+        if self.component_name is not None:
+            result['ComponentName'] = self.component_name
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.desired_state is not None:
+            result['DesiredState'] = self.desired_state
+        if self.node_id is not None:
+            result['NodeId'] = self.node_id
+        if self.node_name is not None:
+            result['NodeName'] = self.node_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApplicationName') is not None:
+            self.application_name = m.get('ApplicationName')
+        if m.get('BizState') is not None:
+            self.biz_state = m.get('BizState')
+        if m.get('CommissionState') is not None:
+            self.commission_state = m.get('CommissionState')
+        if m.get('ComponentInstanceState') is not None:
+            self.component_instance_state = m.get('ComponentInstanceState')
+        if m.get('ComponentName') is not None:
+            self.component_name = m.get('ComponentName')
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('DesiredState') is not None:
+            self.desired_state = m.get('DesiredState')
+        if m.get('NodeId') is not None:
+            self.node_id = m.get('NodeId')
+        if m.get('NodeName') is not None:
+            self.node_name = m.get('NodeName')
+        return self
+
+
+class ListComponentInstancesResponseBody(TeaModel):
+    def __init__(self, component_instances=None, max_results=None, next_token=None, request_id=None,
+                 total_count=None):
+        self.component_instances = component_instances  # type: list[ListComponentInstancesResponseBodyComponentInstances]
+        # 本次请求所返回的最大记录条数。
+        self.max_results = max_results  # type: int
+        # 返回读取到的数据位置，空代表数据已经读取完毕。
+        self.next_token = next_token  # type: str
+        # 请求ID。
+        self.request_id = request_id  # type: str
+        # 本次请求条件下的数据总量。
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.component_instances:
+            for k in self.component_instances:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListComponentInstancesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['ComponentInstances'] = []
+        if self.component_instances is not None:
+            for k in self.component_instances:
+                result['ComponentInstances'].append(k.to_map() if k else None)
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.component_instances = []
+        if m.get('ComponentInstances') is not None:
+            for k in m.get('ComponentInstances'):
+                temp_model = ListComponentInstancesResponseBodyComponentInstances()
+                self.component_instances.append(temp_model.from_map(k))
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class ListComponentInstancesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListComponentInstancesResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListComponentInstancesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListComponentInstancesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListComponentsRequest(TeaModel):
+    def __init__(self, application_names=None, cluster_id=None, component_names=None, component_states=None,
+                 include_expired_config=None, max_results=None, next_token=None, region_id=None):
+        # 应用名称列表。
+        self.application_names = application_names  # type: list[str]
+        # 集群ID。
+        self.cluster_id = cluster_id  # type: str
+        # 组件名称列表。
+        self.component_names = component_names  # type: list[str]
+        self.component_states = component_states  # type: list[str]
+        # 是否包含过期配置。
+        self.include_expired_config = include_expired_config  # type: bool
+        # 一次获取的最大记录数。取值范围：1~100。
+        self.max_results = max_results  # type: int
+        # 标记当前开始读取的位置，置空表示从头开始。
+        self.next_token = next_token  # type: str
+        # 地域ID。
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListComponentsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.application_names is not None:
+            result['ApplicationNames'] = self.application_names
+        if self.cluster_id is not None:
+            result['ClusterId'] = self.cluster_id
+        if self.component_names is not None:
+            result['ComponentNames'] = self.component_names
+        if self.component_states is not None:
+            result['ComponentStates'] = self.component_states
+        if self.include_expired_config is not None:
+            result['IncludeExpiredConfig'] = self.include_expired_config
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApplicationNames') is not None:
+            self.application_names = m.get('ApplicationNames')
+        if m.get('ClusterId') is not None:
+            self.cluster_id = m.get('ClusterId')
+        if m.get('ComponentNames') is not None:
+            self.component_names = m.get('ComponentNames')
+        if m.get('ComponentStates') is not None:
+            self.component_states = m.get('ComponentStates')
+        if m.get('IncludeExpiredConfig') is not None:
+            self.include_expired_config = m.get('IncludeExpiredConfig')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ListComponentsResponseBodyComponents(TeaModel):
+    def __init__(self, application_name=None, attributes=None, component_name=None, namespace=None, replica=None):
+        # 应用名称。
+        self.application_name = application_name  # type: str
+        # 属性列表。
+        self.attributes = attributes  # type: list[Attribute]
+        # 组件名称。
+        self.component_name = component_name  # type: str
+        # 命名空间。
+        self.namespace = namespace  # type: str
+        # 安装该组件的机器总数。
+        self.replica = replica  # type: int
+
+    def validate(self):
+        if self.attributes:
+            for k in self.attributes:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListComponentsResponseBodyComponents, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.application_name is not None:
+            result['ApplicationName'] = self.application_name
+        result['Attributes'] = []
+        if self.attributes is not None:
+            for k in self.attributes:
+                result['Attributes'].append(k.to_map() if k else None)
+        if self.component_name is not None:
+            result['ComponentName'] = self.component_name
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
+        if self.replica is not None:
+            result['Replica'] = self.replica
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApplicationName') is not None:
+            self.application_name = m.get('ApplicationName')
+        self.attributes = []
+        if m.get('Attributes') is not None:
+            for k in m.get('Attributes'):
+                temp_model = Attribute()
+                self.attributes.append(temp_model.from_map(k))
+        if m.get('ComponentName') is not None:
+            self.component_name = m.get('ComponentName')
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
+        if m.get('Replica') is not None:
+            self.replica = m.get('Replica')
+        return self
+
+
+class ListComponentsResponseBody(TeaModel):
+    def __init__(self, components=None, max_results=None, next_token=None, request_id=None, total_count=None):
+        self.components = components  # type: list[ListComponentsResponseBodyComponents]
+        # 本次请求所返回的最大记录条数。
+        self.max_results = max_results  # type: int
+        # 返回读取到的数据位置，空代表数据已经读取完毕。
+        self.next_token = next_token  # type: str
+        # 请求ID。
+        self.request_id = request_id  # type: str
+        # 本次请求条件下的数据总量。
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.components:
+            for k in self.components:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListComponentsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Components'] = []
+        if self.components is not None:
+            for k in self.components:
+                result['Components'].append(k.to_map() if k else None)
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.components = []
+        if m.get('Components') is not None:
+            for k in m.get('Components'):
+                temp_model = ListComponentsResponseBodyComponents()
+                self.components.append(temp_model.from_map(k))
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class ListComponentsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListComponentsResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListComponentsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListComponentsResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -26420,9 +27629,6 @@ class ListDoctorApplicationsResponse(TeaModel):
         self.body = body  # type: ListDoctorApplicationsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26455,17 +27661,45 @@ class ListDoctorApplicationsResponse(TeaModel):
 class ListDoctorComputeSummaryRequest(TeaModel):
     def __init__(self, cluster_id=None, component_types=None, date_time=None, max_results=None, next_token=None,
                  order_by=None, order_type=None, region_id=None):
-        # 集群ID。
+        # The cluster ID.
         self.cluster_id = cluster_id  # type: str
+        # The resource types, which are used to filter query results. Valid values:
+        # 
+        # *   engine: filters results by engine.
+        # *   queue: filters results by queue.
+        # *   cluster: displays the results at the cluster level.
+        # 
+        # If you do not specify this parameter, the information at the cluster level is displayed by default. Currently, only one resource type is supported. If you specify multiple resource types, the first resource type is used by default.
         self.component_types = component_types  # type: list[str]
+        # Specify the date in the ISO 8601 standard. For example, 2023-01-01 represents January 1, 2023.
         self.date_time = date_time  # type: str
-        # 一次获取的最大记录数。取值范围：1~100。
+        # The maximum number of entries to return on each page.
         self.max_results = max_results  # type: int
-        # 标记当前开始读取的位置，置空表示从头开始。
+        # The pagination token that is used in the request to retrieve a new page of results.
         self.next_token = next_token  # type: str
+        # The basis on which you want to sort the query results. Valid values:
+        # 
+        # 1.  vcoreSeconds: the total CPU consumption over time in seconds.
+        # 2.  memSeconds: the total memory consumption over time in seconds.
+        # 3.  vcoreUtilization: the average CPU utilization. The meaning is the same as the %CPU parameter in the output of the top command in Linux.
+        # 4.  memUtilization: the average memory usage.
+        # 5.  vcoreSecondsDayGrowthRatio: the day-to-day growth rate of the total CPU consumption over time in seconds.
+        # 6.  memSecondsDayGrowthRatio: the day-to-day growth rate of the total memory consumption over time in seconds.
+        # 7.  readSize: the total amount of data read from the file system.
+        # 8.  writeSize: the total amount of data written to the file system.
+        # 9.  healthyJobCount: the total number of healthy jobs.
+        # 10. subHealthyJobCount: the total number of sub-healthy jobs.
+        # 11. unhealthyJobCount: the total number of unhealthy jobs.
+        # 12. needAttentionJobCount: the total number of jobs that require attention.
+        # 13. score: the score for jobs.
+        # 14. scoreDayGrowthRatio: the day-to-day growth rate of the score for jobs.
         self.order_by = order_by  # type: str
+        # The order in which you want to sort the query results. Valid values:
+        # 
+        # *   ASC: in ascending order.
+        # *   DESC: in descending order.
         self.order_type = order_type  # type: str
-        # 区域ID。
+        # The region ID.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -26519,11 +27753,17 @@ class ListDoctorComputeSummaryRequest(TeaModel):
 class ListDoctorComputeSummaryResponseBodyDataAnalysis(TeaModel):
     def __init__(self, healthy_job_count=None, need_attention_job_count=None, score=None,
                  score_day_growth_ratio=None, sub_healthy_job_count=None, unhealthy_job_count=None):
+        # The total number of healthy jobs.
         self.healthy_job_count = healthy_job_count  # type: long
+        # The total number of jobs that require attention.
         self.need_attention_job_count = need_attention_job_count  # type: long
+        # The score for jobs.
         self.score = score  # type: int
+        # The day-to-day growth rate of the score for jobs.
         self.score_day_growth_ratio = score_day_growth_ratio  # type: float
+        # The total number of sub-healthy jobs.
         self.sub_healthy_job_count = sub_healthy_job_count  # type: long
+        # The total number of unhealthy jobs.
         self.unhealthy_job_count = unhealthy_job_count  # type: long
 
     def validate(self):
@@ -26568,9 +27808,13 @@ class ListDoctorComputeSummaryResponseBodyDataAnalysis(TeaModel):
 
 class ListDoctorComputeSummaryResponseBodyDataMetricsMemSeconds(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -26607,9 +27851,13 @@ class ListDoctorComputeSummaryResponseBodyDataMetricsMemSeconds(TeaModel):
 
 class ListDoctorComputeSummaryResponseBodyDataMetricsMemSecondsDayGrowthRatio(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: float
 
     def validate(self):
@@ -26646,9 +27894,13 @@ class ListDoctorComputeSummaryResponseBodyDataMetricsMemSecondsDayGrowthRatio(Te
 
 class ListDoctorComputeSummaryResponseBodyDataMetricsMemUtilization(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: float
 
     def validate(self):
@@ -26685,9 +27937,13 @@ class ListDoctorComputeSummaryResponseBodyDataMetricsMemUtilization(TeaModel):
 
 class ListDoctorComputeSummaryResponseBodyDataMetricsReadSize(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -26724,9 +27980,13 @@ class ListDoctorComputeSummaryResponseBodyDataMetricsReadSize(TeaModel):
 
 class ListDoctorComputeSummaryResponseBodyDataMetricsVcoreSeconds(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -26763,9 +28023,13 @@ class ListDoctorComputeSummaryResponseBodyDataMetricsVcoreSeconds(TeaModel):
 
 class ListDoctorComputeSummaryResponseBodyDataMetricsVcoreSecondsDayGrowthRatio(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: float
 
     def validate(self):
@@ -26802,9 +28066,13 @@ class ListDoctorComputeSummaryResponseBodyDataMetricsVcoreSecondsDayGrowthRatio(
 
 class ListDoctorComputeSummaryResponseBodyDataMetricsVcoreUtilization(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: float
 
     def validate(self):
@@ -26841,9 +28109,13 @@ class ListDoctorComputeSummaryResponseBodyDataMetricsVcoreUtilization(TeaModel):
 
 class ListDoctorComputeSummaryResponseBodyDataMetricsWriteSize(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -26881,13 +28153,21 @@ class ListDoctorComputeSummaryResponseBodyDataMetricsWriteSize(TeaModel):
 class ListDoctorComputeSummaryResponseBodyDataMetrics(TeaModel):
     def __init__(self, mem_seconds=None, mem_seconds_day_growth_ratio=None, mem_utilization=None, read_size=None,
                  vcore_seconds=None, vcore_seconds_day_growth_ratio=None, vcore_utilization=None, write_size=None):
+        # The total memory consumption over time in seconds.
         self.mem_seconds = mem_seconds  # type: ListDoctorComputeSummaryResponseBodyDataMetricsMemSeconds
+        # The day-to-day growth rate of the total memory consumption over time in seconds.
         self.mem_seconds_day_growth_ratio = mem_seconds_day_growth_ratio  # type: ListDoctorComputeSummaryResponseBodyDataMetricsMemSecondsDayGrowthRatio
+        # The average memory usage.
         self.mem_utilization = mem_utilization  # type: ListDoctorComputeSummaryResponseBodyDataMetricsMemUtilization
+        # The total amount of data read from the file system.
         self.read_size = read_size  # type: ListDoctorComputeSummaryResponseBodyDataMetricsReadSize
+        # The total CPU consumption over time in seconds.
         self.vcore_seconds = vcore_seconds  # type: ListDoctorComputeSummaryResponseBodyDataMetricsVcoreSeconds
+        # The day-to-day growth rate of the total CPU consumption over time in seconds.
         self.vcore_seconds_day_growth_ratio = vcore_seconds_day_growth_ratio  # type: ListDoctorComputeSummaryResponseBodyDataMetricsVcoreSecondsDayGrowthRatio
+        # The average CPU utilization. The meaning is the same as the %CPU parameter in the output of the top command in Linux.
         self.vcore_utilization = vcore_utilization  # type: ListDoctorComputeSummaryResponseBodyDataMetricsVcoreUtilization
+        # The total amount of data written to the file system.
         self.write_size = write_size  # type: ListDoctorComputeSummaryResponseBodyDataMetricsWriteSize
 
     def validate(self):
@@ -26963,8 +28243,11 @@ class ListDoctorComputeSummaryResponseBodyDataMetrics(TeaModel):
 
 class ListDoctorComputeSummaryResponseBodyData(TeaModel):
     def __init__(self, analysis=None, component_name=None, metrics=None):
+        # The resource analysis results.
         self.analysis = analysis  # type: ListDoctorComputeSummaryResponseBodyDataAnalysis
+        # The name of the resource whose details are obtained based on the value of ComponentTypes. For example, if the value of ComponentTypes is Queue, the value of this parameter is a queue, such as DW.
         self.component_name = component_name  # type: str
+        # The metric information.
         self.metrics = metrics  # type: ListDoctorComputeSummaryResponseBodyDataMetrics
 
     def validate(self):
@@ -27002,14 +28285,15 @@ class ListDoctorComputeSummaryResponseBodyData(TeaModel):
 
 class ListDoctorComputeSummaryResponseBody(TeaModel):
     def __init__(self, data=None, max_results=None, next_token=None, request_id=None, total_count=None):
+        # The details of resource usage.
         self.data = data  # type: list[ListDoctorComputeSummaryResponseBodyData]
-        # 本次请求所返回的最大记录条数。
+        # The maximum number of entries that are returned.
         self.max_results = max_results  # type: int
-        # 返回读取到的数据位置，空代表数据已经读取完毕。
+        # A pagination token.
         self.next_token = next_token  # type: str
-        # 请求ID。
+        # The request ID.
         self.request_id = request_id  # type: str
-        # 本次请求条件下的数据总量。
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -27063,9 +28347,6 @@ class ListDoctorComputeSummaryResponse(TeaModel):
         self.body = body  # type: ListDoctorComputeSummaryResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -27098,17 +28379,26 @@ class ListDoctorComputeSummaryResponse(TeaModel):
 class ListDoctorHBaseRegionServersRequest(TeaModel):
     def __init__(self, cluster_id=None, date_time=None, max_results=None, next_token=None, order_by=None,
                  order_type=None, region_id=None, region_server_hosts=None):
-        # 集群ID。
+        # The cluster ID.
         self.cluster_id = cluster_id  # type: str
+        # The query date.
         self.date_time = date_time  # type: str
-        # 一次获取的最大记录数。取值范围：1~100。
+        # The maximum number of entries to return on each page.
         self.max_results = max_results  # type: int
-        # 标记当前开始读取的位置，置空表示从头开始。
+        # The pagination token that is used in the request to retrieve a new page of results.
         self.next_token = next_token  # type: str
+        # The field that you use to sort the query results. Valid value:
+        # 
+        # *   regionCount: the number of regions.
         self.order_by = order_by  # type: str
+        # The order in which you want to sort the query results. Valid value:
+        # 
+        # *   ASC: in ascending order
+        # *   DESC: in descending order
         self.order_type = order_type  # type: str
-        # 区域ID。
+        # The region ID.
         self.region_id = region_id  # type: str
+        # The RegionServer hosts.
         self.region_server_hosts = region_server_hosts  # type: list[str]
 
     def validate(self):
@@ -27161,9 +28451,13 @@ class ListDoctorHBaseRegionServersRequest(TeaModel):
 
 class ListDoctorHBaseRegionServersResponseBodyDataMetricsAvgGc(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: float
 
     def validate(self):
@@ -27200,9 +28494,13 @@ class ListDoctorHBaseRegionServersResponseBodyDataMetricsAvgGc(TeaModel):
 
 class ListDoctorHBaseRegionServersResponseBodyDataMetricsCacheRatio(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: float
 
     def validate(self):
@@ -27239,9 +28537,13 @@ class ListDoctorHBaseRegionServersResponseBodyDataMetricsCacheRatio(TeaModel):
 
 class ListDoctorHBaseRegionServersResponseBodyDataMetricsDailyReadRequest(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -27278,9 +28580,13 @@ class ListDoctorHBaseRegionServersResponseBodyDataMetricsDailyReadRequest(TeaMod
 
 class ListDoctorHBaseRegionServersResponseBodyDataMetricsDailyReadRequestDayGrowthRatio(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: float
 
     def validate(self):
@@ -27317,9 +28623,13 @@ class ListDoctorHBaseRegionServersResponseBodyDataMetricsDailyReadRequestDayGrow
 
 class ListDoctorHBaseRegionServersResponseBodyDataMetricsDailyWriteRequest(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -27356,9 +28666,13 @@ class ListDoctorHBaseRegionServersResponseBodyDataMetricsDailyWriteRequest(TeaMo
 
 class ListDoctorHBaseRegionServersResponseBodyDataMetricsDailyWriteRequestDayGrowthRatio(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: float
 
     def validate(self):
@@ -27395,9 +28709,13 @@ class ListDoctorHBaseRegionServersResponseBodyDataMetricsDailyWriteRequestDayGro
 
 class ListDoctorHBaseRegionServersResponseBodyDataMetricsRegionCount(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -27434,9 +28752,13 @@ class ListDoctorHBaseRegionServersResponseBodyDataMetricsRegionCount(TeaModel):
 
 class ListDoctorHBaseRegionServersResponseBodyDataMetricsTotalReadRequest(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -27473,9 +28795,13 @@ class ListDoctorHBaseRegionServersResponseBodyDataMetricsTotalReadRequest(TeaMod
 
 class ListDoctorHBaseRegionServersResponseBodyDataMetricsTotalRequest(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -27512,9 +28838,13 @@ class ListDoctorHBaseRegionServersResponseBodyDataMetricsTotalRequest(TeaModel):
 
 class ListDoctorHBaseRegionServersResponseBodyDataMetricsTotalWriteRequest(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -27553,15 +28883,25 @@ class ListDoctorHBaseRegionServersResponseBodyDataMetrics(TeaModel):
     def __init__(self, avg_gc=None, cache_ratio=None, daily_read_request=None,
                  daily_read_request_day_growth_ratio=None, daily_write_request=None, daily_write_request_day_growth_ratio=None, region_count=None,
                  total_read_request=None, total_request=None, total_write_request=None):
+        # The average garbage collection (GC) duration.
         self.avg_gc = avg_gc  # type: ListDoctorHBaseRegionServersResponseBodyDataMetricsAvgGc
+        # The cache hit ratio.
         self.cache_ratio = cache_ratio  # type: ListDoctorHBaseRegionServersResponseBodyDataMetricsCacheRatio
+        # The number of daily read requests.
         self.daily_read_request = daily_read_request  # type: ListDoctorHBaseRegionServersResponseBodyDataMetricsDailyReadRequest
+        # The growth rate of the number of daily read requests.
         self.daily_read_request_day_growth_ratio = daily_read_request_day_growth_ratio  # type: ListDoctorHBaseRegionServersResponseBodyDataMetricsDailyReadRequestDayGrowthRatio
+        # The number of daily write requests.
         self.daily_write_request = daily_write_request  # type: ListDoctorHBaseRegionServersResponseBodyDataMetricsDailyWriteRequest
+        # The growth rate of the number of daily write requests.
         self.daily_write_request_day_growth_ratio = daily_write_request_day_growth_ratio  # type: ListDoctorHBaseRegionServersResponseBodyDataMetricsDailyWriteRequestDayGrowthRatio
+        # The number of regions.
         self.region_count = region_count  # type: ListDoctorHBaseRegionServersResponseBodyDataMetricsRegionCount
+        # The cumulative number of read requests.
         self.total_read_request = total_read_request  # type: ListDoctorHBaseRegionServersResponseBodyDataMetricsTotalReadRequest
+        # The cumulative number of all requests.
         self.total_request = total_request  # type: ListDoctorHBaseRegionServersResponseBodyDataMetricsTotalRequest
+        # The cumulative number of write requests.
         self.total_write_request = total_write_request  # type: ListDoctorHBaseRegionServersResponseBodyDataMetricsTotalWriteRequest
 
     def validate(self):
@@ -27651,7 +28991,9 @@ class ListDoctorHBaseRegionServersResponseBodyDataMetrics(TeaModel):
 
 class ListDoctorHBaseRegionServersResponseBodyData(TeaModel):
     def __init__(self, metrics=None, region_server_host=None):
+        # The metric information.
         self.metrics = metrics  # type: ListDoctorHBaseRegionServersResponseBodyDataMetrics
+        # The RegionServer host.
         self.region_server_host = region_server_host  # type: str
 
     def validate(self):
@@ -27682,14 +29024,15 @@ class ListDoctorHBaseRegionServersResponseBodyData(TeaModel):
 
 class ListDoctorHBaseRegionServersResponseBody(TeaModel):
     def __init__(self, data=None, max_results=None, next_token=None, request_id=None, total_count=None):
+        # The returned data.
         self.data = data  # type: list[ListDoctorHBaseRegionServersResponseBodyData]
-        # 本次请求所返回的最大记录条数。
+        # The maximum number of entries that are returned.
         self.max_results = max_results  # type: int
-        # 返回读取到的数据位置，空代表数据已经读取完毕。
+        # A pagination token.
         self.next_token = next_token  # type: str
-        # 请求ID。
+        # The request ID.
         self.request_id = request_id  # type: str
-        # 本次请求条件下的数据总量。
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -27743,9 +29086,6 @@ class ListDoctorHBaseRegionServersResponse(TeaModel):
         self.body = body  # type: ListDoctorHBaseRegionServersResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -27778,17 +29118,28 @@ class ListDoctorHBaseRegionServersResponse(TeaModel):
 class ListDoctorHBaseTablesRequest(TeaModel):
     def __init__(self, cluster_id=None, date_time=None, max_results=None, next_token=None, order_by=None,
                  order_type=None, region_id=None, table_names=None):
-        # 集群ID。
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The query date.
         self.date_time = date_time  # type: str
-        # 一次获取的最大记录数。取值范围：1~100。
+        # The maximum number of entries that are returned.
         self.max_results = max_results  # type: int
-        # 标记当前开始读取的位置，置空表示从头开始。
+        # Marks the current position to start reading. If this field is empty, the data is read from the beginning.
         self.next_token = next_token  # type: str
+        # The field that you use to sort the query results.
+        # 
+        # Valid values:
+        # 
+        # *   tableSize
         self.order_by = order_by  # type: str
+        # The order in which you want to sort the query results. Valid value:
+        # 
+        # *   ASC: in ascending order
+        # *   DESC: in descending order
         self.order_type = order_type  # type: str
-        # 区域ID。
+        # The ID of the region.
         self.region_id = region_id  # type: str
+        # The table names, which are used to filter the query results.
         self.table_names = table_names  # type: list[str]
 
     def validate(self):
@@ -27843,12 +29194,19 @@ class ListDoctorHBaseTablesResponseBodyDataAnalysis(TeaModel):
     def __init__(self, read_request_hotspot_region_list=None, read_request_unbalance_suggestion=None,
                  request_hotspot_region_list=None, request_unbalance_suggestion=None, table_score=None,
                  write_request_hotspot_region_list=None, write_request_unbalance_suggestion=None):
+        # The regions that have read hotspot issues.
         self.read_request_hotspot_region_list = read_request_hotspot_region_list  # type: list[str]
+        # The description of read imbalance.
         self.read_request_unbalance_suggestion = read_request_unbalance_suggestion  # type: str
+        # The regions that have read/write hotspot issues.
         self.request_hotspot_region_list = request_hotspot_region_list  # type: list[str]
+        # The description of read/write imbalance.
         self.request_unbalance_suggestion = request_unbalance_suggestion  # type: str
+        # The score of the table.
         self.table_score = table_score  # type: int
+        # The regions that have write hotspot issues.
         self.write_request_hotspot_region_list = write_request_hotspot_region_list  # type: list[str]
+        # The description of write imbalance.
         self.write_request_unbalance_suggestion = write_request_unbalance_suggestion  # type: str
 
     def validate(self):
@@ -27897,9 +29255,13 @@ class ListDoctorHBaseTablesResponseBodyDataAnalysis(TeaModel):
 
 class ListDoctorHBaseTablesResponseBodyDataMetricsColdAccessDay(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -27936,9 +29298,13 @@ class ListDoctorHBaseTablesResponseBodyDataMetricsColdAccessDay(TeaModel):
 
 class ListDoctorHBaseTablesResponseBodyDataMetricsColdConfigDay(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -27975,9 +29341,13 @@ class ListDoctorHBaseTablesResponseBodyDataMetricsColdConfigDay(TeaModel):
 
 class ListDoctorHBaseTablesResponseBodyDataMetricsColdDataSize(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -28014,9 +29384,13 @@ class ListDoctorHBaseTablesResponseBodyDataMetricsColdDataSize(TeaModel):
 
 class ListDoctorHBaseTablesResponseBodyDataMetricsDailyReadRequest(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -28053,9 +29427,13 @@ class ListDoctorHBaseTablesResponseBodyDataMetricsDailyReadRequest(TeaModel):
 
 class ListDoctorHBaseTablesResponseBodyDataMetricsDailyReadRequestDayGrowthRatio(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: float
 
     def validate(self):
@@ -28092,9 +29470,13 @@ class ListDoctorHBaseTablesResponseBodyDataMetricsDailyReadRequestDayGrowthRatio
 
 class ListDoctorHBaseTablesResponseBodyDataMetricsDailyWriteRequest(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -28131,9 +29513,13 @@ class ListDoctorHBaseTablesResponseBodyDataMetricsDailyWriteRequest(TeaModel):
 
 class ListDoctorHBaseTablesResponseBodyDataMetricsDailyWriteRequestDayGrowthRatio(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: float
 
     def validate(self):
@@ -28170,9 +29556,13 @@ class ListDoctorHBaseTablesResponseBodyDataMetricsDailyWriteRequestDayGrowthRati
 
 class ListDoctorHBaseTablesResponseBodyDataMetricsFreezeConfigDay(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -28209,9 +29599,13 @@ class ListDoctorHBaseTablesResponseBodyDataMetricsFreezeConfigDay(TeaModel):
 
 class ListDoctorHBaseTablesResponseBodyDataMetricsFreezeDataSize(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -28248,9 +29642,13 @@ class ListDoctorHBaseTablesResponseBodyDataMetricsFreezeDataSize(TeaModel):
 
 class ListDoctorHBaseTablesResponseBodyDataMetricsHotDataSize(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -28287,9 +29685,13 @@ class ListDoctorHBaseTablesResponseBodyDataMetricsHotDataSize(TeaModel):
 
 class ListDoctorHBaseTablesResponseBodyDataMetricsLocality(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: float
 
     def validate(self):
@@ -28326,9 +29728,13 @@ class ListDoctorHBaseTablesResponseBodyDataMetricsLocality(TeaModel):
 
 class ListDoctorHBaseTablesResponseBodyDataMetricsReadRequestBalance(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: float
 
     def validate(self):
@@ -28365,9 +29771,13 @@ class ListDoctorHBaseTablesResponseBodyDataMetricsReadRequestBalance(TeaModel):
 
 class ListDoctorHBaseTablesResponseBodyDataMetricsRegionBalance(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: float
 
     def validate(self):
@@ -28404,9 +29814,13 @@ class ListDoctorHBaseTablesResponseBodyDataMetricsRegionBalance(TeaModel):
 
 class ListDoctorHBaseTablesResponseBodyDataMetricsRegionCount(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -28443,9 +29857,13 @@ class ListDoctorHBaseTablesResponseBodyDataMetricsRegionCount(TeaModel):
 
 class ListDoctorHBaseTablesResponseBodyDataMetricsRegionCountDayGrowthRatio(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: float
 
     def validate(self):
@@ -28482,9 +29900,13 @@ class ListDoctorHBaseTablesResponseBodyDataMetricsRegionCountDayGrowthRatio(TeaM
 
 class ListDoctorHBaseTablesResponseBodyDataMetricsRegionServerCount(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -28521,9 +29943,13 @@ class ListDoctorHBaseTablesResponseBodyDataMetricsRegionServerCount(TeaModel):
 
 class ListDoctorHBaseTablesResponseBodyDataMetricsRequestBalance(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: float
 
     def validate(self):
@@ -28560,9 +29986,13 @@ class ListDoctorHBaseTablesResponseBodyDataMetricsRequestBalance(TeaModel):
 
 class ListDoctorHBaseTablesResponseBodyDataMetricsStoreFileCount(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -28599,9 +30029,13 @@ class ListDoctorHBaseTablesResponseBodyDataMetricsStoreFileCount(TeaModel):
 
 class ListDoctorHBaseTablesResponseBodyDataMetricsStoreFileCountDayGrowthRatio(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: float
 
     def validate(self):
@@ -28638,9 +30072,13 @@ class ListDoctorHBaseTablesResponseBodyDataMetricsStoreFileCountDayGrowthRatio(T
 
 class ListDoctorHBaseTablesResponseBodyDataMetricsTableSize(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -28677,9 +30115,13 @@ class ListDoctorHBaseTablesResponseBodyDataMetricsTableSize(TeaModel):
 
 class ListDoctorHBaseTablesResponseBodyDataMetricsTableSizeDayGrowthRatio(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: float
 
     def validate(self):
@@ -28716,9 +30158,13 @@ class ListDoctorHBaseTablesResponseBodyDataMetricsTableSizeDayGrowthRatio(TeaMod
 
 class ListDoctorHBaseTablesResponseBodyDataMetricsWarmConfigDay(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -28755,9 +30201,13 @@ class ListDoctorHBaseTablesResponseBodyDataMetricsWarmConfigDay(TeaModel):
 
 class ListDoctorHBaseTablesResponseBodyDataMetricsWarmDataSize(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -28794,9 +30244,13 @@ class ListDoctorHBaseTablesResponseBodyDataMetricsWarmDataSize(TeaModel):
 
 class ListDoctorHBaseTablesResponseBodyDataMetricsWriteRequestBalance(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: float
 
     def validate(self):
@@ -28838,29 +30292,53 @@ class ListDoctorHBaseTablesResponseBodyDataMetrics(TeaModel):
                  region_balance=None, region_count=None, region_count_day_growth_ratio=None, region_server_count=None,
                  request_balance=None, store_file_count=None, store_file_count_day_growth_ratio=None, table_size=None,
                  table_size_day_growth_ratio=None, warm_config_day=None, warm_data_size=None, write_request_balance=None):
+        # The number of days during which the table was not accessed.
         self.cold_access_day = cold_access_day  # type: ListDoctorHBaseTablesResponseBodyDataMetricsColdAccessDay
+        # The number of consecutive days without access to data before the data is considered as very cold data.
         self.cold_config_day = cold_config_day  # type: ListDoctorHBaseTablesResponseBodyDataMetricsColdConfigDay
+        # The size of cold data.
         self.cold_data_size = cold_data_size  # type: ListDoctorHBaseTablesResponseBodyDataMetricsColdDataSize
+        # The total number of read requests for the table in a day.
         self.daily_read_request = daily_read_request  # type: ListDoctorHBaseTablesResponseBodyDataMetricsDailyReadRequest
+        # The daily increment ratio of the number of read requests in a day.
         self.daily_read_request_day_growth_ratio = daily_read_request_day_growth_ratio  # type: ListDoctorHBaseTablesResponseBodyDataMetricsDailyReadRequestDayGrowthRatio
+        # The total number of write requests for the table in a day.
         self.daily_write_request = daily_write_request  # type: ListDoctorHBaseTablesResponseBodyDataMetricsDailyWriteRequest
+        # The daily increment ratio of the number of write requests in a day.
         self.daily_write_request_day_growth_ratio = daily_write_request_day_growth_ratio  # type: ListDoctorHBaseTablesResponseBodyDataMetricsDailyWriteRequestDayGrowthRatio
+        # The number of consecutive days without access to data before the data was considered as very cold data.
         self.freeze_config_day = freeze_config_day  # type: ListDoctorHBaseTablesResponseBodyDataMetricsFreezeConfigDay
+        # The size of very cold data.
         self.freeze_data_size = freeze_data_size  # type: ListDoctorHBaseTablesResponseBodyDataMetricsFreezeDataSize
+        # The size of hot data.
         self.hot_data_size = hot_data_size  # type: ListDoctorHBaseTablesResponseBodyDataMetricsHotDataSize
+        # The localization rate.
         self.locality = locality  # type: ListDoctorHBaseTablesResponseBodyDataMetricsLocality
+        # The read balancing degree.
         self.read_request_balance = read_request_balance  # type: ListDoctorHBaseTablesResponseBodyDataMetricsReadRequestBalance
+        # The balancing degree.
         self.region_balance = region_balance  # type: ListDoctorHBaseTablesResponseBodyDataMetricsRegionBalance
+        # The number of regions that host the table.
         self.region_count = region_count  # type: ListDoctorHBaseTablesResponseBodyDataMetricsRegionCount
+        # The daily increment ratio of the number of regions.
         self.region_count_day_growth_ratio = region_count_day_growth_ratio  # type: ListDoctorHBaseTablesResponseBodyDataMetricsRegionCountDayGrowthRatio
+        # The number of region servers that host the table.
         self.region_server_count = region_server_count  # type: ListDoctorHBaseTablesResponseBodyDataMetricsRegionServerCount
+        # The request balancing degree.
         self.request_balance = request_balance  # type: ListDoctorHBaseTablesResponseBodyDataMetricsRequestBalance
+        # The number of StoreFiles.
         self.store_file_count = store_file_count  # type: ListDoctorHBaseTablesResponseBodyDataMetricsStoreFileCount
+        # The daily increment ratio of the number of StoreFiles.
         self.store_file_count_day_growth_ratio = store_file_count_day_growth_ratio  # type: ListDoctorHBaseTablesResponseBodyDataMetricsStoreFileCountDayGrowthRatio
+        # The size of the table.
         self.table_size = table_size  # type: ListDoctorHBaseTablesResponseBodyDataMetricsTableSize
+        # The daily increment ratio of the table size.
         self.table_size_day_growth_ratio = table_size_day_growth_ratio  # type: ListDoctorHBaseTablesResponseBodyDataMetricsTableSizeDayGrowthRatio
+        # The number of consecutive days without access to data before the data is considered as cold data.
         self.warm_config_day = warm_config_day  # type: ListDoctorHBaseTablesResponseBodyDataMetricsWarmConfigDay
+        # The size of warm data.
         self.warm_data_size = warm_data_size  # type: ListDoctorHBaseTablesResponseBodyDataMetricsWarmDataSize
+        # The write balancing degree.
         self.write_request_balance = write_request_balance  # type: ListDoctorHBaseTablesResponseBodyDataMetricsWriteRequestBalance
 
     def validate(self):
@@ -29048,8 +30526,11 @@ class ListDoctorHBaseTablesResponseBodyDataMetrics(TeaModel):
 
 class ListDoctorHBaseTablesResponseBodyData(TeaModel):
     def __init__(self, analysis=None, metrics=None, table_name=None):
+        # The diagnosis result.
         self.analysis = analysis  # type: ListDoctorHBaseTablesResponseBodyDataAnalysis
+        # The metric information.
         self.metrics = metrics  # type: ListDoctorHBaseTablesResponseBodyDataMetrics
+        # The name of the table.
         self.table_name = table_name  # type: str
 
     def validate(self):
@@ -29087,14 +30568,15 @@ class ListDoctorHBaseTablesResponseBodyData(TeaModel):
 
 class ListDoctorHBaseTablesResponseBody(TeaModel):
     def __init__(self, data=None, max_results=None, next_token=None, request_id=None, total_count=None):
+        # The response parameters.
         self.data = data  # type: list[ListDoctorHBaseTablesResponseBodyData]
-        # 本次请求所返回的最大记录条数。
+        # The maximum number of entries returned.
         self.max_results = max_results  # type: int
-        # 返回读取到的数据位置，空代表数据已经读取完毕。
+        # The page number of the next page returned.
         self.next_token = next_token  # type: str
-        # 请求ID。
+        # The ID of the request.
         self.request_id = request_id  # type: str
-        # 本次请求条件下的数据总量。
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -29148,9 +30630,6 @@ class ListDoctorHBaseTablesResponse(TeaModel):
         self.body = body  # type: ListDoctorHBaseTablesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30931,9 +32410,6 @@ class ListDoctorHDFSDirectoriesResponse(TeaModel):
         self.body = body  # type: ListDoctorHDFSDirectoriesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -31312,9 +32788,6 @@ class ListDoctorHDFSUGIResponse(TeaModel):
         self.body = body  # type: ListDoctorHDFSUGIResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -33956,9 +35429,6 @@ class ListDoctorHiveDatabasesResponse(TeaModel):
         self.body = body  # type: ListDoctorHiveDatabasesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -33999,7 +35469,7 @@ class ListDoctorHiveTablesRequest(TeaModel):
         self.max_results = max_results  # type: int
         # The pagination token that is used in the request to retrieve a new page of results.
         self.next_token = next_token  # type: str
-        # The basis on which you want to sort the query results. Valid value:
+        # The basis on which you want to sort the query results. Valid values:
         # 
         # *   partitionNum: the number of partitions.
         # *   totalFileCount: the total number of files.
@@ -34013,14 +35483,14 @@ class ListDoctorHiveTablesRequest(TeaModel):
         # *   smallFileRatio: the proportion of small files. Small files are those with a size greater than or equal to 10 MB and less than 128 MB.
         # *   tinyFileRatio: the proportion of very small files. Very small files are those with a size greater than 0 MB and less than 10 MB.
         # *   emptyFileRatio: the proportion of empty files. Empty files are those with a size of 0 MB.
-        # *   hotDataSize: the amount of hot data. Hot data refers to data that is accessed in recent seven days.
-        # *   warmDataSize: the amount of warm data. Warm data refers to data that is not accessed for more than 7 days but is accessed in 30 days.
-        # *   coldDataSize: the amount of cold data. Cold data refers to data that is not accessed for more than 30 days but is accessed in 90 days.
+        # *   hotDataSize: the amount of hot data. Hot data refers to data that is accessed in previous seven days.
+        # *   WarmDataSize: the amount of warm data. Warm data refers to data that is not accessed for more than 7 days but is accessed in previous 30 days.
+        # *   coldDataSize: the amount of cold data. Cold data refers to data that is not accessed for more than 30 days but is accessed in previous 90 days.
         # *   freezeDataSize: the amount of very cold data. Very cold data refers to data that is not accessed for more than 90 days.
         # *   totalDataSize: the total amount of data.
-        # *   hotDataRatio: the proportion of hot data. Hot data refers to data that is accessed in recent seven days.
-        # *   awmDataRatio: the proportion of warm data. Warm data refers to data that is not accessed for more than 7 days but is accessed in 30 days.
-        # *   coldDataRatio: the proportion of cold data. Cold data refers to data that is not accessed for more than 30 days but is accessed in 90 days.
+        # *   hotDataRatio: the proportion of hot data. Hot data refers to data that is accessed in previous seven days.
+        # *   WarmDataRatio: the proportion of warm data. Warm data refers to data that is not accessed for more than 7 days but is accessed in previous 30 days.
+        # *   coldDataRatio: the proportion of cold data. Cold data refers to data that is not accessed for more than 30 days but is accessed in previous 90 days.
         # *   freezeDataRatio: the proportion of very cold data. Very cold data refers to data that is not accessed for more than 90 days.
         # *   totalFileDayGrowthCount: the daily increment of the total number of files.
         # *   largeFileDayGrowthCount: the daily increment of the number of large files. Large files are those with a size greater than 1 GB.
@@ -34028,22 +35498,22 @@ class ListDoctorHiveTablesRequest(TeaModel):
         # *   smallFileDayGrowthCount: the daily increment of the number of small files. Small files are those with a size greater than or equal to 10 MB and less than 128 MB.
         # *   tinyFileDayGrowthCount: the daily increment of the number of very small files. Very small files are those with a size greater than 0 MB and less than 10 MB.
         # *   emptyFileDayGrowthCount: the daily increment of the number of empty files. Empty files are those with a size of 0 MB.
-        # *   hotDataDayGrowthSize: The daily increment of the amount of hot data. Hot data refers to data that is accessed in recent seven days.
-        # *   warmDataDayGrowthSize: the daily increment of the amount of warm data. Warm data refers to data that is not accessed for more than 7 days but is accessed in 30 days.
-        # *   coldDataDayGrowthSize: The daily increment of the amount of cold data. Cold data refers to data that is not accessed for more than 30 days but is accessed in 90 days.
-        # *   freezeDataDayGrowthSize: The daily increment of the amount of very cold data. Very cold data refers to data that is not accessed for more than 90 days.
-        # *   totalDataDayGrowthSize: the daily incremental of the total data volume.
+        # *   hotDataDayGrowthSize: the daily increment of the amount of hot data. Hot data refers to data that is accessed in previous seven days.
+        # *   warmDataDayGrowthSize: the daily increment of the amount of warm data. Warm data refers to data that is not accessed for more than 7 days but is accessed in previous 30 days.
+        # *   coldDataDayGrowthSize: the daily increment of the amount of cold data. Cold data refers to data that is not accessed for more than 30 days but is accessed in previous 90 days.
+        # *   freezeDataDayGrowthSize: the daily increment of the amount of very cold data. Very cold data refers to data that is not accessed for more than 90 days.
+        # *   totalDataDayGrowthSize: the daily increment of the amount of total data.
         # *   totalFileCountDayGrowthRatio: the day-to-day growth rate of the total number of files.
         # *   largeFileCountDayGrowthRatio: the day-to-day growth rate of the number of large files. Large files are those with a size greater than 1 GB.
         # *   mediumFileCountDayGrowthRatio: the day-to-day growth rate of the number of medium files. Medium files are those with a size greater than or equal to 128 MB and less than or equal to 1 GB.
         # *   smallFileCountDayGrowthRatio: the day-to-day growth rate of the number of small files. Small files are those with a size greater than or equal to 10 MB and less than 128 MB.
         # *   tinyFileCountDayGrowthRatio: the day-to-day growth rate of the number of very small files. Very small files are those with a size greater than 0 MB and less than 10 MB.
         # *   emptyFileCountDayGrowthRatio: the day-to-day growth rate of the number of empty files. Empty files are those with a size of 0 MB.
-        # *   hotDataSizeDayGrowthRatio: the day-to-day growth rate of the amount of hot data. Hot data refers to data that is accessed in recent seven days.
-        # *   warmDataSizeDayGrowthRatio: the day-to-day growth rate of the amount of warm data. Warm data refers to data that is not accessed for more than 7 days but is accessed in 30 days.
-        # *   coldDataSizeDayGrowthRatio: the day-to-day growth rate of the amount of cold data. Cold data refers to data that is not accessed for more than 30 days but is accessed in 90 days.
+        # *   hotDataSizeDayGrowthRatio: the day-to-day growth rate of the amount of hot data. Hot data refers to data that is accessed in previous seven days.
+        # *   warmDataSizeDayGrowthRatio: the day-to-day growth rate of the amount of warm data. Warm data refers to data that is not accessed for more than 7 days but is accessed in previous 30 days.
+        # *   coldDataSizeDayGrowthRatio: the day-to-day growth rate of the amount of cold data. Cold data refers to data that is not accessed for more than 30 days but is accessed in previous 90 days.
         # *   freezeDataSizeDayGrowthRatio: the day-to-day growth rate of the amount of very cold data. Very cold data refers to data that is not accessed for more than 90 days.
-        # *   totalDataSizeDayGrowthRatio: the day-to-day growth rate of the total data volume.
+        # *   totalDataSizeDayGrowthRatio: the day-to-day growth rate of the total amount of data.
         self.order_by = order_by  # type: str
         # The order in which you want to sort the query results. Valid value:
         # 
@@ -34106,9 +35576,9 @@ class ListDoctorHiveTablesRequest(TeaModel):
 class ListDoctorHiveTablesResponseBodyDataAnalysis(TeaModel):
     def __init__(self, hive_distribution_score=None, hive_format_score=None, hive_frequency_score=None,
                  hive_score=None):
-        # The score for the distribution of files of different sizes stored in the Hive table.
+        # The score for the file sizes of the Hive table.
         self.hive_distribution_score = hive_distribution_score  # type: int
-        # The score for the distribution of files stored in different formats in the Hive table.
+        # The score for the data formats of the Hive table.
         self.hive_format_score = hive_format_score  # type: int
         # The score for the access frequency of the Hive table.
         self.hive_frequency_score = hive_frequency_score  # type: int
@@ -34150,17 +35620,17 @@ class ListDoctorHiveTablesResponseBodyDataAnalysis(TeaModel):
 class ListDoctorHiveTablesResponseBodyDataFormats(TeaModel):
     def __init__(self, format_day_growth_size=None, format_name=None, format_ratio=None, format_size=None,
                  format_size_day_growth_ratio=None, format_size_unit=None):
-        # The daily amount increment of the data in a specific storage format.
+        # The daily increment of data in the format.
         self.format_day_growth_size = format_day_growth_size  # type: long
         # The name of the storage format.
         self.format_name = format_name  # type: str
-        # The proportion of the data in a specific storage format.
+        # The proportion of the data in the format.
         self.format_ratio = format_ratio  # type: float
-        # The size of storage format-specific data.
+        # The amount of data in the format.
         self.format_size = format_size  # type: long
-        # The day-to-day growth rate of the amount of the data in a specific storage format.
+        # The day-to-day growth rate of data in the format.
         self.format_size_day_growth_ratio = format_size_day_growth_ratio  # type: float
-        # The unit of the data size.
+        # The unit of the amount of data in the format.
         self.format_size_unit = format_size_unit  # type: str
 
     def validate(self):
@@ -36066,13 +37536,13 @@ class ListDoctorHiveTablesResponseBodyDataMetrics(TeaModel):
                  total_data_size_day_growth_ratio=None, total_file_count=None, total_file_count_day_growth_ratio=None,
                  total_file_day_growth_count=None, warm_data_day_growth_size=None, warm_data_ratio=None, warm_data_size=None,
                  warm_data_size_day_growth_ratio=None):
-        # The daily increment of the amount of cold data. Cold data refers to data that is not accessed for more than 30 days but is accessed in 90 days.
+        # The daily increment of the amount of cold data. Cold data refers to data that is not accessed for more than 30 days but is accessed in previous 90 days.
         self.cold_data_day_growth_size = cold_data_day_growth_size  # type: ListDoctorHiveTablesResponseBodyDataMetricsColdDataDayGrowthSize
-        # The proportion of cold data. Cold data refers to data that is not accessed for more than 30 days but is accessed in 90 days.
+        # The proportion of cold data. Cold data refers to data that is not accessed for more than 30 days but is accessed in previous 90 days.
         self.cold_data_ratio = cold_data_ratio  # type: ListDoctorHiveTablesResponseBodyDataMetricsColdDataRatio
-        # The amount of cold data. Cold data refers to data that is not accessed for more than 30 days but is accessed in 90 days.
+        # The amount of cold data. Cold data refers to data that is not accessed for more than 30 days but is accessed in previous 90 days.
         self.cold_data_size = cold_data_size  # type: ListDoctorHiveTablesResponseBodyDataMetricsColdDataSize
-        # The day-to-day growth rate of the amount of cold data. Cold data refers to data that is not accessed for more than 30 days but is accessed in 90 days.
+        # The day-to-day growth rate of the amount of cold data. Cold data refers to data that is not accessed for more than 30 days but is accessed in previous 90 days.
         self.cold_data_size_day_growth_ratio = cold_data_size_day_growth_ratio  # type: ListDoctorHiveTablesResponseBodyDataMetricsColdDataSizeDayGrowthRatio
         # The number of empty files. Empty files are those with a size of 0 MB.
         self.empty_file_count = empty_file_count  # type: ListDoctorHiveTablesResponseBodyDataMetricsEmptyFileCount
@@ -36090,13 +37560,13 @@ class ListDoctorHiveTablesResponseBodyDataMetrics(TeaModel):
         self.freeze_data_size = freeze_data_size  # type: ListDoctorHiveTablesResponseBodyDataMetricsFreezeDataSize
         # The day-to-day growth rate of the amount of very cold data. Very cold data refers to data that is not accessed for more than 90 days.
         self.freeze_data_size_day_growth_ratio = freeze_data_size_day_growth_ratio  # type: ListDoctorHiveTablesResponseBodyDataMetricsFreezeDataSizeDayGrowthRatio
-        # The daily increment of the amount of hot data. Hot data refers to data that is accessed in recent seven days.
+        # The daily increment of the amount of hot data. Hot data refers to data that is accessed in previous seven days.
         self.hot_data_day_growth_size = hot_data_day_growth_size  # type: ListDoctorHiveTablesResponseBodyDataMetricsHotDataDayGrowthSize
-        # The proportion of hot data. Hot data refers to data that is accessed in recent seven days.
+        # The proportion of hot data. Hot data refers to data that is accessed in previous seven days.
         self.hot_data_ratio = hot_data_ratio  # type: ListDoctorHiveTablesResponseBodyDataMetricsHotDataRatio
-        # The amount of hot data. Hot data refers to data that is accessed in recent seven days.
+        # The amount of hot data. Hot data refers to data that is accessed in previous seven days.
         self.hot_data_size = hot_data_size  # type: ListDoctorHiveTablesResponseBodyDataMetricsHotDataSize
-        # The day-to-day growth rate of the amount of hot data. Hot data refers to data that is accessed in recent seven days.
+        # The day-to-day growth rate of the amount of hot data. Hot data refers to data that is accessed in previous seven days.
         self.hot_data_size_day_growth_ratio = hot_data_size_day_growth_ratio  # type: ListDoctorHiveTablesResponseBodyDataMetricsHotDataSizeDayGrowthRatio
         # The number of large files. Large files are those with a size greater than 1 GB.
         self.large_file_count = large_file_count  # type: ListDoctorHiveTablesResponseBodyDataMetricsLargeFileCount
@@ -36132,11 +37602,11 @@ class ListDoctorHiveTablesResponseBodyDataMetrics(TeaModel):
         self.tiny_file_day_growth_count = tiny_file_day_growth_count  # type: ListDoctorHiveTablesResponseBodyDataMetricsTinyFileDayGrowthCount
         # The proportion of very small files. Very small files are those with a size greater than 0 MB and less than 10 MB.
         self.tiny_file_ratio = tiny_file_ratio  # type: ListDoctorHiveTablesResponseBodyDataMetricsTinyFileRatio
-        # The daily incremental of the total data volume.
+        # The daily increment of the total amount of data.
         self.total_data_day_growth_size = total_data_day_growth_size  # type: ListDoctorHiveTablesResponseBodyDataMetricsTotalDataDayGrowthSize
         # The total amount of data.
         self.total_data_size = total_data_size  # type: ListDoctorHiveTablesResponseBodyDataMetricsTotalDataSize
-        # The day-to-day growth rate of the total data volume.
+        # The day-to-day growth rate of the total amount of data.
         self.total_data_size_day_growth_ratio = total_data_size_day_growth_ratio  # type: ListDoctorHiveTablesResponseBodyDataMetricsTotalDataSizeDayGrowthRatio
         # The total number of files.
         self.total_file_count = total_file_count  # type: ListDoctorHiveTablesResponseBodyDataMetricsTotalFileCount
@@ -36144,13 +37614,13 @@ class ListDoctorHiveTablesResponseBodyDataMetrics(TeaModel):
         self.total_file_count_day_growth_ratio = total_file_count_day_growth_ratio  # type: ListDoctorHiveTablesResponseBodyDataMetricsTotalFileCountDayGrowthRatio
         # The daily increment of the total number of files.
         self.total_file_day_growth_count = total_file_day_growth_count  # type: ListDoctorHiveTablesResponseBodyDataMetricsTotalFileDayGrowthCount
-        # The daily increment of the amount of warm data. Warm data refers to data that is not accessed for more than 7 days but is accessed in 30 days.
+        # The daily increment of the amount of warm data. Warm data refers to data that is not accessed for more than 7 days but is accessed in previous 30 days.
         self.warm_data_day_growth_size = warm_data_day_growth_size  # type: ListDoctorHiveTablesResponseBodyDataMetricsWarmDataDayGrowthSize
-        # The proportion of warm data. Warm data refers to data that is not accessed for more than 7 days but is accessed in 30 days.
+        # The proportion of warm data. Warm data refers to data that is not accessed for more than 7 days but is accessed in previous 30 days.
         self.warm_data_ratio = warm_data_ratio  # type: ListDoctorHiveTablesResponseBodyDataMetricsWarmDataRatio
-        # The amount of warm data. Warm data refers to data that is not accessed for more than 7 days but is accessed in 30 days.
+        # The amount of warm data. Warm data refers to data that is not accessed for more than 7 days but is accessed in previous 30 days.
         self.warm_data_size = warm_data_size  # type: ListDoctorHiveTablesResponseBodyDataMetricsWarmDataSize
-        # The day-to-day growth rate of the amount of warm data. Warm data refers to data that is not accessed for more than 7 days but is accessed in 30 days.
+        # The day-to-day growth rate of the amount of warm data. Warm data refers to data that is not accessed for more than 7 days but is accessed in previous 30 days.
         self.warm_data_size_day_growth_ratio = warm_data_size_day_growth_ratio  # type: ListDoctorHiveTablesResponseBodyDataMetricsWarmDataSizeDayGrowthRatio
 
     def validate(self):
@@ -36473,13 +37943,13 @@ class ListDoctorHiveTablesResponseBodyData(TeaModel):
     def __init__(self, analysis=None, formats=None, metrics=None, owner=None, table_name=None):
         # The analysis results.
         self.analysis = analysis  # type: ListDoctorHiveTablesResponseBodyDataAnalysis
-        # The information from the perspective of formats.
+        # The table format information.
         self.formats = formats  # type: list[ListDoctorHiveTablesResponseBodyDataFormats]
         # The metric information.
         self.metrics = metrics  # type: ListDoctorHiveTablesResponseBodyDataMetrics
         # The owner.
         self.owner = owner  # type: str
-        # The table name. The table name must follow the naming rule in Hive. A name in the {database name.table identifier} format uniquely identifies a table.
+        # The table name. The table name must follow the naming rule in Hive. A name in the {Database name.Table name} format uniquely identifies a table.
         self.table_name = table_name  # type: str
 
     def validate(self):
@@ -36596,9 +38066,6 @@ class ListDoctorHiveTablesResponse(TeaModel):
         self.body = body  # type: ListDoctorHiveTablesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -36630,7 +38097,9 @@ class ListDoctorHiveTablesResponse(TeaModel):
 
 class ListDoctorJobsRequestEndRange(TeaModel):
     def __init__(self, end_time=None, start_time=None):
+        # The end of the time range during which jobs ended. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC. Unit: milliseconds.
         self.end_time = end_time  # type: long
+        # The beginning of the time range during which jobs ended. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC. Unit: milliseconds.
         self.start_time = start_time  # type: long
 
     def validate(self):
@@ -36659,7 +38128,9 @@ class ListDoctorJobsRequestEndRange(TeaModel):
 
 class ListDoctorJobsRequestStartRange(TeaModel):
     def __init__(self, end_time=None, start_time=None):
+        # The end of the time range during which jobs were submitted. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC. Unit: milliseconds.
         self.end_time = end_time  # type: long
+        # The beginning of the time range during which jobs were submitted. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC. Unit: milliseconds.
         self.start_time = start_time  # type: long
 
     def validate(self):
@@ -36689,26 +38160,35 @@ class ListDoctorJobsRequestStartRange(TeaModel):
 class ListDoctorJobsRequest(TeaModel):
     def __init__(self, app_ids=None, cluster_id=None, end_range=None, max_results=None, next_token=None,
                  order_by=None, order_type=None, queues=None, region_id=None, start_range=None, types=None, users=None):
-        # app ID数组
+        # The IDs of the jobs that are submitted to YARN.
         self.app_ids = app_ids  # type: list[str]
-        # 集群ID。
+        # The cluster ID.
         self.cluster_id = cluster_id  # type: str
-        # 结束range
+        # The range of end time. You can filter jobs whose end time falls within the specified time range.
         self.end_range = end_range  # type: ListDoctorJobsRequestEndRange
-        # 一次获取的最大记录数。取值范围：1~100。
+        # The maximum number of entries to return on each page.
         self.max_results = max_results  # type: int
-        # 标记当前开始读取的位置，置空表示从头开始。
+        # The pagination token that is used in the request to retrieve a new page of results.
         self.next_token = next_token  # type: str
-        # 排序字段
+        # The field that you use to sort the query results. Valid values:
+        # 
+        # *   vcoreSeconds: the aggregated number of vCPUs that are allocated to the job multiplied by the number of seconds the job has been running
+        # *   memSeconds: the aggregated amount of memory that is allocated to the job multiplied by the number of seconds the job has been running
         self.order_by = order_by  # type: str
-        # 排序类型
+        # The order in which you want to sort the query results. Valid values:
+        # 
+        # *   ASC: the ascending order
+        # *   DESC: the descending order
         self.order_type = order_type  # type: str
+        # The YARN queues to which the jobs are submitted.
         self.queues = queues  # type: list[str]
-        # 区域ID。
+        # The region ID.
         self.region_id = region_id  # type: str
-        # 开始range
+        # The range of start time. You can filter jobs whose start time falls within the specified time range.
         self.start_range = start_range  # type: ListDoctorJobsRequestStartRange
+        # The YARN engines to which the jobs are submitted.
         self.types = types  # type: list[str]
+        # The users who submit the jobs.
         self.users = users  # type: list[str]
 
     def validate(self):
@@ -36782,9 +38262,13 @@ class ListDoctorJobsRequest(TeaModel):
 
 class ListDoctorJobsResponseBodyDataMetricsMemSeconds(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -36821,9 +38305,13 @@ class ListDoctorJobsResponseBodyDataMetricsMemSeconds(TeaModel):
 
 class ListDoctorJobsResponseBodyDataMetricsVcoreSeconds(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -36860,7 +38348,9 @@ class ListDoctorJobsResponseBodyDataMetricsVcoreSeconds(TeaModel):
 
 class ListDoctorJobsResponseBodyDataMetrics(TeaModel):
     def __init__(self, mem_seconds=None, vcore_seconds=None):
+        # The amount of memory consumed.
         self.mem_seconds = mem_seconds  # type: ListDoctorJobsResponseBodyDataMetricsMemSeconds
+        # The CPU usage.
         self.vcore_seconds = vcore_seconds  # type: ListDoctorJobsResponseBodyDataMetricsVcoreSeconds
 
     def validate(self):
@@ -36895,17 +38385,39 @@ class ListDoctorJobsResponseBodyDataMetrics(TeaModel):
 class ListDoctorJobsResponseBodyData(TeaModel):
     def __init__(self, app_id=None, app_name=None, elapsed_time=None, final_status=None, finish_time=None,
                  launch_time=None, metrics=None, queue=None, start_time=None, state=None, type=None, user=None):
+        # The ID of the job that was submitted to YARN.
         self.app_id = app_id  # type: str
+        # The name of the job.
         self.app_name = app_name  # type: str
+        # The total running time of the job. Unit: milliseconds.
         self.elapsed_time = elapsed_time  # type: long
+        # The final state of the job. Valid values:
+        # 
+        # *   SUCCEEDED
+        # *   FAILED
+        # *   KILLED
+        # *   ENDED
+        # *   UNDEFINED
         self.final_status = final_status  # type: str
+        # The end time of the job. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC. Unit: milliseconds.
         self.finish_time = finish_time  # type: long
+        # The time when the job was started. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC. Unit: milliseconds.
         self.launch_time = launch_time  # type: long
+        # The data about the metrics.
         self.metrics = metrics  # type: ListDoctorJobsResponseBodyDataMetrics
+        # The YARN queue to which the job was submitted.
         self.queue = queue  # type: str
+        # The time when the job was submitted. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC. Unit: milliseconds.
         self.start_time = start_time  # type: long
+        # The running state of the job. Valid values:
+        # 
+        # *   FINISHED
+        # *   FAILED
+        # *   KILLED
         self.state = state  # type: str
+        # The type of the compute engine.
         self.type = type  # type: str
+        # The username that was used to submit the job.
         self.user = user  # type: str
 
     def validate(self):
@@ -36976,14 +38488,15 @@ class ListDoctorJobsResponseBodyData(TeaModel):
 
 class ListDoctorJobsResponseBody(TeaModel):
     def __init__(self, data=None, max_results=None, next_token=None, request_id=None, total_count=None):
+        # The information about the jobs.
         self.data = data  # type: list[ListDoctorJobsResponseBodyData]
-        # 本次请求所返回的最大记录条数。
+        # The maximum number of entries returned.
         self.max_results = max_results  # type: int
-        # 返回读取到的数据位置，空代表数据已经读取完毕。
+        # A pagination token.
         self.next_token = next_token  # type: str
-        # 请求ID。
+        # The request ID.
         self.request_id = request_id  # type: str
-        # 本次请求条件下的数据总量。
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -37037,9 +38550,6 @@ class ListDoctorJobsResponse(TeaModel):
         self.body = body  # type: ListDoctorJobsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -37071,7 +38581,9 @@ class ListDoctorJobsResponse(TeaModel):
 
 class ListDoctorJobsStatsRequestEndRange(TeaModel):
     def __init__(self, end_time=None, start_time=None):
+        # The end of the time range during which jobs ended. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.end_time = end_time  # type: long
+        # The beginning of the time range during which jobs ended. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.start_time = start_time  # type: long
 
     def validate(self):
@@ -37100,7 +38612,9 @@ class ListDoctorJobsStatsRequestEndRange(TeaModel):
 
 class ListDoctorJobsStatsRequestStartRange(TeaModel):
     def __init__(self, end_time=None, start_time=None):
+        # The end of the time range during which jobs were submitted. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC. Unit: milliseconds.
         self.end_time = end_time  # type: long
+        # The beginning of the time range during which jobs were submitted. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC. Unit: milliseconds.
         self.start_time = start_time  # type: long
 
     def validate(self):
@@ -37130,18 +38644,31 @@ class ListDoctorJobsStatsRequestStartRange(TeaModel):
 class ListDoctorJobsStatsRequest(TeaModel):
     def __init__(self, cluster_id=None, end_range=None, group_by=None, max_results=None, next_token=None,
                  order_by=None, order_type=None, region_id=None, start_range=None):
-        # 集群ID。
+        # The cluster ID.
         self.cluster_id = cluster_id  # type: str
+        # The range of end time. You can filter jobs whose end time falls within the specified time range.
         self.end_range = end_range  # type: ListDoctorJobsStatsRequestEndRange
+        # The fields that are used for grouping data.
+        # 
+        # Currently, only the first value is used for grouping data. Combinations of multiple values will be supported in the future.
         self.group_by = group_by  # type: list[str]
-        # 一次获取的最大记录数。取值范围：1~100。
+        # The maximum number of entries to return on each page.
         self.max_results = max_results  # type: int
-        # 标记当前开始读取的位置，置空表示从头开始。
+        # The pagination token that is used in the request to retrieve a new page of results.
         self.next_token = next_token  # type: str
+        # The field that you use to sort the query results. Valid values:
+        # 
+        # *   vcoreSeconds: the aggregated number of vCPUs that are allocated to the job multiplied by the number of seconds the job has been running
+        # *   memSeconds: the aggregated amount of memory that is allocated to the job multiplied by the number of seconds the job has been running
         self.order_by = order_by  # type: str
+        # The order in which you want to sort the query results. Valid values:
+        # 
+        # *   ASC: in ascending order
+        # *   DESC: in descending order
         self.order_type = order_type  # type: str
-        # 区域ID。
+        # The region ID.
         self.region_id = region_id  # type: str
+        # The range of start time. You can filter jobs whose start time falls within the specified time range.
         self.start_range = start_range  # type: ListDoctorJobsStatsRequestStartRange
 
     def validate(self):
@@ -37203,9 +38730,13 @@ class ListDoctorJobsStatsRequest(TeaModel):
 
 class ListDoctorJobsStatsResponseBodyDataAppsCount(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -37242,9 +38773,13 @@ class ListDoctorJobsStatsResponseBodyDataAppsCount(TeaModel):
 
 class ListDoctorJobsStatsResponseBodyDataMemSeconds(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -37281,9 +38816,13 @@ class ListDoctorJobsStatsResponseBodyDataMemSeconds(TeaModel):
 
 class ListDoctorJobsStatsResponseBodyDataVcoreSeconds(TeaModel):
     def __init__(self, description=None, name=None, unit=None, value=None):
+        # The description of the metric.
         self.description = description  # type: str
+        # The name of the metric.
         self.name = name  # type: str
+        # The unit of the metric.
         self.unit = unit  # type: str
+        # The value of the metric.
         self.value = value  # type: long
 
     def validate(self):
@@ -37320,11 +38859,17 @@ class ListDoctorJobsStatsResponseBodyDataVcoreSeconds(TeaModel):
 
 class ListDoctorJobsStatsResponseBodyData(TeaModel):
     def __init__(self, apps_count=None, mem_seconds=None, queue=None, type=None, user=None, vcore_seconds=None):
+        # The total number of jobs.
         self.apps_count = apps_count  # type: ListDoctorJobsStatsResponseBodyDataAppsCount
+        # The aggregated amount of memory that is allocated to the job multiplied by the number of seconds the job has been running.
         self.mem_seconds = mem_seconds  # type: ListDoctorJobsStatsResponseBodyDataMemSeconds
+        # The YARN queue to which the job was submitted.
         self.queue = queue  # type: str
+        # The type of the compute engine.
         self.type = type  # type: str
+        # The username that is used to submit the job.
         self.user = user  # type: str
+        # The aggregated number of vCPUs that are allocated to the job multiplied by the number of seconds the job has been running.
         self.vcore_seconds = vcore_seconds  # type: ListDoctorJobsStatsResponseBodyDataVcoreSeconds
 
     def validate(self):
@@ -37377,14 +38922,15 @@ class ListDoctorJobsStatsResponseBodyData(TeaModel):
 
 class ListDoctorJobsStatsResponseBody(TeaModel):
     def __init__(self, data=None, max_results=None, next_token=None, request_id=None, total_count=None):
+        # The summary of job information.
         self.data = data  # type: list[ListDoctorJobsStatsResponseBodyData]
-        # 本次请求所返回的最大记录条数。
+        # The maximum number of entries returned.
         self.max_results = max_results  # type: int
-        # 返回读取到的数据位置，空代表数据已经读取完毕。
+        # A pagination token.
         self.next_token = next_token  # type: str
-        # 请求ID。
+        # The request ID.
         self.request_id = request_id  # type: str
-        # 本次请求条件下的数据总量。
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -37438,9 +38984,6 @@ class ListDoctorJobsStatsResponse(TeaModel):
         self.body = body  # type: ListDoctorJobsStatsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -37472,13 +39015,13 @@ class ListDoctorJobsStatsResponse(TeaModel):
 
 class ListDoctorReportsRequest(TeaModel):
     def __init__(self, cluster_id=None, max_results=None, next_token=None, region_id=None):
-        # 集群ID。
+        # The cluster ID.
         self.cluster_id = cluster_id  # type: str
-        # 一次获取的最大记录数。取值范围：1~100。
+        # The number of entries to return on each page.
         self.max_results = max_results  # type: int
-        # 标记当前开始读取的位置，置空表示从头开始。
+        # The pagination token that is used in the request to retrieve a new page of results.
         self.next_token = next_token  # type: str
-        # 区域ID。
+        # The region ID.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -37515,8 +39058,11 @@ class ListDoctorReportsRequest(TeaModel):
 
 class ListDoctorReportsResponseBodyDataSummaryReport(TeaModel):
     def __init__(self, score=None, suggestion=None, summary=None):
+        # The score.
         self.score = score  # type: int
+        # The optimization suggestion.
         self.suggestion = suggestion  # type: str
+        # The summary of the report.
         self.summary = summary  # type: str
 
     def validate(self):
@@ -37549,8 +39095,61 @@ class ListDoctorReportsResponseBodyDataSummaryReport(TeaModel):
 
 class ListDoctorReportsResponseBodyData(TeaModel):
     def __init__(self, component_types=None, date_time=None, summary_report=None):
+        # The component types.
+        # 
+        # Valid values:
+        # 
+        # *   compute
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   hive
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   hdfs
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   yarn
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   oss
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   hbase
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
         self.component_types = component_types  # type: list[str]
+        # The date on which the report was generated.
         self.date_time = date_time  # type: str
+        # The summary of the report.
         self.summary_report = summary_report  # type: ListDoctorReportsResponseBodyDataSummaryReport
 
     def validate(self):
@@ -37585,14 +39184,15 @@ class ListDoctorReportsResponseBodyData(TeaModel):
 
 class ListDoctorReportsResponseBody(TeaModel):
     def __init__(self, data=None, max_results=None, next_token=None, request_id=None, total_count=None):
+        # The reports.
         self.data = data  # type: list[ListDoctorReportsResponseBodyData]
-        # 本次请求所返回的最大记录条数。
+        # The maximum number of entries returned.
         self.max_results = max_results  # type: int
-        # 返回读取到的数据位置，空代表数据已经读取完毕。
+        # A pagination token.
         self.next_token = next_token  # type: str
-        # 请求ID。
+        # The request ID.
         self.request_id = request_id  # type: str
-        # 本次请求条件下的数据总量。
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -37646,9 +39246,6 @@ class ListDoctorReportsResponse(TeaModel):
         self.body = body  # type: ListDoctorReportsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -37845,9 +39442,6 @@ class ListInstanceTypesResponse(TeaModel):
         self.body = body  # type: ListInstanceTypesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -38009,9 +39603,6 @@ class ListNodeGroupsResponse(TeaModel):
         self.body = body  # type: ListNodeGroupsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -38199,9 +39790,6 @@ class ListNodesResponse(TeaModel):
         self.body = body  # type: ListNodesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -38237,7 +39825,7 @@ class ListReleaseVersionsRequest(TeaModel):
         self.cluster_type = cluster_type  # type: str
         # The type of the IaaS resource.
         self.iaas_type = iaas_type  # type: str
-        # The ID of the region in which you want to create the instance.
+        # The region ID.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -38270,13 +39858,11 @@ class ListReleaseVersionsRequest(TeaModel):
 
 class ListReleaseVersionsResponseBodyReleaseVersions(TeaModel):
     def __init__(self, iaas_type=None, release_version=None, series=None):
-        # IaaS类型。取值范围：
-        # - ECS：基于ECS构建。
-        # - K8S：基于K8S构建。
+        # The IaaS type.
         self.iaas_type = iaas_type  # type: str
-        # EMR发行版。
+        # The EMR version.
         self.release_version = release_version  # type: str
-        # 版本序列。
+        # The version series.
         self.series = series  # type: str
 
     def validate(self):
@@ -38313,6 +39899,7 @@ class ListReleaseVersionsResponseBody(TeaModel):
         self.max_results = max_results  # type: int
         # Returns the location of the data that was read.
         self.next_token = next_token  # type: str
+        # The major EMR versions.
         self.release_versions = release_versions  # type: list[ListReleaseVersionsResponseBodyReleaseVersions]
         # The ID of the request.
         self.request_id = request_id  # type: str
@@ -38370,9 +39957,6 @@ class ListReleaseVersionsResponse(TeaModel):
         self.body = body  # type: ListReleaseVersionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -38573,9 +40157,6 @@ class ListTagResourcesResponse(TeaModel):
         self.body = body  # type: ListTagResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -38698,9 +40279,6 @@ class PutAutoScalingPolicyResponse(TeaModel):
         self.body = body  # type: PutAutoScalingPolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -38726,6 +40304,482 @@ class PutAutoScalingPolicyResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = PutAutoScalingPolicyResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class QueryApmComponentsRequest(TeaModel):
+    def __init__(self, cluster_id=None, provider=None, region_id=None, resource_group_id=None):
+        # 集群ID。
+        self.cluster_id = cluster_id  # type: str
+        self.provider = provider  # type: str
+        # 地域ID。
+        self.region_id = region_id  # type: str
+        # 如果存在clusterId，从Cluster中获取该值，如果clusterId为空，用户显式指定
+        self.resource_group_id = resource_group_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryApmComponentsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cluster_id is not None:
+            result['ClusterId'] = self.cluster_id
+        if self.provider is not None:
+            result['Provider'] = self.provider
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClusterId') is not None:
+            self.cluster_id = m.get('ClusterId')
+        if m.get('Provider') is not None:
+            self.provider = m.get('Provider')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        return self
+
+
+class QueryApmComponentsResponseBodyData(TeaModel):
+    def __init__(self, data=None):
+        self.data = data  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryApmComponentsResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        return self
+
+
+class QueryApmComponentsResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        # Created on 2022/7/11 5:27 PM
+        self.data = data  # type: QueryApmComponentsResponseBodyData
+        # 请求ID。
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(QueryApmComponentsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            temp_model = QueryApmComponentsResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class QueryApmComponentsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: QueryApmComponentsResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryApmComponentsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = QueryApmComponentsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class QueryApmGrafanaDataRequestQueryParams(TeaModel):
+    def __init__(self, panel_id=None, ref_id=None, variable_name=None):
+        self.panel_id = panel_id  # type: long
+        self.ref_id = ref_id  # type: str
+        self.variable_name = variable_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryApmGrafanaDataRequestQueryParams, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.panel_id is not None:
+            result['PanelId'] = self.panel_id
+        if self.ref_id is not None:
+            result['RefId'] = self.ref_id
+        if self.variable_name is not None:
+            result['VariableName'] = self.variable_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PanelId') is not None:
+            self.panel_id = m.get('PanelId')
+        if m.get('RefId') is not None:
+            self.ref_id = m.get('RefId')
+        if m.get('VariableName') is not None:
+            self.variable_name = m.get('VariableName')
+        return self
+
+
+class QueryApmGrafanaDataRequest(TeaModel):
+    def __init__(self, cluster_id=None, dashboard_id=None, end=None, provider=None, query=None, query_params=None,
+                 query_url=None, region_id=None, resource_group_id=None, start=None, step=None, time=None, variables=None):
+        # 集群ID。
+        self.cluster_id = cluster_id  # type: str
+        self.dashboard_id = dashboard_id  # type: str
+        self.end = end  # type: str
+        self.provider = provider  # type: str
+        self.query = query  # type: str
+        self.query_params = query_params  # type: QueryApmGrafanaDataRequestQueryParams
+        self.query_url = query_url  # type: str
+        # 地域ID。
+        self.region_id = region_id  # type: str
+        # 如果存在clusterId，从Cluster中获取该值，如果clusterId为空，用户显式指定
+        self.resource_group_id = resource_group_id  # type: str
+        self.start = start  # type: str
+        self.step = step  # type: str
+        self.time = time  # type: str
+        self.variables = variables  # type: dict[str, str]
+
+    def validate(self):
+        if self.query_params:
+            self.query_params.validate()
+
+    def to_map(self):
+        _map = super(QueryApmGrafanaDataRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cluster_id is not None:
+            result['ClusterId'] = self.cluster_id
+        if self.dashboard_id is not None:
+            result['DashboardId'] = self.dashboard_id
+        if self.end is not None:
+            result['End'] = self.end
+        if self.provider is not None:
+            result['Provider'] = self.provider
+        if self.query is not None:
+            result['Query'] = self.query
+        if self.query_params is not None:
+            result['QueryParams'] = self.query_params.to_map()
+        if self.query_url is not None:
+            result['QueryUrl'] = self.query_url
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.start is not None:
+            result['Start'] = self.start
+        if self.step is not None:
+            result['Step'] = self.step
+        if self.time is not None:
+            result['Time'] = self.time
+        if self.variables is not None:
+            result['Variables'] = self.variables
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClusterId') is not None:
+            self.cluster_id = m.get('ClusterId')
+        if m.get('DashboardId') is not None:
+            self.dashboard_id = m.get('DashboardId')
+        if m.get('End') is not None:
+            self.end = m.get('End')
+        if m.get('Provider') is not None:
+            self.provider = m.get('Provider')
+        if m.get('Query') is not None:
+            self.query = m.get('Query')
+        if m.get('QueryParams') is not None:
+            temp_model = QueryApmGrafanaDataRequestQueryParams()
+            self.query_params = temp_model.from_map(m['QueryParams'])
+        if m.get('QueryUrl') is not None:
+            self.query_url = m.get('QueryUrl')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('Start') is not None:
+            self.start = m.get('Start')
+        if m.get('Step') is not None:
+            self.step = m.get('Step')
+        if m.get('Time') is not None:
+            self.time = m.get('Time')
+        if m.get('Variables') is not None:
+            self.variables = m.get('Variables')
+        return self
+
+
+class QueryApmGrafanaDataShrinkRequestQueryParams(TeaModel):
+    def __init__(self, panel_id=None, ref_id=None, variable_name=None):
+        self.panel_id = panel_id  # type: long
+        self.ref_id = ref_id  # type: str
+        self.variable_name = variable_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryApmGrafanaDataShrinkRequestQueryParams, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.panel_id is not None:
+            result['PanelId'] = self.panel_id
+        if self.ref_id is not None:
+            result['RefId'] = self.ref_id
+        if self.variable_name is not None:
+            result['VariableName'] = self.variable_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PanelId') is not None:
+            self.panel_id = m.get('PanelId')
+        if m.get('RefId') is not None:
+            self.ref_id = m.get('RefId')
+        if m.get('VariableName') is not None:
+            self.variable_name = m.get('VariableName')
+        return self
+
+
+class QueryApmGrafanaDataShrinkRequest(TeaModel):
+    def __init__(self, cluster_id=None, dashboard_id=None, end=None, provider=None, query=None, query_params=None,
+                 query_url=None, region_id=None, resource_group_id=None, start=None, step=None, time=None,
+                 variables_shrink=None):
+        # 集群ID。
+        self.cluster_id = cluster_id  # type: str
+        self.dashboard_id = dashboard_id  # type: str
+        self.end = end  # type: str
+        self.provider = provider  # type: str
+        self.query = query  # type: str
+        self.query_params = query_params  # type: QueryApmGrafanaDataShrinkRequestQueryParams
+        self.query_url = query_url  # type: str
+        # 地域ID。
+        self.region_id = region_id  # type: str
+        # 如果存在clusterId，从Cluster中获取该值，如果clusterId为空，用户显式指定
+        self.resource_group_id = resource_group_id  # type: str
+        self.start = start  # type: str
+        self.step = step  # type: str
+        self.time = time  # type: str
+        self.variables_shrink = variables_shrink  # type: str
+
+    def validate(self):
+        if self.query_params:
+            self.query_params.validate()
+
+    def to_map(self):
+        _map = super(QueryApmGrafanaDataShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cluster_id is not None:
+            result['ClusterId'] = self.cluster_id
+        if self.dashboard_id is not None:
+            result['DashboardId'] = self.dashboard_id
+        if self.end is not None:
+            result['End'] = self.end
+        if self.provider is not None:
+            result['Provider'] = self.provider
+        if self.query is not None:
+            result['Query'] = self.query
+        if self.query_params is not None:
+            result['QueryParams'] = self.query_params.to_map()
+        if self.query_url is not None:
+            result['QueryUrl'] = self.query_url
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.start is not None:
+            result['Start'] = self.start
+        if self.step is not None:
+            result['Step'] = self.step
+        if self.time is not None:
+            result['Time'] = self.time
+        if self.variables_shrink is not None:
+            result['Variables'] = self.variables_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClusterId') is not None:
+            self.cluster_id = m.get('ClusterId')
+        if m.get('DashboardId') is not None:
+            self.dashboard_id = m.get('DashboardId')
+        if m.get('End') is not None:
+            self.end = m.get('End')
+        if m.get('Provider') is not None:
+            self.provider = m.get('Provider')
+        if m.get('Query') is not None:
+            self.query = m.get('Query')
+        if m.get('QueryParams') is not None:
+            temp_model = QueryApmGrafanaDataShrinkRequestQueryParams()
+            self.query_params = temp_model.from_map(m['QueryParams'])
+        if m.get('QueryUrl') is not None:
+            self.query_url = m.get('QueryUrl')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('Start') is not None:
+            self.start = m.get('Start')
+        if m.get('Step') is not None:
+            self.step = m.get('Step')
+        if m.get('Time') is not None:
+            self.time = m.get('Time')
+        if m.get('Variables') is not None:
+            self.variables_shrink = m.get('Variables')
+        return self
+
+
+class QueryApmGrafanaDataResponseBodyData(TeaModel):
+    def __init__(self, query_grafana_data=None):
+        self.query_grafana_data = query_grafana_data  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryApmGrafanaDataResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.query_grafana_data is not None:
+            result['QueryGrafanaData'] = self.query_grafana_data
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('QueryGrafanaData') is not None:
+            self.query_grafana_data = m.get('QueryGrafanaData')
+        return self
+
+
+class QueryApmGrafanaDataResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: QueryApmGrafanaDataResponseBodyData
+        # 请求ID。
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(QueryApmGrafanaDataResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            temp_model = QueryApmGrafanaDataResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class QueryApmGrafanaDataResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: QueryApmGrafanaDataResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryApmGrafanaDataResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = QueryApmGrafanaDataResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -38799,9 +40853,6 @@ class RemoveAutoScalingPolicyResponse(TeaModel):
         self.body = body  # type: RemoveAutoScalingPolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -38846,7 +40897,7 @@ class RunApplicationActionRequest(TeaModel):
         self.batch_size = batch_size  # type: int
         # The cluster ID.
         self.cluster_id = cluster_id  # type: str
-        # The name of the operation.
+        # The operation object.
         self.component_instance_selector = component_instance_selector  # type: ComponentInstanceSelector
         # The description of the execution.
         self.description = description  # type: str
@@ -38916,15 +40967,49 @@ class RunApplicationActionRequest(TeaModel):
         return self
 
 
+class RunApplicationActionResponseBodyAbnInstances(TeaModel):
+    def __init__(self, node_id=None, node_name=None):
+        self.node_id = node_id  # type: str
+        self.node_name = node_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RunApplicationActionResponseBodyAbnInstances, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.node_id is not None:
+            result['NodeId'] = self.node_id
+        if self.node_name is not None:
+            result['NodeName'] = self.node_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('NodeId') is not None:
+            self.node_id = m.get('NodeId')
+        if m.get('NodeName') is not None:
+            self.node_name = m.get('NodeName')
+        return self
+
+
 class RunApplicationActionResponseBody(TeaModel):
-    def __init__(self, operation_id=None, request_id=None):
+    def __init__(self, abn_instances=None, operation_id=None, request_id=None):
+        # The abnormal nodes.
+        self.abn_instances = abn_instances  # type: list[RunApplicationActionResponseBodyAbnInstances]
         # The operation ID.
         self.operation_id = operation_id  # type: str
         # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
-        pass
+        if self.abn_instances:
+            for k in self.abn_instances:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(RunApplicationActionResponseBody, self).to_map()
@@ -38932,6 +41017,10 @@ class RunApplicationActionResponseBody(TeaModel):
             return _map
 
         result = dict()
+        result['AbnInstances'] = []
+        if self.abn_instances is not None:
+            for k in self.abn_instances:
+                result['AbnInstances'].append(k.to_map() if k else None)
         if self.operation_id is not None:
             result['OperationId'] = self.operation_id
         if self.request_id is not None:
@@ -38940,6 +41029,11 @@ class RunApplicationActionResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        self.abn_instances = []
+        if m.get('AbnInstances') is not None:
+            for k in m.get('AbnInstances'):
+                temp_model = RunApplicationActionResponseBodyAbnInstances()
+                self.abn_instances.append(temp_model.from_map(k))
         if m.get('OperationId') is not None:
             self.operation_id = m.get('OperationId')
         if m.get('RequestId') is not None:
@@ -38954,9 +41048,6 @@ class RunApplicationActionResponse(TeaModel):
         self.body = body  # type: RunApplicationActionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -39071,9 +41162,6 @@ class TagResourcesResponse(TeaModel):
         self.body = body  # type: TagResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -39189,9 +41277,6 @@ class UntagResourcesResponse(TeaModel):
         self.body = body  # type: UntagResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -39224,7 +41309,7 @@ class UntagResourcesResponse(TeaModel):
 class UpdateApplicationConfigsRequest(TeaModel):
     def __init__(self, application_configs=None, application_name=None, cluster_id=None, config_action=None,
                  config_scope=None, description=None, node_group_id=None, node_id=None, region_id=None):
-        # The list of application configurations.
+        # The application configurations.
         self.application_configs = application_configs  # type: list[UpdateApplicationConfig]
         # The application name.
         self.application_name = application_name  # type: str
@@ -39243,7 +41328,7 @@ class UpdateApplicationConfigsRequest(TeaModel):
         self.config_scope = config_scope  # type: str
         # The description.
         self.description = description  # type: str
-        # The ID of the node group.
+        # The node group ID.
         self.node_group_id = node_group_id  # type: str
         # The node ID.
         self.node_id = node_id  # type: str
@@ -39348,9 +41433,6 @@ class UpdateApplicationConfigsResponse(TeaModel):
         self.body = body  # type: UpdateApplicationConfigsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 

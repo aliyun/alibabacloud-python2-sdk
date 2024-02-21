@@ -233,6 +233,94 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_cluster_with_options(request, runtime)
 
+    def get_apm_data_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.component_name):
+            query['ComponentName'] = request.component_name
+        if not UtilClient.is_unset(request.language):
+            query['Language'] = request.language
+        if not UtilClient.is_unset(request.provider):
+            query['Provider'] = request.provider
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetApmData',
+            version='2021-03-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            emr_20210320_models.GetApmDataResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_apm_data(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_apm_data_with_options(request, runtime)
+
+    def get_application_with_options(self, request, runtime):
+        """
+        查询应用详情。
+        
+
+        @param request: GetApplicationRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetApplicationResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.application_name):
+            query['ApplicationName'] = request.application_name
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetApplication',
+            version='2021-03-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            emr_20210320_models.GetApplicationResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_application(self, request):
+        """
+        查询应用详情。
+        
+
+        @param request: GetApplicationRequest
+
+        @return: GetApplicationResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.get_application_with_options(request, runtime)
+
     def get_auto_scaling_activity_with_options(self, request, runtime):
         """
         获取弹性伸缩活动详情。
@@ -334,16 +422,6 @@ class Client(OpenApiClient):
         return self.get_auto_scaling_policy_with_options(request, runtime)
 
     def get_cluster_with_options(self, request, runtime):
-        """
-        调用GetCluster获取集群详情。
-        
-
-        @param request: GetClusterRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: GetClusterResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.cluster_id):
@@ -370,14 +448,6 @@ class Client(OpenApiClient):
         )
 
     def get_cluster(self, request):
-        """
-        调用GetCluster获取集群详情。
-        
-
-        @param request: GetClusterRequest
-
-        @return: GetClusterResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.get_cluster_with_options(request, runtime)
 
@@ -1264,16 +1334,6 @@ class Client(OpenApiClient):
         return self.increase_nodes_with_options(request, runtime)
 
     def join_resource_group_with_options(self, request, runtime):
-        """
-        加入资源组。
-        
-
-        @param request: JoinResourceGroupRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: JoinResourceGroupResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.region_id):
@@ -1304,16 +1364,42 @@ class Client(OpenApiClient):
         )
 
     def join_resource_group(self, request):
-        """
-        加入资源组。
-        
-
-        @param request: JoinResourceGroupRequest
-
-        @return: JoinResourceGroupResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.join_resource_group_with_options(request, runtime)
+
+    def list_apm_metadata_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListApmMetadata',
+            version='2021-03-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            emr_20210320_models.ListApmMetadataResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_apm_metadata(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_apm_metadata_with_options(request, runtime)
 
     def list_application_configs_with_options(self, request, runtime):
         """
@@ -1542,6 +1628,128 @@ class Client(OpenApiClient):
     def list_clusters(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_clusters_with_options(request, runtime)
+
+    def list_component_instances_with_options(self, request, runtime):
+        """
+        查询组件实例列表。
+        
+
+        @param request: ListComponentInstancesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListComponentInstancesResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.application_names):
+            query['ApplicationNames'] = request.application_names
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.component_names):
+            query['ComponentNames'] = request.component_names
+        if not UtilClient.is_unset(request.component_states):
+            query['ComponentStates'] = request.component_states
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.node_ids):
+            query['NodeIds'] = request.node_ids
+        if not UtilClient.is_unset(request.node_names):
+            query['NodeNames'] = request.node_names
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListComponentInstances',
+            version='2021-03-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            emr_20210320_models.ListComponentInstancesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_component_instances(self, request):
+        """
+        查询组件实例列表。
+        
+
+        @param request: ListComponentInstancesRequest
+
+        @return: ListComponentInstancesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_component_instances_with_options(request, runtime)
+
+    def list_components_with_options(self, request, runtime):
+        """
+        查询组件列表。
+        
+
+        @param request: ListComponentsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListComponentsResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.application_names):
+            query['ApplicationNames'] = request.application_names
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.component_names):
+            query['ComponentNames'] = request.component_names
+        if not UtilClient.is_unset(request.component_states):
+            query['ComponentStates'] = request.component_states
+        if not UtilClient.is_unset(request.include_expired_config):
+            query['IncludeExpiredConfig'] = request.include_expired_config
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListComponents',
+            version='2021-03-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            emr_20210320_models.ListComponentsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_components(self, request):
+        """
+        查询组件列表。
+        
+
+        @param request: ListComponentsRequest
+
+        @return: ListComponentsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_components_with_options(request, runtime)
 
     def list_doctor_applications_with_options(self, request, runtime):
         """
@@ -2260,16 +2468,6 @@ class Client(OpenApiClient):
         return self.list_instance_types_with_options(request, runtime)
 
     def list_node_groups_with_options(self, request, runtime):
-        """
-        查询节点组。
-        
-
-        @param request: ListNodeGroupsRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: ListNodeGroupsResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.cluster_id):
@@ -2308,28 +2506,10 @@ class Client(OpenApiClient):
         )
 
     def list_node_groups(self, request):
-        """
-        查询节点组。
-        
-
-        @param request: ListNodeGroupsRequest
-
-        @return: ListNodeGroupsResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.list_node_groups_with_options(request, runtime)
 
     def list_nodes_with_options(self, request, runtime):
-        """
-        查询节点。
-        
-
-        @param request: ListNodesRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: ListNodesResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.cluster_id):
@@ -2374,14 +2554,6 @@ class Client(OpenApiClient):
         )
 
     def list_nodes(self, request):
-        """
-        查询节点。
-        
-
-        @param request: ListNodesRequest
-
-        @return: ListNodesResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.list_nodes_with_options(request, runtime)
 
@@ -2475,7 +2647,7 @@ class Client(OpenApiClient):
 
     def put_auto_scaling_policy_with_options(self, request, runtime):
         """
-        设置弹性伸缩规则。
+        You can call this operation to configure auto scaling policies.
         
 
         @param request: PutAutoScalingPolicyRequest
@@ -2517,7 +2689,7 @@ class Client(OpenApiClient):
 
     def put_auto_scaling_policy(self, request):
         """
-        设置弹性伸缩规则。
+        You can call this operation to configure auto scaling policies.
         
 
         @param request: PutAutoScalingPolicyRequest
@@ -2526,6 +2698,96 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.put_auto_scaling_policy_with_options(request, runtime)
+
+    def query_apm_components_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.provider):
+            query['Provider'] = request.provider
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryApmComponents',
+            version='2021-03-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            emr_20210320_models.QueryApmComponentsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_apm_components(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_apm_components_with_options(request, runtime)
+
+    def query_apm_grafana_data_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = emr_20210320_models.QueryApmGrafanaDataShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.variables):
+            request.variables_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.variables, 'Variables', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.dashboard_id):
+            query['DashboardId'] = request.dashboard_id
+        if not UtilClient.is_unset(request.end):
+            query['End'] = request.end
+        if not UtilClient.is_unset(request.provider):
+            query['Provider'] = request.provider
+        if not UtilClient.is_unset(request.query):
+            query['Query'] = request.query
+        if not UtilClient.is_unset(request.query_params):
+            query['QueryParams'] = request.query_params
+        if not UtilClient.is_unset(request.query_url):
+            query['QueryUrl'] = request.query_url
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.start):
+            query['Start'] = request.start
+        if not UtilClient.is_unset(request.step):
+            query['Step'] = request.step
+        if not UtilClient.is_unset(request.time):
+            query['Time'] = request.time
+        if not UtilClient.is_unset(request.variables_shrink):
+            query['Variables'] = request.variables_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryApmGrafanaData',
+            version='2021-03-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            emr_20210320_models.QueryApmGrafanaDataResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_apm_grafana_data(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_apm_grafana_data_with_options(request, runtime)
 
     def remove_auto_scaling_policy_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2560,16 +2822,6 @@ class Client(OpenApiClient):
         return self.remove_auto_scaling_policy_with_options(request, runtime)
 
     def run_application_action_with_options(self, request, runtime):
-        """
-        执行应用操作。
-        
-
-        @param request: RunApplicationActionRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: RunApplicationActionResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.action_name):
@@ -2610,14 +2862,6 @@ class Client(OpenApiClient):
         )
 
     def run_application_action(self, request):
-        """
-        执行应用操作。
-        
-
-        @param request: RunApplicationActionRequest
-
-        @return: RunApplicationActionResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.run_application_action_with_options(request, runtime)
 
