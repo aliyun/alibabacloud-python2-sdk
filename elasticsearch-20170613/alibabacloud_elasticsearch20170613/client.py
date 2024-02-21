@@ -2067,6 +2067,31 @@ class Client(OpenApiClient):
         headers = {}
         return self.get_region_configuration_with_options(request, headers, runtime)
 
+    def get_regional_instance_config_with_options(self, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetRegionalInstanceConfig',
+            version='2017-06-13',
+            protocol='HTTPS',
+            pathname='/openapi/regions/instance-config',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            elasticsearch_20170613_models.GetRegionalInstanceConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_regional_instance_config(self):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_regional_instance_config_with_options(headers, runtime)
+
     def get_suggest_shrinkable_nodes_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
