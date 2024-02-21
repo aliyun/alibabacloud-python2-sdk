@@ -95,9 +95,6 @@ class AddUserToVpcEndpointServiceResponse(TeaModel):
         self.body = body  # type: AddUserToVpcEndpointServiceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -149,7 +146,7 @@ class AddZoneToVpcEndpointRequest(TeaModel):
         self.v_switch_id = v_switch_id  # type: str
         # The ID of the zone that you want to add.
         self.zone_id = zone_id  # type: str
-        # The IP address of the endpoint ENI in the zone that you want to add.
+        # The IP address of the endpoint elastic network interface (ENI) in the zone that you want to add.
         self.ip = ip  # type: str
 
     def validate(self):
@@ -228,9 +225,6 @@ class AddZoneToVpcEndpointResponse(TeaModel):
         self.body = body  # type: AddZoneToVpcEndpointResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -365,9 +359,6 @@ class AttachResourceToVpcEndpointServiceResponse(TeaModel):
         self.body = body  # type: AttachResourceToVpcEndpointServiceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -483,9 +474,6 @@ class AttachSecurityGroupToVpcEndpointResponse(TeaModel):
         self.body = body  # type: AttachSecurityGroupToVpcEndpointResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -517,8 +505,11 @@ class AttachSecurityGroupToVpcEndpointResponse(TeaModel):
 
 class ChangeResourceGroupRequest(TeaModel):
     def __init__(self, resource_group_id=None, resource_id=None, resource_region_id=None):
+        # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
+        # The resource IDs. You can specify up to 50 resource IDs.
         self.resource_id = resource_id  # type: str
+        # The region ID of the resource group.
         self.resource_region_id = resource_region_id  # type: str
 
     def validate(self):
@@ -551,6 +542,7 @@ class ChangeResourceGroupRequest(TeaModel):
 
 class ChangeResourceGroupResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -580,9 +572,6 @@ class ChangeResourceGroupResponse(TeaModel):
         self.body = body  # type: ChangeResourceGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -652,9 +641,6 @@ class CheckProductOpenResponse(TeaModel):
         self.body = body  # type: CheckProductOpenResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -686,9 +672,9 @@ class CheckProductOpenResponse(TeaModel):
 
 class CreateVpcEndpointRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # The key of the tag.
+        # The key of the tag to add to the resource.
         self.key = key  # type: str
-        # The value of the tag.
+        # The value of the tag to add to the resource.
         self.value = value  # type: str
 
     def validate(self):
@@ -792,15 +778,13 @@ class CreateVpcEndpointRequest(TeaModel):
         self.region_id = region_id  # type: str
         # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
-        # The ID of the security group that is associated with the endpoint ENI. The security group can be used to control data transfer between the VPC and the endpoint ENI.
-        # 
-        # The endpoint can be associated with up to 10 security groups.
+        # The IDs of security groups that are associated with the endpoint elastic network interface (ENI).
         self.security_group_id = security_group_id  # type: list[str]
         # The ID of the endpoint service with which the endpoint is associated.
         self.service_id = service_id  # type: str
         # The name of the endpoint service with which the endpoint is associated.
         self.service_name = service_name  # type: str
-        # The list of tags.
+        # The tags to add to the resource.
         self.tag = tag  # type: list[CreateVpcEndpointRequestTag]
         # The ID of the virtual private cloud (VPC) to which the endpoint belongs.
         self.vpc_id = vpc_id  # type: str
@@ -922,7 +906,7 @@ class CreateVpcEndpointResponseBody(TeaModel):
         # The service state of the endpoint. Valid values:
         # 
         # *   **Normal**: The endpoint runs as expected.
-        # *   **FinacialLocked**: The endpoint is locked due to overdue payments.
+        # *   **FinancialLocked**: The endpoint is locked due to overdue payments.
         self.endpoint_business_status = endpoint_business_status  # type: str
         # The description of the endpoint.
         self.endpoint_description = endpoint_description  # type: str
@@ -1023,9 +1007,6 @@ class CreateVpcEndpointResponse(TeaModel):
         self.body = body  # type: CreateVpcEndpointResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1061,11 +1042,11 @@ class CreateVpcEndpointServiceRequestResource(TeaModel):
         self.resource_id = resource_id  # type: str
         # The type of the service resource that is added to the endpoint service. You can add up to 20 service resources to the endpoint service. Valid values:
         # 
-        # *   **slb**: a CLB instance
-        # *   **alb**: an ALB instance
-        # *   **nlb**: a NLB instance
+        # *   **slb**: Classic Load Balancer (CLB) instance
+        # *   **alb**: Application Load Balancer (ALB) instance
+        # *   **nlb**: Network Load Balancer (NLB) instance
         # 
-        # >  In regions where PrivateLink is supported, CLB instances deployed in virtual private clouds (VPCs) can serve as service resources of the endpoint service.
+        # >  In regions where PrivateLink is supported, CLB instances deployed in virtual private clouds (VPCs) can serve as the service resources of the endpoint service.
         self.resource_type = resource_type  # type: str
         # The zone ID.
         self.zone_id = zone_id  # type: str
@@ -1100,13 +1081,13 @@ class CreateVpcEndpointServiceRequestResource(TeaModel):
 
 class CreateVpcEndpointServiceRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # The key of the tag. You can specify up to 20 tag keys. The tag key cannot be an empty string.
+        # The key of the tag to add to the resource. You can specify up to 20 tag keys. The tag key cannot be an empty string.
         # 
-        # The tag key must be 1 to 64 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.
+        # The tag key can be up to 64 characters in length and cannot contain `http://` or `https://`. The tag key cannot start with `aliyun` or `acs:`.
         self.key = key  # type: str
-        # The value of the tag. You can specify up to 20 tag values. The tag value can be an empty string.
+        # The value of the tag to add to the resource. You can specify up to 20 tag values. The tag value can be an empty string.
         # 
-        # The tag value must be 1 to 128 characters in length and cannot start with `acs:` or `aliyun`. It cannot contain `http://` or `https://`.
+        # The tag value can be up to 128 characters in length and cannot contain `http://` or `https://`. The tag value cannot start with `aliyun` or `acs:`.
         self.value = value  # type: str
 
     def validate(self):
@@ -1179,7 +1160,7 @@ class CreateVpcEndpointServiceRequest(TeaModel):
         # *   **true**\
         # *   **false** (default)
         self.service_support_ipv_6 = service_support_ipv_6  # type: bool
-        # The list of tags.
+        # The tags to add to the resource.
         self.tag = tag  # type: list[CreateVpcEndpointServiceRequestTag]
         # Specifies whether to first resolve the domain name of the nearest endpoint that is associated with the endpoint service. Valid values:
         # 
@@ -1286,7 +1267,7 @@ class CreateVpcEndpointServiceResponseBody(TeaModel):
         # The service state of the endpoint service. Valid values:
         # 
         # *   **Normal**: The endpoint service runs as expected.
-        # *   **FinacialLocked**: The endpoint service is locked due to overdue payments.
+        # *   **FinancialLocked**: The endpoint service is locked due to overdue payments.
         self.service_business_status = service_business_status  # type: str
         # The description of the endpoint service.
         self.service_description = service_description  # type: str
@@ -1302,7 +1283,6 @@ class CreateVpcEndpointServiceResponseBody(TeaModel):
         # *   **Pending**: The endpoint service is being modified.
         # *   **Active**: The endpoint service is available.
         # *   **Deleting**: The endpoint service is being deleted.
-        # *   **Inactive**: The endpoint service is unavailable.
         self.service_status = service_status  # type: str
         # Indicates whether IPv6 was enabled for the endpoint service. Valid values:
         # 
@@ -1386,9 +1366,6 @@ class CreateVpcEndpointServiceResponse(TeaModel):
         self.body = body  # type: CreateVpcEndpointServiceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1498,9 +1475,6 @@ class DeleteVpcEndpointResponse(TeaModel):
         self.body = body  # type: DeleteVpcEndpointResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1610,9 +1584,6 @@ class DeleteVpcEndpointServiceResponse(TeaModel):
         self.body = body  # type: DeleteVpcEndpointServiceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1776,9 +1747,6 @@ class DescribeRegionsResponse(TeaModel):
         self.body = body  # type: DescribeRegionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1936,9 +1904,6 @@ class DescribeZonesResponse(TeaModel):
         self.body = body  # type: DescribeZonesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2072,9 +2037,6 @@ class DetachResourceFromVpcEndpointServiceResponse(TeaModel):
         self.body = body  # type: DetachResourceFromVpcEndpointServiceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2190,9 +2152,6 @@ class DetachSecurityGroupFromVpcEndpointResponse(TeaModel):
         self.body = body  # type: DetachSecurityGroupFromVpcEndpointResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2308,9 +2267,6 @@ class DisableVpcEndpointConnectionResponse(TeaModel):
         self.body = body  # type: DisableVpcEndpointConnectionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2345,11 +2301,11 @@ class DisableVpcEndpointZoneConnectionRequest(TeaModel):
                  service_id=None, zone_id=None):
         # The client token that is used to ensure the idempotence of the request.
         # 
-        # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.
+        # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.
         self.client_token = client_token  # type: str
         # Specifies whether to perform only a dry run, without performing the actual request. Valid values:
         # 
-        # *   **true**: performs only a dry run. The system checks the AccessKey pair, the permissions of the RAM user, and the required parameters. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.
+        # *   **true**: performs only a dry run. The system checks the request for potential issues, including missing parameter values, incorrect request syntax, and service limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.
         # *   **false** (default): performs a dry run and performs the actual request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed.
         self.dry_run = dry_run  # type: bool
         # The endpoint ID.
@@ -2446,9 +2402,6 @@ class DisableVpcEndpointZoneConnectionResponse(TeaModel):
         self.body = body  # type: DisableVpcEndpointZoneConnectionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2481,9 +2434,9 @@ class DisableVpcEndpointZoneConnectionResponse(TeaModel):
 class EnableVpcEndpointConnectionRequest(TeaModel):
     def __init__(self, bandwidth=None, client_token=None, dry_run=None, endpoint_id=None, region_id=None,
                  service_id=None):
-        # The bandwidth of the endpoint connection. Valid values: **1024 to 10240**. Unit: Mbit/s.
+        # The bandwidth of the endpoint connection. Unit: Mbit/s. Valid values: **3072 to 10240**.
         # 
-        # > The bandwidth of an endpoint connection is in the range of **100 to 10,240** Mbit/s. The default bandwidth is **1,024** Mbit/s. When the endpoint is connected to the endpoint service, the default bandwidth is the minimum bandwidth. In this case, the connection bandwidth range is **1,024 to 10,240** Mbit/s.
+        # >  The bandwidth of an endpoint connection is in the range of **100 to 10,240** Mbit/s. The default bandwidth is **3,072** Mbit/s. When the endpoint is connected to the endpoint service, the default bandwidth is the minimum bandwidth. In this case, the connection bandwidth range is **3,072 to 10,240** Mbit/s. If Classic Load Balancer (CLB) instances or Application Load Balancer (ALB) instances are specified as service resources, you can modify the endpoint connection bandwidth based on your business requirements. This parameter is invalid if Network Load Balancer (NLB) instances are specified as service resources.
         self.bandwidth = bandwidth  # type: int
         # The client token that is used to ensure the idempotence of the request.
         # 
@@ -2575,9 +2528,6 @@ class EnableVpcEndpointConnectionResponse(TeaModel):
         self.body = body  # type: EnableVpcEndpointConnectionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2700,9 +2650,6 @@ class EnableVpcEndpointZoneConnectionResponse(TeaModel):
         self.body = body  # type: EnableVpcEndpointZoneConnectionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2787,7 +2734,7 @@ class GetVpcEndpointAttributeResponseBody(TeaModel):
         # The service state of the endpoint. Valid values:
         # 
         # *   **Normal**: The endpoint runs as expected.
-        # *   **FinacialLocked**: The endpoint is locked due to overdue payments.
+        # *   **FinancialLocked**: The endpoint is locked due to overdue payments.
         self.endpoint_business_status = endpoint_business_status  # type: str
         # The description of the endpoint.
         self.endpoint_description = endpoint_description  # type: str
@@ -2830,10 +2777,10 @@ class GetVpcEndpointAttributeResponseBody(TeaModel):
         self.service_name = service_name  # type: str
         # The ID of the virtual private cloud (VPC) to which the endpoint belongs.
         self.vpc_id = vpc_id  # type: str
-        # Indicates whether zone affinity is enabled. Valid values:
+        # Indicates whether the domain name of the nearest endpoint that is associated with the endpoint service is resolved first. Valid values:
         # 
-        # *   **true**: Zone affinity is enabled.
-        # *   **false**: Zone affinity is disabled.
+        # *   **true**\
+        # *   **false**\
         self.zone_affinity_enabled = zone_affinity_enabled  # type: bool
         # The number of private IP addresses that are assigned to an elastic network interface (ENI) in each zone. Only **1** is returned.
         self.zone_private_ip_address_count = zone_private_ip_address_count  # type: long
@@ -2941,9 +2888,6 @@ class GetVpcEndpointAttributeResponse(TeaModel):
         self.body = body  # type: GetVpcEndpointAttributeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3017,7 +2961,7 @@ class GetVpcEndpointServiceAttributeResponseBody(TeaModel):
         # *   **true**\
         # *   **false**\
         self.auto_accept_enabled = auto_accept_enabled  # type: bool
-        # The default bandwidth of the endpoint connection. Valid values: **100** to 10240. Unit: Mbit/s.
+        # The default maximum bandwidth of the endpoint connection. Unit: Mbit/s. Valid values: **100** to 10240.
         self.connect_bandwidth = connect_bandwidth  # type: int
         # The time when the endpoint service was created.
         self.create_time = create_time  # type: str
@@ -3071,9 +3015,9 @@ class GetVpcEndpointServiceAttributeResponseBody(TeaModel):
         # 
         # Only **Interface** is returned. The value indicates the interface endpoint. Then, you can specify ALB and CLB instances as service resources for the endpoint service.
         self.service_type = service_type  # type: str
-        # Indicates whether zone affinity is enabled. Valid values:
+        # Indicates whether the domain name of the nearest endpoint that is associated with the endpoint service is resolved first. Valid values:
         # 
-        # *   **true**\
+        # *   **true** (default)
         # *   **false**\
         self.zone_affinity_enabled = zone_affinity_enabled  # type: bool
         # The zones to which the service resources belong.
@@ -3182,9 +3126,6 @@ class GetVpcEndpointServiceAttributeResponse(TeaModel):
         self.body = body  # type: GetVpcEndpointServiceAttributeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3216,7 +3157,13 @@ class GetVpcEndpointServiceAttributeResponse(TeaModel):
 
 class ListTagResourcesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of tag N to add to the resource. You can specify up to 20 tag keys. The tag key cannot be an empty string.
+        # 
+        # The tag key can be up to 64 characters in length and can contain letters, digits, periods (.), underscores (\_), and hyphens (-). The tag key must start with a letter but cannot start with `aliyun` or `acs:`. The tag key cannot contain `http://` or `https://`.
         self.key = key  # type: str
+        # The value of tag N to add to the resource. You can specify up to 20 tag values. The tag value can be an empty string.
+        # 
+        # The tag value can be up to 128 characters in length and can contain letters, digits, periods (.), underscores (\_), and hyphens (-). The tag value must start with a letter but cannot start with `aliyun` or `acs:`. The tag value cannot contain `http://` or `https://`.
         self.value = value  # type: str
 
     def validate(self):
@@ -3246,11 +3193,25 @@ class ListTagResourcesRequestTag(TeaModel):
 class ListTagResourcesRequest(TeaModel):
     def __init__(self, client_token=None, next_token=None, region_id=None, resource_id=None, resource_type=None,
                  tag=None):
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.
         self.client_token = client_token  # type: str
+        # The pagination token that is used in the next request to retrieve a new page of results.
+        # 
+        # *   If this is your first request or no next requests are to be sent, you do not need to specify this parameter.
+        # *   If a next request is to be sent, you must specify the token that is obtained from the previous request as the value of **NextToken**.
         self.next_token = next_token  # type: str
+        # The ID of the region where the resource resides. You can call the [DescribeRegions](~~120468~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        # The resource IDs. You can specify up to 50 resource IDs.
         self.resource_id = resource_id  # type: list[str]
+        # The type of the resource. Valid values:
+        # 
+        # *   **vpcendpoint**: endpoint
+        # *   **vpcendpointservice**: endpoint service
         self.resource_type = resource_type  # type: str
+        # The tags to add to the resource.
         self.tag = tag  # type: list[ListTagResourcesRequestTag]
 
     def validate(self):
@@ -3303,9 +3264,16 @@ class ListTagResourcesRequest(TeaModel):
 
 class ListTagResourcesResponseBodyTagResources(TeaModel):
     def __init__(self, resource_id=None, resource_type=None, tag_key=None, tag_value=None):
+        # The resource ID.
         self.resource_id = resource_id  # type: str
+        # The type of the resource. Valid values:
+        # 
+        # *   **vpcendpoint**: endpoint
+        # *   **vpcendpointservice**: endpoint service
         self.resource_type = resource_type  # type: str
+        # The key of tag N added to the resource.
         self.tag_key = tag_key  # type: str
+        # The value of tag N added to the resource.
         self.tag_value = tag_value  # type: str
 
     def validate(self):
@@ -3342,8 +3310,14 @@ class ListTagResourcesResponseBodyTagResources(TeaModel):
 
 class ListTagResourcesResponseBody(TeaModel):
     def __init__(self, next_token=None, request_id=None, tag_resources=None):
+        # The pagination token that is used in the next request to retrieve a new page of results. Valid values:
+        # 
+        # *   If this is your first request and no next requests are to be performed, you do not need to specify this parameter.
+        # *   If a next request is to be performed, set the parameter to the value of NextToken that is returned from the last call.
         self.next_token = next_token  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The resources to which the tags are added.
         self.tag_resources = tag_resources  # type: list[ListTagResourcesResponseBodyTagResources]
 
     def validate(self):
@@ -3389,9 +3363,6 @@ class ListTagResourcesResponse(TeaModel):
         self.body = body  # type: ListTagResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3524,11 +3495,11 @@ class ListVpcEndpointConnectionsRequest(TeaModel):
 class ListVpcEndpointConnectionsResponseBodyConnectionsZones(TeaModel):
     def __init__(self, eni_id=None, replaced_eni_id=None, replaced_resource_id=None, resource_id=None,
                  v_switch_id=None, zone_domain=None, zone_id=None, zone_status=None):
-        # The ID of the endpoint elastic network interface (ENI).
+        # The endpoint ENI ID.
         self.eni_id = eni_id  # type: str
-        # The ID of the endpoint ENI replaced in smooth migration scenarios.
+        # The ID of the replaced endpoint ENI in smooth migration scenarios.
         self.replaced_eni_id = replaced_eni_id  # type: str
-        # The ID of the service resource replaced in smooth migration scenarios.
+        # The ID of the replaced service resource in smooth migration scenarios.
         self.replaced_resource_id = replaced_resource_id  # type: str
         # The service resource ID.
         self.resource_id = resource_id  # type: str
@@ -3606,13 +3577,13 @@ class ListVpcEndpointConnectionsResponseBodyConnections(TeaModel):
         self.bandwidth = bandwidth  # type: int
         # The state of the endpoint connection. Valid values:
         # 
-        # *   **Pending**: The endpoint connection is being modified.
-        # *   **Connecting**: The endpoint connection is being established.
-        # *   **Connected**: The endpoint connection is established.
+        # *   **Pending**: The connection is being modified.
+        # *   **Connecting**: The connection is being established.
+        # *   **Connected**: The connection is established.
         # *   **Disconnecting**: The endpoint is being disconnected from the endpoint service.
         # *   **Disconnected**: The endpoint is disconnected from the endpoint service.
-        # *   **Deleting**: The endpoint connection is being deleted.
-        # *   **ServiceDeleted**: The corresponding endpoint service is deleted.
+        # *   **Deleting**: The connection is being deleted.
+        # *   **ServiceDeleted**: The corresponding endpoint service has been deleted.
         self.connection_status = connection_status  # type: str
         # The endpoint ID.
         self.endpoint_id = endpoint_id  # type: str
@@ -3620,7 +3591,7 @@ class ListVpcEndpointConnectionsResponseBodyConnections(TeaModel):
         self.endpoint_owner_id = endpoint_owner_id  # type: long
         # The ID of the virtual private cloud (VPC) to which the endpoint belongs.
         self.endpoint_vpc_id = endpoint_vpc_id  # type: str
-        # The time when the endpoint connection was modified. The time follows the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time is displayed in UTC.
+        # The time when the endpoint connection was modified.
         self.modified_time = modified_time  # type: str
         # The ID of the resource group to which the endpoint belongs.
         self.resource_group_id = resource_group_id  # type: str
@@ -3631,7 +3602,7 @@ class ListVpcEndpointConnectionsResponseBodyConnections(TeaModel):
         self.resource_owner = resource_owner  # type: bool
         # The endpoint service ID.
         self.service_id = service_id  # type: str
-        # The information about the zones.
+        # The zones.
         self.zones = zones  # type: list[ListVpcEndpointConnectionsResponseBodyConnectionsZones]
 
     def validate(self):
@@ -3700,7 +3671,7 @@ class ListVpcEndpointConnectionsResponseBodyConnections(TeaModel):
 
 class ListVpcEndpointConnectionsResponseBody(TeaModel):
     def __init__(self, connections=None, max_results=None, next_token=None, request_id=None, total_count=None):
-        # The information about the endpoint connections.
+        # The endpoint connections.
         self.connections = connections  # type: list[ListVpcEndpointConnectionsResponseBodyConnections]
         # The number of entries returned on each page.
         self.max_results = max_results  # type: int
@@ -3711,7 +3682,6 @@ class ListVpcEndpointConnectionsResponseBody(TeaModel):
         self.next_token = next_token  # type: str
         # The request ID.
         self.request_id = request_id  # type: str
-        # The total number of entries returned.
         self.total_count = total_count  # type: str
 
     def validate(self):
@@ -3765,9 +3735,6 @@ class ListVpcEndpointConnectionsResponse(TeaModel):
         self.body = body  # type: ListVpcEndpointConnectionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3881,7 +3848,7 @@ class ListVpcEndpointSecurityGroupsResponseBody(TeaModel):
         self.next_token = next_token  # type: str
         # The request ID.
         self.request_id = request_id  # type: str
-        # The security groups that are associated with the endpoint.
+        # The information about the security groups.
         self.security_groups = security_groups  # type: list[ListVpcEndpointSecurityGroupsResponseBodySecurityGroups]
 
     def validate(self):
@@ -3931,9 +3898,6 @@ class ListVpcEndpointSecurityGroupsResponse(TeaModel):
         self.body = body  # type: ListVpcEndpointSecurityGroupsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4167,9 +4131,6 @@ class ListVpcEndpointServiceResourcesResponse(TeaModel):
         self.body = body  # type: ListVpcEndpointServiceResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4392,9 +4353,6 @@ class ListVpcEndpointServiceUsersResponse(TeaModel):
         self.body = body  # type: ListVpcEndpointServiceUsersResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4426,7 +4384,13 @@ class ListVpcEndpointServiceUsersResponse(TeaModel):
 
 class ListVpcEndpointServicesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag. You can specify up to 20 tag keys. The tag key cannot be an empty string.
+        # 
+        # The tag key must be 1 to 64 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.
         self.key = key  # type: str
+        # The value of the tag. You can specify up to 20 tag values. The tag value can be an empty string.
+        # 
+        # The tag value can be up to 128 characters in length and cannot start with `acs:` or `aliyun`. It cannot contain `http://` or `https://`.
         self.value = value  # type: str
 
     def validate(self):
@@ -4457,18 +4421,53 @@ class ListVpcEndpointServicesRequest(TeaModel):
     def __init__(self, auto_accept_enabled=None, max_results=None, next_token=None, region_id=None,
                  resource_group_id=None, resource_id=None, service_business_status=None, service_id=None, service_name=None,
                  service_resource_type=None, service_status=None, tag=None, zone_affinity_enabled=None):
+        # Specifies whether to automatically accept endpoint connection requests. Valid values:
+        # 
+        # *   **true**\
+        # *   **false** (default)
         self.auto_accept_enabled = auto_accept_enabled  # type: bool
+        # The number of entries to return on each page. Valid values: **1** to **50**. Default value: **50**.
         self.max_results = max_results  # type: int
+        # The pagination token that is used in the next request to retrieve a new page of results. Valid values:
+        # 
+        # *   If this is your first request and no next requests are to be performed, you do not need to specify this parameter.
+        # *   If a next request is to be performed, set the parameter to the value of NextToken that is returned from the last call.
         self.next_token = next_token  # type: str
+        # The region ID of the endpoint service.
+        # 
+        # You can call the [DescribeRegions](~~120468~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
+        # The service resource ID.
         self.resource_id = resource_id  # type: str
+        # The service state of the endpoint service. Valid values:
+        # 
+        # *   **Normal**: The endpoint service runs as expected.
+        # *   **FinancialLocked**: The endpoint service is locked due to overdue payments.
         self.service_business_status = service_business_status  # type: str
+        # The endpoint service ID.
         self.service_id = service_id  # type: str
+        # The name of the endpoint service.
         self.service_name = service_name  # type: str
+        # The type of the service resource. Valid values:
+        # 
+        # *   **slb**: a Classic Load Balancer (CLB) instance
+        # *   **alb**: an Application Load Balancer (ALB) instance
         self.service_resource_type = service_resource_type  # type: str
+        # The state of the endpoint service. Valid values:
+        # 
+        # *   **Creating**: The endpoint service is being created.
+        # *   **Pending**: The endpoint service is being modified.
+        # *   **Active**: The endpoint service is available.
+        # *   **Deleting**: The endpoint service is being deleted
         self.service_status = service_status  # type: str
+        # The list of tags.
         self.tag = tag  # type: list[ListVpcEndpointServicesRequestTag]
+        # Specifies whether to first resolve the domain name of the nearest endpoint that is associated with the endpoint service. Valid values:
+        # 
+        # *   **true** (default)
+        # *   **false**\
         self.zone_affinity_enabled = zone_affinity_enabled  # type: bool
 
     def validate(self):
@@ -4549,7 +4548,9 @@ class ListVpcEndpointServicesRequest(TeaModel):
 
 class ListVpcEndpointServicesResponseBodyServicesTags(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag added to the resource.
         self.key = key  # type: str
+        # The value of the tag added to the resource.
         self.value = value  # type: str
 
     def validate(self):
@@ -4581,24 +4582,69 @@ class ListVpcEndpointServicesResponseBodyServices(TeaModel):
                  min_bandwidth=None, payer=None, region_id=None, resource_group_id=None, service_business_status=None,
                  service_description=None, service_domain=None, service_id=None, service_name=None, service_resource_type=None,
                  service_status=None, service_support_ipv_6=None, service_type=None, tags=None, zone_affinity_enabled=None):
+        # Indicates whether endpoint connection requests are automatically accepted. Valid values:
+        # 
+        # *   **true**: Endpoint connection requests are automatically accepted.
+        # *   **false**: Endpoint connection requests are not automatically accepted.
         self.auto_accept_enabled = auto_accept_enabled  # type: bool
+        # The default maximum bandwidth of the endpoint connection. Unit: Mbit/s.
         self.connect_bandwidth = connect_bandwidth  # type: int
+        # The time when the endpoint service was created. The time follows the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time is displayed in UTC.
         self.create_time = create_time  # type: str
+        # The maximum bandwidth of the endpoint connection. Unit: Mbit/s.
         self.max_bandwidth = max_bandwidth  # type: int
+        # The minimum bandwidth of the endpoint connection. Unit: Mbit/s.
         self.min_bandwidth = min_bandwidth  # type: int
+        # The payer. Valid values:
+        # 
+        # *   **Endpoint**: service consumer
+        # *   **EndpointService**: service provider
         self.payer = payer  # type: str
+        # The region ID of the endpoint service.
         self.region_id = region_id  # type: str
+        # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
+        # The service state of the endpoint service. Valid values:
+        # 
+        # *   **Normal**: The endpoint service runs as expected.
+        # *   **FinancialLocked**: The endpoint service is locked due to overdue payments.
         self.service_business_status = service_business_status  # type: str
+        # The description of the endpoint service.
         self.service_description = service_description  # type: str
+        # The domain name of the endpoint service.
         self.service_domain = service_domain  # type: str
+        # The ID of the endpoint service.
         self.service_id = service_id  # type: str
+        # The name of the endpoint service.
         self.service_name = service_name  # type: str
+        # The type of the service resource. Valid values:
+        # 
+        # *   **slb**: Classic Load Balancer (CLB) instance
+        # *   **alb**: Application Load Balancer (ALB) instance
+        # *   **nlb**: Network Load Balancer (NLB) instance
         self.service_resource_type = service_resource_type  # type: str
+        # The state of the endpoint service. Valid values:
+        # 
+        # *   **Creating**: The endpoint service is being created.
+        # *   **Pending**: The endpoint service is being modified.
+        # *   **Active**: The endpoint service is available.
+        # *   **Deleting**: The endpoint service is being deleted.
         self.service_status = service_status  # type: str
+        # Indicates whether the endpoint service supports IPv6. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.service_support_ipv_6 = service_support_ipv_6  # type: bool
+        # The type of the endpoint service.
+        # 
+        # *   Only **Interface** may be returned. You can specify CLB, ALB, and NLB instances as the service resources of the endpoint service.
         self.service_type = service_type  # type: str
+        # The tags added to the resource.
         self.tags = tags  # type: list[ListVpcEndpointServicesResponseBodyServicesTags]
+        # Indicates whether zone affinity is enabled. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.zone_affinity_enabled = zone_affinity_enabled  # type: bool
 
     def validate(self):
@@ -4703,9 +4749,16 @@ class ListVpcEndpointServicesResponseBodyServices(TeaModel):
 
 class ListVpcEndpointServicesResponseBody(TeaModel):
     def __init__(self, max_results=None, next_token=None, request_id=None, services=None, total_count=None):
+        # The number of entries returned per page.
         self.max_results = max_results  # type: int
+        # The returned value of NextToken is a pagination token, which can be used in the next request to retrieve a new page of results. Valid values:
+        # 
+        # *   If no value is returned for **NextToken**, no next requests are performed.
+        # *   If a value is returned for **NextToken**, the value can be used in the next request to retrieve a new page of results.
         self.next_token = next_token  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The endpoint services.
         self.services = services  # type: list[ListVpcEndpointServicesResponseBodyServices]
         self.total_count = total_count  # type: int
 
@@ -4760,9 +4813,6 @@ class ListVpcEndpointServicesResponse(TeaModel):
         self.body = body  # type: ListVpcEndpointServicesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4794,7 +4844,13 @@ class ListVpcEndpointServicesResponse(TeaModel):
 
 class ListVpcEndpointServicesByEndUserRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag. You can specify up to 20 tag keys. The tag key cannot be an empty string.
+        # 
+        # The tag key must be 1 to 64 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.
         self.key = key  # type: str
+        # The value of the tag. You can specify up to 20 tag values. The tag value can be an empty string.
+        # 
+        # The tag value can be up to 128 characters in length and cannot start with `acs:` or `aliyun`. It cannot contain `http://` or `https://`.
         self.value = value  # type: str
 
     def validate(self):
@@ -4824,13 +4880,28 @@ class ListVpcEndpointServicesByEndUserRequestTag(TeaModel):
 class ListVpcEndpointServicesByEndUserRequest(TeaModel):
     def __init__(self, max_results=None, next_token=None, region_id=None, resource_group_id=None, service_id=None,
                  service_name=None, service_type=None, tag=None):
+        # The number of entries to return on each page. Valid values: **1** to **50**. Default value: **50**.
         self.max_results = max_results  # type: int
+        # The pagination token that is used in the next request to retrieve a new page of results. Valid values:
+        # 
+        # *   If this is your first request and no next requests are to be performed, you do not need to specify this parameter.
+        # *   If a next request is to be performed, set the value to the value of **NextToken** that is returned from the last call.
         self.next_token = next_token  # type: str
+        # The region ID of the endpoint.
+        # 
+        # You can call the [DescribeRegions](~~DescribeRegions~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
+        # The ID of the endpoint service that you want to query.
         self.service_id = service_id  # type: str
+        # The name of the endpoint service that you want to query.
         self.service_name = service_name  # type: str
+        # The type of the endpoint service.
+        # 
+        # Set the value to **Interface**. You can specify CLB and ALB instances as service resources for the endpoint service.
         self.service_type = service_type  # type: str
+        # The list of tags.
         self.tag = tag  # type: list[ListVpcEndpointServicesByEndUserRequestTag]
 
     def validate(self):
@@ -4891,7 +4962,9 @@ class ListVpcEndpointServicesByEndUserRequest(TeaModel):
 
 class ListVpcEndpointServicesByEndUserResponseBodyServicesTags(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag.
         self.key = key  # type: str
+        # The value of the tag.
         self.value = value  # type: str
 
     def validate(self):
@@ -4921,15 +4994,32 @@ class ListVpcEndpointServicesByEndUserResponseBodyServicesTags(TeaModel):
 class ListVpcEndpointServicesByEndUserResponseBodyServices(TeaModel):
     def __init__(self, payer=None, resource_group_id=None, service_domain=None, service_id=None, service_name=None,
                  service_resource_type=None, service_support_ipv_6=None, service_type=None, tags=None, zones=None):
+        # The payer. Valid values:
+        # 
+        # *   **Endpoint**: the service consumer
+        # *   **EndpointService**: the service provider
         self.payer = payer  # type: str
+        # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
+        # The domain name of the endpoint service that can be associated with the endpoint.
         self.service_domain = service_domain  # type: str
+        # The ID of the endpoint service that can be associated with the endpoint.
         self.service_id = service_id  # type: str
+        # The name of the endpoint service that can be associated with the endpoint.
         self.service_name = service_name  # type: str
         self.service_resource_type = service_resource_type  # type: str
+        # Indicates whether IPv6 is enabled. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.service_support_ipv_6 = service_support_ipv_6  # type: bool
+        # The type of the endpoint service.
+        # 
+        # Only **Interface** is returned, which indicates an interface endpoint. You can specify **CLB** and **ALB** instances as service resources.
         self.service_type = service_type  # type: str
+        # The list of tags.
         self.tags = tags  # type: list[ListVpcEndpointServicesByEndUserResponseBodyServicesTags]
+        # The zones of the endpoint service that can be associated with the endpoint.
         self.zones = zones  # type: list[str]
 
     def validate(self):
@@ -4998,10 +5088,18 @@ class ListVpcEndpointServicesByEndUserResponseBodyServices(TeaModel):
 
 class ListVpcEndpointServicesByEndUserResponseBody(TeaModel):
     def __init__(self, max_results=None, next_token=None, request_id=None, services=None, total_count=None):
+        # The number of entries returned per page.
         self.max_results = max_results  # type: int
+        # The returned value of NextToken is a pagination token, which can be used in the next request to retrieve a new page of results. Valid values:
+        # 
+        # *   If no value is returned for **NextToken**, no next requests are performed.
+        # *   If a value is returned for **NextToken**, the value can be used in the next request to retrieve a new page of results.
         self.next_token = next_token  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The endpoint services.
         self.services = services  # type: list[ListVpcEndpointServicesByEndUserResponseBodyServices]
+        # The total number of entries returned.
         self.total_count = total_count  # type: str
 
     def validate(self):
@@ -5055,9 +5153,6 @@ class ListVpcEndpointServicesByEndUserResponse(TeaModel):
         self.body = body  # type: ListVpcEndpointServicesByEndUserResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5140,7 +5235,7 @@ class ListVpcEndpointZonesRequest(TeaModel):
 class ListVpcEndpointZonesResponseBodyZones(TeaModel):
     def __init__(self, eni_id=None, eni_ip=None, region_id=None, v_switch_id=None, zone_domain=None, zone_id=None,
                  zone_ipv_6address=None, zone_status=None):
-        # The endpoint ENI ID.
+        # The ID of the endpoint ENI.
         self.eni_id = eni_id  # type: str
         # The IP address of the endpoint ENI.
         self.eni_ip = eni_ip  # type: str
@@ -5150,11 +5245,11 @@ class ListVpcEndpointZonesResponseBodyZones(TeaModel):
         self.v_switch_id = v_switch_id  # type: str
         # The domain name of the zone.
         # 
-        # After the endpoint is connected to the endpoint service, you can access the service resources in the endpoint service by using the domain name of the zone.
+        # After the endpoint in the zone is connected to the endpoint service, you can access the service resources of the endpoint service by using the domain name of the zone.
         self.zone_domain = zone_domain  # type: str
         # The zone ID.
         self.zone_id = zone_id  # type: str
-        # Indicates whether IPv6 is enabled for the endpoint service. Valid values:
+        # Indicates whether the endpoint service supports IPv6. Valid values:
         # 
         # *   **true**\
         # *   **false** (default)
@@ -5229,7 +5324,7 @@ class ListVpcEndpointZonesResponseBody(TeaModel):
         self.next_token = next_token  # type: str
         # The request ID.
         self.request_id = request_id  # type: str
-        # The zones.
+        # The information about the zones.
         self.zones = zones  # type: list[ListVpcEndpointZonesResponseBodyZones]
 
     def validate(self):
@@ -5279,9 +5374,6 @@ class ListVpcEndpointZonesResponse(TeaModel):
         self.body = body  # type: ListVpcEndpointZonesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5313,7 +5405,13 @@ class ListVpcEndpointZonesResponse(TeaModel):
 
 class ListVpcEndpointsRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag. You can specify up to 20 tag keys. The tag key cannot be an empty string.
+        # 
+        # The tag key must be 1 to 64 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.
         self.key = key  # type: str
+        # The value of the tag. You can specify up to 20 tag values. The tag value can be an empty string.
+        # 
+        # The tag value can be up to 128 characters in length and cannot start with `acs:` or `aliyun`. It cannot contain `http://` or `https://`.
         self.value = value  # type: str
 
     def validate(self):
@@ -5344,17 +5442,49 @@ class ListVpcEndpointsRequest(TeaModel):
     def __init__(self, connection_status=None, endpoint_id=None, endpoint_name=None, endpoint_status=None,
                  endpoint_type=None, max_results=None, next_token=None, region_id=None, resource_group_id=None, service_name=None,
                  tag=None, vpc_id=None):
+        # The state of the endpoint connection. Valid values:
+        # 
+        # *   **Pending**: The endpoint connection is being modified.
+        # *   **Connecting**: The endpoint connection is being established.
+        # *   **Connected**: The endpoint connection is established.
+        # *   **Disconnecting**: The endpoint is being disconnected from the endpoint service.
+        # *   **Disconnected**: The endpoint is disconnected from the endpoint service.
+        # *   **Deleting**: The connection is being deleted.
+        # *   **ServiceDeleted**: The corresponding endpoint service has been deleted.
         self.connection_status = connection_status  # type: str
+        # The ID of the endpoint.
         self.endpoint_id = endpoint_id  # type: str
+        # The name of the endpoint.
         self.endpoint_name = endpoint_name  # type: str
+        # The state of the endpoint. Valid values:
+        # 
+        # *   **Creating**: The endpoint is being created.
+        # *   **Active**: The endpoint is available.
+        # *   **Pending**: The endpoint is being modified.
+        # *   **Deleting**: The endpoint is being deleted.
         self.endpoint_status = endpoint_status  # type: str
+        # The type of the endpoint.
+        # 
+        # Set the value to **Interface**. Then, you can specify Application Load Balancer (ALB) and Classic Load Balancer (CLB) instances as service resources for the endpoint service.
         self.endpoint_type = endpoint_type  # type: str
+        # The number of entries returned on each page.
         self.max_results = max_results  # type: int
+        # The pagination token that is used in the next request to retrieve a new page of results. Valid values:
+        # 
+        # *   If this is your first request and no next requests are to be performed, you do not need to specify this parameter.
+        # *   If a next request is to be performed, set the parameter to the value of **NextToken** that is returned from the last call.
         self.next_token = next_token  # type: str
+        # The region ID of the endpoint.
+        # 
+        # You can call the [DescribeRegions](~~120468~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
+        # The name of the endpoint service with which the endpoint is associated.
         self.service_name = service_name  # type: str
+        # The list of tags.
         self.tag = tag  # type: list[ListVpcEndpointsRequestTag]
+        # The ID of the VPC to which the endpoint belongs.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -5431,7 +5561,9 @@ class ListVpcEndpointsRequest(TeaModel):
 
 class ListVpcEndpointsResponseBodyEndpointsTags(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag added to the resource.
         self.key = key  # type: str
+        # The value of the tag added to the resource.
         self.value = value  # type: str
 
     def validate(self):
@@ -5463,23 +5595,65 @@ class ListVpcEndpointsResponseBodyEndpoints(TeaModel):
                  endpoint_description=None, endpoint_domain=None, endpoint_id=None, endpoint_name=None, endpoint_status=None,
                  endpoint_type=None, region_id=None, resource_group_id=None, resource_owner=None, service_id=None,
                  service_name=None, tags=None, vpc_id=None, zone_affinity_enabled=None):
+        # The bandwidth of the endpoint connection. Unit: Mbit/s.
         self.bandwidth = bandwidth  # type: long
+        # The state of the endpoint connection. Valid values:
+        # 
+        # *   **Pending**: The endpoint connection is being modified.
+        # *   **Connecting**: The endpoint connection is being established.
+        # *   **Connected**: The endpoint connection is established.
+        # *   **Disconnecting**: The endpoint is being disconnected from the endpoint service.
+        # *   **Disconnected**: The endpoint is disconnected from the endpoint service.
+        # *   **Deleting**: The endpoint connection is being deleted.
+        # *   **ServiceDeleted**: The corresponding service is deleted.
         self.connection_status = connection_status  # type: str
+        # The time when the endpoint was created.
         self.create_time = create_time  # type: str
+        # The service state of the endpoint. Valid values:
+        # 
+        # *   **Normal**: The endpoint runs as expected.
+        # *   **FinancialLocked**: The endpoint is locked due to overdue payments.
         self.endpoint_business_status = endpoint_business_status  # type: str
+        # The description of the endpoint.
         self.endpoint_description = endpoint_description  # type: str
+        # The domain name of the endpoint.
         self.endpoint_domain = endpoint_domain  # type: str
+        # The ID of the endpoint.
         self.endpoint_id = endpoint_id  # type: str
+        # The name of the endpoint.
         self.endpoint_name = endpoint_name  # type: str
+        # The state of the endpoint. Valid values:
+        # 
+        # *   **Creating**: The endpoint is being created.
+        # *   **Active**: The endpoint is available.
+        # *   **Pending**: The endpoint is being modified.
+        # *   **Deleting**: The endpoint is being deleted.
         self.endpoint_status = endpoint_status  # type: str
+        # The type of the endpoint.
+        # 
+        # Only **Interface** may be returned, which indicates an interface endpoint. You can specify Application Load Balancer (ALB) instances, Classic Load Balancer (CLB) instances, and Network Load Balancer (NLB) instances as service resources.
         self.endpoint_type = endpoint_type  # type: str
+        # The region ID of the endpoint.
         self.region_id = region_id  # type: str
+        # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
+        # Indicates whether the endpoint and the endpoint service belong to the same Alibaba Cloud account. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.resource_owner = resource_owner  # type: bool
+        # The ID of the endpoint service that is associated with the endpoint.
         self.service_id = service_id  # type: str
+        # The name of the endpoint service that is associated with the endpoint.
         self.service_name = service_name  # type: str
+        # The tags added to the resource.
         self.tags = tags  # type: list[ListVpcEndpointsResponseBodyEndpointsTags]
+        # The ID of the virtual private cloud (VPC) to which the endpoint belongs.
         self.vpc_id = vpc_id  # type: str
+        # Indicates whether the domain name of the nearest endpoint that is associated with the endpoint service is resolved first. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.zone_affinity_enabled = zone_affinity_enabled  # type: bool
 
     def validate(self):
@@ -5580,10 +5754,18 @@ class ListVpcEndpointsResponseBodyEndpoints(TeaModel):
 
 class ListVpcEndpointsResponseBody(TeaModel):
     def __init__(self, endpoints=None, max_results=None, next_token=None, request_id=None, total_count=None):
+        # The information about the endpoints.
         self.endpoints = endpoints  # type: list[ListVpcEndpointsResponseBodyEndpoints]
+        # The number of entries returned on each page.
         self.max_results = max_results  # type: int
+        # The pagination token that is used in the next request to retrieve a new page of results. Valid values:
+        # 
+        # *   If this is your first request and no next requests are to be performed, you do not need to specify this parameter.
+        # *   If a next request is to be performed, set the parameter to the value of **NextToken** that is returned from the last call.
         self.next_token = next_token  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -5637,9 +5819,6 @@ class ListVpcEndpointsResponse(TeaModel):
         self.body = body  # type: ListVpcEndpointsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5731,9 +5910,6 @@ class OpenPrivateLinkServiceResponse(TeaModel):
         self.body = body  # type: OpenPrivateLinkServiceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5853,9 +6029,6 @@ class RemoveUserFromVpcEndpointServiceResponse(TeaModel):
         self.body = body  # type: RemoveUserFromVpcEndpointServiceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5971,9 +6144,6 @@ class RemoveZoneFromVpcEndpointResponse(TeaModel):
         self.body = body  # type: RemoveZoneFromVpcEndpointResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6005,13 +6175,13 @@ class RemoveZoneFromVpcEndpointResponse(TeaModel):
 
 class TagResourcesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # The key of the tag. You can specify up to 20 tag keys. The tag key cannot be an empty string.
+        # The key of tag N to add to the resource. You can specify up to 20 tag keys. The tag key cannot be an empty string.
         # 
-        # The tag key must be 1 to 64 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.
+        # The tag key can be up to 64 characters in length and cannot contain `http://` or `https://`. The tag key cannot start with `aliyun` or `acs:`.
         self.key = key  # type: str
-        # The value of the tag. You can specify up to 20 tag values. The tag value can be an empty string.
+        # The value of tag N to add to the resource. You can specify up to 20 tag values. The tag value can be an empty string.
         # 
-        # The tag value must be 1 to 128 characters in length and cannot start with `acs:` or `aliyun`. It cannot contain `http://` or `https://`.
+        # The tag value can be up to 128 characters in length and cannot contain `http://` or `https://`. The tag value cannot start with `acs:` or `aliyun`.
         self.value = value  # type: str
 
     def validate(self):
@@ -6045,7 +6215,7 @@ class TagResourcesRequest(TeaModel):
         # 
         # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.
         # 
-        # > If you do not set this parameter, **ClientToken** is set to the value of **RequestId**. The value of **RequestId** may be different for each API request.
+        # >  If you do not specify this parameter, the system automatically uses the request ID as the client token.******** The request ID may be different for each request.
         self.client_token = client_token  # type: str
         # Specifies whether to perform only a dry run, without performing the actual request. Valid values:
         # 
@@ -6056,11 +6226,14 @@ class TagResourcesRequest(TeaModel):
         # 
         # You can call the [DescribeRegions](~~120468~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
-        # The resource IDs. You can specify up to 20 resource IDs.
+        # The resource IDs. Up to 50 resource IDs are supported.
         self.resource_id = resource_id  # type: list[str]
-        # The type of the resource.
+        # The type of resource. Valid values:
+        # 
+        # *   **vpcendpoint**: endpoint
+        # *   **vpcendpointservice**: endpoint service
         self.resource_type = resource_type  # type: str
-        # The tags that you want to add to the resource.
+        # The tags to add to the resources.
         self.tag = tag  # type: list[TagResourcesRequestTag]
 
     def validate(self):
@@ -6143,9 +6316,6 @@ class TagResourcesResponse(TeaModel):
         self.body = body  # type: TagResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6178,12 +6348,36 @@ class TagResourcesResponse(TeaModel):
 class UntagResourcesRequest(TeaModel):
     def __init__(self, all=None, client_token=None, dry_run=None, region_id=None, resource_id=None,
                  resource_type=None, tag_key=None):
+        # Specifies whether to remove all tags from the resource. Valid values:
+        # 
+        # *   **true**: removes all tags from the resource.
+        # *   **false**: does not remove all tags from the resource.
+        # 
+        # >  If you specify both this parameter and **TagKey**, this parameter is invalid.
         self.all = all  # type: bool
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.
+        # 
+        # >  If you do not specify this parameter, the system automatically uses the request ID as the client token.******** The request ID may be different for each request.
         self.client_token = client_token  # type: str
+        # Specifies whether to perform only a dry run, without performing the actual request. Valid values:
+        # 
+        # *   **true**: performs only a dry run. The system checks the request for potential issues, including missing parameter values, incorrect request syntax, and service limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.
+        # *   **false** (default): performs a dry run and performs the actual request. If the request passes the dry run, a `2xx HTTP` status code is returned and the operation is performed.
         self.dry_run = dry_run  # type: bool
+        # The region ID of the PrivateLink instance.
+        # 
+        # You can call the [DescribeRegions](~~120468~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        # The resource IDs. You can specify up to 50 resource IDs.
         self.resource_id = resource_id  # type: list[str]
+        # The resource type. Valid values:
+        # 
+        # *   **vpcendpoint**: endpoint
+        # *   **vpcendpointservice**: endpoint service
         self.resource_type = resource_type  # type: str
+        # The keys of the tags that you want to remove from the resource. You can specify up to 20 tag keys.
         self.tag_key = tag_key  # type: list[str]
 
     def validate(self):
@@ -6232,6 +6426,7 @@ class UntagResourcesRequest(TeaModel):
 
 class UntagResourcesResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -6261,9 +6456,6 @@ class UntagResourcesResponse(TeaModel):
         self.body = body  # type: UntagResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6390,9 +6582,6 @@ class UpdateVpcEndpointAttributeResponse(TeaModel):
         self.body = body  # type: UpdateVpcEndpointAttributeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6425,7 +6614,9 @@ class UpdateVpcEndpointAttributeResponse(TeaModel):
 class UpdateVpcEndpointConnectionAttributeRequest(TeaModel):
     def __init__(self, bandwidth=None, client_token=None, dry_run=None, endpoint_id=None, region_id=None,
                  service_id=None):
-        # The bandwidth of the endpoint connection that you want to modify. Unit: Mbit/s.
+        # The bandwidth of the endpoint connection that you want to modify. Unit: Mbit/s. Valid values: **3072** to **10240**.
+        # 
+        # >  The bandwidth of an endpoint connection is in the range of **100** to **10,240** Mbit/s. The default bandwidth is **3,072** Mbit/s. When the endpoint is connected to the endpoint service, the default bandwidth is the minimum bandwidth. In this case, the connection bandwidth range is **3,072** to **10,240** Mbit/s. If Classic Load Balancer (CLB) instances or Application Load Balancer (ALB) instances are specified as service resources, you can modify the endpoint connection bandwidth based on your business requirements. This parameter is invalid if Network Load Balancer (NLB) instances are specified as service resources.
         self.bandwidth = bandwidth  # type: int
         # The client token that is used to ensure the idempotence of the request.
         # 
@@ -6515,9 +6706,6 @@ class UpdateVpcEndpointConnectionAttributeResponse(TeaModel):
         self.body = body  # type: UpdateVpcEndpointConnectionAttributeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6560,7 +6748,11 @@ class UpdateVpcEndpointServiceAttributeRequest(TeaModel):
         # 
         # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.
         self.client_token = client_token  # type: str
-        # The default bandwidth of the endpoint connection. Valid values: **100** to **10240**. Unit: Mbit/s.
+        # The default maximum bandwidth of the endpoint connection. Unit: Mbit/s. Default value: **3072**.
+        # 
+        # Valid values: **100** to **10240**.
+        # 
+        # >  You can specify this parameter only if you specify Classic Load Balancer (CLB) instances or Application Load Balancer (ALB) instances as service resources.
         self.connect_bandwidth = connect_bandwidth  # type: int
         # Specifies whether to perform only a dry run, without performing the actual request. Valid values:
         # 
@@ -6580,10 +6772,10 @@ class UpdateVpcEndpointServiceAttributeRequest(TeaModel):
         # *   **true**\
         # *   **false** (default)
         self.service_support_ipv_6 = service_support_ipv_6  # type: bool
-        # Specifies whether to enable zone affinity. Valid values:
+        # Specifies whether to first resolve the domain name of the nearest endpoint that is associated with the endpoint service. Valid values:
         # 
-        # *   **true**\
-        # *   **false** (default)
+        # *   **true** (default)
+        # *   **false**\
         self.zone_affinity_enabled = zone_affinity_enabled  # type: bool
 
     def validate(self):
@@ -6670,9 +6862,6 @@ class UpdateVpcEndpointServiceAttributeResponse(TeaModel):
         self.body = body  # type: UpdateVpcEndpointServiceAttributeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6806,9 +6995,6 @@ class UpdateVpcEndpointServiceResourceAttributeResponse(TeaModel):
         self.body = body  # type: UpdateVpcEndpointServiceResourceAttributeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6859,8 +7045,8 @@ class UpdateVpcEndpointZoneConnectionResourceAttributeRequest(TeaModel):
         self.region_id = region_id  # type: str
         # The resource allocation mode. You can change the resource allocation mode only if the endpoint connection is in the **Disconnected** state. Valid values:
         # 
-        # *   **Auto**: automatically and randomly allocates the service resource. In this mode, the service resource is deleted.
-        # *   **Mannual**: manually allocates the service resource. If you set the value to Mannual, you must also specify the **ResourceId** and **ResourceType** parameters.
+        # *   **Auto**: automatically and randomly allocates service resources. In this mode, the specified service resource is deleted.
+        # *   **Manual**: manually allocates service resources. If you set the value to Manual, you must also specify the **ResourceId** and **ResourceType** parameters.
         self.resource_allocate_mode = resource_allocate_mode  # type: str
         # The ID of the service resource that you want to manually allocate or migrate in the zone where the endpoint connection is deployed.
         # 
@@ -6868,10 +7054,10 @@ class UpdateVpcEndpointZoneConnectionResourceAttributeRequest(TeaModel):
         self.resource_id = resource_id  # type: str
         # The migration mode of the service resource. Valid values:
         # 
-        # *   **Graceful**: smoothly migrates the service resource in the zone.
-        # *   **Force**: forcefully migrates the service resource in the zone.
+        # *   **Graceful**: smooth migration. Service resources in the zone are smoothly migrated.
+        # *   **Force**: forced migration. Service resources in the zone are forcefully migrated.
         # 
-        # > If you want to migrate the service resource, you need to set this parameter. This parameter is available only if the endpoint connection is in the **Connected** state. If you set this parameter, you must also specify the **ResourceId** and **ResourceType** parameters.
+        # >  You need to specify this parameter only if you want to migrate service resources and the endpoint connection is in the **Connected** state. If you specify this parameter, you must also specify the **ResourceId** and **ResourceType** parameters.
         self.resource_replace_mode = resource_replace_mode  # type: str
         # The type of the service resource. Valid values:
         # 
@@ -6973,9 +7159,6 @@ class UpdateVpcEndpointZoneConnectionResourceAttributeResponse(TeaModel):
         self.body = body  # type: UpdateVpcEndpointZoneConnectionResourceAttributeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
