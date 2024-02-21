@@ -493,6 +493,8 @@ class Client(OpenApiClient):
     def create_dbinstance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.auto_renew):
+            query['AutoRenew'] = request.auto_renew
         if not UtilClient.is_unset(request.backup_set_id):
             query['BackupSetID'] = request.backup_set_id
         if not UtilClient.is_unset(request.client_token):

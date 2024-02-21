@@ -1328,12 +1328,13 @@ class CreateBackupPolicyResponse(TeaModel):
 
 
 class CreateDBInstanceRequest(TeaModel):
-    def __init__(self, backup_set_id=None, client_token=None, dbcluster_category=None, dbcluster_class=None,
-                 dbcluster_description=None, dbcluster_network_type=None, dbcluster_version=None, dbnode_group_count=None,
-                 dbnode_storage=None, db_node_storage_type=None, encryption_key=None, encryption_type=None, owner_account=None,
-                 owner_id=None, pay_type=None, period=None, region_id=None, resource_group_id=None,
+    def __init__(self, auto_renew=None, backup_set_id=None, client_token=None, dbcluster_category=None,
+                 dbcluster_class=None, dbcluster_description=None, dbcluster_network_type=None, dbcluster_version=None,
+                 dbnode_group_count=None, dbnode_storage=None, db_node_storage_type=None, encryption_key=None, encryption_type=None,
+                 owner_account=None, owner_id=None, pay_type=None, period=None, region_id=None, resource_group_id=None,
                  resource_owner_account=None, resource_owner_id=None, source_dbcluster_id=None, used_time=None, vpcid=None,
                  v_switch_bak=None, v_switch_bak_2=None, v_switch_id=None, zond_id_bak_2=None, zone_id=None, zone_id_bak=None):
+        self.auto_renew = auto_renew  # type: bool
         # The ID of the backup set. You can call the [DescribeBackups](~~360339~~) operation to query the backup sets.
         # 
         # >  If you want to restore the data of an ApsaraDB for ClickHouse cluster, this parameter is required.
@@ -1443,6 +1444,8 @@ class CreateDBInstanceRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.auto_renew is not None:
+            result['AutoRenew'] = self.auto_renew
         if self.backup_set_id is not None:
             result['BackupSetID'] = self.backup_set_id
         if self.client_token is not None:
@@ -1505,6 +1508,8 @@ class CreateDBInstanceRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AutoRenew') is not None:
+            self.auto_renew = m.get('AutoRenew')
         if m.get('BackupSetID') is not None:
             self.backup_set_id = m.get('BackupSetID')
         if m.get('ClientToken') is not None:
@@ -5304,10 +5309,10 @@ class DescribeDBClusterAttributeResponseBodyDBCluster(TeaModel):
         # *   **1**: Data backup is supported.
         # *   **2**: Data backup is not supported.
         self.support_backup = support_backup  # type: int
-        # Indicates whether the cluster supports an HTTP port. Valid values:
+        # Indicates whether HTTPS ports are supported. Valid values:
         # 
-        # *   **true**: An HTTP port is supported.
-        # *   **false**: An HTTP port is not supported.
+        # *   **true**\
+        # *   **false**\
         self.support_https_port = support_https_port  # type: bool
         # Indicates whether the cluster supports a MySQL port. Valid values:
         # 
@@ -5331,6 +5336,7 @@ class DescribeDBClusterAttributeResponseBodyDBCluster(TeaModel):
         self.vpc_ip_addr = vpc_ip_addr  # type: str
         # The zone ID.
         self.zone_id = zone_id  # type: str
+        # The list of vSwitch IDs in multi-zone clusters.
         self.zone_id_vswitch_map = zone_id_vswitch_map  # type: dict[str, any]
         # The ZooKeeper specifications.
         self.zookeeper_class = zookeeper_class  # type: str
@@ -7308,7 +7314,12 @@ class DescribeProcessListRequest(TeaModel):
         self.initial_user = initial_user  # type: str
         # The keyword that is used to query.
         self.keyword = keyword  # type: str
-        # The column by which the query results are sorted.
+        # Sorting by the specified column name. Valid values:
+        # 
+        # *   elapsed: the cumulative execution time
+        # *   written_rows: the number of written rows
+        # *   read_rows: the number of read rows
+        # *   memory_usage: the memory usage
         self.order = order  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -8743,8 +8754,8 @@ class DescribeSynDbsRequest(TeaModel):
 class DescribeSynDbsResponseBodySynDbs(TeaModel):
     def __init__(self, error_msg=None, rds_id=None, rds_user_name=None, rds_vpc_url=None, syn_db=None,
                  syn_status=None):
-        # *   If the value **true** is returned for the **SynStatus** parameter, this parameter is not returned.
-        # *   If the value **false** is returned for the **SynStatus** parameter, the system returns the ErrorMsg parameter that provides the cause why the data synchronization failed.
+        # *   When the value **true** is returned for the **SynStatus** parameter, the system does not return the ErrorMsg parameter.
+        # *   When the value **false** is returned for the **SynStatus** parameter, the system returns for the ErrorMsg parameter the cause why the data synchronization failed.
         self.error_msg = error_msg  # type: str
         # The ID of the ApsaraDB RDS for MySQL instance.
         self.rds_id = rds_id  # type: str
@@ -10267,7 +10278,7 @@ class ModifyDBClusterConfigInXMLRequest(TeaModel):
     def __init__(self, config=None, dbcluster_id=None, reason=None, region_id=None):
         # The configuration parameters whose settings you want to modify. You can call the [DescribeDBClusterConfigInXML](~~452210~~) operation to query configuration parameters, and modify the settings of the returned configuration parameters.
         # 
-        # >  You must specify all configuration parameters even when you want to modify the setting of a single parameter. If a configuration parameter is not specified, the original value of this parameter is retained or the modification fails.
+        # > You must specify all configuration parameters even when you want to modify the setting of a single parameter. If a configuration parameter is not specified, the original value of this parameter is retained or the modification fails.
         self.config = config  # type: str
         # The cluster ID. You can call the [DescribeDBClusters](~~170879~~) operation to query information about all the clusters that are deployed in a specific region. The information includes the cluster IDs.
         self.dbcluster_id = dbcluster_id  # type: str
