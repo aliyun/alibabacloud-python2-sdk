@@ -287,6 +287,52 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.batch_delete_cdn_domain_config_with_options(request, runtime)
 
+    def batch_describe_cdn_ip_info_with_options(self, request, runtime):
+        """
+        >The maximum number of times that each user can call this operation per second is 20.
+        
+
+        @param request: BatchDescribeCdnIpInfoRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: BatchDescribeCdnIpInfoResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.ip_addr_list):
+            query['IpAddrList'] = request.ip_addr_list
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='BatchDescribeCdnIpInfo',
+            version='2018-05-10',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cdn_20180510_models.BatchDescribeCdnIpInfoResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def batch_describe_cdn_ip_info(self, request):
+        """
+        >The maximum number of times that each user can call this operation per second is 20.
+        
+
+        @param request: BatchDescribeCdnIpInfoRequest
+
+        @return: BatchDescribeCdnIpInfoResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.batch_describe_cdn_ip_info_with_options(request, runtime)
+
     def batch_set_cdn_domain_config_with_options(self, request, runtime):
         """
         You can call this operation up to 30 times per second per account.
@@ -1788,6 +1834,42 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.describe_cdn_deliver_list_with_options(request, runtime)
+
+    def describe_cdn_domain_atoa_logs_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeCdnDomainAtoaLogs',
+            version='2018-05-10',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cdn_20180510_models.DescribeCdnDomainAtoaLogsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_cdn_domain_atoa_logs(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_cdn_domain_atoa_logs_with_options(request, runtime)
 
     def describe_cdn_domain_by_certificate_with_options(self, request, runtime):
         """
@@ -5790,6 +5872,54 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.describe_domain_uv_data_with_options(request, runtime)
+
+    def describe_domain_verify_data_with_options(self, request, runtime):
+        """
+        You can call this operation to query the verification content of an accelerated domain name based on whether the global resource plan is enabled.
+        
+
+        @param request: DescribeDomainVerifyDataRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDomainVerifyDataResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.global_resource_plan):
+            query['GlobalResourcePlan'] = request.global_resource_plan
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDomainVerifyData',
+            version='2018-05-10',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cdn_20180510_models.DescribeDomainVerifyDataResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_domain_verify_data(self, request):
+        """
+        You can call this operation to query the verification content of an accelerated domain name based on whether the global resource plan is enabled.
+        
+
+        @param request: DescribeDomainVerifyDataRequest
+
+        @return: DescribeDomainVerifyDataResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.describe_domain_verify_data_with_options(request, runtime)
 
     def describe_domains_by_source_with_options(self, request, runtime):
         """
