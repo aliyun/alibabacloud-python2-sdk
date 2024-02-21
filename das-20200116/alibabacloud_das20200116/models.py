@@ -409,9 +409,6 @@ class AddHDMInstanceResponse(TeaModel):
         self.body = body  # type: AddHDMInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -595,9 +592,6 @@ class CreateAdamBenchTaskResponse(TeaModel):
         self.body = body  # type: CreateAdamBenchTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -904,9 +898,6 @@ class CreateCacheAnalysisJobResponse(TeaModel):
         self.body = body  # type: CreateCacheAnalysisJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1247,9 +1238,6 @@ class CreateCloudBenchTasksResponse(TeaModel):
         self.body = body  # type: CreateCloudBenchTasksResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1379,9 +1367,6 @@ class CreateDiagnosticReportResponse(TeaModel):
         self.body = body  # type: CreateDiagnosticReportResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1547,9 +1532,6 @@ class CreateKillInstanceSessionTaskResponse(TeaModel):
         self.body = body  # type: CreateKillInstanceSessionTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1674,9 +1656,6 @@ class CreateKillInstanceSessionTaskWithMaintainUserResponse(TeaModel):
         self.body = body  # type: CreateKillInstanceSessionTaskWithMaintainUserResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1839,9 +1818,6 @@ class CreateQueryOptimizeTagResponse(TeaModel):
         self.body = body  # type: CreateQueryOptimizeTagResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1977,9 +1953,6 @@ class CreateRequestDiagnosisResponse(TeaModel):
         self.body = body  # type: CreateRequestDiagnosisResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2011,9 +1984,15 @@ class CreateRequestDiagnosisResponse(TeaModel):
 
 class CreateStorageAnalysisTaskRequest(TeaModel):
     def __init__(self, db_name=None, instance_id=None, node_id=None, table_name=None):
+        # The database name. If you specify a database, the operation analyzes the storage usage of the specified database.
         self.db_name = db_name  # type: str
+        # The instance ID.
         self.instance_id = instance_id  # type: str
+        # The node ID.
+        # 
+        # >  This parameter is reserved.
         self.node_id = node_id  # type: str
+        # The table name. If you specify a table in the specified database, the operation analyzes the storage usage of the specified table. If you specify a table, you must also specify the database to which the table belongs by using **DbName**.
         self.table_name = table_name  # type: str
 
     def validate(self):
@@ -2050,8 +2029,14 @@ class CreateStorageAnalysisTaskRequest(TeaModel):
 
 class CreateStorageAnalysisTaskResponseBodyData(TeaModel):
     def __init__(self, create_task_success=None, error_message=None, task_id=None):
+        # Indicates whether the task is created. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.create_task_success = create_task_success  # type: bool
+        # The error message returned.
         self.error_message = error_message  # type: str
+        # The task ID.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -2084,10 +2069,20 @@ class CreateStorageAnalysisTaskResponseBodyData(TeaModel):
 
 class CreateStorageAnalysisTaskResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: long
+        # The returned data.
         self.data = data  # type: CreateStorageAnalysisTaskResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request is successful, **Successful** is returned. Otherwise, an error message such as an error code is returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: bool
 
     def validate(self):
@@ -2135,9 +2130,6 @@ class CreateStorageAnalysisTaskResponse(TeaModel):
         self.body = body  # type: CreateStorageAnalysisTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2253,9 +2245,6 @@ class DeleteCloudBenchTaskResponse(TeaModel):
         self.body = body  # type: DeleteCloudBenchTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2377,9 +2366,6 @@ class DeleteStopGatewayResponse(TeaModel):
         self.body = body  # type: DeleteStopGatewayResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2910,9 +2896,6 @@ class DescribeAutoScalingConfigResponse(TeaModel):
         self.body = body  # type: DescribeAutoScalingConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3209,9 +3192,6 @@ class DescribeAutoScalingHistoryResponse(TeaModel):
         self.body = body  # type: DescribeAutoScalingHistoryResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3917,9 +3897,6 @@ class DescribeCacheAnalysisJobResponse(TeaModel):
         self.body = body  # type: DescribeCacheAnalysisJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4312,9 +4289,6 @@ class DescribeCacheAnalysisJobsResponse(TeaModel):
         self.body = body  # type: DescribeCacheAnalysisJobsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4922,9 +4896,6 @@ class DescribeCloudBenchTasksResponse(TeaModel):
         self.body = body  # type: DescribeCloudBenchTasksResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5407,9 +5378,6 @@ class DescribeCloudbenchTaskResponse(TeaModel):
         self.body = body  # type: DescribeCloudbenchTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5651,9 +5619,6 @@ class DescribeCloudbenchTaskConfigResponse(TeaModel):
         self.body = body  # type: DescribeCloudbenchTaskConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5807,9 +5772,6 @@ class DescribeDiagnosticReportListResponse(TeaModel):
         self.body = body  # type: DescribeDiagnosticReportListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6153,9 +6115,6 @@ class DescribeHotBigKeysResponse(TeaModel):
         self.body = body  # type: DescribeHotBigKeysResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6360,9 +6319,6 @@ class DescribeHotKeysResponse(TeaModel):
         self.body = body  # type: DescribeHotKeysResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6481,9 +6437,6 @@ class DescribeInstanceDasProResponse(TeaModel):
         self.body = body  # type: DescribeInstanceDasProResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6714,9 +6667,6 @@ class DescribeTopBigKeysResponse(TeaModel):
         self.body = body  # type: DescribeTopBigKeysResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6951,9 +6901,6 @@ class DescribeTopHotKeysResponse(TeaModel):
         self.body = body  # type: DescribeTopHotKeysResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7077,9 +7024,6 @@ class DisableAllSqlConcurrencyControlRulesResponse(TeaModel):
         self.body = body  # type: DisableAllSqlConcurrencyControlRulesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7348,9 +7292,6 @@ class DisableAutoResourceOptimizeRulesResponse(TeaModel):
         self.body = body  # type: DisableAutoResourceOptimizeRulesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7619,9 +7560,6 @@ class DisableAutoThrottleRulesResponse(TeaModel):
         self.body = body  # type: DisableAutoThrottleRulesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7751,9 +7689,6 @@ class DisableDasProResponse(TeaModel):
         self.body = body  # type: DisableDasProResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7885,9 +7820,6 @@ class DisableInstanceDasConfigResponse(TeaModel):
         self.body = body  # type: DisableInstanceDasConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8017,9 +7949,6 @@ class DisableSqlConcurrencyControlResponse(TeaModel):
         self.body = body  # type: DisableSqlConcurrencyControlResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8161,9 +8090,6 @@ class EnableDasProResponse(TeaModel):
         self.body = body  # type: EnableDasProResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8322,9 +8248,6 @@ class EnableSqlConcurrencyControlResponse(TeaModel):
         self.body = body  # type: EnableSqlConcurrencyControlResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8586,9 +8509,6 @@ class GetAsyncErrorRequestListByCodeResponse(TeaModel):
         self.body = body  # type: GetAsyncErrorRequestListByCodeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8856,9 +8776,6 @@ class GetAsyncErrorRequestStatByCodeResponse(TeaModel):
         self.body = body  # type: GetAsyncErrorRequestStatByCodeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9098,9 +9015,6 @@ class GetAsyncErrorRequestStatResultResponse(TeaModel):
         self.body = body  # type: GetAsyncErrorRequestStatResultResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9132,9 +9046,18 @@ class GetAsyncErrorRequestStatResultResponse(TeaModel):
 
 class GetAutoIncrementUsageStatisticRequest(TeaModel):
     def __init__(self, db_names=None, instance_id=None, ratio_filter=None, real_time=None):
+        # The database name. If you specify a database, the operation queries the usage of auto-increment table IDs in the specified database. Otherwise, the operation queries the usage of auto-increment table IDs in all databases on the instance.
+        # 
+        # >  Specify the parameter value as a JSON array, such as \[\"db1\",\"db2\"]. Separate multiple database names with commas (,).
         self.db_names = db_names  # type: str
+        # The instance ID.
         self.instance_id = instance_id  # type: str
+        # The usage threshold of auto-increment IDs. Only usage that exceeds the threshold can be returned. Valid values are decimals that range from 0 to 1.
         self.ratio_filter = ratio_filter  # type: float
+        # Specifies whether to query real-time data. Valid values:
+        # 
+        # *   **true**: queries data in real time except for data generated in the last 10 minutes.****\
+        # *   **false**: queries data generated in the last 2 hours. If no such data exists, queries the latest data.
         self.real_time = real_time  # type: bool
 
     def validate(self):
@@ -9172,11 +9095,17 @@ class GetAutoIncrementUsageStatisticRequest(TeaModel):
 class GetAutoIncrementUsageStatisticResponseBodyDataAutoIncrementUsageList(TeaModel):
     def __init__(self, auto_increment_current_value=None, auto_increment_ratio=None, column_name=None,
                  db_name=None, maximum_value=None, table_name=None):
+        # The latest auto-increment ID.
         self.auto_increment_current_value = auto_increment_current_value  # type: long
+        # The usage ratio of auto-increment IDs.
         self.auto_increment_ratio = auto_increment_ratio  # type: float
+        # The column name.
         self.column_name = column_name  # type: str
+        # The database name.
         self.db_name = db_name  # type: str
+        # The maximum auto-increment ID that is supported by the current data type.
         self.maximum_value = maximum_value  # type: long
+        # The table name.
         self.table_name = table_name  # type: str
 
     def validate(self):
@@ -9222,10 +9151,23 @@ class GetAutoIncrementUsageStatisticResponseBodyDataAutoIncrementUsageList(TeaMo
 class GetAutoIncrementUsageStatisticResponseBodyData(TeaModel):
     def __init__(self, auto_increment_usage_list=None, error_info=None, finish=None, task_status=None,
                  timestamp=None):
+        # The usage details of auto-increment IDs.
         self.auto_increment_usage_list = auto_increment_usage_list  # type: list[GetAutoIncrementUsageStatisticResponseBodyDataAutoIncrementUsageList]
+        # The error message returned if the task fails.
         self.error_info = error_info  # type: str
+        # Indicates whether the task is complete. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.finish = finish  # type: bool
+        # The task status. Valid values:
+        # 
+        # *   **INIT**: The task is being initialized.
+        # *   **RUNNING**: The task is being executed.
+        # *   **SUCCESS**: The task succeeds.
+        # *   **FAIL**: The task fails.
         self.task_status = task_status  # type: str
+        # The time when the request was made. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.timestamp = timestamp  # type: long
 
     def validate(self):
@@ -9274,10 +9216,20 @@ class GetAutoIncrementUsageStatisticResponseBodyData(TeaModel):
 
 class GetAutoIncrementUsageStatisticResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: long
+        # The returned data.
         self.data = data  # type: GetAutoIncrementUsageStatisticResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request is successful, **Successful** is returned. Otherwise, an error message such as an error code is returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: bool
 
     def validate(self):
@@ -9325,9 +9277,6 @@ class GetAutoIncrementUsageStatisticResponse(TeaModel):
         self.body = body  # type: GetAutoIncrementUsageStatisticResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9753,9 +9702,6 @@ class GetAutoResourceOptimizeRulesResponse(TeaModel):
         self.body = body  # type: GetAutoResourceOptimizeRulesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9793,7 +9739,7 @@ class GetAutoThrottleRulesRequest(TeaModel):
         # 
         # *   Set this parameter to a JSON array that consists of multiple instance IDs. Separate instance IDs with commas (,). Example: `[\"Instance ID1\",\"Instance ID2\"]`.
         # 
-        # *   By default, if you do not specify the database instance IDs, all database instances for which the automatic SQL throttling feature is enabled within the current Alibaba Cloud account are returned. The following types of database instances are returned:
+        # *   By default, if you leave this parameter empty, all database instances for which the automatic SQL throttling feature has been enabled within the current Alibaba Cloud account are returned. The following types of database instances are returned:
         # 
         #     *   Database instances for which the automatic SQL throttling feature is currently enabled.
         #     *   Database instances for which the automatic SQL throttling feature was once enabled but is currently disabled. Released database instances are not included.
@@ -10166,9 +10112,6 @@ class GetAutoThrottleRulesResponse(TeaModel):
         self.body = body  # type: GetAutoThrottleRulesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10296,9 +10239,6 @@ class GetAutonomousNotifyEventContentResponse(TeaModel):
         self.body = body  # type: GetAutonomousNotifyEventContentResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10560,9 +10500,6 @@ class GetAutonomousNotifyEventsInRangeResponse(TeaModel):
         self.body = body  # type: GetAutonomousNotifyEventsInRangeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10595,12 +10532,21 @@ class GetAutonomousNotifyEventsInRangeResponse(TeaModel):
 class GetBlockingDetailListRequest(TeaModel):
     def __init__(self, db_name_list=None, end_time=None, instance_id=None, page_no=None, page_size=None,
                  query_hash=None, start_time=None):
+        # The database name list.
+        # 
+        # *   Separate multiple database names with commas (,).
         self.db_name_list = db_name_list  # type: str
+        # The end of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.end_time = end_time  # type: str
+        # The database instance ID.
         self.instance_id = instance_id  # type: str
+        # The page number. The value must be an integer that is greater than 0. Default value: 1.
         self.page_no = page_no  # type: str
+        # The number of entries per page. The value must be an integer that is greater than 0. Default value: 10.
         self.page_size = page_size  # type: str
+        # The hash value of the SQL statement.
         self.query_hash = query_hash  # type: str
+        # The beginning of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -10651,17 +10597,29 @@ class GetBlockingDetailListResponseBodyDataList(TeaModel):
     def __init__(self, batch_id=None, client_app_name=None, current_collection_time=None, data_base=None,
                  host_name=None, login_id=None, query_hash=None, spid=None, sql_text=None, start_time=None, wait_time_ms=None,
                  wait_type=None):
+        # The batch ID.
         self.batch_id = batch_id  # type: long
+        # The client name.
         self.client_app_name = client_app_name  # type: str
+        # The time when the blocking data was collected.
         self.current_collection_time = current_collection_time  # type: long
+        # The database name.
         self.data_base = data_base  # type: str
+        # The client hostname.
         self.host_name = host_name  # type: str
+        # The username that is used for the logon.
         self.login_id = login_id  # type: str
+        # The hash value of the SQL statement.
         self.query_hash = query_hash  # type: str
+        # The session ID.
         self.spid = spid  # type: str
+        # The SQL statement.
         self.sql_text = sql_text  # type: str
+        # The time when the execution started.
         self.start_time = start_time  # type: str
+        # The blocking duration. Unit: milliseconds.
         self.wait_time_ms = wait_time_ms  # type: long
+        # The wait type.
         self.wait_type = wait_type  # type: str
 
     def validate(self):
@@ -10730,9 +10688,13 @@ class GetBlockingDetailListResponseBodyDataList(TeaModel):
 
 class GetBlockingDetailListResponseBodyData(TeaModel):
     def __init__(self, list=None, page_no=None, page_size=None, total=None):
+        # The details of the data returned.
         self.list = list  # type: list[GetBlockingDetailListResponseBodyDataList]
+        # The page number of the page returned.
         self.page_no = page_no  # type: long
+        # The number of entries returned on each page.
         self.page_size = page_size  # type: long
+        # The total number of entries returned.
         self.total = total  # type: long
 
     def validate(self):
@@ -10777,10 +10739,20 @@ class GetBlockingDetailListResponseBodyData(TeaModel):
 
 class GetBlockingDetailListResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The returned data.
         self.data = data  # type: GetBlockingDetailListResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request is successful, **Successful** is returned. Otherwise, an error message such as an error code is returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: str
 
     def validate(self):
@@ -10828,9 +10800,6 @@ class GetBlockingDetailListResponse(TeaModel):
         self.body = body  # type: GetBlockingDetailListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11022,9 +10991,6 @@ class GetDBInstanceConnectivityDiagnosisResponse(TeaModel):
         self.body = body  # type: GetDBInstanceConnectivityDiagnosisResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11279,9 +11245,6 @@ class GetDasProServiceUsageResponse(TeaModel):
         self.body = body  # type: GetDasProServiceUsageResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11348,7 +11311,7 @@ class GetDasSQLLogHotDataRequest(TeaModel):
         self.logical_operator = logical_operator  # type: str
         # The maximum execution duration. Unit: microseconds. You can specify this parameter to query the SQL statements whose execution duration is smaller than the value of this parameter.
         self.max_latancy = max_latancy  # type: long
-        # The maximum number of entries per page.
+        # The maximum number of entries per page. Valid values: 5 to 100.
         self.max_records_per_page = max_records_per_page  # type: long
         # The reserved parameter. This parameter is not supported.
         self.max_rows = max_rows  # type: long
@@ -11793,9 +11756,6 @@ class GetDasSQLLogHotDataResponse(TeaModel):
         self.body = body  # type: GetDasSQLLogHotDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11828,11 +11788,17 @@ class GetDasSQLLogHotDataResponse(TeaModel):
 class GetDeadLockDetailListRequest(TeaModel):
     def __init__(self, db_name_list=None, end_time=None, instance_id=None, page_no=None, page_size=None,
                  start_time=None):
+        # The database name list.
         self.db_name_list = db_name_list  # type: str
+        # The end of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.end_time = end_time  # type: str
+        # The instance ID.
         self.instance_id = instance_id  # type: str
+        # The page number. The value must be an integer that is greater than 0. Default value: 1.
         self.page_no = page_no  # type: str
+        # The number of entries per page. Default value: 10.
         self.page_size = page_size  # type: str
+        # The beginning of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -11879,22 +11845,39 @@ class GetDeadLockDetailListResponseBodyDataListBlockProcessList(TeaModel):
     def __init__(self, client_app=None, database_name=None, host_name=None, last_tran_started=None, lock_mode=None,
                  log_used=None, login_name=None, object_owned=None, object_requested=None, own_mode=None, spid=None,
                  sql_text=None, status=None, victim=None, wait_mode=None, wait_resource=None, wait_resource_description=None):
+        # The client application.
         self.client_app = client_app  # type: str
+        # The database name.
         self.database_name = database_name  # type: str
+        # The host name.
         self.host_name = host_name  # type: str
+        # The time when the transaction started.
         self.last_tran_started = last_tran_started  # type: long
+        # The lock mode.
         self.lock_mode = lock_mode  # type: str
+        # The size of the logs generated by the session.
         self.log_used = log_used  # type: long
+        # The username that is used for login.
         self.login_name = login_name  # type: str
+        # The locked object.
         self.object_owned = object_owned  # type: str
+        # The object that the current transaction requested to lock.
         self.object_requested = object_requested  # type: str
+        # The holding mode.
         self.own_mode = own_mode  # type: str
+        # The ID of the session that started the transaction.
         self.spid = spid  # type: long
+        # The SQL statement.
         self.sql_text = sql_text  # type: str
+        # The transaction status.
         self.status = status  # type: str
+        # The victim.
         self.victim = victim  # type: long
+        # The wait mode.
         self.wait_mode = wait_mode  # type: str
+        # The pending resource.
         self.wait_resource = wait_resource  # type: str
+        # The description of the pending resource.
         self.wait_resource_description = wait_resource_description  # type: str
 
     def validate(self):
@@ -11986,24 +11969,43 @@ class GetDeadLockDetailListResponseBodyDataList(TeaModel):
                  last_tran_started=None, lock_mode=None, log_used=None, login_name=None, object_owned=None, object_requested=None,
                  own_mode=None, spid=None, sql_text=None, status=None, victim=None, wait_mode=None, wait_resource=None,
                  wait_resource_description=None):
+        # The time when the data was collected.
         self.batch_id = batch_id  # type: long
+        # The blocking list.
         self.block_process_list = block_process_list  # type: list[GetDeadLockDetailListResponseBodyDataListBlockProcessList]
+        # The client application.
         self.client_app = client_app  # type: str
+        # The database name.
         self.database_name = database_name  # type: str
+        # The host name.
         self.host_name = host_name  # type: str
+        # The time when the transaction started.
         self.last_tran_started = last_tran_started  # type: long
+        # The lock mode.
         self.lock_mode = lock_mode  # type: str
+        # The size of the logs generated by the session.
         self.log_used = log_used  # type: long
+        # The username that is used for login.
         self.login_name = login_name  # type: str
+        # The locked object.
         self.object_owned = object_owned  # type: str
+        # The object that the current transaction requested to lock.
         self.object_requested = object_requested  # type: str
+        # The holding mode.
         self.own_mode = own_mode  # type: str
+        # The ID of the session that started the transaction.
         self.spid = spid  # type: long
+        # The SQL statement.
         self.sql_text = sql_text  # type: str
+        # The transaction status.
         self.status = status  # type: str
+        # The victim.
         self.victim = victim  # type: long
+        # The wait mode.
         self.wait_mode = wait_mode  # type: str
+        # The pending resource.
         self.wait_resource = wait_resource  # type: str
+        # The description of the pending resource.
         self.wait_resource_description = wait_resource_description  # type: str
 
     def validate(self):
@@ -12108,9 +12110,13 @@ class GetDeadLockDetailListResponseBodyDataList(TeaModel):
 
 class GetDeadLockDetailListResponseBodyData(TeaModel):
     def __init__(self, list=None, page_no=None, page_size=None, total=None):
+        # The details of the data returned.
         self.list = list  # type: list[GetDeadLockDetailListResponseBodyDataList]
+        # The page number of the returned page.
         self.page_no = page_no  # type: long
+        # The number of entries returned on each page.
         self.page_size = page_size  # type: long
+        # The total number of entries returned.
         self.total = total  # type: long
 
     def validate(self):
@@ -12155,10 +12161,20 @@ class GetDeadLockDetailListResponseBodyData(TeaModel):
 
 class GetDeadLockDetailListResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The returned data.
         self.data = data  # type: GetDeadLockDetailListResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request is successful, **Successful** is returned. Otherwise, an error message such as an error code is returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: str
 
     def validate(self):
@@ -12206,9 +12222,6 @@ class GetDeadLockDetailListResponse(TeaModel):
         self.body = body  # type: GetDeadLockDetailListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12411,9 +12424,6 @@ class GetEndpointSwitchTaskResponse(TeaModel):
         self.body = body  # type: GetEndpointSwitchTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12647,9 +12657,6 @@ class GetErrorRequestSampleResponse(TeaModel):
         self.body = body  # type: GetErrorRequestSampleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13022,9 +13029,6 @@ class GetEventSubscriptionResponse(TeaModel):
         self.body = body  # type: GetEventSubscriptionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13484,9 +13488,6 @@ class GetFullRequestOriginStatByInstanceIdResponse(TeaModel):
         self.body = body  # type: GetFullRequestOriginStatByInstanceIdResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13786,9 +13787,6 @@ class GetFullRequestSampleByInstanceIdResponse(TeaModel):
         self.body = body  # type: GetFullRequestSampleByInstanceIdResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14343,9 +14341,6 @@ class GetFullRequestStatResultByInstanceIdResponse(TeaModel):
         self.body = body  # type: GetFullRequestStatResultByInstanceIdResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14605,9 +14600,6 @@ class GetHDMAliyunResourceSyncResultResponse(TeaModel):
         self.body = body  # type: GetHDMAliyunResourceSyncResultResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14862,9 +14854,6 @@ class GetHDMLastAliyunResourceSyncResultResponse(TeaModel):
         self.body = body  # type: GetHDMLastAliyunResourceSyncResultResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15399,9 +15388,6 @@ class GetInstanceInspectionsResponse(TeaModel):
         self.body = body  # type: GetInstanceInspectionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15435,20 +15421,37 @@ class GetInstanceMissingIndexListRequest(TeaModel):
     def __init__(self, avg_total_user_cost=None, avg_user_impact=None, end_time=None, index_count=None,
                  instance_id=None, object_name=None, page_no=None, page_size=None, reserved_pages=None, reserved_size=None,
                  row_count=None, start_time=None, unique_compiles=None, user_scans=None, user_seeks=None):
+        # The query condition based on the average cost savings.
         self.avg_total_user_cost = avg_total_user_cost  # type: str
+        # The query condition based on the performance improvement.
         self.avg_user_impact = avg_user_impact  # type: str
+        # The end time of the last seek.
         self.end_time = end_time  # type: str
+        # The query condition based on the number of indexes.
         self.index_count = index_count  # type: str
+        # The database instance ID.
+        # 
+        # >  Only ApsaraDB RDS for SQL Server instances are supported.
         self.instance_id = instance_id  # type: str
+        # The object name.
         self.object_name = object_name  # type: str
+        # The page number. Pages start from page 1. Default value: 1.
         self.page_no = page_no  # type: str
+        # The number of entries per page. Default value: 10.
         self.page_size = page_size  # type: str
+        # The query condition based on the total number of pages.
         self.reserved_pages = reserved_pages  # type: str
+        # The query condition based on the table size.
         self.reserved_size = reserved_size  # type: str
+        # The query condition based on the number of table rows.
         self.row_count = row_count  # type: str
+        # The start time of the last seek.
         self.start_time = start_time  # type: str
+        # The query condition based on the number of compilations.
         self.unique_compiles = unique_compiles  # type: str
+        # The query condition based on the number of scans.
         self.user_scans = user_scans  # type: str
+        # The query condition based on the number of seeks.
         self.user_seeks = user_seeks  # type: str
 
     def validate(self):
@@ -15532,24 +15535,43 @@ class GetInstanceMissingIndexListResponseBodyDataList(TeaModel):
                  equality_columns=None, included_columns=None, index_count=None, inequality_columns=None, last_user_seek=None,
                  object_name=None, reserved_pages=None, reserved_size=None, row_count=None, schema_name=None, system_scans=None,
                  system_seeks=None, unique_compiles=None, user_scans=None, user_seeks=None):
+        # The average cost savings.
         self.avg_total_user_cost = avg_total_user_cost  # type: float
+        # The performance improvement, in percentage.
         self.avg_user_impact = avg_user_impact  # type: float
+        # The statement used to create the missing indexes.
         self.create_index = create_index  # type: str
+        # The database name.
         self.database_name = database_name  # type: str
+        # The index columns included in the equal operation.
         self.equality_columns = equality_columns  # type: str
+        # The columns on which indexes are missing.
         self.included_columns = included_columns  # type: str
+        # The number of indexes.
         self.index_count = index_count  # type: long
+        # The index columns included in the not equal operation.
         self.inequality_columns = inequality_columns  # type: str
+        # The last seek time of a user.
         self.last_user_seek = last_user_seek  # type: long
+        # The object name.
         self.object_name = object_name  # type: str
+        # The total number of returned pages.
         self.reserved_pages = reserved_pages  # type: long
+        # The table size.
         self.reserved_size = reserved_size  # type: float
+        # The number of table rows.
         self.row_count = row_count  # type: long
+        # The schema name.
         self.schema_name = schema_name  # type: str
+        # The number of scans.
         self.system_scans = system_scans  # type: long
+        # The number of seeks.
         self.system_seeks = system_seeks  # type: long
+        # The number of compilations.
         self.unique_compiles = unique_compiles  # type: long
+        # The number of scans performed by users.
         self.user_scans = user_scans  # type: long
+        # The number of seeks performed by users.
         self.user_seeks = user_seeks  # type: long
 
     def validate(self):
@@ -15646,9 +15668,13 @@ class GetInstanceMissingIndexListResponseBodyDataList(TeaModel):
 
 class GetInstanceMissingIndexListResponseBodyData(TeaModel):
     def __init__(self, list=None, page_no=None, page_size=None, total=None):
+        # The returned data.
         self.list = list  # type: list[GetInstanceMissingIndexListResponseBodyDataList]
+        # The page number of the page returned.
         self.page_no = page_no  # type: long
+        # The number of entries per page.
         self.page_size = page_size  # type: long
+        # The total number of entries returned.
         self.total = total  # type: long
 
     def validate(self):
@@ -15693,10 +15719,18 @@ class GetInstanceMissingIndexListResponseBodyData(TeaModel):
 
 class GetInstanceMissingIndexListResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The detailed information.
         self.data = data  # type: GetInstanceMissingIndexListResponseBodyData
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: str
 
     def validate(self):
@@ -15744,9 +15778,6 @@ class GetInstanceMissingIndexListResponse(TeaModel):
         self.body = body  # type: GetInstanceMissingIndexListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15948,9 +15979,6 @@ class GetInstanceSqlOptimizeStatisticResponse(TeaModel):
         self.body = body  # type: GetInstanceSqlOptimizeStatisticResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16276,9 +16304,6 @@ class GetKillInstanceSessionTaskResultResponse(TeaModel):
         self.body = body  # type: GetKillInstanceSessionTaskResultResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16668,9 +16693,6 @@ class GetMongoDBCurrentOpResponse(TeaModel):
         self.body = body  # type: GetMongoDBCurrentOpResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17233,9 +17255,6 @@ class GetMySQLAllSessionAsyncResponse(TeaModel):
         self.body = body  # type: GetMySQLAllSessionAsyncResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17385,9 +17404,6 @@ class GetPartitionsHeatmapResponse(TeaModel):
         self.body = body  # type: GetPartitionsHeatmapResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17514,7 +17530,7 @@ class GetPfsMetricTrendsResponseBody(TeaModel):
                 l1 = []
                 for k1 in v:
                     l1.append(k1.to_map() if k1 else None)
-                result['data'][k] = l1
+                result['Data'][k] = l1
         if self.message is not None:
             result['Message'] = self.message
         if self.request_id is not None:
@@ -17551,9 +17567,6 @@ class GetPfsMetricTrendsResponse(TeaModel):
         self.body = body  # type: GetPfsMetricTrendsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17935,9 +17948,6 @@ class GetPfsSqlSampleResponse(TeaModel):
         self.body = body  # type: GetPfsSqlSampleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -18609,9 +18619,6 @@ class GetPfsSqlSummariesResponse(TeaModel):
         self.body = body  # type: GetPfsSqlSummariesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19089,9 +19096,6 @@ class GetQueryOptimizeDataStatsResponse(TeaModel):
         self.body = body  # type: GetQueryOptimizeDataStatsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19349,9 +19353,6 @@ class GetQueryOptimizeDataTopResponse(TeaModel):
         self.body = body  # type: GetQueryOptimizeDataTopResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19616,9 +19617,6 @@ class GetQueryOptimizeDataTrendResponse(TeaModel):
         self.body = body  # type: GetQueryOptimizeDataTrendResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19875,9 +19873,6 @@ class GetQueryOptimizeExecErrorSampleResponse(TeaModel):
         self.body = body  # type: GetQueryOptimizeExecErrorSampleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -20191,9 +20186,6 @@ class GetQueryOptimizeExecErrorStatsResponse(TeaModel):
         self.body = body  # type: GetQueryOptimizeExecErrorStatsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -20433,9 +20425,6 @@ class GetQueryOptimizeRuleListResponse(TeaModel):
         self.body = body  # type: GetQueryOptimizeRuleListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -20674,9 +20663,6 @@ class GetQueryOptimizeShareUrlResponse(TeaModel):
         self.body = body  # type: GetQueryOptimizeShareUrlResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -20917,9 +20903,6 @@ class GetQueryOptimizeSolutionResponse(TeaModel):
         self.body = body  # type: GetQueryOptimizeSolutionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -21090,9 +21073,6 @@ class GetQueryOptimizeTagResponse(TeaModel):
         self.body = body  # type: GetQueryOptimizeTagResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -21477,9 +21457,6 @@ class GetRedisAllSessionResponse(TeaModel):
         self.body = body  # type: GetRedisAllSessionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -21820,9 +21797,6 @@ class GetRequestDiagnosisPageResponse(TeaModel):
         self.body = body  # type: GetRequestDiagnosisPageResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -22114,9 +22088,6 @@ class GetRequestDiagnosisResultResponse(TeaModel):
         self.body = body  # type: GetRequestDiagnosisResultResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -22409,9 +22380,6 @@ class GetRunningSqlConcurrencyControlRulesResponse(TeaModel):
         self.body = body  # type: GetRunningSqlConcurrencyControlRulesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -22539,9 +22507,6 @@ class GetSqlConcurrencyControlKeywordsFromSqlTextResponse(TeaModel):
         self.body = body  # type: GetSqlConcurrencyControlKeywordsFromSqlTextResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -22837,9 +22802,6 @@ class GetSqlConcurrencyControlRulesHistoryResponse(TeaModel):
         self.body = body  # type: GetSqlConcurrencyControlRulesHistoryResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -23073,9 +23035,6 @@ class GetSqlOptimizeAdviceResponse(TeaModel):
         self.body = body  # type: GetSqlOptimizeAdviceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -23107,8 +23066,13 @@ class GetSqlOptimizeAdviceResponse(TeaModel):
 
 class GetStorageAnalysisResultRequest(TeaModel):
     def __init__(self, instance_id=None, node_id=None, task_id=None):
+        # The instance ID.
         self.instance_id = instance_id  # type: str
+        # The node ID.
+        # 
+        # >  This parameter is reserved.
         self.node_id = node_id  # type: str
+        # The task ID, which is returned after you call the CreateStorageAnalysisTask operation.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -23142,10 +23106,21 @@ class GetStorageAnalysisResultRequest(TeaModel):
 class GetStorageAnalysisResultResponseBodyDataStorageAnalysisResultNeedOptimizeItemList(TeaModel):
     def __init__(self, associated_data=None, db_name=None, optimize_advice=None, optimize_item_name=None,
                  table_name=None):
+        # The data associated with items to be optimized.
         self.associated_data = associated_data  # type: str
+        # The database name.
         self.db_name = db_name  # type: str
+        # The optimization suggestion. Valid values:
+        # 
+        # *   **NEED_ANALYZE_TABLE**: You can execute the ANALYZE TABLE statement on the related table during off-peak hours.
+        # *   **NEED_OPTIMIZE_TABLE**: You can reclaim fragments during off-peak hours.
         self.optimize_advice = optimize_advice  # type: str
+        # The item to be optimized. Valid values:
+        # 
+        # *   **NEED_ANALYZE_TABLE**: The statistical data in information_schema.tables differs greatly from the physical file size.
+        # *   **NEED_OPTIMIZE_TABLE**: The fragmentation degree of the table is high.
         self.optimize_item_name = optimize_item_name  # type: str
+        # The table name.
         self.table_name = table_name  # type: str
 
     def validate(self):
@@ -23188,17 +23163,43 @@ class GetStorageAnalysisResultResponseBodyDataStorageAnalysisResultTableStats(Te
     def __init__(self, avg_row_length=None, data_free=None, data_size=None, db_name=None, engine=None,
                  index_size=None, phy_total_size=None, physical_file_size=None, table_name=None, table_rows=None,
                  table_type=None, total_size=None):
+        # The average row length.
+        # 
+        # >  Unit: bytes.
         self.avg_row_length = avg_row_length  # type: long
+        # The size of storage occupied by fragments.
+        # 
+        # >  Unit: bytes.
         self.data_free = data_free  # type: long
+        # The size of storage occupied by the table data.
+        # 
+        # >  Unit: bytes.
         self.data_size = data_size  # type: long
+        # The database name.
         self.db_name = db_name  # type: str
+        # The type of the engine used by the table.
         self.engine = engine  # type: str
+        # The size of storage occupied by indexes.
+        # 
+        # >  Unit: bytes.
         self.index_size = index_size  # type: long
+        # The size of the table storage.
+        # 
+        # >  Unit: byte. The value of the parameter is the sum of DataSize, IndexSize, and DataFree.
         self.phy_total_size = phy_total_size  # type: long
+        # The physical file size of the table.
+        # 
+        # >  Unit: byte. You may fail to obtain the physical file size because of the deployment mode of the database instance.
         self.physical_file_size = physical_file_size  # type: long
+        # The table name.
         self.table_name = table_name  # type: str
+        # The number of rows in the table.
         self.table_rows = table_rows  # type: long
+        # The table type.
         self.table_type = table_type  # type: str
+        # The size of storage occupied by table data and indexes.
+        # 
+        # >  Unit: byte. The value of the parameter is the sum of DataSize and IndexSize.
         self.total_size = total_size  # type: long
 
     def validate(self):
@@ -23269,14 +23270,34 @@ class GetStorageAnalysisResultResponseBodyDataStorageAnalysisResult(TeaModel):
     def __init__(self, analysis_error_type=None, analysis_success=None, daily_increment=None,
                  estimate_available_days=None, need_optimize_item_list=None, table_stats=None, total_free_storage_size=None,
                  total_storage_size=None, total_used_storage_size=None):
+        # The reason why the analysis on the database and table fails.
+        # 
+        # *   **DB_OR_TABLE_NOT_EXIST**: The specified database or table does not exist.
+        # *   **DB_NOT_EXIST**: The specified database does not exist.
         self.analysis_error_type = analysis_error_type  # type: str
+        # Indicates whether the analysis on the database and table is successful.
         self.analysis_success = analysis_success  # type: bool
+        # The estimated daily storage usage increment in the last seven days.
+        # 
+        # >  Unit: bytes.
         self.daily_increment = daily_increment  # type: long
+        # The estimated number of days before the remaining storage runs out.
         self.estimate_available_days = estimate_available_days  # type: long
+        # The list of items to be optimized.
         self.need_optimize_item_list = need_optimize_item_list  # type: list[GetStorageAnalysisResultResponseBodyDataStorageAnalysisResultNeedOptimizeItemList]
+        # The information about the table.
         self.table_stats = table_stats  # type: list[GetStorageAnalysisResultResponseBodyDataStorageAnalysisResultTableStats]
+        # The size of remaining storage.
+        # 
+        # >  Unit: bytes.
         self.total_free_storage_size = total_free_storage_size  # type: long
+        # The total size of instance storage.
+        # 
+        # >  Unit: bytes.
         self.total_storage_size = total_storage_size  # type: long
+        # The size of used storage.
+        # 
+        # >  Unit: bytes.
         self.total_used_storage_size = total_used_storage_size  # type: long
 
     def validate(self):
@@ -23351,13 +23372,31 @@ class GetStorageAnalysisResultResponseBodyDataStorageAnalysisResult(TeaModel):
 class GetStorageAnalysisResultResponseBodyData(TeaModel):
     def __init__(self, analyzed_db_count=None, storage_analysis_result=None, task_finish=None, task_id=None,
                  task_progress=None, task_state=None, task_success=None, total_db_count=None):
+        # The number of databases that have been analyzed.
         self.analyzed_db_count = analyzed_db_count  # type: long
+        # The details of storage analysis.
         self.storage_analysis_result = storage_analysis_result  # type: GetStorageAnalysisResultResponseBodyDataStorageAnalysisResult
+        # Indicates whether the task is complete.
         self.task_finish = task_finish  # type: bool
+        # The task ID.
         self.task_id = task_id  # type: str
+        # The task progress.
+        # 
+        # >  Valid values are integers that range from 0 to 100.
         self.task_progress = task_progress  # type: long
+        # The status of the storage analysis task. Valid values:
+        # 
+        # *   **INIT**: The task is being initialized.
+        # *   **PENDING**: The task is being queued for execution.
+        # *   **RECEIVED**: The task is received for execution.
+        # *   **RUNNING**: The task is being executed.
+        # *   **RETRY**: The task is being retried.
+        # *   **SUCCESS**: The task succeeds.
+        # *   **FAILURE**: The task fails.
         self.task_state = task_state  # type: str
+        # Indicates whether the task is successful.
         self.task_success = task_success  # type: bool
+        # The number of databases that need to be analyzed in the storage analysis task.
         self.total_db_count = total_db_count  # type: long
 
     def validate(self):
@@ -23412,10 +23451,20 @@ class GetStorageAnalysisResultResponseBodyData(TeaModel):
 
 class GetStorageAnalysisResultResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: long
+        # The returned data.
         self.data = data  # type: GetStorageAnalysisResultResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request is successful, **Successful** is returned. Otherwise, an error message such as an error code is returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: bool
 
     def validate(self):
@@ -23463,9 +23512,6 @@ class GetStorageAnalysisResultResponse(TeaModel):
         self.body = body  # type: GetStorageAnalysisResultResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -23587,9 +23633,6 @@ class KillInstanceAllSessionResponse(TeaModel):
         self.body = body  # type: KillInstanceAllSessionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24181,9 +24224,6 @@ class ModifyAutoScalingConfigResponse(TeaModel):
         self.body = body  # type: ModifyAutoScalingConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24401,9 +24441,6 @@ class RunCloudBenchTaskResponse(TeaModel):
         self.body = body  # type: RunCloudBenchTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24728,9 +24765,6 @@ class SetEventSubscriptionResponse(TeaModel):
         self.body = body  # type: SetEventSubscriptionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24846,9 +24880,6 @@ class StopCloudBenchTaskResponse(TeaModel):
         self.body = body  # type: StopCloudBenchTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25004,9 +25035,6 @@ class SyncHDMAliyunResourceResponse(TeaModel):
         self.body = body  # type: SyncHDMAliyunResourceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25375,9 +25403,6 @@ class UpdateAutoResourceOptimizeRulesAsyncResponse(TeaModel):
         self.body = body  # type: UpdateAutoResourceOptimizeRulesAsyncResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25550,9 +25575,6 @@ class UpdateAutoSqlOptimizeStatusResponse(TeaModel):
         self.body = body  # type: UpdateAutoSqlOptimizeStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25969,9 +25991,6 @@ class UpdateAutoThrottleRulesAsyncResponse(TeaModel):
         self.body = body  # type: UpdateAutoThrottleRulesAsyncResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
