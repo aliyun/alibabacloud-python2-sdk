@@ -380,6 +380,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_trails_with_options(request, runtime)
 
+    def enable_insight_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.insight_type):
+            query['InsightType'] = request.insight_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='EnableInsight',
+            version='2020-07-06',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            actiontrail_20200706_models.EnableInsightResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def enable_insight(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.enable_insight_with_options(request, runtime)
+
     def get_access_key_last_used_events_with_options(self, request, runtime):
         """
         You can call this operation to query only the information about the most recent events that are generated within 400 days after February 1, 2022 when a specified AccessKey pair is called to access Alibaba Cloud services. For more information about supported events, see [Alibaba Cloud services and events that are supported by the AccessKey pair audit feature](~~419214~~). Data is updated at 1-hour intervals, which can cause query latency. We recommend that you do not change an AccessKey pair unless required.

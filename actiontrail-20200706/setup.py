@@ -25,7 +25,7 @@ from setuptools import setup, find_packages
 """
 setup module for alibabacloud_actiontrail20200706_py2.
 
-Created on 09/01/2024
+Created on 21/02/2024
 
 @author: Alibaba Cloud SDK
 """
