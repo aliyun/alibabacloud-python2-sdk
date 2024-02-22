@@ -84,6 +84,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.abort_campaign_with_options(request, runtime)
 
+    def add_blacklist_call_tagging_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.job_id):
+            query['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.number):
+            query['Number'] = request.number
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='AddBlacklistCallTagging',
+            version='2020-07-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ccc20200701_models.AddBlacklistCallTaggingResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def add_blacklist_call_tagging(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.add_blacklist_call_tagging_with_options(request, runtime)
+
     def add_cases_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
         request = ccc20200701_models.AddCasesShrinkRequest()
@@ -5239,6 +5271,38 @@ class Client(OpenApiClient):
     def release_call(self, request):
         runtime = util_models.RuntimeOptions()
         return self.release_call_with_options(request, runtime)
+
+    def remove_blacklist_call_tagging_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.job_id):
+            query['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.number):
+            query['Number'] = request.number
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RemoveBlacklistCallTagging',
+            version='2020-07-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ccc20200701_models.RemoveBlacklistCallTaggingResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def remove_blacklist_call_tagging(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.remove_blacklist_call_tagging_with_options(request, runtime)
 
     def remove_do_not_call_numbers_with_options(self, request, runtime):
         UtilClient.validate_model(request)
