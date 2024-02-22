@@ -69,17 +69,22 @@ class AlertEventMetrics(TeaModel):
 
 
 class AlertEvent(TeaModel):
-    def __init__(self, alert_name=None, alert_status=None, custom_labels=None, de_dup_id=None, details=None,
-                 event_name=None, expression=None, metrics=None, resource_info=None, rule_name=None, severity=None, source=None,
-                 summary=None, timestamp=None, trace_id=None, user_id=None):
+    def __init__(self, alert_name=None, alert_status=None, arn=None, content=None, custom_labels=None,
+                 de_dup_id=None, details=None, event_name=None, event_type=None, expression=None, metrics=None, product=None,
+                 resource_info=None, rule_name=None, severity=None, source=None, summary=None, timestamp=None, trace_id=None,
+                 user_id=None):
         self.alert_name = alert_name  # type: str
         self.alert_status = alert_status  # type: str
+        self.arn = arn  # type: str
+        self.content = content  # type: str
         self.custom_labels = custom_labels  # type: dict[str, any]
         self.de_dup_id = de_dup_id  # type: str
         self.details = details  # type: str
         self.event_name = event_name  # type: str
+        self.event_type = event_type  # type: str
         self.expression = expression  # type: str
         self.metrics = metrics  # type: list[AlertEventMetrics]
+        self.product = product  # type: str
         self.resource_info = resource_info  # type: dict[str, any]
         self.rule_name = rule_name  # type: str
         self.severity = severity  # type: str
@@ -105,6 +110,10 @@ class AlertEvent(TeaModel):
             result['AlertName'] = self.alert_name
         if self.alert_status is not None:
             result['AlertStatus'] = self.alert_status
+        if self.arn is not None:
+            result['Arn'] = self.arn
+        if self.content is not None:
+            result['Content'] = self.content
         if self.custom_labels is not None:
             result['CustomLabels'] = self.custom_labels
         if self.de_dup_id is not None:
@@ -113,12 +122,16 @@ class AlertEvent(TeaModel):
             result['Details'] = self.details
         if self.event_name is not None:
             result['EventName'] = self.event_name
+        if self.event_type is not None:
+            result['EventType'] = self.event_type
         if self.expression is not None:
             result['Expression'] = self.expression
         result['Metrics'] = []
         if self.metrics is not None:
             for k in self.metrics:
                 result['Metrics'].append(k.to_map() if k else None)
+        if self.product is not None:
+            result['Product'] = self.product
         if self.resource_info is not None:
             result['ResourceInfo'] = self.resource_info
         if self.rule_name is not None:
@@ -143,6 +156,10 @@ class AlertEvent(TeaModel):
             self.alert_name = m.get('AlertName')
         if m.get('AlertStatus') is not None:
             self.alert_status = m.get('AlertStatus')
+        if m.get('Arn') is not None:
+            self.arn = m.get('Arn')
+        if m.get('Content') is not None:
+            self.content = m.get('Content')
         if m.get('CustomLabels') is not None:
             self.custom_labels = m.get('CustomLabels')
         if m.get('DeDupId') is not None:
@@ -151,6 +168,8 @@ class AlertEvent(TeaModel):
             self.details = m.get('Details')
         if m.get('EventName') is not None:
             self.event_name = m.get('EventName')
+        if m.get('EventType') is not None:
+            self.event_type = m.get('EventType')
         if m.get('Expression') is not None:
             self.expression = m.get('Expression')
         self.metrics = []
@@ -158,6 +177,8 @@ class AlertEvent(TeaModel):
             for k in m.get('Metrics'):
                 temp_model = AlertEventMetrics()
                 self.metrics.append(temp_model.from_map(k))
+        if m.get('Product') is not None:
+            self.product = m.get('Product')
         if m.get('ResourceInfo') is not None:
             self.resource_info = m.get('ResourceInfo')
         if m.get('RuleName') is not None:
@@ -1618,14 +1639,14 @@ class NotificationStrategyFilterSetting(TeaModel):
                 l1 = []
                 for k1 in k:
                     l1.append(k1.to_map() if k1 else None)
-                result['blackList'].append(l1)
+                result['BlackList'].append(l1)
         result['WhiteList'] = []
         if self.white_list is not None:
             for k in self.white_list:
                 l1 = []
                 for k1 in k:
                     l1.append(k1.to_map() if k1 else None)
-                result['whiteList'].append(l1)
+                result['WhiteList'].append(l1)
         return result
 
     def from_map(self, m=None):
@@ -1772,13 +1793,14 @@ class NotificationStrategyPushingSetting(TeaModel):
 
 class NotificationStrategy(TeaModel):
     def __init__(self, create_time=None, description=None, escalation_setting=None, filter_setting=None,
-                 grouping_setting=None, name=None, pushing_setting=None, update_time=None, user_id=None, uuid=None):
+                 grouping_setting=None, name=None, product=None, pushing_setting=None, update_time=None, user_id=None, uuid=None):
         self.create_time = create_time  # type: str
         self.description = description  # type: str
         self.escalation_setting = escalation_setting  # type: NotificationStrategyEscalationSetting
         self.filter_setting = filter_setting  # type: NotificationStrategyFilterSetting
         self.grouping_setting = grouping_setting  # type: NotificationStrategyGroupingSetting
         self.name = name  # type: str
+        self.product = product  # type: str
         self.pushing_setting = pushing_setting  # type: NotificationStrategyPushingSetting
         self.update_time = update_time  # type: str
         self.user_id = user_id  # type: str
@@ -1812,6 +1834,8 @@ class NotificationStrategy(TeaModel):
             result['GroupingSetting'] = self.grouping_setting.to_map()
         if self.name is not None:
             result['Name'] = self.name
+        if self.product is not None:
+            result['Product'] = self.product
         if self.pushing_setting is not None:
             result['PushingSetting'] = self.pushing_setting.to_map()
         if self.update_time is not None:
@@ -1839,6 +1863,8 @@ class NotificationStrategy(TeaModel):
             self.grouping_setting = temp_model.from_map(m['GroupingSetting'])
         if m.get('Name') is not None:
             self.name = m.get('Name')
+        if m.get('Product') is not None:
+            self.product = m.get('Product')
         if m.get('PushingSetting') is not None:
             temp_model = NotificationStrategyPushingSetting()
             self.pushing_setting = temp_model.from_map(m['PushingSetting'])
@@ -2135,12 +2161,14 @@ class SubscriptionConditions(TeaModel):
 
 
 class Subscription(TeaModel):
-    def __init__(self, conditions=None, create_time=None, description=None, name=None, relation=None,
-                 strategy_uuid=None, update_time=None, uuid=None):
+    def __init__(self, conditions=None, create_time=None, description=None, enabled=None, name=None, product=None,
+                 relation=None, strategy_uuid=None, update_time=None, uuid=None):
         self.conditions = conditions  # type: list[SubscriptionConditions]
         self.create_time = create_time  # type: str
         self.description = description  # type: str
+        self.enabled = enabled  # type: bool
         self.name = name  # type: str
+        self.product = product  # type: str
         self.relation = relation  # type: str
         self.strategy_uuid = strategy_uuid  # type: str
         self.update_time = update_time  # type: str
@@ -2166,8 +2194,12 @@ class Subscription(TeaModel):
             result['CreateTime'] = self.create_time
         if self.description is not None:
             result['Description'] = self.description
+        if self.enabled is not None:
+            result['Enabled'] = self.enabled
         if self.name is not None:
             result['Name'] = self.name
+        if self.product is not None:
+            result['Product'] = self.product
         if self.relation is not None:
             result['Relation'] = self.relation
         if self.strategy_uuid is not None:
@@ -2189,8 +2221,12 @@ class Subscription(TeaModel):
             self.create_time = m.get('CreateTime')
         if m.get('Description') is not None:
             self.description = m.get('Description')
+        if m.get('Enabled') is not None:
+            self.enabled = m.get('Enabled')
         if m.get('Name') is not None:
             self.name = m.get('Name')
+        if m.get('Product') is not None:
+            self.product = m.get('Product')
         if m.get('Relation') is not None:
             self.relation = m.get('Relation')
         if m.get('StrategyUuid') is not None:
@@ -2348,9 +2384,6 @@ class AddTagsResponse(TeaModel):
         self.body = body  # type: AddTagsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2615,9 +2648,6 @@ class ApplyMetricRuleTemplateResponse(TeaModel):
         self.body = body  # type: ApplyMetricRuleTemplateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2847,9 +2877,6 @@ class BatchCreateInstantSiteMonitorResponse(TeaModel):
         self.body = body  # type: BatchCreateInstantSiteMonitorResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3011,9 +3038,6 @@ class BatchCreateIntantSiteMonitorResponse(TeaModel):
         self.body = body  # type: BatchCreateIntantSiteMonitorResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3274,9 +3298,6 @@ class BatchExportResponse(TeaModel):
         self.body = body  # type: BatchExportResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3392,9 +3413,6 @@ class CreateCmsCallNumOrderResponse(TeaModel):
         self.body = body  # type: CreateCmsCallNumOrderResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3567,9 +3585,6 @@ class CreateCmsOrderResponse(TeaModel):
         self.body = body  # type: CreateCmsOrderResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3685,9 +3700,6 @@ class CreateCmsSmspackageOrderResponse(TeaModel):
         self.body = body  # type: CreateCmsSmspackageOrderResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3914,9 +3926,6 @@ class CreateDynamicTagGroupResponse(TeaModel):
         self.body = body  # type: CreateDynamicTagGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4655,9 +4664,6 @@ class CreateGroupMetricRulesResponse(TeaModel):
         self.body = body  # type: CreateGroupMetricRulesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5107,9 +5113,6 @@ class CreateGroupMonitoringAgentProcessResponse(TeaModel):
         self.body = body  # type: CreateGroupMonitoringAgentProcessResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5595,9 +5598,6 @@ class CreateHostAvailabilityResponse(TeaModel):
         self.body = body  # type: CreateHostAvailabilityResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5636,17 +5636,24 @@ class CreateHybridMonitorNamespaceRequest(TeaModel):
         # 
         # The name can contain lowercase letters, digits, and hyphens (-).
         self.namespace = namespace  # type: str
+        # The region where the metric data is stored.
         self.namespace_region = namespace_region  # type: str
+        # The storage scheme of metric data. Valid values:
+        # 
+        # *   m_prom_pool: The metric data is stored in Simple Log Service.
+        # *   m_prometheus: The metric data is stored in the storage space provided by CloudMonitor.
+        # 
+        # >  For more information about the storage schemes of metric data, see [Storage schemes of metric data in Hybrid Cloud Monitoring](~~2594921~~).
         self.namespace_type = namespace_type  # type: str
         self.region_id = region_id  # type: str
-        # The data retention period of the namespace. Valid values:
+        # The data retention period. Valid values:
         # 
-        # *   cms.s1.large: 15 days
-        # *   cms.s1.xlarge: 32 days
-        # *   cms.s1.2xlarge: 63 days
-        # *   cms.s1.3xlarge (default value): 93 days
-        # *   cms.s1.6xlarge: 185 days
-        # *   cms.s1.12xlarge: 376 days
+        # *   cms.s1.large (Retention Period 15 Days)
+        # *   cms.s1.xlarge (Retention Period 32 Days)
+        # *   cms.s1.2xlarge (Retention Period 63 Days)
+        # *   cms.s1.3xlarge (Retention Period 93 Days) (default)
+        # *   cms.s1.6xlarge (Retention Period 185 Days)
+        # *   cms.s1.12xlarge (Retention Period 367 Days)
         # 
         # For information about the pricing for different retention periods, see the **Pricing** section in [Billing of the dashboard feature](~~223532~~).
         self.spec = spec  # type: str
@@ -5693,16 +5700,16 @@ class CreateHybridMonitorNamespaceRequest(TeaModel):
 
 class CreateHybridMonitorNamespaceResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
-        # The returned message.
+        # The response code.
         self.code = code  # type: str
-        # The error message.
+        # The error message returned.
         self.message = message  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # Indicates whether the call was successful. Valid values:
+        # Indicates whether the request was successful. Valid values:
         # 
-        # *   true: The call was successful.
-        # *   false: The call failed.
+        # *   true
+        # *   false
         self.success = success  # type: str
 
     def validate(self):
@@ -5744,9 +5751,6 @@ class CreateHybridMonitorNamespaceResponse(TeaModel):
         self.body = body  # type: CreateHybridMonitorNamespaceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5940,9 +5944,6 @@ class CreateHybridMonitorSLSGroupResponse(TeaModel):
         self.body = body  # type: CreateHybridMonitorSLSGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6005,9 +6006,9 @@ class CreateHybridMonitorTaskRequestAttachLabels(TeaModel):
 
 class CreateHybridMonitorTaskRequestSLSProcessConfigExpress(TeaModel):
     def __init__(self, alias=None, express=None):
-        # The alias of the extended field that specifies the result of basic operations that are performed on aggregation results.
+        # The alias of the extended field that specifies the result of basic operations performed on aggregation results.
         self.alias = alias  # type: str
-        # The extended field that specifies the result of basic operations that are performed on aggregation results.
+        # The extended field that specifies the result of basic operations performed on aggregation results.
         self.express = express  # type: str
 
     def validate(self):
@@ -6036,7 +6037,7 @@ class CreateHybridMonitorTaskRequestSLSProcessConfigExpress(TeaModel):
 
 class CreateHybridMonitorTaskRequestSLSProcessConfigFilterFilters(TeaModel):
     def __init__(self, operator=None, slskey_name=None, value=None):
-        # The method that is used to filter logs imported from Log Service. Valid values:
+        # The method that is used to filter logs imported from Simple Log Service. Valid values:
         # 
         # *   `contain`: contains
         # *   `notContain`: does not contain
@@ -6047,9 +6048,9 @@ class CreateHybridMonitorTaskRequestSLSProcessConfigFilterFilters(TeaModel):
         # *   `>=`: greater than or equal to
         # *   `<=`: less than or equal to
         self.operator = operator  # type: str
-        # The name of the key that is used to filter logs imported from Log Service.
+        # The name of the key that is used to filter logs imported from Simple Log Service.
         self.slskey_name = slskey_name  # type: str
-        # The value of the key that is used to filter logs imported from Log Service.
+        # The value of the key that is used to filter logs imported from Simple Log Service.
         self.value = value  # type: str
 
     def validate(self):
@@ -6082,11 +6083,11 @@ class CreateHybridMonitorTaskRequestSLSProcessConfigFilterFilters(TeaModel):
 
 class CreateHybridMonitorTaskRequestSLSProcessConfigFilter(TeaModel):
     def __init__(self, filters=None, relation=None):
-        # The conditions that are used to filter logs imported from Log Service.
+        # The conditions that are used to filter logs imported from Simple Log Service.
         self.filters = filters  # type: list[CreateHybridMonitorTaskRequestSLSProcessConfigFilterFilters]
         # The relationship between multiple filter conditions. Valid values:
         # 
-        # *   and (default value): Logs are processed only if all filter conditions are met.
+        # *   and (default): Logs are processed only if all filter conditions are met.
         # *   or: Logs are processed if one of the filter conditions is met.
         self.relation = relation  # type: str
 
@@ -6126,7 +6127,7 @@ class CreateHybridMonitorTaskRequestSLSProcessConfigGroupBy(TeaModel):
     def __init__(self, alias=None, slskey_name=None):
         # The alias of the aggregation result.
         self.alias = alias  # type: str
-        # The name of the key that is used to aggregate logs imported from Log Service.
+        # The name of the key that is used to aggregate logs imported from Simple Log Service.
         self.slskey_name = slskey_name  # type: str
 
     def validate(self):
@@ -6155,10 +6156,32 @@ class CreateHybridMonitorTaskRequestSLSProcessConfigGroupBy(TeaModel):
 
 class CreateHybridMonitorTaskRequestSLSProcessConfigStatistics(TeaModel):
     def __init__(self, alias=None, function=None, parameter_1=None, parameter_2=None, slskey_name=None):
+        # The alias of the aggregation result.
         self.alias = alias  # type: str
+        # The function that is used to aggregate the log data of a statistical period. Valid values:
+        # 
+        # *   count: counts the number.
+        # *   sum: calculates the total value.
+        # *   avg: calculates the average value.
+        # *   max: calculates the maximum value.
+        # *   min: calculates the minimum value.
+        # *   value: collects samples within the statistical period.
+        # *   countps: calculates the number of values of the specified field divided by the total number of seconds within a statistical period.
+        # *   sumps: calculates the sum of the values of the specified field divided by the total number of seconds within a statistical period.
+        # *   distinct: calculates the number of unique values of the specified field within a statistical period.
+        # *   distribution: calculates the number of logs that meet a specified condition within the statistical period.
+        # *   percentile: sorts the values of the specified field in ascending order, and then returns the value that is at the specified percentile within the statistical period. Example: P50.
         self.function = function  # type: str
+        # The value of the function that is used to aggregate logs imported from Simple Log Service.
+        # 
+        # *   If the `Function` parameter is set to `distribution`, this parameter specifies the lower limit of the statistical interval. For example, if you want to calculate the number of HTTP requests whose status code is 2XX, set this parameter to 200.
+        # *   If the `Function` parameter is set to `percentile`, this parameter specifies the percentile at which the expected value is. For example, 0.5 specifies P50.
         self.parameter_1 = parameter_1  # type: str
+        # The value of the function that is used to aggregate logs imported from Simple Log Service.
+        # 
+        # >  This parameter is required only if the `Function` parameter is set to `distribution`. This parameter specifies the upper limit of the statistical interval. For example, if you want to calculate the number of HTTP requests whose status code is 2XX, set this parameter to 299.
         self.parameter_2 = parameter_2  # type: str
+        # The name of the key that is used to aggregate logs imported from Simple Log Service.
         self.slskey_name = slskey_name  # type: str
 
     def validate(self):
@@ -6199,12 +6222,13 @@ class CreateHybridMonitorTaskRequestSLSProcessConfigStatistics(TeaModel):
 
 class CreateHybridMonitorTaskRequestSLSProcessConfig(TeaModel):
     def __init__(self, express=None, filter=None, group_by=None, statistics=None):
-        # The extended fields that specify the results of basic operations that are performed on aggregation results.
+        # The extended fields that specify the results of basic operations performed on aggregation results.
         self.express = express  # type: list[CreateHybridMonitorTaskRequestSLSProcessConfigExpress]
-        # The conditions that are used to filter logs imported from Log Service.
+        # The conditions that are used to filter logs imported from Simple Log Service.
         self.filter = filter  # type: CreateHybridMonitorTaskRequestSLSProcessConfigFilter
         # The dimension based on which data is aggregated. This parameter is equivalent to the GROUP BY clause in SQL.
         self.group_by = group_by  # type: list[CreateHybridMonitorTaskRequestSLSProcessConfigGroupBy]
+        # The method that is used to aggregate logs imported from Simple Log Service.
         self.statistics = statistics  # type: list[CreateHybridMonitorTaskRequestSLSProcessConfigStatistics]
 
     def validate(self):
@@ -6269,14 +6293,18 @@ class CreateHybridMonitorTaskRequestSLSProcessConfig(TeaModel):
 
 
 class CreateHybridMonitorTaskRequest(TeaModel):
-    def __init__(self, attach_labels=None, collect_interval=None, collect_target_type=None, description=None,
-                 group_id=None, namespace=None, region_id=None, slsprocess_config=None, target_user_id=None,
+    def __init__(self, attach_labels=None, cloud_access_id=None, collect_interval=None, collect_target_type=None,
+                 description=None, group_id=None, namespace=None, region_id=None, slsprocess_config=None, target_user_id=None,
                  target_user_id_list=None, task_name=None, task_type=None, yarmconfig=None):
+        # The tags of the metric.
+        # 
+        # >  This parameter is required only if the `TaskType` parameter is set to `aliyun_sls`.
         self.attach_labels = attach_labels  # type: list[CreateHybridMonitorTaskRequestAttachLabels]
-        # The interval at which metrics are collected. Valid values:
+        self.cloud_access_id = cloud_access_id  # type: list[str]
+        # The collection period of the metric. Valid values:
         # 
         # *   15
-        # *   60 (default value)
+        # *   60 (default)
         # 
         # Unit: seconds.
         # 
@@ -6300,13 +6328,13 @@ class CreateHybridMonitorTaskRequest(TeaModel):
         # For information about how to obtain the name of a namespace, see [DescribeHybridMonitorNamespaceList](~~428880~~).
         self.namespace = namespace  # type: str
         self.region_id = region_id  # type: str
-        # The configurations of the logs that are imported from Log Service.
+        # The configurations of the logs that are imported from Simple Log Service.
         # 
         # >  This parameter is required only if the `TaskType` parameter is set to `aliyun_sls`.
         self.slsprocess_config = slsprocess_config  # type: CreateHybridMonitorTaskRequestSLSProcessConfig
         # The ID of the member account.
         # 
-        # If you call API operations by using a management account, you can connect the Alibaba Cloud services that are activated for a member account in a resource directory to Hybrid Cloud Monitoring. You can use the resource directory to monitor Alibaba Cloud services across enterprise accounts.
+        # If you call this operation by using the management account of a resource directory, you can connect the Alibaba Cloud services that are activated for all members in the resource directory to Hybrid Cloud Monitoring. You can use the resource directory to monitor Alibaba Cloud services across enterprise accounts.
         # 
         # >  This parameter is required only if the `TaskType` parameter is set to `aliyun_fc`.
         self.target_user_id = target_user_id  # type: str
@@ -6317,12 +6345,12 @@ class CreateHybridMonitorTaskRequest(TeaModel):
         # The name of the metric import task.
         # 
         # *   If the `TaskType` parameter is set to `aliyun_fc`, enter the name of the metric import task.
-        # *   If the `TaskType` parameter is set to `aliyun_sls`, enter the name of the metric for logs imported from Log Service.
+        # *   If the `TaskType` parameter is set to `aliyun_sls`, enter the name of the metric for logs imported from Simple Log Service.
         self.task_name = task_name  # type: str
-        # Specifies whether to create a metric import task for an Alibaba Cloud service or create a metric for logs imported from Log Service. Valid values:
+        # The type of the metric import task. Valid values:
         # 
-        # *   aliyun_fc: creates a metric import task for an Alibaba Cloud service
-        # *   aliyun_sls: creates a metric for logs imported from Log Service
+        # *   aliyun_fc: metric import tasks for Alibaba Cloud services.
+        # *   aliyun_sls: metrics for logs imported from Simple Log Service.
         self.task_type = task_type  # type: str
         # The configuration file of the Alibaba Cloud service that you want to monitor by using Hybrid Cloud Monitoring.
         # 
@@ -6331,26 +6359,23 @@ class CreateHybridMonitorTaskRequest(TeaModel):
         # 
         # The following code shows a sample configuration file:
         # 
-        # ```
-        # 
-        # products:
-        # - namespace: acs_ecs_dashboard
-        #   metric_info:
-        #   - metric_list:
-        #     - cpu_total
-        #     - cpu_idle
-        #     - diskusage_utilization
-        #     - CPUUtilization
-        #     - DiskReadBPS
-        #     - InternetOut
-        #     - IntranetOut
-        #     - cpu_system
-        # - namespace: acs_rds_dashboard
-        #   metric_info:
-        #   - metric_list:
-        #     - MySQL_QPS
-        #     - MySQL_TPS
-        # ```
+        #     products:
+        #     - namespace: acs_ecs_dashboard
+        #       metric_info:
+        #       - metric_list:
+        #         - cpu_total
+        #         - cpu_idle
+        #         - diskusage_utilization
+        #         - CPUUtilization
+        #         - DiskReadBPS
+        #         - InternetOut
+        #         - IntranetOut
+        #         - cpu_system
+        #     - namespace: acs_rds_dashboard
+        #       metric_info:
+        #       - metric_list:
+        #         - MySQL_QPS
+        #         - MySQL_TPS
         # 
         # >  This parameter is required only if the `TaskType` parameter is set to `aliyun_fc`.
         self.yarmconfig = yarmconfig  # type: str
@@ -6373,6 +6398,8 @@ class CreateHybridMonitorTaskRequest(TeaModel):
         if self.attach_labels is not None:
             for k in self.attach_labels:
                 result['AttachLabels'].append(k.to_map() if k else None)
+        if self.cloud_access_id is not None:
+            result['CloudAccessId'] = self.cloud_access_id
         if self.collect_interval is not None:
             result['CollectInterval'] = self.collect_interval
         if self.collect_target_type is not None:
@@ -6406,6 +6433,8 @@ class CreateHybridMonitorTaskRequest(TeaModel):
             for k in m.get('AttachLabels'):
                 temp_model = CreateHybridMonitorTaskRequestAttachLabels()
                 self.attach_labels.append(temp_model.from_map(k))
+        if m.get('CloudAccessId') is not None:
+            self.cloud_access_id = m.get('CloudAccessId')
         if m.get('CollectInterval') is not None:
             self.collect_interval = m.get('CollectInterval')
         if m.get('CollectTargetType') is not None:
@@ -6436,20 +6465,20 @@ class CreateHybridMonitorTaskRequest(TeaModel):
 
 class CreateHybridMonitorTaskResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None, task_id=None):
-        # The HTTP status code.
+        # The response code.
         # 
-        # >  The status code 200 indicates that the call was successful.
+        # >  The status code 200 indicates that the request was successful.
         self.code = code  # type: str
-        # The error message.
+        # The error message returned.
         self.message = message  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # Indicates whether the call was successful. Valid values:
+        # Indicates whether the request was successful. Valid values:
         # 
-        # *   true: The call was successful.
-        # *   false: The call failed.
+        # *   true
+        # *   false
         self.success = success  # type: str
-        # The ID of the metric import task.
+        # The ID of the monitoring task.
         self.task_id = task_id  # type: long
 
     def validate(self):
@@ -6495,9 +6524,6 @@ class CreateHybridMonitorTaskResponse(TeaModel):
         self.body = body  # type: CreateHybridMonitorTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6700,9 +6726,6 @@ class CreateInstantSiteMonitorResponse(TeaModel):
         self.body = body  # type: CreateInstantSiteMonitorResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6942,9 +6965,6 @@ class CreateMetricRuleBlackListResponse(TeaModel):
         self.body = body  # type: CreateMetricRuleBlackListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7068,9 +7088,6 @@ class CreateMetricRuleResourcesResponse(TeaModel):
         self.body = body  # type: CreateMetricRuleResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7463,9 +7480,6 @@ class CreateMetricRuleTemplateResponse(TeaModel):
         self.body = body  # type: CreateMetricRuleTemplateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7598,9 +7612,6 @@ class CreateMonitorAgentProcessResponse(TeaModel):
         self.body = body  # type: CreateMonitorAgentProcessResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7729,9 +7740,6 @@ class CreateMonitorGroupResponse(TeaModel):
         self.body = body  # type: CreateMonitorGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7892,9 +7900,6 @@ class CreateMonitorGroupByResourceGroupIdResponse(TeaModel):
         self.body = body  # type: CreateMonitorGroupByResourceGroupIdResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8068,9 +8073,6 @@ class CreateMonitorGroupInstancesResponse(TeaModel):
         self.body = body  # type: CreateMonitorGroupInstancesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8213,9 +8215,6 @@ class CreateMonitorGroupNotifyPolicyResponse(TeaModel):
         self.body = body  # type: CreateMonitorGroupNotifyPolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8348,9 +8347,6 @@ class CreateMonitoringAgentProcessResponse(TeaModel):
         self.body = body  # type: CreateMonitoringAgentProcessResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8717,9 +8713,6 @@ class CreateSiteMonitorResponse(TeaModel):
         self.body = body  # type: CreateSiteMonitorResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8971,9 +8964,6 @@ class CursorResponse(TeaModel):
         self.body = body  # type: CursorResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9080,9 +9070,6 @@ class DeleteContactResponse(TeaModel):
         self.body = body  # type: DeleteContactResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9189,9 +9176,6 @@ class DeleteContactGroupResponse(TeaModel):
         self.body = body  # type: DeleteContactGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9319,9 +9303,6 @@ class DeleteCustomMetricResponse(TeaModel):
         self.body = body  # type: DeleteCustomMetricResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9438,9 +9419,6 @@ class DeleteDynamicTagGroupResponse(TeaModel):
         self.body = body  # type: DeleteDynamicTagGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9557,9 +9535,6 @@ class DeleteEventRuleTargetsResponse(TeaModel):
         self.body = body  # type: DeleteEventRuleTargetsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9665,9 +9640,6 @@ class DeleteEventRulesResponse(TeaModel):
         self.body = body  # type: DeleteEventRulesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9782,9 +9754,6 @@ class DeleteExporterOutputResponse(TeaModel):
         self.body = body  # type: DeleteExporterOutputResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9899,9 +9868,6 @@ class DeleteExporterRuleResponse(TeaModel):
         self.body = body  # type: DeleteExporterRuleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10022,9 +9988,6 @@ class DeleteGroupMonitoringAgentProcessResponse(TeaModel):
         self.body = body  # type: DeleteGroupMonitoringAgentProcessResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10135,9 +10098,6 @@ class DeleteHostAvailabilityResponse(TeaModel):
         self.body = body  # type: DeleteHostAvailabilityResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10252,9 +10212,6 @@ class DeleteHybridMonitorNamespaceResponse(TeaModel):
         self.body = body  # type: DeleteHybridMonitorNamespaceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10371,9 +10328,6 @@ class DeleteHybridMonitorSLSGroupResponse(TeaModel):
         self.body = body  # type: DeleteHybridMonitorSLSGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10510,9 +10464,6 @@ class DeleteHybridMonitorTaskResponse(TeaModel):
         self.body = body  # type: DeleteHybridMonitorTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10627,9 +10578,6 @@ class DeleteLogMonitorResponse(TeaModel):
         self.body = body  # type: DeleteLogMonitorResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10754,9 +10702,6 @@ class DeleteMetricRuleBlackListResponse(TeaModel):
         self.body = body  # type: DeleteMetricRuleBlackListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10872,9 +10817,6 @@ class DeleteMetricRuleResourcesResponse(TeaModel):
         self.body = body  # type: DeleteMetricRuleResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11056,9 +10998,6 @@ class DeleteMetricRuleTargetsResponse(TeaModel):
         self.body = body  # type: DeleteMetricRuleTargetsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11203,9 +11142,6 @@ class DeleteMetricRuleTemplateResponse(TeaModel):
         self.body = body  # type: DeleteMetricRuleTemplateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11319,9 +11255,6 @@ class DeleteMetricRulesResponse(TeaModel):
         self.body = body  # type: DeleteMetricRulesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11531,9 +11464,6 @@ class DeleteMonitorGroupResponse(TeaModel):
         self.body = body  # type: DeleteMonitorGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11651,9 +11581,6 @@ class DeleteMonitorGroupDynamicRuleResponse(TeaModel):
         self.body = body  # type: DeleteMonitorGroupDynamicRuleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11813,9 +11740,6 @@ class DeleteMonitorGroupInstancesResponse(TeaModel):
         self.body = body  # type: DeleteMonitorGroupInstancesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11944,9 +11868,6 @@ class DeleteMonitorGroupNotifyPolicyResponse(TeaModel):
         self.body = body  # type: DeleteMonitorGroupNotifyPolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12077,9 +11998,6 @@ class DeleteMonitoringAgentProcessResponse(TeaModel):
         self.body = body  # type: DeleteMonitoringAgentProcessResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12233,9 +12151,6 @@ class DeleteSiteMonitorsResponse(TeaModel):
         self.body = body  # type: DeleteSiteMonitorsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12908,9 +12823,6 @@ class DescribeActiveMetricRuleListResponse(TeaModel):
         self.body = body  # type: DescribeActiveMetricRuleListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13462,9 +13374,6 @@ class DescribeAlertHistoryListResponse(TeaModel):
         self.body = body  # type: DescribeAlertHistoryListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13507,8 +13416,12 @@ class DescribeAlertLogCountRequest(TeaModel):
         # 
         # You can query only the alert logs within the last year. If the query time is longer than one year, the return value of the `AlertLogCount` parameter is empty.
         # 
-        # >  The interval between the start time (`StartTime`) and end time (`EndTime`) must be less than or equal to 15 days.
+        # >  The interval between the start time (StartTime) and end time (EndTime) must be less than or equal to 15 days. The start time and end time must be specified or left empty at the same time. If you do not specify the start time and end time, the alert logs within the last 15 minutes are queried by default.
         self.end_time = end_time  # type: long
+        # The type of the alert event. Valid values:
+        # 
+        # *   TRIGGERED: The alert is triggered.
+        # *   RESOLVED: The alert is resolved.
         self.event_type = event_type  # type: str
         # The dimension based on which data is aggregated. This parameter is similar to the Group By clause of SQL statements. Valid values:
         # 
@@ -13548,6 +13461,9 @@ class DescribeAlertLogCountRequest(TeaModel):
         # The abbreviation of the service name.
         self.product = product  # type: str
         self.region_id = region_id  # type: str
+        # The ID of the alert rule.
+        # 
+        # For more information about how to obtain the ID of an alert rule, see [DescribeMetricRuleList](~~114941~~).
         self.rule_id = rule_id  # type: str
         # The name of the alert rule.
         self.rule_name = rule_name  # type: str
@@ -13571,7 +13487,7 @@ class DescribeAlertLogCountRequest(TeaModel):
         # 
         # You can query only the alert logs within the last year. If the query time is longer than one year, the return value of the `AlertLogCount` parameter is empty.
         # 
-        # >  The interval between the start time (`StartTime`) and end time (`EndTime`) must be less than or equal to 15 days.
+        # >  The interval between the start time (StartTime) and end time (EndTime) must be less than or equal to 15 days. The start time and end time must be specified or left empty at the same time. If you do not specify the start time and end time, the alert logs within the last 15 minutes are queried by default.
         self.start_time = start_time  # type: long
 
     def validate(self):
@@ -13805,9 +13721,6 @@ class DescribeAlertLogCountResponse(TeaModel):
         self.body = body  # type: DescribeAlertLogCountResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13854,6 +13767,10 @@ class DescribeAlertLogHistogramRequest(TeaModel):
         # 
         # *   The interval between the start time (`StartTime`) and end time (`EndTime`) must be less than or equal to 15 days.
         self.end_time = end_time  # type: long
+        # The type of the alert event. Valid values:
+        # 
+        # *   TRIGGERED: The alert is triggered.
+        # *   RESOLVED: The alert is resolved.
         self.event_type = event_type  # type: str
         # The dimensions based on which data is aggregated. This parameter is equivalent to the GROUP BY clause in SQL. Valid values:
         # 
@@ -13891,6 +13808,9 @@ class DescribeAlertLogHistogramRequest(TeaModel):
         # The abbreviation of the Alibaba Cloud service name.
         self.product = product  # type: str
         self.region_id = region_id  # type: str
+        # The ID of the alert rule.
+        # 
+        # For more information about how to obtain the ID of an alert rule, see [DescribeMetricRuleList](~~114941~~).
         self.rule_id = rule_id  # type: str
         # The name of the alert rule.
         self.rule_name = rule_name  # type: str
@@ -14121,9 +14041,6 @@ class DescribeAlertLogHistogramResponse(TeaModel):
         self.body = body  # type: DescribeAlertLogHistogramResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14160,10 +14077,20 @@ class DescribeAlertLogListRequest(TeaModel):
                  start_time=None):
         # The alert contact group.
         self.contact_group = contact_group  # type: str
-        # The end timestamp of the alert logs to be queried. Unit: milliseconds.
+        # The end timestamp of the alert logs to be queried.
+        # 
+        # Unit: milliseconds.
+        # 
+        # You can query only the alert logs within the last year. If the query time is longer than one year, the return value of the `AlertLogList` parameter is empty.
+        # 
+        # >  The time period between the start time specified by `StartTime` and end time specified by `EndTime` must be less than or equal to 15 days. You must specify StartTime and EndTime at the same time, or leave StartTime and EndTime empty at the same time. If you do not specify this parameter, the alert logs within the last 15 minutes are queried by default.
         self.end_time = end_time  # type: long
+        # The type of the alert event. Valid values:
+        # 
+        # *   TRIGGERED: The alert is triggered.
+        # *   RESOLVED: The alert is resolved.
         self.event_type = event_type  # type: str
-        # The dimension based on which data is aggregated. This parameter is equivalent to the GROUP BY clause in SQL. Valid values:
+        # The dimensions based on which data is aggregated. This parameter is equivalent to the GROUP BY clause in SQL. Valid values:
         # 
         # *   `product`: aggregates data by cloud service.
         # *   `level`: aggregates data by alert level.
@@ -14186,16 +14113,24 @@ class DescribeAlertLogListRequest(TeaModel):
         self.metric_name = metric_name  # type: str
         # The namespace of the cloud service.
         # 
-        # > For more information about the namespaces of different cloud services, see [Appendix 1: Metrics](~~163515~~).
+        # >  For information about how to query the namespace of a cloud service, see [Appendix 1: Metrics](~~163515~~).
         self.namespace = namespace  # type: str
-        # The page number. Default value: 1.
+        # The page number.
+        # 
+        # Default value: 1.
         self.page_number = page_number  # type: int
-        # The number of entries per page. Default value: 10.
+        # The number of entries per page.
+        # 
+        # Default value: 10.
         self.page_size = page_size  # type: int
-        # The abbreviation of the cloud service name.
+        # The abbreviation of the service name.
+        # 
+        # For information about how to obtain the abbreviation of a cloud service name, see [DescribeProductsOfActiveMetricRule](~~114930~~).
         self.product = product  # type: str
         self.region_id = region_id  # type: str
-        # The ID of the alert rule. For more information about how to query the ID of an alert rule, see [DescribeMetricRuleList](~~114941~~).
+        # The ID of the alert rule.
+        # 
+        # For information about how to obtain the ID of an alert rule, see [DescribeMetricRuleList](~~114941~~).
         self.rule_id = rule_id  # type: str
         # The name of the alert rule.
         self.rule_name = rule_name  # type: str
@@ -14211,8 +14146,15 @@ class DescribeAlertLogListRequest(TeaModel):
         # 
         # If the value of the SendStatus parameter is 0, the value P4 of the Level parameter indicates a triggered alert and the value OK indicates a cleared alert.
         self.send_status = send_status  # type: str
+        # The type of the alert rule. Valid value: METRIC. This value indicates an alert rule for time series metrics.
         self.source_type = source_type  # type: str
-        # The start timestamp of the alert logs to be queried. Unit: milliseconds.
+        # The start timestamp of the alert logs to be queried.
+        # 
+        # Unit: milliseconds.
+        # 
+        # You can query only the alert logs within the last year. If the query time is longer than one year, the return value of the `AlertLogList` parameter is empty.
+        # 
+        # >  The time period between the start time specified by `StartTime` and the end time specified by `EndTime` must be less than or equal to 15 days. You must specify StartTime and EndTime at the same time, or leave StartTime and EndTime empty at the same time. If you do not specify this parameter, the alert logs within the last 15 minutes are queried by default.
         self.start_time = start_time  # type: long
 
     def validate(self):
@@ -14342,9 +14284,9 @@ class DescribeAlertLogListResponseBodyAlertLogListEscalation(TeaModel):
     def __init__(self, expression=None, level=None, times=None):
         # The description of the alert rule.
         # 
-        # > The content of the alert rule. If the metric value meets the alert condition, an alert is triggered.
+        # >  The content of the alert rule. This parameter indicates the conditions that trigger an alert.
         self.expression = expression  # type: str
-        # The severity level and notification methods of the alert. Valid values:
+        # The alert level and the methods that are used to send alert notifications. Valid values:
         # 
         # *   P4: Alert notifications are sent by using emails and DingTalk chatbots.
         # *   OK: No alert is generated.
@@ -14427,7 +14369,6 @@ class DescribeAlertLogListResponseBodyAlertLogListSendDetailChannelResultListRes
         # *   true
         # *   false
         self.success = success  # type: bool
-        # The queried resources.
         self.notify_target_list = notify_target_list  # type: list[str]
 
     def validate(self):
@@ -14559,14 +14500,14 @@ class DescribeAlertLogListResponseBodyAlertLogListSendResultList(TeaModel):
     def __init__(self, key=None, value=None):
         # The category of the alert notification method. Valid values:
         # 
-        # *   Mail: email
+        # *   MAIL: email
         # *   ALIIM: TradeManager
         # *   SMS: text message
         # *   CALL: phone call
         # *   DING: DingTalk chatbot
         # *   Merged: alert merging
         self.key = key  # type: str
-        # The alert notification methods.
+        # The notification object corresponding to the alert notification method.
         self.value = value  # type: list[str]
 
     def validate(self):
@@ -14637,7 +14578,9 @@ class DescribeAlertLogListResponseBodyAlertLogList(TeaModel):
                  event_name=None, extended_info=None, group_id=None, group_name=None, instance_id=None, instance_name=None,
                  level=None, level_change=None, log_id=None, message=None, metric_name=None, namespace=None, product=None,
                  rule_id=None, rule_name=None, send_detail=None, send_result_list=None, send_status=None, webhook_list=None):
-        # The timestamp that was generated when the alert was triggered. Unit: milliseconds.
+        # The timestamp that was generated when the alert was triggered.
+        # 
+        # Unit: milliseconds.
         self.alert_time = alert_time  # type: str
         # The details of the blacklist policy.
         self.black_list_detail = black_list_detail  # type: str
@@ -14645,27 +14588,14 @@ class DescribeAlertLogListResponseBodyAlertLogList(TeaModel):
         self.black_list_name = black_list_name  # type: str
         # The ID of the blacklist policy.
         self.black_list_uuid = black_list_uuid  # type: str
-        # The TradeManager IDs of the alert contacts.
-        # 
-        # > This parameter is valid only on the China site (aliyun.com).
         self.contact_aliiwwlist = contact_aliiwwlist  # type: list[str]
-        # The DingTalk chatbots of the alert contacts.
         self.contact_ding_list = contact_ding_list  # type: list[str]
-        # The alert contact groups.
         self.contact_groups = contact_groups  # type: list[str]
-        # The email addresses of the alert contacts.
         self.contact_mail_list = contact_mail_list  # type: list[str]
-        # The phone numbers of the alert contacts that receive alert phone calls.
-        # 
-        # > This parameter is valid only on the China site (aliyun.com).
         self.contact_on_call_list = contact_on_call_list  # type: list[str]
-        # The phone numbers of the alert contacts that receive alert text messages.
-        # 
-        # > This parameter is valid only on the China site (aliyun.com).
         self.contact_smslist = contact_smslist  # type: list[str]
         # The dimensions of the resource that triggered alerts.
         self.dimensions = dimensions  # type: list[DescribeAlertLogListResponseBodyAlertLogListDimensions]
-        # The webhook URLs of the alert contacts.
         self.dingding_webhook_list = dingding_webhook_list  # type: list[str]
         # The alert rule based on which the alert is triggered.
         self.escalation = escalation  # type: DescribeAlertLogListResponseBodyAlertLogListEscalation
@@ -14681,7 +14611,7 @@ class DescribeAlertLogListResponseBodyAlertLogList(TeaModel):
         self.instance_id = instance_id  # type: str
         # The resource name.
         self.instance_name = instance_name  # type: str
-        # The severity level and notification methods of the alert. Valid values:
+        # The alert level and the methods that are used to send alert notifications. Valid values:
         # 
         # *   P4: Alert notifications are sent by using emails and DingTalk chatbots.
         # *   OK: No alert is generated.
@@ -14708,7 +14638,7 @@ class DescribeAlertLogListResponseBodyAlertLogList(TeaModel):
         self.rule_id = rule_id  # type: str
         # The name of the alert rule.
         self.rule_name = rule_name  # type: str
-        # The details of the alert notification method.
+        # The details about the sending results of alert notifications.
         self.send_detail = send_detail  # type: DescribeAlertLogListResponseBodyAlertLogListSendDetail
         # The sending results of alert notifications.
         self.send_result_list = send_result_list  # type: list[DescribeAlertLogListResponseBodyAlertLogListSendResultList]
@@ -14992,9 +14922,6 @@ class DescribeAlertLogListResponse(TeaModel):
         self.body = body  # type: DescribeAlertLogListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15586,9 +15513,6 @@ class DescribeAlertingMetricRuleResourcesResponse(TeaModel):
         self.body = body  # type: DescribeAlertingMetricRuleResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15885,9 +15809,6 @@ class DescribeContactGroupListResponse(TeaModel):
         self.body = body  # type: DescribeContactGroupListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16291,9 +16212,6 @@ class DescribeContactListResponse(TeaModel):
         self.body = body  # type: DescribeContactListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16546,9 +16464,6 @@ class DescribeContactListByContactGroupResponse(TeaModel):
         self.body = body  # type: DescribeContactListByContactGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16804,9 +16719,6 @@ class DescribeCustomEventAttributeResponse(TeaModel):
         self.body = body  # type: DescribeCustomEventAttributeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17035,9 +16947,6 @@ class DescribeCustomEventCountResponse(TeaModel):
         self.body = body  # type: DescribeCustomEventCountResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17278,9 +17187,6 @@ class DescribeCustomEventHistogramResponse(TeaModel):
         self.body = body  # type: DescribeCustomEventHistogramResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17429,9 +17335,6 @@ class DescribeCustomMetricListResponse(TeaModel):
         self.body = body  # type: DescribeCustomMetricListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17849,9 +17752,6 @@ class DescribeDynamicTagRuleListResponse(TeaModel):
         self.body = body  # type: DescribeDynamicTagRuleListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -18278,9 +18178,6 @@ class DescribeEventRuleAttributeResponse(TeaModel):
         self.body = body  # type: DescribeEventRuleAttributeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -18781,9 +18678,6 @@ class DescribeEventRuleListResponse(TeaModel):
         self.body = body  # type: DescribeEventRuleListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19464,9 +19358,6 @@ class DescribeEventRuleTargetListResponse(TeaModel):
         self.body = body  # type: DescribeEventRuleTargetListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19730,9 +19621,6 @@ class DescribeExporterOutputListResponse(TeaModel):
         self.body = body  # type: DescribeExporterOutputListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -20012,9 +19900,6 @@ class DescribeExporterRuleListResponse(TeaModel):
         self.body = body  # type: DescribeExporterRuleListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -20564,9 +20449,6 @@ class DescribeGroupMonitoringAgentProcessResponse(TeaModel):
         self.body = body  # type: DescribeGroupMonitoringAgentProcessResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -21207,9 +21089,6 @@ class DescribeHostAvailabilityListResponse(TeaModel):
         self.body = body  # type: DescribeHostAvailabilityListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -21490,9 +21369,6 @@ class DescribeHybridMonitorDataListResponse(TeaModel):
         self.body = body  # type: DescribeHybridMonitorDataListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -21925,9 +21801,6 @@ class DescribeHybridMonitorNamespaceListResponse(TeaModel):
         self.body = body  # type: DescribeHybridMonitorNamespaceListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -22204,9 +22077,6 @@ class DescribeHybridMonitorSLSGroupResponse(TeaModel):
         self.body = body  # type: DescribeHybridMonitorSLSGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -23023,9 +22893,6 @@ class DescribeHybridMonitorTaskListResponse(TeaModel):
         self.body = body  # type: DescribeHybridMonitorTaskListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -23377,9 +23244,6 @@ class DescribeLogMonitorAttributeResponse(TeaModel):
         self.body = body  # type: DescribeLogMonitorAttributeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -23678,9 +23542,6 @@ class DescribeLogMonitorListResponse(TeaModel):
         self.body = body  # type: DescribeLogMonitorListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -23903,9 +23764,6 @@ class DescribeMetricDataResponse(TeaModel):
         self.body = body  # type: DescribeMetricDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24117,9 +23975,6 @@ class DescribeMetricLastResponse(TeaModel):
         self.body = body  # type: DescribeMetricLastResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24330,9 +24185,6 @@ class DescribeMetricListResponse(TeaModel):
         self.body = body  # type: DescribeMetricListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24363,8 +24215,7 @@ class DescribeMetricListResponse(TeaModel):
 
 
 class DescribeMetricMetaListRequest(TeaModel):
-    def __init__(self, labels=None, metric_name=None, namespace=None, page_number=None, page_size=None,
-                 region_id=None):
+    def __init__(self, labels=None, metric_name=None, namespace=None, page_number=None, page_size=None):
         # The tags for filtering metrics. Specify a JSON string.
         # 
         # Format:`[{"name":"tag name","value":"tag value"},{"name":"tag name","value":"tag value"}]`. The following tags are available:
@@ -24386,7 +24237,6 @@ class DescribeMetricMetaListRequest(TeaModel):
         self.page_number = page_number  # type: int
         # The number of entries to return on each page. Default value: 30.
         self.page_size = page_size  # type: int
-        self.region_id = region_id  # type: str
 
     def validate(self):
         pass
@@ -24407,8 +24257,6 @@ class DescribeMetricMetaListRequest(TeaModel):
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
         return result
 
     def from_map(self, m=None):
@@ -24423,8 +24271,6 @@ class DescribeMetricMetaListRequest(TeaModel):
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
         return self
 
 
@@ -24603,9 +24449,6 @@ class DescribeMetricMetaListResponse(TeaModel):
         self.body = body  # type: DescribeMetricMetaListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24966,9 +24809,6 @@ class DescribeMetricRuleBlackListResponse(TeaModel):
         self.body = body  # type: DescribeMetricRuleBlackListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25146,9 +24986,6 @@ class DescribeMetricRuleCountResponse(TeaModel):
         self.body = body  # type: DescribeMetricRuleCountResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26159,9 +25996,6 @@ class DescribeMetricRuleListResponse(TeaModel):
         self.body = body  # type: DescribeMetricRuleListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26370,9 +26204,6 @@ class DescribeMetricRuleTargetsResponse(TeaModel):
         self.body = body  # type: DescribeMetricRuleTargetsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26950,9 +26781,6 @@ class DescribeMetricRuleTemplateAttributeResponse(TeaModel):
         self.body = body  # type: DescribeMetricRuleTemplateAttributeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -27308,9 +27136,6 @@ class DescribeMetricRuleTemplateListResponse(TeaModel):
         self.body = body  # type: DescribeMetricRuleTemplateListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -27548,9 +27373,6 @@ class DescribeMetricTopResponse(TeaModel):
         self.body = body  # type: DescribeMetricTopResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -27771,9 +27593,6 @@ class DescribeMonitorGroupCategoriesResponse(TeaModel):
         self.body = body  # type: DescribeMonitorGroupCategoriesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28043,9 +27862,6 @@ class DescribeMonitorGroupDynamicRulesResponse(TeaModel):
         self.body = body  # type: DescribeMonitorGroupDynamicRulesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28473,9 +28289,6 @@ class DescribeMonitorGroupInstanceAttributeResponse(TeaModel):
         self.body = body  # type: DescribeMonitorGroupInstanceAttributeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28763,9 +28576,6 @@ class DescribeMonitorGroupInstancesResponse(TeaModel):
         self.body = body  # type: DescribeMonitorGroupInstancesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28999,9 +28809,6 @@ class DescribeMonitorGroupNotifyPolicyListResponse(TeaModel):
         self.body = body  # type: DescribeMonitorGroupNotifyPolicyListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -29576,9 +29383,6 @@ class DescribeMonitorGroupsResponse(TeaModel):
         self.body = body  # type: DescribeMonitorGroupsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30288,9 +30092,6 @@ class DescribeMonitorResourceQuotaAttributeResponse(TeaModel):
         self.body = body  # type: DescribeMonitorResourceQuotaAttributeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30411,9 +30212,6 @@ class DescribeMonitoringAgentAccessKeyResponse(TeaModel):
         self.body = body  # type: DescribeMonitoringAgentAccessKeyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30547,9 +30345,6 @@ class DescribeMonitoringAgentConfigResponse(TeaModel):
         self.body = body  # type: DescribeMonitoringAgentConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30918,9 +30713,6 @@ class DescribeMonitoringAgentHostsResponse(TeaModel):
         self.body = body  # type: DescribeMonitoringAgentHostsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -31132,9 +30924,6 @@ class DescribeMonitoringAgentProcessesResponse(TeaModel):
         self.body = body  # type: DescribeMonitoringAgentProcessesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -31400,9 +31189,6 @@ class DescribeMonitoringAgentStatusesResponse(TeaModel):
         self.body = body  # type: DescribeMonitoringAgentStatusesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -31530,9 +31316,6 @@ class DescribeMonitoringConfigResponse(TeaModel):
         self.body = body  # type: DescribeMonitoringConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -31684,9 +31467,6 @@ class DescribeProductResourceTagKeyListResponse(TeaModel):
         self.body = body  # type: DescribeProductResourceTagKeyListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -32037,9 +31817,6 @@ class DescribeProductsOfActiveMetricRuleResponse(TeaModel):
         self.body = body  # type: DescribeProductsOfActiveMetricRuleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -32275,9 +32052,6 @@ class DescribeProjectMetaResponse(TeaModel):
         self.body = body  # type: DescribeProjectMetaResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -33451,9 +33225,6 @@ class DescribeSiteMonitorAttributeResponse(TeaModel):
         self.body = body  # type: DescribeSiteMonitorAttributeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -33634,9 +33405,6 @@ class DescribeSiteMonitorDataResponse(TeaModel):
         self.body = body  # type: DescribeSiteMonitorDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -33970,9 +33738,6 @@ class DescribeSiteMonitorISPCityListResponse(TeaModel):
         self.body = body  # type: DescribeSiteMonitorISPCityListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -34630,9 +34395,6 @@ class DescribeSiteMonitorListResponse(TeaModel):
         self.body = body  # type: DescribeSiteMonitorListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -34845,9 +34607,6 @@ class DescribeSiteMonitorLogResponse(TeaModel):
         self.body = body  # type: DescribeSiteMonitorLogResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -35026,9 +34785,6 @@ class DescribeSiteMonitorQuotaResponse(TeaModel):
         self.body = body  # type: DescribeSiteMonitorQuotaResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -35177,9 +34933,6 @@ class DescribeSiteMonitorStatisticsResponse(TeaModel):
         self.body = body  # type: DescribeSiteMonitorStatisticsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -35330,30 +35083,30 @@ class DescribeSystemEventAttributeRequest(TeaModel):
 class DescribeSystemEventAttributeResponseBodySystemEventsSystemEvent(TeaModel):
     def __init__(self, content=None, group_id=None, id=None, instance_name=None, level=None, name=None, product=None,
                  region_id=None, resource_id=None, status=None, time=None):
-        # The details of the system event.
+        # The details of the event.
         self.content = content  # type: str
         # The ID of the application group.
         self.group_id = group_id  # type: str
         self.id = id  # type: str
-        # The name of the instance.
+        # The instance name.
         self.instance_name = instance_name  # type: str
-        # The level of the system event. Valid values:
+        # The severity level of the alert. Valid values:
         # 
-        # *   CRITICAL: critical
-        # *   WARN: warning
-        # *   INFO: information
+        # *   CRITICAL
+        # *   WARN
+        # *   INFO
         self.level = level  # type: str
-        # The name of the system event.
+        # The event name.
         self.name = name  # type: str
         # The abbreviation of the service name.
         self.product = product  # type: str
-        # The ID of the region.
+        # The region ID.
         self.region_id = region_id  # type: str
-        # The ID of the resource.
+        # The resource ID.
         self.resource_id = resource_id  # type: str
-        # The status of the system event.
+        # The status of the event.
         self.status = status  # type: str
-        # The timestamp when the system event occurred.
+        # The time when the event occurred. The value is a timestamp.
         # 
         # Unit: milliseconds.
         self.time = time  # type: long
@@ -35462,7 +35215,7 @@ class DescribeSystemEventAttributeResponseBody(TeaModel):
         self.request_id = request_id  # type: str
         # Indicates whether the call is successful. Valid values: True: The call is successful. false: The call fails.
         self.success = success  # type: str
-        # The details of the system event.
+        # The details of the event.
         self.system_events = system_events  # type: DescribeSystemEventAttributeResponseBodySystemEvents
 
     def validate(self):
@@ -35510,9 +35263,6 @@ class DescribeSystemEventAttributeResponse(TeaModel):
         self.body = body  # type: DescribeSystemEventAttributeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -35822,9 +35572,6 @@ class DescribeSystemEventCountResponse(TeaModel):
         self.body = body  # type: DescribeSystemEventCountResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -36084,9 +35831,6 @@ class DescribeSystemEventHistogramResponse(TeaModel):
         self.body = body  # type: DescribeSystemEventHistogramResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -36309,9 +36053,6 @@ class DescribeSystemEventMetaListResponse(TeaModel):
         self.body = body  # type: DescribeSystemEventMetaListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -36468,9 +36209,6 @@ class DescribeTagKeyListResponse(TeaModel):
         self.body = body  # type: DescribeTagKeyListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -36635,9 +36373,6 @@ class DescribeTagValueListResponse(TeaModel):
         self.body = body  # type: DescribeTagValueListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -36848,9 +36583,6 @@ class DescribeUnhealthyHostAvailabilityResponse(TeaModel):
         self.body = body  # type: DescribeUnhealthyHostAvailabilityResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -36977,9 +36709,6 @@ class DisableActiveMetricRuleResponse(TeaModel):
         self.body = body  # type: DisableActiveMetricRuleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -37090,9 +36819,6 @@ class DisableEventRulesResponse(TeaModel):
         self.body = body  # type: DisableEventRulesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -37206,9 +36932,6 @@ class DisableHostAvailabilityResponse(TeaModel):
         self.body = body  # type: DisableHostAvailabilityResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -37322,9 +37045,6 @@ class DisableMetricRulesResponse(TeaModel):
         self.body = body  # type: DisableMetricRulesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -37472,9 +37192,6 @@ class DisableSiteMonitorsResponse(TeaModel):
         self.body = body  # type: DisableSiteMonitorsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -37601,9 +37318,6 @@ class EnableActiveMetricRuleResponse(TeaModel):
         self.body = body  # type: EnableActiveMetricRuleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -37714,9 +37428,6 @@ class EnableEventRulesResponse(TeaModel):
         self.body = body  # type: EnableEventRulesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -37830,9 +37541,6 @@ class EnableHostAvailabilityResponse(TeaModel):
         self.body = body  # type: EnableHostAvailabilityResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -37966,9 +37674,6 @@ class EnableMetricRuleBlackListResponse(TeaModel):
         self.body = body  # type: EnableMetricRuleBlackListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -38087,9 +37792,6 @@ class EnableMetricRulesResponse(TeaModel):
         self.body = body  # type: EnableMetricRulesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -38237,9 +37939,6 @@ class EnableSiteMonitorsResponse(TeaModel):
         self.body = body  # type: EnableSiteMonitorsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -38374,9 +38073,6 @@ class InstallMonitoringAgentResponse(TeaModel):
         self.body = body  # type: InstallMonitoringAgentResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -38691,9 +38387,6 @@ class ModifyGroupMonitoringAgentProcessResponse(TeaModel):
         self.body = body  # type: ModifyGroupMonitoringAgentProcessResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -39170,9 +38863,6 @@ class ModifyHostAvailabilityResponse(TeaModel):
         self.body = body  # type: ModifyHostAvailabilityResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -39290,9 +38980,6 @@ class ModifyHostInfoResponse(TeaModel):
         self.body = body  # type: ModifyHostInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -39430,9 +39117,6 @@ class ModifyHybridMonitorNamespaceResponse(TeaModel):
         self.body = body  # type: ModifyHybridMonitorNamespaceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -39626,9 +39310,6 @@ class ModifyHybridMonitorSLSGroupResponse(TeaModel):
         self.body = body  # type: ModifyHybridMonitorSLSGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -40113,9 +39794,6 @@ class ModifyHybridMonitorTaskResponse(TeaModel):
         self.body = body  # type: ModifyHybridMonitorTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -40363,9 +40041,6 @@ class ModifyMetricRuleBlackListResponse(TeaModel):
         self.body = body  # type: ModifyMetricRuleBlackListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -40790,9 +40465,6 @@ class ModifyMetricRuleTemplateResponse(TeaModel):
         self.body = body  # type: ModifyMetricRuleTemplateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -40919,9 +40591,6 @@ class ModifyMonitorGroupResponse(TeaModel):
         self.body = body  # type: ModifyMonitorGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -41161,9 +40830,6 @@ class ModifyMonitorGroupInstancesResponse(TeaModel):
         self.body = body  # type: ModifyMonitorGroupInstancesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -41364,9 +41030,6 @@ class ModifySiteMonitorResponse(TeaModel):
         self.body = body  # type: ModifySiteMonitorResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -41434,9 +41097,6 @@ class OpenCmsServiceResponse(TeaModel):
         self.body = body  # type: OpenCmsServiceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -41621,9 +41281,6 @@ class PutContactResponse(TeaModel):
         self.body = body  # type: PutContactResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -41757,9 +41414,6 @@ class PutContactGroupResponse(TeaModel):
         self.body = body  # type: PutContactGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -41923,9 +41577,6 @@ class PutCustomEventResponse(TeaModel):
         self.body = body  # type: PutCustomEventResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -42104,9 +41755,6 @@ class PutCustomEventRuleResponse(TeaModel):
         self.body = body  # type: PutCustomEventRuleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -42303,9 +41951,6 @@ class PutCustomMetricResponse(TeaModel):
         self.body = body  # type: PutCustomMetricResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -42526,9 +42171,6 @@ class PutCustomMetricRuleResponse(TeaModel):
         self.body = body  # type: PutCustomMetricRuleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -42761,9 +42403,6 @@ class PutEventRuleResponse(TeaModel):
         self.body = body  # type: PutEventRuleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -43504,9 +43143,6 @@ class PutEventRuleTargetsResponse(TeaModel):
         self.body = body  # type: PutEventRuleTargetsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -43642,9 +43278,6 @@ class PutExporterOutputResponse(TeaModel):
         self.body = body  # type: PutExporterOutputResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -43804,9 +43437,6 @@ class PutExporterRuleResponse(TeaModel):
         self.body = body  # type: PutExporterRuleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -44353,9 +43983,6 @@ class PutGroupMetricRuleResponse(TeaModel):
         self.body = body  # type: PutGroupMetricRuleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -44626,9 +44253,6 @@ class PutHybridMonitorMetricDataResponse(TeaModel):
         self.body = body  # type: PutHybridMonitorMetricDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -44983,9 +44607,6 @@ class PutLogMonitorResponse(TeaModel):
         self.body = body  # type: PutLogMonitorResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -45288,9 +44909,6 @@ class PutMetricRuleTargetsResponse(TeaModel):
         self.body = body  # type: PutMetricRuleTargetsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -45524,9 +45142,6 @@ class PutMonitorGroupDynamicRuleResponse(TeaModel):
         self.body = body  # type: PutMonitorGroupDynamicRuleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -45653,9 +45268,6 @@ class PutMonitoringConfigResponse(TeaModel):
         self.body = body  # type: PutMonitoringConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -46872,9 +46484,6 @@ class PutResourceMetricRuleResponse(TeaModel):
         self.body = body  # type: PutResourceMetricRuleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -47098,9 +46707,9 @@ class PutResourceMetricRulesRequestRulesEscalations(TeaModel):
 
 class PutResourceMetricRulesRequestRulesLabels(TeaModel):
     def __init__(self, key=None, value=None):
-        # The key of the tag.
+        # The tag key.
         self.key = key  # type: str
-        # The value of the tag.
+        # The tag value.
         # 
         # >  You can use a template parameter to specify a tag value. CloudMonitor replaces the value of the template parameter with an actual tag value.
         self.value = value  # type: str
@@ -47134,7 +46743,7 @@ class PutResourceMetricRulesRequestRules(TeaModel):
                  interval=None, labels=None, metric_name=None, namespace=None, no_data_policy=None,
                  no_effective_interval=None, period=None, resources=None, rule_id=None, rule_name=None, silence_time=None, webhook=None):
         self.escalations = escalations  # type: PutResourceMetricRulesRequestRulesEscalations
-        # The alert contact group. The alert notifications are sent to the alert contacts in the alert contact group.
+        # The alert contact groups. The alert notifications are sent to the alert contacts in the alert contact group.
         # 
         # Valid values of N: 1 to 500.
         # 
@@ -47148,7 +46757,7 @@ class PutResourceMetricRulesRequestRules(TeaModel):
         # 
         # Valid values of N: 1 to 500.
         self.email_subject = email_subject  # type: str
-        # The interval at which the alert rule is executed.
+        # The interval at which alerts are triggered based on the alert rule.
         # 
         # Unit: seconds.
         # 
@@ -47156,8 +46765,9 @@ class PutResourceMetricRulesRequestRules(TeaModel):
         # 
         # >  For information about how to query the statistical period of a metric, see [Appendix 1: Metrics](~~163515~~).
         self.interval = interval  # type: str
+        # If the metric meets the specified condition in the alert rule and CloudMonitor sends an alert notification, the tag is also written to the metric and displayed in the alert notification.
         self.labels = labels  # type: list[PutResourceMetricRulesRequestRulesLabels]
-        # The name of the metric.
+        # The metric name.
         # 
         # Valid values of N: 1 to 500.
         # 
@@ -47171,7 +46781,7 @@ class PutResourceMetricRulesRequestRules(TeaModel):
         self.namespace = namespace  # type: str
         # The method that is used to handle alerts when no monitoring data is found. Valid values:
         # 
-        # *   KEEP_LAST_STATE (default value): No operation is performed.
+        # *   KEEP_LAST_STATE (default): No operation is performed.
         # *   INSUFFICIENT_DATA: An alert whose content is "Insufficient data" is triggered.
         # *   OK: The status is considered normal.
         # 
@@ -47189,7 +46799,7 @@ class PutResourceMetricRulesRequestRules(TeaModel):
         # 
         # >  For information about how to query the statistical period of a metric, see [Appendix 1: Metrics](~~163515~~).
         self.period = period  # type: str
-        # The information about the resource. Examples: `[{"instanceId":"i-uf6j91r34rnwawoo****"}]` and `[{"userId":"100931896542****"}]`.
+        # The information about the resource. Example: `[{"instanceId":"i-uf6j91r34rnwawoo****"}]` or `[{"userId":"100931896542****"}]`.
         # 
         # Valid values of N: 1 to 500.
         # 
@@ -47201,7 +46811,7 @@ class PutResourceMetricRulesRequestRules(TeaModel):
         # 
         # You can specify a new ID or the ID of an existing alert rule. For information about how to query the ID of an alert rule, see [DescribeMetricRuleList](~~114941~~).
         # 
-        # >  If you specify a new ID, you create a threshold-triggered alert rule.
+        # >  If you specify a new ID, a threshold-triggered alert rule is created.
         self.rule_id = rule_id  # type: str
         # The name of the alert rule.
         # 
@@ -47209,9 +46819,9 @@ class PutResourceMetricRulesRequestRules(TeaModel):
         # 
         # You can specify a new name or the name of an existing alert rule. For information about how to query the name of an alert rule, see [DescribeMetricRuleList](~~114941~~).
         # 
-        # >  If you specify a new name, you create a threshold-triggered alert rule.
+        # >  If you specify a new name, a threshold-triggered alert rule is created.
         self.rule_name = rule_name  # type: str
-        # The mute period during which new alerts are not sent even if the trigger conditions are met.
+        # The mute period during which new alert notifications are not sent even if the trigger conditions are met.
         # 
         # Unit: seconds. Default value: 86400.
         # 
@@ -47317,6 +46927,9 @@ class PutResourceMetricRulesRequestRules(TeaModel):
 
 class PutResourceMetricRulesRequest(TeaModel):
     def __init__(self, rules=None):
+        # The threshold-triggered alert rules.
+        # 
+        # Valid values of N: 1 to 500.
         self.rules = rules  # type: list[PutResourceMetricRulesRequestRules]
 
     def validate(self):
@@ -47349,14 +46962,14 @@ class PutResourceMetricRulesRequest(TeaModel):
 
 class PutResourceMetricRulesResponseBodyFailedListResultTargetResult(TeaModel):
     def __init__(self, code=None, message=None, success=None):
-        # The HTTP status code.
+        # The response code.
         self.code = code  # type: str
-        # The error message.
+        # The error message returned.
         self.message = message  # type: str
-        # Indicates whether the call was successful. Valid values:
+        # Indicates whether the request was successful. Valid values:
         # 
-        # *   true: The call was successful.
-        # *   false: The call failed.
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -47454,20 +47067,20 @@ class PutResourceMetricRulesResponseBodyFailedListResult(TeaModel):
 
 class PutResourceMetricRulesResponseBody(TeaModel):
     def __init__(self, code=None, failed_list_result=None, message=None, request_id=None, success=None):
-        # The HTTP status code.
+        # The response code.
         # 
-        # >  The status code 200 indicates that the call was successful.
+        # >  The status code 200 indicates that the request was successful.
         self.code = code  # type: str
         # The alert rules that failed to be created for the resource.
         self.failed_list_result = failed_list_result  # type: PutResourceMetricRulesResponseBodyFailedListResult
-        # The error message.
+        # The error message returned.
         self.message = message  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # Indicates whether the call was successful. Valid values:
+        # Indicates whether the request was successful. Valid values:
         # 
-        # *   true: The call was successful.
-        # *   false: The call failed.
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -47515,9 +47128,6 @@ class PutResourceMetricRulesResponse(TeaModel):
         self.body = body  # type: PutResourceMetricRulesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -47713,9 +47323,6 @@ class RemoveTagsResponse(TeaModel):
         self.body = body  # type: RemoveTagsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -47854,9 +47461,6 @@ class SendDryRunSystemEventResponse(TeaModel):
         self.body = body  # type: SendDryRunSystemEventResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -47971,9 +47575,6 @@ class UninstallMonitoringAgentResponse(TeaModel):
         self.body = body  # type: UninstallMonitoringAgentResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
