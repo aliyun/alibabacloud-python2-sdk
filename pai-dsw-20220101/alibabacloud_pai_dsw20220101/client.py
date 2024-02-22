@@ -349,6 +349,40 @@ class Client(OpenApiClient):
         headers = {}
         return self.get_instance_with_options(instance_id, headers, runtime)
 
+    def get_instance_events_with_options(self, instance_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.max_events_num):
+            query['MaxEventsNum'] = request.max_events_num
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetInstanceEvents',
+            version='2022-01-01',
+            protocol='HTTPS',
+            pathname='/api/v2/instances/%s/events' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_dsw_20220101_models.GetInstanceEventsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_instance_events(self, instance_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_instance_events_with_options(instance_id, request, headers, runtime)
+
     def get_instance_metrics_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
