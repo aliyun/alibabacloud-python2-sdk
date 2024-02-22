@@ -5899,68 +5899,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.submit_standard_customized_voice_job_with_options(request, runtime)
 
-    def submit_subtitle_produce_job_with_options(self, request, runtime):
-        """
-        @deprecated
-        
-
-        @param request: SubmitSubtitleProduceJobRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: SubmitSubtitleProduceJobResponse
-        Deprecated
-        """
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.description):
-            query['Description'] = request.description
-        if not UtilClient.is_unset(request.editing_config):
-            query['EditingConfig'] = request.editing_config
-        if not UtilClient.is_unset(request.input_config):
-            query['InputConfig'] = request.input_config
-        if not UtilClient.is_unset(request.is_async):
-            query['IsAsync'] = request.is_async
-        if not UtilClient.is_unset(request.output_config):
-            query['OutputConfig'] = request.output_config
-        if not UtilClient.is_unset(request.title):
-            query['Title'] = request.title
-        if not UtilClient.is_unset(request.type):
-            query['Type'] = request.type
-        if not UtilClient.is_unset(request.user_data):
-            query['UserData'] = request.user_data
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='SubmitSubtitleProduceJob',
-            version='2020-11-09',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            ice20201109_models.SubmitSubtitleProduceJobResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def submit_subtitle_produce_job(self, request):
-        """
-        @deprecated
-        
-
-        @param request: SubmitSubtitleProduceJobRequest
-
-        @return: SubmitSubtitleProduceJobResponse
-        Deprecated
-        """
-        runtime = util_models.RuntimeOptions()
-        return self.submit_subtitle_produce_job_with_options(request, runtime)
-
     def submit_sync_media_info_job_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
         request = ice20201109_models.SubmitSyncMediaInfoJobShrinkRequest()
