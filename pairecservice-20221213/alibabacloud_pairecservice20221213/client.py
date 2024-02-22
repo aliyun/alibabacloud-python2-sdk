@@ -562,6 +562,18 @@ class Client(OpenApiClient):
             body['FeatureLandingResourceId'] = request.feature_landing_resource_id
         if not UtilClient.is_unset(request.feature_priority):
             body['FeaturePriority'] = request.feature_priority
+        if not UtilClient.is_unset(request.feature_store_item_id):
+            body['FeatureStoreItemId'] = request.feature_store_item_id
+        if not UtilClient.is_unset(request.feature_store_model_id):
+            body['FeatureStoreModelId'] = request.feature_store_model_id
+        if not UtilClient.is_unset(request.feature_store_project_id):
+            body['FeatureStoreProjectId'] = request.feature_store_project_id
+        if not UtilClient.is_unset(request.feature_store_project_name):
+            body['FeatureStoreProjectName'] = request.feature_store_project_name
+        if not UtilClient.is_unset(request.feature_store_seq_feature_view):
+            body['FeatureStoreSeqFeatureView'] = request.feature_store_seq_feature_view
+        if not UtilClient.is_unset(request.feature_store_user_id):
+            body['FeatureStoreUserId'] = request.feature_store_user_id
         if not UtilClient.is_unset(request.fg_jar_version):
             body['FgJarVersion'] = request.fg_jar_version
         if not UtilClient.is_unset(request.fg_json_file_name):
@@ -588,6 +600,8 @@ class Client(OpenApiClient):
             body['SceneId'] = request.scene_id
         if not UtilClient.is_unset(request.service_id):
             body['ServiceId'] = request.service_id
+        if not UtilClient.is_unset(request.use_feature_store):
+            body['UseFeatureStore'] = request.use_feature_store
         if not UtilClient.is_unset(request.user_id_field):
             body['UserIdField'] = request.user_id_field
         if not UtilClient.is_unset(request.user_table):
@@ -1692,6 +1706,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.instance_id):
             query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.order):
+            query['Order'] = request.order
         if not UtilClient.is_unset(request.page_number):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
@@ -1700,6 +1716,8 @@ class Client(OpenApiClient):
             query['Realtime'] = request.realtime
         if not UtilClient.is_unset(request.scene_id):
             query['SceneId'] = request.scene_id
+        if not UtilClient.is_unset(request.sort_by):
+            query['SortBy'] = request.sort_by
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -2950,6 +2968,18 @@ class Client(OpenApiClient):
             body['FeatureLandingResourceId'] = request.feature_landing_resource_id
         if not UtilClient.is_unset(request.feature_priority):
             body['FeaturePriority'] = request.feature_priority
+        if not UtilClient.is_unset(request.feature_store_item_id):
+            body['FeatureStoreItemId'] = request.feature_store_item_id
+        if not UtilClient.is_unset(request.feature_store_model_id):
+            body['FeatureStoreModelId'] = request.feature_store_model_id
+        if not UtilClient.is_unset(request.feature_store_project_id):
+            body['FeatureStoreProjectId'] = request.feature_store_project_id
+        if not UtilClient.is_unset(request.feature_store_project_name):
+            body['FeatureStoreProjectName'] = request.feature_store_project_name
+        if not UtilClient.is_unset(request.feature_store_seq_feature_view):
+            body['FeatureStoreSeqFeatureView'] = request.feature_store_seq_feature_view
+        if not UtilClient.is_unset(request.feature_store_user_id):
+            body['FeatureStoreUserId'] = request.feature_store_user_id
         if not UtilClient.is_unset(request.fg_jar_version):
             body['FgJarVersion'] = request.fg_jar_version
         if not UtilClient.is_unset(request.fg_json_file_name):
@@ -2958,6 +2988,8 @@ class Client(OpenApiClient):
             body['GenerateZip'] = request.generate_zip
         if not UtilClient.is_unset(request.instance_id):
             body['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.is_use_feature_store):
+            body['IsUseFeatureStore'] = request.is_use_feature_store
         if not UtilClient.is_unset(request.item_id_field):
             body['ItemIdField'] = request.item_id_field
         if not UtilClient.is_unset(request.item_table):

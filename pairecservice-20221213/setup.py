@@ -25,7 +25,7 @@ from setuptools import setup, find_packages
 """
 setup module for alibabacloud_pairecservice20221213_py2.
 
-Created on 22/12/2023
+Created on 22/02/2024
 
 @author: Alibaba Cloud SDK
 """
