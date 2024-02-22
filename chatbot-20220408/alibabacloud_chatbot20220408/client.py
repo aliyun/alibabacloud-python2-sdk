@@ -282,6 +282,10 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(request.agent_key):
             query['AgentKey'] = request.agent_key
         body = {}
+        if not UtilClient.is_unset(request.biz_code):
+            body['BizCode'] = request.biz_code
+        if not UtilClient.is_unset(request.knowledge_type):
+            body['KnowledgeType'] = request.knowledge_type
         if not UtilClient.is_unset(request.name):
             body['Name'] = request.name
         if not UtilClient.is_unset(request.parent_category_id):
@@ -419,6 +423,48 @@ class Client(OpenApiClient):
     def create_dsentity_value(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_dsentity_value_with_options(request, runtime)
+
+    def create_doc_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.agent_key):
+            query['AgentKey'] = request.agent_key
+        if not UtilClient.is_unset(request.category_id):
+            query['CategoryId'] = request.category_id
+        if not UtilClient.is_unset(request.config):
+            query['Config'] = request.config
+        if not UtilClient.is_unset(request.content):
+            query['Content'] = request.content
+        if not UtilClient.is_unset(request.end_date):
+            query['EndDate'] = request.end_date
+        if not UtilClient.is_unset(request.meta):
+            query['Meta'] = request.meta
+        if not UtilClient.is_unset(request.start_date):
+            query['StartDate'] = request.start_date
+        if not UtilClient.is_unset(request.title):
+            query['Title'] = request.title
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDoc',
+            version='2022-04-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            chatbot_20220408_models.CreateDocResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_doc(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_doc_with_options(request, runtime)
 
     def create_faq_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -904,6 +950,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_dsentity_value_with_options(request, runtime)
 
+    def delete_doc_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.agent_key):
+            query['AgentKey'] = request.agent_key
+        if not UtilClient.is_unset(request.knowledge_id):
+            query['KnowledgeId'] = request.knowledge_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDoc',
+            version='2022-04-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            chatbot_20220408_models.DeleteDocResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_doc(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_doc_with_options(request, runtime)
+
     def delete_faq_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1223,6 +1299,38 @@ class Client(OpenApiClient):
     def describe_dsentity(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_dsentity_with_options(request, runtime)
+
+    def describe_doc_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.agent_key):
+            query['AgentKey'] = request.agent_key
+        if not UtilClient.is_unset(request.knowledge_id):
+            query['KnowledgeId'] = request.knowledge_id
+        if not UtilClient.is_unset(request.show_detail):
+            query['ShowDetail'] = request.show_detail
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDoc',
+            version='2022-04-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            chatbot_20220408_models.DescribeDocResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_doc(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_doc_with_options(request, runtime)
 
     def describe_faq_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1654,6 +1762,8 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(request.agent_key):
             query['AgentKey'] = request.agent_key
         body = {}
+        if not UtilClient.is_unset(request.knowledge_type):
+            body['KnowledgeType'] = request.knowledge_type
         if not UtilClient.is_unset(request.parent_category_id):
             body['ParentCategoryId'] = request.parent_category_id
         req = open_api_models.OpenApiRequest(
@@ -2124,6 +2234,102 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.query_perspectives_with_options(request, runtime)
 
+    def retry_doc_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.agent_key):
+            query['AgentKey'] = request.agent_key
+        if not UtilClient.is_unset(request.knowledge_id):
+            query['KnowledgeId'] = request.knowledge_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RetryDoc',
+            version='2022-04-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            chatbot_20220408_models.RetryDocResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def retry_doc(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.retry_doc_with_options(request, runtime)
+
+    def search_doc_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = chatbot_20220408_models.SearchDocShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.category_ids):
+            request.category_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.category_ids, 'CategoryIds', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.agent_key):
+            query['AgentKey'] = request.agent_key
+        if not UtilClient.is_unset(request.category_ids_shrink):
+            query['CategoryIds'] = request.category_ids_shrink
+        if not UtilClient.is_unset(request.create_time_begin):
+            query['CreateTimeBegin'] = request.create_time_begin
+        if not UtilClient.is_unset(request.create_time_end):
+            query['CreateTimeEnd'] = request.create_time_end
+        if not UtilClient.is_unset(request.create_user_name):
+            query['CreateUserName'] = request.create_user_name
+        if not UtilClient.is_unset(request.end_time_begin):
+            query['EndTimeBegin'] = request.end_time_begin
+        if not UtilClient.is_unset(request.end_time_end):
+            query['EndTimeEnd'] = request.end_time_end
+        if not UtilClient.is_unset(request.keyword):
+            query['Keyword'] = request.keyword
+        if not UtilClient.is_unset(request.modify_time_begin):
+            query['ModifyTimeBegin'] = request.modify_time_begin
+        if not UtilClient.is_unset(request.modify_time_end):
+            query['ModifyTimeEnd'] = request.modify_time_end
+        if not UtilClient.is_unset(request.modify_user_name):
+            query['ModifyUserName'] = request.modify_user_name
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.process_status):
+            query['ProcessStatus'] = request.process_status
+        if not UtilClient.is_unset(request.search_scope):
+            query['SearchScope'] = request.search_scope
+        if not UtilClient.is_unset(request.start_time_begin):
+            query['StartTimeBegin'] = request.start_time_begin
+        if not UtilClient.is_unset(request.start_time_end):
+            query['StartTimeEnd'] = request.start_time_end
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SearchDoc',
+            version='2022-04-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            chatbot_20220408_models.SearchDocResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def search_doc(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.search_doc_with_options(request, runtime)
+
     def search_faq_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
         request = chatbot_20220408_models.SearchFaqShrinkRequest()
@@ -2196,6 +2402,8 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(request.agent_key):
             query['AgentKey'] = request.agent_key
         body = {}
+        if not UtilClient.is_unset(request.biz_code):
+            body['BizCode'] = request.biz_code
         if not UtilClient.is_unset(request.category_id):
             body['CategoryId'] = request.category_id
         if not UtilClient.is_unset(request.name):
@@ -2337,6 +2545,52 @@ class Client(OpenApiClient):
     def update_dsentity_value(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_dsentity_value_with_options(request, runtime)
+
+    def update_doc_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.agent_key):
+            query['AgentKey'] = request.agent_key
+        if not UtilClient.is_unset(request.category_id):
+            query['CategoryId'] = request.category_id
+        if not UtilClient.is_unset(request.config):
+            query['Config'] = request.config
+        if not UtilClient.is_unset(request.content):
+            query['Content'] = request.content
+        if not UtilClient.is_unset(request.doc_name):
+            query['DocName'] = request.doc_name
+        if not UtilClient.is_unset(request.end_date):
+            query['EndDate'] = request.end_date
+        if not UtilClient.is_unset(request.knowledge_id):
+            query['KnowledgeId'] = request.knowledge_id
+        if not UtilClient.is_unset(request.meta):
+            query['Meta'] = request.meta
+        if not UtilClient.is_unset(request.start_date):
+            query['StartDate'] = request.start_date
+        if not UtilClient.is_unset(request.title):
+            query['Title'] = request.title
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateDoc',
+            version='2022-04-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            chatbot_20220408_models.UpdateDocResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_doc(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_doc_with_options(request, runtime)
 
     def update_faq_with_options(self, request, runtime):
         UtilClient.validate_model(request)

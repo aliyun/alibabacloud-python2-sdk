@@ -1429,8 +1429,10 @@ class ContinueInstancePublishTaskResponse(TeaModel):
 
 
 class CreateCategoryRequest(TeaModel):
-    def __init__(self, agent_key=None, name=None, parent_category_id=None):
+    def __init__(self, agent_key=None, biz_code=None, knowledge_type=None, name=None, parent_category_id=None):
         self.agent_key = agent_key  # type: str
+        self.biz_code = biz_code  # type: str
+        self.knowledge_type = knowledge_type  # type: int
         self.name = name  # type: str
         self.parent_category_id = parent_category_id  # type: long
 
@@ -1445,6 +1447,10 @@ class CreateCategoryRequest(TeaModel):
         result = dict()
         if self.agent_key is not None:
             result['AgentKey'] = self.agent_key
+        if self.biz_code is not None:
+            result['BizCode'] = self.biz_code
+        if self.knowledge_type is not None:
+            result['KnowledgeType'] = self.knowledge_type
         if self.name is not None:
             result['Name'] = self.name
         if self.parent_category_id is not None:
@@ -1455,6 +1461,10 @@ class CreateCategoryRequest(TeaModel):
         m = m or dict()
         if m.get('AgentKey') is not None:
             self.agent_key = m.get('AgentKey')
+        if m.get('BizCode') is not None:
+            self.biz_code = m.get('BizCode')
+        if m.get('KnowledgeType') is not None:
+            self.knowledge_type = m.get('KnowledgeType')
         if m.get('Name') is not None:
             self.name = m.get('Name')
         if m.get('ParentCategoryId') is not None:
@@ -1463,7 +1473,8 @@ class CreateCategoryRequest(TeaModel):
 
 
 class CreateCategoryResponseBodyCategory(TeaModel):
-    def __init__(self, category_id=None, name=None, parent_category_id=None, status=None):
+    def __init__(self, biz_code=None, category_id=None, name=None, parent_category_id=None, status=None):
+        self.biz_code = biz_code  # type: str
         self.category_id = category_id  # type: long
         self.name = name  # type: str
         self.parent_category_id = parent_category_id  # type: long
@@ -1478,6 +1489,8 @@ class CreateCategoryResponseBodyCategory(TeaModel):
             return _map
 
         result = dict()
+        if self.biz_code is not None:
+            result['BizCode'] = self.biz_code
         if self.category_id is not None:
             result['CategoryId'] = self.category_id
         if self.name is not None:
@@ -1490,6 +1503,8 @@ class CreateCategoryResponseBodyCategory(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('BizCode') is not None:
+            self.biz_code = m.get('BizCode')
         if m.get('CategoryId') is not None:
             self.category_id = m.get('CategoryId')
         if m.get('Name') is not None:
@@ -1920,6 +1935,131 @@ class CreateDSEntityValueResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateDSEntityValueResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateDocRequest(TeaModel):
+    def __init__(self, agent_key=None, category_id=None, config=None, content=None, end_date=None, meta=None,
+                 start_date=None, title=None):
+        self.agent_key = agent_key  # type: str
+        self.category_id = category_id  # type: long
+        self.config = config  # type: str
+        self.content = content  # type: str
+        self.end_date = end_date  # type: str
+        self.meta = meta  # type: str
+        self.start_date = start_date  # type: str
+        self.title = title  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDocRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agent_key is not None:
+            result['AgentKey'] = self.agent_key
+        if self.category_id is not None:
+            result['CategoryId'] = self.category_id
+        if self.config is not None:
+            result['Config'] = self.config
+        if self.content is not None:
+            result['Content'] = self.content
+        if self.end_date is not None:
+            result['EndDate'] = self.end_date
+        if self.meta is not None:
+            result['Meta'] = self.meta
+        if self.start_date is not None:
+            result['StartDate'] = self.start_date
+        if self.title is not None:
+            result['Title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AgentKey') is not None:
+            self.agent_key = m.get('AgentKey')
+        if m.get('CategoryId') is not None:
+            self.category_id = m.get('CategoryId')
+        if m.get('Config') is not None:
+            self.config = m.get('Config')
+        if m.get('Content') is not None:
+            self.content = m.get('Content')
+        if m.get('EndDate') is not None:
+            self.end_date = m.get('EndDate')
+        if m.get('Meta') is not None:
+            self.meta = m.get('Meta')
+        if m.get('StartDate') is not None:
+            self.start_date = m.get('StartDate')
+        if m.get('Title') is not None:
+            self.title = m.get('Title')
+        return self
+
+
+class CreateDocResponseBody(TeaModel):
+    def __init__(self, knowledge_id=None, request_id=None):
+        self.knowledge_id = knowledge_id  # type: long
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDocResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.knowledge_id is not None:
+            result['KnowledgeId'] = self.knowledge_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('KnowledgeId') is not None:
+            self.knowledge_id = m.get('KnowledgeId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CreateDocResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateDocResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateDocResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateDocResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -3733,6 +3873,100 @@ class DeleteDSEntityValueResponse(TeaModel):
         return self
 
 
+class DeleteDocRequest(TeaModel):
+    def __init__(self, agent_key=None, knowledge_id=None):
+        self.agent_key = agent_key  # type: str
+        self.knowledge_id = knowledge_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteDocRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agent_key is not None:
+            result['AgentKey'] = self.agent_key
+        if self.knowledge_id is not None:
+            result['KnowledgeId'] = self.knowledge_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AgentKey') is not None:
+            self.agent_key = m.get('AgentKey')
+        if m.get('KnowledgeId') is not None:
+            self.knowledge_id = m.get('KnowledgeId')
+        return self
+
+
+class DeleteDocResponseBody(TeaModel):
+    def __init__(self, knowledge_id=None, request_id=None):
+        self.knowledge_id = knowledge_id  # type: long
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteDocResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.knowledge_id is not None:
+            result['KnowledgeId'] = self.knowledge_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('KnowledgeId') is not None:
+            self.knowledge_id = m.get('KnowledgeId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteDocResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteDocResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteDocResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteDocResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DeleteFaqRequest(TeaModel):
     def __init__(self, agent_key=None, knowledge_id=None):
         self.agent_key = agent_key  # type: str
@@ -4563,7 +4797,8 @@ class DescribeCategoryRequest(TeaModel):
 
 
 class DescribeCategoryResponseBodyCategory(TeaModel):
-    def __init__(self, category_id=None, name=None, parent_category_id=None, status=None):
+    def __init__(self, biz_code=None, category_id=None, name=None, parent_category_id=None, status=None):
+        self.biz_code = biz_code  # type: str
         self.category_id = category_id  # type: long
         self.name = name  # type: str
         self.parent_category_id = parent_category_id  # type: long
@@ -4578,6 +4813,8 @@ class DescribeCategoryResponseBodyCategory(TeaModel):
             return _map
 
         result = dict()
+        if self.biz_code is not None:
+            result['BizCode'] = self.biz_code
         if self.category_id is not None:
             result['CategoryId'] = self.category_id
         if self.name is not None:
@@ -4590,6 +4827,8 @@ class DescribeCategoryResponseBodyCategory(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('BizCode') is not None:
+            self.biz_code = m.get('BizCode')
         if m.get('CategoryId') is not None:
             self.category_id = m.get('CategoryId')
         if m.get('Name') is not None:
@@ -4810,6 +5049,287 @@ class DescribeDSEntityResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeDSEntityResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeDocRequest(TeaModel):
+    def __init__(self, agent_key=None, knowledge_id=None, show_detail=None):
+        self.agent_key = agent_key  # type: str
+        self.knowledge_id = knowledge_id  # type: long
+        self.show_detail = show_detail  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDocRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agent_key is not None:
+            result['AgentKey'] = self.agent_key
+        if self.knowledge_id is not None:
+            result['KnowledgeId'] = self.knowledge_id
+        if self.show_detail is not None:
+            result['ShowDetail'] = self.show_detail
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AgentKey') is not None:
+            self.agent_key = m.get('AgentKey')
+        if m.get('KnowledgeId') is not None:
+            self.knowledge_id = m.get('KnowledgeId')
+        if m.get('ShowDetail') is not None:
+            self.show_detail = m.get('ShowDetail')
+        return self
+
+
+class DescribeDocResponseBodyDocInfoDocParas(TeaModel):
+    def __init__(self, para_level=None, para_no=None, para_text=None, para_type=None):
+        self.para_level = para_level  # type: int
+        self.para_no = para_no  # type: int
+        self.para_text = para_text  # type: str
+        self.para_type = para_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDocResponseBodyDocInfoDocParas, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.para_level is not None:
+            result['ParaLevel'] = self.para_level
+        if self.para_no is not None:
+            result['ParaNo'] = self.para_no
+        if self.para_text is not None:
+            result['ParaText'] = self.para_text
+        if self.para_type is not None:
+            result['ParaType'] = self.para_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ParaLevel') is not None:
+            self.para_level = m.get('ParaLevel')
+        if m.get('ParaNo') is not None:
+            self.para_no = m.get('ParaNo')
+        if m.get('ParaText') is not None:
+            self.para_text = m.get('ParaText')
+        if m.get('ParaType') is not None:
+            self.para_type = m.get('ParaType')
+        return self
+
+
+class DescribeDocResponseBodyDocInfo(TeaModel):
+    def __init__(self, doc_paras=None):
+        self.doc_paras = doc_paras  # type: list[DescribeDocResponseBodyDocInfoDocParas]
+
+    def validate(self):
+        if self.doc_paras:
+            for k in self.doc_paras:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDocResponseBodyDocInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['DocParas'] = []
+        if self.doc_paras is not None:
+            for k in self.doc_paras:
+                result['DocParas'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.doc_paras = []
+        if m.get('DocParas') is not None:
+            for k in m.get('DocParas'):
+                temp_model = DescribeDocResponseBodyDocInfoDocParas()
+                self.doc_paras.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeDocResponseBody(TeaModel):
+    def __init__(self, biz_code=None, category_id=None, config=None, create_time=None, create_user_id=None,
+                 create_user_name=None, doc_info=None, doc_name=None, effect_status=None, end_date=None, knowledge_id=None, meta=None,
+                 modify_time=None, modify_user_id=None, modify_user_name=None, process_can_retry=None, process_message=None,
+                 process_status=None, request_id=None, start_date=None, status=None, title=None, url=None):
+        self.biz_code = biz_code  # type: str
+        self.category_id = category_id  # type: long
+        self.config = config  # type: str
+        self.create_time = create_time  # type: str
+        self.create_user_id = create_user_id  # type: long
+        self.create_user_name = create_user_name  # type: str
+        self.doc_info = doc_info  # type: DescribeDocResponseBodyDocInfo
+        self.doc_name = doc_name  # type: str
+        self.effect_status = effect_status  # type: int
+        self.end_date = end_date  # type: str
+        self.knowledge_id = knowledge_id  # type: long
+        self.meta = meta  # type: str
+        self.modify_time = modify_time  # type: str
+        self.modify_user_id = modify_user_id  # type: long
+        self.modify_user_name = modify_user_name  # type: str
+        self.process_can_retry = process_can_retry  # type: bool
+        self.process_message = process_message  # type: str
+        self.process_status = process_status  # type: int
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.start_date = start_date  # type: str
+        self.status = status  # type: int
+        self.title = title  # type: str
+        self.url = url  # type: str
+
+    def validate(self):
+        if self.doc_info:
+            self.doc_info.validate()
+
+    def to_map(self):
+        _map = super(DescribeDocResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.biz_code is not None:
+            result['BizCode'] = self.biz_code
+        if self.category_id is not None:
+            result['CategoryId'] = self.category_id
+        if self.config is not None:
+            result['Config'] = self.config
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.create_user_id is not None:
+            result['CreateUserId'] = self.create_user_id
+        if self.create_user_name is not None:
+            result['CreateUserName'] = self.create_user_name
+        if self.doc_info is not None:
+            result['DocInfo'] = self.doc_info.to_map()
+        if self.doc_name is not None:
+            result['DocName'] = self.doc_name
+        if self.effect_status is not None:
+            result['EffectStatus'] = self.effect_status
+        if self.end_date is not None:
+            result['EndDate'] = self.end_date
+        if self.knowledge_id is not None:
+            result['KnowledgeId'] = self.knowledge_id
+        if self.meta is not None:
+            result['Meta'] = self.meta
+        if self.modify_time is not None:
+            result['ModifyTime'] = self.modify_time
+        if self.modify_user_id is not None:
+            result['ModifyUserId'] = self.modify_user_id
+        if self.modify_user_name is not None:
+            result['ModifyUserName'] = self.modify_user_name
+        if self.process_can_retry is not None:
+            result['ProcessCanRetry'] = self.process_can_retry
+        if self.process_message is not None:
+            result['ProcessMessage'] = self.process_message
+        if self.process_status is not None:
+            result['ProcessStatus'] = self.process_status
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.start_date is not None:
+            result['StartDate'] = self.start_date
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.title is not None:
+            result['Title'] = self.title
+        if self.url is not None:
+            result['Url'] = self.url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BizCode') is not None:
+            self.biz_code = m.get('BizCode')
+        if m.get('CategoryId') is not None:
+            self.category_id = m.get('CategoryId')
+        if m.get('Config') is not None:
+            self.config = m.get('Config')
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('CreateUserId') is not None:
+            self.create_user_id = m.get('CreateUserId')
+        if m.get('CreateUserName') is not None:
+            self.create_user_name = m.get('CreateUserName')
+        if m.get('DocInfo') is not None:
+            temp_model = DescribeDocResponseBodyDocInfo()
+            self.doc_info = temp_model.from_map(m['DocInfo'])
+        if m.get('DocName') is not None:
+            self.doc_name = m.get('DocName')
+        if m.get('EffectStatus') is not None:
+            self.effect_status = m.get('EffectStatus')
+        if m.get('EndDate') is not None:
+            self.end_date = m.get('EndDate')
+        if m.get('KnowledgeId') is not None:
+            self.knowledge_id = m.get('KnowledgeId')
+        if m.get('Meta') is not None:
+            self.meta = m.get('Meta')
+        if m.get('ModifyTime') is not None:
+            self.modify_time = m.get('ModifyTime')
+        if m.get('ModifyUserId') is not None:
+            self.modify_user_id = m.get('ModifyUserId')
+        if m.get('ModifyUserName') is not None:
+            self.modify_user_name = m.get('ModifyUserName')
+        if m.get('ProcessCanRetry') is not None:
+            self.process_can_retry = m.get('ProcessCanRetry')
+        if m.get('ProcessMessage') is not None:
+            self.process_message = m.get('ProcessMessage')
+        if m.get('ProcessStatus') is not None:
+            self.process_status = m.get('ProcessStatus')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('StartDate') is not None:
+            self.start_date = m.get('StartDate')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Title') is not None:
+            self.title = m.get('Title')
+        if m.get('Url') is not None:
+            self.url = m.get('Url')
+        return self
+
+
+class DescribeDocResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeDocResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDocResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeDocResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -6787,8 +7307,9 @@ class ListAgentResponse(TeaModel):
 
 
 class ListCategoryRequest(TeaModel):
-    def __init__(self, agent_key=None, parent_category_id=None):
+    def __init__(self, agent_key=None, knowledge_type=None, parent_category_id=None):
         self.agent_key = agent_key  # type: str
+        self.knowledge_type = knowledge_type  # type: int
         self.parent_category_id = parent_category_id  # type: long
 
     def validate(self):
@@ -6802,6 +7323,8 @@ class ListCategoryRequest(TeaModel):
         result = dict()
         if self.agent_key is not None:
             result['AgentKey'] = self.agent_key
+        if self.knowledge_type is not None:
+            result['KnowledgeType'] = self.knowledge_type
         if self.parent_category_id is not None:
             result['ParentCategoryId'] = self.parent_category_id
         return result
@@ -6810,13 +7333,16 @@ class ListCategoryRequest(TeaModel):
         m = m or dict()
         if m.get('AgentKey') is not None:
             self.agent_key = m.get('AgentKey')
+        if m.get('KnowledgeType') is not None:
+            self.knowledge_type = m.get('KnowledgeType')
         if m.get('ParentCategoryId') is not None:
             self.parent_category_id = m.get('ParentCategoryId')
         return self
 
 
 class ListCategoryResponseBodyCategories(TeaModel):
-    def __init__(self, category_id=None, name=None, parent_category_id=None, status=None):
+    def __init__(self, biz_code=None, category_id=None, name=None, parent_category_id=None, status=None):
+        self.biz_code = biz_code  # type: str
         self.category_id = category_id  # type: long
         self.name = name  # type: str
         self.parent_category_id = parent_category_id  # type: long
@@ -6831,6 +7357,8 @@ class ListCategoryResponseBodyCategories(TeaModel):
             return _map
 
         result = dict()
+        if self.biz_code is not None:
+            result['BizCode'] = self.biz_code
         if self.category_id is not None:
             result['CategoryId'] = self.category_id
         if self.name is not None:
@@ -6843,6 +7371,8 @@ class ListCategoryResponseBodyCategories(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('BizCode') is not None:
+            self.biz_code = m.get('BizCode')
         if m.get('CategoryId') is not None:
             self.category_id = m.get('CategoryId')
         if m.get('Name') is not None:
@@ -9552,6 +10082,536 @@ class QueryPerspectivesResponse(TeaModel):
         return self
 
 
+class RetryDocRequest(TeaModel):
+    def __init__(self, agent_key=None, knowledge_id=None):
+        self.agent_key = agent_key  # type: str
+        self.knowledge_id = knowledge_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RetryDocRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agent_key is not None:
+            result['AgentKey'] = self.agent_key
+        if self.knowledge_id is not None:
+            result['KnowledgeId'] = self.knowledge_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AgentKey') is not None:
+            self.agent_key = m.get('AgentKey')
+        if m.get('KnowledgeId') is not None:
+            self.knowledge_id = m.get('KnowledgeId')
+        return self
+
+
+class RetryDocResponseBody(TeaModel):
+    def __init__(self, knowledge_id=None, request_id=None):
+        self.knowledge_id = knowledge_id  # type: long
+        # Id of the request
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RetryDocResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.knowledge_id is not None:
+            result['KnowledgeId'] = self.knowledge_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('KnowledgeId') is not None:
+            self.knowledge_id = m.get('KnowledgeId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class RetryDocResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: RetryDocResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(RetryDocResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = RetryDocResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SearchDocRequest(TeaModel):
+    def __init__(self, agent_key=None, category_ids=None, create_time_begin=None, create_time_end=None,
+                 create_user_name=None, end_time_begin=None, end_time_end=None, keyword=None, modify_time_begin=None,
+                 modify_time_end=None, modify_user_name=None, page_number=None, page_size=None, process_status=None,
+                 search_scope=None, start_time_begin=None, start_time_end=None, status=None):
+        self.agent_key = agent_key  # type: str
+        self.category_ids = category_ids  # type: list[long]
+        self.create_time_begin = create_time_begin  # type: str
+        self.create_time_end = create_time_end  # type: str
+        self.create_user_name = create_user_name  # type: str
+        self.end_time_begin = end_time_begin  # type: str
+        self.end_time_end = end_time_end  # type: str
+        self.keyword = keyword  # type: str
+        self.modify_time_begin = modify_time_begin  # type: str
+        self.modify_time_end = modify_time_end  # type: str
+        self.modify_user_name = modify_user_name  # type: str
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.process_status = process_status  # type: int
+        self.search_scope = search_scope  # type: int
+        self.start_time_begin = start_time_begin  # type: str
+        self.start_time_end = start_time_end  # type: str
+        self.status = status  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SearchDocRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agent_key is not None:
+            result['AgentKey'] = self.agent_key
+        if self.category_ids is not None:
+            result['CategoryIds'] = self.category_ids
+        if self.create_time_begin is not None:
+            result['CreateTimeBegin'] = self.create_time_begin
+        if self.create_time_end is not None:
+            result['CreateTimeEnd'] = self.create_time_end
+        if self.create_user_name is not None:
+            result['CreateUserName'] = self.create_user_name
+        if self.end_time_begin is not None:
+            result['EndTimeBegin'] = self.end_time_begin
+        if self.end_time_end is not None:
+            result['EndTimeEnd'] = self.end_time_end
+        if self.keyword is not None:
+            result['Keyword'] = self.keyword
+        if self.modify_time_begin is not None:
+            result['ModifyTimeBegin'] = self.modify_time_begin
+        if self.modify_time_end is not None:
+            result['ModifyTimeEnd'] = self.modify_time_end
+        if self.modify_user_name is not None:
+            result['ModifyUserName'] = self.modify_user_name
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.process_status is not None:
+            result['ProcessStatus'] = self.process_status
+        if self.search_scope is not None:
+            result['SearchScope'] = self.search_scope
+        if self.start_time_begin is not None:
+            result['StartTimeBegin'] = self.start_time_begin
+        if self.start_time_end is not None:
+            result['StartTimeEnd'] = self.start_time_end
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AgentKey') is not None:
+            self.agent_key = m.get('AgentKey')
+        if m.get('CategoryIds') is not None:
+            self.category_ids = m.get('CategoryIds')
+        if m.get('CreateTimeBegin') is not None:
+            self.create_time_begin = m.get('CreateTimeBegin')
+        if m.get('CreateTimeEnd') is not None:
+            self.create_time_end = m.get('CreateTimeEnd')
+        if m.get('CreateUserName') is not None:
+            self.create_user_name = m.get('CreateUserName')
+        if m.get('EndTimeBegin') is not None:
+            self.end_time_begin = m.get('EndTimeBegin')
+        if m.get('EndTimeEnd') is not None:
+            self.end_time_end = m.get('EndTimeEnd')
+        if m.get('Keyword') is not None:
+            self.keyword = m.get('Keyword')
+        if m.get('ModifyTimeBegin') is not None:
+            self.modify_time_begin = m.get('ModifyTimeBegin')
+        if m.get('ModifyTimeEnd') is not None:
+            self.modify_time_end = m.get('ModifyTimeEnd')
+        if m.get('ModifyUserName') is not None:
+            self.modify_user_name = m.get('ModifyUserName')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('ProcessStatus') is not None:
+            self.process_status = m.get('ProcessStatus')
+        if m.get('SearchScope') is not None:
+            self.search_scope = m.get('SearchScope')
+        if m.get('StartTimeBegin') is not None:
+            self.start_time_begin = m.get('StartTimeBegin')
+        if m.get('StartTimeEnd') is not None:
+            self.start_time_end = m.get('StartTimeEnd')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class SearchDocShrinkRequest(TeaModel):
+    def __init__(self, agent_key=None, category_ids_shrink=None, create_time_begin=None, create_time_end=None,
+                 create_user_name=None, end_time_begin=None, end_time_end=None, keyword=None, modify_time_begin=None,
+                 modify_time_end=None, modify_user_name=None, page_number=None, page_size=None, process_status=None,
+                 search_scope=None, start_time_begin=None, start_time_end=None, status=None):
+        self.agent_key = agent_key  # type: str
+        self.category_ids_shrink = category_ids_shrink  # type: str
+        self.create_time_begin = create_time_begin  # type: str
+        self.create_time_end = create_time_end  # type: str
+        self.create_user_name = create_user_name  # type: str
+        self.end_time_begin = end_time_begin  # type: str
+        self.end_time_end = end_time_end  # type: str
+        self.keyword = keyword  # type: str
+        self.modify_time_begin = modify_time_begin  # type: str
+        self.modify_time_end = modify_time_end  # type: str
+        self.modify_user_name = modify_user_name  # type: str
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.process_status = process_status  # type: int
+        self.search_scope = search_scope  # type: int
+        self.start_time_begin = start_time_begin  # type: str
+        self.start_time_end = start_time_end  # type: str
+        self.status = status  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SearchDocShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agent_key is not None:
+            result['AgentKey'] = self.agent_key
+        if self.category_ids_shrink is not None:
+            result['CategoryIds'] = self.category_ids_shrink
+        if self.create_time_begin is not None:
+            result['CreateTimeBegin'] = self.create_time_begin
+        if self.create_time_end is not None:
+            result['CreateTimeEnd'] = self.create_time_end
+        if self.create_user_name is not None:
+            result['CreateUserName'] = self.create_user_name
+        if self.end_time_begin is not None:
+            result['EndTimeBegin'] = self.end_time_begin
+        if self.end_time_end is not None:
+            result['EndTimeEnd'] = self.end_time_end
+        if self.keyword is not None:
+            result['Keyword'] = self.keyword
+        if self.modify_time_begin is not None:
+            result['ModifyTimeBegin'] = self.modify_time_begin
+        if self.modify_time_end is not None:
+            result['ModifyTimeEnd'] = self.modify_time_end
+        if self.modify_user_name is not None:
+            result['ModifyUserName'] = self.modify_user_name
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.process_status is not None:
+            result['ProcessStatus'] = self.process_status
+        if self.search_scope is not None:
+            result['SearchScope'] = self.search_scope
+        if self.start_time_begin is not None:
+            result['StartTimeBegin'] = self.start_time_begin
+        if self.start_time_end is not None:
+            result['StartTimeEnd'] = self.start_time_end
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AgentKey') is not None:
+            self.agent_key = m.get('AgentKey')
+        if m.get('CategoryIds') is not None:
+            self.category_ids_shrink = m.get('CategoryIds')
+        if m.get('CreateTimeBegin') is not None:
+            self.create_time_begin = m.get('CreateTimeBegin')
+        if m.get('CreateTimeEnd') is not None:
+            self.create_time_end = m.get('CreateTimeEnd')
+        if m.get('CreateUserName') is not None:
+            self.create_user_name = m.get('CreateUserName')
+        if m.get('EndTimeBegin') is not None:
+            self.end_time_begin = m.get('EndTimeBegin')
+        if m.get('EndTimeEnd') is not None:
+            self.end_time_end = m.get('EndTimeEnd')
+        if m.get('Keyword') is not None:
+            self.keyword = m.get('Keyword')
+        if m.get('ModifyTimeBegin') is not None:
+            self.modify_time_begin = m.get('ModifyTimeBegin')
+        if m.get('ModifyTimeEnd') is not None:
+            self.modify_time_end = m.get('ModifyTimeEnd')
+        if m.get('ModifyUserName') is not None:
+            self.modify_user_name = m.get('ModifyUserName')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('ProcessStatus') is not None:
+            self.process_status = m.get('ProcessStatus')
+        if m.get('SearchScope') is not None:
+            self.search_scope = m.get('SearchScope')
+        if m.get('StartTimeBegin') is not None:
+            self.start_time_begin = m.get('StartTimeBegin')
+        if m.get('StartTimeEnd') is not None:
+            self.start_time_end = m.get('StartTimeEnd')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class SearchDocResponseBodyDocHits(TeaModel):
+    def __init__(self, biz_code=None, category_id=None, config=None, create_time=None, create_user_id=None,
+                 create_user_name=None, doc_name=None, effect_status=None, end_date=None, knowledge_id=None, meta=None,
+                 modify_time=None, modify_user_id=None, modify_user_name=None, process_can_retry=None, process_message=None,
+                 process_status=None, start_date=None, status=None, url=None):
+        self.biz_code = biz_code  # type: str
+        self.category_id = category_id  # type: long
+        self.config = config  # type: str
+        self.create_time = create_time  # type: str
+        self.create_user_id = create_user_id  # type: long
+        self.create_user_name = create_user_name  # type: str
+        self.doc_name = doc_name  # type: str
+        self.effect_status = effect_status  # type: int
+        self.end_date = end_date  # type: str
+        self.knowledge_id = knowledge_id  # type: long
+        self.meta = meta  # type: str
+        self.modify_time = modify_time  # type: str
+        self.modify_user_id = modify_user_id  # type: long
+        self.modify_user_name = modify_user_name  # type: str
+        self.process_can_retry = process_can_retry  # type: bool
+        self.process_message = process_message  # type: str
+        self.process_status = process_status  # type: int
+        self.start_date = start_date  # type: str
+        self.status = status  # type: int
+        self.url = url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SearchDocResponseBodyDocHits, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.biz_code is not None:
+            result['BizCode'] = self.biz_code
+        if self.category_id is not None:
+            result['CategoryId'] = self.category_id
+        if self.config is not None:
+            result['Config'] = self.config
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.create_user_id is not None:
+            result['CreateUserId'] = self.create_user_id
+        if self.create_user_name is not None:
+            result['CreateUserName'] = self.create_user_name
+        if self.doc_name is not None:
+            result['DocName'] = self.doc_name
+        if self.effect_status is not None:
+            result['EffectStatus'] = self.effect_status
+        if self.end_date is not None:
+            result['EndDate'] = self.end_date
+        if self.knowledge_id is not None:
+            result['KnowledgeId'] = self.knowledge_id
+        if self.meta is not None:
+            result['Meta'] = self.meta
+        if self.modify_time is not None:
+            result['ModifyTime'] = self.modify_time
+        if self.modify_user_id is not None:
+            result['ModifyUserId'] = self.modify_user_id
+        if self.modify_user_name is not None:
+            result['ModifyUserName'] = self.modify_user_name
+        if self.process_can_retry is not None:
+            result['ProcessCanRetry'] = self.process_can_retry
+        if self.process_message is not None:
+            result['ProcessMessage'] = self.process_message
+        if self.process_status is not None:
+            result['ProcessStatus'] = self.process_status
+        if self.start_date is not None:
+            result['StartDate'] = self.start_date
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.url is not None:
+            result['Url'] = self.url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BizCode') is not None:
+            self.biz_code = m.get('BizCode')
+        if m.get('CategoryId') is not None:
+            self.category_id = m.get('CategoryId')
+        if m.get('Config') is not None:
+            self.config = m.get('Config')
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('CreateUserId') is not None:
+            self.create_user_id = m.get('CreateUserId')
+        if m.get('CreateUserName') is not None:
+            self.create_user_name = m.get('CreateUserName')
+        if m.get('DocName') is not None:
+            self.doc_name = m.get('DocName')
+        if m.get('EffectStatus') is not None:
+            self.effect_status = m.get('EffectStatus')
+        if m.get('EndDate') is not None:
+            self.end_date = m.get('EndDate')
+        if m.get('KnowledgeId') is not None:
+            self.knowledge_id = m.get('KnowledgeId')
+        if m.get('Meta') is not None:
+            self.meta = m.get('Meta')
+        if m.get('ModifyTime') is not None:
+            self.modify_time = m.get('ModifyTime')
+        if m.get('ModifyUserId') is not None:
+            self.modify_user_id = m.get('ModifyUserId')
+        if m.get('ModifyUserName') is not None:
+            self.modify_user_name = m.get('ModifyUserName')
+        if m.get('ProcessCanRetry') is not None:
+            self.process_can_retry = m.get('ProcessCanRetry')
+        if m.get('ProcessMessage') is not None:
+            self.process_message = m.get('ProcessMessage')
+        if m.get('ProcessStatus') is not None:
+            self.process_status = m.get('ProcessStatus')
+        if m.get('StartDate') is not None:
+            self.start_date = m.get('StartDate')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Url') is not None:
+            self.url = m.get('Url')
+        return self
+
+
+class SearchDocResponseBody(TeaModel):
+    def __init__(self, doc_hits=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        self.doc_hits = doc_hits  # type: list[SearchDocResponseBodyDocHits]
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.doc_hits:
+            for k in self.doc_hits:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(SearchDocResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['DocHits'] = []
+        if self.doc_hits is not None:
+            for k in self.doc_hits:
+                result['DocHits'].append(k.to_map() if k else None)
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.doc_hits = []
+        if m.get('DocHits') is not None:
+            for k in m.get('DocHits'):
+                temp_model = SearchDocResponseBodyDocHits()
+                self.doc_hits.append(temp_model.from_map(k))
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class SearchDocResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: SearchDocResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SearchDocResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = SearchDocResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class SearchFaqRequest(TeaModel):
     def __init__(self, agent_key=None, category_ids=None, create_time_begin=None, create_time_end=None,
                  create_user_name=None, end_time_begin=None, end_time_end=None, keyword=None, modify_time_begin=None,
@@ -9941,8 +11001,9 @@ class SearchFaqResponse(TeaModel):
 
 
 class UpdateCategoryRequest(TeaModel):
-    def __init__(self, agent_key=None, category_id=None, name=None):
+    def __init__(self, agent_key=None, biz_code=None, category_id=None, name=None):
         self.agent_key = agent_key  # type: str
+        self.biz_code = biz_code  # type: str
         self.category_id = category_id  # type: long
         self.name = name  # type: str
 
@@ -9957,6 +11018,8 @@ class UpdateCategoryRequest(TeaModel):
         result = dict()
         if self.agent_key is not None:
             result['AgentKey'] = self.agent_key
+        if self.biz_code is not None:
+            result['BizCode'] = self.biz_code
         if self.category_id is not None:
             result['CategoryId'] = self.category_id
         if self.name is not None:
@@ -9967,6 +11030,8 @@ class UpdateCategoryRequest(TeaModel):
         m = m or dict()
         if m.get('AgentKey') is not None:
             self.agent_key = m.get('AgentKey')
+        if m.get('BizCode') is not None:
+            self.biz_code = m.get('BizCode')
         if m.get('CategoryId') is not None:
             self.category_id = m.get('CategoryId')
         if m.get('Name') is not None:
@@ -10398,6 +11463,142 @@ class UpdateDSEntityValueResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UpdateDSEntityValueResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdateDocRequest(TeaModel):
+    def __init__(self, agent_key=None, category_id=None, config=None, content=None, doc_name=None, end_date=None,
+                 knowledge_id=None, meta=None, start_date=None, title=None):
+        self.agent_key = agent_key  # type: str
+        self.category_id = category_id  # type: long
+        self.config = config  # type: str
+        self.content = content  # type: str
+        self.doc_name = doc_name  # type: str
+        self.end_date = end_date  # type: str
+        self.knowledge_id = knowledge_id  # type: long
+        self.meta = meta  # type: str
+        self.start_date = start_date  # type: str
+        self.title = title  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateDocRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agent_key is not None:
+            result['AgentKey'] = self.agent_key
+        if self.category_id is not None:
+            result['CategoryId'] = self.category_id
+        if self.config is not None:
+            result['Config'] = self.config
+        if self.content is not None:
+            result['Content'] = self.content
+        if self.doc_name is not None:
+            result['DocName'] = self.doc_name
+        if self.end_date is not None:
+            result['EndDate'] = self.end_date
+        if self.knowledge_id is not None:
+            result['KnowledgeId'] = self.knowledge_id
+        if self.meta is not None:
+            result['Meta'] = self.meta
+        if self.start_date is not None:
+            result['StartDate'] = self.start_date
+        if self.title is not None:
+            result['Title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AgentKey') is not None:
+            self.agent_key = m.get('AgentKey')
+        if m.get('CategoryId') is not None:
+            self.category_id = m.get('CategoryId')
+        if m.get('Config') is not None:
+            self.config = m.get('Config')
+        if m.get('Content') is not None:
+            self.content = m.get('Content')
+        if m.get('DocName') is not None:
+            self.doc_name = m.get('DocName')
+        if m.get('EndDate') is not None:
+            self.end_date = m.get('EndDate')
+        if m.get('KnowledgeId') is not None:
+            self.knowledge_id = m.get('KnowledgeId')
+        if m.get('Meta') is not None:
+            self.meta = m.get('Meta')
+        if m.get('StartDate') is not None:
+            self.start_date = m.get('StartDate')
+        if m.get('Title') is not None:
+            self.title = m.get('Title')
+        return self
+
+
+class UpdateDocResponseBody(TeaModel):
+    def __init__(self, knowledge_id=None, request_id=None):
+        self.knowledge_id = knowledge_id  # type: long
+        # Id of the request
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateDocResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.knowledge_id is not None:
+            result['KnowledgeId'] = self.knowledge_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('KnowledgeId') is not None:
+            self.knowledge_id = m.get('KnowledgeId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UpdateDocResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateDocResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateDocResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateDocResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
