@@ -37,6 +37,48 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
+    def a_igcface_verify_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.face_contrast_picture_url):
+            query['FaceContrastPictureUrl'] = request.face_contrast_picture_url
+        if not UtilClient.is_unset(request.oss_bucket_name):
+            query['OssBucketName'] = request.oss_bucket_name
+        if not UtilClient.is_unset(request.oss_object_name):
+            query['OssObjectName'] = request.oss_object_name
+        if not UtilClient.is_unset(request.outer_order_no):
+            query['OuterOrderNo'] = request.outer_order_no
+        if not UtilClient.is_unset(request.product_code):
+            query['ProductCode'] = request.product_code
+        if not UtilClient.is_unset(request.scene_id):
+            query['SceneId'] = request.scene_id
+        body = {}
+        if not UtilClient.is_unset(request.face_contrast_picture):
+            body['FaceContrastPicture'] = request.face_contrast_picture
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='AIGCFaceVerify',
+            version='2019-03-07',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudauth_20190307_models.AIGCFaceVerifyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def a_igcface_verify(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.a_igcface_verify_with_options(request, runtime)
+
     def compare_face_verify_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}

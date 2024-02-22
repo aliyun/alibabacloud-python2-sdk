@@ -1,3 +1,7 @@
+2024-02-22 Version: 2.1.0
+- Support API AIGCFaceVerify.
+
+
 2024-01-23 Version: 2.0.5
 - Update Tea.
 

@@ -3,6 +3,167 @@
 from Tea.model import TeaModel
 
 
+class AIGCFaceVerifyRequest(TeaModel):
+    def __init__(self, face_contrast_picture=None, face_contrast_picture_url=None, oss_bucket_name=None,
+                 oss_object_name=None, outer_order_no=None, product_code=None, scene_id=None):
+        self.face_contrast_picture = face_contrast_picture  # type: str
+        self.face_contrast_picture_url = face_contrast_picture_url  # type: str
+        self.oss_bucket_name = oss_bucket_name  # type: str
+        self.oss_object_name = oss_object_name  # type: str
+        self.outer_order_no = outer_order_no  # type: str
+        self.product_code = product_code  # type: str
+        self.scene_id = scene_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AIGCFaceVerifyRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.face_contrast_picture is not None:
+            result['FaceContrastPicture'] = self.face_contrast_picture
+        if self.face_contrast_picture_url is not None:
+            result['FaceContrastPictureUrl'] = self.face_contrast_picture_url
+        if self.oss_bucket_name is not None:
+            result['OssBucketName'] = self.oss_bucket_name
+        if self.oss_object_name is not None:
+            result['OssObjectName'] = self.oss_object_name
+        if self.outer_order_no is not None:
+            result['OuterOrderNo'] = self.outer_order_no
+        if self.product_code is not None:
+            result['ProductCode'] = self.product_code
+        if self.scene_id is not None:
+            result['SceneId'] = self.scene_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FaceContrastPicture') is not None:
+            self.face_contrast_picture = m.get('FaceContrastPicture')
+        if m.get('FaceContrastPictureUrl') is not None:
+            self.face_contrast_picture_url = m.get('FaceContrastPictureUrl')
+        if m.get('OssBucketName') is not None:
+            self.oss_bucket_name = m.get('OssBucketName')
+        if m.get('OssObjectName') is not None:
+            self.oss_object_name = m.get('OssObjectName')
+        if m.get('OuterOrderNo') is not None:
+            self.outer_order_no = m.get('OuterOrderNo')
+        if m.get('ProductCode') is not None:
+            self.product_code = m.get('ProductCode')
+        if m.get('SceneId') is not None:
+            self.scene_id = m.get('SceneId')
+        return self
+
+
+class AIGCFaceVerifyResponseBodyResultObject(TeaModel):
+    def __init__(self, result=None, score=None):
+        self.result = result  # type: str
+        self.score = score  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AIGCFaceVerifyResponseBodyResultObject, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.result is not None:
+            result['Result'] = self.result
+        if self.score is not None:
+            result['Score'] = self.score
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Result') is not None:
+            self.result = m.get('Result')
+        if m.get('Score') is not None:
+            self.score = m.get('Score')
+        return self
+
+
+class AIGCFaceVerifyResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None, result_object=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.result_object = result_object  # type: AIGCFaceVerifyResponseBodyResultObject
+
+    def validate(self):
+        if self.result_object:
+            self.result_object.validate()
+
+    def to_map(self):
+        _map = super(AIGCFaceVerifyResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.result_object is not None:
+            result['ResultObject'] = self.result_object.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('ResultObject') is not None:
+            temp_model = AIGCFaceVerifyResponseBodyResultObject()
+            self.result_object = temp_model.from_map(m['ResultObject'])
+        return self
+
+
+class AIGCFaceVerifyResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: AIGCFaceVerifyResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(AIGCFaceVerifyResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = AIGCFaceVerifyResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CompareFaceVerifyRequest(TeaModel):
     def __init__(self, crop=None, outer_order_no=None, product_code=None, scene_id=None, source_certify_id=None,
                  source_face_contrast_picture=None, source_face_contrast_picture_url=None, source_oss_bucket_name=None,
@@ -177,9 +338,6 @@ class CompareFaceVerifyResponse(TeaModel):
         self.body = body  # type: CompareFaceVerifyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -331,9 +489,6 @@ class CompareFacesResponse(TeaModel):
         self.body = body  # type: CompareFacesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -689,9 +844,6 @@ class ContrastFaceVerifyResponse(TeaModel):
         self.body = body  # type: ContrastFaceVerifyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -796,9 +948,6 @@ class CreateAuthKeyResponse(TeaModel):
         self.body = body  # type: CreateAuthKeyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -929,9 +1078,6 @@ class CreateVerifySettingResponse(TeaModel):
         self.body = body  # type: CreateVerifySettingResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1145,9 +1291,6 @@ class DescribeDeviceInfoResponse(TeaModel):
         self.body = body  # type: DescribeDeviceInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1319,9 +1462,6 @@ class DescribeFaceVerifyResponse(TeaModel):
         self.body = body  # type: DescribeFaceVerifyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1443,9 +1583,6 @@ class DescribeOssUploadTokenResponse(TeaModel):
         self.body = body  # type: DescribeOssUploadTokenResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1645,9 +1782,6 @@ class DescribeSmartStatisticsPageListResponse(TeaModel):
         self.body = body  # type: DescribeSmartStatisticsPageListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1897,9 +2031,6 @@ class DescribeVerifyResultResponse(TeaModel):
         self.body = body  # type: DescribeVerifyResultResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1989,9 +2120,6 @@ class DescribeVerifySDKResponse(TeaModel):
         self.body = body  # type: DescribeVerifySDKResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2220,9 +2348,6 @@ class DescribeVerifyTokenResponse(TeaModel):
         self.body = body  # type: DescribeVerifyTokenResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2603,9 +2728,6 @@ class DetectFaceAttributesResponse(TeaModel):
         self.body = body  # type: DetectFaceAttributesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2741,9 +2863,6 @@ class Id2MetaVerifyResponse(TeaModel):
         self.body = body  # type: Id2MetaVerifyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3040,9 +3159,6 @@ class InitFaceVerifyResponse(TeaModel):
         self.body = body  # type: InitFaceVerifyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3250,9 +3366,6 @@ class LivenessFaceVerifyResponse(TeaModel):
         self.body = body  # type: LivenessFaceVerifyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3403,9 +3516,6 @@ class Mobile3MetaDetailVerifyResponse(TeaModel):
         self.body = body  # type: Mobile3MetaDetailVerifyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3551,9 +3661,6 @@ class Mobile3MetaSimpleVerifyResponse(TeaModel):
         self.body = body  # type: Mobile3MetaSimpleVerifyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3684,9 +3791,6 @@ class ModifyDeviceInfoResponse(TeaModel):
         self.body = body  # type: ModifyDeviceInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3962,9 +4066,6 @@ class VerifyMaterialResponse(TeaModel):
         self.body = body  # type: VerifyMaterialResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
