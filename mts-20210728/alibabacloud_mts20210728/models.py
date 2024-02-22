@@ -187,9 +187,6 @@ class QueryCopyrightResponse(TeaModel):
         self.body = body  # type: QueryCopyrightResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -315,9 +312,6 @@ class QueryCopyrightExtractResponse(TeaModel):
         self.body = body  # type: QueryCopyrightExtractResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -510,9 +504,6 @@ class QueryTraceAbResponse(TeaModel):
         self.body = body  # type: QueryTraceAbResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -638,9 +629,6 @@ class QueryTraceExtractResponse(TeaModel):
         self.body = body  # type: QueryTraceExtractResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -849,9 +837,6 @@ class QueryTraceMuResponse(TeaModel):
         self.body = body  # type: QueryTraceMuResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -997,9 +982,6 @@ class SubmitCopyrightExtractResponse(TeaModel):
         self.body = body  # type: SubmitCopyrightExtractResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1181,9 +1163,6 @@ class SubmitCopyrightJobResponse(TeaModel):
         self.body = body  # type: SubmitCopyrightJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1324,9 +1303,6 @@ class SubmitImageCopyrightResponse(TeaModel):
         self.body = body  # type: SubmitImageCopyrightResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1498,9 +1474,6 @@ class SubmitTraceAbResponse(TeaModel):
         self.body = body  # type: SubmitTraceAbResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1646,9 +1619,6 @@ class SubmitTraceExtractResponse(TeaModel):
         self.body = body  # type: SubmitTraceExtractResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1799,9 +1769,6 @@ class SubmitTracemuResponse(TeaModel):
         self.body = body  # type: SubmitTracemuResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
