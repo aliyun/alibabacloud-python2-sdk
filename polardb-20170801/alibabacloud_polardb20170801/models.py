@@ -7797,8 +7797,8 @@ class DescribeDBClusterAttributeRequest(TeaModel):
 class DescribeDBClusterAttributeResponseBodyDBNodes(TeaModel):
     def __init__(self, added_cpu_cores=None, cpu_cores=None, creation_time=None, dbnode_class=None, dbnode_id=None,
                  dbnode_role=None, dbnode_status=None, failover_priority=None, hot_replica_mode=None, imci_switch=None,
-                 master_id=None, max_connections=None, max_iops=None, memory_size=None, scc_mode=None, server_weight=None,
-                 serverless_type=None, sub_cluster=None, zone_id=None):
+                 master_id=None, max_connections=None, max_iops=None, memory_size=None, remote_memory_size=None,
+                 scc_mode=None, server_weight=None, serverless_type=None, sub_cluster=None, zone_id=None):
         # The number of CPU cores for compute node scale-out within seconds.
         self.added_cpu_cores = added_cpu_cores  # type: str
         self.cpu_cores = cpu_cores  # type: str
@@ -7848,6 +7848,7 @@ class DescribeDBClusterAttributeResponseBodyDBNodes(TeaModel):
         # The maximum input/output operations per second (IOPS).
         self.max_iops = max_iops  # type: int
         self.memory_size = memory_size  # type: str
+        self.remote_memory_size = remote_memory_size  # type: str
         # Indicates whether the global consistency (high-performance mode) feature is enabled for the node. Valid values:
         # 
         # *   **ON**\
@@ -7900,6 +7901,8 @@ class DescribeDBClusterAttributeResponseBodyDBNodes(TeaModel):
             result['MaxIOPS'] = self.max_iops
         if self.memory_size is not None:
             result['MemorySize'] = self.memory_size
+        if self.remote_memory_size is not None:
+            result['RemoteMemorySize'] = self.remote_memory_size
         if self.scc_mode is not None:
             result['SccMode'] = self.scc_mode
         if self.server_weight is not None:
@@ -7942,6 +7945,8 @@ class DescribeDBClusterAttributeResponseBodyDBNodes(TeaModel):
             self.max_iops = m.get('MaxIOPS')
         if m.get('MemorySize') is not None:
             self.memory_size = m.get('MemorySize')
+        if m.get('RemoteMemorySize') is not None:
+            self.remote_memory_size = m.get('RemoteMemorySize')
         if m.get('SccMode') is not None:
             self.scc_mode = m.get('SccMode')
         if m.get('ServerWeight') is not None:
@@ -7987,17 +7992,19 @@ class DescribeDBClusterAttributeResponseBodyTags(TeaModel):
 
 
 class DescribeDBClusterAttributeResponseBody(TeaModel):
-    def __init__(self, ai_type=None, architecture=None, blktag_total=None, blktag_used=None, category=None,
-                 compress_storage_mode=None, compress_storage_used=None, creation_time=None, dbcluster_description=None,
-                 dbcluster_id=None, dbcluster_network_type=None, dbcluster_status=None, dbnodes=None, dbtype=None,
-                 dbversion=None, dbversion_status=None, data_level_1backup_chain_size=None, data_sync_mode=None,
-                 deletion_lock=None, engine=None, expire_time=None, expired=None, has_complete_standby_res=None,
-                 hot_standby_cluster=None, inode_total=None, inode_used=None, is_latest_version=None, is_proxy_latest_version=None,
-                 lock_mode=None, maintain_time=None, pay_type=None, provisioned_iops=None, proxy_cpu_cores=None,
-                 proxy_serverless_type=None, proxy_standard_cpu_cores=None, proxy_status=None, proxy_type=None, region_id=None,
-                 request_id=None, resource_group_id=None, sqlsize=None, serverless_type=None, standby_hamode=None,
-                 storage_max=None, storage_pay_type=None, storage_space=None, storage_type=None, storage_used=None,
-                 strict_consistency=None, sub_category=None, tags=None, vpcid=None, v_switch_id=None, zone_ids=None):
+    def __init__(self, ai_creating_time=None, ai_type=None, architecture=None, blktag_total=None, blktag_used=None,
+                 category=None, compress_storage_mode=None, compress_storage_used=None, creation_time=None,
+                 dbcluster_description=None, dbcluster_id=None, dbcluster_network_type=None, dbcluster_status=None, dbnodes=None,
+                 dbtype=None, dbversion=None, dbversion_status=None, data_level_1backup_chain_size=None,
+                 data_sync_mode=None, deletion_lock=None, engine=None, expire_time=None, expired=None,
+                 has_complete_standby_res=None, hot_standby_cluster=None, inode_total=None, inode_used=None, is_latest_version=None,
+                 is_proxy_latest_version=None, lock_mode=None, maintain_time=None, pay_type=None, provisioned_iops=None,
+                 proxy_cpu_cores=None, proxy_serverless_type=None, proxy_standard_cpu_cores=None, proxy_status=None,
+                 proxy_type=None, region_id=None, request_id=None, resource_group_id=None, sqlsize=None, serverless_type=None,
+                 standby_hamode=None, storage_max=None, storage_pay_type=None, storage_space=None, storage_type=None,
+                 storage_used=None, strict_consistency=None, sub_category=None, tags=None, vpcid=None, v_switch_id=None,
+                 zone_ids=None):
+        self.ai_creating_time = ai_creating_time  # type: str
         # The information status of the AI node. Valid values:
         # 
         # *   SearchNode: search node.
@@ -8183,6 +8190,8 @@ class DescribeDBClusterAttributeResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.ai_creating_time is not None:
+            result['AiCreatingTime'] = self.ai_creating_time
         if self.ai_type is not None:
             result['AiType'] = self.ai_type
         if self.architecture is not None:
@@ -8299,6 +8308,8 @@ class DescribeDBClusterAttributeResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AiCreatingTime') is not None:
+            self.ai_creating_time = m.get('AiCreatingTime')
         if m.get('AiType') is not None:
             self.ai_type = m.get('AiType')
         if m.get('Architecture') is not None:
