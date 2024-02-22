@@ -2448,7 +2448,7 @@ class AddGatewayAuthRequest(TeaModel):
         self.issuer = issuer  # type: str
         # The JWT public key. The JSON format is supported.
         self.jwks = jwks  # type: str
-        # The URL that is used to log on to the IDaaS instance. For more information, see [OAuth2.0 Application User Manual](https://help.aliyun.com/document_detail/193871.html).
+        # The URL that is used to log on to the IDaaS instance.
         self.login_url = login_url  # type: str
         # The name.
         self.name = name  # type: str
@@ -2606,7 +2606,7 @@ class AddGatewayAuthShrinkRequest(TeaModel):
         self.issuer = issuer  # type: str
         # The JWT public key. The JSON format is supported.
         self.jwks = jwks  # type: str
-        # The URL that is used to log on to the IDaaS instance. For more information, see [OAuth2.0 Application User Manual](https://help.aliyun.com/document_detail/193871.html).
+        # The URL that is used to log on to the IDaaS instance.
         self.login_url = login_url  # type: str
         # The name.
         self.name = name  # type: str
@@ -17544,7 +17544,7 @@ class GetGatewayAuthDetailResponseBodyData(TeaModel):
         self.name = name  # type: str
         self.redirect_url = redirect_url  # type: str
         self.resource_list = resource_list  # type: list[GetGatewayAuthDetailResponseBodyDataResourceList]
-        self.scopes_list = scopes_list  # type: list[str]
+        self.scopes_list = scopes_list  # type: str
         self.status = status  # type: bool
         self.sub = sub  # type: str
         self.token_name = token_name  # type: str
