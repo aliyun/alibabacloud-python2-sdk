@@ -68,9 +68,6 @@ class CancelFineTuneJobResponse(TeaModel):
         self.body = body  # type: CancelFineTuneJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -131,6 +128,7 @@ class CreateDocumentTagRequest(TeaModel):
 
 class CreateDocumentTagResponseBody(TeaModel):
     def __init__(self, request_id=None, tag_id=None):
+        # Id of the request
         self.request_id = request_id  # type: str
         self.tag_id = tag_id  # type: str
 
@@ -165,9 +163,6 @@ class CreateDocumentTagResponse(TeaModel):
         self.body = body  # type: CreateDocumentTagResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -389,9 +384,6 @@ class CreateFineTuneJobResponse(TeaModel):
         self.body = body  # type: CreateFineTuneJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -486,9 +478,6 @@ class CreateServiceResponse(TeaModel):
         self.body = body  # type: CreateServiceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -705,9 +694,6 @@ class CreateTextEmbeddingsResponse(TeaModel):
         self.body = body  # type: CreateTextEmbeddingsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -849,9 +835,6 @@ class CreateTokenResponse(TeaModel):
         self.body = body  # type: CreateTokenResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -913,6 +896,7 @@ class DeleteDocRequest(TeaModel):
 class DeleteDocResponseBody(TeaModel):
     def __init__(self, doc_id=None, request_id=None):
         self.doc_id = doc_id  # type: str
+        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -946,9 +930,6 @@ class DeleteDocResponse(TeaModel):
         self.body = body  # type: DeleteDocResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1009,6 +990,7 @@ class DeleteDocumentTagRequest(TeaModel):
 
 class DeleteDocumentTagResponseBody(TeaModel):
     def __init__(self, request_id=None, tag_id=None):
+        # Id of the request
         self.request_id = request_id  # type: str
         self.tag_id = tag_id  # type: str
 
@@ -1043,9 +1025,6 @@ class DeleteDocumentTagResponse(TeaModel):
         self.body = body  # type: DeleteDocumentTagResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1140,9 +1119,6 @@ class DeleteFineTuneJobResponse(TeaModel):
         self.body = body  # type: DeleteFineTuneJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1237,9 +1213,6 @@ class DeleteServiceResponse(TeaModel):
         self.body = body  # type: DeleteServiceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1334,6 +1307,7 @@ class DescribeDocResponseBody(TeaModel):
         self.fail_reason = fail_reason  # type: str
         self.name = name  # type: str
         self.owner_id = owner_id  # type: str
+        # Id of the request
         self.request_id = request_id  # type: str
         self.size = size  # type: str
         self.status = status  # type: str
@@ -1412,9 +1386,6 @@ class DescribeDocResponse(TeaModel):
         self.body = body  # type: DescribeDocResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1515,7 +1486,9 @@ class DescribeDocumentImportJobResponseBodyDocs(TeaModel):
 class DescribeDocumentImportJobResponseBody(TeaModel):
     def __init__(self, docs=None, job_id=None, request_id=None, status=None):
         self.docs = docs  # type: list[DescribeDocumentImportJobResponseBodyDocs]
+        # Id of the request
         self.job_id = job_id  # type: str
+        # Id of the request
         self.request_id = request_id  # type: str
         self.status = status  # type: str
 
@@ -1566,9 +1539,6 @@ class DescribeDocumentImportJobResponse(TeaModel):
         self.body = body  # type: DescribeDocumentImportJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1750,9 +1720,6 @@ class DescribeFineTuneJobResponse(TeaModel):
         self.body = body  # type: DescribeFineTuneJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1857,9 +1824,6 @@ class DescribeServiceResponse(TeaModel):
         self.body = body  # type: DescribeServiceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2041,9 +2005,6 @@ class GetFileStoreUploadPolicyResponse(TeaModel):
         self.body = body  # type: GetFileStoreUploadPolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2195,9 +2156,6 @@ class GetPromptResponse(TeaModel):
         self.body = body  # type: GetPromptResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2424,9 +2382,6 @@ class GetText2ImageJobResponse(TeaModel):
         self.body = body  # type: GetText2ImageJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2588,9 +2543,6 @@ class ImportUserDocumentResponse(TeaModel):
         self.body = body  # type: ImportUserDocumentResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2825,6 +2777,7 @@ class ListDocsResponseBody(TeaModel):
         self.docs = docs  # type: list[ListDocsResponseBodyDocs]
         self.page_no = page_no  # type: int
         self.page_size = page_size  # type: int
+        # Id of the request
         self.request_id = request_id  # type: str
         self.total = total  # type: int
 
@@ -2879,9 +2832,6 @@ class ListDocsResponse(TeaModel):
         self.body = body  # type: ListDocsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2988,6 +2938,7 @@ class ListDocumentTagsResponseBody(TeaModel):
     def __init__(self, page_no=None, page_size=None, request_id=None, tag_list=None, total=None):
         self.page_no = page_no  # type: int
         self.page_size = page_size  # type: int
+        # Id of the request
         self.request_id = request_id  # type: str
         self.tag_list = tag_list  # type: list[ListDocumentTagsResponseBodyTagList]
         self.total = total  # type: int
@@ -3043,9 +2994,6 @@ class ListDocumentTagsResponse(TeaModel):
         self.body = body  # type: ListDocumentTagsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3279,9 +3227,6 @@ class ListFineTuneJobsResponse(TeaModel):
         self.body = body  # type: ListFineTuneJobsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3438,9 +3383,6 @@ class ListServicesResponse(TeaModel):
         self.body = body  # type: ListServicesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3586,9 +3528,6 @@ class QueryUserDocumentResponse(TeaModel):
         self.body = body  # type: QueryUserDocumentResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3707,6 +3646,7 @@ class SubmitDocumentImportJobRequest(TeaModel):
 class SubmitDocumentImportJobResponseBody(TeaModel):
     def __init__(self, job_id=None, request_id=None):
         self.job_id = job_id  # type: str
+        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3740,9 +3680,6 @@ class SubmitDocumentImportJobResponse(TeaModel):
         self.body = body  # type: SubmitDocumentImportJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3873,9 +3810,6 @@ class SubmitText2ImageJobResponse(TeaModel):
         self.body = body  # type: SubmitText2ImageJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3996,6 +3930,7 @@ class UpdateDocAttributeShrinkRequest(TeaModel):
 class UpdateDocAttributeResponseBody(TeaModel):
     def __init__(self, doc_id=None, request_id=None):
         self.doc_id = doc_id  # type: str
+        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4029,9 +3964,6 @@ class UpdateDocAttributeResponse(TeaModel):
         self.body = body  # type: UpdateDocAttributeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4097,6 +4029,7 @@ class UpdateDocumentTagRequest(TeaModel):
 
 class UpdateDocumentTagResponseBody(TeaModel):
     def __init__(self, request_id=None, tag_id=None):
+        # Id of the request
         self.request_id = request_id  # type: str
         self.tag_id = tag_id  # type: str
 
@@ -4131,9 +4064,6 @@ class UpdateDocumentTagResponse(TeaModel):
         self.body = body  # type: UpdateDocumentTagResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
