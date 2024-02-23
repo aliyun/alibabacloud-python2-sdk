@@ -149,6 +149,56 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_node_group_with_options(request, runtime)
 
+    def create_report_with_options(self, request, runtime):
+        """
+        Currently we only support taihao platform
+        
+
+        @param request: CreateReportRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateReportResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.select_timestamp):
+            query['SelectTimestamp'] = request.select_timestamp
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateReport',
+            version='2021-03-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            emr_20210320_models.CreateReportResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_report(self, request):
+        """
+        Currently we only support taihao platform
+        
+
+        @param request: CreateReportRequest
+
+        @return: CreateReportResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_report_with_options(request, runtime)
+
     def decrease_nodes_with_options(self, request, runtime):
         """
         缩容节点。
@@ -450,6 +500,54 @@ class Client(OpenApiClient):
     def get_cluster(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_cluster_with_options(request, runtime)
+
+    def get_cluster_clone_meta_with_options(self, request, runtime):
+        """
+        获取集群克隆详情。
+        
+
+        @param request: GetClusterCloneMetaRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetClusterCloneMetaResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetClusterCloneMeta',
+            version='2021-03-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            emr_20210320_models.GetClusterCloneMetaResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_cluster_clone_meta(self, request):
+        """
+        获取集群克隆详情。
+        
+
+        @param request: GetClusterCloneMetaRequest
+
+        @return: GetClusterCloneMetaResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.get_cluster_clone_meta_with_options(request, runtime)
 
     def get_doctor_application_with_options(self, request, runtime):
         """
@@ -1274,16 +1372,6 @@ class Client(OpenApiClient):
         return self.get_operation_with_options(request, runtime)
 
     def increase_nodes_with_options(self, request, runtime):
-        """
-        扩容节点。
-        
-
-        @param request: IncreaseNodesRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: IncreaseNodesResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.application_configs):
@@ -1294,6 +1382,8 @@ class Client(OpenApiClient):
             query['ClusterId'] = request.cluster_id
         if not UtilClient.is_unset(request.increase_node_count):
             query['IncreaseNodeCount'] = request.increase_node_count
+        if not UtilClient.is_unset(request.min_increase_node_count):
+            query['MinIncreaseNodeCount'] = request.min_increase_node_count
         if not UtilClient.is_unset(request.node_group_id):
             query['NodeGroupId'] = request.node_group_id
         if not UtilClient.is_unset(request.payment_duration):
@@ -1322,14 +1412,6 @@ class Client(OpenApiClient):
         )
 
     def increase_nodes(self, request):
-        """
-        扩容节点。
-        
-
-        @param request: IncreaseNodesRequest
-
-        @return: IncreaseNodesResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.increase_nodes_with_options(request, runtime)
 
