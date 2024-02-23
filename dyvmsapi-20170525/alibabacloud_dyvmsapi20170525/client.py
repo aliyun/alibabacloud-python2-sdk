@@ -30,41 +30,18 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
-    def add_rtc_account_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.device_id):
-            query['DeviceId'] = request.device_id
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
-        if not UtilClient.is_unset(request.resource_owner_account):
-            query['ResourceOwnerAccount'] = request.resource_owner_account
-        if not UtilClient.is_unset(request.resource_owner_id):
-            query['ResourceOwnerId'] = request.resource_owner_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='AddRtcAccount',
-            version='2017-05-25',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            dyvmsapi_20170525_models.AddRtcAccountResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def add_rtc_account(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.add_rtc_account_with_options(request, runtime)
-
     def add_virtual_number_relation_with_options(self, request, runtime):
+        """
+        ### QPS limits
+        You can call this operation up to 200 times per second per account.
+        
+
+        @param request: AddVirtualNumberRelationRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AddVirtualNumberRelationResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.corp_name_list):
@@ -103,10 +80,35 @@ class Client(OpenApiClient):
         )
 
     def add_virtual_number_relation(self, request):
+        """
+        ### QPS limits
+        You can call this operation up to 200 times per second per account.
+        
+
+        @param request: AddVirtualNumberRelationRequest
+
+        @return: AddVirtualNumberRelationResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.add_virtual_number_relation_with_options(request, runtime)
 
     def batch_robot_smart_call_with_options(self, request, runtime):
+        """
+        In an intelligent speech interaction task, you can use the robot communication scripts preset in the Voice Messaging Service console, or invoke the callback function to return the response mode configured by the business party in each call.
+        *   The BatchRobotSmartCall operation is used to initiate an outbound robocall task by using the robot communication scripts preset in the Voice Messaging Service console.
+        ## Prerequisites
+        *   You have passed the real-name verification for an enterprise user and passed the enterprise qualification review.
+        *   You have purchased numbers in the [Voice Messaging Service console](https://dyvms.console.aliyun.com/dyvms.htm#/number/normal).
+        *   You have added communication scripts on the [Communication script management](https://dyvms.console.aliyun.com/dyvms.htm#/smart-call/saas/robot/list) page, and the communication scripts have been approved.
+        > Before you call this operation, make sure that you are familiar with the [billing](https://www.aliyun.com/price/product#/vms/detail) of Voice Messaging Service (VMS).
+        
+
+        @param request: BatchRobotSmartCallRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: BatchRobotSmartCallResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.called_number):
@@ -157,10 +159,35 @@ class Client(OpenApiClient):
         )
 
     def batch_robot_smart_call(self, request):
+        """
+        In an intelligent speech interaction task, you can use the robot communication scripts preset in the Voice Messaging Service console, or invoke the callback function to return the response mode configured by the business party in each call.
+        *   The BatchRobotSmartCall operation is used to initiate an outbound robocall task by using the robot communication scripts preset in the Voice Messaging Service console.
+        ## Prerequisites
+        *   You have passed the real-name verification for an enterprise user and passed the enterprise qualification review.
+        *   You have purchased numbers in the [Voice Messaging Service console](https://dyvms.console.aliyun.com/dyvms.htm#/number/normal).
+        *   You have added communication scripts on the [Communication script management](https://dyvms.console.aliyun.com/dyvms.htm#/smart-call/saas/robot/list) page, and the communication scripts have been approved.
+        > Before you call this operation, make sure that you are familiar with the [billing](https://www.aliyun.com/price/product#/vms/detail) of Voice Messaging Service (VMS).
+        
+
+        @param request: BatchRobotSmartCallRequest
+
+        @return: BatchRobotSmartCallResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.batch_robot_smart_call_with_options(request, runtime)
 
     def cancel_order_robot_task_with_options(self, request, runtime):
+        """
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: CancelOrderRobotTaskRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CancelOrderRobotTaskResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.owner_id):
@@ -191,10 +218,31 @@ class Client(OpenApiClient):
         )
 
     def cancel_order_robot_task(self, request):
+        """
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: CancelOrderRobotTaskRequest
+
+        @return: CancelOrderRobotTaskResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.cancel_order_robot_task_with_options(request, runtime)
 
     def cancel_robot_task_with_options(self, request, runtime):
+        """
+        Only a task in progress can be terminated by calling the CancelRobotTask operation, and the task cannot be resumed after it is terminated.
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: CancelRobotTaskRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CancelRobotTaskResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.owner_id):
@@ -225,10 +273,32 @@ class Client(OpenApiClient):
         )
 
     def cancel_robot_task(self, request):
+        """
+        Only a task in progress can be terminated by calling the CancelRobotTask operation, and the task cannot be resumed after it is terminated.
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: CancelRobotTaskRequest
+
+        @return: CancelRobotTaskResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.cancel_robot_task_with_options(request, runtime)
 
     def create_call_task_with_options(self, request, runtime):
+        """
+        You can create up to 1,000 voice notifications for each task.
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: CreateCallTaskRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateCallTaskResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.biz_type):
@@ -279,10 +349,32 @@ class Client(OpenApiClient):
         )
 
     def create_call_task(self, request):
+        """
+        You can create up to 1,000 voice notifications for each task.
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: CreateCallTaskRequest
+
+        @return: CreateCallTaskResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_call_task_with_options(request, runtime)
 
     def create_robot_task_with_options(self, request, runtime):
+        """
+        You can call this operation to initiate an outbound robocall task by using the robot communication scripts preset in the Voice Messaging Service console. In an intelligent speech interaction task, you can use the robot communication scripts preset in the Voice Messaging Service console, or invoke the callback function to return the response mode configured by the business party in each call.
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: CreateRobotTaskRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateRobotTaskResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.caller):
@@ -331,10 +423,32 @@ class Client(OpenApiClient):
         )
 
     def create_robot_task(self, request):
+        """
+        You can call this operation to initiate an outbound robocall task by using the robot communication scripts preset in the Voice Messaging Service console. In an intelligent speech interaction task, you can use the robot communication scripts preset in the Voice Messaging Service console, or invoke the callback function to return the response mode configured by the business party in each call.
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: CreateRobotTaskRequest
+
+        @return: CreateRobotTaskResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_robot_task_with_options(request, runtime)
 
     def delete_robot_task_with_options(self, request, runtime):
+        """
+        You can call this operation to delete only tasks that are not started, that are completed, and that are terminated.
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: DeleteRobotTaskRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteRobotTaskResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.owner_id):
@@ -365,10 +479,31 @@ class Client(OpenApiClient):
         )
 
     def delete_robot_task(self, request):
+        """
+        You can call this operation to delete only tasks that are not started, that are completed, and that are terminated.
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: DeleteRobotTaskRequest
+
+        @return: DeleteRobotTaskResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_robot_task_with_options(request, runtime)
 
     def execute_call_task_with_options(self, request, runtime):
+        """
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: ExecuteCallTaskRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ExecuteCallTaskResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.fire_time):
@@ -403,44 +538,30 @@ class Client(OpenApiClient):
         )
 
     def execute_call_task(self, request):
+        """
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: ExecuteCallTaskRequest
+
+        @return: ExecuteCallTaskResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.execute_call_task_with_options(request, runtime)
 
-    def get_call_info_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
-        if not UtilClient.is_unset(request.resource_owner_account):
-            query['ResourceOwnerAccount'] = request.resource_owner_account
-        if not UtilClient.is_unset(request.resource_owner_id):
-            query['ResourceOwnerId'] = request.resource_owner_id
-        if not UtilClient.is_unset(request.rtc_id):
-            query['RtcId'] = request.rtc_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='GetCallInfo',
-            version='2017-05-25',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            dyvmsapi_20170525_models.GetCallInfoResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def get_call_info(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_call_info_with_options(request, runtime)
-
     def get_hotline_qualification_by_order_with_options(self, request, runtime):
+        """
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: GetHotlineQualificationByOrderRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetHotlineQualificationByOrderResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.order_id):
@@ -471,80 +592,30 @@ class Client(OpenApiClient):
         )
 
     def get_hotline_qualification_by_order(self, request):
+        """
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: GetHotlineQualificationByOrderRequest
+
+        @return: GetHotlineQualificationByOrderResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_hotline_qualification_by_order_with_options(request, runtime)
 
-    def get_mqtt_token_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
-        if not UtilClient.is_unset(request.resource_owner_account):
-            query['ResourceOwnerAccount'] = request.resource_owner_account
-        if not UtilClient.is_unset(request.resource_owner_id):
-            query['ResourceOwnerId'] = request.resource_owner_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='GetMqttToken',
-            version='2017-05-25',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            dyvmsapi_20170525_models.GetMqttTokenResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def get_mqtt_token(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_mqtt_token_with_options(request, runtime)
-
-    def get_rtc_token_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.device_id):
-            query['DeviceId'] = request.device_id
-        if not UtilClient.is_unset(request.is_custom_account):
-            query['IsCustomAccount'] = request.is_custom_account
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
-        if not UtilClient.is_unset(request.resource_owner_account):
-            query['ResourceOwnerAccount'] = request.resource_owner_account
-        if not UtilClient.is_unset(request.resource_owner_id):
-            query['ResourceOwnerId'] = request.resource_owner_id
-        if not UtilClient.is_unset(request.user_id):
-            query['UserId'] = request.user_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='GetRtcToken',
-            version='2017-05-25',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            dyvmsapi_20170525_models.GetRtcTokenResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def get_rtc_token(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_rtc_token_with_options(request, runtime)
-
     def get_token_with_options(self, request, runtime):
+        """
+        ### QPS limits
+        You can call this operation up to five times per second per account.
+        
+
+        @param request: GetTokenRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetTokenResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.owner_id):
@@ -575,10 +646,33 @@ class Client(OpenApiClient):
         )
 
     def get_token(self, request):
+        """
+        ### QPS limits
+        You can call this operation up to five times per second per account.
+        
+
+        @param request: GetTokenRequest
+
+        @return: GetTokenResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_token_with_options(request, runtime)
 
     def ivr_call_with_options(self, request, runtime):
+        """
+        Your enterprise qualification is approved. For more information, see [Submit enterprise qualifications](~~149795~~).
+        *   Voice numbers are purchased. For more information, see [Purchase numbers](~~149794~~).
+        *   When the subscriber answers the call, the subscriber hears a voice that instructs the subscriber to press a key as needed. If the [message receipt](~~112503~~) feature is enabled, the Voice Messaging Service (VMS) platform returns the information about the key pressed by the subscriber to the business system. The key information includes the order confirmation, questionnaire survey, and satisfaction survey completed by the subscriber.
+        ## QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: IvrCallRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: IvrCallResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.bye_code):
@@ -627,10 +721,33 @@ class Client(OpenApiClient):
         )
 
     def ivr_call(self, request):
+        """
+        Your enterprise qualification is approved. For more information, see [Submit enterprise qualifications](~~149795~~).
+        *   Voice numbers are purchased. For more information, see [Purchase numbers](~~149794~~).
+        *   When the subscriber answers the call, the subscriber hears a voice that instructs the subscriber to press a key as needed. If the [message receipt](~~112503~~) feature is enabled, the Voice Messaging Service (VMS) platform returns the information about the key pressed by the subscriber to the business system. The key information includes the order confirmation, questionnaire survey, and satisfaction survey completed by the subscriber.
+        ## QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: IvrCallRequest
+
+        @return: IvrCallResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.ivr_call_with_options(request, runtime)
 
     def list_call_task_with_options(self, request, runtime):
+        """
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: ListCallTaskRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListCallTaskResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.biz_type):
@@ -673,10 +790,30 @@ class Client(OpenApiClient):
         )
 
     def list_call_task(self, request):
+        """
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: ListCallTaskRequest
+
+        @return: ListCallTaskResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_call_task_with_options(request, runtime)
 
     def list_call_task_detail_with_options(self, request, runtime):
+        """
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: ListCallTaskDetailRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListCallTaskDetailResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.called_num):
@@ -715,10 +852,30 @@ class Client(OpenApiClient):
         )
 
     def list_call_task_detail(self, request):
+        """
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: ListCallTaskDetailRequest
+
+        @return: ListCallTaskDetailResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_call_task_detail_with_options(request, runtime)
 
     def list_hotline_transfer_number_with_options(self, request, runtime):
+        """
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: ListHotlineTransferNumberRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListHotlineTransferNumberResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.hotline_number):
@@ -755,10 +912,30 @@ class Client(OpenApiClient):
         )
 
     def list_hotline_transfer_number(self, request):
+        """
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: ListHotlineTransferNumberRequest
+
+        @return: ListHotlineTransferNumberResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_hotline_transfer_number_with_options(request, runtime)
 
     def list_hotline_transfer_register_file_with_options(self, request, runtime):
+        """
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: ListHotlineTransferRegisterFileRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListHotlineTransferRegisterFileResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.hotline_number):
@@ -795,10 +972,31 @@ class Client(OpenApiClient):
         )
 
     def list_hotline_transfer_register_file(self, request):
+        """
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: ListHotlineTransferRegisterFileRequest
+
+        @return: ListHotlineTransferRegisterFileResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_hotline_transfer_register_file_with_options(request, runtime)
 
     def query_call_detail_by_call_id_with_options(self, request, runtime):
+        """
+        QueryCallDetailByCallId is a common query operation. You can call this operation to query the details of a voice notification, voice verification code, interactive voice response (IVR), intelligent inbound voice call, intelligent outbound voice call, or intelligent robocall.
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: QueryCallDetailByCallIdRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: QueryCallDetailByCallIdResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.call_id):
@@ -833,6 +1031,16 @@ class Client(OpenApiClient):
         )
 
     def query_call_detail_by_call_id(self, request):
+        """
+        QueryCallDetailByCallId is a common query operation. You can call this operation to query the details of a voice notification, voice verification code, interactive voice response (IVR), intelligent inbound voice call, intelligent outbound voice call, or intelligent robocall.
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: QueryCallDetailByCallIdRequest
+
+        @return: QueryCallDetailByCallIdResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.query_call_detail_by_call_id_with_options(request, runtime)
 
@@ -875,6 +1083,17 @@ class Client(OpenApiClient):
         return self.query_call_detail_by_task_id_with_options(request, runtime)
 
     def query_call_in_pool_transfer_config_with_options(self, request, runtime):
+        """
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: QueryCallInPoolTransferConfigRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: QueryCallInPoolTransferConfigResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.owner_id):
@@ -905,10 +1124,30 @@ class Client(OpenApiClient):
         )
 
     def query_call_in_pool_transfer_config(self, request):
+        """
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: QueryCallInPoolTransferConfigRequest
+
+        @return: QueryCallInPoolTransferConfigResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.query_call_in_pool_transfer_config_with_options(request, runtime)
 
     def query_call_in_transfer_record_with_options(self, request, runtime):
+        """
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: QueryCallInTransferRecordRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: QueryCallInTransferRecordResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.call_in_caller):
@@ -947,6 +1186,15 @@ class Client(OpenApiClient):
         )
 
     def query_call_in_transfer_record(self, request):
+        """
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: QueryCallInTransferRecordRequest
+
+        @return: QueryCallInTransferRecordResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.query_call_in_transfer_record_with_options(request, runtime)
 
@@ -985,6 +1233,17 @@ class Client(OpenApiClient):
         return self.query_robot_info_list_with_options(request, runtime)
 
     def query_robot_task_call_detail_with_options(self, request, runtime):
+        """
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: QueryRobotTaskCallDetailRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: QueryRobotTaskCallDetailResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.callee):
@@ -1019,10 +1278,30 @@ class Client(OpenApiClient):
         )
 
     def query_robot_task_call_detail(self, request):
+        """
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: QueryRobotTaskCallDetailRequest
+
+        @return: QueryRobotTaskCallDetailResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.query_robot_task_call_detail_with_options(request, runtime)
 
     def query_robot_task_call_list_with_options(self, request, runtime):
+        """
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: QueryRobotTaskCallListRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: QueryRobotTaskCallListResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.call_result):
@@ -1071,10 +1350,30 @@ class Client(OpenApiClient):
         )
 
     def query_robot_task_call_list(self, request):
+        """
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: QueryRobotTaskCallListRequest
+
+        @return: QueryRobotTaskCallListResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.query_robot_task_call_list_with_options(request, runtime)
 
     def query_robot_task_detail_with_options(self, request, runtime):
+        """
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: QueryRobotTaskDetailRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: QueryRobotTaskDetailResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.id):
@@ -1105,10 +1404,30 @@ class Client(OpenApiClient):
         )
 
     def query_robot_task_detail(self, request):
+        """
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: QueryRobotTaskDetailRequest
+
+        @return: QueryRobotTaskDetailResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.query_robot_task_detail_with_options(request, runtime)
 
     def query_robot_task_list_with_options(self, request, runtime):
+        """
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: QueryRobotTaskListRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: QueryRobotTaskListResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.owner_id):
@@ -1147,10 +1466,30 @@ class Client(OpenApiClient):
         )
 
     def query_robot_task_list(self, request):
+        """
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: QueryRobotTaskListRequest
+
+        @return: QueryRobotTaskListResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.query_robot_task_list_with_options(request, runtime)
 
     def query_robotv_2all_list_with_options(self, request, runtime):
+        """
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: QueryRobotv2AllListRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: QueryRobotv2AllListResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.owner_id):
@@ -1179,10 +1518,30 @@ class Client(OpenApiClient):
         )
 
     def query_robotv_2all_list(self, request):
+        """
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: QueryRobotv2AllListRequest
+
+        @return: QueryRobotv2AllListResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.query_robotv_2all_list_with_options(request, runtime)
 
     def query_virtual_number_with_options(self, request, runtime):
+        """
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: QueryVirtualNumberRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: QueryVirtualNumberResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.owner_id):
@@ -1219,10 +1578,30 @@ class Client(OpenApiClient):
         )
 
     def query_virtual_number(self, request):
+        """
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: QueryVirtualNumberRequest
+
+        @return: QueryVirtualNumberResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.query_virtual_number_with_options(request, runtime)
 
     def query_virtual_number_relation_with_options(self, request, runtime):
+        """
+        ### QPS limits
+        You can call this operation up to 200 times per second per account.
+        
+
+        @param request: QueryVirtualNumberRelationRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: QueryVirtualNumberRelationResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.owner_id):
@@ -1269,6 +1648,15 @@ class Client(OpenApiClient):
         )
 
     def query_virtual_number_relation(self, request):
+        """
+        ### QPS limits
+        You can call this operation up to 200 times per second per account.
+        
+
+        @param request: QueryVirtualNumberRelationRequest
+
+        @return: QueryVirtualNumberRelationResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.query_virtual_number_relation_with_options(request, runtime)
 
@@ -1342,41 +1730,18 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.recover_call_in_config_with_options(request, runtime)
 
-    def refresh_mqtt_token_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.client_id):
-            query['ClientId'] = request.client_id
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
-        if not UtilClient.is_unset(request.resource_owner_account):
-            query['ResourceOwnerAccount'] = request.resource_owner_account
-        if not UtilClient.is_unset(request.resource_owner_id):
-            query['ResourceOwnerId'] = request.resource_owner_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='RefreshMqttToken',
-            version='2017-05-25',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            dyvmsapi_20170525_models.RefreshMqttTokenResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def refresh_mqtt_token(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.refresh_mqtt_token_with_options(request, runtime)
-
     def send_verification_with_options(self, request, runtime):
+        """
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: SendVerificationRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: SendVerificationResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.biz_type):
@@ -1411,10 +1776,30 @@ class Client(OpenApiClient):
         )
 
     def send_verification(self, request):
+        """
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: SendVerificationRequest
+
+        @return: SendVerificationResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.send_verification_with_options(request, runtime)
 
     def set_transfer_callee_pool_config_with_options(self, request, runtime):
+        """
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: SetTransferCalleePoolConfigRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: SetTransferCalleePoolConfigResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.called_route_mode):
@@ -1451,10 +1836,32 @@ class Client(OpenApiClient):
         )
 
     def set_transfer_callee_pool_config(self, request):
+        """
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: SetTransferCalleePoolConfigRequest
+
+        @return: SetTransferCalleePoolConfigResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.set_transfer_callee_pool_config_with_options(request, runtime)
 
     def single_call_by_tts_with_options(self, request, runtime):
+        """
+        Due to business adjustments, the updates of the voice notification and voice verification code services have been stopped in regions outside the Chinese mainland and the services have been discontinued since March 2022. Only qualified customers can continue using the voice notification and voice verification code services.
+        *   For more information about voice plans or voice service billing, see [Pricing of VMS on China site (aliyun.com)](~~150083~~).
+        ### QPS limits
+        You can call this operation up to 1,000 times per second per account.
+        
+
+        @param request: SingleCallByTtsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: SingleCallByTtsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.called_number):
@@ -1499,10 +1906,34 @@ class Client(OpenApiClient):
         )
 
     def single_call_by_tts(self, request):
+        """
+        Due to business adjustments, the updates of the voice notification and voice verification code services have been stopped in regions outside the Chinese mainland and the services have been discontinued since March 2022. Only qualified customers can continue using the voice notification and voice verification code services.
+        *   For more information about voice plans or voice service billing, see [Pricing of VMS on China site (aliyun.com)](~~150083~~).
+        ### QPS limits
+        You can call this operation up to 1,000 times per second per account.
+        
+
+        @param request: SingleCallByTtsRequest
+
+        @return: SingleCallByTtsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.single_call_by_tts_with_options(request, runtime)
 
     def single_call_by_voice_with_options(self, request, runtime):
+        """
+        > Due to business adjustments, the updates of the voice notification and voice verification code services have been stopped in regions outside the Chinese mainland and the services have been discontinued since March 2022. Only qualified customers can continue using the voice notification and voice verification code services.
+        You can call the [SingleCallByTts](~~393519~~) operation to send voice notifications with variables.
+        ### QPS limits
+        You can call this operation up to 1,200 times per second per account.
+        
+
+        @param request: SingleCallByVoiceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: SingleCallByVoiceResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.called_number):
@@ -1545,10 +1976,34 @@ class Client(OpenApiClient):
         )
 
     def single_call_by_voice(self, request):
+        """
+        > Due to business adjustments, the updates of the voice notification and voice verification code services have been stopped in regions outside the Chinese mainland and the services have been discontinued since March 2022. Only qualified customers can continue using the voice notification and voice verification code services.
+        You can call the [SingleCallByTts](~~393519~~) operation to send voice notifications with variables.
+        ### QPS limits
+        You can call this operation up to 1,200 times per second per account.
+        
+
+        @param request: SingleCallByVoiceRequest
+
+        @return: SingleCallByVoiceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.single_call_by_voice_with_options(request, runtime)
 
     def smart_call_with_options(self, request, runtime):
+        """
+        The SmartCall operation must be used together with the [intelligent outbound HTTP operation](~~112703~~). After the call initiated by the Voice Messaging Service (VMS) platform is connected, the VMS platform sends the text converted from speech back to the business side, and the business side then returns the follow-up action to the VMS platform.
+        *   The SmartCall operation does not support the following characters: `@ = : "" $ { } ^ * ￥`.
+        ### QPS limits
+        You can call this operation up to 1,000 times per second per account.
+        
+
+        @param request: SmartCallRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: SmartCallResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.action_code_break):
@@ -1629,10 +2084,34 @@ class Client(OpenApiClient):
         )
 
     def smart_call(self, request):
+        """
+        The SmartCall operation must be used together with the [intelligent outbound HTTP operation](~~112703~~). After the call initiated by the Voice Messaging Service (VMS) platform is connected, the VMS platform sends the text converted from speech back to the business side, and the business side then returns the follow-up action to the VMS platform.
+        *   The SmartCall operation does not support the following characters: `@ = : "" $ { } ^ * ￥`.
+        ### QPS limits
+        You can call this operation up to 1,000 times per second per account.
+        
+
+        @param request: SmartCallRequest
+
+        @return: SmartCallResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.smart_call_with_options(request, runtime)
 
     def smart_call_operate_with_options(self, request, runtime):
+        """
+        You can call this operation to initiate a specified action on the called number of an outbound robocall when the call is transferred to an agent of the call center.
+        > You can only initiate the action of bridging a called number and an agent of the call center.
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: SmartCallOperateRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: SmartCallOperateResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.call_id):
@@ -1667,10 +2146,32 @@ class Client(OpenApiClient):
         )
 
     def smart_call_operate(self, request):
+        """
+        You can call this operation to initiate a specified action on the called number of an outbound robocall when the call is transferred to an agent of the call center.
+        > You can only initiate the action of bridging a called number and an agent of the call center.
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: SmartCallOperateRequest
+
+        @return: SmartCallOperateResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.smart_call_operate_with_options(request, runtime)
 
     def start_robot_task_with_options(self, request, runtime):
+        """
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: StartRobotTaskRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: StartRobotTaskResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.owner_id):
@@ -1703,6 +2204,15 @@ class Client(OpenApiClient):
         )
 
     def start_robot_task(self, request):
+        """
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: StartRobotTaskRequest
+
+        @return: StartRobotTaskResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.start_robot_task_with_options(request, runtime)
 
@@ -1741,6 +2251,18 @@ class Client(OpenApiClient):
         return self.stop_call_in_config_with_options(request, runtime)
 
     def stop_robot_task_with_options(self, request, runtime):
+        """
+        After you stop a robocall task, you can call the [StartRobotTask](~~StartRobotTask~~) operation to start it again.
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: StopRobotTaskRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: StopRobotTaskResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.owner_id):
@@ -1771,10 +2293,31 @@ class Client(OpenApiClient):
         )
 
     def stop_robot_task(self, request):
+        """
+        After you stop a robocall task, you can call the [StartRobotTask](~~StartRobotTask~~) operation to start it again.
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: StopRobotTaskRequest
+
+        @return: StopRobotTaskResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.stop_robot_task_with_options(request, runtime)
 
     def submit_hotline_transfer_register_with_options(self, request, runtime):
+        """
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: SubmitHotlineTransferRegisterRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: SubmitHotlineTransferRegisterResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.agreement):
@@ -1823,10 +2366,30 @@ class Client(OpenApiClient):
         )
 
     def submit_hotline_transfer_register(self, request):
+        """
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: SubmitHotlineTransferRegisterRequest
+
+        @return: SubmitHotlineTransferRegisterResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.submit_hotline_transfer_register_with_options(request, runtime)
 
     def upload_robot_task_called_file_with_options(self, request, runtime):
+        """
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: UploadRobotTaskCalledFileRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UploadRobotTaskCalledFileResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.called_number):
@@ -1863,5 +2426,14 @@ class Client(OpenApiClient):
         )
 
     def upload_robot_task_called_file(self, request):
+        """
+        ### QPS limits
+        You can call this operation up to 100 times per second per account.
+        
+
+        @param request: UploadRobotTaskCalledFileRequest
+
+        @return: UploadRobotTaskCalledFileResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.upload_robot_task_called_file_with_options(request, runtime)

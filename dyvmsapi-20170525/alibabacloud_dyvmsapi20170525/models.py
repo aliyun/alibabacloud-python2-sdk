@@ -3,127 +3,24 @@
 from Tea.model import TeaModel
 
 
-class AddRtcAccountRequest(TeaModel):
-    def __init__(self, device_id=None, owner_id=None, resource_owner_account=None, resource_owner_id=None):
-        self.device_id = device_id  # type: str
-        self.owner_id = owner_id  # type: long
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(AddRtcAccountRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.device_id is not None:
-            result['DeviceId'] = self.device_id
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.resource_owner_account is not None:
-            result['ResourceOwnerAccount'] = self.resource_owner_account
-        if self.resource_owner_id is not None:
-            result['ResourceOwnerId'] = self.resource_owner_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('DeviceId') is not None:
-            self.device_id = m.get('DeviceId')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('ResourceOwnerAccount') is not None:
-            self.resource_owner_account = m.get('ResourceOwnerAccount')
-        if m.get('ResourceOwnerId') is not None:
-            self.resource_owner_id = m.get('ResourceOwnerId')
-        return self
-
-
-class AddRtcAccountResponseBody(TeaModel):
-    def __init__(self, code=None, message=None, module=None, request_id=None):
-        self.code = code  # type: str
-        self.message = message  # type: str
-        self.module = module  # type: str
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(AddRtcAccountResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.message is not None:
-            result['Message'] = self.message
-        if self.module is not None:
-            result['Module'] = self.module
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
-        if m.get('Module') is not None:
-            self.module = m.get('Module')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class AddRtcAccountResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: AddRtcAccountResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(AddRtcAccountResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = AddRtcAccountResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class AddVirtualNumberRelationRequest(TeaModel):
     def __init__(self, corp_name_list=None, number_list=None, owner_id=None, phone_num=None, prod_code=None,
                  resource_owner_account=None, resource_owner_id=None, route_type=None):
+        # The company names. Separate multiple company names with commas (,).
         self.corp_name_list = corp_name_list  # type: str
+        # The real numbers. Separate multiple real numbers with commas (,).
         self.number_list = number_list  # type: str
         self.owner_id = owner_id  # type: long
+        # The virtual number.
         self.phone_num = phone_num  # type: str
+        # The service name. Default value: **dyvms**.
         self.prod_code = prod_code  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The route type. Valid values:
+        # 
+        # *   **0**: number location first.
+        # *   **1**: random.
         self.route_type = route_type  # type: int
 
     def validate(self):
@@ -176,9 +73,18 @@ class AddVirtualNumberRelationRequest(TeaModel):
 
 class AddVirtualNumberRelationResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
+        # The response code.
+        # 
+        # *   The value 200 indicates that the request was successful.
+        # *   For more information about other response codes, see [API error codes](~~112502~~).
         self.code = code  # type: str
+        # The numbers that failed to be associated.
+        # 
+        # > If all numbers are associated, no value is returned for this parameter.
         self.data = data  # type: str
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -214,13 +120,12 @@ class AddVirtualNumberRelationResponseBody(TeaModel):
 
 
 class AddVirtualNumberRelationResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: AddVirtualNumberRelationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -232,6 +137,8 @@ class AddVirtualNumberRelationResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -240,6 +147,8 @@ class AddVirtualNumberRelationResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = AddVirtualNumberRelationResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -250,19 +159,46 @@ class BatchRobotSmartCallRequest(TeaModel):
     def __init__(self, called_number=None, called_show_number=None, corp_name=None, dialog_id=None,
                  early_media_asr=None, is_self_line=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  schedule_call=None, schedule_time=None, task_name=None, tts_param=None, tts_param_head=None):
+        # The called number. Only mobile phone numbers in the Chinese mainland are supported.
+        # 
+        # You can set up to 1,000 called numbers and separate the numbers with commas (,).
         self.called_number = called_number  # type: str
+        # The number displayed to called parties, which must be a number you purchased. You can view the numbers you purchased in the [Voice Messaging Service console](https://dyvms.console.aliyun.com/dyvms.htm#/number/normal).
+        # 
+        # You can set up to 100 numbers and separate the numbers with commas (,).
         self.called_show_number = called_show_number  # type: str
+        # The company name, which must be the same as the **company name** specified on the [qualification management page](https://dyvms.console.aliyun.com/dyvms.htm#/corp/normal).
+        # 
+        # > This parameter is optional if **isSelfLine** is set to **true**.
         self.corp_name = corp_name  # type: str
+        # The ID of the robot or communication script that is used to initiate a call.
+        # 
+        # You can obtain the **communication script ID** from the [Communication script management](https://dyvms.console.aliyun.com/dyvms.htm#/smart-call/saas/robot/list) page.
         self.dialog_id = dialog_id  # type: str
+        # The speech recognition identifier of early media. The default value is **false**, which means that the speech recognition identifier of early media is not enabled.
+        # 
+        # Set the parameter to **true** if you want to enable the speech recognition identifier of early media.
         self.early_media_asr = early_media_asr  # type: bool
+        # Specifies whether to call the self-managed line. Default value: **false**.
         self.is_self_line = is_self_line  # type: bool
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # Specifies whether the call is scheduled. If you set this parameter to **true**, the **ScheduleTime** parameter is required.
         self.schedule_call = schedule_call  # type: bool
+        # The preset call time. This value is a UNIX timestamp. Unit: milliseconds.
+        # 
+        # >  This parameter is required only when **ScheduleCall** is set to **true**.
         self.schedule_time = schedule_time  # type: long
+        # The task name. The task name can be up to 30 characters in length.
         self.task_name = task_name  # type: str
+        # The variable value of the TTS template, in the JSON format.
+        # 
+        # The variable value must correspond to a number. The TtsParam parameter must be used together with the TtsParamHead parameter.
         self.tts_param = tts_param  # type: str
+        # The call tasks with variables, in the JSON format.
+        # 
+        # The parameter value is a list of variable names. The TtsParamHead parameter must be used together with the TtsParam parameter.
         self.tts_param_head = tts_param_head  # type: str
 
     def validate(self):
@@ -339,9 +275,16 @@ class BatchRobotSmartCallRequest(TeaModel):
 
 class BatchRobotSmartCallResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, task_id=None):
+        # The response code.
+        # 
+        # *   The value OK indicates that the request was successful.
+        # *   For more information about other response codes, see [API error codes](~~112502~~).
         self.code = code  # type: str
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The unique ID of the robocall task. You can call the [QueryCallDetailByTaskId](~~393537~~) operation to query the details of the task based on the task ID.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -377,13 +320,12 @@ class BatchRobotSmartCallResponseBody(TeaModel):
 
 
 class BatchRobotSmartCallResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: BatchRobotSmartCallResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -395,6 +337,8 @@ class BatchRobotSmartCallResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -403,6 +347,8 @@ class BatchRobotSmartCallResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = BatchRobotSmartCallResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -414,6 +360,7 @@ class CancelOrderRobotTaskRequest(TeaModel):
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The unique ID of the robocall task. You can call the [CreateRobotTask](~~393531~~) operation to obtain the ID of the robocall task.
         self.task_id = task_id  # type: long
 
     def validate(self):
@@ -450,9 +397,19 @@ class CancelOrderRobotTaskRequest(TeaModel):
 
 class CancelOrderRobotTaskResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
+        # The response code.
+        # 
+        # *   The value OK indicates that the request was successful.
+        # *   For more information about other response codes, see [API error codes](~~112502~~).
         self.code = code  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**: The request was successful.
+        # *   **false**: The request failed.
         self.data = data  # type: str
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -488,13 +445,12 @@ class CancelOrderRobotTaskResponseBody(TeaModel):
 
 
 class CancelOrderRobotTaskResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CancelOrderRobotTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -506,6 +462,8 @@ class CancelOrderRobotTaskResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -514,6 +472,8 @@ class CancelOrderRobotTaskResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CancelOrderRobotTaskResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -525,6 +485,7 @@ class CancelRobotTaskRequest(TeaModel):
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The unique ID of the robocall task. You can call the [CreateRobotTask](~~393531~~) operation to obtain the task ID.
         self.task_id = task_id  # type: long
 
     def validate(self):
@@ -561,9 +522,19 @@ class CancelRobotTaskRequest(TeaModel):
 
 class CancelRobotTaskResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
+        # The response code.
+        # 
+        # *   The value OK indicates that the request was successful.
+        # *   For more information about other response codes, see [API error codes](~~112502~~).
         self.code = code  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**: The request was successful.
+        # *   **false**: The request failed.
         self.data = data  # type: str
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -599,13 +570,12 @@ class CancelRobotTaskResponseBody(TeaModel):
 
 
 class CancelRobotTaskResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CancelRobotTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -617,6 +587,8 @@ class CancelRobotTaskResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -625,6 +597,8 @@ class CancelRobotTaskResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CancelRobotTaskResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -635,19 +609,40 @@ class CreateCallTaskRequest(TeaModel):
     def __init__(self, biz_type=None, data=None, data_type=None, fire_time=None, owner_id=None, resource=None,
                  resource_owner_account=None, resource_owner_id=None, resource_type=None, schedule_type=None, stop_time=None,
                  task_name=None, template_code=None, template_name=None):
+        # The type of the task template. Valid values:
+        # 
+        # *   **VMS_VOICE_TTS**: the text-to-speech (TTS) notification template.
+        # *   **VMS_VOICE_CODE**: the voice notification template.
+        # *   **VMS_TTS**: the voice verification code template.
         self.biz_type = biz_type  # type: str
+        # The called numbers.
+        # 
+        # *   If you set DataType to LIST, the value of Data is in the LIST format.
+        # *   If you set DataType to JSON, the value of Data is in the JSON format.
         self.data = data  # type: str
+        # The type of called numbers. Valid values:
+        # 
+        # *   **LIST**: the called numbers that are separated by commas (,).
+        # *   **JSON**: a JSON-formatted list of called numbers with template parameters.
         self.data_type = data_type  # type: str
+        # This parameter is unavailable.
         self.fire_time = fire_time  # type: str
         self.owner_id = owner_id  # type: long
+        # The calling number. Only virtual numbers are supported.
         self.resource = resource  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The type of the calling number. Set the value to **LIST**.
         self.resource_type = resource_type  # type: str
+        # This parameter is unavailable.
         self.schedule_type = schedule_type  # type: str
+        # This parameter is unavailable.
         self.stop_time = stop_time  # type: str
+        # The task name.
         self.task_name = task_name  # type: str
+        # The template ID.
         self.template_code = template_code  # type: str
+        # The template name.
         self.template_name = template_name  # type: str
 
     def validate(self):
@@ -724,8 +719,11 @@ class CreateCallTaskRequest(TeaModel):
 
 class CreateCallTaskResponseBody(TeaModel):
     def __init__(self, code=None, data=None, request_id=None):
+        # The response code.
         self.code = code  # type: str
+        # The task ID.
         self.data = data  # type: long
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -757,13 +755,12 @@ class CreateCallTaskResponseBody(TeaModel):
 
 
 class CreateCallTaskResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CreateCallTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -775,6 +772,8 @@ class CreateCallTaskResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -783,6 +782,8 @@ class CreateCallTaskResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateCallTaskResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -793,18 +794,54 @@ class CreateRobotTaskRequest(TeaModel):
     def __init__(self, caller=None, corp_name=None, dialog_id=None, is_self_line=None, number_status_ident=None,
                  owner_id=None, recall_interval=None, recall_state_codes=None, recall_times=None,
                  resource_owner_account=None, resource_owner_id=None, retry_type=None, task_name=None):
+        # The calling number.
+        # 
+        # You must use the phone numbers that you have purchased and separate multiple numbers with commas (,). You can log on to the [Voice Messaging Service console](https://dyvms.console.aliyun.com/overview/home) and choose **Real Number Service** > **Real Number Management** to view the numbers you purchased.
         self.caller = caller  # type: str
+        # The company name, which must be the same as the **enterprise name** on the qualification management page.
         self.corp_name = corp_name  # type: str
+        # The ID of the robot or communication script that is used to initiate the call.
+        # 
+        # You can log on to the [Voice Messaging Service console](https://dyvms.console.aliyun.com/overview/home) and choose **Intelligent Voice Robot** > **Communication Script Management** to view the communication script ID.
         self.dialog_id = dialog_id  # type: long
+        # Specifies whether to call the self-managed line. Valid values:
+        # 
+        # *   **false** (default)
+        # *   **true**\
+        # 
+        # > If you set this parameter to **true**, calling numbers are not verified.
         self.is_self_line = is_self_line  # type: bool
+        # Specifies whether to enable number status identification. Valid values:
+        # 
+        # *   **false** (default)
+        # *   **true**\
+        # 
+        # > If you set this parameter to **true**, the reason why a call is not answered is recorded.
         self.number_status_ident = number_status_ident  # type: bool
         self.owner_id = owner_id  # type: long
+        # The redial interval. Unit: minutes. The value must be greater than 1.
+        # 
+        # > The maximum redial interval is 30 minutes.
         self.recall_interval = recall_interval  # type: int
+        # The call state in which redial is required. Separate multiple call states with commas (,). Valid values:
+        # 
+        # *   **200010**: The phone of the called party is powered off.
+        # *   **200011**: The number of the called party is out of service.
+        # *   **200002**: The line is busy.
+        # *   **200012**: The call is lost.
+        # *   **200005**: The called party cannot be connected.
+        # *   **200003**: The called party does not respond to the call.
         self.recall_state_codes = recall_state_codes  # type: str
+        # The number of redial times.
         self.recall_times = recall_times  # type: int
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # Specifies whether to enable auto-redial. Valid values:
+        # 
+        # *   **1**: enables auto-redial.
+        # *   **0**: disables auto-redial.
         self.retry_type = retry_type  # type: int
+        # The task name. The task name can be up to 30 characters in length.
         self.task_name = task_name  # type: str
 
     def validate(self):
@@ -877,9 +914,18 @@ class CreateRobotTaskRequest(TeaModel):
 
 class CreateRobotTaskResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
+        # The response code.
+        # 
+        # *   The value OK indicates that the request was successful.
+        # *   For more information about other response codes, see [API error codes](~~112502~~).
         self.code = code  # type: str
+        # The unique ID of the robocall task.
+        # 
+        # You can call the [QueryRobotTaskDetail](~~393538~~) operation to query the details of the task based on the task ID.
         self.data = data  # type: str
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -915,13 +961,12 @@ class CreateRobotTaskResponseBody(TeaModel):
 
 
 class CreateRobotTaskResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CreateRobotTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -933,6 +978,8 @@ class CreateRobotTaskResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -941,6 +988,8 @@ class CreateRobotTaskResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateRobotTaskResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -952,6 +1001,7 @@ class DeleteRobotTaskRequest(TeaModel):
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The unique ID of the robocall task. You can call the [CreateRobotTask](~~CreateRobotTask~~) operation to obtain the task ID.
         self.task_id = task_id  # type: long
 
     def validate(self):
@@ -988,9 +1038,19 @@ class DeleteRobotTaskRequest(TeaModel):
 
 class DeleteRobotTaskResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
+        # The response code.
+        # 
+        # *   The value OK indicates that the request was successful.
+        # *   For more information about other response codes, see [API error codes](~~112502~~).
         self.code = code  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**: The request was successful.
+        # *   **false**: The request failed.
         self.data = data  # type: str
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1026,13 +1086,12 @@ class DeleteRobotTaskResponseBody(TeaModel):
 
 
 class DeleteRobotTaskResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DeleteRobotTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1044,6 +1103,8 @@ class DeleteRobotTaskResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1052,6 +1113,8 @@ class DeleteRobotTaskResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteRobotTaskResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1061,11 +1124,20 @@ class DeleteRobotTaskResponse(TeaModel):
 class ExecuteCallTaskRequest(TeaModel):
     def __init__(self, fire_time=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  status=None, task_id=None):
+        # The time when the call task is executed, in the yyyy-MM-dd HH:mm:ss format.
+        # 
+        # > You can leave this parameter empty.
         self.fire_time = fire_time  # type: str
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The task state. Valid values:
+        # 
+        # *   **RUNNING**\
+        # *   **STOP**\
+        # *   **CANCEL**\
         self.status = status  # type: str
+        # The task ID. You can call the [CreateCallTask](~~CreateCallTask~~) operation to obtain the task ID.
         self.task_id = task_id  # type: long
 
     def validate(self):
@@ -1110,8 +1182,14 @@ class ExecuteCallTaskRequest(TeaModel):
 
 class ExecuteCallTaskResponseBody(TeaModel):
     def __init__(self, code=None, data=None, request_id=None):
+        # The response code.
         self.code = code  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**: The request was successful.
+        # *   **false**: The request failed.
         self.data = data  # type: bool
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1143,13 +1221,12 @@ class ExecuteCallTaskResponseBody(TeaModel):
 
 
 class ExecuteCallTaskResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ExecuteCallTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1161,6 +1238,8 @@ class ExecuteCallTaskResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1169,156 +1248,19 @@ class ExecuteCallTaskResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ExecuteCallTaskResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
 
-class GetCallInfoRequest(TeaModel):
-    def __init__(self, owner_id=None, resource_owner_account=None, resource_owner_id=None, rtc_id=None):
-        self.owner_id = owner_id  # type: long
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
-        self.rtc_id = rtc_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(GetCallInfoRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.resource_owner_account is not None:
-            result['ResourceOwnerAccount'] = self.resource_owner_account
-        if self.resource_owner_id is not None:
-            result['ResourceOwnerId'] = self.resource_owner_id
-        if self.rtc_id is not None:
-            result['RtcId'] = self.rtc_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('ResourceOwnerAccount') is not None:
-            self.resource_owner_account = m.get('ResourceOwnerAccount')
-        if m.get('ResourceOwnerId') is not None:
-            self.resource_owner_id = m.get('ResourceOwnerId')
-        if m.get('RtcId') is not None:
-            self.rtc_id = m.get('RtcId')
-        return self
-
-
-class GetCallInfoResponseBodyData(TeaModel):
-    def __init__(self, channel_id=None, status=None):
-        self.channel_id = channel_id  # type: str
-        self.status = status  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(GetCallInfoResponseBodyData, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.channel_id is not None:
-            result['ChannelId'] = self.channel_id
-        if self.status is not None:
-            result['Status'] = self.status
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ChannelId') is not None:
-            self.channel_id = m.get('ChannelId')
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        return self
-
-
-class GetCallInfoResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None):
-        self.code = code  # type: str
-        self.data = data  # type: GetCallInfoResponseBodyData
-        self.message = message  # type: str
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        if self.data:
-            self.data.validate()
-
-    def to_map(self):
-        _map = super(GetCallInfoResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.message is not None:
-            result['Message'] = self.message
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Data') is not None:
-            temp_model = GetCallInfoResponseBodyData()
-            self.data = temp_model.from_map(m['Data'])
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class GetCallInfoResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: GetCallInfoResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(GetCallInfoResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = GetCallInfoResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class GetHotlineQualificationByOrderRequest(TeaModel):
     def __init__(self, order_id=None, owner_id=None, resource_owner_account=None, resource_owner_id=None):
+        # The ticket ID.
+        # 
+        # You can log on to the [Voice Messaging Service console](https://dyvms.console.aliyun.com/overview/home), choose **Qualification\&Communication Script Management** > **Qualification Management**, and then click the **400 Qualifications** tab to view the ticket ID.
         self.order_id = order_id  # type: str
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
@@ -1358,8 +1300,14 @@ class GetHotlineQualificationByOrderRequest(TeaModel):
 
 class GetHotlineQualificationByOrderResponseBodyData(TeaModel):
     def __init__(self, order_id=None, qualification_id=None, status=None):
+        # The ID of the qualification application ticket.
         self.order_id = order_id  # type: str
+        # The qualification ID.
         self.qualification_id = qualification_id  # type: str
+        # The qualification state. Valid values:
+        # 
+        # *   **NORMAL**\
+        # *   **OTHER**\
         self.status = status  # type: str
 
     def validate(self):
@@ -1392,9 +1340,16 @@ class GetHotlineQualificationByOrderResponseBodyData(TeaModel):
 
 class GetHotlineQualificationByOrderResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
+        # The response code.
+        # 
+        # *   The value OK indicates that the request was successful.
+        # *   For more information about other response codes, see [API error codes](~~112502~~).
         self.code = code  # type: str
+        # The response parameters.
         self.data = data  # type: GetHotlineQualificationByOrderResponseBodyData
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1432,13 +1387,12 @@ class GetHotlineQualificationByOrderResponseBody(TeaModel):
 
 
 class GetHotlineQualificationByOrderResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetHotlineQualificationByOrderResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1450,6 +1404,8 @@ class GetHotlineQualificationByOrderResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1458,298 +1414,10 @@ class GetHotlineQualificationByOrderResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetHotlineQualificationByOrderResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class GetMqttTokenRequest(TeaModel):
-    def __init__(self, owner_id=None, resource_owner_account=None, resource_owner_id=None):
-        self.owner_id = owner_id  # type: long
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(GetMqttTokenRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.resource_owner_account is not None:
-            result['ResourceOwnerAccount'] = self.resource_owner_account
-        if self.resource_owner_id is not None:
-            result['ResourceOwnerId'] = self.resource_owner_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('ResourceOwnerAccount') is not None:
-            self.resource_owner_account = m.get('ResourceOwnerAccount')
-        if m.get('ResourceOwnerId') is not None:
-            self.resource_owner_id = m.get('ResourceOwnerId')
-        return self
-
-
-class GetMqttTokenResponseBodyData(TeaModel):
-    def __init__(self, client_id=None, expire_time=None, host=None, instance_id=None, p_2p_topic=None,
-                 server_id=None, token=None, username=None):
-        self.client_id = client_id  # type: str
-        self.expire_time = expire_time  # type: str
-        self.host = host  # type: str
-        self.instance_id = instance_id  # type: str
-        self.p_2p_topic = p_2p_topic  # type: str
-        self.server_id = server_id  # type: str
-        self.token = token  # type: str
-        self.username = username  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(GetMqttTokenResponseBodyData, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.client_id is not None:
-            result['ClientId'] = self.client_id
-        if self.expire_time is not None:
-            result['ExpireTime'] = self.expire_time
-        if self.host is not None:
-            result['Host'] = self.host
-        if self.instance_id is not None:
-            result['InstanceId'] = self.instance_id
-        if self.p_2p_topic is not None:
-            result['P2pTopic'] = self.p_2p_topic
-        if self.server_id is not None:
-            result['ServerId'] = self.server_id
-        if self.token is not None:
-            result['Token'] = self.token
-        if self.username is not None:
-            result['Username'] = self.username
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ClientId') is not None:
-            self.client_id = m.get('ClientId')
-        if m.get('ExpireTime') is not None:
-            self.expire_time = m.get('ExpireTime')
-        if m.get('Host') is not None:
-            self.host = m.get('Host')
-        if m.get('InstanceId') is not None:
-            self.instance_id = m.get('InstanceId')
-        if m.get('P2pTopic') is not None:
-            self.p_2p_topic = m.get('P2pTopic')
-        if m.get('ServerId') is not None:
-            self.server_id = m.get('ServerId')
-        if m.get('Token') is not None:
-            self.token = m.get('Token')
-        if m.get('Username') is not None:
-            self.username = m.get('Username')
-        return self
-
-
-class GetMqttTokenResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None):
-        self.code = code  # type: str
-        self.data = data  # type: GetMqttTokenResponseBodyData
-        self.message = message  # type: str
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        if self.data:
-            self.data.validate()
-
-    def to_map(self):
-        _map = super(GetMqttTokenResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.message is not None:
-            result['Message'] = self.message
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Data') is not None:
-            temp_model = GetMqttTokenResponseBodyData()
-            self.data = temp_model.from_map(m['Data'])
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class GetMqttTokenResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: GetMqttTokenResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(GetMqttTokenResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = GetMqttTokenResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class GetRtcTokenRequest(TeaModel):
-    def __init__(self, device_id=None, is_custom_account=None, owner_id=None, resource_owner_account=None,
-                 resource_owner_id=None, user_id=None):
-        self.device_id = device_id  # type: str
-        self.is_custom_account = is_custom_account  # type: bool
-        self.owner_id = owner_id  # type: long
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
-        self.user_id = user_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(GetRtcTokenRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.device_id is not None:
-            result['DeviceId'] = self.device_id
-        if self.is_custom_account is not None:
-            result['IsCustomAccount'] = self.is_custom_account
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.resource_owner_account is not None:
-            result['ResourceOwnerAccount'] = self.resource_owner_account
-        if self.resource_owner_id is not None:
-            result['ResourceOwnerId'] = self.resource_owner_id
-        if self.user_id is not None:
-            result['UserId'] = self.user_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('DeviceId') is not None:
-            self.device_id = m.get('DeviceId')
-        if m.get('IsCustomAccount') is not None:
-            self.is_custom_account = m.get('IsCustomAccount')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('ResourceOwnerAccount') is not None:
-            self.resource_owner_account = m.get('ResourceOwnerAccount')
-        if m.get('ResourceOwnerId') is not None:
-            self.resource_owner_id = m.get('ResourceOwnerId')
-        if m.get('UserId') is not None:
-            self.user_id = m.get('UserId')
-        return self
-
-
-class GetRtcTokenResponseBody(TeaModel):
-    def __init__(self, code=None, message=None, module=None, request_id=None):
-        self.code = code  # type: str
-        self.message = message  # type: str
-        self.module = module  # type: str
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(GetRtcTokenResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.message is not None:
-            result['Message'] = self.message
-        if self.module is not None:
-            result['Module'] = self.module
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
-        if m.get('Module') is not None:
-            self.module = m.get('Module')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class GetRtcTokenResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: GetRtcTokenResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(GetRtcTokenResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = GetRtcTokenResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -1759,6 +1427,7 @@ class GetTokenRequest(TeaModel):
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The token type.
         self.token_type = token_type  # type: str
 
     def validate(self):
@@ -1795,10 +1464,18 @@ class GetTokenRequest(TeaModel):
 
 class GetTokenResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None, token=None):
+        # The response code.
+        # 
+        # *   The value OK indicates that the request was successful.
+        # *   For more information about other response codes, see [API error codes](~~112502~~).
         self.code = code  # type: str
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
+        # The token.
         self.token = token  # type: str
 
     def validate(self):
@@ -1838,13 +1515,12 @@ class GetTokenResponseBody(TeaModel):
 
 
 class GetTokenResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetTokenResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1856,6 +1532,8 @@ class GetTokenResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1864,6 +1542,8 @@ class GetTokenResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetTokenResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1872,8 +1552,20 @@ class GetTokenResponse(TeaModel):
 
 class IvrCallRequestMenuKeyMap(TeaModel):
     def __init__(self, code=None, key=None, tts_params=None):
+        # The voice that corresponds to the key specified by the **MenuKeyMap.N.Key** parameter.
+        # 
+        # *   If you use a voice notification file, this parameter specifies the voice ID. You can log on to the [Voice Messaging Service console](https://dyvms.console.aliyun.com/overview/home), choose **Voice Messages** > **Voice Notifications**, and then click the **Voice Notification Files** tab to view the voice ID.
+        # *   If you use a TTS template, this parameter specifies the template ID. You can log on to the [Voice Messaging Service console](https://dyvms.console.aliyun.com/overview/home), choose **Voice Messages** > **Voice Notifications**, and then click the **TTS Template** tab to view the template ID.
         self.code = code  # type: str
+        # The key that can be pressed by the subscriber.
         self.key = key  # type: str
+        # The variables in the TTS template, in the JSON format.
+        # 
+        # > 
+        # 
+        # *   This parameter specifies the substitution relationship of the variables in the TTS template if the value of the **MenuKeyMap.N.Code** parameter is set to the ID of the TTS template.
+        # 
+        # *   This parameter is required if the value of the **MenuKeyMap.N.Code** parameter is set to the ID of a TTS template that contains variables.
         self.tts_params = tts_params  # type: str
 
     def validate(self):
@@ -1908,18 +1600,46 @@ class IvrCallRequest(TeaModel):
     def __init__(self, bye_code=None, bye_tts_params=None, called_number=None, called_show_number=None,
                  menu_key_map=None, out_id=None, owner_id=None, play_times=None, resource_owner_account=None,
                  resource_owner_id=None, start_code=None, start_tts_params=None, timeout=None):
+        # The end voice.
+        # 
+        # *   If you use a voice notification file, this parameter specifies the voice ID. You can log on to the [Voice Messaging Service console](https://dyvms.console.aliyun.com/overview/home), choose **Voice Messages** > **Voice Notifications**, and then click the **Voice Notification Files** tab to view the voice ID.
+        # *   If you use a TTS template, this parameter specifies the template ID. You can log on to the [Voice Messaging Service console](https://dyvms.console.aliyun.com/overview/home), choose **Voice Messages** > **Voice Notifications**, and then click the **TTS Template** tab to view the template ID.
+        # 
+        # > The value of the ByeCode parameter must be of the same type as the value of the StartCode parameter. This means that both parameters must specify voice IDs or TTS template IDs.
         self.bye_code = bye_code  # type: str
+        # The variables in the TTS template, in the JSON format.
+        # 
+        # > This parameter is required when the ByeCode parameter is set to the ID of a TTS template that contains variables.
         self.bye_tts_params = bye_tts_params  # type: str
+        # The called number.
+        # 
+        # Only phone numbers in the Chinese mainland are supported. Each request supports only one called number.
         self.called_number = called_number  # type: str
+        # The calling number.
+        # 
+        # The value must be a number you purchased. Each request supports only one calling number. In most cases, a calling number is configured with the maximum number of concurrent requests. New requests fail if the maximum number of concurrent requests is reached. You can log on to the [Voice Messaging Service console](https://dyvms.console.aliyun.com/overview/home) and choose **Real Number Service > Real Number Management** to view the number you purchased.
         self.called_show_number = called_show_number  # type: str
+        # The information about the key pressed by the subscriber.
         self.menu_key_map = menu_key_map  # type: list[IvrCallRequestMenuKeyMap]
+        # The ID that is reserved for the caller of the operation. This ID is returned to the caller in a receipt message.
+        # 
+        # The value is of the STRING type and must be 1 to 15 bytes in length.
         self.out_id = out_id  # type: str
         self.owner_id = owner_id  # type: long
+        # The number of replay times. Valid values: 1 to 3.
         self.play_times = play_times  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The voice that is played when the call begins.
+        # 
+        # *   If you use a voice notification file, this parameter specifies the voice ID. You can log on to the [Voice Messaging Service console](https://dyvms.console.aliyun.com/overview/home), choose **Voice Messages** > Voice Notifications, and then click the **Voice Notification Files** tab to view the voice ID.
+        # *   If you use a text-to-speech (TTS) template, this parameter specifies the template ID. You can log on to the [Voice Messaging Service console](https://dyvms.console.aliyun.com/overview/home), choose **Voice Messages** > **Voice Notifications**, and then click the **TTS Template** tab to view the template ID.
         self.start_code = start_code  # type: str
+        # The variables in the TTS template, in the JSON format.
+        # 
+        # > This parameter is required when the StartCode parameter is set to the ID of a TTS template that contains variables.
         self.start_tts_params = start_tts_params  # type: str
+        # The timeout period for the subscriber to press a key. Unit: milliseconds.
         self.timeout = timeout  # type: int
 
     def validate(self):
@@ -2000,9 +1720,18 @@ class IvrCallRequest(TeaModel):
 
 class IvrCallResponseBody(TeaModel):
     def __init__(self, call_id=None, code=None, message=None, request_id=None):
+        # The unique receipt ID of the call.
+        # 
+        # You can call the [QueryCallDetailByCallId](~~393529~~) operation to query the details of the call based on the receipt ID.
         self.call_id = call_id  # type: str
+        # The response code.
+        # 
+        # *   The value OK indicates that the request was successful.
+        # *   For more information about other response codes, see [API error codes](~~112502~~).
         self.code = code  # type: str
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2038,13 +1767,12 @@ class IvrCallResponseBody(TeaModel):
 
 
 class IvrCallResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: IvrCallResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2056,6 +1784,8 @@ class IvrCallResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -2064,6 +1794,8 @@ class IvrCallResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = IvrCallResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -2073,15 +1805,35 @@ class IvrCallResponse(TeaModel):
 class ListCallTaskRequest(TeaModel):
     def __init__(self, biz_type=None, owner_id=None, page_number=None, page_size=None, resource_owner_account=None,
                  resource_owner_id=None, status=None, task_id=None, task_name=None, template_name=None):
+        # The type of the task template. Valid values:
+        # 
+        # *   **VMS_VOICE_TTS**: the text-to-speech (TTS) notification template.
+        # *   **VMS_VOICE_CODE**: the voice notification template.
+        # *   **VMS_TTS**: the voice verification code template.
         self.biz_type = biz_type  # type: str
         self.owner_id = owner_id  # type: long
+        # The page number. Default value: **1**.
         self.page_number = page_number  # type: int
+        # The number of entries per page. Default value: **10**.
         self.page_size = page_size  # type: int
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The task state. Valid values:
+        # 
+        # *   **INIT**: The task is in the initial state.
+        # *   **RELEASE**: The task is being parsed.
+        # *   **RUNNING**: The task is running.
+        # *   **STOP**: The task is suspended.
+        # *   **SYSTEM_STOP**: The task is suspended by the system.
+        # *   **CANCEL**: The task is canceled.
+        # *   **SYSTEM_CANCEL**: The task is canceled by the system.
+        # *   **DONE**: The task is complete.
         self.status = status  # type: str
+        # The task ID.
         self.task_id = task_id  # type: str
+        # The task name.
         self.task_name = task_name  # type: str
+        # The template name.
         self.template_name = template_name  # type: str
 
     def validate(self):
@@ -2144,20 +1896,48 @@ class ListCallTaskResponseBodyData(TeaModel):
     def __init__(self, biz_type=None, complete_time=None, completed_count=None, completed_rate=None, data=None,
                  data_type=None, fire_time=None, id=None, resource=None, status=None, stop_time=None, task_name=None,
                  template_code=None, template_name=None, total_count=None):
+        # The type of the task template. Valid values:
+        # 
+        # *   **VMS_VOICE_TTS**: the TTS notification template.
+        # *   **VMS_VOICE_CODE**: the voice notification template.
+        # *   **VMS_TTS**: the voice verification code template.
         self.biz_type = biz_type  # type: str
+        # The time when the task was completed. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.complete_time = complete_time  # type: str
+        # The number of tasks that were complete.
         self.completed_count = completed_count  # type: long
+        # The task progress.
         self.completed_rate = completed_rate  # type: int
+        # This parameter is unavailable.
         self.data = data  # type: str
+        # The type of the called number.
         self.data_type = data_type  # type: str
+        # The time when the scheduled task was started. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.fire_time = fire_time  # type: str
+        # The task ID.
         self.id = id  # type: long
+        # The calling number.
         self.resource = resource  # type: str
+        # The task state. Valid values:
+        # 
+        # *   **INIT**: The task was in the initial state.
+        # *   **RELEASE**: The task was being parsed.
+        # *   **RUNNING**: The task was running.
+        # *   **STOP**: The task was manually suspended.
+        # *   **SYSTEM_STOP**: The task was suspended by the system.
+        # *   **CANCEL**: The task was manually canceled.
+        # *   **SYSTEM_CANCEL**: The task was canceled by the system.
+        # *   **DONE**: The task was complete.
         self.status = status  # type: str
+        # This parameter is unavailable.
         self.stop_time = stop_time  # type: str
+        # The task name.
         self.task_name = task_name  # type: str
+        # The ID of the voice template.
         self.template_code = template_code  # type: str
+        # The template name.
         self.template_name = template_name  # type: str
+        # The total number of called numbers.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -2238,11 +2018,17 @@ class ListCallTaskResponseBodyData(TeaModel):
 
 class ListCallTaskResponseBody(TeaModel):
     def __init__(self, code=None, data=None, page_number=None, page_size=None, request_id=None, total=None):
+        # The response code.
         self.code = code  # type: str
+        # The task information.
         self.data = data  # type: list[ListCallTaskResponseBodyData]
+        # The page number.
         self.page_number = page_number  # type: long
+        # The number of entries per page.
         self.page_size = page_size  # type: long
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The total number of tasks.
         self.total = total  # type: long
 
     def validate(self):
@@ -2294,13 +2080,12 @@ class ListCallTaskResponseBody(TeaModel):
 
 
 class ListCallTaskResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListCallTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2312,6 +2097,8 @@ class ListCallTaskResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -2320,6 +2107,8 @@ class ListCallTaskResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListCallTaskResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -2329,13 +2118,22 @@ class ListCallTaskResponse(TeaModel):
 class ListCallTaskDetailRequest(TeaModel):
     def __init__(self, called_num=None, owner_id=None, page_number=None, page_size=None,
                  resource_owner_account=None, resource_owner_id=None, status=None, task_id=None):
+        # The called number.
         self.called_num = called_num  # type: str
         self.owner_id = owner_id  # type: long
+        # The page number. Default value: **1**.
         self.page_number = page_number  # type: int
+        # The number of entries per page. Default value: **10**.
         self.page_size = page_size  # type: int
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The task state. Valid values:
+        # 
+        # *   **SUCCESS**: The task is successful.
+        # *   **FAIL**: The task fails.
+        # *   **INIT**: The task is not started.
         self.status = status  # type: str
+        # The task ID.
         self.task_id = task_id  # type: long
 
     def validate(self):
@@ -2388,10 +2186,19 @@ class ListCallTaskDetailRequest(TeaModel):
 
 class ListCallTaskDetailResponseBodyData(TeaModel):
     def __init__(self, called_num=None, caller=None, duration=None, id=None, status=None):
+        # The called number.
         self.called_num = called_num  # type: str
+        # The calling number.
         self.caller = caller  # type: str
+        # The call duration. Unit: seconds.
         self.duration = duration  # type: long
+        # This parameter is unavailable.
         self.id = id  # type: long
+        # The task state. Valid values:
+        # 
+        # *   **SUCCESS**: The task was successful.
+        # *   **FAIL**: The task failed.
+        # *   **INIT**: The task was not started.
         self.status = status  # type: str
 
     def validate(self):
@@ -2433,12 +2240,22 @@ class ListCallTaskDetailResponseBodyData(TeaModel):
 class ListCallTaskDetailResponseBody(TeaModel):
     def __init__(self, code=None, data=None, page_number=None, page_size=None, request_id=None, total=None,
                  total_page=None):
+        # The response code.
+        # 
+        # *   The value OK indicates that the request was successful.
+        # *   For more information about other response codes, see [API error codes](~~112502~~).
         self.code = code  # type: str
+        # The information about the task.
         self.data = data  # type: list[ListCallTaskDetailResponseBodyData]
+        # The page number.
         self.page_number = page_number  # type: long
+        # The number of entries per page.
         self.page_size = page_size  # type: long
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The total number of called numbers.
         self.total = total  # type: long
+        # The total number of pages.
         self.total_page = total_page  # type: long
 
     def validate(self):
@@ -2494,13 +2311,12 @@ class ListCallTaskDetailResponseBody(TeaModel):
 
 
 class ListCallTaskDetailResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListCallTaskDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2512,6 +2328,8 @@ class ListCallTaskDetailResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -2520,6 +2338,8 @@ class ListCallTaskDetailResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListCallTaskDetailResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -2529,10 +2349,14 @@ class ListCallTaskDetailResponse(TeaModel):
 class ListHotlineTransferNumberRequest(TeaModel):
     def __init__(self, hotline_number=None, owner_id=None, page_no=None, page_size=None, qualification_id=None,
                  resource_owner_account=None, resource_owner_id=None):
+        # The China 400 number.
         self.hotline_number = hotline_number  # type: str
         self.owner_id = owner_id  # type: long
+        # The page number. Default value: **1**.
         self.page_no = page_no  # type: int
+        # The number of entries per page. Valid values: 1 to 10.
         self.page_size = page_size  # type: int
+        # The qualification ID. You can call the [GetHotlineQualificationByOrder](~~393548~~) operation to obtain the qualification ID.
         self.qualification_id = qualification_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -2584,11 +2408,17 @@ class ListHotlineTransferNumberRequest(TeaModel):
 class ListHotlineTransferNumberResponseBodyDataValues(TeaModel):
     def __init__(self, hotline_number=None, identity_card=None, number_owner_name=None, phone_number=None,
                  qualification_id=None, res_unique_code=None):
+        # The China 400 number.
         self.hotline_number = hotline_number  # type: str
+        # The ID card number of the number owner.
         self.identity_card = identity_card  # type: str
+        # The real name of the number owner or the company name.
         self.number_owner_name = number_owner_name  # type: str
+        # The registered phone number.
         self.phone_number = phone_number  # type: str
+        # The qualification ID.
         self.qualification_id = qualification_id  # type: str
+        # The resource code.
         self.res_unique_code = res_unique_code  # type: str
 
     def validate(self):
@@ -2633,9 +2463,13 @@ class ListHotlineTransferNumberResponseBodyDataValues(TeaModel):
 
 class ListHotlineTransferNumberResponseBodyData(TeaModel):
     def __init__(self, page_no=None, page_size=None, total=None, values=None):
+        # The page number.
         self.page_no = page_no  # type: int
+        # The number of entries per page.
         self.page_size = page_size  # type: int
+        # The total number of entries returned.
         self.total = total  # type: long
+        # The phone numbers.
         self.values = values  # type: list[ListHotlineTransferNumberResponseBodyDataValues]
 
     def validate(self):
@@ -2680,9 +2514,16 @@ class ListHotlineTransferNumberResponseBodyData(TeaModel):
 
 class ListHotlineTransferNumberResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
+        # The response code.
+        # 
+        # *   The value OK indicates that the request was successful.
+        # *   For more information about other response codes, see [API error codes](~~112502~~).
         self.code = code  # type: str
+        # The information about the registered phone number.
         self.data = data  # type: ListHotlineTransferNumberResponseBodyData
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2720,13 +2561,12 @@ class ListHotlineTransferNumberResponseBody(TeaModel):
 
 
 class ListHotlineTransferNumberResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListHotlineTransferNumberResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2738,6 +2578,8 @@ class ListHotlineTransferNumberResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -2746,6 +2588,8 @@ class ListHotlineTransferNumberResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListHotlineTransferNumberResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -2755,10 +2599,14 @@ class ListHotlineTransferNumberResponse(TeaModel):
 class ListHotlineTransferRegisterFileRequest(TeaModel):
     def __init__(self, hotline_number=None, owner_id=None, page_no=None, page_size=None, qualification_id=None,
                  resource_owner_account=None, resource_owner_id=None):
+        # The China 400 number.
         self.hotline_number = hotline_number  # type: str
         self.owner_id = owner_id  # type: long
+        # The page number. Default value: **1**.
         self.page_no = page_no  # type: int
+        # The number of entries per page. Valid values: 1 to 10.
         self.page_size = page_size  # type: int
+        # The qualification ID. You can call the [GetHotlineQualificationByOrder](~~393548~~) operation to obtain the qualification ID.
         self.qualification_id = qualification_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -2810,14 +2658,23 @@ class ListHotlineTransferRegisterFileRequest(TeaModel):
 class ListHotlineTransferRegisterFileResponseBodyDataValues(TeaModel):
     def __init__(self, agree=None, corp_name=None, hotline_number=None, mng_op_identity_card=None, mng_op_mail=None,
                  mng_op_mobile=None, mng_op_name=None, qualification_id=None, res_unique_code=None):
+        # The authenticity of the commitment.
         self.agree = agree  # type: str
+        # The enterprise name.
         self.corp_name = corp_name  # type: str
+        # The China 400 number.
         self.hotline_number = hotline_number  # type: str
+        # The ID card number of the handler.
         self.mng_op_identity_card = mng_op_identity_card  # type: str
+        # The email address of the handler.
         self.mng_op_mail = mng_op_mail  # type: str
+        # The mobile phone number of the handler.
         self.mng_op_mobile = mng_op_mobile  # type: str
+        # The name of the handler.
         self.mng_op_name = mng_op_name  # type: str
+        # The qualification ID.
         self.qualification_id = qualification_id  # type: str
+        # The unique code of the query operation.
         self.res_unique_code = res_unique_code  # type: long
 
     def validate(self):
@@ -2874,9 +2731,13 @@ class ListHotlineTransferRegisterFileResponseBodyDataValues(TeaModel):
 
 class ListHotlineTransferRegisterFileResponseBodyData(TeaModel):
     def __init__(self, page_no=None, page_size=None, total=None, values=None):
+        # The page number.
         self.page_no = page_no  # type: int
+        # The number of entries per page.
         self.page_size = page_size  # type: int
+        # The total number of entries returned.
         self.total = total  # type: long
+        # The registration file.
         self.values = values  # type: list[ListHotlineTransferRegisterFileResponseBodyDataValues]
 
     def validate(self):
@@ -2921,9 +2782,16 @@ class ListHotlineTransferRegisterFileResponseBodyData(TeaModel):
 
 class ListHotlineTransferRegisterFileResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
+        # The response code.
+        # 
+        # *   The value OK indicates that the request was successful.
+        # *   For more information about other response codes, see [API error codes](~~112502~~).
         self.code = code  # type: str
+        # The response parameters.
         self.data = data  # type: ListHotlineTransferRegisterFileResponseBodyData
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2961,13 +2829,12 @@ class ListHotlineTransferRegisterFileResponseBody(TeaModel):
 
 
 class ListHotlineTransferRegisterFileResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListHotlineTransferRegisterFileResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2979,6 +2846,8 @@ class ListHotlineTransferRegisterFileResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -2987,6 +2856,8 @@ class ListHotlineTransferRegisterFileResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListHotlineTransferRegisterFileResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -2996,9 +2867,28 @@ class ListHotlineTransferRegisterFileResponse(TeaModel):
 class QueryCallDetailByCallIdRequest(TeaModel):
     def __init__(self, call_id=None, owner_id=None, prod_id=None, query_date=None, resource_owner_account=None,
                  resource_owner_id=None):
+        # The unique ID of the call.
+        # 
+        # > 
+        # 
+        # *   The CallId parameter is included in the response parameters of the outbound call operation that you call to initiate a call.
+        # 
+        # *   The date when the call specified by CallId is started must be the same as the date specified by QueryDate.
+        # 
+        # *   The value of CallId must match the value of ProdId.
         self.call_id = call_id  # type: str
         self.owner_id = owner_id  # type: long
+        # The service ID. Valid values:
+        # 
+        # *   **11000000300006**: voice notification. You can call the [SingleCallByVoice](https://help.aliyun.com/document_detail/393517.html) operation to send a voice notification of the voice notification file type to the specified number.
+        # *   **11010000138001**: voice verification code. You can call the [SingleCallByTts](https://help.aliyun.com/document_detail/393519.html) operation to send a voice verification code or a text-to-speech (TTS) voice notification to the specified number.
+        # *   **11000000300005**: IVR. You can call the [IvrCall](https://help.aliyun.com/document_detail/393521.html) operation to initiate an interactive voice call to the specified number.
+        # *   **11000000300009**: Session Initiation Protocol (SIP) call.
+        # *   **11030000180001**: intelligent outbound call.
         self.prod_id = prod_id  # type: long
+        # The time at which call details are queried. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # > The system queries the call records that are generated within 24 hours after the specified point in time. For example, if you specify the time 20:00:01 on November 21, 2022, the system queries the call records that are generated for the specified call ID from 20:00:01 on November 21, 2022, to 20:00:01 on November 22, 2022.
         self.query_date = query_date  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -3045,9 +2935,31 @@ class QueryCallDetailByCallIdRequest(TeaModel):
 
 class QueryCallDetailByCallIdResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
+        # The response code.
+        # 
+        # *   The value OK indicates that the request was successful.
+        # *   For more information about other response codes, see [API error codes](~~112502~~).
         self.code = code  # type: str
+        # The details of the call, in the JSON format.
+        # 
+        # *   **caller**: the calling number.
+        # *   **startDate**: the time when the call was started.
+        # *   **stateDesc**: the description of the call state.
+        # *   **duration**: the call duration. Unit: seconds. The value **0** indicates that the user was not connected.
+        # *   **callerShowNumber**: the calling number displayed to the called party.
+        # *   **gmtCreate**: the time when the call request was received.
+        # *   **state**: the call state. The call state is returned by the Internet service provider (ISP) in real time. For more information about call states, see [ISP-returned error codes](~~55085~~).
+        # *   **endDate**: the time when the call was ended.
+        # *   **calleeShowNumber**: the number displayed to the called party.
+        # *   **callee**: the called number.
+        # *   **aRingTime**: the time when Line A started to ring, in the yyyy-MM-dd HH:mm:ss format.
+        # *   **aEndTime**: the time when ringing on Line A ended, in the yyyy-MM-dd HH:mm:ss format.
+        # *   **bRingTime**: the time when Line B started to ring, in the yyyy-MM-dd HH:mm:ss format.
+        # *   **bEndTime**: the time when ringing on Line B ended, in the yyyy-MM-dd HH:mm:ss format.
         self.data = data  # type: str
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3083,13 +2995,12 @@ class QueryCallDetailByCallIdResponseBody(TeaModel):
 
 
 class QueryCallDetailByCallIdResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: QueryCallDetailByCallIdResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3101,6 +3012,8 @@ class QueryCallDetailByCallIdResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -3109,6 +3022,8 @@ class QueryCallDetailByCallIdResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = QueryCallDetailByCallIdResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -3118,11 +3033,14 @@ class QueryCallDetailByCallIdResponse(TeaModel):
 class QueryCallDetailByTaskIdRequest(TeaModel):
     def __init__(self, callee=None, owner_id=None, query_date=None, resource_owner_account=None,
                  resource_owner_id=None, task_id=None):
+        # The called number. You can view the outbound call records of only one called number.
         self.callee = callee  # type: str
         self.owner_id = owner_id  # type: long
+        # The start time of the outbound robocall task. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.query_date = query_date  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The unique ID of the outbound robocall task. The task ID is returned after the outbound robocall task is successfully delivered. You can view the task ID on the [Task Management](https://dyvms.console.aliyun.com/job/list) page of the Voice Messaging Service console, or call the **BatchRobotSmartCall** operation to obtain the **task ID**.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -3167,9 +3085,71 @@ class QueryCallDetailByTaskIdRequest(TeaModel):
 
 class QueryCallDetailByTaskIdResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
+        # The response code.
+        # 
+        # *   The value OK indicates that the request was successful.
+        # *   For more information about other response codes, see [API error codes](~~112502~~).
         self.code = code  # type: str
+        # The call details of the outbound robocall task, in the JSON format.
+        # 
+        # *   **startDate**: the time when the call was answered.
+        # 
+        # *   **stateDesc**: the reason why the call was hung up. If the status code of early media was returned, this parameter indicates the reason why the status code of early media was used.
+        # 
+        # *   **statusCode**: the status code.
+        # 
+        # *   **EndDate**: the time when the call was ended.
+        # 
+        # *   **calleeShowNumber**: the calling number displayed to the called party.
+        # 
+        # *   **callee**: the called number.
+        # 
+        # *   **duration**: the billing duration.
+        # 
+        # *   **gmtCreate**: the time when the outbound robocall task was created.
+        # 
+        # *   **hangupDirection**: the party who hung up.
+        # 
+        # *   **tags**: the call tags.
+        # 
+        # *   **dialogCount**: the number of conversation rounds in the call.
+        # 
+        # *   **sureCount**: the number of times that the robocall task was acknowledged.
+        # 
+        # *   **denyCount**: the number of times that the robocall task was denied.
+        # 
+        # *   **rejectCount**: the number of times that the robocall task was rejected.
+        # 
+        # *   **customCount**: the number of times that the robocall task was customized.
+        # 
+        # *   **knowledgeCount**: the number of times that the knowledge base was queried.
+        # 
+        # *   **recordFile**: the download URL of the recording file. The URL is valid only for 48 hours. The recording file must be downloaded in time.
+        # 
+        # *   **callId**: the call ID.
+        # 
+        # *   **recordStatus**: indicates whether a recording file was available. Valid values:
+        # 
+        #     *   1: A recording file was available.
+        #     *   2: No recording file was available.
+        # 
+        # *   **knowledgeCommonCount**: the number of call failures caused by the common issues in the knowledge base.
+        # 
+        # *   **knowledgeBusinessCount**: the number of call failures caused by the business issues in the knowledge base.
+        # 
+        # *   **callee**: the called number.
+        # 
+        # *   **dialogDetail**: the conversation details. The value is a JSON array that contains the following parameters:
+        # 
+        #     *   **role**: the role who spoke.
+        #     *   **content**: the content of the speech.
+        #     *   **time**: the start time of the speech.
+        # 
+        # > The preceding parameters are for reference only. The actually returned parameters prevail.
         self.data = data  # type: str
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3205,13 +3185,12 @@ class QueryCallDetailByTaskIdResponseBody(TeaModel):
 
 
 class QueryCallDetailByTaskIdResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: QueryCallDetailByTaskIdResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3223,6 +3202,8 @@ class QueryCallDetailByTaskIdResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -3231,6 +3212,8 @@ class QueryCallDetailByTaskIdResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = QueryCallDetailByTaskIdResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -3240,6 +3223,7 @@ class QueryCallDetailByTaskIdResponse(TeaModel):
 class QueryCallInPoolTransferConfigRequest(TeaModel):
     def __init__(self, owner_id=None, phone_number=None, resource_owner_account=None, resource_owner_id=None):
         self.owner_id = owner_id  # type: long
+        # The China 400 number used to transfer the call.
         self.phone_number = phone_number  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -3278,6 +3262,7 @@ class QueryCallInPoolTransferConfigRequest(TeaModel):
 
 class QueryCallInPoolTransferConfigResponseBodyDataDetails(TeaModel):
     def __init__(self, called=None):
+        # The number used to transfer the call.
         self.called = called  # type: str
 
     def validate(self):
@@ -3302,9 +3287,16 @@ class QueryCallInPoolTransferConfigResponseBodyDataDetails(TeaModel):
 
 class QueryCallInPoolTransferConfigResponseBodyData(TeaModel):
     def __init__(self, called_route_mode=None, details=None, gmt_create=None, transfer_timeout=None):
+        # The call mode. Valid values:
+        # 
+        # *   **roundRobin**\
+        # *   **random**\
         self.called_route_mode = called_route_mode  # type: str
+        # The details of the response parameters.
         self.details = details  # type: list[QueryCallInPoolTransferConfigResponseBodyDataDetails]
+        # The time when the call transfer task was created.
         self.gmt_create = gmt_create  # type: long
+        # The timeout period for transferring the call.
         self.transfer_timeout = transfer_timeout  # type: str
 
     def validate(self):
@@ -3349,9 +3341,16 @@ class QueryCallInPoolTransferConfigResponseBodyData(TeaModel):
 
 class QueryCallInPoolTransferConfigResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
+        # The response code.
+        # 
+        # *   The value OK indicates that the request was successful.
+        # *   For more information about other response codes, see [API error codes](~~112502~~).
         self.code = code  # type: str
+        # The response parameters.
         self.data = data  # type: QueryCallInPoolTransferConfigResponseBodyData
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3389,13 +3388,12 @@ class QueryCallInPoolTransferConfigResponseBody(TeaModel):
 
 
 class QueryCallInPoolTransferConfigResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: QueryCallInPoolTransferConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3407,6 +3405,8 @@ class QueryCallInPoolTransferConfigResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -3415,6 +3415,8 @@ class QueryCallInPoolTransferConfigResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = QueryCallInPoolTransferConfigResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -3424,11 +3426,18 @@ class QueryCallInPoolTransferConfigResponse(TeaModel):
 class QueryCallInTransferRecordRequest(TeaModel):
     def __init__(self, call_in_caller=None, owner_id=None, page_no=None, page_size=None, phone_number=None,
                  query_date=None, resource_owner_account=None, resource_owner_id=None):
+        # The calling number of the inbound call.
         self.call_in_caller = call_in_caller  # type: str
         self.owner_id = owner_id  # type: long
+        # The page number. Default value: **1**.
         self.page_no = page_no  # type: long
+        # The number of entries per page. Valid values: 1 to 10.
         self.page_size = page_size  # type: long
+        # The phone number to which a call is transferred.
         self.phone_number = phone_number  # type: str
+        # The time at which call transfer records are queried, in the YYYY-MM-DD hh:mm:ss format.
+        # 
+        # > The query result is all the call transfer records of the specified day.
         self.query_date = query_date  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -3484,11 +3493,17 @@ class QueryCallInTransferRecordRequest(TeaModel):
 class QueryCallInTransferRecordResponseBodyDataValues(TeaModel):
     def __init__(self, call_in_called=None, call_in_caller=None, gmt_create=None, record_url=None,
                  transfer_called=None, transfer_caller=None):
+        # The called number of the inbound call.
         self.call_in_called = call_in_called  # type: str
+        # The calling number of the inbound call.
         self.call_in_caller = call_in_caller  # type: str
+        # The time when the call was initiated.
         self.gmt_create = gmt_create  # type: long
+        # The recording URL.
         self.record_url = record_url  # type: str
+        # The phone number to which the call was transferred.
         self.transfer_called = transfer_called  # type: str
+        # The calling number that transferred the call.
         self.transfer_caller = transfer_caller  # type: str
 
     def validate(self):
@@ -3533,9 +3548,13 @@ class QueryCallInTransferRecordResponseBodyDataValues(TeaModel):
 
 class QueryCallInTransferRecordResponseBodyData(TeaModel):
     def __init__(self, page_no=None, page_size=None, total=None, values=None):
+        # The page number.
         self.page_no = page_no  # type: long
+        # The number of entries per page.
         self.page_size = page_size  # type: long
+        # The total number of entries returned.
         self.total = total  # type: long
+        # The call transfer records.
         self.values = values  # type: list[QueryCallInTransferRecordResponseBodyDataValues]
 
     def validate(self):
@@ -3580,9 +3599,16 @@ class QueryCallInTransferRecordResponseBodyData(TeaModel):
 
 class QueryCallInTransferRecordResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
+        # The response code.
+        # 
+        # *   The value OK indicates that the request was successful.
+        # *   For more information about other response codes, see [API error codes](~~112502~~).
         self.code = code  # type: str
+        # The response parameters.
         self.data = data  # type: QueryCallInTransferRecordResponseBodyData
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3620,13 +3646,12 @@ class QueryCallInTransferRecordResponseBody(TeaModel):
 
 
 class QueryCallInTransferRecordResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: QueryCallInTransferRecordResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3638,6 +3663,8 @@ class QueryCallInTransferRecordResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -3646,6 +3673,8 @@ class QueryCallInTransferRecordResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = QueryCallInTransferRecordResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -3654,6 +3683,12 @@ class QueryCallInTransferRecordResponse(TeaModel):
 
 class QueryRobotInfoListRequest(TeaModel):
     def __init__(self, audit_status=None, owner_id=None, resource_owner_account=None, resource_owner_id=None):
+        # The review state. Valid values:
+        # 
+        # *   **CONFIGURABLE**\
+        # *   **AUDITING**\
+        # *   **AUDITPASS**\
+        # *   **AUDITFAIL**\
         self.audit_status = audit_status  # type: str
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
@@ -3693,9 +3728,27 @@ class QueryRobotInfoListRequest(TeaModel):
 
 class QueryRobotInfoListResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
+        # The response code.
+        # 
+        # *   The value OK indicates that the request was successful.
+        # *   For more information about other response codes, see [API error codes](~~112502~~).
         self.code = code  # type: str
+        # The basic information about the robot, in the JSON format. The basic information contains the following parameters:
+        # 
+        # *   **id**: the robot ID.
+        # *   **robotName**: the robot name.
+        # *   **robotType**: the robot type.
+        # *   **auditStatus**: the review state.
+        # *   **gmtCreate**: the time when the task was created.
+        # *   **gmtModified**: the time when the task was modified.
+        # *   **partnerId**: the partner ID.
+        # *   **asrId**: the ID of the automatic speech recognition (ASR) model.
+        # *   **asrType**: the ASR type. Valid values: **Public** and **Private**.
+        # *   **remark**: the additional information.
         self.data = data  # type: str
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3731,13 +3784,12 @@ class QueryRobotInfoListResponseBody(TeaModel):
 
 
 class QueryRobotInfoListResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: QueryRobotInfoListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3749,6 +3801,8 @@ class QueryRobotInfoListResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -3757,6 +3811,8 @@ class QueryRobotInfoListResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = QueryRobotInfoListResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -3766,11 +3822,14 @@ class QueryRobotInfoListResponse(TeaModel):
 class QueryRobotTaskCallDetailRequest(TeaModel):
     def __init__(self, callee=None, owner_id=None, query_date=None, resource_owner_account=None,
                  resource_owner_id=None, task_id=None):
+        # The called number.
         self.callee = callee  # type: str
         self.owner_id = owner_id  # type: long
+        # The timestamp of the time at which the call details you want to query.
         self.query_date = query_date  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The unique ID of the robocall task. You can call the [CreateRobotTask](~~393531~~) operation to obtain the task ID.
         self.task_id = task_id  # type: long
 
     def validate(self):
@@ -3815,9 +3874,43 @@ class QueryRobotTaskCallDetailRequest(TeaModel):
 
 class QueryRobotTaskCallDetailResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
+        # The response code.
+        # 
+        # *   The value OK indicates that the request was successful.
+        # *   For more information about other response codes, see [API error codes](~~112502~~).
         self.code = code  # type: str
+        # The call details of a robocall task, in the JSON format.
+        # 
+        # *   **taskId**: the unique ID of the robocall task.
+        # *   **caller**: the calling number.
+        # *   **called**: the called number.
+        # *   **duration**: the call duration. Unit: seconds.
+        # *   **label**: the label of the called party.
+        # *   **dialogCount**: the number of conversation rounds in the call.
+        # *   **callResult**: the call result.
+        # *   **hangupDirection**: the party who hung up. Valid values: **0**: the robot. **1**: the called party.
+        # *   **transferResult**: the result of transferring the call to an agent. Valid values: **1**, **0**, and **3**. The value 1 indicates that the call was transferred to the agent. The value 0 indicates that the call failed to be transferred to the agent. The value 3 indicates that the call was not transferred to the agent.
+        # *   **transferNumber**: the phone number of the agent to whom the call was transferred.
+        # *   **transferFailReason**: the reason why the call failed to be transferred to the agent.
+        # *   **callId**: the unique receipt ID of the call, in the `taskId^bizId` format.
+        # *   **recallCurTimes**: the number of recalls.
+        # *   **callStartTime**: the start time of the call.
+        # *   **callEndTime**: the end time of the call.
+        # *   **sureCount**: the number of times that the robocall task was affirmed.
+        # *   **denyCount**: the number of times that the robocall task was denied.
+        # *   **rejectCount**: the number of times that the robocall task was rejected.
+        # *   **customCount**: the number of times that the robocall task was customized.
+        # *   **knowledgeCount**: the number of times that the knowledge base was queried.
+        # *   **defaultCount**: the default number of calls.
+        # *   **knowledgeBusinessCount**: the number of call failures caused by the business issues in the knowledge base.
+        # *   **knowledgeCommonCount**: the number of call failures caused by the common issues in the knowledge base.
+        # *   **recordStatus**: Indicates whether the call has a recording file. Valid values: **1**: The call has a recording file. **2**: The call does not have a recording file.
+        # *   **recordFile**: the download URL of the recording file.
+        # *   **dialogDetail**: the dialog details, in a JSON-formatted array. **role**: the object of the speech. **content**: the content of the speech. **speakTime**: the time of the speech.
         self.data = data  # type: str
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3853,13 +3946,12 @@ class QueryRobotTaskCallDetailResponseBody(TeaModel):
 
 
 class QueryRobotTaskCallDetailResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: QueryRobotTaskCallDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3871,6 +3963,8 @@ class QueryRobotTaskCallDetailResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -3879,6 +3973,8 @@ class QueryRobotTaskCallDetailResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = QueryRobotTaskCallDetailResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -3889,18 +3985,37 @@ class QueryRobotTaskCallListRequest(TeaModel):
     def __init__(self, call_result=None, called=None, dialog_count_from=None, dialog_count_to=None,
                  duration_from=None, duration_to=None, hangup_direction=None, owner_id=None, page_no=None, page_size=None,
                  resource_owner_account=None, resource_owner_id=None, task_id=None):
+        # The call result. Valid values:
+        # 
+        # *   **200002**: The line is busy.
+        # *   **200005**: The called party cannot be connected.
+        # *   **200010**: The phone of the called party is powered off.
+        # *   **200011**: The called party is out of service.
+        # *   **200012**: The call is lost.
         self.call_result = call_result  # type: str
+        # The called number.
         self.called = called  # type: str
+        # The minimum number of conversation rounds in the call.
         self.dialog_count_from = dialog_count_from  # type: str
+        # The maximum number of conversation rounds in the call.
         self.dialog_count_to = dialog_count_to  # type: str
+        # The minimum call duration.
         self.duration_from = duration_from  # type: str
+        # The maximum call duration.
         self.duration_to = duration_to  # type: str
+        # The party who hangs up. Valid values:
+        # 
+        # *   **0**: the called party.
+        # *   **1**: the robot.
         self.hangup_direction = hangup_direction  # type: str
         self.owner_id = owner_id  # type: long
+        # The page number.
         self.page_no = page_no  # type: int
+        # The number of entries per page.
         self.page_size = page_size  # type: int
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The unique ID of the robocall task. You can call the [CreateRobotTask](~~393531~~) operation to obtain the task ID.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -3973,9 +4088,41 @@ class QueryRobotTaskCallListRequest(TeaModel):
 
 class QueryRobotTaskCallListResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
+        # The response code.
+        # 
+        # *   The value OK indicates that the request was successful.
+        # *   For more information about other response codes, see [API error codes](~~112502~~).
         self.code = code  # type: str
+        # The information about the robocall task, which is a JSON-formatted array.
+        # 
+        # *   **taskId**: the unique ID of the robocall task.
+        # *   **caller**: the calling number.
+        # *   **called**: the called number.
+        # *   **duration**: the call duration. Unit: seconds.
+        # *   **label**: the label of the called party.
+        # *   **dialogCount**: the number of conversation rounds in the call.
+        # *   **callResult**: the call result.
+        # *   **hangupDirection**: the party who hung up. Valid values: **1** and **0**. The value 1 indicates the called party, and the value 0 indicates the robot.
+        # *   **transferResult**: the result of transferring the call to an agent. Valid values: **1**, **0**, and **3**. The value 1 indicates that the call was transferred to an agent. The value 0 indicates that the call failed to be transferred to an agent. The value 3 indicates that the call was not transferred to an agent.
+        # *   **transferNumber**: the phone number of the agent to whom the call was transferred.
+        # *   **transferFailReason**: the reason why the call failed to be transferred to an agent.
+        # *   **callId**: the unique receipt ID of the call.
+        # *   **recallCurTimes**: the number of recalls.
+        # *   **callStartTime**: the start time of the call.
+        # *   **callEndTime**: the end time of the call.
+        # *   **sureCount**: the number of times that the robocall task was acknowledged.
+        # *   **denyCount**: the number of times that the robocall task was denied.
+        # *   **rejectCount**: the number of times that the robocall task was rejected.
+        # *   **customCount**: the number of times that the robocall task was customized.
+        # *   **knowledgeCount**: the number of times that the knowledge base was queried.
+        # *   **defaultCount**: the default number of calls.
+        # *   **knowledgeBusinessCount**: the number of call failures caused by the business issues in the knowledge base.
+        # *   **knowledgeCommonCount**: the number of call failures caused by the common issues in the knowledge base.
+        # *   ****\
         self.data = data  # type: str
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4011,13 +4158,12 @@ class QueryRobotTaskCallListResponseBody(TeaModel):
 
 
 class QueryRobotTaskCallListResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: QueryRobotTaskCallListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4029,6 +4175,8 @@ class QueryRobotTaskCallListResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -4037,6 +4185,8 @@ class QueryRobotTaskCallListResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = QueryRobotTaskCallListResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -4045,6 +4195,7 @@ class QueryRobotTaskCallListResponse(TeaModel):
 
 class QueryRobotTaskDetailRequest(TeaModel):
     def __init__(self, id=None, owner_id=None, resource_owner_account=None, resource_owner_id=None):
+        # The unique ID of the robocall task. You can call the [CreateRobotTask](~~CreateRobotTask~~) operation to obtain the task ID.
         self.id = id  # type: long
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
@@ -4084,9 +4235,35 @@ class QueryRobotTaskDetailRequest(TeaModel):
 
 class QueryRobotTaskDetailResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
+        # The response code.
+        # 
+        # *   The value OK indicates that the request was successful.
+        # *   For more information about other response codes, see [API error codes](~~112502~~).
         self.code = code  # type: str
+        # The details of the robocall task, in the JSON format.
+        # 
+        # *   **Id**: the unique ID of the robocall task.
+        # *   **taskName**: the task name.
+        # *   **robotId**: the robot ID.
+        # *   **robotName**: the robot name.
+        # *   **corpName**: the company name.
+        # *   **caller**: the number displayed to the called party.
+        # *   **numberStatusIdent**: indicates whether number status identification was enabled. Valid values: **true** and **false**. The value true indicates that number status identification was enabled. The value false indicates that number status identification was not enabled.
+        # *   **status**: the task state. You can call the [QueryRobotTaskList](~~QueryRobotTaskList~~) operation to obtain the task state from the `status` parameter.
+        # *   **scheduleType**: the scheduling type. Valid values: **SINGLE** and **ORDER**. The value SINGLE indicates that the task was started immediately after it was created. The value ORDER indicates that the task was started at a scheduled time.
+        # *   **retryType**: indicates whether auto-redial was enabled. Valid values: **1** and **0**. The value 1 indicates that auto-redial was enabled. The value 0 indicates that auto-redial was not enabled.
+        # *   **recallStateCodes**: the call state in which redial is required. Valid values: **200010**, **200011**, **200002**, **200012**, and **200005**. The value 200010 indicates that the phone of the called party was powered off. The value 200011 indicates that the number of the called party was out of service. The value 200002 indicates that the line was busy. The value 200012 indicates that the call was lost. The value 200005 indicates that the called party could not be connected.
+        # *   **recallTimes**: the number of redial times.
+        # *   **recallInterval**: the redial interval. Unit: minutes.
+        # *   **createTime**: the time when the task was created, in the yyyy-MM-dd HH:mm:ss format.
+        # *   **fireTime**: the time when the task was started, in the yyyy-MM-dd HH:mm:ss format.
+        # *   **completeTime**: the time when the task was completed, in the yyyy-MM-dd HH:mm:ss format.
+        # *   **filename**: the name of the called number file.
+        # *   **ossFilePath**: the path of the called number file.
         self.data = data  # type: str
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4122,13 +4299,12 @@ class QueryRobotTaskDetailResponseBody(TeaModel):
 
 
 class QueryRobotTaskDetailResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: QueryRobotTaskDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4140,6 +4316,8 @@ class QueryRobotTaskDetailResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -4148,6 +4326,8 @@ class QueryRobotTaskDetailResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = QueryRobotTaskDetailResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -4158,12 +4338,28 @@ class QueryRobotTaskListRequest(TeaModel):
     def __init__(self, owner_id=None, page_no=None, page_size=None, resource_owner_account=None,
                  resource_owner_id=None, status=None, task_name=None, time=None):
         self.owner_id = owner_id  # type: long
+        # The page number.
         self.page_no = page_no  # type: int
+        # The number of entries per page.
         self.page_size = page_size  # type: int
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The task state. Valid values:
+        # 
+        # *   **INIT**: The task is not started.
+        # *   **READY**: The task is ready to start.
+        # *   **DISPATCH**: The task is being parsed.
+        # *   **EXCUTING**: The task is being executed.
+        # *   **MANUAL_STOP**: The task is manually suspended.
+        # *   **SYSTEM_STOP**: The task is suspended by the system.
+        # *   **ARREARS_STOP**: The task is suspended due to overdue payments.
+        # *   **CANCEL**: The task is manually canceled.
+        # *   **SYSTEM_CANCEL**: The task is canceled by the system.
+        # *   **FINISH**: The task is complete.
         self.status = status  # type: str
+        # The task name.
         self.task_name = task_name  # type: str
+        # The date when the task is created, in the yyyy-MM-dd format.
         self.time = time  # type: str
 
     def validate(self):
@@ -4217,12 +4413,31 @@ class QueryRobotTaskListRequest(TeaModel):
 class QueryRobotTaskListResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, page_no=None, page_size=None, request_id=None,
                  total_count=None):
+        # The response code.
         self.code = code  # type: str
+        # The robocall tasks, in the JSON format.
+        # 
+        # *   **id**: the unique ID of the robocall task.
+        # *   **taskName**: the task name.
+        # *   **robotId**: the robot ID.
+        # *   **robotName**: the robot name.
+        # *   **status**: the task state.
+        # *   **scheduleType**: the scheduling type. Valid values: **SINGLE** and **ORDER**. The value SINGLE indicates that the task was started immediately after it was created. The value ORDER indicates that the task was started at a scheduled time.
+        # *   **createTime**: the time when the task was created, in the yyyy.MM.dd HH:mm:ss format.
+        # *   **completeTime**: the time when the task was completed, in the yyyy.MM.dd HH:mm:ss format.
+        # *   **fireTime**: the time when the task was started, in the yyyy.MM.dd HH:mm:ss format.
+        # *   **totalCount**: the total number of calls processed.
+        # *   **finishCount**: the number of calls completed.
         self.data = data  # type: str
+        # The returned message.
         self.message = message  # type: str
+        # The page number.
         self.page_no = page_no  # type: str
+        # The number of entries per page.
         self.page_size = page_size  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The total number of tasks.
         self.total_count = total_count  # type: str
 
     def validate(self):
@@ -4270,13 +4485,12 @@ class QueryRobotTaskListResponseBody(TeaModel):
 
 
 class QueryRobotTaskListResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: QueryRobotTaskListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4288,6 +4502,8 @@ class QueryRobotTaskListResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -4296,6 +4512,8 @@ class QueryRobotTaskListResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = QueryRobotTaskListResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -4338,9 +4556,20 @@ class QueryRobotv2AllListRequest(TeaModel):
 
 class QueryRobotv2AllListResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
+        # The response code.
+        # 
+        # *   The value OK indicates that the request was successful.
+        # *   For more information about other response codes, see [API error codes](~~112502~~).
         self.code = code  # type: str
+        # The information about the robot communication script, in the JSON format.
+        # 
+        # *   **id**: the ID of the robot communication script.
+        # *   **robotName**: the name of the robot communication script.
+        # *   **robotType**: the type of the robot communication script.
         self.data = data  # type: str
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4376,13 +4605,12 @@ class QueryRobotv2AllListResponseBody(TeaModel):
 
 
 class QueryRobotv2AllListResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: QueryRobotv2AllListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4394,6 +4622,8 @@ class QueryRobotv2AllListResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -4402,6 +4632,8 @@ class QueryRobotv2AllListResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = QueryRobotv2AllListResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -4412,11 +4644,18 @@ class QueryVirtualNumberRequest(TeaModel):
     def __init__(self, owner_id=None, page_no=None, page_size=None, prod_code=None, resource_owner_account=None,
                  resource_owner_id=None, route_type=None):
         self.owner_id = owner_id  # type: long
+        # The page number.
         self.page_no = page_no  # type: int
+        # The number of entries per page.
         self.page_size = page_size  # type: int
+        # The service name. Default value: **dyvms**.
         self.prod_code = prod_code  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The route type. Valid values:
+        # 
+        # *   **0**: number location first.
+        # *   **1**: random.
         self.route_type = route_type  # type: int
 
     def validate(self):
@@ -4465,8 +4704,25 @@ class QueryVirtualNumberRequest(TeaModel):
 
 class QueryVirtualNumberResponseBody(TeaModel):
     def __init__(self, code=None, data=None, request_id=None):
+        # The response code. The value 200 indicates that the request was successful.
         self.code = code  # type: str
+        # The details of the numbers associated with the virtual numbers. The following fields are returned:
+        # 
+        # *   createTime: the time when the number was activated.
+        # *   qualificationCount: the number of qualifications.
+        # *   cityCount: the number of cities.
+        # *   phoneNumCount: the number of virtual numbers.
+        # *   remark: the additional information.
+        # *   phoneNum: the virtual number.
+        # *   routeType: the route type.
+        # *   canCancel: indicates whether the number can be deactivated.
+        # *   specCount: the number of Internet service providers (ISPs).
+        # *   status: the number state. Valid values: **1**, **0**, and **-1**. The value 1 indicates that the number is valid. The value 0 indicates that the number is invalid. The value -1 indicates that the number was deactivated.
+        # *   pageNo: the page number.
+        # *   pageSize: the number of entries per page.
+        # *   total: the total number of virtual numbers.
         self.data = data  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4498,13 +4754,12 @@ class QueryVirtualNumberResponseBody(TeaModel):
 
 
 class QueryVirtualNumberResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: QueryVirtualNumberResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4516,6 +4771,8 @@ class QueryVirtualNumberResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -4524,6 +4781,8 @@ class QueryVirtualNumberResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = QueryVirtualNumberResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -4535,16 +4794,33 @@ class QueryVirtualNumberRelationRequest(TeaModel):
                  qualification_id=None, region_name_city=None, related_num=None, resource_owner_account=None,
                  resource_owner_id=None, route_type=None, spec_id=None):
         self.owner_id = owner_id  # type: long
+        # The page number.
         self.page_no = page_no  # type: int
+        # The number of entries per page.
         self.page_size = page_size  # type: int
+        # The virtual number.
         self.phone_num = phone_num  # type: str
+        # The service name. Default value: **dyvms**.
         self.prod_code = prod_code  # type: str
+        # The qualification ID.
+        # 
+        # You can log on to the [Voice Messaging Service console](https://dyvms.console.aliyun.com/overview/home), choose **Qualifications\&Communication Scripts > Qualification Management**, and then click **Details** in the Actions column to view the qualification ID.
         self.qualification_id = qualification_id  # type: long
+        # The city to which the virtual number belongs.
         self.region_name_city = region_name_city  # type: str
+        # The real number.
         self.related_num = related_num  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The route type. Valid values:
+        # 
+        # **0**: number location first. **1**: random.
         self.route_type = route_type  # type: int
+        # The number type. Valid values:
+        # 
+        # *   **1**: the number provided by a virtual network operator, in the 05710000\*\*\*\* format.
+        # *   **2**: the number provided by an Internet service provider (ISP).
+        # *   **3**: a 5-digit phone number that starts with 95.
         self.spec_id = spec_id  # type: long
 
     def validate(self):
@@ -4613,8 +4889,20 @@ class QueryVirtualNumberRelationRequest(TeaModel):
 
 class QueryVirtualNumberRelationResponseBody(TeaModel):
     def __init__(self, code=None, data=None, request_id=None):
+        # The response code.
+        # 
+        # *   The value 200 indicates that the request was successful.
+        # *   For more information about other response codes, see [API error codes](~~112502~~).
         self.code = code  # type: str
+        # The list of associations between virtual numbers and real numbers. The following fields are returned:
+        # 
+        # *   **relatedNum**: the real number.
+        # *   **createTime**: the time when the number was activated.
+        # *   **pageNo**: the page number.
+        # *   **pageSize**: the number of entries per page.
+        # *   **total**: the total number of entries returned.
         self.data = data  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4646,13 +4934,12 @@ class QueryVirtualNumberRelationResponseBody(TeaModel):
 
 
 class QueryVirtualNumberRelationResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: QueryVirtualNumberRelationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4664,6 +4951,8 @@ class QueryVirtualNumberRelationResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -4672,6 +4961,8 @@ class QueryVirtualNumberRelationResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = QueryVirtualNumberRelationResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -4681,10 +4972,17 @@ class QueryVirtualNumberRelationResponse(TeaModel):
 class QueryVoiceFileAuditInfoRequest(TeaModel):
     def __init__(self, business_type=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  voice_codes=None):
+        # The type of the voice file. Valid values:
+        # 
+        # *   **0** (default): the voice notification file.
+        # *   **2**: the recording file.
         self.business_type = business_type  # type: int
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The ID of the voice file. You can log on to the [Voice Messaging Service console](https://dyvms.console.aliyun.com/overview/home), choose **Voice Messages** > **Voice Notifications** or **Voice File Management**, and then click the **Voice Notification Files** tab to view the **voice ID**.
+        # 
+        # > You can query up to 10 voice files each time. Separate the voice file names with commas (,).
         self.voice_codes = voice_codes  # type: str
 
     def validate(self):
@@ -4725,8 +5023,20 @@ class QueryVoiceFileAuditInfoRequest(TeaModel):
 
 class QueryVoiceFileAuditInfoResponseBodyData(TeaModel):
     def __init__(self, audit_state=None, reject_info=None, voice_code=None):
+        # The review state of the voice file. Valid values:
+        # 
+        # *   **AUDIT_STATE_INIT**: The voice file was under review.
+        # *   **AUDIT_STATE_PASS**: The voice file was approved.
+        # *   **AUDIT_STATE_NOT_PASS**: The voice file was rejected.
+        # *   **AUDIT_STATE_UPLOADING**: The voice file was approved and is being uploaded.
+        # *   **AUDIT_STATE_REDOING**: The voice file was being reprocessed.
+        # *   **AUDIT_SATE_CANCEL**: The review of the voice file was canceled.
+        # *   **AUDIT_PAUSE**: The review of the voice file was suspended.
+        # *   **AUDIT_ORDER_FINISHED**: The voice file was approved by the ticket system and was waiting for the review of the Internet service provider (ISP).
         self.audit_state = audit_state  # type: str
+        # The reason why the voice file was rejected.
         self.reject_info = reject_info  # type: str
+        # The code of the voice file.
         self.voice_code = voice_code  # type: str
 
     def validate(self):
@@ -4759,9 +5069,15 @@ class QueryVoiceFileAuditInfoResponseBodyData(TeaModel):
 
 class QueryVoiceFileAuditInfoResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
+        # The response code.
+        # 
+        # The value OK indicates that the request was successful. For more information about other response codes, see [API error codes](~~112502~~).
         self.code = code  # type: str
+        # The response parameters.
         self.data = data  # type: list[QueryVoiceFileAuditInfoResponseBodyData]
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4805,13 +5121,12 @@ class QueryVoiceFileAuditInfoResponseBody(TeaModel):
 
 
 class QueryVoiceFileAuditInfoResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: QueryVoiceFileAuditInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4823,6 +5138,8 @@ class QueryVoiceFileAuditInfoResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -4831,6 +5148,8 @@ class QueryVoiceFileAuditInfoResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = QueryVoiceFileAuditInfoResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -4839,6 +5158,7 @@ class QueryVoiceFileAuditInfoResponse(TeaModel):
 
 class RecoverCallInConfigRequest(TeaModel):
     def __init__(self, number=None, owner_id=None, resource_owner_account=None, resource_owner_id=None):
+        # The China 400 number that is used to transfer the inbound call.
         self.number = number  # type: str
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
@@ -4878,9 +5198,16 @@ class RecoverCallInConfigRequest(TeaModel):
 
 class RecoverCallInConfigResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
+        # The response code.
         self.code = code  # type: str
+        # Indicates whether the inbound call was resumed. Valid values:
+        # 
+        # *   true: The inbound call was resumed.
+        # *   false: The inbound call failed to be resumed.
         self.data = data  # type: bool
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4916,13 +5243,12 @@ class RecoverCallInConfigResponseBody(TeaModel):
 
 
 class RecoverCallInConfigResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: RecoverCallInConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4934,6 +5260,8 @@ class RecoverCallInConfigResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -4942,181 +5270,10 @@ class RecoverCallInConfigResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = RecoverCallInConfigResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class RefreshMqttTokenRequest(TeaModel):
-    def __init__(self, client_id=None, owner_id=None, resource_owner_account=None, resource_owner_id=None):
-        self.client_id = client_id  # type: str
-        self.owner_id = owner_id  # type: long
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(RefreshMqttTokenRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.client_id is not None:
-            result['ClientId'] = self.client_id
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.resource_owner_account is not None:
-            result['ResourceOwnerAccount'] = self.resource_owner_account
-        if self.resource_owner_id is not None:
-            result['ResourceOwnerId'] = self.resource_owner_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ClientId') is not None:
-            self.client_id = m.get('ClientId')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('ResourceOwnerAccount') is not None:
-            self.resource_owner_account = m.get('ResourceOwnerAccount')
-        if m.get('ResourceOwnerId') is not None:
-            self.resource_owner_id = m.get('ResourceOwnerId')
-        return self
-
-
-class RefreshMqttTokenResponseBodyData(TeaModel):
-    def __init__(self, client_id=None, expire_time=None, host=None, instance_id=None, p_2p_topic=None,
-                 server_id=None, token=None, username=None):
-        self.client_id = client_id  # type: str
-        self.expire_time = expire_time  # type: str
-        self.host = host  # type: str
-        self.instance_id = instance_id  # type: str
-        self.p_2p_topic = p_2p_topic  # type: str
-        self.server_id = server_id  # type: str
-        self.token = token  # type: str
-        self.username = username  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(RefreshMqttTokenResponseBodyData, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.client_id is not None:
-            result['ClientId'] = self.client_id
-        if self.expire_time is not None:
-            result['ExpireTime'] = self.expire_time
-        if self.host is not None:
-            result['Host'] = self.host
-        if self.instance_id is not None:
-            result['InstanceId'] = self.instance_id
-        if self.p_2p_topic is not None:
-            result['P2pTopic'] = self.p_2p_topic
-        if self.server_id is not None:
-            result['ServerId'] = self.server_id
-        if self.token is not None:
-            result['Token'] = self.token
-        if self.username is not None:
-            result['Username'] = self.username
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ClientId') is not None:
-            self.client_id = m.get('ClientId')
-        if m.get('ExpireTime') is not None:
-            self.expire_time = m.get('ExpireTime')
-        if m.get('Host') is not None:
-            self.host = m.get('Host')
-        if m.get('InstanceId') is not None:
-            self.instance_id = m.get('InstanceId')
-        if m.get('P2pTopic') is not None:
-            self.p_2p_topic = m.get('P2pTopic')
-        if m.get('ServerId') is not None:
-            self.server_id = m.get('ServerId')
-        if m.get('Token') is not None:
-            self.token = m.get('Token')
-        if m.get('Username') is not None:
-            self.username = m.get('Username')
-        return self
-
-
-class RefreshMqttTokenResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None):
-        self.code = code  # type: str
-        self.data = data  # type: RefreshMqttTokenResponseBodyData
-        self.message = message  # type: str
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        if self.data:
-            self.data.validate()
-
-    def to_map(self):
-        _map = super(RefreshMqttTokenResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.message is not None:
-            result['Message'] = self.message
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Data') is not None:
-            temp_model = RefreshMqttTokenResponseBodyData()
-            self.data = temp_model.from_map(m['Data'])
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class RefreshMqttTokenResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: RefreshMqttTokenResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(RefreshMqttTokenResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = RefreshMqttTokenResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -5124,11 +5281,14 @@ class RefreshMqttTokenResponse(TeaModel):
 class SendVerificationRequest(TeaModel):
     def __init__(self, biz_type=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  target=None, verify_type=None):
+        # The business type. Set the value to **CONTACT**.
         self.biz_type = biz_type  # type: str
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The mobile phone number that receives the SMS verification code.
         self.target = target  # type: str
+        # The mode of sending the SMS verification code. Set the value to **SMS**.
         self.verify_type = verify_type  # type: str
 
     def validate(self):
@@ -5173,9 +5333,16 @@ class SendVerificationRequest(TeaModel):
 
 class SendVerificationResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
+        # The response code.
+        # 
+        # *   The value OK indicates that the request was successful.
+        # *   For more information about other response codes, see [API error codes](~~112502~~).
         self.code = code  # type: str
+        # Indicates whether the verification code was sent successfully.
         self.data = data  # type: bool
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5211,13 +5378,12 @@ class SendVerificationResponseBody(TeaModel):
 
 
 class SendVerificationResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SendVerificationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5229,6 +5395,8 @@ class SendVerificationResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -5237,6 +5405,8 @@ class SendVerificationResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SendVerificationResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -5245,7 +5415,9 @@ class SendVerificationResponse(TeaModel):
 
 class SetTransferCalleePoolConfigRequestDetails(TeaModel):
     def __init__(self, called=None, caller=None):
+        # The called number.
         self.called = called  # type: str
+        # The calling number.
         self.caller = caller  # type: str
 
     def validate(self):
@@ -5275,10 +5447,17 @@ class SetTransferCalleePoolConfigRequestDetails(TeaModel):
 class SetTransferCalleePoolConfigRequest(TeaModel):
     def __init__(self, called_route_mode=None, details=None, owner_id=None, phone_number=None,
                  qualification_id=None, resource_owner_account=None, resource_owner_id=None):
+        # The call mode. Valid values:
+        # 
+        # *   **roundRobin**\
+        # *   **random**\
         self.called_route_mode = called_route_mode  # type: str
+        # The information about the phone numbers for transferring the call.
         self.details = details  # type: list[SetTransferCalleePoolConfigRequestDetails]
         self.owner_id = owner_id  # type: long
+        # The phone number used for transferring the call.
         self.phone_number = phone_number  # type: str
+        # The qualification ID. You can call the [GetHotlineQualificationByOrder](~~393548~~) operation to obtain the qualification ID.
         self.qualification_id = qualification_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -5337,9 +5516,16 @@ class SetTransferCalleePoolConfigRequest(TeaModel):
 
 class SetTransferCalleePoolConfigResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
+        # The response code.
+        # 
+        # *   The value OK indicates that the request was successful.
+        # *   For more information about other response codes, see [API error codes](~~112502~~).
         self.code = code  # type: str
+        # Indicates whether the phone numbers for transferring the call were configured.
         self.data = data  # type: bool
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5375,13 +5561,12 @@ class SetTransferCalleePoolConfigResponseBody(TeaModel):
 
 
 class SetTransferCalleePoolConfigResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SetTransferCalleePoolConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5393,6 +5578,8 @@ class SetTransferCalleePoolConfigResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -5401,6 +5588,8 @@ class SetTransferCalleePoolConfigResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SetTransferCalleePoolConfigResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -5410,16 +5599,48 @@ class SetTransferCalleePoolConfigResponse(TeaModel):
 class SingleCallByTtsRequest(TeaModel):
     def __init__(self, called_number=None, called_show_number=None, out_id=None, owner_id=None, play_times=None,
                  resource_owner_account=None, resource_owner_id=None, speed=None, tts_code=None, tts_param=None, volume=None):
+        # The mobile phone number that receives voice notifications.
+        # 
+        # *   Number format in the Chinese mainland:
+        # 
+        #     *   Mobile phone number, for example, 159\*\*\*\*0000.
+        #     *   Landline number, for example, 0571\*\*\*\*5678.
+        # 
+        # *   Number format outside the Chinese mainland: country code + phone number, for example, 85200\*\*\*\*00.
+        # 
+        # > 
+        # 
+        # *   Each request supports only one called number. For more information, see [How to use voice notifications in the Chinese mainland](~~150016~~) or [How to use voice verification codes in regions outside the Chinese mainland](~~270044~~).
+        # 
+        # *   Voice verification codes are sent to a called number at the following frequency: one time per minute, five times per hour, and 20 times per 24 hours.
         self.called_number = called_number  # type: str
+        # The number displayed to the called party.
+        # 
+        # *   You do not need to specify this parameter if you use the text-to-speech (TTS) notification template or voice verification code template for outbound calls in the common mode. For more information, see [FAQ about the common outbound call mode](~~172104~~).
+        # *   If you use the TTS notification template or voice verification code template for outbound calls in the dedicated mode, you must specify a number you purchased and only one number can be specified. You can log on to the [Voice Messaging Service console](https://dyvms.console.aliyun.com/overview/home) and choose **Voice Numbers** > **Real Number Management** to view the number you purchased.
         self.called_show_number = called_show_number  # type: str
+        # The custom ID that is reserved for the caller of the operation when the request is initiated. This ID is returned to the caller in a receipt message.
+        # 
+        # The value is of the STRING type and must be 1 to 15 bytes in length.
         self.out_id = out_id  # type: str
         self.owner_id = owner_id  # type: long
+        # The number of times a voice notification is played back in a call. Valid values: 1 to 3. Default value: 3.
         self.play_times = play_times  # type: int
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The playback speed. Valid value: -500 to 500.
         self.speed = speed  # type: int
+        # The ID of the approved TTS notification template or voice verification code template.
+        # 
+        # You can log on to the [Voice Messaging Service console](https://dyvms.console.aliyun.com/overview/home), and choose **Voice Messages** > **Voice Verification Codes** or choose **Voice Messages** > **Voice Notifications** to view the **template ID**.
+        # 
+        # > The account to which the TTS template belongs must be the same as the account that is used to call the SingleCallByTts operation.
         self.tts_code = tts_code  # type: str
+        # The variables in the template, in the JSON format.
+        # 
+        # > The variables in the template must be less than 250 characters in length. The length of each single variable is not limited. These variables do not support URLs. The variables in the verification code template support only digits and letters.
         self.tts_param = tts_param  # type: str
+        # The playback volume of the voice notification. Valid values: 0 to 100. Default value: 100.
         self.volume = volume  # type: int
 
     def validate(self):
@@ -5484,9 +5705,18 @@ class SingleCallByTtsRequest(TeaModel):
 
 class SingleCallByTtsResponseBody(TeaModel):
     def __init__(self, call_id=None, code=None, message=None, request_id=None):
+        # The unique receipt ID of the call.
+        # 
+        # You can call the [QueryCallDetailByCallId](~~393529~~) operation to query the details of the call based on the receipt ID.
         self.call_id = call_id  # type: str
+        # The response code.
+        # 
+        # *   The value OK indicates that the request was successful.
+        # *   For more information about other response codes, see [API error codes](~~112502~~).
         self.code = code  # type: str
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5522,13 +5752,12 @@ class SingleCallByTtsResponseBody(TeaModel):
 
 
 class SingleCallByTtsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SingleCallByTtsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5540,6 +5769,8 @@ class SingleCallByTtsResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -5548,6 +5779,8 @@ class SingleCallByTtsResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SingleCallByTtsResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -5557,15 +5790,44 @@ class SingleCallByTtsResponse(TeaModel):
 class SingleCallByVoiceRequest(TeaModel):
     def __init__(self, called_number=None, called_show_number=None, out_id=None, owner_id=None, play_times=None,
                  resource_owner_account=None, resource_owner_id=None, speed=None, voice_code=None, volume=None):
+        # The number for receiving voice notifications.
+        # 
+        # Number format:
+        # 
+        # *   In the Chinese mainland:
+        # 
+        #     *   Mobile phone number, for example, 159\*\*\*\*0000.
+        #     *   Landline number, for example, 0571\*\*\*\*5678.
+        # 
+        # *   Outside the Chinese mainland: country code + phone number, for example, 85200\*\*\*\*00.
+        # 
+        # > 
+        # 
+        # *   You can specify only one called number for a request. For more information, see [How to use voice notifications in the Chinese mainland](~~150016~~) or [How to use voice notifications in regions outside the Chinese mainland](~~268810~~).
+        # 
+        # *   Voice notifications are sent to a called number at the following frequency: one time per minute, five times per hour, and 20 times per 24 hours.
         self.called_number = called_number  # type: str
+        # The number displayed to the called party.
+        # 
+        # *   You do not need to specify this parameter if you use a voice notification file that uses the common outbound call mode. For more information, see [FAQ about the common outbound call mode](~~172104~~).
+        # *   If you use a voice notification file that uses the dedicated outbound call mode, you must specify a number that you purchased. You can specify only one number. You can log on to the [Voice Messaging Service console](https://dyvms.console.aliyun.com/overview/home) and choose **Real Number Service** > **Real Number Management** to view the number that you purchased.
         self.called_show_number = called_show_number  # type: str
+        # The ID reserved for the caller. This ID is returned to the caller in a receipt message.
+        # 
+        # The value must be of the STRING type and 1 to 15 bytes in length.
         self.out_id = out_id  # type: str
         self.owner_id = owner_id  # type: long
+        # The number of times the voice notification file is played. Valid values: 1 to 3.
         self.play_times = play_times  # type: int
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The playback speed of the voice notification file. Valid values: -500 to 500.
         self.speed = speed  # type: int
+        # The voice ID of the voice notification file.
+        # 
+        # You can log on to the [Voice Messaging Service console](https://dyvms.console.aliyun.com/overview/home), choose **Voice Messages** > **Voice Notifications** or **Voice File Management**, and then click the **Voice Notification Files** tab to view the **voice ID**.
         self.voice_code = voice_code  # type: str
+        # The playback volume of the voice notification file. Valid values: 0 to 100. Default value: 100.
         self.volume = volume  # type: int
 
     def validate(self):
@@ -5626,9 +5888,18 @@ class SingleCallByVoiceRequest(TeaModel):
 
 class SingleCallByVoiceResponseBody(TeaModel):
     def __init__(self, call_id=None, code=None, message=None, request_id=None):
+        # The unique receipt ID for the call.
+        # 
+        # You can call the [QueryCallDetailByCallId](~~393529~~) operation to query the details of the call.
         self.call_id = call_id  # type: str
+        # The response code.
+        # 
+        # *   The value OK indicates that the request was successful.****\
+        # *   For more information about other response codes, see [API error codes](~~112502~~).
         self.code = code  # type: str
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5664,13 +5935,12 @@ class SingleCallByVoiceResponseBody(TeaModel):
 
 
 class SingleCallByVoiceResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SingleCallByVoiceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5682,6 +5952,8 @@ class SingleCallByVoiceResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -5690,6 +5962,8 @@ class SingleCallByVoiceResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SingleCallByVoiceResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -5703,34 +5977,133 @@ class SmartCallRequest(TeaModel):
                  pause_time=None, record_flag=None, resource_owner_account=None, resource_owner_id=None, session_timeout=None,
                  speed=None, stream_asr=None, tts_conf=None, tts_speed=None, tts_style=None, tts_volume=None,
                  voice_code=None, voice_code_param=None, volume=None):
+        # Specifies whether the playback of the recording file can be interrupted. Default value: **true**. The default value indicates that the playback of the recording file can be interrupted.
+        # 
+        # If you set the value of this parameter to false, the playback of the recording file cannot be interrupted even if the value of action_break is set to true.
+        # 
+        # > The value of action_code_break takes precedence over the value of action_break.
         self.action_code_break = action_code_break  # type: bool
+        # The duration that the user keeps speaking. The playback of the recording file is interrupted when this duration is reached. Unit: milliseconds.
+        # 
+        # If the value of ActionCodeBreak is set to **true** for the recording file and the duration that the user keeps speaking reaches the specified duration, the playback of the recording file is interrupted. If you do not specify ActionCodeTimeBreak or set the value of ActionCodeTimeBreak to 0, the setting of ActionCodeBreak does not take effect.
         self.action_code_time_break = action_code_time_break  # type: int
+        # The ASR base model. Valid values:
+        # 
+        # *   **customer_service\_8k** (default): Chinese Mandarin.
+        # *   **dialect_customer_service\_8k**: a heavy accent.
+        # 
+        # > You must specify the ASR model when you call the SmartCall operation. We recommend that you specify either of the AsrModelId and AsrBaseId parameters.
+        # 
+        # *   If you specify only the AsrModelId parameter, the specified ASR model is used.
+        # 
+        # *   If you specify only the AsrBaseId parameter, the ASR base model is used.
+        # 
+        # *   If you specify neither of the two parameters, the default ASR base model is used, that is, the default value customer_service\_8k is used for the AsrBaseId parameter.
+        # 
+        # *   If you specify both parameters, make sure that their values do not conflict with each other.
         self.asr_base_id = asr_base_id  # type: str
+        # The ID of the Automatic Speech Recognition (ASR) model.
+        # 
+        # You can log on to the [Voice Messaging Service console](https://dyvms.console.aliyun.com/overview/home) and view the ID of the ASR model on the **ASR Model Management** page.
+        # 
+        # > You must specify the ASR model when you call the SmartCall operation. We recommend that you specify either of the AsrModelId and AsrBaseId parameters.
+        # 
+        # *   If you specify only the AsrModelId parameter, the specified ASR model is used.
+        # 
+        # *   If you specify only the AsrBaseId parameter, the specified ASR base model is used.
+        # 
+        # *   If you specify neither of the two parameters, the default value customer_service\_8k is used for the AsrBaseId parameter. This means that the default Mandarin ASR base model is used.
+        # 
+        # *   If you specify both parameters, make sure that their values do not conflict with each other.
         self.asr_model_id = asr_model_id  # type: str
+        # The ID of the background voice file that is played back when the user talks with the robot.
+        # 
+        # You can log on to the [Voice Messaging Service console](https://dyvms.console.aliyun.com/overview/home), choose **Voice File Management**, click the **Intelligent Speech Interaction Recording File** tab, and then click **Details** in the Actions column to view the voice ID.
         self.background_file_code = background_file_code  # type: str
+        # This parameter is unavailable.
         self.background_speed = background_speed  # type: int
+        # This parameter is unavailable.
         self.background_volume = background_volume  # type: int
+        # The called number. Only phone numbers in the Chinese mainland are supported.
         self.called_number = called_number  # type: str
+        # The number displayed to the called party. The value must be the number you purchased.
+        # 
+        # You can log on to the [Voice Messaging Service console](https://dyvms.console.aliyun.com/overview/home) and choose **Voice Numbers** > **Real Number Management** to view the number you purchased.
         self.called_show_number = called_show_number  # type: str
+        # The dynamic extension ID that is reserved for the caller of the operation. This ID is returned in the callback URL and is used as the development identifier of the customer.
         self.dynamic_id = dynamic_id  # type: str
+        # Specifies whether to enable speech recognition of early media. Valid values:
+        # 
+        # *   **false** (default): Speech recognition of early media is disabled.
+        # *   **true**: Speech recognition of early media is enabled.
+        # 
+        # > If you set the value of this parameter to **true**, the reason why the call is not answered is recorded.
         self.early_media_asr = early_media_asr  # type: bool
+        # Specifies whether to enable Inverse Text Normalization (ITN) during post-processing. Default value: **false**. If you set the value to false, ITN is not enabled during post-processing.
+        # 
+        # If you set the value to **true**, Chinese numerals are converted into Arabic numerals for output.
         self.enable_itn = enable_itn  # type: bool
+        # The silence duration. The system determines the end of the conversation based on the silence duration of the user. Unit: milliseconds. Valid values: 1000 to 20000.****\
+        # 
+        # > 
+        # 
+        # *   If you specify a value out of the valid range, the default value **10000** is used.
+        # 
+        # *   The parameter value can be adjusted during the conversation. The last setting prevails.
         self.mute_time = mute_time  # type: int
+        # The ID that is reserved for the caller of the operation. This ID is returned to the caller in a receipt message.
+        # 
+        # The value is of the STRING type and must be 1 to 15 bytes in length.
         self.out_id = out_id  # type: str
         self.owner_id = owner_id  # type: long
+        # The pause duration. The system determines the end of a sentence based on the pause duration of the user in the conversation. Unit: milliseconds. Valid values: 300 to 1200.****\
+        # 
+        # > 
+        # 
+        # *   If you specify a value out of the valid range, the default value **800** is used.
+        # 
+        # *   You cannot change the parameter value after specifying it.
         self.pause_time = pause_time  # type: int
+        # Specifies whether to record the conversation. Valid values:
+        # 
+        # *   **true**: The conversation is recorded.
+        # *   **false**: The conversation is not recorded.
         self.record_flag = record_flag  # type: bool
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The maximum call duration. The call is automatically hung up when the maximum call duration is reached. Unit: seconds.
+        # 
+        # > The maximum call duration is 3,600 seconds.
         self.session_timeout = session_timeout  # type: int
+        # This parameter is unavailable.
         self.speed = speed  # type: int
+        # Specifies whether to enable streaming ASR, which intelligently judges what the user wants to express based on the first few words spoken by the user. Valid values:
+        # 
+        # *   **0**: Streaming ASR is disabled.
+        # *   **1**: Streaming ASR is enabled.
         self.stream_asr = stream_asr  # type: int
+        # Specifies whether to set TTS sound parameters. Valid values:
+        # 
+        # *   **true**: TTS sound parameters must be set. You must set the **TtsStyle**, **TtsColume**, and **TtsSpeed** parameters to specify a sound style.
+        # *   **false**: TTS sound parameters do not need to be set. The values of TTS sound parameters do not take effect even if you set them.
         self.tts_conf = tts_conf  # type: bool
+        # The speed of TTS variable playback. Valid values: -200 to 200. Default value: 0.
         self.tts_speed = tts_speed  # type: int
+        # The sound style for TTS variable playback. Default value: **xiaoyun**. For more information about the sound styles, see the **Sound styles** table below.
         self.tts_style = tts_style  # type: str
+        # The volume of TTS variable playback. Valid values: 0 to 100. Default value: 0.
         self.tts_volume = tts_volume  # type: int
+        # The recording file that is played back in the intelligent outbound call.
+        # 
+        # The file can be an online file, a voice file uploaded from the Voice Messaging Service console, or a text-to-speech (TTS) template that contains variables. You can specify multiple files and a TTS variable together. Separate them with commas (,). The values of the variables in the TTS template are specified by the **VoiceCodeParam** parameter.
+        # 
+        # *   If you use an online file as the recording file, set the value of **VoiceCode** to the URL of the file that can be accessed over the Internet.
+        # *   If you use a voice file uploaded from the Voice Messaging Service console as the recording file, set the value of **VoiceCode** to the voice ID of the file. You can log on to the [Voice Messaging Service console](https://dyvms.console.aliyun.com/overview/home), choose **Voice File Management**, click the **Intelligent Speech Interaction Recording File** tab, and then click **Details** in the Actions column to view the voice ID.
+        # *   If you use a TTS template that contains variables as the recording file, set the value of **VoiceCode** to a variable name such as $name$, and also set a value for the variable in the **VoiceCodeParam** parameter.
         self.voice_code = voice_code  # type: str
+        # The value of the TTS variable, in the JSON format. This value must match the TTS variable specified by the **VoiceCode** parameter.
         self.voice_code_param = voice_code_param  # type: str
+        # The volume at which the recording file is played. Valid values: -4 to 4. We recommend that you set the value of this parameter to **1**.
         self.volume = volume  # type: int
 
     def validate(self):
@@ -5867,9 +6240,18 @@ class SmartCallRequest(TeaModel):
 
 class SmartCallResponseBody(TeaModel):
     def __init__(self, call_id=None, code=None, message=None, request_id=None):
+        # The unique receipt ID for this call.
+        # 
+        # You can call the [QueryCallDetailByCallId](~~QueryCallDetailByCallId~~) operation to query the details of the call based on the receipt ID.
         self.call_id = call_id  # type: str
+        # The response code.
+        # 
+        # *   The value OK indicates that the request was successful.
+        # *   For more information about other response codes, see [API error codes](~~112502~~).
         self.code = code  # type: str
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5905,13 +6287,12 @@ class SmartCallResponseBody(TeaModel):
 
 
 class SmartCallResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SmartCallResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5923,6 +6304,8 @@ class SmartCallResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -5931,6 +6314,8 @@ class SmartCallResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SmartCallResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -5940,9 +6325,14 @@ class SmartCallResponse(TeaModel):
 class SmartCallOperateRequest(TeaModel):
     def __init__(self, call_id=None, command=None, owner_id=None, param=None, resource_owner_account=None,
                  resource_owner_id=None):
+        # The unique receipt ID of the call. You can call the [SmartCall](~~393526~~) operation to obtain the receipt ID.
         self.call_id = call_id  # type: str
+        # The action that is initiated to the called number of an outbound robocall.
+        # 
+        # > Only the value **parallelBridge** is supported. This value indicates that a bridge action is initiated between a called number and an agent of the call center.
         self.command = command  # type: str
         self.owner_id = owner_id  # type: long
+        # The extended field.
         self.param = param  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -5989,9 +6379,19 @@ class SmartCallOperateRequest(TeaModel):
 
 class SmartCallOperateResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, status=None):
+        # The response code.
+        # 
+        # *   The value OK indicates that the request was successful.
+        # *   For more information about other response codes, see [API error codes](~~112502~~).
         self.code = code  # type: str
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The action result. Valid values:
+        # 
+        # *   **true**: The action was successful.
+        # *   **false**: The action failed.
         self.status = status  # type: bool
 
     def validate(self):
@@ -6027,13 +6427,12 @@ class SmartCallOperateResponseBody(TeaModel):
 
 
 class SmartCallOperateResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SmartCallOperateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6045,6 +6444,8 @@ class SmartCallOperateResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -6053,6 +6454,8 @@ class SmartCallOperateResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SmartCallOperateResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -6065,7 +6468,9 @@ class StartRobotTaskRequest(TeaModel):
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The time scheduled for starting the robocall task, in the yyyy-MM-dd HH:mm:ss format.
         self.schedule_time = schedule_time  # type: str
+        # The unique ID of the robocall task. You can call the [CreateRobotTask](~~CreateRobotTask~~) operation to obtain the task ID.
         self.task_id = task_id  # type: long
 
     def validate(self):
@@ -6106,9 +6511,19 @@ class StartRobotTaskRequest(TeaModel):
 
 class StartRobotTaskResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
+        # The response code.
+        # 
+        # *   The value OK indicates that the request was successful.
+        # *   For more information about other response codes, see [API error codes](~~112502~~).
         self.code = code  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**: The request was successful.
+        # *   **false**: The request failed.
         self.data = data  # type: str
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -6144,13 +6559,12 @@ class StartRobotTaskResponseBody(TeaModel):
 
 
 class StartRobotTaskResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: StartRobotTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6162,6 +6576,8 @@ class StartRobotTaskResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -6170,6 +6586,8 @@ class StartRobotTaskResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = StartRobotTaskResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -6178,6 +6596,7 @@ class StartRobotTaskResponse(TeaModel):
 
 class StopCallInConfigRequest(TeaModel):
     def __init__(self, number=None, owner_id=None, resource_owner_account=None, resource_owner_id=None):
+        # The China 400 number from which the inbound call to be stopped is transferred.
         self.number = number  # type: str
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
@@ -6217,9 +6636,16 @@ class StopCallInConfigRequest(TeaModel):
 
 class StopCallInConfigResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
+        # The response code.
         self.code = code  # type: str
+        # Indicates whether the inbound call was stopped. Valid values:
+        # 
+        # *   true: The inbound call was stopped.
+        # *   false: The inbound call failed to be stopped.
         self.data = data  # type: bool
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -6255,13 +6681,12 @@ class StopCallInConfigResponseBody(TeaModel):
 
 
 class StopCallInConfigResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: StopCallInConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6273,6 +6698,8 @@ class StopCallInConfigResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -6281,6 +6708,8 @@ class StopCallInConfigResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = StopCallInConfigResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -6292,6 +6721,7 @@ class StopRobotTaskRequest(TeaModel):
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The unique ID of the robocall task. You can call the [CreateRobotTask](~~CreateRobotTask~~) operation to obtain the task ID.
         self.task_id = task_id  # type: long
 
     def validate(self):
@@ -6328,9 +6758,19 @@ class StopRobotTaskRequest(TeaModel):
 
 class StopRobotTaskResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
+        # The response code.
+        # 
+        # *   The value OK indicates that the request was successful.
+        # *   For more information about other response codes, see [API error codes](~~112502~~).
         self.code = code  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**: The request was successful.
+        # *   **false**: The request failed.
         self.data = data  # type: str
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -6366,13 +6806,12 @@ class StopRobotTaskResponseBody(TeaModel):
 
 
 class StopRobotTaskResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: StopRobotTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6384,6 +6823,8 @@ class StopRobotTaskResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -6392,6 +6833,8 @@ class StopRobotTaskResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = StopRobotTaskResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -6400,8 +6843,11 @@ class StopRobotTaskResponse(TeaModel):
 
 class SubmitHotlineTransferRegisterRequestTransferPhoneNumberInfos(TeaModel):
     def __init__(self, identity_card=None, phone_number=None, phone_number_owner_name=None):
+        # The ID card number of the number owner.
         self.identity_card = identity_card  # type: str
+        # The China 400 number that you want to submit for registration.
         self.phone_number = phone_number  # type: str
+        # The real name or company name of the number owner.
         self.phone_number_owner_name = phone_number_owner_name  # type: str
 
     def validate(self):
@@ -6436,18 +6882,31 @@ class SubmitHotlineTransferRegisterRequest(TeaModel):
     def __init__(self, agreement=None, hotline_number=None, operator_identity_card=None, operator_mail=None,
                  operator_mail_verify_code=None, operator_mobile=None, operator_mobile_verify_code=None, operator_name=None, owner_id=None,
                  qualification_id=None, resource_owner_account=None, resource_owner_id=None, transfer_phone_number_infos=None):
+        # The authenticity of the commitment. Valid values:
+        # 
+        # *   **true**: The commitment is authentic.
+        # *   **false**: The commitment is not authentic.
         self.agreement = agreement  # type: str
+        # The China 400 number.
         self.hotline_number = hotline_number  # type: str
+        # The ID card number of the handler.
         self.operator_identity_card = operator_identity_card  # type: str
+        # The email address of the handler.
         self.operator_mail = operator_mail  # type: str
+        # The verification code that is received by the mailbox of the handler.
         self.operator_mail_verify_code = operator_mail_verify_code  # type: str
+        # The mobile phone number of the handler.
         self.operator_mobile = operator_mobile  # type: str
+        # The verification code that is received by the mobile phone of the handler.
         self.operator_mobile_verify_code = operator_mobile_verify_code  # type: str
+        # The name of the handler.
         self.operator_name = operator_name  # type: str
         self.owner_id = owner_id  # type: long
+        # The qualification ID. You can call the [GetHotlineQualificationByOrder](~~393548~~) operation to obtain the qualification ID.
         self.qualification_id = qualification_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The registration information about the China 400 number.
         self.transfer_phone_number_infos = transfer_phone_number_infos  # type: list[SubmitHotlineTransferRegisterRequestTransferPhoneNumberInfos]
 
     def validate(self):
@@ -6528,9 +6987,16 @@ class SubmitHotlineTransferRegisterRequest(TeaModel):
 
 class SubmitHotlineTransferRegisterResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
+        # The response code.
+        # 
+        # *   The value OK indicates that the request was successful.
+        # *   For more information about other response codes, see [API error codes](~~112502~~).
         self.code = code  # type: str
+        # The registration ID.
         self.data = data  # type: long
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -6566,13 +7032,12 @@ class SubmitHotlineTransferRegisterResponseBody(TeaModel):
 
 
 class SubmitHotlineTransferRegisterResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SubmitHotlineTransferRegisterResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6584,6 +7049,8 @@ class SubmitHotlineTransferRegisterResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -6592,6 +7059,8 @@ class SubmitHotlineTransferRegisterResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SubmitHotlineTransferRegisterResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -6601,12 +7070,21 @@ class SubmitHotlineTransferRegisterResponse(TeaModel):
 class UploadRobotTaskCalledFileRequest(TeaModel):
     def __init__(self, called_number=None, id=None, owner_id=None, resource_owner_account=None,
                  resource_owner_id=None, tts_param=None, tts_param_head=None):
+        # The called numbers. Separate multiple called numbers with commas (,).
+        # 
+        # > After you create a robocall task, you must upload called numbers in batches. You can upload up to 300,000 called numbers for each task.
         self.called_number = called_number  # type: str
+        # The unique ID of the robocall task. You can call the [CreateRobotTask](~~CreateRobotTask~~) operation to obtain the ID of the robocall task.
         self.id = id  # type: long
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The values of the variable in the text-to-speech (TTS) template, in the JSON format. The variable values specified by the TtsParam parameter must match the variable names specified by the TtsParamHead parameter.
+        # 
+        # *   If all the called numbers carry the same variable values, you can set the value of the number field to **all** and upload only one copy of the variable values.
+        # *   If only some of the called numbers carry the same variable values, you can set the value of the number field to **all** for these called numbers and set the value of the number field and variable values for other called numbers based on your business requirements. The system preferentially selects the values that you set for the called numbers.
         self.tts_param = tts_param  # type: str
+        # The list of variable names carried in the robocall task, in the JSON format. The TtsParamHead parameter must be used together with the TtsParam parameter.
         self.tts_param_head = tts_param_head  # type: str
 
     def validate(self):
@@ -6655,9 +7133,18 @@ class UploadRobotTaskCalledFileRequest(TeaModel):
 
 class UploadRobotTaskCalledFileResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
+        # The response code.
+        # 
+        # *   The value OK indicates that the request was successful.
+        # *   For more information about other response codes, see [API error codes](~~112502~~).
         self.code = code  # type: str
+        # The unique ID of the robocall task.
+        # 
+        # You can call the [QueryRobotTaskDetail](~~QueryRobotTaskDetail~~) operation to query the details of the robocall task based on the task ID.
         self.data = data  # type: str
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -6693,13 +7180,12 @@ class UploadRobotTaskCalledFileResponseBody(TeaModel):
 
 
 class UploadRobotTaskCalledFileResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: UploadRobotTaskCalledFileResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6711,6 +7197,8 @@ class UploadRobotTaskCalledFileResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -6719,6 +7207,8 @@ class UploadRobotTaskCalledFileResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UploadRobotTaskCalledFileResponseBody()
             self.body = temp_model.from_map(m['body'])
