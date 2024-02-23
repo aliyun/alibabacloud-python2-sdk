@@ -462,9 +462,6 @@ class CreateTaskResponse(TeaModel):
         self.body = body  # type: CreateTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -616,9 +613,6 @@ class CreateTranscriptionPhrasesResponse(TeaModel):
         self.body = body  # type: CreateTranscriptionPhrasesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -689,9 +683,6 @@ class DeleteTranscriptionPhrasesResponse(TeaModel):
         self.body = body  # type: DeleteTranscriptionPhrasesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -772,7 +763,10 @@ class GetTaskInfoResponseBodyDataResult(TeaModel):
 
 
 class GetTaskInfoResponseBodyData(TeaModel):
-    def __init__(self, result=None, task_id=None, task_key=None, task_status=None):
+    def __init__(self, error_code=None, error_message=None, result=None, task_id=None, task_key=None,
+                 task_status=None):
+        self.error_code = error_code  # type: str
+        self.error_message = error_message  # type: str
         self.result = result  # type: GetTaskInfoResponseBodyDataResult
         self.task_id = task_id  # type: str
         self.task_key = task_key  # type: str
@@ -788,6 +782,10 @@ class GetTaskInfoResponseBodyData(TeaModel):
             return _map
 
         result = dict()
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         if self.result is not None:
             result['Result'] = self.result.to_map()
         if self.task_id is not None:
@@ -800,6 +798,10 @@ class GetTaskInfoResponseBodyData(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         if m.get('Result') is not None:
             temp_model = GetTaskInfoResponseBodyDataResult()
             self.result = temp_model.from_map(m['Result'])
@@ -860,9 +862,6 @@ class GetTaskInfoResponse(TeaModel):
         self.body = body  # type: GetTaskInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1027,9 +1026,6 @@ class GetTranscriptionPhrasesResponse(TeaModel):
         self.body = body  # type: GetTranscriptionPhrasesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1189,9 +1185,6 @@ class ListTranscriptionPhrasesResponse(TeaModel):
         self.body = body  # type: ListTranscriptionPhrasesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1338,9 +1331,6 @@ class UpdateTranscriptionPhrasesResponse(TeaModel):
         self.body = body  # type: UpdateTranscriptionPhrasesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
