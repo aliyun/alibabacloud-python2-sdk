@@ -23656,9 +23656,31 @@ class DescribePriceForRenewDesktopOversoldGroupResponse(TeaModel):
 
 class DescribeRegionsRequest(TeaModel):
     def __init__(self, accept_language=None, region_id=None):
-        # The ID of the region.
+        # The display language of the specified service in a location.
+        # 
+        # Valid values:
+        # 
+        # *   en
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     : English
+        # 
+        # *   zh (default)
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     : Chinese
         self.accept_language = accept_language  # type: str
-        # The list of regions.
+        # The region ID.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -23687,8 +23709,11 @@ class DescribeRegionsRequest(TeaModel):
 
 class DescribeRegionsResponseBodyRegions(TeaModel):
     def __init__(self, local_name=None, region_endpoint=None, region_id=None):
+        # The display name of the region, which varies based on the current language.
         self.local_name = local_name  # type: str
+        # The endpoint of the region.
         self.region_endpoint = region_endpoint  # type: str
+        # The region ID.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -23721,9 +23746,9 @@ class DescribeRegionsResponseBodyRegions(TeaModel):
 
 class DescribeRegionsResponseBody(TeaModel):
     def __init__(self, regions=None, request_id=None):
-        # DescribeRegions
+        # The information about regions.
         self.regions = regions  # type: list[DescribeRegionsResponseBodyRegions]
-        # The operation that you want to perform. Set the value to DescribeRegions.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -40412,6 +40437,116 @@ class TagResourcesResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = TagResourcesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UnbindUserDesktopRequest(TeaModel):
+    def __init__(self, desktop_agent_ids=None, desktop_group_id=None, desktop_ids=None, force=None, reason=None,
+                 user_desktop_ids=None):
+        self.desktop_agent_ids = desktop_agent_ids  # type: list[str]
+        self.desktop_group_id = desktop_group_id  # type: str
+        self.desktop_ids = desktop_ids  # type: list[str]
+        self.force = force  # type: bool
+        self.reason = reason  # type: str
+        self.user_desktop_ids = user_desktop_ids  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UnbindUserDesktopRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.desktop_agent_ids is not None:
+            result['DesktopAgentIds'] = self.desktop_agent_ids
+        if self.desktop_group_id is not None:
+            result['DesktopGroupId'] = self.desktop_group_id
+        if self.desktop_ids is not None:
+            result['DesktopIds'] = self.desktop_ids
+        if self.force is not None:
+            result['Force'] = self.force
+        if self.reason is not None:
+            result['Reason'] = self.reason
+        if self.user_desktop_ids is not None:
+            result['UserDesktopIds'] = self.user_desktop_ids
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DesktopAgentIds') is not None:
+            self.desktop_agent_ids = m.get('DesktopAgentIds')
+        if m.get('DesktopGroupId') is not None:
+            self.desktop_group_id = m.get('DesktopGroupId')
+        if m.get('DesktopIds') is not None:
+            self.desktop_ids = m.get('DesktopIds')
+        if m.get('Force') is not None:
+            self.force = m.get('Force')
+        if m.get('Reason') is not None:
+            self.reason = m.get('Reason')
+        if m.get('UserDesktopIds') is not None:
+            self.user_desktop_ids = m.get('UserDesktopIds')
+        return self
+
+
+class UnbindUserDesktopResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UnbindUserDesktopResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UnbindUserDesktopResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UnbindUserDesktopResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UnbindUserDesktopResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UnbindUserDesktopResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
