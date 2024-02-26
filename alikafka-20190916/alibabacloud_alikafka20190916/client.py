@@ -1536,18 +1536,22 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.upgrade_instance_version_with_options(request, runtime)
 
-    def upgrade_post_pay_order_with_options(self, request, runtime):
+    def upgrade_post_pay_order_with_options(self, tmp_req, runtime):
         """
         Before you call this operation, make sure that you understand the billing method and pricing of pay-as-you-go Message Queue for Apache Kafka instances. For more information, see [Billing](~~84737~~).
         
 
-        @param request: UpgradePostPayOrderRequest
+        @param tmp_req: UpgradePostPayOrderRequest
 
         @param runtime: runtime options for this request RuntimeOptions
 
         @return: UpgradePostPayOrderResponse
         """
-        UtilClient.validate_model(request)
+        UtilClient.validate_model(tmp_req)
+        request = alikafka_20190916_models.UpgradePostPayOrderShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.serverless_config):
+            request.serverless_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.serverless_config, 'ServerlessConfig', 'json')
         query = {}
         if not UtilClient.is_unset(request.disk_size):
             query['DiskSize'] = request.disk_size
@@ -1565,6 +1569,8 @@ class Client(OpenApiClient):
             query['PartitionNum'] = request.partition_num
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.serverless_config_shrink):
+            query['ServerlessConfig'] = request.serverless_config_shrink
         if not UtilClient.is_unset(request.spec_type):
             query['SpecType'] = request.spec_type
         if not UtilClient.is_unset(request.topic_quota):
