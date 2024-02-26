@@ -504,13 +504,16 @@ class AttachSecurityGroupToVpcEndpointResponse(TeaModel):
 
 
 class ChangeResourceGroupRequest(TeaModel):
-    def __init__(self, resource_group_id=None, resource_id=None, resource_region_id=None):
+    def __init__(self, resource_group_id=None, resource_id=None, resource_type=None):
         # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
         # The resource IDs. You can specify up to 50 resource IDs.
         self.resource_id = resource_id  # type: str
-        # The region ID of the resource group.
-        self.resource_region_id = resource_region_id  # type: str
+        # The type of resource. Valid values:
+        # 
+        # *   **vpcendpoint**: endpoint
+        # *   **vpcendpointservice**: endpoint service
+        self.resource_type = resource_type  # type: str
 
     def validate(self):
         pass
@@ -525,8 +528,8 @@ class ChangeResourceGroupRequest(TeaModel):
             result['ResourceGroupId'] = self.resource_group_id
         if self.resource_id is not None:
             result['ResourceId'] = self.resource_id
-        if self.resource_region_id is not None:
-            result['ResourceRegionId'] = self.resource_region_id
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
         return result
 
     def from_map(self, m=None):
@@ -535,8 +538,8 @@ class ChangeResourceGroupRequest(TeaModel):
             self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceId') is not None:
             self.resource_id = m.get('ResourceId')
-        if m.get('ResourceRegionId') is not None:
-            self.resource_region_id = m.get('ResourceRegionId')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
         return self
 
 
@@ -3682,6 +3685,7 @@ class ListVpcEndpointConnectionsResponseBody(TeaModel):
         self.next_token = next_token  # type: str
         # The request ID.
         self.request_id = request_id  # type: str
+        # The total number of entries returned.
         self.total_count = total_count  # type: str
 
     def validate(self):
@@ -4283,6 +4287,7 @@ class ListVpcEndpointServiceUsersResponseBody(TeaModel):
         self.next_token = next_token  # type: str
         # The request ID.
         self.request_id = request_id  # type: str
+        # The total number of entries returned.
         self.total_count = total_count  # type: str
         # The whitelists in the format of Aliyun Resource Name (ARN).
         self.user_arns = user_arns  # type: list[ListVpcEndpointServiceUsersResponseBodyUserARNs]
@@ -4760,6 +4765,7 @@ class ListVpcEndpointServicesResponseBody(TeaModel):
         self.request_id = request_id  # type: str
         # The endpoint services.
         self.services = services  # type: list[ListVpcEndpointServicesResponseBodyServices]
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -5007,6 +5013,11 @@ class ListVpcEndpointServicesByEndUserResponseBodyServices(TeaModel):
         self.service_id = service_id  # type: str
         # The name of the endpoint service that can be associated with the endpoint.
         self.service_name = service_name  # type: str
+        # The type of the service resource. Valid values:
+        # 
+        # *   **slb**: Classic Load Balancer (CLB) instance
+        # *   **alb**: Application Load Balancer (ALB) instance
+        # *   **nlb**: Network Load Balancer (NLB) instance
         self.service_resource_type = service_resource_type  # type: str
         # Indicates whether IPv6 is enabled. Valid values:
         # 
