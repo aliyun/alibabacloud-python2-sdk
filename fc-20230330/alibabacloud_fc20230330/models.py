@@ -1967,6 +1967,48 @@ class ListProvisionConfigsOutput(TeaModel):
         return self
 
 
+class ListTagResourcesOutput(TeaModel):
+    def __init__(self, next_token=None, request_id=None, tag_resources=None):
+        self.next_token = next_token  # type: str
+        self.request_id = request_id  # type: str
+        self.tag_resources = tag_resources  # type: list[TagResource]
+
+    def validate(self):
+        if self.tag_resources:
+            for k in self.tag_resources:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListTagResourcesOutput, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        result['TagResources'] = []
+        if self.tag_resources is not None:
+            for k in self.tag_resources:
+                result['TagResources'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        self.tag_resources = []
+        if m.get('TagResources') is not None:
+            for k in m.get('TagResources'):
+                temp_model = TagResource()
+                self.tag_resources.append(temp_model.from_map(k))
+        return self
+
+
 class ListTaggedResourcesOutput(TeaModel):
     def __init__(self, next_token=None, resources=None):
         self.next_token = next_token  # type: str
@@ -2855,6 +2897,74 @@ class TLSConfig(TeaModel):
         return self
 
 
+class Tag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(Tag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class TagResource(TeaModel):
+    def __init__(self, resource_id=None, resource_type=None, tag_key=None, tag_value=None):
+        self.resource_id = resource_id  # type: str
+        self.resource_type = resource_type  # type: str
+        self.tag_key = tag_key  # type: str
+        self.tag_value = tag_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TagResource, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.resource_id is not None:
+            result['ResourceId'] = self.resource_id
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        if self.tag_key is not None:
+            result['TagKey'] = self.tag_key
+        if self.tag_value is not None:
+            result['TagValue'] = self.tag_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ResourceId') is not None:
+            self.resource_id = m.get('ResourceId')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        if m.get('TagKey') is not None:
+            self.tag_key = m.get('TagKey')
+        if m.get('TagValue') is not None:
+            self.tag_value = m.get('TagValue')
+        return self
+
+
 class TagResourceInput(TeaModel):
     def __init__(self, resource_arn=None, tags=None):
         self.resource_arn = resource_arn  # type: str
@@ -2881,6 +2991,48 @@ class TagResourceInput(TeaModel):
             self.resource_arn = m.get('resourceArn')
         if m.get('tags') is not None:
             self.tags = m.get('tags')
+        return self
+
+
+class TagResourcesInput(TeaModel):
+    def __init__(self, resource_id=None, resource_type=None, tag=None):
+        self.resource_id = resource_id  # type: list[str]
+        self.resource_type = resource_type  # type: str
+        self.tag = tag  # type: list[Tag]
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(TagResourcesInput, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.resource_id is not None:
+            result['ResourceId'] = self.resource_id
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ResourceId') is not None:
+            self.resource_id = m.get('ResourceId')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = Tag()
+                self.tag.append(temp_model.from_map(k))
         return self
 
 
@@ -3522,9 +3674,6 @@ class CreateAliasResponse(TeaModel):
         self.body = body  # type: Alias
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3587,9 +3736,6 @@ class CreateCustomDomainResponse(TeaModel):
         self.body = body  # type: CustomDomain
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3652,9 +3798,6 @@ class CreateFunctionResponse(TeaModel):
         self.body = body  # type: Function
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3717,9 +3860,6 @@ class CreateLayerVersionResponse(TeaModel):
         self.body = body  # type: Layer
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3782,9 +3922,6 @@ class CreateTriggerResponse(TeaModel):
         self.body = body  # type: Trigger
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3846,8 +3983,7 @@ class CreateVpcBindingResponse(TeaModel):
         self.status_code = status_code  # type: int
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
+        pass
 
     def to_map(self):
         _map = super(CreateVpcBindingResponse, self).to_map()
@@ -3876,8 +4012,7 @@ class DeleteAliasResponse(TeaModel):
         self.status_code = status_code  # type: int
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
+        pass
 
     def to_map(self):
         _map = super(DeleteAliasResponse, self).to_map()
@@ -3930,8 +4065,7 @@ class DeleteAsyncInvokeConfigResponse(TeaModel):
         self.status_code = status_code  # type: int
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
+        pass
 
     def to_map(self):
         _map = super(DeleteAsyncInvokeConfigResponse, self).to_map()
@@ -3960,8 +4094,7 @@ class DeleteConcurrencyConfigResponse(TeaModel):
         self.status_code = status_code  # type: int
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
+        pass
 
     def to_map(self):
         _map = super(DeleteConcurrencyConfigResponse, self).to_map()
@@ -3990,8 +4123,7 @@ class DeleteCustomDomainResponse(TeaModel):
         self.status_code = status_code  # type: int
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
+        pass
 
     def to_map(self):
         _map = super(DeleteCustomDomainResponse, self).to_map()
@@ -4020,8 +4152,7 @@ class DeleteFunctionResponse(TeaModel):
         self.status_code = status_code  # type: int
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
+        pass
 
     def to_map(self):
         _map = super(DeleteFunctionResponse, self).to_map()
@@ -4050,8 +4181,7 @@ class DeleteFunctionVersionResponse(TeaModel):
         self.status_code = status_code  # type: int
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
+        pass
 
     def to_map(self):
         _map = super(DeleteFunctionVersionResponse, self).to_map()
@@ -4080,8 +4210,7 @@ class DeleteLayerVersionResponse(TeaModel):
         self.status_code = status_code  # type: int
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
+        pass
 
     def to_map(self):
         _map = super(DeleteLayerVersionResponse, self).to_map()
@@ -4134,8 +4263,7 @@ class DeleteProvisionConfigResponse(TeaModel):
         self.status_code = status_code  # type: int
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
+        pass
 
     def to_map(self):
         _map = super(DeleteProvisionConfigResponse, self).to_map()
@@ -4164,8 +4292,7 @@ class DeleteTriggerResponse(TeaModel):
         self.status_code = status_code  # type: int
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
+        pass
 
     def to_map(self):
         _map = super(DeleteTriggerResponse, self).to_map()
@@ -4194,8 +4321,7 @@ class DeleteVpcBindingResponse(TeaModel):
         self.status_code = status_code  # type: int
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
+        pass
 
     def to_map(self):
         _map = super(DeleteVpcBindingResponse, self).to_map()
@@ -4225,9 +4351,6 @@ class GetAliasResponse(TeaModel):
         self.body = body  # type: Alias
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4288,9 +4411,6 @@ class GetAsyncInvokeConfigResponse(TeaModel):
         self.body = body  # type: AsyncConfig
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4327,9 +4447,6 @@ class GetConcurrencyConfigResponse(TeaModel):
         self.body = body  # type: ConcurrencyConfig
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4366,9 +4483,6 @@ class GetCustomDomainResponse(TeaModel):
         self.body = body  # type: CustomDomain
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4429,9 +4543,6 @@ class GetFunctionResponse(TeaModel):
         self.body = body  # type: Function
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4492,9 +4603,6 @@ class GetFunctionCodeResponse(TeaModel):
         self.body = body  # type: OutputFuncCode
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4531,9 +4639,6 @@ class GetLayerVersionResponse(TeaModel):
         self.body = body  # type: Layer
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4570,9 +4675,6 @@ class GetLayerVersionByArnResponse(TeaModel):
         self.body = body  # type: Layer
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4633,9 +4735,6 @@ class GetProvisionConfigResponse(TeaModel):
         self.body = body  # type: ProvisionConfig
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4667,6 +4766,7 @@ class GetProvisionConfigResponse(TeaModel):
 
 class GetResourceTagsRequest(TeaModel):
     def __init__(self, arn=None):
+        # The resource ID.
         self.arn = arn  # type: str
 
     def validate(self):
@@ -4696,9 +4796,6 @@ class GetResourceTagsResponse(TeaModel):
         self.body = body  # type: GetResourceTagsOutput
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4735,9 +4832,6 @@ class GetTriggerResponse(TeaModel):
         self.body = body  # type: Trigger
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4837,9 +4931,7 @@ class InvokeFunctionResponse(TeaModel):
         self.body = body  # type: READABLE
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
+        pass
 
     def to_map(self):
         _map = super(InvokeFunctionResponse, self).to_map()
@@ -4907,9 +4999,6 @@ class ListAliasesResponse(TeaModel):
         self.body = body  # type: ListAliasesOutput
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4980,9 +5069,6 @@ class ListAsyncInvokeConfigsResponse(TeaModel):
         self.body = body  # type: ListAsyncInvokeConfigOutput
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5053,9 +5139,6 @@ class ListConcurrencyConfigsResponse(TeaModel):
         self.body = body  # type: ListConcurrencyConfigsOutput
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5126,9 +5209,6 @@ class ListCustomDomainsResponse(TeaModel):
         self.body = body  # type: ListCustomDomainOutput
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5199,9 +5279,6 @@ class ListFunctionVersionsResponse(TeaModel):
         self.body = body  # type: ListVersionsOutput
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5233,8 +5310,11 @@ class ListFunctionVersionsResponse(TeaModel):
 
 class ListFunctionsRequest(TeaModel):
     def __init__(self, limit=None, next_token=None, prefix=None):
+        # The number of functions to return.
         self.limit = limit  # type: int
+        # A pagination token.
         self.next_token = next_token  # type: str
+        # A prefix of function names.
         self.prefix = prefix  # type: str
 
     def validate(self):
@@ -5272,9 +5352,6 @@ class ListFunctionsResponse(TeaModel):
         self.body = body  # type: ListFunctionsOutput
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5340,9 +5417,6 @@ class ListInstancesResponse(TeaModel):
         self.body = body  # type: ListInstancesOutput
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5408,9 +5482,6 @@ class ListLayerVersionsResponse(TeaModel):
         self.body = body  # type: ListLayerVersionOutput
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5491,9 +5562,6 @@ class ListLayersResponse(TeaModel):
         self.body = body  # type: ListLayersOutput
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5525,8 +5593,11 @@ class ListLayersResponse(TeaModel):
 
 class ListProvisionConfigsRequest(TeaModel):
     def __init__(self, function_name=None, limit=None, next_token=None):
+        # The name of the function. If this parameter is not specified, the provisioned configurations of all functions are listed.
         self.function_name = function_name  # type: str
+        # Number of provisioned configurations to return.
         self.limit = limit  # type: int
+        # A pagination token.
         self.next_token = next_token  # type: str
 
     def validate(self):
@@ -5564,9 +5635,6 @@ class ListProvisionConfigsResponse(TeaModel):
         self.body = body  # type: ListProvisionConfigsOutput
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5598,8 +5666,11 @@ class ListProvisionConfigsResponse(TeaModel):
 
 class ListTaggedResourcesRequest(TeaModel):
     def __init__(self, limit=None, next_token=None, resource_type=None):
+        # The number of resources to return.
         self.limit = limit  # type: int
+        # The pagination token that is used in the next request to retrieve a new page of results.
         self.next_token = next_token  # type: str
+        # The type of the resource quantity. ALIYUN::FC::FUNCTION indicates functions in Function Compute 3.0. ALIYUN::FC::SERVICE indicates the original service of Function Compute. The default value is ALIYUN::FC:FUNCTION.
         self.resource_type = resource_type  # type: str
 
     def validate(self):
@@ -5637,9 +5708,6 @@ class ListTaggedResourcesResponse(TeaModel):
         self.body = body  # type: ListTaggedResourcesOutput
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5710,9 +5778,6 @@ class ListTriggersResponse(TeaModel):
         self.body = body  # type: ListTriggersOutput
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5749,9 +5814,6 @@ class ListVpcBindingsResponse(TeaModel):
         self.body = body  # type: ListVpcBindingsOutput
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5783,6 +5845,7 @@ class ListVpcBindingsResponse(TeaModel):
 
 class PublishFunctionVersionRequest(TeaModel):
     def __init__(self, body=None):
+        # The information about the function version.
         self.body = body  # type: PublishVersionInput
 
     def validate(self):
@@ -5814,9 +5877,6 @@ class PublishFunctionVersionResponse(TeaModel):
         self.body = body  # type: Version
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5884,9 +5944,6 @@ class PutAsyncInvokeConfigResponse(TeaModel):
         self.body = body  # type: AsyncConfig
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5918,6 +5975,7 @@ class PutAsyncInvokeConfigResponse(TeaModel):
 
 class PutConcurrencyConfigRequest(TeaModel):
     def __init__(self, body=None):
+        # The concurrency configurations.
         self.body = body  # type: PutConcurrencyInput
 
     def validate(self):
@@ -5949,9 +6007,6 @@ class PutConcurrencyConfigResponse(TeaModel):
         self.body = body  # type: ConcurrencyConfig
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6011,8 +6066,7 @@ class PutLayerACLResponse(TeaModel):
         self.status_code = status_code  # type: int
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
+        pass
 
     def to_map(self):
         _map = super(PutLayerACLResponse, self).to_map()
@@ -6073,9 +6127,6 @@ class PutProvisionConfigResponse(TeaModel):
         self.body = body  # type: ProvisionConfig
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6107,6 +6158,7 @@ class PutProvisionConfigResponse(TeaModel):
 
 class TagResourceRequest(TeaModel):
     def __init__(self, body=None):
+        # The configuration of the resource tag.
         self.body = body  # type: TagResourceInput
 
     def validate(self):
@@ -6137,8 +6189,7 @@ class TagResourceResponse(TeaModel):
         self.status_code = status_code  # type: int
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
+        pass
 
     def to_map(self):
         _map = super(TagResourceResponse, self).to_map()
@@ -6163,8 +6214,11 @@ class TagResourceResponse(TeaModel):
 
 class UntagResourceRequest(TeaModel):
     def __init__(self, all=None, arn=None, tag_keys=None):
+        # Specifies whether to delete all tags.
         self.all = all  # type: bool
+        # The resource ID.
         self.arn = arn  # type: str
+        # The tag name.
         self.tag_keys = tag_keys  # type: str
 
     def validate(self):
@@ -6201,8 +6255,7 @@ class UntagResourceResponse(TeaModel):
         self.status_code = status_code  # type: int
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
+        pass
 
     def to_map(self):
         _map = super(UntagResourceResponse, self).to_map()
@@ -6258,9 +6311,6 @@ class UpdateAliasResponse(TeaModel):
         self.body = body  # type: Alias
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6323,9 +6373,6 @@ class UpdateCustomDomainResponse(TeaModel):
         self.body = body  # type: CustomDomain
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6388,9 +6435,6 @@ class UpdateFunctionResponse(TeaModel):
         self.body = body  # type: Function
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6453,9 +6497,6 @@ class UpdateTriggerResponse(TeaModel):
         self.body = body  # type: Trigger
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
