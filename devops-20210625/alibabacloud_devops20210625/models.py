@@ -27149,14 +27149,15 @@ class ListOrganizationMembersResponseBodyMembersIdentities(TeaModel):
 
 class ListOrganizationMembersResponseBodyMembers(TeaModel):
     def __init__(self, account_id=None, birthday=None, dept_lists=None, email=None, hired_date=None, identities=None,
-                 join_time=None, last_visit_time=None, mobile=None, organization_member_name=None, organization_role_id=None,
-                 organization_role_name=None, state=None):
+                 job_number=None, join_time=None, last_visit_time=None, mobile=None, organization_member_name=None,
+                 organization_role_id=None, organization_role_name=None, state=None):
         self.account_id = account_id  # type: str
         self.birthday = birthday  # type: long
         self.dept_lists = dept_lists  # type: list[str]
         self.email = email  # type: str
         self.hired_date = hired_date  # type: long
         self.identities = identities  # type: ListOrganizationMembersResponseBodyMembersIdentities
+        self.job_number = job_number  # type: str
         self.join_time = join_time  # type: long
         self.last_visit_time = last_visit_time  # type: long
         self.mobile = mobile  # type: str
@@ -27187,6 +27188,8 @@ class ListOrganizationMembersResponseBodyMembers(TeaModel):
             result['hiredDate'] = self.hired_date
         if self.identities is not None:
             result['identities'] = self.identities.to_map()
+        if self.job_number is not None:
+            result['jobNumber'] = self.job_number
         if self.join_time is not None:
             result['joinTime'] = self.join_time
         if self.last_visit_time is not None:
@@ -27218,6 +27221,8 @@ class ListOrganizationMembersResponseBodyMembers(TeaModel):
         if m.get('identities') is not None:
             temp_model = ListOrganizationMembersResponseBodyMembersIdentities()
             self.identities = temp_model.from_map(m['identities'])
+        if m.get('jobNumber') is not None:
+            self.job_number = m.get('jobNumber')
         if m.get('joinTime') is not None:
             self.join_time = m.get('joinTime')
         if m.get('lastVisitTime') is not None:
