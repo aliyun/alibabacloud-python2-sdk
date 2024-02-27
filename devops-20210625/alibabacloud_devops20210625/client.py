@@ -5652,6 +5652,40 @@ class Client(OpenApiClient):
         headers = {}
         return self.list_test_case_fields_with_options(organization_id, request, headers, runtime)
 
+    def list_user_draw_record_by_pk_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.aliyun_pk):
+            query['aliyunPk'] = request.aliyun_pk
+        if not UtilClient.is_unset(request.draw_group):
+            query['drawGroup'] = request.draw_group
+        if not UtilClient.is_unset(request.draw_pool_name):
+            query['drawPoolName'] = request.draw_pool_name
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListUserDrawRecordByPk',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/listUserDrawRecords',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.ListUserDrawRecordByPkResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_user_draw_record_by_pk(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_user_draw_record_by_pk_with_options(request, headers, runtime)
+
     def list_user_keys_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
