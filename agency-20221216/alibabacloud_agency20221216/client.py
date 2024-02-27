@@ -706,6 +706,44 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_countries_with_options(runtime)
 
+    def list_coupon_usage_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.account):
+            query['Account'] = request.account
+        if not UtilClient.is_unset(request.coupon_template_id):
+            query['CouponTemplateId'] = request.coupon_template_id
+        if not UtilClient.is_unset(request.page):
+            query['Page'] = request.page
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        if not UtilClient.is_unset(request.uid):
+            query['Uid'] = request.uid
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListCouponUsage',
+            version='2022-12-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            agency_20221216_models.ListCouponUsageResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_coupon_usage(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_coupon_usage_with_options(request, runtime)
+
     def quota_list_export_paged_with_options(self, request, runtime):
         """
         Caller must be a Partner from International Site, either Distribution or Reseller will do.
