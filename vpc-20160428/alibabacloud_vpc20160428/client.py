@@ -3004,6 +3004,162 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_express_cloud_connection_with_options(request, runtime)
 
+    def create_express_connect_traffic_qos_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.qos_description):
+            query['QosDescription'] = request.qos_description
+        if not UtilClient.is_unset(request.qos_name):
+            query['QosName'] = request.qos_name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateExpressConnectTrafficQos',
+            version='2016-04-28',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            vpc_20160428_models.CreateExpressConnectTrafficQosResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_express_connect_traffic_qos(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_express_connect_traffic_qos_with_options(request, runtime)
+
+    def create_express_connect_traffic_qos_queue_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.bandwidth_percent):
+            query['BandwidthPercent'] = request.bandwidth_percent
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.qos_id):
+            query['QosId'] = request.qos_id
+        if not UtilClient.is_unset(request.queue_description):
+            query['QueueDescription'] = request.queue_description
+        if not UtilClient.is_unset(request.queue_name):
+            query['QueueName'] = request.queue_name
+        if not UtilClient.is_unset(request.queue_type):
+            query['QueueType'] = request.queue_type
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateExpressConnectTrafficQosQueue',
+            version='2016-04-28',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            vpc_20160428_models.CreateExpressConnectTrafficQosQueueResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_express_connect_traffic_qos_queue(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_express_connect_traffic_qos_queue_with_options(request, runtime)
+
+    def create_express_connect_traffic_qos_rule_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dst_cidr):
+            query['DstCidr'] = request.dst_cidr
+        if not UtilClient.is_unset(request.dst_ipv_6cidr):
+            query['DstIPv6Cidr'] = request.dst_ipv_6cidr
+        if not UtilClient.is_unset(request.dst_port_range):
+            query['DstPortRange'] = request.dst_port_range
+        if not UtilClient.is_unset(request.match_dscp):
+            query['MatchDscp'] = request.match_dscp
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.priority):
+            query['Priority'] = request.priority
+        if not UtilClient.is_unset(request.protocol):
+            query['Protocol'] = request.protocol
+        if not UtilClient.is_unset(request.qos_id):
+            query['QosId'] = request.qos_id
+        if not UtilClient.is_unset(request.queue_id):
+            query['QueueId'] = request.queue_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.remarking_dscp):
+            query['RemarkingDscp'] = request.remarking_dscp
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.rule_description):
+            query['RuleDescription'] = request.rule_description
+        if not UtilClient.is_unset(request.rule_name):
+            query['RuleName'] = request.rule_name
+        if not UtilClient.is_unset(request.src_cidr):
+            query['SrcCidr'] = request.src_cidr
+        if not UtilClient.is_unset(request.src_ipv_6cidr):
+            query['SrcIPv6Cidr'] = request.src_ipv_6cidr
+        if not UtilClient.is_unset(request.src_port_range):
+            query['SrcPortRange'] = request.src_port_range
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateExpressConnectTrafficQosRule',
+            version='2016-04-28',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            vpc_20160428_models.CreateExpressConnectTrafficQosRuleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_express_connect_traffic_qos_rule(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_express_connect_traffic_qos_rule_with_options(request, runtime)
+
     def create_failover_test_job_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -3056,7 +3212,7 @@ class Client(OpenApiClient):
 
     def create_flow_log_with_options(self, request, runtime):
         """
-        *CreateFlowLog** is an asynchronous operation. After you send a request, the system returns a request ID and runs the task in the background. You can call the [DescribeFlowLogs](~~87923~~) operation to query the status of a flow log:
+        *CreateFlowLog** is an asynchronous operation. After a request is sent, the system returns a request ID and runs the task in the background. You can call the [DescribeFlowLogs](~~87923~~) operation to query the status of the flow log.
         *   If the flow log is in the **Activating** state, the flow log is being created.
         *   If the flow log is in the **Active** state, the flow log is created and started.
         
@@ -3122,7 +3278,7 @@ class Client(OpenApiClient):
 
     def create_flow_log(self, request):
         """
-        *CreateFlowLog** is an asynchronous operation. After you send a request, the system returns a request ID and runs the task in the background. You can call the [DescribeFlowLogs](~~87923~~) operation to query the status of a flow log:
+        *CreateFlowLog** is an asynchronous operation. After a request is sent, the system returns a request ID and runs the task in the background. You can call the [DescribeFlowLogs](~~87923~~) operation to query the status of the flow log.
         *   If the flow log is in the **Activating** state, the flow log is being created.
         *   If the flow log is in the **Active** state, the flow log is created and started.
         
@@ -3723,10 +3879,11 @@ class Client(OpenApiClient):
     def create_ipsec_server_with_options(self, request, runtime):
         """
         Before you create an IPsec server, you must create a VPN gateway and enable the SSL-VPN feature for the VPN gateway. For more information, see [CreateVpnGateway](~~120363~~).
-        *   **CreateIpsecServer** is an asynchronous operation. After a request is sent, the system returns a request ID and runs the task in the background. You can call [DescribeVpnGateway](~~73720~~) to query the status of the task:
+        *   Before you create an IPsec server, make sure that no IPsec-VPN connection exists on the VPN gateway. For more information, see [DeleteVpnConnection](~~2526948~~).
+        *   **CreateIpsecServer** is an asynchronous operation. After a request is sent, the system returns a request ID and runs the task in the background. You can call [DescribeVpnGateway](~~73720~~) to query the status of the task.
         *   If the VPN gateway is in the **updating** state, the IPsec server is being created.
         *   If the VPN gateway is in the **active** state, the IPsec server is created.
-        *   You cannot repeatedly call the **CreateIpsecServer** operation for the same VPN gateway within the specified period of time.
+        *   You cannot repeatedly call **CreateIpsecServer** within the specified period of time.
         
 
         @param request: CreateIpsecServerRequest
@@ -3783,10 +3940,11 @@ class Client(OpenApiClient):
     def create_ipsec_server(self, request):
         """
         Before you create an IPsec server, you must create a VPN gateway and enable the SSL-VPN feature for the VPN gateway. For more information, see [CreateVpnGateway](~~120363~~).
-        *   **CreateIpsecServer** is an asynchronous operation. After a request is sent, the system returns a request ID and runs the task in the background. You can call [DescribeVpnGateway](~~73720~~) to query the status of the task:
+        *   Before you create an IPsec server, make sure that no IPsec-VPN connection exists on the VPN gateway. For more information, see [DeleteVpnConnection](~~2526948~~).
+        *   **CreateIpsecServer** is an asynchronous operation. After a request is sent, the system returns a request ID and runs the task in the background. You can call [DescribeVpnGateway](~~73720~~) to query the status of the task.
         *   If the VPN gateway is in the **updating** state, the IPsec server is being created.
         *   If the VPN gateway is in the **active** state, the IPsec server is created.
-        *   You cannot repeatedly call the **CreateIpsecServer** operation for the same VPN gateway within the specified period of time.
+        *   You cannot repeatedly call **CreateIpsecServer** within the specified period of time.
         
 
         @param request: CreateIpsecServerRequest
@@ -4878,7 +5036,6 @@ class Client(OpenApiClient):
 
     def create_router_interface_with_options(self, request, runtime):
         """
-        ## [](#)
         When you call this operation, take note of the following limits:
         *   You can create only one pair of interfaces to be connected between two routers.
         *   You can create a maximum of five router interfaces for a router.
@@ -4977,7 +5134,6 @@ class Client(OpenApiClient):
 
     def create_router_interface(self, request):
         """
-        ## [](#)
         When you call this operation, take note of the following limits:
         *   You can create only one pair of interfaces to be connected between two routers.
         *   You can create a maximum of five router interfaces for a router.
@@ -5742,7 +5898,7 @@ class Client(OpenApiClient):
 
     def create_virtual_border_router_with_options(self, request, runtime):
         """
-        When you create a VBR, the VBR is in the *active** state by default.
+        After you create a VBR, the VBR is in the *active** state.
         
 
         @param request: CreateVirtualBorderRouterRequest
@@ -5818,7 +5974,7 @@ class Client(OpenApiClient):
 
     def create_virtual_border_router(self, request):
         """
-        When you create a VBR, the VBR is in the *active** state by default.
+        After you create a VBR, the VBR is in the *active** state.
         
 
         @param request: CreateVirtualBorderRouterRequest
@@ -5995,6 +6151,19 @@ class Client(OpenApiClient):
         return self.create_vpc_with_options(request, runtime)
 
     def create_vpc_gateway_endpoint_with_options(self, request, runtime):
+        """
+        **CreateVpcGatewayEndpoint** is an asynchronous operation. After a request is sent, the system returns an **EndpointId** and runs the task in the background. You can call the [ListVpcGatewayEndpoints](~~448682~~) operation to query the status of the task.
+        *   If the gateway endpoint is in the **Creating** state, the gateway endpoint is being created.
+        *   If the gateway endpoint is in the **Created** state, the gateway endpoint is created.
+        *   You cannot repeatedly call the **CreateVpcGatewayEndpoint** operation for the same endpoint service within the specified period of time.
+        
+
+        @param request: CreateVpcGatewayEndpointRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateVpcGatewayEndpointResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -6045,12 +6214,23 @@ class Client(OpenApiClient):
         )
 
     def create_vpc_gateway_endpoint(self, request):
+        """
+        **CreateVpcGatewayEndpoint** is an asynchronous operation. After a request is sent, the system returns an **EndpointId** and runs the task in the background. You can call the [ListVpcGatewayEndpoints](~~448682~~) operation to query the status of the task.
+        *   If the gateway endpoint is in the **Creating** state, the gateway endpoint is being created.
+        *   If the gateway endpoint is in the **Created** state, the gateway endpoint is created.
+        *   You cannot repeatedly call the **CreateVpcGatewayEndpoint** operation for the same endpoint service within the specified period of time.
+        
+
+        @param request: CreateVpcGatewayEndpointRequest
+
+        @return: CreateVpcGatewayEndpointResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_vpc_gateway_endpoint_with_options(request, runtime)
 
     def create_vpc_prefix_list_with_options(self, request, runtime):
         """
-        You cannot repeatedly call the *CreateVpcPrefixList** operation to create a prefix list in a region within the specified period of time.
+        You cannot repeatedly call the *CreateVpcPrefixList** operation within the specified period of time.
         
 
         @param request: CreateVpcPrefixListRequest
@@ -6110,7 +6290,7 @@ class Client(OpenApiClient):
 
     def create_vpc_prefix_list(self, request):
         """
-        You cannot repeatedly call the *CreateVpcPrefixList** operation to create a prefix list in a region within the specified period of time.
+        You cannot repeatedly call the *CreateVpcPrefixList** operation within the specified period of time.
         
 
         @param request: CreateVpcPrefixListRequest
@@ -7024,6 +7204,132 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.delete_dhcp_options_set_with_options(request, runtime)
+
+    def delete_express_connect_traffic_qos_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.qos_id):
+            query['QosId'] = request.qos_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteExpressConnectTrafficQos',
+            version='2016-04-28',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            vpc_20160428_models.DeleteExpressConnectTrafficQosResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_express_connect_traffic_qos(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_express_connect_traffic_qos_with_options(request, runtime)
+
+    def delete_express_connect_traffic_qos_queue_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.qos_id):
+            query['QosId'] = request.qos_id
+        if not UtilClient.is_unset(request.queue_id):
+            query['QueueId'] = request.queue_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteExpressConnectTrafficQosQueue',
+            version='2016-04-28',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            vpc_20160428_models.DeleteExpressConnectTrafficQosQueueResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_express_connect_traffic_qos_queue(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_express_connect_traffic_qos_queue_with_options(request, runtime)
+
+    def delete_express_connect_traffic_qos_rule_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.qos_id):
+            query['QosId'] = request.qos_id
+        if not UtilClient.is_unset(request.queue_id):
+            query['QueueId'] = request.queue_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.rule_id):
+            query['RuleId'] = request.rule_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteExpressConnectTrafficQosRule',
+            version='2016-04-28',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            vpc_20160428_models.DeleteExpressConnectTrafficQosRuleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_express_connect_traffic_qos_rule(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_express_connect_traffic_qos_rule_with_options(request, runtime)
 
     def delete_failover_test_job_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -9272,7 +9578,7 @@ class Client(OpenApiClient):
         Before you call this operation, take note of the following limits:
         *   Before you delete a VBR, you must delete all router interfaces of the VBR.
         *   You can delete only a VBR in the **unconfirmed**, **active**, or **terminated** state.
-        *   If the VBR belongs to another Alibaba Cloud account, you can delete the VBR only if it is in the **unconfirmed** state.
+        *   The owner of an Express Connect circuit can delete a VBR that belongs to another account only if the VBR is in the **unconfirmed** state.
         
 
         @param request: DeleteVirtualBorderRouterRequest
@@ -9321,7 +9627,7 @@ class Client(OpenApiClient):
         Before you call this operation, take note of the following limits:
         *   Before you delete a VBR, you must delete all router interfaces of the VBR.
         *   You can delete only a VBR in the **unconfirmed**, **active**, or **terminated** state.
-        *   If the VBR belongs to another Alibaba Cloud account, you can delete the VBR only if it is in the **unconfirmed** state.
+        *   The owner of an Express Connect circuit can delete a VBR that belongs to another account only if the VBR is in the **unconfirmed** state.
         
 
         @param request: DeleteVirtualBorderRouterRequest
@@ -10502,6 +10808,142 @@ class Client(OpenApiClient):
     def describe_eip_segment(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_eip_segment_with_options(request, runtime)
+
+    def describe_express_connect_traffic_qos_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.qos_id_list):
+            query['QosIdList'] = request.qos_id_list
+        if not UtilClient.is_unset(request.qos_name_list):
+            query['QosNameList'] = request.qos_name_list
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeExpressConnectTrafficQos',
+            version='2016-04-28',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            vpc_20160428_models.DescribeExpressConnectTrafficQosResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_express_connect_traffic_qos(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_express_connect_traffic_qos_with_options(request, runtime)
+
+    def describe_express_connect_traffic_qos_queue_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.qos_id):
+            query['QosId'] = request.qos_id
+        if not UtilClient.is_unset(request.queue_id_list):
+            query['QueueIdList'] = request.queue_id_list
+        if not UtilClient.is_unset(request.queue_name_list):
+            query['QueueNameList'] = request.queue_name_list
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeExpressConnectTrafficQosQueue',
+            version='2016-04-28',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            vpc_20160428_models.DescribeExpressConnectTrafficQosQueueResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_express_connect_traffic_qos_queue(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_express_connect_traffic_qos_queue_with_options(request, runtime)
+
+    def describe_express_connect_traffic_qos_rule_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.qos_id):
+            query['QosId'] = request.qos_id
+        if not UtilClient.is_unset(request.queue_id):
+            query['QueueId'] = request.queue_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.rule_id_list):
+            query['RuleIdList'] = request.rule_id_list
+        if not UtilClient.is_unset(request.rule_name_list):
+            query['RuleNameList'] = request.rule_name_list
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeExpressConnectTrafficQosRule',
+            version='2016-04-28',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            vpc_20160428_models.DescribeExpressConnectTrafficQosRuleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_express_connect_traffic_qos_rule(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_express_connect_traffic_qos_rule_with_options(request, runtime)
 
     def describe_failover_test_job_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -11763,7 +12205,6 @@ class Client(OpenApiClient):
 
     def describe_route_entry_list_with_options(self, request, runtime):
         """
-        ## [](#)References
         Before you call the [DeleteRouteEntry](~~36013~~) operation to delete a route, you can call this operation to query the next hop of the route that you want to delete.
         
 
@@ -11832,7 +12273,6 @@ class Client(OpenApiClient):
 
     def describe_route_entry_list(self, request):
         """
-        ## [](#)References
         Before you call the [DeleteRouteEntry](~~36013~~) operation to delete a route, you can call this operation to query the next hop of the route that you want to delete.
         
 
@@ -16399,6 +16839,168 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_express_cloud_connection_bandwidth_with_options(request, runtime)
 
+    def modify_express_connect_traffic_qos_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.pconn_id_list):
+            query['PconnIdList'] = request.pconn_id_list
+        if not UtilClient.is_unset(request.qos_description):
+            query['QosDescription'] = request.qos_description
+        if not UtilClient.is_unset(request.qos_id):
+            query['QosId'] = request.qos_id
+        if not UtilClient.is_unset(request.qos_name):
+            query['QosName'] = request.qos_name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyExpressConnectTrafficQos',
+            version='2016-04-28',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            vpc_20160428_models.ModifyExpressConnectTrafficQosResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_express_connect_traffic_qos(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_express_connect_traffic_qos_with_options(request, runtime)
+
+    def modify_express_connect_traffic_qos_queue_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.bandwidth_percent):
+            query['BandwidthPercent'] = request.bandwidth_percent
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.qos_id):
+            query['QosId'] = request.qos_id
+        if not UtilClient.is_unset(request.queue_description):
+            query['QueueDescription'] = request.queue_description
+        if not UtilClient.is_unset(request.queue_id):
+            query['QueueId'] = request.queue_id
+        if not UtilClient.is_unset(request.queue_name):
+            query['QueueName'] = request.queue_name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyExpressConnectTrafficQosQueue',
+            version='2016-04-28',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            vpc_20160428_models.ModifyExpressConnectTrafficQosQueueResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_express_connect_traffic_qos_queue(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_express_connect_traffic_qos_queue_with_options(request, runtime)
+
+    def modify_express_connect_traffic_qos_rule_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dst_cidr):
+            query['DstCidr'] = request.dst_cidr
+        if not UtilClient.is_unset(request.dst_ipv_6cidr):
+            query['DstIPv6Cidr'] = request.dst_ipv_6cidr
+        if not UtilClient.is_unset(request.dst_port_range):
+            query['DstPortRange'] = request.dst_port_range
+        if not UtilClient.is_unset(request.match_dscp):
+            query['MatchDscp'] = request.match_dscp
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.priority):
+            query['Priority'] = request.priority
+        if not UtilClient.is_unset(request.protocol):
+            query['Protocol'] = request.protocol
+        if not UtilClient.is_unset(request.qos_id):
+            query['QosId'] = request.qos_id
+        if not UtilClient.is_unset(request.queue_id):
+            query['QueueId'] = request.queue_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.remarking_dscp):
+            query['RemarkingDscp'] = request.remarking_dscp
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.rule_description):
+            query['RuleDescription'] = request.rule_description
+        if not UtilClient.is_unset(request.rule_id):
+            query['RuleId'] = request.rule_id
+        if not UtilClient.is_unset(request.rule_name):
+            query['RuleName'] = request.rule_name
+        if not UtilClient.is_unset(request.src_cidr):
+            query['SrcCidr'] = request.src_cidr
+        if not UtilClient.is_unset(request.src_ipv_6cidr):
+            query['SrcIPv6Cidr'] = request.src_ipv_6cidr
+        if not UtilClient.is_unset(request.src_port_range):
+            query['SrcPortRange'] = request.src_port_range
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyExpressConnectTrafficQosRule',
+            version='2016-04-28',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            vpc_20160428_models.ModifyExpressConnectTrafficQosRuleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_express_connect_traffic_qos_rule(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_express_connect_traffic_qos_rule_with_options(request, runtime)
+
     def modify_flow_log_attribute_with_options(self, request, runtime):
         """
         **ModifyFlowLogAttribute** is an asynchronous operation. After you send a request, the system returns a request ID and runs the task in the background. You can call the [DescribeFlowLogs](~~87923~~) operation to query the status of a flow log:
@@ -17799,8 +18401,7 @@ class Client(OpenApiClient):
 
     def modify_router_interface_spec_with_options(self, request, runtime):
         """
-        ## [](#)Description
-        After you call this operation, the router interface enters the **Activating** state. After the router interface is activated, the router interface enters the **Active** state.
+        After you call this operation, the router interface enters the *Activating** state. After the router interface is activated, the router interface enters the **Active** state.
         >  You cannot modify the specification of a router interface that has overdue payments.
         
 
@@ -17849,8 +18450,7 @@ class Client(OpenApiClient):
 
     def modify_router_interface_spec(self, request):
         """
-        ## [](#)Description
-        After you call this operation, the router interface enters the **Activating** state. After the router interface is activated, the router interface enters the **Active** state.
+        After you call this operation, the router interface enters the *Activating** state. After the router interface is activated, the router interface enters the **Active** state.
         >  You cannot modify the specification of a router interface that has overdue payments.
         
 
@@ -18549,10 +19149,10 @@ class Client(OpenApiClient):
 
     def modify_vpc_prefix_list_with_options(self, request, runtime):
         """
-        The **ModifyVpcPrefixList** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [ListPrefixLists](~~311535~~) to query the status of a prefix list.
+        **ModifyVpcPrefixList** is an asynchronous operation. After a request is sent, the system returns a request ID and runs the task in the background. You can call the [ListPrefixLists](~~311535~~) to query the status of the task.
         *   If the prefix list is in the **Modifying** state, the configuration of the prefix list is being modified.
         *   If the prefix list is in the **Created** state, the configuration of the prefix list is modified.
-        *   After the configuration of the prefix list is modified, you can call the [GetVpcPrefixListAssociations](~~445478~~) operation to query information about the network instances that are associated with the prefix list and determine whether the associated network instances use the new CIDR blocks. If the association **status** of the prefix list is **Created**, the new CIDR blocks are used by the network instances that are associated with the prefix list.
+        *   After the configuration of the prefix list is modified, you can call the [GetVpcPrefixListAssociations](~~445478~~) operation to query the information about the network instances that are associated with the prefix list and determine whether the associated network instances use the new CIDR blocks. If the association **status** of the prefix list is **Created**, the new CIDR blocks are used by the network instances that are associated with the prefix list.
         *   You cannot repeatedly call **ModifyVpcPrefixList** to modify the configuration of a prefix list within the specified period of time.
         
 
@@ -18611,10 +19211,10 @@ class Client(OpenApiClient):
 
     def modify_vpc_prefix_list(self, request):
         """
-        The **ModifyVpcPrefixList** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [ListPrefixLists](~~311535~~) to query the status of a prefix list.
+        **ModifyVpcPrefixList** is an asynchronous operation. After a request is sent, the system returns a request ID and runs the task in the background. You can call the [ListPrefixLists](~~311535~~) to query the status of the task.
         *   If the prefix list is in the **Modifying** state, the configuration of the prefix list is being modified.
         *   If the prefix list is in the **Created** state, the configuration of the prefix list is modified.
-        *   After the configuration of the prefix list is modified, you can call the [GetVpcPrefixListAssociations](~~445478~~) operation to query information about the network instances that are associated with the prefix list and determine whether the associated network instances use the new CIDR blocks. If the association **status** of the prefix list is **Created**, the new CIDR blocks are used by the network instances that are associated with the prefix list.
+        *   After the configuration of the prefix list is modified, you can call the [GetVpcPrefixListAssociations](~~445478~~) operation to query the information about the network instances that are associated with the prefix list and determine whether the associated network instances use the new CIDR blocks. If the association **status** of the prefix list is **Created**, the new CIDR blocks are used by the network instances that are associated with the prefix list.
         *   You cannot repeatedly call **ModifyVpcPrefixList** to modify the configuration of a prefix list within the specified period of time.
         
 
@@ -19554,7 +20154,7 @@ class Client(OpenApiClient):
 
     def recover_virtual_border_router_with_options(self, request, runtime):
         """
-        After the operation is called, the VBR changes from the *terminated** state to the **recovering** state. When the VBR recovers, it enters the **active** state.
+        After you call this operation, the VBR changes from the *terminated** state to the **recovering** state. After the operation is performed, the VBR enters the **active** state.
         When you call this operation, take note of the following items:
         *   Only the owner of the Express Connect circuit can call this operation.
         *   The Express Connect circuit to which the VBR connects must be in the **Enabled** state.
@@ -19603,7 +20203,7 @@ class Client(OpenApiClient):
 
     def recover_virtual_border_router(self, request):
         """
-        After the operation is called, the VBR changes from the *terminated** state to the **recovering** state. When the VBR recovers, it enters the **active** state.
+        After you call this operation, the VBR changes from the *terminated** state to the **recovering** state. After the operation is performed, the VBR enters the **active** state.
         When you call this operation, take note of the following items:
         *   Only the owner of the Express Connect circuit can call this operation.
         *   The Express Connect circuit to which the VBR connects must be in the **Enabled** state.
@@ -20648,7 +21248,7 @@ class Client(OpenApiClient):
 
     def terminate_virtual_border_router_with_options(self, request, runtime):
         """
-        After the operation is performed, the VBR changes from the *active** state to the **terminating** state. After the VBR is terminated, it enters the **terminated** state.
+        After you call this operation, the VBR enters the *terminating** state from the **active** state. After the VBR is terminated, the VBR enters the **terminated** state.
         >  Only the owner of an Express Connect circuit can call this operation.
         
 
@@ -20695,7 +21295,7 @@ class Client(OpenApiClient):
 
     def terminate_virtual_border_router(self, request):
         """
-        After the operation is performed, the VBR changes from the *active** state to the **terminating** state. After the VBR is terminated, it enters the **terminated** state.
+        After you call this operation, the VBR enters the *terminating** state from the **active** state. After the VBR is terminated, the VBR enters the **terminated** state.
         >  Only the owner of an Express Connect circuit can call this operation.
         
 
