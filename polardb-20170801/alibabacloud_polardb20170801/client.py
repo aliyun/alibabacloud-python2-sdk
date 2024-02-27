@@ -2736,7 +2736,7 @@ class Client(OpenApiClient):
 
     def describe_dbcluster_version_with_options(self, request, runtime):
         """
-        > For more information, see [Engine versions](~~471239~~) and [PolarDB for MySQL](~~172561~~).
+        The release note of the kernel version.
         
 
         @param request: DescribeDBClusterVersionRequest
@@ -2780,7 +2780,7 @@ class Client(OpenApiClient):
 
     def describe_dbcluster_version(self, request):
         """
-        > For more information, see [Engine versions](~~471239~~) and [PolarDB for MySQL](~~172561~~).
+        The release note of the kernel version.
         
 
         @param request: DescribeDBClusterVersionRequest
@@ -5447,6 +5447,8 @@ class Client(OpenApiClient):
             query['VSwitchId'] = request.v_switch_id
         if not UtilClient.is_unset(request.zone_id):
             query['ZoneId'] = request.zone_id
+        if not UtilClient.is_unset(request.zone_type):
+            query['ZoneType'] = request.zone_type
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )

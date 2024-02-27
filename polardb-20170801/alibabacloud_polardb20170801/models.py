@@ -11148,10 +11148,11 @@ class DescribeDBClusterTDEResponse(TeaModel):
 class DescribeDBClusterVersionRequest(TeaModel):
     def __init__(self, dbcluster_id=None, describe_type=None, owner_account=None, owner_id=None,
                  resource_owner_account=None, resource_owner_id=None):
-        # The ID of the cluster.
+        # The revision version of the database engine.
         # 
-        # > You can call the [DescribeDBClusters](~~98094~~) operation to query the details of all the clusters for your account, such as the cluster ID.
+        # >  For a cluster of the PolarDB for MySQL 5.6, the DBRevisionVersion parameter returns the revision version information only if the `Revision Version` is released later than August 31, 2020. Otherwise, this parameter returns an empty value. For more information about the kernel version of a cluster that runs the PolarDB for MySQL, see [PolarDB for MySQL](~~423884~~).
         self.dbcluster_id = dbcluster_id  # type: str
+        # The ID of the request.
         self.describe_type = describe_type  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -11201,16 +11202,9 @@ class DescribeDBClusterVersionRequest(TeaModel):
 class DescribeDBClusterVersionResponseBodyDBRevisionVersionList(TeaModel):
     def __init__(self, release_note=None, release_type=None, revision_version_code=None,
                  revision_version_name=None):
-        # 版本发布说明。
         self.release_note = release_note  # type: str
-        # 数据库版本发布状态。取值范围如下：
-        # * **Stable**：当前版本状态稳定。
-        # * **Old**：当前版本过旧，不建议升级到该版本。
-        # * **HighRisk**：当前版本有严重缺陷，不建议升级到该版本。
         self.release_type = release_type  # type: str
-        # 数据库引擎的修订版本Code，用于指定升级到该目标版本。
         self.revision_version_code = revision_version_code  # type: str
-        # 数据库引擎的修订版本号。
         self.revision_version_name = revision_version_name  # type: str
 
     def validate(self):
@@ -11249,10 +11243,15 @@ class DescribeDBClusterVersionResponseBody(TeaModel):
     def __init__(self, dbcluster_id=None, dblatest_version=None, dbminor_version=None, dbrevision_version=None,
                  dbrevision_version_list=None, dbversion=None, dbversion_status=None, is_latest_version=None, is_proxy_latest_version=None,
                  proxy_latest_version=None, proxy_revision_version=None, proxy_version_status=None, request_id=None):
-        # The ID of the cluster.
-        self.dbcluster_id = dbcluster_id  # type: str
         # The latest version of the database engine.
+        self.dbcluster_id = dbcluster_id  # type: str
+        # The release note of the kernel version.
         self.dblatest_version = dblatest_version  # type: str
+        # The versions to which the cluster can be upgraded.
+        self.dbminor_version = dbminor_version  # type: str
+        # The version of PolarProxy.
+        self.dbrevision_version = dbrevision_version  # type: str
+        self.dbrevision_version_list = dbrevision_version_list  # type: list[DescribeDBClusterVersionResponseBodyDBRevisionVersionList]
         # The minor version of the database engine.
         # 
         # *   If `DBVersion` is **8.0**, the valid values of this parameter are:
@@ -11263,19 +11262,9 @@ class DescribeDBClusterVersionResponseBody(TeaModel):
         # *   If `DBVersion` is **5.7**, set the value of this parameter to **5.7.28**.
         # 
         # *   If `DBVersion` is **5.6**, the value of this parameter is **5.6.16**.
-        self.dbminor_version = dbminor_version  # type: str
-        # The revision version of the database engine.
-        # 
-        # > For a cluster of the PolarDB for MySQL 5.6, the `DBRevisionVersion` parameter returns the revision version information only if the revision version is released later than August 31, 2020. Otherwise, this parameter returns an empty value. For more information about the kernel version of a cluster that runs the PolarDB for MySQL, see [PolarDB for MySQL](~~423884~~).
-        self.dbrevision_version = dbrevision_version  # type: str
-        # 可升级的版本信息列表。
-        self.dbrevision_version_list = dbrevision_version_list  # type: list[DescribeDBClusterVersionResponseBodyDBRevisionVersionList]
-        # The major version of the database engine. Valid values:
-        # 
-        # *   **8.0**\
-        # *   **5.7**\
-        # *   **5.6**\
         self.dbversion = dbversion  # type: str
+        # The latest version of PolarProxy.
+        self.dbversion_status = dbversion_status  # type: str
         # The status of the minor version. Valid values:
         # 
         # *   **Stable**: The minor version is stable.
@@ -11283,30 +11272,27 @@ class DescribeDBClusterVersionResponseBody(TeaModel):
         # *   **HighRisk**: The minor version has critical defects. We recommend that you immediately upgrade the cluster to the latest version.
         # 
         # > For more information about how to upgrade the minor version, see [Upgrade versions](~~158572~~).
-        self.dbversion_status = dbversion_status  # type: str
-        # Indicates whether the kernel version is the latest version. Valid values:
-        # 
-        # *   **true**\
-        # *   **false**\
         self.is_latest_version = is_latest_version  # type: str
-        # Indicates whether PolarProxy is the latest version. Valid values:
-        # 
-        # *   **true**\
-        # *   **false**\
+        # The ID of the cluster.
         self.is_proxy_latest_version = is_proxy_latest_version  # type: str
-        # The latest version of PolarProxy.
+        # The revision version of the database engine.
         self.proxy_latest_version = proxy_latest_version  # type: str
-        # The version of PolarProxy.
+        # The release status of the kernel version. Valid values:
+        # 
+        # *   **Stable**: The kernel version is stable.
+        # *   **Old**: The kernel version is old. We recommend that you do not upgrade the cluster to this version returned for this parameter.
+        # *   **HighRisk**: The kernel version has critical defects. We recommend that you do not upgrade the cluster to this version returned for this parameter.
         self.proxy_revision_version = proxy_revision_version  # type: str
+        # The code of the revision version of the database engine to which the cluster can be upgraded.
+        self.proxy_version_status = proxy_version_status  # type: str
         # The status of PolarProxy. Valid values:
         # 
         # *   **Stable**: The minor version is stable.
         # *   **Old**: The minor version is outdated. We recommend that you upgrade the cluster to the latest version.
         # *   **HighRisk**: The minor version has critical defects. We recommend that you immediately upgrade the cluster to the latest version.
+        # *   **Beta**: The minor version is a beta version.
         # 
         # > For more information about how to upgrade the PolarProxy version, see [Upgrade versions](~~158572~~).
-        self.proxy_version_status = proxy_version_status  # type: str
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -23379,7 +23365,7 @@ class ModifyDBClusterParametersResponse(TeaModel):
 class ModifyDBClusterPrimaryZoneRequest(TeaModel):
     def __init__(self, dbcluster_id=None, from_time_service=None, is_switch_over_for_disaster=None,
                  owner_account=None, owner_id=None, planned_end_time=None, planned_start_time=None, resource_owner_account=None,
-                 resource_owner_id=None, vpcid=None, v_switch_id=None, zone_id=None):
+                 resource_owner_id=None, vpcid=None, v_switch_id=None, zone_id=None, zone_type=None):
         # The ID of the cluster.
         # 
         # > You can call the [DescribeDBClusters](~~173433~~) operation to query information about all clusters that are deployed in a specified region, such as the cluster ID.
@@ -23425,6 +23411,7 @@ class ModifyDBClusterPrimaryZoneRequest(TeaModel):
         # 
         # > You can call the [DescribeRegions](~~98041~~) operation to query available zones.
         self.zone_id = zone_id  # type: str
+        self.zone_type = zone_type  # type: str
 
     def validate(self):
         pass
@@ -23459,6 +23446,8 @@ class ModifyDBClusterPrimaryZoneRequest(TeaModel):
             result['VSwitchId'] = self.v_switch_id
         if self.zone_id is not None:
             result['ZoneId'] = self.zone_id
+        if self.zone_type is not None:
+            result['ZoneType'] = self.zone_type
         return result
 
     def from_map(self, m=None):
@@ -23487,6 +23476,8 @@ class ModifyDBClusterPrimaryZoneRequest(TeaModel):
             self.v_switch_id = m.get('VSwitchId')
         if m.get('ZoneId') is not None:
             self.zone_id = m.get('ZoneId')
+        if m.get('ZoneType') is not None:
+            self.zone_type = m.get('ZoneType')
         return self
 
 
