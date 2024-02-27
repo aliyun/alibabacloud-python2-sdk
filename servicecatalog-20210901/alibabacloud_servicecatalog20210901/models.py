@@ -75,9 +75,6 @@ class ApproveProvisionedProductPlanResponse(TeaModel):
         self.body = body  # type: ApproveProvisionedProductPlanResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -172,9 +169,6 @@ class AssociatePrincipalWithPortfolioResponse(TeaModel):
         self.body = body  # type: AssociatePrincipalWithPortfolioResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -267,9 +261,6 @@ class AssociateProductWithPortfolioResponse(TeaModel):
         self.body = body  # type: AssociateProductWithPortfolioResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -362,9 +353,6 @@ class AssociateTagOptionWithResourceResponse(TeaModel):
         self.body = body  # type: AssociateTagOptionWithResourceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -451,9 +439,6 @@ class CancelProvisionedProductPlanResponse(TeaModel):
         self.body = body  # type: CancelProvisionedProductPlanResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -548,9 +533,6 @@ class CopyProductResponse(TeaModel):
         self.body = body  # type: CopyProductResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -673,9 +655,6 @@ class CreateConstraintResponse(TeaModel):
         self.body = body  # type: CreateConstraintResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -786,9 +765,6 @@ class CreatePortfolioResponse(TeaModel):
         self.body = body  # type: CreatePortfolioResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -892,7 +868,7 @@ class CreateProductRequestProductVersionParameters(TeaModel):
 
 class CreateProductRequest(TeaModel):
     def __init__(self, description=None, product_name=None, product_type=None, product_version_parameters=None,
-                 provider_name=None):
+                 provider_name=None, template_type=None):
         # The description of the product.
         # 
         # The value must be 1 to 128 characters in length.
@@ -911,6 +887,7 @@ class CreateProductRequest(TeaModel):
         # 
         # The value must be 1 to 128 characters in length.
         self.provider_name = provider_name  # type: str
+        self.template_type = template_type  # type: str
 
     def validate(self):
         if self.product_version_parameters:
@@ -932,6 +909,8 @@ class CreateProductRequest(TeaModel):
             result['ProductVersionParameters'] = self.product_version_parameters.to_map()
         if self.provider_name is not None:
             result['ProviderName'] = self.provider_name
+        if self.template_type is not None:
+            result['TemplateType'] = self.template_type
         return result
 
     def from_map(self, m=None):
@@ -947,12 +926,14 @@ class CreateProductRequest(TeaModel):
             self.product_version_parameters = temp_model.from_map(m['ProductVersionParameters'])
         if m.get('ProviderName') is not None:
             self.provider_name = m.get('ProviderName')
+        if m.get('TemplateType') is not None:
+            self.template_type = m.get('TemplateType')
         return self
 
 
 class CreateProductShrinkRequest(TeaModel):
     def __init__(self, description=None, product_name=None, product_type=None,
-                 product_version_parameters_shrink=None, provider_name=None):
+                 product_version_parameters_shrink=None, provider_name=None, template_type=None):
         # The description of the product.
         # 
         # The value must be 1 to 128 characters in length.
@@ -971,6 +952,7 @@ class CreateProductShrinkRequest(TeaModel):
         # 
         # The value must be 1 to 128 characters in length.
         self.provider_name = provider_name  # type: str
+        self.template_type = template_type  # type: str
 
     def validate(self):
         pass
@@ -991,6 +973,8 @@ class CreateProductShrinkRequest(TeaModel):
             result['ProductVersionParameters'] = self.product_version_parameters_shrink
         if self.provider_name is not None:
             result['ProviderName'] = self.provider_name
+        if self.template_type is not None:
+            result['TemplateType'] = self.template_type
         return result
 
     def from_map(self, m=None):
@@ -1005,6 +989,8 @@ class CreateProductShrinkRequest(TeaModel):
             self.product_version_parameters_shrink = m.get('ProductVersionParameters')
         if m.get('ProviderName') is not None:
             self.provider_name = m.get('ProviderName')
+        if m.get('TemplateType') is not None:
+            self.template_type = m.get('TemplateType')
         return self
 
 
@@ -1052,9 +1038,6 @@ class CreateProductResponse(TeaModel):
         self.body = body  # type: CreateProductResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1200,9 +1183,6 @@ class CreateProductVersionResponse(TeaModel):
         self.body = body  # type: CreateProductVersionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1472,9 +1452,6 @@ class CreateProvisionedProductPlanResponse(TeaModel):
         self.body = body  # type: CreateProvisionedProductPlanResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1635,9 +1612,6 @@ class CreateTagOptionResponse(TeaModel):
         self.body = body  # type: CreateTagOptionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1789,9 +1763,6 @@ class CreateTemplateResponse(TeaModel):
         self.body = body  # type: CreateTemplateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1878,9 +1849,6 @@ class DeleteConstraintResponse(TeaModel):
         self.body = body  # type: DeleteConstraintResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1967,9 +1935,6 @@ class DeletePortfolioResponse(TeaModel):
         self.body = body  # type: DeletePortfolioResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2056,9 +2021,6 @@ class DeleteProductResponse(TeaModel):
         self.body = body  # type: DeleteProductResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2145,9 +2107,6 @@ class DeleteProductVersionResponse(TeaModel):
         self.body = body  # type: DeleteProductVersionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2234,9 +2193,6 @@ class DeleteProvisionedProductPlanResponse(TeaModel):
         self.body = body  # type: DeleteProvisionedProductPlanResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2323,9 +2279,6 @@ class DeleteTagOptionResponse(TeaModel):
         self.body = body  # type: DeleteTagOptionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2418,9 +2371,6 @@ class DisAssociateTagOptionFromResourceResponse(TeaModel):
         self.body = body  # type: DisAssociateTagOptionFromResourceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2526,9 +2476,6 @@ class DisassociatePrincipalFromPortfolioResponse(TeaModel):
         self.body = body  # type: DisassociatePrincipalFromPortfolioResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2621,9 +2568,6 @@ class DisassociateProductFromPortfolioResponse(TeaModel):
         self.body = body  # type: DisassociateProductFromPortfolioResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2716,9 +2660,6 @@ class ExecuteProvisionedProductPlanResponse(TeaModel):
         self.body = body  # type: ExecuteProvisionedProductPlanResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2887,9 +2828,6 @@ class GetConstraintResponse(TeaModel):
         self.body = body  # type: GetConstraintResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3109,9 +3047,6 @@ class GetPortfolioResponse(TeaModel):
         self.body = body  # type: GetPortfolioResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3168,7 +3103,7 @@ class GetProductAsAdminRequest(TeaModel):
 
 class GetProductAsAdminResponseBodyProductDetail(TeaModel):
     def __init__(self, create_time=None, description=None, product_arn=None, product_id=None, product_name=None,
-                 product_type=None, provider_name=None):
+                 product_type=None, provider_name=None, template_type=None):
         # The creation time.
         # 
         # The time follows the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time is displayed in UTC.
@@ -3187,6 +3122,7 @@ class GetProductAsAdminResponseBodyProductDetail(TeaModel):
         self.product_type = product_type  # type: str
         # The provider of the product.
         self.provider_name = provider_name  # type: str
+        self.template_type = template_type  # type: str
 
     def validate(self):
         pass
@@ -3211,6 +3147,8 @@ class GetProductAsAdminResponseBodyProductDetail(TeaModel):
             result['ProductType'] = self.product_type
         if self.provider_name is not None:
             result['ProviderName'] = self.provider_name
+        if self.template_type is not None:
+            result['TemplateType'] = self.template_type
         return result
 
     def from_map(self, m=None):
@@ -3229,6 +3167,8 @@ class GetProductAsAdminResponseBodyProductDetail(TeaModel):
             self.product_type = m.get('ProductType')
         if m.get('ProviderName') is not None:
             self.provider_name = m.get('ProviderName')
+        if m.get('TemplateType') is not None:
+            self.template_type = m.get('TemplateType')
         return self
 
 
@@ -3339,9 +3279,6 @@ class GetProductAsAdminResponse(TeaModel):
         self.body = body  # type: GetProductAsAdminResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3398,7 +3335,7 @@ class GetProductAsEndUserRequest(TeaModel):
 
 class GetProductAsEndUserResponseBodyProductSummary(TeaModel):
     def __init__(self, create_time=None, description=None, has_default_launch_option=None, product_arn=None,
-                 product_id=None, product_name=None, product_type=None, provider_name=None):
+                 product_id=None, product_name=None, product_type=None, provider_name=None, template_type=None):
         # The time when the product was created.
         # 
         # The time follows the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time is displayed in UTC.
@@ -3424,6 +3361,7 @@ class GetProductAsEndUserResponseBodyProductSummary(TeaModel):
         self.product_type = product_type  # type: str
         # The provider of the product.
         self.provider_name = provider_name  # type: str
+        self.template_type = template_type  # type: str
 
     def validate(self):
         pass
@@ -3450,6 +3388,8 @@ class GetProductAsEndUserResponseBodyProductSummary(TeaModel):
             result['ProductType'] = self.product_type
         if self.provider_name is not None:
             result['ProviderName'] = self.provider_name
+        if self.template_type is not None:
+            result['TemplateType'] = self.template_type
         return result
 
     def from_map(self, m=None):
@@ -3470,6 +3410,8 @@ class GetProductAsEndUserResponseBodyProductSummary(TeaModel):
             self.product_type = m.get('ProductType')
         if m.get('ProviderName') is not None:
             self.provider_name = m.get('ProviderName')
+        if m.get('TemplateType') is not None:
+            self.template_type = m.get('TemplateType')
         return self
 
 
@@ -3513,9 +3455,6 @@ class GetProductAsEndUserResponse(TeaModel):
         self.body = body  # type: GetProductAsEndUserResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3672,9 +3611,6 @@ class GetProductVersionResponse(TeaModel):
         self.body = body  # type: GetProductVersionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3931,9 +3867,6 @@ class GetProvisionedProductResponse(TeaModel):
         self.body = body  # type: GetProvisionedProductResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4829,9 +4762,6 @@ class GetProvisionedProductPlanResponse(TeaModel):
         self.body = body  # type: GetProvisionedProductPlanResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4978,9 +4908,6 @@ class GetTagOptionResponse(TeaModel):
         self.body = body  # type: GetTagOptionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5425,9 +5352,6 @@ class GetTaskResponse(TeaModel):
         self.body = body  # type: GetTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5528,9 +5452,6 @@ class GetTemplateResponse(TeaModel):
         self.body = body  # type: GetTemplateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5761,9 +5682,6 @@ class LaunchProductResponse(TeaModel):
         self.body = body  # type: LaunchProductResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5957,9 +5875,6 @@ class ListLaunchOptionsResponse(TeaModel):
         self.body = body  # type: ListLaunchOptionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6195,9 +6110,6 @@ class ListPortfoliosResponse(TeaModel):
         self.body = body  # type: ListPortfoliosResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6332,9 +6244,6 @@ class ListPrincipalsResponse(TeaModel):
         self.body = body  # type: ListPrincipalsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6520,9 +6429,6 @@ class ListProductVersionsResponse(TeaModel):
         self.body = body  # type: ListProductVersionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6671,7 +6577,7 @@ class ListProductsAsAdminRequest(TeaModel):
 
 class ListProductsAsAdminResponseBodyProductDetails(TeaModel):
     def __init__(self, create_time=None, description=None, product_arn=None, product_id=None, product_name=None,
-                 product_type=None, provider_name=None):
+                 product_type=None, provider_name=None, template_type=None):
         # The time when the product was created.
         # 
         # The time follows the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time is displayed in UTC.
@@ -6690,6 +6596,7 @@ class ListProductsAsAdminResponseBodyProductDetails(TeaModel):
         self.product_type = product_type  # type: str
         # The provider of the product.
         self.provider_name = provider_name  # type: str
+        self.template_type = template_type  # type: str
 
     def validate(self):
         pass
@@ -6714,6 +6621,8 @@ class ListProductsAsAdminResponseBodyProductDetails(TeaModel):
             result['ProductType'] = self.product_type
         if self.provider_name is not None:
             result['ProviderName'] = self.provider_name
+        if self.template_type is not None:
+            result['TemplateType'] = self.template_type
         return result
 
     def from_map(self, m=None):
@@ -6732,6 +6641,8 @@ class ListProductsAsAdminResponseBodyProductDetails(TeaModel):
             self.product_type = m.get('ProductType')
         if m.get('ProviderName') is not None:
             self.provider_name = m.get('ProviderName')
+        if m.get('TemplateType') is not None:
+            self.template_type = m.get('TemplateType')
         return self
 
 
@@ -6799,9 +6710,6 @@ class ListProductsAsAdminResponse(TeaModel):
         self.body = body  # type: ListProductsAsAdminResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6933,7 +6841,7 @@ class ListProductsAsEndUserRequest(TeaModel):
 
 class ListProductsAsEndUserResponseBodyProductSummaries(TeaModel):
     def __init__(self, create_time=None, description=None, has_default_launch_option=None, product_arn=None,
-                 product_id=None, product_name=None, product_type=None, provider_name=None):
+                 product_id=None, product_name=None, product_type=None, provider_name=None, template_type=None):
         # The time when the product was created.
         # 
         # The time follows the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time is displayed in UTC.
@@ -6959,6 +6867,7 @@ class ListProductsAsEndUserResponseBodyProductSummaries(TeaModel):
         self.product_type = product_type  # type: str
         # The provider of the product.
         self.provider_name = provider_name  # type: str
+        self.template_type = template_type  # type: str
 
     def validate(self):
         pass
@@ -6985,6 +6894,8 @@ class ListProductsAsEndUserResponseBodyProductSummaries(TeaModel):
             result['ProductType'] = self.product_type
         if self.provider_name is not None:
             result['ProviderName'] = self.provider_name
+        if self.template_type is not None:
+            result['TemplateType'] = self.template_type
         return result
 
     def from_map(self, m=None):
@@ -7005,6 +6916,8 @@ class ListProductsAsEndUserResponseBodyProductSummaries(TeaModel):
             self.product_type = m.get('ProductType')
         if m.get('ProviderName') is not None:
             self.provider_name = m.get('ProviderName')
+        if m.get('TemplateType') is not None:
+            self.template_type = m.get('TemplateType')
         return self
 
 
@@ -7072,9 +6985,6 @@ class ListProductsAsEndUserResponse(TeaModel):
         self.body = body  # type: ListProductsAsEndUserResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7273,9 +7183,6 @@ class ListProvisionedProductPlanApproversResponse(TeaModel):
         self.body = body  # type: ListProvisionedProductPlanApproversResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7820,9 +7727,6 @@ class ListProvisionedProductPlansResponse(TeaModel):
         self.body = body  # type: ListProvisionedProductPlansResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8189,9 +8093,6 @@ class ListProvisionedProductsResponse(TeaModel):
         self.body = body  # type: ListProvisionedProductsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8304,9 +8205,6 @@ class ListRegionsResponse(TeaModel):
         self.body = body  # type: ListRegionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8507,9 +8405,6 @@ class ListResourcesForTagOptionResponse(TeaModel):
         self.body = body  # type: ListResourcesForTagOptionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8821,9 +8716,6 @@ class ListTagOptionsResponse(TeaModel):
         self.body = body  # type: ListTagOptionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9207,9 +9099,6 @@ class ListTasksResponse(TeaModel):
         self.body = body  # type: ListTasksResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9296,9 +9185,6 @@ class TerminateProvisionedProductResponse(TeaModel):
         self.body = body  # type: TerminateProvisionedProductResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9407,9 +9293,6 @@ class UpdateConstraintResponse(TeaModel):
         self.body = body  # type: UpdateConstraintResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9518,9 +9401,6 @@ class UpdatePortfolioResponse(TeaModel):
         self.body = body  # type: UpdatePortfolioResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9629,9 +9509,6 @@ class UpdateProductResponse(TeaModel):
         self.body = body  # type: UpdateProductResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9761,9 +9638,6 @@ class UpdateProductVersionResponse(TeaModel):
         self.body = body  # type: UpdateProductVersionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9984,9 +9858,6 @@ class UpdateProvisionedProductResponse(TeaModel):
         self.body = body  # type: UpdateProvisionedProductResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10217,9 +10088,6 @@ class UpdateProvisionedProductPlanResponse(TeaModel):
         self.body = body  # type: UpdateProvisionedProductPlanResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10387,9 +10255,6 @@ class UpdateTagOptionResponse(TeaModel):
         self.body = body  # type: UpdateTagOptionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
