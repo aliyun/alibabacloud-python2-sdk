@@ -1211,7 +1211,7 @@ class CreateDBInstanceResponseBody(TeaModel):
         self.dbinstance_id = dbinstance_id  # type: str
         # The ID of the order.
         self.order_id = order_id  # type: str
-        # The ID of the instance.
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5626,8 +5626,8 @@ class DescribeBackupPolicyRequest(TeaModel):
 
 class DescribeBackupPolicyResponseBody(TeaModel):
     def __init__(self, backup_interval=None, backup_retention_period=None, enable_backup_log=None,
-                 log_backup_retention_period=None, preferred_backup_period=None, preferred_backup_time=None, request_id=None,
-                 snapshot_backup_type=None):
+                 high_frequency_backup_retention=None, log_backup_retention_period=None, preferred_backup_period=None, preferred_backup_time=None,
+                 request_id=None, snapshot_backup_type=None):
         # The frequency at which high-frequency backup is created. Valid values:
         # 
         # *   **-1**: High-frequency backup is disabled.
@@ -5648,6 +5648,7 @@ class DescribeBackupPolicyResponseBody(TeaModel):
         # *   **0** (default): The log backup feature is disabled.
         # *   **1**: The log backup feature is enabled.
         self.enable_backup_log = enable_backup_log  # type: int
+        self.high_frequency_backup_retention = high_frequency_backup_retention  # type: str
         # The number of days for which log backups are retained. Valid values: 7 to 730.
         self.log_backup_retention_period = log_backup_retention_period  # type: int
         # The day of a week on which to back up data. Valid values:
@@ -5685,6 +5686,8 @@ class DescribeBackupPolicyResponseBody(TeaModel):
             result['BackupRetentionPeriod'] = self.backup_retention_period
         if self.enable_backup_log is not None:
             result['EnableBackupLog'] = self.enable_backup_log
+        if self.high_frequency_backup_retention is not None:
+            result['HighFrequencyBackupRetention'] = self.high_frequency_backup_retention
         if self.log_backup_retention_period is not None:
             result['LogBackupRetentionPeriod'] = self.log_backup_retention_period
         if self.preferred_backup_period is not None:
@@ -5705,6 +5708,8 @@ class DescribeBackupPolicyResponseBody(TeaModel):
             self.backup_retention_period = m.get('BackupRetentionPeriod')
         if m.get('EnableBackupLog') is not None:
             self.enable_backup_log = m.get('EnableBackupLog')
+        if m.get('HighFrequencyBackupRetention') is not None:
+            self.high_frequency_backup_retention = m.get('HighFrequencyBackupRetention')
         if m.get('LogBackupRetentionPeriod') is not None:
             self.log_backup_retention_period = m.get('LogBackupRetentionPeriod')
         if m.get('PreferredBackupPeriod') is not None:
@@ -5849,8 +5854,8 @@ class DescribeBackupsRequest(TeaModel):
 
 class DescribeBackupsResponseBodyBackupsBackup(TeaModel):
     def __init__(self, backup_dbnames=None, backup_download_url=None, backup_end_time=None, backup_id=None,
-                 backup_intranet_download_url=None, backup_method=None, backup_mode=None, backup_size=None, backup_start_time=None,
-                 backup_status=None, backup_type=None):
+                 backup_intranet_download_url=None, backup_job_id=None, backup_method=None, backup_mode=None, backup_size=None,
+                 backup_start_time=None, backup_status=None, backup_type=None):
         # The name of the database that has been backed up.
         self.backup_dbnames = backup_dbnames  # type: str
         # The Internet download URL of the backup set. If the download URL is unavailable, this parameter is an empty string.
@@ -5863,6 +5868,7 @@ class DescribeBackupsResponseBodyBackupsBackup(TeaModel):
         # 
         # > You can use this URL to download the backup set from on the Elastic Compute Service (ECS) instance which is on the same network as the ApsaraDB for MongoDB instance.
         self.backup_intranet_download_url = backup_intranet_download_url  # type: str
+        self.backup_job_id = backup_job_id  # type: long
         # The method that is used to generate the backup set. Valid values:
         # 
         # *   **Snapshot**\
@@ -5908,6 +5914,8 @@ class DescribeBackupsResponseBodyBackupsBackup(TeaModel):
             result['BackupId'] = self.backup_id
         if self.backup_intranet_download_url is not None:
             result['BackupIntranetDownloadURL'] = self.backup_intranet_download_url
+        if self.backup_job_id is not None:
+            result['BackupJobId'] = self.backup_job_id
         if self.backup_method is not None:
             result['BackupMethod'] = self.backup_method
         if self.backup_mode is not None:
@@ -5934,6 +5942,8 @@ class DescribeBackupsResponseBodyBackupsBackup(TeaModel):
             self.backup_id = m.get('BackupId')
         if m.get('BackupIntranetDownloadURL') is not None:
             self.backup_intranet_download_url = m.get('BackupIntranetDownloadURL')
+        if m.get('BackupJobId') is not None:
+            self.backup_job_id = m.get('BackupJobId')
         if m.get('BackupMethod') is not None:
             self.backup_method = m.get('BackupMethod')
         if m.get('BackupMode') is not None:
@@ -15589,13 +15599,13 @@ class DescribeSecurityGroupConfigurationResponse(TeaModel):
 class DescribeSecurityIpsRequest(TeaModel):
     def __init__(self, dbinstance_id=None, owner_account=None, owner_id=None, resource_owner_account=None,
                  resource_owner_id=None, show_hdmips=None):
-        # com.aliyun.abs.dds.service.v20151201.domain.GetDdsSecurityIpsRequest
+        # The ID of the instance.
         self.dbinstance_id = dbinstance_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The operation that you want to perform. Set the value to **DescribeSecurityIps**.
+        # Whether to display DAS whitelist information.
         self.show_hdmips = show_hdmips  # type: bool
 
     def validate(self):
@@ -15640,9 +15650,9 @@ class DescribeSecurityIpsRequest(TeaModel):
 
 class DescribeSecurityIpsResponseBodySecurityIpGroupsSecurityIpGroup(TeaModel):
     def __init__(self, security_ip_group_attribute=None, security_ip_group_name=None, security_ip_list=None):
-        # An array that consists of the information of IP whitelists.
+        # The attribute of the IP address whitelist.
         self.security_ip_group_attribute = security_ip_group_attribute  # type: str
-        # The ID of the request.
+        # The name of the IP whitelist.
         self.security_ip_group_name = security_ip_group_name  # type: str
         # The name of the IP whitelist.
         self.security_ip_list = security_ip_list  # type: str
@@ -15709,11 +15719,11 @@ class DescribeSecurityIpsResponseBodySecurityIpGroups(TeaModel):
 
 class DescribeSecurityIpsResponseBody(TeaModel):
     def __init__(self, request_id=None, security_ip_groups=None, security_ips=None):
-        # Whether to display DAS whitelist information.
+        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The IP addresses in the default whitelist.
+        # An array that consists of the information of IP whitelists.
         self.security_ip_groups = security_ip_groups  # type: DescribeSecurityIpsResponseBodySecurityIpGroups
-        # The ID of the instance.
+        # The IP addresses in the default whitelist.
         self.security_ips = security_ips  # type: str
 
     def validate(self):
@@ -18089,9 +18099,9 @@ class ModifyAuditPolicyResponse(TeaModel):
 
 class ModifyBackupPolicyRequest(TeaModel):
     def __init__(self, backup_interval=None, backup_retention_period=None, dbinstance_id=None,
-                 enable_backup_log=None, log_backup_retention_period=None, owner_account=None, owner_id=None,
-                 preferred_backup_period=None, preferred_backup_time=None, resource_owner_account=None, resource_owner_id=None,
-                 security_token=None, snapshot_backup_type=None):
+                 enable_backup_log=None, high_frequency_backup_retention=None, log_backup_retention_period=None, owner_account=None,
+                 owner_id=None, preferred_backup_period=None, preferred_backup_time=None, resource_owner_account=None,
+                 resource_owner_id=None, snapshot_backup_type=None):
         # The frequency at which high-frequency backups are created. Valid values:
         # 
         # *   **-1**: disables high-frequency backup.
@@ -18120,6 +18130,7 @@ class ModifyBackupPolicyRequest(TeaModel):
         # *   **0**: disables log backup.
         # *   **1**: enables log backup.
         self.enable_backup_log = enable_backup_log  # type: long
+        self.high_frequency_backup_retention = high_frequency_backup_retention  # type: long
         # The number of days for which log backups are retained. Default value: 7.
         # 
         # Valid values: 7 to 730.
@@ -18144,7 +18155,6 @@ class ModifyBackupPolicyRequest(TeaModel):
         self.preferred_backup_time = preferred_backup_time  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.security_token = security_token  # type: str
         # The snapshot backup type. Default value: Standard. Valid values:
         # 
         # *   **Flash**: single-digit second backup
@@ -18168,6 +18178,8 @@ class ModifyBackupPolicyRequest(TeaModel):
             result['DBInstanceId'] = self.dbinstance_id
         if self.enable_backup_log is not None:
             result['EnableBackupLog'] = self.enable_backup_log
+        if self.high_frequency_backup_retention is not None:
+            result['HighFrequencyBackupRetention'] = self.high_frequency_backup_retention
         if self.log_backup_retention_period is not None:
             result['LogBackupRetentionPeriod'] = self.log_backup_retention_period
         if self.owner_account is not None:
@@ -18182,8 +18194,6 @@ class ModifyBackupPolicyRequest(TeaModel):
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
         if self.snapshot_backup_type is not None:
             result['SnapshotBackupType'] = self.snapshot_backup_type
         return result
@@ -18198,6 +18208,8 @@ class ModifyBackupPolicyRequest(TeaModel):
             self.dbinstance_id = m.get('DBInstanceId')
         if m.get('EnableBackupLog') is not None:
             self.enable_backup_log = m.get('EnableBackupLog')
+        if m.get('HighFrequencyBackupRetention') is not None:
+            self.high_frequency_backup_retention = m.get('HighFrequencyBackupRetention')
         if m.get('LogBackupRetentionPeriod') is not None:
             self.log_backup_retention_period = m.get('LogBackupRetentionPeriod')
         if m.get('OwnerAccount') is not None:
@@ -18212,8 +18224,6 @@ class ModifyBackupPolicyRequest(TeaModel):
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
         if m.get('SnapshotBackupType') is not None:
             self.snapshot_backup_type = m.get('SnapshotBackupType')
         return self
