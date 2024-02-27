@@ -224,6 +224,8 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(request.application_id):
             query['ApplicationId'] = request.application_id
         body = {}
+        if not UtilClient.is_unset(request.client_token):
+            body['ClientToken'] = request.client_token
         if not UtilClient.is_unset(request.resource_group_id):
             body['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
@@ -261,6 +263,8 @@ class Client(OpenApiClient):
             body['ApplicationId'] = request.application_id
         if not UtilClient.is_unset(request.attributes_shrink):
             body['Attributes'] = request.attributes_shrink
+        if not UtilClient.is_unset(request.client_token):
+            body['ClientToken'] = request.client_token
         if not UtilClient.is_unset(request.operation):
             body['Operation'] = request.operation
         if not UtilClient.is_unset(request.resource_group_id):
@@ -289,6 +293,48 @@ class Client(OpenApiClient):
     def execute_operation_async(self, request):
         runtime = util_models.RuntimeOptions()
         return self.execute_operation_async_with_options(request, runtime)
+
+    def execute_operation_sync_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = bpstudio_20210931_models.ExecuteOperationSyncShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.attributes):
+            request.attributes_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.attributes, 'Attributes', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.application_id):
+            body['ApplicationId'] = request.application_id
+        if not UtilClient.is_unset(request.attributes_shrink):
+            body['Attributes'] = request.attributes_shrink
+        if not UtilClient.is_unset(request.client_token):
+            body['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.operation):
+            body['Operation'] = request.operation
+        if not UtilClient.is_unset(request.resource_group_id):
+            body['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.service_type):
+            body['ServiceType'] = request.service_type
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ExecuteOperationSync',
+            version='2021-09-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            bpstudio_20210931_models.ExecuteOperationSyncResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def execute_operation_sync(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.execute_operation_sync_with_options(request, runtime)
 
     def get_application_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -668,6 +714,8 @@ class Client(OpenApiClient):
         body = {}
         if not UtilClient.is_unset(request.application_id):
             body['ApplicationId'] = request.application_id
+        if not UtilClient.is_unset(request.client_token):
+            body['ClientToken'] = request.client_token
         if not UtilClient.is_unset(request.resource_group_id):
             body['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
@@ -699,6 +747,8 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(request.application_id):
             query['ApplicationId'] = request.application_id
         body = {}
+        if not UtilClient.is_unset(request.client_token):
+            body['ClientToken'] = request.client_token
         if not UtilClient.is_unset(request.resource_group_id):
             body['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
@@ -730,6 +780,8 @@ class Client(OpenApiClient):
         body = {}
         if not UtilClient.is_unset(request.application_id):
             body['ApplicationId'] = request.application_id
+        if not UtilClient.is_unset(request.client_token):
+            body['ClientToken'] = request.client_token
         if not UtilClient.is_unset(request.resource_group_id):
             body['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(

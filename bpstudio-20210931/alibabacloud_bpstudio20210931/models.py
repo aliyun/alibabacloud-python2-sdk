@@ -693,9 +693,10 @@ class DeleteApplicationResponse(TeaModel):
 
 
 class DeployApplicationRequest(TeaModel):
-    def __init__(self, application_id=None, resource_group_id=None):
+    def __init__(self, application_id=None, client_token=None, resource_group_id=None):
         # The ID of the application.
         self.application_id = application_id  # type: str
+        self.client_token = client_token  # type: str
         # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
 
@@ -710,6 +711,8 @@ class DeployApplicationRequest(TeaModel):
         result = dict()
         if self.application_id is not None:
             result['ApplicationId'] = self.application_id
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
         if self.resource_group_id is not None:
             result['ResourceGroupId'] = self.resource_group_id
         return result
@@ -718,6 +721,8 @@ class DeployApplicationRequest(TeaModel):
         m = m or dict()
         if m.get('ApplicationId') is not None:
             self.application_id = m.get('ApplicationId')
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
         if m.get('ResourceGroupId') is not None:
             self.resource_group_id = m.get('ResourceGroupId')
         return self
@@ -803,8 +808,8 @@ class DeployApplicationResponse(TeaModel):
 
 
 class ExecuteOperationASyncRequest(TeaModel):
-    def __init__(self, application_id=None, attributes=None, operation=None, resource_group_id=None,
-                 service_type=None):
+    def __init__(self, application_id=None, attributes=None, client_token=None, operation=None,
+                 resource_group_id=None, service_type=None):
         # The ID of the Cloud Architect Design Tools (CADT) application.
         self.application_id = application_id  # type: str
         # The parameters related to the action. Specify the parameters based on the value of Operation. The parameters are passed in the map format. The following examples show how to specify the parameters if you want to change the specifications of an Elastic Compute Service (ECS) instance:
@@ -829,6 +834,7 @@ class ExecuteOperationASyncRequest(TeaModel):
         # 
         #     <!-- -->
         self.attributes = attributes  # type: dict[str, any]
+        self.client_token = client_token  # type: str
         # This operation type is the operation type of modifying the product, some operation types are generic, and some are used alone. The following is an example of ECS deployment:
         # - The name of the ECS: rename
         # - Specificationof ecs: modifyInstanceType
@@ -857,6 +863,8 @@ class ExecuteOperationASyncRequest(TeaModel):
             result['ApplicationId'] = self.application_id
         if self.attributes is not None:
             result['Attributes'] = self.attributes
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
         if self.operation is not None:
             result['Operation'] = self.operation
         if self.resource_group_id is not None:
@@ -871,6 +879,8 @@ class ExecuteOperationASyncRequest(TeaModel):
             self.application_id = m.get('ApplicationId')
         if m.get('Attributes') is not None:
             self.attributes = m.get('Attributes')
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
         if m.get('Operation') is not None:
             self.operation = m.get('Operation')
         if m.get('ResourceGroupId') is not None:
@@ -881,8 +891,8 @@ class ExecuteOperationASyncRequest(TeaModel):
 
 
 class ExecuteOperationASyncShrinkRequest(TeaModel):
-    def __init__(self, application_id=None, attributes_shrink=None, operation=None, resource_group_id=None,
-                 service_type=None):
+    def __init__(self, application_id=None, attributes_shrink=None, client_token=None, operation=None,
+                 resource_group_id=None, service_type=None):
         # The ID of the Cloud Architect Design Tools (CADT) application.
         self.application_id = application_id  # type: str
         # The parameters related to the action. Specify the parameters based on the value of Operation. The parameters are passed in the map format. The following examples show how to specify the parameters if you want to change the specifications of an Elastic Compute Service (ECS) instance:
@@ -907,6 +917,7 @@ class ExecuteOperationASyncShrinkRequest(TeaModel):
         # 
         #     <!-- -->
         self.attributes_shrink = attributes_shrink  # type: str
+        self.client_token = client_token  # type: str
         # This operation type is the operation type of modifying the product, some operation types are generic, and some are used alone. The following is an example of ECS deployment:
         # - The name of the ECS: rename
         # - Specificationof ecs: modifyInstanceType
@@ -935,6 +946,8 @@ class ExecuteOperationASyncShrinkRequest(TeaModel):
             result['ApplicationId'] = self.application_id
         if self.attributes_shrink is not None:
             result['Attributes'] = self.attributes_shrink
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
         if self.operation is not None:
             result['Operation'] = self.operation
         if self.resource_group_id is not None:
@@ -949,6 +962,8 @@ class ExecuteOperationASyncShrinkRequest(TeaModel):
             self.application_id = m.get('ApplicationId')
         if m.get('Attributes') is not None:
             self.attributes_shrink = m.get('Attributes')
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
         if m.get('Operation') is not None:
             self.operation = m.get('Operation')
         if m.get('ResourceGroupId') is not None:
@@ -1033,6 +1048,181 @@ class ExecuteOperationASyncResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ExecuteOperationASyncResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ExecuteOperationSyncRequest(TeaModel):
+    def __init__(self, application_id=None, attributes=None, client_token=None, operation=None,
+                 resource_group_id=None, service_type=None):
+        self.application_id = application_id  # type: str
+        self.attributes = attributes  # type: dict[str, any]
+        self.client_token = client_token  # type: str
+        self.operation = operation  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        self.service_type = service_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ExecuteOperationSyncRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.application_id is not None:
+            result['ApplicationId'] = self.application_id
+        if self.attributes is not None:
+            result['Attributes'] = self.attributes
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.operation is not None:
+            result['Operation'] = self.operation
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.service_type is not None:
+            result['ServiceType'] = self.service_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApplicationId') is not None:
+            self.application_id = m.get('ApplicationId')
+        if m.get('Attributes') is not None:
+            self.attributes = m.get('Attributes')
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('Operation') is not None:
+            self.operation = m.get('Operation')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('ServiceType') is not None:
+            self.service_type = m.get('ServiceType')
+        return self
+
+
+class ExecuteOperationSyncShrinkRequest(TeaModel):
+    def __init__(self, application_id=None, attributes_shrink=None, client_token=None, operation=None,
+                 resource_group_id=None, service_type=None):
+        self.application_id = application_id  # type: str
+        self.attributes_shrink = attributes_shrink  # type: str
+        self.client_token = client_token  # type: str
+        self.operation = operation  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        self.service_type = service_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ExecuteOperationSyncShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.application_id is not None:
+            result['ApplicationId'] = self.application_id
+        if self.attributes_shrink is not None:
+            result['Attributes'] = self.attributes_shrink
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.operation is not None:
+            result['Operation'] = self.operation
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.service_type is not None:
+            result['ServiceType'] = self.service_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApplicationId') is not None:
+            self.application_id = m.get('ApplicationId')
+        if m.get('Attributes') is not None:
+            self.attributes_shrink = m.get('Attributes')
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('Operation') is not None:
+            self.operation = m.get('Operation')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('ServiceType') is not None:
+            self.service_type = m.get('ServiceType')
+        return self
+
+
+class ExecuteOperationSyncResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None):
+        self.code = code  # type: int
+        self.data = data  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ExecuteOperationSyncResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ExecuteOperationSyncResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ExecuteOperationSyncResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ExecuteOperationSyncResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ExecuteOperationSyncResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -1156,7 +1346,7 @@ class GetApplicationResponseBodyDataPriceList(TeaModel):
         self.region = region  # type: str
         # The error message that is returned when a price query fails.
         self.remark = remark  # type: str
-        # The service code.
+        # Product code
         self.resource_code = resource_code  # type: str
         # The instance type. This parameter indicates the information about the instance type. For example, 192.168.0.0/16 may be returned for a Virtual Private Cloud (VPC) instance, ecs.g5.large may be returned for an Elastic Compute Service (ECS) instance, and slb.s1.small may be returned for a Server Load Balancer (SLB) instance. If the resource does not have a specific type, an empty value is returned.
         self.specification = specification  # type: str
@@ -1309,29 +1499,29 @@ class GetApplicationResponseBodyData(TeaModel):
     def __init__(self, application_id=None, checklist=None, create_time=None, description=None, error=None,
                  image_url=None, name=None, price_list=None, resource_group_id=None, resource_list=None, status=None,
                  template_id=None):
-        # The description of the application.
+        # App ID
         self.application_id = application_id  # type: str
         # The resource tag.
         self.checklist = checklist  # type: list[GetApplicationResponseBodyDataChecklist]
-        # The URL of the application topology image.
+        # The time when the app was created
         self.create_time = create_time  # type: str
-        # The message returned for the request.
+        # Application description
         self.description = description  # type: str
         # The resource type.
         self.error = error  # type: str
         # The URL of the image in the database.
         self.image_url = image_url  # type: str
-        # The URL of the image in the database.
+        # App name
         self.name = name  # type: str
         # The billing results.
         self.price_list = price_list  # type: list[GetApplicationResponseBodyDataPriceList]
-        # 1411182597819805/topo-MCEXDI5EL2OM10NY.json
+        # The ID of the resource group to which the app belongs
         self.resource_group_id = resource_group_id  # type: str
         # The resource specification.
         self.resource_list = resource_list  # type: list[GetApplicationResponseBodyDataResourceList]
         # Verification passed
         self.status = status  # type: str
-        # CADT application
+        # The ID of the template associated with the application
         self.template_id = template_id  # type: str
 
     def validate(self):
@@ -1430,34 +1620,9 @@ class GetApplicationResponseBody(TeaModel):
         self.code = code  # type: str
         # The details of the application.
         self.data = data  # type: GetApplicationResponseBodyData
-        # Possible application states:
-        # 
-        # *   Creating: The application is being created.
-        # *   Modified: The application has been modified.
-        # *   Verifying: The application is being verified.
-        # *   Verified_Failure: The application failed to pass the verification.
-        # *   Verified_Success: The application has passed the verification.
-        # *   Valuating: Fees are being calculated for the application.
-        # *   Valuating_Failure: Fees failed to be calculated for the application.
-        # *   Valuating_Success: Fees are calculated for the application.
-        # *   Deploying: The application is being deployed.
-        # *   Deployed_Failure: The application failed to be deployed.
-        # *   Partially_Deployed_Success: Some resources of the application are deployed.
-        # *   Deployed_Success: The application is deployed.
-        # *   Destroying: The application is being released.
-        # *   Delayed_Destroy: The application release is delayed.
-        # *   Destroyed_Failure: The application failed to be released.
-        # *   Partially_Destroyed_Success: Some resources of the application are released.
-        # *   Destroyed_Success: The application is released.
-        # *   Revised: The application architecture is adjusted.
-        # *   Verifying_In_Revision: The application resources are being verified during architecture adjustment.
-        # *   Verified_Failure_In_Revision: The application resources failed to pass the verification during architecture adjustment.
-        # *   Verified_Success_In_Revision: The application resources are verified during architecture adjustment.
-        # *   Valuating_In_Revision: Fees are being calculated for the application during architecture adjustment.
-        # *   Valuating_Failure_In_Revision: Fees failed to be calculated for the application during architecture adjustment.
-        # *   Valuating_Success_In_Revision: Fees are calculated for the application during architecture adjustment.
+        # Reason for the request failure
         self.message = message  # type: str
-        # The ID of the application.
+        # Request ID
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2385,17 +2550,19 @@ class ListApplicationRequest(TeaModel):
                  resource_id=None, status=None, template_id=None):
         # Keywords in the app name
         self.keyword = keyword  # type: str
-        # The HTTP status code.
+        # The pagination size of the resulting value cannot be less than the minimum value of 1 and cannot be greater than the maximum value of 50.
         self.max_results = max_results  # type: int
-        # The ID of the resource group to which the application belongs.
+        # The pagination page number of the resulting value cannot be less than the minimum value of 1 and cannot be greater than the maximum value of 10000.
         self.next_token = next_token  # type: int
         # 1 update time,<br>2 creation time
         self.order_type = order_type  # type: long
         # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
+        # Resource Id
         self.resource_id = resource_id  # type: str
         # The status of the applications to be returned.
         self.status = status  # type: str
+        # Template Id
         self.template_id = template_id  # type: str
 
     def validate(self):
@@ -3185,9 +3352,10 @@ class ListTemplateResponse(TeaModel):
 
 
 class ReleaseApplicationRequest(TeaModel):
-    def __init__(self, application_id=None, resource_group_id=None):
+    def __init__(self, application_id=None, client_token=None, resource_group_id=None):
         # The ID of the application.
         self.application_id = application_id  # type: str
+        self.client_token = client_token  # type: str
         # The ID of the resource.
         self.resource_group_id = resource_group_id  # type: str
 
@@ -3202,6 +3370,8 @@ class ReleaseApplicationRequest(TeaModel):
         result = dict()
         if self.application_id is not None:
             result['ApplicationId'] = self.application_id
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
         if self.resource_group_id is not None:
             result['ResourceGroupId'] = self.resource_group_id
         return result
@@ -3210,6 +3380,8 @@ class ReleaseApplicationRequest(TeaModel):
         m = m or dict()
         if m.get('ApplicationId') is not None:
             self.application_id = m.get('ApplicationId')
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
         if m.get('ResourceGroupId') is not None:
             self.resource_group_id = m.get('ResourceGroupId')
         return self
@@ -3295,9 +3467,10 @@ class ReleaseApplicationResponse(TeaModel):
 
 
 class ValidateApplicationRequest(TeaModel):
-    def __init__(self, application_id=None, resource_group_id=None):
+    def __init__(self, application_id=None, client_token=None, resource_group_id=None):
         # The ID of the application.
         self.application_id = application_id  # type: str
+        self.client_token = client_token  # type: str
         # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
 
@@ -3312,6 +3485,8 @@ class ValidateApplicationRequest(TeaModel):
         result = dict()
         if self.application_id is not None:
             result['ApplicationId'] = self.application_id
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
         if self.resource_group_id is not None:
             result['ResourceGroupId'] = self.resource_group_id
         return result
@@ -3320,6 +3495,8 @@ class ValidateApplicationRequest(TeaModel):
         m = m or dict()
         if m.get('ApplicationId') is not None:
             self.application_id = m.get('ApplicationId')
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
         if m.get('ResourceGroupId') is not None:
             self.resource_group_id = m.get('ResourceGroupId')
         return self
@@ -3405,9 +3582,10 @@ class ValidateApplicationResponse(TeaModel):
 
 
 class ValuateApplicationRequest(TeaModel):
-    def __init__(self, application_id=None, resource_group_id=None):
+    def __init__(self, application_id=None, client_token=None, resource_group_id=None):
         # The ID of the application.
         self.application_id = application_id  # type: str
+        self.client_token = client_token  # type: str
         # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
 
@@ -3422,6 +3600,8 @@ class ValuateApplicationRequest(TeaModel):
         result = dict()
         if self.application_id is not None:
             result['ApplicationId'] = self.application_id
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
         if self.resource_group_id is not None:
             result['ResourceGroupId'] = self.resource_group_id
         return result
@@ -3430,6 +3610,8 @@ class ValuateApplicationRequest(TeaModel):
         m = m or dict()
         if m.get('ApplicationId') is not None:
             self.application_id = m.get('ApplicationId')
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
         if m.get('ResourceGroupId') is not None:
             self.resource_group_id = m.get('ResourceGroupId')
         return self
