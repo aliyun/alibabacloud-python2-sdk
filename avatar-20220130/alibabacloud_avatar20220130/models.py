@@ -184,9 +184,6 @@ class CancelVideoTaskResponse(TeaModel):
         self.body = body  # type: CancelVideoTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -311,9 +308,6 @@ class ClientAuthResponse(TeaModel):
         self.body = body  # type: ClientAuthResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -449,9 +443,6 @@ class ClientStartResponse(TeaModel):
         self.body = body  # type: ClientStartResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -556,9 +547,6 @@ class ClientUnbindDeviceResponse(TeaModel):
         self.body = body  # type: ClientUnbindDeviceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -700,9 +688,6 @@ class CloseTimedResetOperateResponse(TeaModel):
         self.body = body  # type: CloseTimedResetOperateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -812,9 +797,6 @@ class ConfirmAvatar2dTrainResponse(TeaModel):
         self.body = body  # type: ConfirmAvatar2dTrainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -986,9 +968,6 @@ class Create2dAvatarResponse(TeaModel):
         self.body = body  # type: Create2dAvatarResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1093,9 +1072,6 @@ class DeleteAvatarResponse(TeaModel):
         self.body = body  # type: DeleteAvatarResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1420,9 +1396,6 @@ class DuplexDecisionResponse(TeaModel):
         self.body = body  # type: DuplexDecisionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1711,9 +1684,6 @@ class GetVideoTaskInfoResponse(TeaModel):
         self.body = body  # type: GetVideoTaskInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1854,9 +1824,6 @@ class LicenseAuthResponse(TeaModel):
         self.body = body  # type: LicenseAuthResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2031,7 +1998,7 @@ class QueryAvatarResponseBodyDataSupportedResolutions(TeaModel):
 
 class QueryAvatarResponseBodyData(TeaModel):
     def __init__(self, all_locate_images=None, avatar_type=None, description=None, image=None,
-                 make_fail_reason=None, make_stage=None, make_status=None, model_type=None, name=None, portrait=None,
+                 make_fail_reason=None, make_stage=None, make_status=None, model_type=None, name=None, portrait=None, preview=None,
                  supported_resolutions=None):
         self.all_locate_images = all_locate_images  # type: dict[str, any]
         self.avatar_type = avatar_type  # type: str
@@ -2043,6 +2010,7 @@ class QueryAvatarResponseBodyData(TeaModel):
         self.model_type = model_type  # type: str
         self.name = name  # type: str
         self.portrait = portrait  # type: str
+        self.preview = preview  # type: str
         self.supported_resolutions = supported_resolutions  # type: QueryAvatarResponseBodyDataSupportedResolutions
 
     def validate(self):
@@ -2075,6 +2043,8 @@ class QueryAvatarResponseBodyData(TeaModel):
             result['Name'] = self.name
         if self.portrait is not None:
             result['Portrait'] = self.portrait
+        if self.preview is not None:
+            result['Preview'] = self.preview
         if self.supported_resolutions is not None:
             result['SupportedResolutions'] = self.supported_resolutions.to_map()
         return result
@@ -2101,6 +2071,8 @@ class QueryAvatarResponseBodyData(TeaModel):
             self.name = m.get('Name')
         if m.get('Portrait') is not None:
             self.portrait = m.get('Portrait')
+        if m.get('Preview') is not None:
+            self.preview = m.get('Preview')
         if m.get('SupportedResolutions') is not None:
             temp_model = QueryAvatarResponseBodyDataSupportedResolutions()
             self.supported_resolutions = temp_model.from_map(m['SupportedResolutions'])
@@ -2160,9 +2132,6 @@ class QueryAvatarResponse(TeaModel):
         self.body = body  # type: QueryAvatarResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2347,7 +2316,8 @@ class QueryAvatarListResponseBodyDataListSupportedResolutions(TeaModel):
 
 class QueryAvatarListResponseBodyDataList(TeaModel):
     def __init__(self, avatar_type=None, code=None, description=None, image=None, make_fail_reason=None,
-                 make_stage=None, make_status=None, model_type=None, name=None, portrait=None, supported_resolutions=None):
+                 make_stage=None, make_status=None, model_type=None, name=None, portrait=None, preview=None,
+                 supported_resolutions=None):
         self.avatar_type = avatar_type  # type: str
         self.code = code  # type: str
         self.description = description  # type: str
@@ -2358,6 +2328,7 @@ class QueryAvatarListResponseBodyDataList(TeaModel):
         self.model_type = model_type  # type: str
         self.name = name  # type: str
         self.portrait = portrait  # type: str
+        self.preview = preview  # type: str
         self.supported_resolutions = supported_resolutions  # type: QueryAvatarListResponseBodyDataListSupportedResolutions
 
     def validate(self):
@@ -2390,6 +2361,8 @@ class QueryAvatarListResponseBodyDataList(TeaModel):
             result['Name'] = self.name
         if self.portrait is not None:
             result['Portrait'] = self.portrait
+        if self.preview is not None:
+            result['Preview'] = self.preview
         if self.supported_resolutions is not None:
             result['SupportedResolutions'] = self.supported_resolutions.to_map()
         return result
@@ -2416,6 +2389,8 @@ class QueryAvatarListResponseBodyDataList(TeaModel):
             self.name = m.get('Name')
         if m.get('Portrait') is not None:
             self.portrait = m.get('Portrait')
+        if m.get('Preview') is not None:
+            self.preview = m.get('Preview')
         if m.get('SupportedResolutions') is not None:
             temp_model = QueryAvatarListResponseBodyDataListSupportedResolutions()
             self.supported_resolutions = temp_model.from_map(m['SupportedResolutions'])
@@ -2527,9 +2502,6 @@ class QueryAvatarListResponse(TeaModel):
         self.body = body  # type: QueryAvatarListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2850,9 +2822,6 @@ class QueryRunningInstanceResponse(TeaModel):
         self.body = body  # type: QueryRunningInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3004,9 +2973,6 @@ class QueryTimedResetOperateStatusResponse(TeaModel):
         self.body = body  # type: QueryTimedResetOperateStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3404,9 +3370,6 @@ class QueryVideoTaskInfoResponse(TeaModel):
         self.body = body  # type: QueryVideoTaskInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3547,9 +3510,6 @@ class Render3dAvatarResponse(TeaModel):
         self.body = body  # type: Render3dAvatarResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3761,9 +3721,6 @@ class SendCommandResponse(TeaModel):
         self.body = body  # type: SendCommandResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4081,9 +4038,6 @@ class SendMessageResponse(TeaModel):
         self.body = body  # type: SendMessageResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4342,9 +4296,6 @@ class SendTextResponse(TeaModel):
         self.body = body  # type: SendTextResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4491,9 +4442,6 @@ class SendVamlResponse(TeaModel):
         self.body = body  # type: SendVamlResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4956,9 +4904,6 @@ class StartInstanceResponse(TeaModel):
         self.body = body  # type: StartInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5099,9 +5044,6 @@ class StartTimedResetOperateResponse(TeaModel):
         self.body = body  # type: StartTimedResetOperateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5237,9 +5179,6 @@ class StopInstanceResponse(TeaModel):
         self.body = body  # type: StopInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5628,9 +5567,6 @@ class SubmitAudioTo2DAvatarVideoTaskResponse(TeaModel):
         self.body = body  # type: SubmitAudioTo2DAvatarVideoTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6014,9 +5950,6 @@ class SubmitAudioTo3DAvatarVideoTaskResponse(TeaModel):
         self.body = body  # type: SubmitAudioTo3DAvatarVideoTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6260,9 +6193,6 @@ class SubmitAvatarVideoTaskResponse(TeaModel):
         self.body = body  # type: SubmitAvatarVideoTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6733,9 +6663,6 @@ class SubmitTextTo2DAvatarVideoTaskResponse(TeaModel):
         self.body = body  # type: SubmitTextTo2DAvatarVideoTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7201,9 +7128,6 @@ class SubmitTextTo3DAvatarVideoTaskResponse(TeaModel):
         self.body = body  # type: SubmitTextTo3DAvatarVideoTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7380,9 +7304,6 @@ class Update2dAvatarResponse(TeaModel):
         self.body = body  # type: Update2dAvatarResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
