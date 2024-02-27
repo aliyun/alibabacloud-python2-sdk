@@ -80,9 +80,6 @@ class AddClientToBlackListResponse(TeaModel):
         self.body = body  # type: AddClientToBlackListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -213,9 +210,6 @@ class AddTagsResponse(TeaModel):
         self.body = body  # type: AddTagsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -310,9 +304,6 @@ class ApplyAutoSnapshotPolicyResponse(TeaModel):
         self.body = body  # type: ApplyAutoSnapshotPolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -493,9 +484,6 @@ class ApplyDataFlowAutoRefreshResponse(TeaModel):
         self.body = body  # type: ApplyDataFlowAutoRefreshResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -586,9 +574,6 @@ class CancelAutoSnapshotPolicyResponse(TeaModel):
         self.body = body  # type: CancelAutoSnapshotPolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -718,9 +703,6 @@ class CancelDataFlowAutoRefreshResponse(TeaModel):
         self.body = body  # type: CancelDataFlowAutoRefreshResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -842,9 +824,6 @@ class CancelDataFlowTaskResponse(TeaModel):
         self.body = body  # type: CancelDataFlowTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -973,9 +952,6 @@ class CancelDirQuotaResponse(TeaModel):
         self.body = body  # type: CancelDirQuotaResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1062,9 +1038,6 @@ class CancelLifecycleRetrieveJobResponse(TeaModel):
         self.body = body  # type: CancelLifecycleRetrieveJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1151,9 +1124,6 @@ class CancelRecycleBinJobResponse(TeaModel):
         self.body = body  # type: CancelRecycleBinJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1253,9 +1223,6 @@ class ChangeResourceGroupResponse(TeaModel):
         self.body = body  # type: ChangeResourceGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1385,9 +1352,6 @@ class CreateAccessGroupResponse(TeaModel):
         self.body = body  # type: CreateAccessGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1549,9 +1513,6 @@ class CreateAccessRuleResponse(TeaModel):
         self.body = body  # type: CreateAccessRuleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1697,9 +1658,6 @@ class CreateAutoSnapshotPolicyResponse(TeaModel):
         self.body = body  # type: CreateAutoSnapshotPolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1940,9 +1898,6 @@ class CreateDataFlowResponse(TeaModel):
         self.body = body  # type: CreateDataFlowResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2122,9 +2077,6 @@ class CreateDataFlowTaskResponse(TeaModel):
         self.body = body  # type: CreateDataFlowTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2244,9 +2196,6 @@ class CreateFileResponse(TeaModel):
         self.body = body  # type: CreateFileResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2513,9 +2462,6 @@ class CreateFileSystemResponse(TeaModel):
         self.body = body  # type: CreateFileSystemResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2652,9 +2598,6 @@ class CreateFilesetResponse(TeaModel):
         self.body = body  # type: CreateFilesetResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2759,9 +2702,6 @@ class CreateLDAPConfigResponse(TeaModel):
         self.body = body  # type: CreateLDAPConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2905,9 +2845,6 @@ class CreateLifecyclePolicyResponse(TeaModel):
         self.body = body  # type: CreateLifecyclePolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3006,9 +2943,6 @@ class CreateLifecycleRetrieveJobResponse(TeaModel):
         self.body = body  # type: CreateLifecycleRetrieveJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3101,9 +3035,6 @@ class CreateLogAnalysisResponse(TeaModel):
         self.body = body  # type: CreateLogAnalysisResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3298,9 +3229,6 @@ class CreateMountTargetResponse(TeaModel):
         self.body = body  # type: CreateMountTargetResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3483,9 +3411,6 @@ class CreateProtocolMountTargetResponse(TeaModel):
         self.body = body  # type: CreateProtocolMountTargetResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3656,9 +3581,6 @@ class CreateProtocolServiceResponse(TeaModel):
         self.body = body  # type: CreateProtocolServiceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3769,9 +3691,6 @@ class CreateRecycleBinDeleteJobResponse(TeaModel):
         self.body = body  # type: CreateRecycleBinDeleteJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3888,9 +3807,6 @@ class CreateRecycleBinRestoreJobResponse(TeaModel):
         self.body = body  # type: CreateRecycleBinRestoreJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4020,9 +3936,6 @@ class CreateSnapshotResponse(TeaModel):
         self.body = body  # type: CreateSnapshotResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4120,9 +4033,6 @@ class DeleteAccessGroupResponse(TeaModel):
         self.body = body  # type: DeleteAccessGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4226,9 +4136,6 @@ class DeleteAccessRuleResponse(TeaModel):
         self.body = body  # type: DeleteAccessRuleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4319,9 +4226,6 @@ class DeleteAutoSnapshotPolicyResponse(TeaModel):
         self.body = body  # type: DeleteAutoSnapshotPolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4437,9 +4341,6 @@ class DeleteDataFlowResponse(TeaModel):
         self.body = body  # type: DeleteDataFlowResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4532,9 +4433,6 @@ class DeleteFileSystemResponse(TeaModel):
         self.body = body  # type: DeleteFileSystemResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4650,9 +4548,6 @@ class DeleteFilesetResponse(TeaModel):
         self.body = body  # type: DeleteFilesetResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4739,9 +4634,6 @@ class DeleteLDAPConfigResponse(TeaModel):
         self.body = body  # type: DeleteLDAPConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4845,9 +4737,6 @@ class DeleteLifecyclePolicyResponse(TeaModel):
         self.body = body  # type: DeleteLifecyclePolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4940,9 +4829,6 @@ class DeleteLogAnalysisResponse(TeaModel):
         self.body = body  # type: DeleteLogAnalysisResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5041,9 +4927,6 @@ class DeleteMountTargetResponse(TeaModel):
         self.body = body  # type: DeleteMountTargetResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5164,9 +5047,6 @@ class DeleteProtocolMountTargetResponse(TeaModel):
         self.body = body  # type: DeleteProtocolMountTargetResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5280,9 +5160,6 @@ class DeleteProtocolServiceResponse(TeaModel):
         self.body = body  # type: DeleteProtocolServiceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5371,9 +5248,6 @@ class DeleteSnapshotResponse(TeaModel):
         self.body = body  # type: DeleteSnapshotResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5479,7 +5353,7 @@ class DescribeAccessGroupsRequest(TeaModel):
 
 class DescribeAccessGroupsResponseBodyAccessGroupsAccessGroup(TeaModel):
     def __init__(self, access_group_name=None, access_group_type=None, create_time=None, description=None,
-                 mount_target_count=None, rule_count=None):
+                 file_system_type=None, mount_target_count=None, region_id=None, rule_count=None):
         # The name of the permission group.
         self.access_group_name = access_group_name  # type: str
         # The network type of the permission group. Valid value: **Vpc**.
@@ -5488,8 +5362,10 @@ class DescribeAccessGroupsResponseBodyAccessGroupsAccessGroup(TeaModel):
         self.create_time = create_time  # type: str
         # The description of the permission group.
         self.description = description  # type: str
+        self.file_system_type = file_system_type  # type: str
         # The number of mount targets to which the permission group is attached.
         self.mount_target_count = mount_target_count  # type: int
+        self.region_id = region_id  # type: str
         # The total number of rules in the permission group.
         self.rule_count = rule_count  # type: int
 
@@ -5510,8 +5386,12 @@ class DescribeAccessGroupsResponseBodyAccessGroupsAccessGroup(TeaModel):
             result['CreateTime'] = self.create_time
         if self.description is not None:
             result['Description'] = self.description
+        if self.file_system_type is not None:
+            result['FileSystemType'] = self.file_system_type
         if self.mount_target_count is not None:
             result['MountTargetCount'] = self.mount_target_count
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         if self.rule_count is not None:
             result['RuleCount'] = self.rule_count
         return result
@@ -5526,8 +5406,12 @@ class DescribeAccessGroupsResponseBodyAccessGroupsAccessGroup(TeaModel):
             self.create_time = m.get('CreateTime')
         if m.get('Description') is not None:
             self.description = m.get('Description')
+        if m.get('FileSystemType') is not None:
+            self.file_system_type = m.get('FileSystemType')
         if m.get('MountTargetCount') is not None:
             self.mount_target_count = m.get('MountTargetCount')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         if m.get('RuleCount') is not None:
             self.rule_count = m.get('RuleCount')
         return self
@@ -5623,9 +5507,6 @@ class DescribeAccessGroupsResponse(TeaModel):
         self.body = body  # type: DescribeAccessGroupsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5717,10 +5598,12 @@ class DescribeAccessRulesRequest(TeaModel):
 
 
 class DescribeAccessRulesResponseBodyAccessRulesAccessRule(TeaModel):
-    def __init__(self, access_rule_id=None, ipv_6source_cidr_ip=None, priority=None, rwaccess=None,
-                 source_cidr_ip=None, user_access=None):
+    def __init__(self, access_group_name=None, access_rule_id=None, file_system_type=None,
+                 ipv_6source_cidr_ip=None, priority=None, rwaccess=None, region_id=None, source_cidr_ip=None, user_access=None):
+        self.access_group_name = access_group_name  # type: str
         # The ID of the rule.
         self.access_rule_id = access_rule_id  # type: str
+        self.file_system_type = file_system_type  # type: str
         # The IPv6 address or CIDR block of the authorized object.
         self.ipv_6source_cidr_ip = ipv_6source_cidr_ip  # type: str
         # The priority of the rule.
@@ -5736,6 +5619,7 @@ class DescribeAccessRulesResponseBodyAccessRulesAccessRule(TeaModel):
         # *   RDWR (default): the read and write permissions
         # *   RDONLY: the read-only permissions
         self.rwaccess = rwaccess  # type: str
+        self.region_id = region_id  # type: str
         # The IP address or CIDR block of the authorized object.
         self.source_cidr_ip = source_cidr_ip  # type: str
         # The access permissions for different types of users in the authorized object.
@@ -5758,14 +5642,20 @@ class DescribeAccessRulesResponseBodyAccessRulesAccessRule(TeaModel):
             return _map
 
         result = dict()
+        if self.access_group_name is not None:
+            result['AccessGroupName'] = self.access_group_name
         if self.access_rule_id is not None:
             result['AccessRuleId'] = self.access_rule_id
+        if self.file_system_type is not None:
+            result['FileSystemType'] = self.file_system_type
         if self.ipv_6source_cidr_ip is not None:
             result['Ipv6SourceCidrIp'] = self.ipv_6source_cidr_ip
         if self.priority is not None:
             result['Priority'] = self.priority
         if self.rwaccess is not None:
             result['RWAccess'] = self.rwaccess
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         if self.source_cidr_ip is not None:
             result['SourceCidrIp'] = self.source_cidr_ip
         if self.user_access is not None:
@@ -5774,14 +5664,20 @@ class DescribeAccessRulesResponseBodyAccessRulesAccessRule(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AccessGroupName') is not None:
+            self.access_group_name = m.get('AccessGroupName')
         if m.get('AccessRuleId') is not None:
             self.access_rule_id = m.get('AccessRuleId')
+        if m.get('FileSystemType') is not None:
+            self.file_system_type = m.get('FileSystemType')
         if m.get('Ipv6SourceCidrIp') is not None:
             self.ipv_6source_cidr_ip = m.get('Ipv6SourceCidrIp')
         if m.get('Priority') is not None:
             self.priority = m.get('Priority')
         if m.get('RWAccess') is not None:
             self.rwaccess = m.get('RWAccess')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         if m.get('SourceCidrIp') is not None:
             self.source_cidr_ip = m.get('SourceCidrIp')
         if m.get('UserAccess') is not None:
@@ -5879,9 +5775,6 @@ class DescribeAccessRulesResponse(TeaModel):
         self.body = body  # type: DescribeAccessRulesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6149,9 +6042,6 @@ class DescribeAutoSnapshotPoliciesResponse(TeaModel):
         self.body = body  # type: DescribeAutoSnapshotPoliciesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6365,9 +6255,6 @@ class DescribeAutoSnapshotTasksResponse(TeaModel):
         self.body = body  # type: DescribeAutoSnapshotTasksResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6479,9 +6366,6 @@ class DescribeBlackListClientsResponse(TeaModel):
         self.body = body  # type: DescribeBlackListClientsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6833,9 +6717,6 @@ class DescribeDataFlowTasksResponse(TeaModel):
         self.body = body  # type: DescribeDataFlowTasksResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7284,9 +7165,6 @@ class DescribeDataFlowsResponse(TeaModel):
         self.body = body  # type: DescribeDataFlowsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7545,9 +7423,6 @@ class DescribeDirQuotasResponse(TeaModel):
         self.body = body  # type: DescribeDirQuotasResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8029,9 +7904,6 @@ class DescribeFileSystemStatisticsResponse(TeaModel):
         self.body = body  # type: DescribeFileSystemStatisticsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8994,9 +8866,6 @@ class DescribeFileSystemsResponse(TeaModel):
         self.body = body  # type: DescribeFileSystemsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9267,9 +9136,6 @@ class DescribeFilesetsResponse(TeaModel):
         self.body = body  # type: DescribeFilesetsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9486,9 +9352,6 @@ class DescribeLifecyclePoliciesResponse(TeaModel):
         self.body = body  # type: DescribeLifecyclePoliciesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9727,9 +9590,6 @@ class DescribeLogAnalysisResponse(TeaModel):
         self.body = body  # type: DescribeLogAnalysisResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10072,9 +9932,6 @@ class DescribeMountTargetsResponse(TeaModel):
         self.body = body  # type: DescribeMountTargetsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10284,9 +10141,6 @@ class DescribeMountedClientsResponse(TeaModel):
         self.body = body  # type: DescribeMountedClientsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10409,9 +10263,6 @@ class DescribeNfsAclResponse(TeaModel):
         self.body = body  # type: DescribeNfsAclResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10696,9 +10547,6 @@ class DescribeProtocolMountTargetResponse(TeaModel):
         self.body = body  # type: DescribeProtocolMountTargetResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10991,9 +10839,6 @@ class DescribeProtocolServiceResponse(TeaModel):
         self.body = body  # type: DescribeProtocolServiceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11202,9 +11047,6 @@ class DescribeRegionsResponse(TeaModel):
         self.body = body  # type: DescribeRegionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11367,9 +11209,6 @@ class DescribeSmbAclResponse(TeaModel):
         self.body = body  # type: DescribeSmbAclResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11701,9 +11540,6 @@ class DescribeSnapshotsResponse(TeaModel):
         self.body = body  # type: DescribeSnapshotsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11951,9 +11787,6 @@ class DescribeStoragePackagesResponse(TeaModel):
         self.body = body  # type: DescribeStoragePackagesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12270,9 +12103,6 @@ class DescribeZonesResponse(TeaModel):
         self.body = body  # type: DescribeZonesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12359,9 +12189,6 @@ class DisableAndCleanRecycleBinResponse(TeaModel):
         self.body = body  # type: DisableAndCleanRecycleBinResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12448,9 +12275,6 @@ class DisableNfsAclResponse(TeaModel):
         self.body = body  # type: DisableNfsAclResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12537,9 +12361,6 @@ class DisableSmbAclResponse(TeaModel):
         self.body = body  # type: DisableSmbAclResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12626,9 +12447,6 @@ class EnableNfsAclResponse(TeaModel):
         self.body = body  # type: EnableNfsAclResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12725,9 +12543,6 @@ class EnableRecycleBinResponse(TeaModel):
         self.body = body  # type: EnableRecycleBinResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12826,9 +12641,6 @@ class EnableSmbAclResponse(TeaModel):
         self.body = body  # type: EnableSmbAclResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13050,9 +12862,6 @@ class GetDirectoryOrFilePropertiesResponse(TeaModel):
         self.body = body  # type: GetDirectoryOrFilePropertiesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13203,9 +13012,6 @@ class GetRecycleBinAttributeResponse(TeaModel):
         self.body = body  # type: GetRecycleBinAttributeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13486,9 +13292,6 @@ class ListDirectoriesAndFilesResponse(TeaModel):
         self.body = body  # type: ListDirectoriesAndFilesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13713,9 +13516,6 @@ class ListLifecycleRetrieveJobsResponse(TeaModel):
         self.body = body  # type: ListLifecycleRetrieveJobsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13885,9 +13685,6 @@ class ListRecentlyRecycledDirectoriesResponse(TeaModel):
         self.body = body  # type: ListRecentlyRecycledDirectoriesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14134,9 +13931,6 @@ class ListRecycleBinJobsResponse(TeaModel):
         self.body = body  # type: ListRecycleBinJobsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14350,9 +14144,6 @@ class ListRecycledDirectoriesAndFilesResponse(TeaModel):
         self.body = body  # type: ListRecycledDirectoriesAndFilesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14600,9 +14391,6 @@ class ListTagResourcesResponse(TeaModel):
         self.body = body  # type: ListTagResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14717,9 +14505,6 @@ class ModifyAccessGroupResponse(TeaModel):
         self.body = body  # type: ModifyAccessGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14879,9 +14664,6 @@ class ModifyAccessRuleResponse(TeaModel):
         self.body = body  # type: ModifyAccessRuleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15018,9 +14800,6 @@ class ModifyAutoSnapshotPolicyResponse(TeaModel):
         self.body = body  # type: ModifyAutoSnapshotPolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15161,9 +14940,6 @@ class ModifyDataFlowResponse(TeaModel):
         self.body = body  # type: ModifyDataFlowResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15274,9 +15050,6 @@ class ModifyDataFlowAutoRefreshResponse(TeaModel):
         self.body = body  # type: ModifyDataFlowAutoRefreshResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15380,9 +15153,6 @@ class ModifyFileSystemResponse(TeaModel):
         self.body = body  # type: ModifyFileSystemResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15504,9 +15274,6 @@ class ModifyFilesetResponse(TeaModel):
         self.body = body  # type: ModifyFilesetResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15606,9 +15373,6 @@ class ModifyLDAPConfigResponse(TeaModel):
         self.body = body  # type: ModifyLDAPConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15744,9 +15508,6 @@ class ModifyLifecyclePolicyResponse(TeaModel):
         self.body = body  # type: ModifyLifecyclePolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15868,9 +15629,6 @@ class ModifyMountTargetResponse(TeaModel):
         self.body = body  # type: ModifyMountTargetResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16003,9 +15761,6 @@ class ModifyProtocolMountTargetResponse(TeaModel):
         self.body = body  # type: ModifyProtocolMountTargetResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16132,9 +15887,6 @@ class ModifyProtocolServiceResponse(TeaModel):
         self.body = body  # type: ModifyProtocolServiceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16287,9 +16039,6 @@ class ModifySmbAclResponse(TeaModel):
         self.body = body  # type: ModifySmbAclResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16357,9 +16106,6 @@ class OpenNASServiceResponse(TeaModel):
         self.body = body  # type: OpenNASServiceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16460,9 +16206,6 @@ class RemoveClientFromBlackListResponse(TeaModel):
         self.body = body  # type: RemoveClientFromBlackListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16593,9 +16336,6 @@ class RemoveTagsResponse(TeaModel):
         self.body = body  # type: RemoveTagsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16688,9 +16428,6 @@ class ResetFileSystemResponse(TeaModel):
         self.body = body  # type: ResetFileSystemResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16777,9 +16514,6 @@ class RetryLifecycleRetrieveJobResponse(TeaModel):
         self.body = body  # type: RetryLifecycleRetrieveJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16940,9 +16674,6 @@ class SetDirQuotaResponse(TeaModel):
         self.body = body  # type: SetDirQuotaResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17058,9 +16789,6 @@ class StartDataFlowResponse(TeaModel):
         self.body = body  # type: StartDataFlowResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17176,9 +16904,6 @@ class StopDataFlowResponse(TeaModel):
         self.body = body  # type: StopDataFlowResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17331,9 +17056,6 @@ class TagResourcesResponse(TeaModel):
         self.body = body  # type: TagResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17447,9 +17169,6 @@ class UntagResourcesResponse(TeaModel):
         self.body = body  # type: UntagResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17546,9 +17265,6 @@ class UpdateRecycleBinAttributeResponse(TeaModel):
         self.body = body  # type: UpdateRecycleBinAttributeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17671,9 +17387,6 @@ class UpgradeFileSystemResponse(TeaModel):
         self.body = body  # type: UpgradeFileSystemResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
