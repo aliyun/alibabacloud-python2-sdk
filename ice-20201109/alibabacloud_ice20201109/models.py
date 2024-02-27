@@ -15191,11 +15191,12 @@ class GetSmartHandleJobRequest(TeaModel):
 
 
 class GetSmartHandleJobResponseBodyJobResult(TeaModel):
-    def __init__(self, ai_result=None, media_id=None):
+    def __init__(self, ai_result=None, media_id=None, usage=None):
         # 智能分析结果
         self.ai_result = ai_result  # type: str
         # 媒资Id
         self.media_id = media_id  # type: str
+        self.usage = usage  # type: str
 
     def validate(self):
         pass
@@ -15210,6 +15211,8 @@ class GetSmartHandleJobResponseBodyJobResult(TeaModel):
             result['AiResult'] = self.ai_result
         if self.media_id is not None:
             result['MediaId'] = self.media_id
+        if self.usage is not None:
+            result['Usage'] = self.usage
         return result
 
     def from_map(self, m=None):
@@ -15218,6 +15221,8 @@ class GetSmartHandleJobResponseBodyJobResult(TeaModel):
             self.ai_result = m.get('AiResult')
         if m.get('MediaId') is not None:
             self.media_id = m.get('MediaId')
+        if m.get('Usage') is not None:
+            self.usage = m.get('Usage')
         return self
 
 
