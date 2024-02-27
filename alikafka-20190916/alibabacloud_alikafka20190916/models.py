@@ -849,6 +849,118 @@ class CreatePostPayOrderResponse(TeaModel):
         return self
 
 
+class CreatePrePayOrderRequestConfluentConfig(TeaModel):
+    def __init__(self, connect_cu=None, connect_replica=None, control_center_cu=None, control_center_replica=None,
+                 control_center_storage=None, kafka_cu=None, kafka_replica=None, kafka_rest_proxy_cu=None, kafka_rest_proxy_replica=None,
+                 kafka_storage=None, ksql_cu=None, ksql_replica=None, ksql_storage=None, schema_registry_cu=None,
+                 schema_registry_replica=None, zoo_keeper_cu=None, zoo_keeper_replica=None, zoo_keeper_storage=None):
+        self.connect_cu = connect_cu  # type: int
+        self.connect_replica = connect_replica  # type: int
+        self.control_center_cu = control_center_cu  # type: int
+        self.control_center_replica = control_center_replica  # type: int
+        self.control_center_storage = control_center_storage  # type: int
+        self.kafka_cu = kafka_cu  # type: int
+        self.kafka_replica = kafka_replica  # type: int
+        self.kafka_rest_proxy_cu = kafka_rest_proxy_cu  # type: int
+        self.kafka_rest_proxy_replica = kafka_rest_proxy_replica  # type: int
+        self.kafka_storage = kafka_storage  # type: int
+        self.ksql_cu = ksql_cu  # type: int
+        self.ksql_replica = ksql_replica  # type: int
+        self.ksql_storage = ksql_storage  # type: int
+        self.schema_registry_cu = schema_registry_cu  # type: int
+        self.schema_registry_replica = schema_registry_replica  # type: int
+        self.zoo_keeper_cu = zoo_keeper_cu  # type: int
+        self.zoo_keeper_replica = zoo_keeper_replica  # type: int
+        self.zoo_keeper_storage = zoo_keeper_storage  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreatePrePayOrderRequestConfluentConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.connect_cu is not None:
+            result['ConnectCU'] = self.connect_cu
+        if self.connect_replica is not None:
+            result['ConnectReplica'] = self.connect_replica
+        if self.control_center_cu is not None:
+            result['ControlCenterCU'] = self.control_center_cu
+        if self.control_center_replica is not None:
+            result['ControlCenterReplica'] = self.control_center_replica
+        if self.control_center_storage is not None:
+            result['ControlCenterStorage'] = self.control_center_storage
+        if self.kafka_cu is not None:
+            result['KafkaCU'] = self.kafka_cu
+        if self.kafka_replica is not None:
+            result['KafkaReplica'] = self.kafka_replica
+        if self.kafka_rest_proxy_cu is not None:
+            result['KafkaRestProxyCU'] = self.kafka_rest_proxy_cu
+        if self.kafka_rest_proxy_replica is not None:
+            result['KafkaRestProxyReplica'] = self.kafka_rest_proxy_replica
+        if self.kafka_storage is not None:
+            result['KafkaStorage'] = self.kafka_storage
+        if self.ksql_cu is not None:
+            result['KsqlCU'] = self.ksql_cu
+        if self.ksql_replica is not None:
+            result['KsqlReplica'] = self.ksql_replica
+        if self.ksql_storage is not None:
+            result['KsqlStorage'] = self.ksql_storage
+        if self.schema_registry_cu is not None:
+            result['SchemaRegistryCU'] = self.schema_registry_cu
+        if self.schema_registry_replica is not None:
+            result['SchemaRegistryReplica'] = self.schema_registry_replica
+        if self.zoo_keeper_cu is not None:
+            result['ZooKeeperCU'] = self.zoo_keeper_cu
+        if self.zoo_keeper_replica is not None:
+            result['ZooKeeperReplica'] = self.zoo_keeper_replica
+        if self.zoo_keeper_storage is not None:
+            result['ZooKeeperStorage'] = self.zoo_keeper_storage
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConnectCU') is not None:
+            self.connect_cu = m.get('ConnectCU')
+        if m.get('ConnectReplica') is not None:
+            self.connect_replica = m.get('ConnectReplica')
+        if m.get('ControlCenterCU') is not None:
+            self.control_center_cu = m.get('ControlCenterCU')
+        if m.get('ControlCenterReplica') is not None:
+            self.control_center_replica = m.get('ControlCenterReplica')
+        if m.get('ControlCenterStorage') is not None:
+            self.control_center_storage = m.get('ControlCenterStorage')
+        if m.get('KafkaCU') is not None:
+            self.kafka_cu = m.get('KafkaCU')
+        if m.get('KafkaReplica') is not None:
+            self.kafka_replica = m.get('KafkaReplica')
+        if m.get('KafkaRestProxyCU') is not None:
+            self.kafka_rest_proxy_cu = m.get('KafkaRestProxyCU')
+        if m.get('KafkaRestProxyReplica') is not None:
+            self.kafka_rest_proxy_replica = m.get('KafkaRestProxyReplica')
+        if m.get('KafkaStorage') is not None:
+            self.kafka_storage = m.get('KafkaStorage')
+        if m.get('KsqlCU') is not None:
+            self.ksql_cu = m.get('KsqlCU')
+        if m.get('KsqlReplica') is not None:
+            self.ksql_replica = m.get('KsqlReplica')
+        if m.get('KsqlStorage') is not None:
+            self.ksql_storage = m.get('KsqlStorage')
+        if m.get('SchemaRegistryCU') is not None:
+            self.schema_registry_cu = m.get('SchemaRegistryCU')
+        if m.get('SchemaRegistryReplica') is not None:
+            self.schema_registry_replica = m.get('SchemaRegistryReplica')
+        if m.get('ZooKeeperCU') is not None:
+            self.zoo_keeper_cu = m.get('ZooKeeperCU')
+        if m.get('ZooKeeperReplica') is not None:
+            self.zoo_keeper_replica = m.get('ZooKeeperReplica')
+        if m.get('ZooKeeperStorage') is not None:
+            self.zoo_keeper_storage = m.get('ZooKeeperStorage')
+        return self
+
+
 class CreatePrePayOrderRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
         # The key of tag N.
@@ -889,8 +1001,10 @@ class CreatePrePayOrderRequestTag(TeaModel):
 
 
 class CreatePrePayOrderRequest(TeaModel):
-    def __init__(self, deploy_type=None, disk_size=None, disk_type=None, eip_max=None, io_max=None, io_max_spec=None,
-                 partition_num=None, region_id=None, resource_group_id=None, spec_type=None, tag=None, topic_quota=None):
+    def __init__(self, confluent_config=None, deploy_type=None, disk_size=None, disk_type=None, eip_max=None,
+                 io_max=None, io_max_spec=None, partition_num=None, region_id=None, resource_group_id=None, spec_type=None,
+                 tag=None, topic_quota=None):
+        self.confluent_config = confluent_config  # type: CreatePrePayOrderRequestConfluentConfig
         # The deployment mode of the instance. Valid values:
         # 
         # *   **4**: deploys the instance that allows access from the Internet and a VPC.
@@ -951,6 +1065,8 @@ class CreatePrePayOrderRequest(TeaModel):
         self.topic_quota = topic_quota  # type: int
 
     def validate(self):
+        if self.confluent_config:
+            self.confluent_config.validate()
         if self.tag:
             for k in self.tag:
                 if k:
@@ -962,6 +1078,8 @@ class CreatePrePayOrderRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.confluent_config is not None:
+            result['ConfluentConfig'] = self.confluent_config.to_map()
         if self.deploy_type is not None:
             result['DeployType'] = self.deploy_type
         if self.disk_size is not None:
@@ -992,6 +1110,9 @@ class CreatePrePayOrderRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ConfluentConfig') is not None:
+            temp_model = CreatePrePayOrderRequestConfluentConfig()
+            self.confluent_config = temp_model.from_map(m['ConfluentConfig'])
         if m.get('DeployType') is not None:
             self.deploy_type = m.get('DeployType')
         if m.get('DiskSize') is not None:
@@ -1016,6 +1137,185 @@ class CreatePrePayOrderRequest(TeaModel):
         if m.get('Tag') is not None:
             for k in m.get('Tag'):
                 temp_model = CreatePrePayOrderRequestTag()
+                self.tag.append(temp_model.from_map(k))
+        if m.get('TopicQuota') is not None:
+            self.topic_quota = m.get('TopicQuota')
+        return self
+
+
+class CreatePrePayOrderShrinkRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        # The key of tag N.
+        # 
+        # *   Valid values of N: 1 to 20.
+        # *   If this parameter is left empty, the keys of all tags are matched.
+        # *   The tag key can be up to 128 characters in length and cannot start with acs: or aliyun or contain [http:// or https://.](http://https://。)
+        self.key = key  # type: str
+        # The value of tag N.
+        # 
+        # *   Valid values of N: 1 to 20.
+        # *   This parameter can be left empty.
+        # *   The tag value can be 1 to 128 characters in length and cannot start with acs: or aliyun or contain [http:// or https://.](http://https://。)
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreatePrePayOrderShrinkRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class CreatePrePayOrderShrinkRequest(TeaModel):
+    def __init__(self, confluent_config_shrink=None, deploy_type=None, disk_size=None, disk_type=None, eip_max=None,
+                 io_max=None, io_max_spec=None, partition_num=None, region_id=None, resource_group_id=None, spec_type=None,
+                 tag=None, topic_quota=None):
+        self.confluent_config_shrink = confluent_config_shrink  # type: str
+        # The deployment mode of the instance. Valid values:
+        # 
+        # *   **4**: deploys the instance that allows access from the Internet and a VPC.
+        # *   **5**: deploys the instance that allows access only from a VPC.
+        self.deploy_type = deploy_type  # type: int
+        # The disk size. Unit: GB.
+        # 
+        # For more information about the valid values, see [Billing](~~84737~~).
+        self.disk_size = disk_size  # type: int
+        # The disk type. Valid values:
+        # 
+        # *   **0**: ultra disk
+        # *   **1**: standard SSD
+        self.disk_type = disk_type  # type: str
+        # The Internet traffic for the instance.
+        # 
+        # *   This parameter is required if the **DeployType** parameter is set to **4**.
+        # *   For more information about the valid values, see [Pay-as-you-go](~~72142~~).
+        self.eip_max = eip_max  # type: int
+        # The maximum traffic for the instance. We recommend that you do not configure this parameter.
+        # 
+        # *   You must configure at least one of the **IoMax** and **IoMaxSpec** parameters. If both parameters are configured, the value of the **IoMaxSpec** parameter takes effect. We recommend that you configure only the **IoMaxSpec** parameter.
+        # *   For more information about the valid values, see [Billing](~~84737~~).
+        self.io_max = io_max  # type: int
+        # The traffic specification of the instance. We recommend that you configure this parameter.
+        # 
+        # *   You must configure at least one of the **IoMax** and **IoMaxSpec** parameters. If both parameters are configured, the value of the **IoMaxSpec** parameter takes effect. We recommend that you configure only the **IoMaxSpec** parameter.
+        # *   For more information about the valid values, see [Billing](~~84737~~).
+        self.io_max_spec = io_max_spec  # type: str
+        # The number of partitions. We recommend that you configure this parameter.
+        # 
+        # *   You must specify at least one of the PartitionNum and TopicQuota parameters. We recommend that you configure only the PartitionNum parameter.
+        # *   If you specify both parameters, the topic-based sales model is used to check whether the PartitionNum value and the TopicQuota value are the same. If they are not the same, a failure response is returned. If they are the same, the order is placed based on the PartitionNum value.
+        # *   For more information about the valid values, see [Billing](~~84737~~).
+        self.partition_num = partition_num  # type: int
+        # The region ID of the instance.
+        self.region_id = region_id  # type: str
+        # The ID of the resource group.
+        # 
+        # If this parameter is left empty, the default resource group is used. You can view the resource group ID on the Resource Group page in the Resource Management console.
+        self.resource_group_id = resource_group_id  # type: str
+        # The edition of the instance. Valid values:
+        # 
+        # *   **normal**: Standard Edition (High Write)
+        # *   **professional**: Professional Edition (High Write)
+        # *   **professionalForHighRead**: Professional Edition (High Read)
+        # 
+        # For more information, see [Billing](~~84737~~).
+        self.spec_type = spec_type  # type: str
+        # The tags.
+        self.tag = tag  # type: list[CreatePrePayOrderShrinkRequestTag]
+        # The number of topics. We recommend that you do not configure this parameter.
+        # 
+        # *   You must specify at least one of the PartitionNum and TopicQuota parameters. We recommend that you configure only the PartitionNum parameter.
+        # *   If you specify both parameters, the topic-based sales model is used to check whether the PartitionNum value and the TopicQuota value are the same. If they are not the same, a failure response is returned. If they are the same, the order is placed based on the PartitionNum value.
+        # *   The default value of the TopicQuota parameter varies based on the value of the IoMaxSpec parameter. If the number of topics that you consume exceeds the default value, you are charged additional fees.
+        # *   For more information about the valid values, see [Billing](~~84737~~).
+        self.topic_quota = topic_quota  # type: int
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(CreatePrePayOrderShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.confluent_config_shrink is not None:
+            result['ConfluentConfig'] = self.confluent_config_shrink
+        if self.deploy_type is not None:
+            result['DeployType'] = self.deploy_type
+        if self.disk_size is not None:
+            result['DiskSize'] = self.disk_size
+        if self.disk_type is not None:
+            result['DiskType'] = self.disk_type
+        if self.eip_max is not None:
+            result['EipMax'] = self.eip_max
+        if self.io_max is not None:
+            result['IoMax'] = self.io_max
+        if self.io_max_spec is not None:
+            result['IoMaxSpec'] = self.io_max_spec
+        if self.partition_num is not None:
+            result['PartitionNum'] = self.partition_num
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.spec_type is not None:
+            result['SpecType'] = self.spec_type
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
+        if self.topic_quota is not None:
+            result['TopicQuota'] = self.topic_quota
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConfluentConfig') is not None:
+            self.confluent_config_shrink = m.get('ConfluentConfig')
+        if m.get('DeployType') is not None:
+            self.deploy_type = m.get('DeployType')
+        if m.get('DiskSize') is not None:
+            self.disk_size = m.get('DiskSize')
+        if m.get('DiskType') is not None:
+            self.disk_type = m.get('DiskType')
+        if m.get('EipMax') is not None:
+            self.eip_max = m.get('EipMax')
+        if m.get('IoMax') is not None:
+            self.io_max = m.get('IoMax')
+        if m.get('IoMaxSpec') is not None:
+            self.io_max_spec = m.get('IoMaxSpec')
+        if m.get('PartitionNum') is not None:
+            self.partition_num = m.get('PartitionNum')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('SpecType') is not None:
+            self.spec_type = m.get('SpecType')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = CreatePrePayOrderShrinkRequestTag()
                 self.tag.append(temp_model.from_map(k))
         if m.get('TopicQuota') is not None:
             self.topic_quota = m.get('TopicQuota')
@@ -3599,6 +3899,118 @@ class GetInstanceListRequest(TeaModel):
         return self
 
 
+class GetInstanceListResponseBodyInstanceListInstanceVOConfluentConfig(TeaModel):
+    def __init__(self, connect_cu=None, connect_replica=None, control_center_cu=None, control_center_replica=None,
+                 control_center_storage=None, kafka_cu=None, kafka_replica=None, kafka_rest_proxy_cu=None, kafka_rest_proxy_replica=None,
+                 kafka_storage=None, ksql_cu=None, ksql_replica=None, ksql_storage=None, schema_registry_cu=None,
+                 schema_registry_replica=None, zoo_keeper_cu=None, zoo_keeper_replica=None, zoo_keeper_storage=None):
+        self.connect_cu = connect_cu  # type: int
+        self.connect_replica = connect_replica  # type: int
+        self.control_center_cu = control_center_cu  # type: int
+        self.control_center_replica = control_center_replica  # type: int
+        self.control_center_storage = control_center_storage  # type: int
+        self.kafka_cu = kafka_cu  # type: int
+        self.kafka_replica = kafka_replica  # type: int
+        self.kafka_rest_proxy_cu = kafka_rest_proxy_cu  # type: int
+        self.kafka_rest_proxy_replica = kafka_rest_proxy_replica  # type: int
+        self.kafka_storage = kafka_storage  # type: int
+        self.ksql_cu = ksql_cu  # type: int
+        self.ksql_replica = ksql_replica  # type: int
+        self.ksql_storage = ksql_storage  # type: int
+        self.schema_registry_cu = schema_registry_cu  # type: int
+        self.schema_registry_replica = schema_registry_replica  # type: int
+        self.zoo_keeper_cu = zoo_keeper_cu  # type: int
+        self.zoo_keeper_replica = zoo_keeper_replica  # type: int
+        self.zoo_keeper_storage = zoo_keeper_storage  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetInstanceListResponseBodyInstanceListInstanceVOConfluentConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.connect_cu is not None:
+            result['ConnectCU'] = self.connect_cu
+        if self.connect_replica is not None:
+            result['ConnectReplica'] = self.connect_replica
+        if self.control_center_cu is not None:
+            result['ControlCenterCU'] = self.control_center_cu
+        if self.control_center_replica is not None:
+            result['ControlCenterReplica'] = self.control_center_replica
+        if self.control_center_storage is not None:
+            result['ControlCenterStorage'] = self.control_center_storage
+        if self.kafka_cu is not None:
+            result['KafkaCU'] = self.kafka_cu
+        if self.kafka_replica is not None:
+            result['KafkaReplica'] = self.kafka_replica
+        if self.kafka_rest_proxy_cu is not None:
+            result['KafkaRestProxyCU'] = self.kafka_rest_proxy_cu
+        if self.kafka_rest_proxy_replica is not None:
+            result['KafkaRestProxyReplica'] = self.kafka_rest_proxy_replica
+        if self.kafka_storage is not None:
+            result['KafkaStorage'] = self.kafka_storage
+        if self.ksql_cu is not None:
+            result['KsqlCU'] = self.ksql_cu
+        if self.ksql_replica is not None:
+            result['KsqlReplica'] = self.ksql_replica
+        if self.ksql_storage is not None:
+            result['KsqlStorage'] = self.ksql_storage
+        if self.schema_registry_cu is not None:
+            result['SchemaRegistryCU'] = self.schema_registry_cu
+        if self.schema_registry_replica is not None:
+            result['SchemaRegistryReplica'] = self.schema_registry_replica
+        if self.zoo_keeper_cu is not None:
+            result['ZooKeeperCU'] = self.zoo_keeper_cu
+        if self.zoo_keeper_replica is not None:
+            result['ZooKeeperReplica'] = self.zoo_keeper_replica
+        if self.zoo_keeper_storage is not None:
+            result['ZooKeeperStorage'] = self.zoo_keeper_storage
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConnectCU') is not None:
+            self.connect_cu = m.get('ConnectCU')
+        if m.get('ConnectReplica') is not None:
+            self.connect_replica = m.get('ConnectReplica')
+        if m.get('ControlCenterCU') is not None:
+            self.control_center_cu = m.get('ControlCenterCU')
+        if m.get('ControlCenterReplica') is not None:
+            self.control_center_replica = m.get('ControlCenterReplica')
+        if m.get('ControlCenterStorage') is not None:
+            self.control_center_storage = m.get('ControlCenterStorage')
+        if m.get('KafkaCU') is not None:
+            self.kafka_cu = m.get('KafkaCU')
+        if m.get('KafkaReplica') is not None:
+            self.kafka_replica = m.get('KafkaReplica')
+        if m.get('KafkaRestProxyCU') is not None:
+            self.kafka_rest_proxy_cu = m.get('KafkaRestProxyCU')
+        if m.get('KafkaRestProxyReplica') is not None:
+            self.kafka_rest_proxy_replica = m.get('KafkaRestProxyReplica')
+        if m.get('KafkaStorage') is not None:
+            self.kafka_storage = m.get('KafkaStorage')
+        if m.get('KsqlCU') is not None:
+            self.ksql_cu = m.get('KsqlCU')
+        if m.get('KsqlReplica') is not None:
+            self.ksql_replica = m.get('KsqlReplica')
+        if m.get('KsqlStorage') is not None:
+            self.ksql_storage = m.get('KsqlStorage')
+        if m.get('SchemaRegistryCU') is not None:
+            self.schema_registry_cu = m.get('SchemaRegistryCU')
+        if m.get('SchemaRegistryReplica') is not None:
+            self.schema_registry_replica = m.get('SchemaRegistryReplica')
+        if m.get('ZooKeeperCU') is not None:
+            self.zoo_keeper_cu = m.get('ZooKeeperCU')
+        if m.get('ZooKeeperReplica') is not None:
+            self.zoo_keeper_replica = m.get('ZooKeeperReplica')
+        if m.get('ZooKeeperStorage') is not None:
+            self.zoo_keeper_storage = m.get('ZooKeeperStorage')
+        return self
+
+
 class GetInstanceListResponseBodyInstanceListInstanceVOTagsTagVO(TeaModel):
     def __init__(self, key=None, value=None):
         # The tag key.
@@ -3688,15 +4100,16 @@ class GetInstanceListResponseBodyInstanceListInstanceVOUpgradeServiceDetailInfo(
 
 
 class GetInstanceListResponseBodyInstanceListInstanceVO(TeaModel):
-    def __init__(self, all_config=None, create_time=None, deploy_type=None, disk_size=None, disk_type=None,
-                 domain_endpoint=None, eip_max=None, end_point=None, expired_time=None, instance_id=None, io_max=None,
-                 io_max_spec=None, kms_key_id=None, msg_retain=None, name=None, paid_type=None, region_id=None,
+    def __init__(self, all_config=None, confluent_config=None, create_time=None, deploy_type=None, disk_size=None,
+                 disk_type=None, domain_endpoint=None, eip_max=None, end_point=None, expired_time=None, instance_id=None,
+                 io_max=None, io_max_spec=None, kms_key_id=None, msg_retain=None, name=None, paid_type=None, region_id=None,
                  resource_group_id=None, sasl_domain_endpoint=None, security_group=None, service_status=None, spec_type=None,
                  ssl_domain_endpoint=None, ssl_end_point=None, standard_zone_id=None, tags=None, topic_num_limit=None,
                  upgrade_service_detail_info=None, used_group_count=None, used_partition_count=None, used_topic_count=None, v_switch_id=None,
                  vpc_id=None, zone_id=None):
         # The configurations of the deployed ApsaraMQ for Kafka instance.
         self.all_config = all_config  # type: str
+        self.confluent_config = confluent_config  # type: GetInstanceListResponseBodyInstanceListInstanceVOConfluentConfig
         # The time when the instance was created. Unit: milliseconds.
         self.create_time = create_time  # type: long
         # The type of the network in which the instance is deployed. Valid values:
@@ -3809,6 +4222,8 @@ class GetInstanceListResponseBodyInstanceListInstanceVO(TeaModel):
         self.zone_id = zone_id  # type: str
 
     def validate(self):
+        if self.confluent_config:
+            self.confluent_config.validate()
         if self.tags:
             self.tags.validate()
         if self.upgrade_service_detail_info:
@@ -3822,6 +4237,8 @@ class GetInstanceListResponseBodyInstanceListInstanceVO(TeaModel):
         result = dict()
         if self.all_config is not None:
             result['AllConfig'] = self.all_config
+        if self.confluent_config is not None:
+            result['ConfluentConfig'] = self.confluent_config.to_map()
         if self.create_time is not None:
             result['CreateTime'] = self.create_time
         if self.deploy_type is not None:
@@ -3894,6 +4311,9 @@ class GetInstanceListResponseBodyInstanceListInstanceVO(TeaModel):
         m = m or dict()
         if m.get('AllConfig') is not None:
             self.all_config = m.get('AllConfig')
+        if m.get('ConfluentConfig') is not None:
+            temp_model = GetInstanceListResponseBodyInstanceListInstanceVOConfluentConfig()
+            self.confluent_config = temp_model.from_map(m['ConfluentConfig'])
         if m.get('CreateTime') is not None:
             self.create_time = m.get('CreateTime')
         if m.get('DeployType') is not None:
@@ -6035,7 +6455,7 @@ class StartInstanceRequest(TeaModel):
     def __init__(self, config=None, cross_zone=None, deploy_module=None, instance_id=None, is_eip_inner=None,
                  is_force_selected_zones=None, is_set_user_and_password=None, kmskey_id=None, name=None, notifier=None, password=None,
                  region_id=None, security_group=None, selected_zones=None, service_version=None, user_phone_num=None,
-                 username=None, v_switch_id=None, vpc_id=None, zone_id=None):
+                 username=None, v_switch_id=None, v_switch_ids=None, vpc_id=None, zone_id=None):
         # The initial configurations of ApsaraMQ for Kafka. The value must be a valid JSON string.
         # 
         # If you do not specify this parameter, it is left empty.
@@ -6128,6 +6548,7 @@ class StartInstanceRequest(TeaModel):
         self.username = username  # type: str
         # The ID of the vSwitch to which you want to connect the instance.
         self.v_switch_id = v_switch_id  # type: str
+        self.v_switch_ids = v_switch_ids  # type: list[str]
         # The ID of the virtual private cloud (VPC) in which you want to deploy the instance.
         self.vpc_id = vpc_id  # type: str
         # The ID of the zone in which you want to deploy the instance.
@@ -6181,6 +6602,8 @@ class StartInstanceRequest(TeaModel):
             result['Username'] = self.username
         if self.v_switch_id is not None:
             result['VSwitchId'] = self.v_switch_id
+        if self.v_switch_ids is not None:
+            result['VSwitchIds'] = self.v_switch_ids
         if self.vpc_id is not None:
             result['VpcId'] = self.vpc_id
         if self.zone_id is not None:
@@ -6225,6 +6648,8 @@ class StartInstanceRequest(TeaModel):
             self.username = m.get('Username')
         if m.get('VSwitchId') is not None:
             self.v_switch_id = m.get('VSwitchId')
+        if m.get('VSwitchIds') is not None:
+            self.v_switch_ids = m.get('VSwitchIds')
         if m.get('VpcId') is not None:
             self.vpc_id = m.get('VpcId')
         if m.get('ZoneId') is not None:
@@ -7726,9 +8151,123 @@ class UpgradePostPayOrderResponse(TeaModel):
         return self
 
 
+class UpgradePrePayOrderRequestConfluentConfig(TeaModel):
+    def __init__(self, connect_cu=None, connect_replica=None, control_center_cu=None, control_center_replica=None,
+                 control_center_storage=None, kafka_cu=None, kafka_replica=None, kafka_rest_proxy_cu=None, kafka_rest_proxy_replica=None,
+                 kafka_storage=None, ksql_cu=None, ksql_replica=None, ksql_storage=None, schema_registry_cu=None,
+                 schema_registry_replica=None, zoo_keeper_cu=None, zoo_keeper_replica=None, zoo_keeper_storage=None):
+        self.connect_cu = connect_cu  # type: int
+        self.connect_replica = connect_replica  # type: int
+        self.control_center_cu = control_center_cu  # type: int
+        self.control_center_replica = control_center_replica  # type: int
+        self.control_center_storage = control_center_storage  # type: int
+        self.kafka_cu = kafka_cu  # type: int
+        self.kafka_replica = kafka_replica  # type: int
+        self.kafka_rest_proxy_cu = kafka_rest_proxy_cu  # type: int
+        self.kafka_rest_proxy_replica = kafka_rest_proxy_replica  # type: int
+        self.kafka_storage = kafka_storage  # type: int
+        self.ksql_cu = ksql_cu  # type: int
+        self.ksql_replica = ksql_replica  # type: int
+        self.ksql_storage = ksql_storage  # type: int
+        self.schema_registry_cu = schema_registry_cu  # type: int
+        self.schema_registry_replica = schema_registry_replica  # type: int
+        self.zoo_keeper_cu = zoo_keeper_cu  # type: int
+        self.zoo_keeper_replica = zoo_keeper_replica  # type: int
+        self.zoo_keeper_storage = zoo_keeper_storage  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpgradePrePayOrderRequestConfluentConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.connect_cu is not None:
+            result['ConnectCU'] = self.connect_cu
+        if self.connect_replica is not None:
+            result['ConnectReplica'] = self.connect_replica
+        if self.control_center_cu is not None:
+            result['ControlCenterCU'] = self.control_center_cu
+        if self.control_center_replica is not None:
+            result['ControlCenterReplica'] = self.control_center_replica
+        if self.control_center_storage is not None:
+            result['ControlCenterStorage'] = self.control_center_storage
+        if self.kafka_cu is not None:
+            result['KafkaCU'] = self.kafka_cu
+        if self.kafka_replica is not None:
+            result['KafkaReplica'] = self.kafka_replica
+        if self.kafka_rest_proxy_cu is not None:
+            result['KafkaRestProxyCU'] = self.kafka_rest_proxy_cu
+        if self.kafka_rest_proxy_replica is not None:
+            result['KafkaRestProxyReplica'] = self.kafka_rest_proxy_replica
+        if self.kafka_storage is not None:
+            result['KafkaStorage'] = self.kafka_storage
+        if self.ksql_cu is not None:
+            result['KsqlCU'] = self.ksql_cu
+        if self.ksql_replica is not None:
+            result['KsqlReplica'] = self.ksql_replica
+        if self.ksql_storage is not None:
+            result['KsqlStorage'] = self.ksql_storage
+        if self.schema_registry_cu is not None:
+            result['SchemaRegistryCU'] = self.schema_registry_cu
+        if self.schema_registry_replica is not None:
+            result['SchemaRegistryReplica'] = self.schema_registry_replica
+        if self.zoo_keeper_cu is not None:
+            result['ZooKeeperCU'] = self.zoo_keeper_cu
+        if self.zoo_keeper_replica is not None:
+            result['ZooKeeperReplica'] = self.zoo_keeper_replica
+        if self.zoo_keeper_storage is not None:
+            result['ZooKeeperStorage'] = self.zoo_keeper_storage
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConnectCU') is not None:
+            self.connect_cu = m.get('ConnectCU')
+        if m.get('ConnectReplica') is not None:
+            self.connect_replica = m.get('ConnectReplica')
+        if m.get('ControlCenterCU') is not None:
+            self.control_center_cu = m.get('ControlCenterCU')
+        if m.get('ControlCenterReplica') is not None:
+            self.control_center_replica = m.get('ControlCenterReplica')
+        if m.get('ControlCenterStorage') is not None:
+            self.control_center_storage = m.get('ControlCenterStorage')
+        if m.get('KafkaCU') is not None:
+            self.kafka_cu = m.get('KafkaCU')
+        if m.get('KafkaReplica') is not None:
+            self.kafka_replica = m.get('KafkaReplica')
+        if m.get('KafkaRestProxyCU') is not None:
+            self.kafka_rest_proxy_cu = m.get('KafkaRestProxyCU')
+        if m.get('KafkaRestProxyReplica') is not None:
+            self.kafka_rest_proxy_replica = m.get('KafkaRestProxyReplica')
+        if m.get('KafkaStorage') is not None:
+            self.kafka_storage = m.get('KafkaStorage')
+        if m.get('KsqlCU') is not None:
+            self.ksql_cu = m.get('KsqlCU')
+        if m.get('KsqlReplica') is not None:
+            self.ksql_replica = m.get('KsqlReplica')
+        if m.get('KsqlStorage') is not None:
+            self.ksql_storage = m.get('KsqlStorage')
+        if m.get('SchemaRegistryCU') is not None:
+            self.schema_registry_cu = m.get('SchemaRegistryCU')
+        if m.get('SchemaRegistryReplica') is not None:
+            self.schema_registry_replica = m.get('SchemaRegistryReplica')
+        if m.get('ZooKeeperCU') is not None:
+            self.zoo_keeper_cu = m.get('ZooKeeperCU')
+        if m.get('ZooKeeperReplica') is not None:
+            self.zoo_keeper_replica = m.get('ZooKeeperReplica')
+        if m.get('ZooKeeperStorage') is not None:
+            self.zoo_keeper_storage = m.get('ZooKeeperStorage')
+        return self
+
+
 class UpgradePrePayOrderRequest(TeaModel):
-    def __init__(self, disk_size=None, eip_max=None, eip_model=None, instance_id=None, io_max=None, io_max_spec=None,
-                 partition_num=None, region_id=None, spec_type=None, topic_quota=None):
+    def __init__(self, confluent_config=None, disk_size=None, eip_max=None, eip_model=None, instance_id=None,
+                 io_max=None, io_max_spec=None, paid_type=None, partition_num=None, region_id=None, spec_type=None,
+                 topic_quota=None):
+        self.confluent_config = confluent_config  # type: UpgradePrePayOrderRequestConfluentConfig
         # The size of the disk.
         # 
         # *   The disk size that you specify must be greater than or equal to the current disk size of the instance.
@@ -7760,6 +8299,134 @@ class UpgradePrePayOrderRequest(TeaModel):
         # *   You must configure at least one of the IoMax and IoMaxSpec parameters. If you configure both parameters, the value of the IoMaxSpec parameter takes effect. We recommend that you configure only the IoMaxSpec parameter.
         # *   For more information about the valid values, see [Billing overview](~~84737~~).
         self.io_max_spec = io_max_spec  # type: str
+        self.paid_type = paid_type  # type: int
+        # The number of partitions. We recommend that you configure this parameter.
+        # 
+        # *   You must specify at least one of the PartitionNum and TopicQuota parameters. We recommend that you configure only the PartitionNum parameter.
+        # *   If you specify both parameters, the topic-based sales model is used to check whether the PartitionNum value and the TopicQuota value are the same. If they are not the same, a failure response is returned. If they are the same, the order is placed based on the PartitionNum value.
+        # *   For more information about the valid values, see [Billing overview](~~84737~~).
+        self.partition_num = partition_num  # type: int
+        # The region ID of the instance.
+        self.region_id = region_id  # type: str
+        # The edition of the instance. Valid values:
+        # 
+        # *   **normal**: Standard Edition (High Write)
+        # *   **professional**: Professional Edition (High Write)
+        # *   **professionalForHighRead**: Professional Edition (High Read)
+        # 
+        # You cannot downgrade an instance from the Professional Edition to the Standard Edition. For more information about these instance editions, see [Billing overview](~~84737~~).
+        self.spec_type = spec_type  # type: str
+        # The number of topics. We recommend that you do not configure this parameter.
+        # 
+        # *   You must specify at least one of the PartitionNum and TopicQuota parameters. We recommend that you configure only the PartitionNum parameter.
+        # *   If you specify both parameters, the topic-based sales model is used to check whether the PartitionNum value and the TopicQuota value are the same. If they are not the same, a failure response is returned. If they are the same, the order is placed based on the PartitionNum value.
+        # *   The default value of the TopicQuota parameter varies based on the value of the IoMaxSpec parameter. If the number of topics that you consume exceeds the default value, you are charged additional fees.
+        # *   For more information about the valid values, see [Billing overview](~~84737~~).
+        self.topic_quota = topic_quota  # type: int
+
+    def validate(self):
+        if self.confluent_config:
+            self.confluent_config.validate()
+
+    def to_map(self):
+        _map = super(UpgradePrePayOrderRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.confluent_config is not None:
+            result['ConfluentConfig'] = self.confluent_config.to_map()
+        if self.disk_size is not None:
+            result['DiskSize'] = self.disk_size
+        if self.eip_max is not None:
+            result['EipMax'] = self.eip_max
+        if self.eip_model is not None:
+            result['EipModel'] = self.eip_model
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.io_max is not None:
+            result['IoMax'] = self.io_max
+        if self.io_max_spec is not None:
+            result['IoMaxSpec'] = self.io_max_spec
+        if self.paid_type is not None:
+            result['PaidType'] = self.paid_type
+        if self.partition_num is not None:
+            result['PartitionNum'] = self.partition_num
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.spec_type is not None:
+            result['SpecType'] = self.spec_type
+        if self.topic_quota is not None:
+            result['TopicQuota'] = self.topic_quota
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConfluentConfig') is not None:
+            temp_model = UpgradePrePayOrderRequestConfluentConfig()
+            self.confluent_config = temp_model.from_map(m['ConfluentConfig'])
+        if m.get('DiskSize') is not None:
+            self.disk_size = m.get('DiskSize')
+        if m.get('EipMax') is not None:
+            self.eip_max = m.get('EipMax')
+        if m.get('EipModel') is not None:
+            self.eip_model = m.get('EipModel')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('IoMax') is not None:
+            self.io_max = m.get('IoMax')
+        if m.get('IoMaxSpec') is not None:
+            self.io_max_spec = m.get('IoMaxSpec')
+        if m.get('PaidType') is not None:
+            self.paid_type = m.get('PaidType')
+        if m.get('PartitionNum') is not None:
+            self.partition_num = m.get('PartitionNum')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('SpecType') is not None:
+            self.spec_type = m.get('SpecType')
+        if m.get('TopicQuota') is not None:
+            self.topic_quota = m.get('TopicQuota')
+        return self
+
+
+class UpgradePrePayOrderShrinkRequest(TeaModel):
+    def __init__(self, confluent_config_shrink=None, disk_size=None, eip_max=None, eip_model=None, instance_id=None,
+                 io_max=None, io_max_spec=None, paid_type=None, partition_num=None, region_id=None, spec_type=None,
+                 topic_quota=None):
+        self.confluent_config_shrink = confluent_config_shrink  # type: str
+        # The size of the disk.
+        # 
+        # *   The disk size that you specify must be greater than or equal to the current disk size of the instance.
+        # *   For more information about the valid values, see [Billing overview](~~84737~~).
+        self.disk_size = disk_size  # type: int
+        # The Internet traffic for the instance.
+        # 
+        # *   The Internet traffic volume that you specify must be greater than or equal to the current Internet traffic volume of the instance.
+        # *   For more information about the valid values, see [Billing overview](~~84737~~).
+        # > - If the **EipModel** parameter is set to **true**, set the **EipMax** parameter to a value that is greater than 0.
+        # > - If the **EipModel** parameter is set to **false**, set the **EipMax** parameter to **0**.
+        self.eip_max = eip_max  # type: int
+        # Specifies whether to enable Internet access for the instance. Valid values:
+        # 
+        # *   true: enables Internet access.
+        # *   false: disables Internet access.
+        self.eip_model = eip_model  # type: bool
+        # The ID of the instance.
+        self.instance_id = instance_id  # type: str
+        # The maximum traffic for the instance. We recommend that you do not configure this parameter.
+        # 
+        # *   The maximum traffic volume that you specify must be greater than or equal to the current maximum traffic volume of the instance.
+        # *   You must configure at least one of the IoMax and IoMaxSpec parameters. If you configure both parameters, the value of the IoMaxSpec parameter takes effect. We recommend that you configure only the IoMaxSpec parameter.
+        # *   For more information about the valid values, see [Billing overview](~~84737~~).
+        self.io_max = io_max  # type: int
+        # The traffic specification of the instance. We recommend that you configure this parameter.
+        # 
+        # *   The traffic specification that you specify must be greater than or equal to the current traffic specification of the instance.
+        # *   You must configure at least one of the IoMax and IoMaxSpec parameters. If you configure both parameters, the value of the IoMaxSpec parameter takes effect. We recommend that you configure only the IoMaxSpec parameter.
+        # *   For more information about the valid values, see [Billing overview](~~84737~~).
+        self.io_max_spec = io_max_spec  # type: str
+        self.paid_type = paid_type  # type: int
         # The number of partitions. We recommend that you configure this parameter.
         # 
         # *   You must specify at least one of the PartitionNum and TopicQuota parameters. We recommend that you configure only the PartitionNum parameter.
@@ -7788,11 +8455,13 @@ class UpgradePrePayOrderRequest(TeaModel):
         pass
 
     def to_map(self):
-        _map = super(UpgradePrePayOrderRequest, self).to_map()
+        _map = super(UpgradePrePayOrderShrinkRequest, self).to_map()
         if _map is not None:
             return _map
 
         result = dict()
+        if self.confluent_config_shrink is not None:
+            result['ConfluentConfig'] = self.confluent_config_shrink
         if self.disk_size is not None:
             result['DiskSize'] = self.disk_size
         if self.eip_max is not None:
@@ -7805,6 +8474,8 @@ class UpgradePrePayOrderRequest(TeaModel):
             result['IoMax'] = self.io_max
         if self.io_max_spec is not None:
             result['IoMaxSpec'] = self.io_max_spec
+        if self.paid_type is not None:
+            result['PaidType'] = self.paid_type
         if self.partition_num is not None:
             result['PartitionNum'] = self.partition_num
         if self.region_id is not None:
@@ -7817,6 +8488,8 @@ class UpgradePrePayOrderRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ConfluentConfig') is not None:
+            self.confluent_config_shrink = m.get('ConfluentConfig')
         if m.get('DiskSize') is not None:
             self.disk_size = m.get('DiskSize')
         if m.get('EipMax') is not None:
@@ -7829,6 +8502,8 @@ class UpgradePrePayOrderRequest(TeaModel):
             self.io_max = m.get('IoMax')
         if m.get('IoMaxSpec') is not None:
             self.io_max_spec = m.get('IoMaxSpec')
+        if m.get('PaidType') is not None:
+            self.paid_type = m.get('PaidType')
         if m.get('PartitionNum') is not None:
             self.partition_num = m.get('PartitionNum')
         if m.get('RegionId') is not None:
