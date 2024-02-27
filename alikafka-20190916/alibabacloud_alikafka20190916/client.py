@@ -904,6 +904,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_topic_status_with_options(request, runtime)
 
+    def get_topic_subscribe_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.topic):
+            query['Topic'] = request.topic
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetTopicSubscribeStatus',
+            version='2019-09-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            alikafka_20190916_models.GetTopicSubscribeStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_topic_subscribe_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_topic_subscribe_status_with_options(request, runtime)
+
     def list_tag_resources_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}

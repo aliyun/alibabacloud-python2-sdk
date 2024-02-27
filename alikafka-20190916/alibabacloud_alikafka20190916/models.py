@@ -4899,6 +4899,152 @@ class GetTopicStatusResponse(TeaModel):
         return self
 
 
+class GetTopicSubscribeStatusRequest(TeaModel):
+    def __init__(self, instance_id=None, region_id=None, topic=None):
+        self.instance_id = instance_id  # type: str
+        self.region_id = region_id  # type: str
+        self.topic = topic  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetTopicSubscribeStatusRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.topic is not None:
+            result['Topic'] = self.topic
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Topic') is not None:
+            self.topic = m.get('Topic')
+        return self
+
+
+class GetTopicSubscribeStatusResponseBodyTopicSubscribeStatus(TeaModel):
+    def __init__(self, consumer_groups=None, topic=None):
+        self.consumer_groups = consumer_groups  # type: list[str]
+        self.topic = topic  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetTopicSubscribeStatusResponseBodyTopicSubscribeStatus, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.consumer_groups is not None:
+            result['ConsumerGroups'] = self.consumer_groups
+        if self.topic is not None:
+            result['Topic'] = self.topic
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConsumerGroups') is not None:
+            self.consumer_groups = m.get('ConsumerGroups')
+        if m.get('Topic') is not None:
+            self.topic = m.get('Topic')
+        return self
+
+
+class GetTopicSubscribeStatusResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None, success=None, topic_subscribe_status=None):
+        self.code = code  # type: int
+        self.message = message  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        self.topic_subscribe_status = topic_subscribe_status  # type: GetTopicSubscribeStatusResponseBodyTopicSubscribeStatus
+
+    def validate(self):
+        if self.topic_subscribe_status:
+            self.topic_subscribe_status.validate()
+
+    def to_map(self):
+        _map = super(GetTopicSubscribeStatusResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.topic_subscribe_status is not None:
+            result['TopicSubscribeStatus'] = self.topic_subscribe_status.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('TopicSubscribeStatus') is not None:
+            temp_model = GetTopicSubscribeStatusResponseBodyTopicSubscribeStatus()
+            self.topic_subscribe_status = temp_model.from_map(m['TopicSubscribeStatus'])
+        return self
+
+
+class GetTopicSubscribeStatusResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetTopicSubscribeStatusResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetTopicSubscribeStatusResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetTopicSubscribeStatusResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListTagResourcesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
         # The tag key.
