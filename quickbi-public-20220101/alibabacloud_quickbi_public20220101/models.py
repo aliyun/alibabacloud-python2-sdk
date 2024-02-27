@@ -71,9 +71,6 @@ class AddDataLevelPermissionRuleUsersResponse(TeaModel):
         self.body = body  # type: AddDataLevelPermissionRuleUsersResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -201,9 +198,6 @@ class AddDataLevelPermissionWhiteListResponse(TeaModel):
         self.body = body  # type: AddDataLevelPermissionWhiteListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -343,9 +337,6 @@ class AddShareReportResponse(TeaModel):
         self.body = body  # type: AddShareReportResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -376,12 +367,14 @@ class AddShareReportResponse(TeaModel):
 
 
 class AddUserRequest(TeaModel):
-    def __init__(self, account_name=None, admin_user=None, auth_admin_user=None, nick_name=None, user_type=None):
+    def __init__(self, account_name=None, admin_user=None, auth_admin_user=None, nick_name=None, role_ids=None,
+                 user_type=None):
         self.account_name = account_name  # type: str
         # Add organization members.
         self.admin_user = admin_user  # type: bool
         self.auth_admin_user = auth_admin_user  # type: bool
         self.nick_name = nick_name  # type: str
+        self.role_ids = role_ids  # type: str
         self.user_type = user_type  # type: int
 
     def validate(self):
@@ -401,6 +394,8 @@ class AddUserRequest(TeaModel):
             result['AuthAdminUser'] = self.auth_admin_user
         if self.nick_name is not None:
             result['NickName'] = self.nick_name
+        if self.role_ids is not None:
+            result['RoleIds'] = self.role_ids
         if self.user_type is not None:
             result['UserType'] = self.user_type
         return result
@@ -415,18 +410,21 @@ class AddUserRequest(TeaModel):
             self.auth_admin_user = m.get('AuthAdminUser')
         if m.get('NickName') is not None:
             self.nick_name = m.get('NickName')
+        if m.get('RoleIds') is not None:
+            self.role_ids = m.get('RoleIds')
         if m.get('UserType') is not None:
             self.user_type = m.get('UserType')
         return self
 
 
 class AddUserResponseBodyResult(TeaModel):
-    def __init__(self, account_name=None, admin_user=None, auth_admin_user=None, nick_name=None, user_id=None,
-                 user_type=None):
+    def __init__(self, account_name=None, admin_user=None, auth_admin_user=None, nick_name=None, role_id_list=None,
+                 user_id=None, user_type=None):
         self.account_name = account_name  # type: str
         self.admin_user = admin_user  # type: bool
         self.auth_admin_user = auth_admin_user  # type: bool
         self.nick_name = nick_name  # type: str
+        self.role_id_list = role_id_list  # type: list[long]
         self.user_id = user_id  # type: str
         self.user_type = user_type  # type: int
 
@@ -447,6 +445,8 @@ class AddUserResponseBodyResult(TeaModel):
             result['AuthAdminUser'] = self.auth_admin_user
         if self.nick_name is not None:
             result['NickName'] = self.nick_name
+        if self.role_id_list is not None:
+            result['RoleIdList'] = self.role_id_list
         if self.user_id is not None:
             result['UserId'] = self.user_id
         if self.user_type is not None:
@@ -463,6 +463,8 @@ class AddUserResponseBodyResult(TeaModel):
             self.auth_admin_user = m.get('AuthAdminUser')
         if m.get('NickName') is not None:
             self.nick_name = m.get('NickName')
+        if m.get('RoleIdList') is not None:
+            self.role_id_list = m.get('RoleIdList')
         if m.get('UserId') is not None:
             self.user_id = m.get('UserId')
         if m.get('UserType') is not None:
@@ -513,9 +515,6 @@ class AddUserResponse(TeaModel):
         self.body = body  # type: AddUserResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -623,9 +622,6 @@ class AddUserGroupMemberResponse(TeaModel):
         self.body = body  # type: AddUserGroupMemberResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -736,9 +732,6 @@ class AddUserGroupMembersResponse(TeaModel):
         self.body = body  # type: AddUserGroupMembersResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -838,9 +831,6 @@ class AddUserTagMetaResponse(TeaModel):
         self.body = body  # type: AddUserTagMetaResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -945,9 +935,6 @@ class AddUserToWorkspaceResponse(TeaModel):
         self.body = body  # type: AddUserToWorkspaceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1093,9 +1080,6 @@ class AddWorkspaceUsersResponse(TeaModel):
         self.body = body  # type: AddWorkspaceUsersResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1190,9 +1174,6 @@ class AllotDatasetAccelerationTaskResponse(TeaModel):
         self.body = body  # type: AllotDatasetAccelerationTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1330,9 +1311,6 @@ class AuthorizeMenuResponse(TeaModel):
         self.body = body  # type: AuthorizeMenuResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1557,9 +1535,6 @@ class BatchAddFeishuUsersResponse(TeaModel):
         self.body = body  # type: BatchAddFeishuUsersResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1669,9 +1644,6 @@ class CancelAuthorizationMenuResponse(TeaModel):
         self.body = body  # type: CancelAuthorizationMenuResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1782,9 +1754,6 @@ class CancelCollectionResponse(TeaModel):
         self.body = body  # type: CancelCollectionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1909,9 +1878,6 @@ class CancelReportShareResponse(TeaModel):
         self.body = body  # type: CancelReportShareResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2021,9 +1987,6 @@ class ChangeVisibilityModelResponse(TeaModel):
         self.body = body  # type: ChangeVisibilityModelResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2134,9 +2097,6 @@ class CheckReadableResponse(TeaModel):
         self.body = body  # type: CheckReadableResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2272,9 +2232,6 @@ class CreateTicketResponse(TeaModel):
         self.body = body  # type: CreateTicketResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2407,9 +2364,6 @@ class CreateUserGroupResponse(TeaModel):
         self.body = body  # type: CreateUserGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2523,9 +2477,6 @@ class DelayTicketExpireTimeResponse(TeaModel):
         self.body = body  # type: DelayTicketExpireTimeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2620,9 +2571,6 @@ class DeleteDataLevelPermissionRuleUsersResponse(TeaModel):
         self.body = body  # type: DeleteDataLevelPermissionRuleUsersResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2722,9 +2670,6 @@ class DeleteDataLevelRuleConfigResponse(TeaModel):
         self.body = body  # type: DeleteDataLevelRuleConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2820,9 +2765,6 @@ class DeleteTicketResponse(TeaModel):
         self.body = body  # type: DeleteTicketResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2923,9 +2865,6 @@ class DeleteUserResponse(TeaModel):
         self.body = body  # type: DeleteUserResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3025,9 +2964,6 @@ class DeleteUserFromWorkspaceResponse(TeaModel):
         self.body = body  # type: DeleteUserFromWorkspaceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3132,9 +3068,6 @@ class DeleteUserGroupResponse(TeaModel):
         self.body = body  # type: DeleteUserGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3245,9 +3178,6 @@ class DeleteUserGroupMemberResponse(TeaModel):
         self.body = body  # type: DeleteUserGroupMemberResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3347,9 +3277,6 @@ class DeleteUserGroupMembersResponse(TeaModel):
         self.body = body  # type: DeleteUserGroupMembersResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3444,9 +3371,6 @@ class DeleteUserTagMetaResponse(TeaModel):
         self.body = body  # type: DeleteUserTagMetaResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3615,9 +3539,6 @@ class GetUserGroupInfoResponse(TeaModel):
         self.body = body  # type: GetUserGroupInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3846,9 +3767,6 @@ class ListApiDatasourceResponse(TeaModel):
         self.body = body  # type: ListApiDatasourceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4064,9 +3982,6 @@ class ListByUserGroupIdResponse(TeaModel):
         self.body = body  # type: ListByUserGroupIdResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4227,9 +4142,6 @@ class ListCollectionsResponse(TeaModel):
         self.body = body  # type: ListCollectionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4341,9 +4253,6 @@ class ListCubeDataLevelPermissionConfigResponse(TeaModel):
         self.body = body  # type: ListCubeDataLevelPermissionConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4510,9 +4419,6 @@ class ListDataLevelPermissionWhiteListResponse(TeaModel):
         self.body = body  # type: ListDataLevelPermissionWhiteListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4762,9 +4668,6 @@ class ListFavoriteReportsResponse(TeaModel):
         self.body = body  # type: ListFavoriteReportsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4956,9 +4859,6 @@ class ListPortalMenuAuthorizationResponse(TeaModel):
         self.body = body  # type: ListPortalMenuAuthorizationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5087,9 +4987,6 @@ class ListPortalMenusResponse(TeaModel):
         self.body = body  # type: ListPortalMenusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5364,9 +5261,6 @@ class ListRecentViewReportsResponse(TeaModel):
         self.body = body  # type: ListRecentViewReportsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5616,9 +5510,6 @@ class ListSharedReportsResponse(TeaModel):
         self.body = body  # type: ListSharedReportsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5788,9 +5679,6 @@ class ListUserGroupsByUserIdResponse(TeaModel):
         self.body = body  # type: ListUserGroupsByUserIdResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5895,9 +5783,6 @@ class ModifyApiDatasourceParametersResponse(TeaModel):
         self.body = body  # type: ModifyApiDatasourceParametersResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6175,9 +6060,6 @@ class QueryComponentPerformanceResponse(TeaModel):
         self.body = body  # type: QueryComponentPerformanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6440,9 +6322,6 @@ class QueryCubeOptimizationResponse(TeaModel):
         self.body = body  # type: QueryCubeOptimizationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6700,9 +6579,6 @@ class QueryCubePerformanceResponse(TeaModel):
         self.body = body  # type: QueryCubePerformanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6944,9 +6820,6 @@ class QueryDataServiceResponse(TeaModel):
         self.body = body  # type: QueryDataServiceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7048,9 +6921,6 @@ class QueryDatasetDetailInfoResponse(TeaModel):
         self.body = body  # type: QueryDatasetDetailInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7590,9 +7460,6 @@ class QueryDatasetInfoResponse(TeaModel):
         self.body = body  # type: QueryDatasetInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7976,9 +7843,6 @@ class QueryDatasetListResponse(TeaModel):
         self.body = body  # type: QueryDatasetListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8109,9 +7973,6 @@ class QueryDatasetSwitchInfoResponse(TeaModel):
         self.body = body  # type: QueryDatasetSwitchInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8258,9 +8119,6 @@ class QueryEmbeddedInfoResponse(TeaModel):
         self.body = body  # type: QueryEmbeddedInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8365,9 +8223,6 @@ class QueryEmbeddedStatusResponse(TeaModel):
         self.body = body  # type: QueryEmbeddedStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8623,9 +8478,6 @@ class QueryOrganizationWorkspaceListResponse(TeaModel):
         self.body = body  # type: QueryOrganizationWorkspaceListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8908,9 +8760,6 @@ class QueryReadableResourcesListByUserIdResponse(TeaModel):
         self.body = body  # type: QueryReadableResourcesListByUserIdResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9188,9 +9037,6 @@ class QueryReportPerformanceResponse(TeaModel):
         self.body = body  # type: QueryReportPerformanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9362,9 +9208,6 @@ class QueryShareListResponse(TeaModel):
         self.body = body  # type: QueryShareListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9654,9 +9497,6 @@ class QuerySharesToUserListResponse(TeaModel):
         self.body = body  # type: QuerySharesToUserListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9829,9 +9669,6 @@ class QueryTicketInfoResponse(TeaModel):
         self.body = body  # type: QueryTicketInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10019,9 +9856,6 @@ class QueryUserGroupListByParentIdResponse(TeaModel):
         self.body = body  # type: QueryUserGroupListByParentIdResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10174,9 +10008,6 @@ class QueryUserGroupMemberResponse(TeaModel):
         self.body = body  # type: QueryUserGroupMemberResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10207,7 +10038,7 @@ class QueryUserGroupMemberResponse(TeaModel):
 
 
 class QueryUserInfoByAccountRequest(TeaModel):
-    def __init__(self, account=None):
+    def __init__(self, account=None, parent_account_name=None):
         # Enter the name or ID of the Alibaba Cloud account that you want to query.
         # 
         # *   When you enter an account name:
@@ -10219,6 +10050,7 @@ class QueryUserInfoByAccountRequest(TeaModel):
         # 
         #     *   Enter the UID of the account to query the account information.
         self.account = account  # type: str
+        self.parent_account_name = parent_account_name  # type: str
 
     def validate(self):
         pass
@@ -10231,18 +10063,22 @@ class QueryUserInfoByAccountRequest(TeaModel):
         result = dict()
         if self.account is not None:
             result['Account'] = self.account
+        if self.parent_account_name is not None:
+            result['ParentAccountName'] = self.parent_account_name
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('Account') is not None:
             self.account = m.get('Account')
+        if m.get('ParentAccountName') is not None:
+            self.parent_account_name = m.get('ParentAccountName')
         return self
 
 
 class QueryUserInfoByAccountResponseBodyResult(TeaModel):
     def __init__(self, account_id=None, account_name=None, admin_user=None, auth_admin_user=None, email=None,
-                 nick_name=None, phone=None, user_id=None, user_type=None):
+                 nick_name=None, phone=None, role_id_list=None, user_id=None, user_type=None):
         # The ID of the Alibaba Cloud account.
         self.account_id = account_id  # type: str
         # The name of the Alibaba Cloud account that corresponds to the member. (If you use a RAM user, the domain name information that follows @ is removed. For example, if you use a <test@test.com>, test is returned.)
@@ -10263,6 +10099,7 @@ class QueryUserInfoByAccountResponseBodyResult(TeaModel):
         self.nick_name = nick_name  # type: str
         # The phone number of the alert contact.
         self.phone = phone  # type: str
+        self.role_id_list = role_id_list  # type: list[long]
         # The UserID in the Quick BI.
         self.user_id = user_id  # type: str
         # The role type of the organization member. Valid values:
@@ -10295,6 +10132,8 @@ class QueryUserInfoByAccountResponseBodyResult(TeaModel):
             result['NickName'] = self.nick_name
         if self.phone is not None:
             result['Phone'] = self.phone
+        if self.role_id_list is not None:
+            result['RoleIdList'] = self.role_id_list
         if self.user_id is not None:
             result['UserId'] = self.user_id
         if self.user_type is not None:
@@ -10317,6 +10156,8 @@ class QueryUserInfoByAccountResponseBodyResult(TeaModel):
             self.nick_name = m.get('NickName')
         if m.get('Phone') is not None:
             self.phone = m.get('Phone')
+        if m.get('RoleIdList') is not None:
+            self.role_id_list = m.get('RoleIdList')
         if m.get('UserId') is not None:
             self.user_id = m.get('UserId')
         if m.get('UserType') is not None:
@@ -10373,9 +10214,6 @@ class QueryUserInfoByAccountResponse(TeaModel):
         self.body = body  # type: QueryUserInfoByAccountResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10432,7 +10270,7 @@ class QueryUserInfoByUserIdRequest(TeaModel):
 
 class QueryUserInfoByUserIdResponseBodyResult(TeaModel):
     def __init__(self, account_id=None, account_name=None, admin_user=None, auth_admin_user=None, email=None,
-                 nick_name=None, phone=None, user_id=None, user_type=None):
+                 nick_name=None, phone=None, role_id_list=None, user_id=None, user_type=None):
         # The ID of the Alibaba Cloud account.
         self.account_id = account_id  # type: str
         # The name of the Alibaba Cloud account that corresponds to the member.
@@ -10453,6 +10291,7 @@ class QueryUserInfoByUserIdResponseBodyResult(TeaModel):
         self.nick_name = nick_name  # type: str
         # The phone number of the alert contact.
         self.phone = phone  # type: str
+        self.role_id_list = role_id_list  # type: list[long]
         # The UserID in the Quick BI.
         self.user_id = user_id  # type: str
         # The role type of the organization member. Valid values:
@@ -10485,6 +10324,8 @@ class QueryUserInfoByUserIdResponseBodyResult(TeaModel):
             result['NickName'] = self.nick_name
         if self.phone is not None:
             result['Phone'] = self.phone
+        if self.role_id_list is not None:
+            result['RoleIdList'] = self.role_id_list
         if self.user_id is not None:
             result['UserId'] = self.user_id
         if self.user_type is not None:
@@ -10507,6 +10348,8 @@ class QueryUserInfoByUserIdResponseBodyResult(TeaModel):
             self.nick_name = m.get('NickName')
         if m.get('Phone') is not None:
             self.phone = m.get('Phone')
+        if m.get('RoleIdList') is not None:
+            self.role_id_list = m.get('RoleIdList')
         if m.get('UserId') is not None:
             self.user_id = m.get('UserId')
         if m.get('UserType') is not None:
@@ -10563,9 +10406,6 @@ class QueryUserInfoByUserIdResponse(TeaModel):
         self.body = body  # type: QueryUserInfoByUserIdResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10631,12 +10471,13 @@ class QueryUserListRequest(TeaModel):
 
 class QueryUserListResponseBodyResultData(TeaModel):
     def __init__(self, account_id=None, account_name=None, admin_user=None, auth_admin_user=None, nick_name=None,
-                 user_id=None, user_type=None):
+                 role_id_list=None, user_id=None, user_type=None):
         self.account_id = account_id  # type: str
         self.account_name = account_name  # type: str
         self.admin_user = admin_user  # type: bool
         self.auth_admin_user = auth_admin_user  # type: bool
         self.nick_name = nick_name  # type: str
+        self.role_id_list = role_id_list  # type: list[long]
         self.user_id = user_id  # type: str
         self.user_type = user_type  # type: int
 
@@ -10659,6 +10500,8 @@ class QueryUserListResponseBodyResultData(TeaModel):
             result['AuthAdminUser'] = self.auth_admin_user
         if self.nick_name is not None:
             result['NickName'] = self.nick_name
+        if self.role_id_list is not None:
+            result['RoleIdList'] = self.role_id_list
         if self.user_id is not None:
             result['UserId'] = self.user_id
         if self.user_type is not None:
@@ -10677,6 +10520,8 @@ class QueryUserListResponseBodyResultData(TeaModel):
             self.auth_admin_user = m.get('AuthAdminUser')
         if m.get('NickName') is not None:
             self.nick_name = m.get('NickName')
+        if m.get('RoleIdList') is not None:
+            self.role_id_list = m.get('RoleIdList')
         if m.get('UserId') is not None:
             self.user_id = m.get('UserId')
         if m.get('UserType') is not None:
@@ -10779,9 +10624,6 @@ class QueryUserListResponse(TeaModel):
         self.body = body  # type: QueryUserListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10917,9 +10759,6 @@ class QueryUserRoleInfoInWorkspaceResponse(TeaModel):
         self.body = body  # type: QueryUserRoleInfoInWorkspaceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11033,9 +10872,6 @@ class QueryUserTagMetaListResponse(TeaModel):
         self.body = body  # type: QueryUserTagMetaListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11172,9 +11008,6 @@ class QueryUserTagValueListResponse(TeaModel):
         self.body = body  # type: QueryUserTagValueListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11408,9 +11241,6 @@ class QueryWorksResponse(TeaModel):
         self.body = body  # type: QueryWorksResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11659,9 +11489,6 @@ class QueryWorksBloodRelationshipResponse(TeaModel):
         self.body = body  # type: QueryWorksBloodRelationshipResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12018,9 +11845,6 @@ class QueryWorksByOrganizationResponse(TeaModel):
         self.body = body  # type: QueryWorksByOrganizationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12409,9 +12233,6 @@ class QueryWorksByWorkspaceResponse(TeaModel):
         self.body = body  # type: QueryWorksByWorkspaceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12655,9 +12476,6 @@ class QueryWorkspaceUserListResponse(TeaModel):
         self.body = body  # type: QueryWorkspaceUserListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12762,9 +12580,6 @@ class ResultCallbackResponse(TeaModel):
         self.body = body  # type: ResultCallbackResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12875,9 +12690,6 @@ class SaveFavoritesResponse(TeaModel):
         self.body = body  # type: SaveFavoritesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12982,9 +12794,6 @@ class SetDataLevelPermissionExtraConfigResponse(TeaModel):
         self.body = body  # type: SetDataLevelPermissionExtraConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13079,9 +12888,6 @@ class SetDataLevelPermissionRuleConfigResponse(TeaModel):
         self.body = body  # type: SetDataLevelPermissionRuleConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13186,9 +12992,6 @@ class SetDataLevelPermissionWhiteListResponse(TeaModel):
         self.body = body  # type: SetDataLevelPermissionWhiteListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13294,9 +13097,6 @@ class UpdateDataLevelPermissionStatusResponse(TeaModel):
         self.body = body  # type: UpdateDataLevelPermissionStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13396,9 +13196,6 @@ class UpdateEmbeddedStatusResponse(TeaModel):
         self.body = body  # type: UpdateEmbeddedStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13498,9 +13295,6 @@ class UpdateTicketNumResponse(TeaModel):
         self.body = body  # type: UpdateTicketNumResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13531,7 +13325,8 @@ class UpdateTicketNumResponse(TeaModel):
 
 
 class UpdateUserRequest(TeaModel):
-    def __init__(self, admin_user=None, auth_admin_user=None, nick_name=None, user_id=None, user_type=None):
+    def __init__(self, admin_user=None, auth_admin_user=None, nick_name=None, role_ids=None, user_id=None,
+                 user_type=None):
         # Indicates whether the organization administrator. Valid values:
         # 
         # *   true
@@ -13547,6 +13342,7 @@ class UpdateUserRequest(TeaModel):
         # *   Format check: The value can be up to 50 characters in length.
         # *   Special format verification: Chinese and English digits\_ \ / | () ] \[
         self.nick_name = nick_name  # type: str
+        self.role_ids = role_ids  # type: str
         # The ID of the user to be updated. The user ID is the UserID of the Quick BI, not the UID of Alibaba Cloud.
         self.user_id = user_id  # type: str
         # The role type of the organization member. Valid values:
@@ -13571,6 +13367,8 @@ class UpdateUserRequest(TeaModel):
             result['AuthAdminUser'] = self.auth_admin_user
         if self.nick_name is not None:
             result['NickName'] = self.nick_name
+        if self.role_ids is not None:
+            result['RoleIds'] = self.role_ids
         if self.user_id is not None:
             result['UserId'] = self.user_id
         if self.user_type is not None:
@@ -13585,6 +13383,8 @@ class UpdateUserRequest(TeaModel):
             self.auth_admin_user = m.get('AuthAdminUser')
         if m.get('NickName') is not None:
             self.nick_name = m.get('NickName')
+        if m.get('RoleIds') is not None:
+            self.role_ids = m.get('RoleIds')
         if m.get('UserId') is not None:
             self.user_id = m.get('UserId')
         if m.get('UserType') is not None:
@@ -13642,9 +13442,6 @@ class UpdateUserResponse(TeaModel):
         self.body = body  # type: UpdateUserResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13767,9 +13564,6 @@ class UpdateUserGroupResponse(TeaModel):
         self.body = body  # type: UpdateUserGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13874,9 +13668,6 @@ class UpdateUserTagMetaResponse(TeaModel):
         self.body = body  # type: UpdateUserTagMetaResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13981,9 +13772,6 @@ class UpdateUserTagValueResponse(TeaModel):
         self.body = body  # type: UpdateUserTagValueResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14088,9 +13876,6 @@ class UpdateWorkspaceUserRoleResponse(TeaModel):
         self.body = body  # type: UpdateWorkspaceUserRoleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14236,9 +14021,6 @@ class UpdateWorkspaceUsersRoleResponse(TeaModel):
         self.body = body  # type: UpdateWorkspaceUsersRoleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14343,9 +14125,6 @@ class WithdrawAllUserGroupsResponse(TeaModel):
         self.body = body  # type: WithdrawAllUserGroupsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
