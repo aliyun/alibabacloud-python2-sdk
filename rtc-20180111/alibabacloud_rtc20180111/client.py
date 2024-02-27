@@ -664,6 +664,66 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_call_list_with_options(request, runtime)
 
+    def describe_channel_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.channel_id):
+            query['ChannelId'] = request.channel_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeChannel',
+            version='2018-01-11',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rtc_20180111_models.DescribeChannelResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_channel(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_channel_with_options(request, runtime)
+
+    def describe_channel_all_users_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.channel_id):
+            query['ChannelId'] = request.channel_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeChannelAllUsers',
+            version='2018-01-11',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rtc_20180111_models.DescribeChannelAllUsersResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_channel_all_users(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_channel_all_users_with_options(request, runtime)
+
     def describe_channel_area_distribution_stat_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -842,6 +902,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_channel_top_pub_user_list_with_options(request, runtime)
 
+    def describe_channel_user_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.channel_id):
+            query['ChannelId'] = request.channel_id
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeChannelUser',
+            version='2018-01-11',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rtc_20180111_models.DescribeChannelUserResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_channel_user(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_channel_user_with_options(request, runtime)
+
     def describe_channel_user_metrics_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -907,6 +999,34 @@ class Client(OpenApiClient):
     def describe_channel_users(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_channel_users_with_options(request, runtime)
+
+    def describe_channels_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeChannels',
+            version='2018-01-11',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rtc_20180111_models.DescribeChannelsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_channels(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_channels_with_options(request, runtime)
 
     def describe_end_point_event_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2048,6 +2168,76 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.remove_terminals_with_options(request, runtime)
 
+    def remove_users_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.channel_id):
+            query['ChannelId'] = request.channel_id
+        if not UtilClient.is_unset(request.users):
+            query['Users'] = request.users
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RemoveUsers',
+            version='2018-01-11',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rtc_20180111_models.RemoveUsersResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def remove_users(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.remove_users_with_options(request, runtime)
+
+    def start_cloud_record_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.channel_id):
+            query['ChannelId'] = request.channel_id
+        if not UtilClient.is_unset(request.panes):
+            query['Panes'] = request.panes
+        if not UtilClient.is_unset(request.storage_config):
+            query['StorageConfig'] = request.storage_config
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.template_id):
+            query['TemplateId'] = request.template_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='StartCloudRecord',
+            version='2018-01-11',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rtc_20180111_models.StartCloudRecordResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def start_cloud_record(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.start_cloud_record_with_options(request, runtime)
+
     def start_mputask_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -2205,6 +2395,106 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.start_record_task_with_options(request, runtime)
 
+    def start_streaming_out_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.channel_id):
+            query['ChannelId'] = request.channel_id
+        if not UtilClient.is_unset(request.panes):
+            query['Panes'] = request.panes
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.template_id):
+            query['TemplateId'] = request.template_id
+        if not UtilClient.is_unset(request.url):
+            query['Url'] = request.url
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='StartStreamingOut',
+            version='2018-01-11',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rtc_20180111_models.StartStreamingOutResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def start_streaming_out(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.start_streaming_out_with_options(request, runtime)
+
+    def stop_channel_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.channel_id):
+            query['ChannelId'] = request.channel_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='StopChannel',
+            version='2018-01-11',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rtc_20180111_models.StopChannelResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def stop_channel(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.stop_channel_with_options(request, runtime)
+
+    def stop_cloud_record_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.channel_id):
+            query['ChannelId'] = request.channel_id
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='StopCloudRecord',
+            version='2018-01-11',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rtc_20180111_models.StopCloudRecordResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def stop_cloud_record(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.stop_cloud_record_with_options(request, runtime)
+
     def stop_mputask_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -2268,6 +2558,38 @@ class Client(OpenApiClient):
     def stop_record_task(self, request):
         runtime = util_models.RuntimeOptions()
         return self.stop_record_task_with_options(request, runtime)
+
+    def stop_streaming_out_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.channel_id):
+            query['ChannelId'] = request.channel_id
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='StopStreamingOut',
+            version='2018-01-11',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rtc_20180111_models.StopStreamingOutResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def stop_streaming_out(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.stop_streaming_out_with_options(request, runtime)
 
     def update_auto_live_stream_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
