@@ -9537,6 +9537,54 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_instance_linked_whitelist_template_with_options(request, runtime)
 
+    def describe_kms_associate_resources_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.kms_resource_id):
+            query['KmsResourceId'] = request.kms_resource_id
+        if not UtilClient.is_unset(request.kms_resource_region_id):
+            query['KmsResourceRegionId'] = request.kms_resource_region_id
+        if not UtilClient.is_unset(request.kms_resource_type):
+            query['KmsResourceType'] = request.kms_resource_type
+        if not UtilClient.is_unset(request.kms_resource_user):
+            query['KmsResourceUser'] = request.kms_resource_user
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeKmsAssociateResources',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.DescribeKmsAssociateResourcesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_kms_associate_resources(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_kms_associate_resources_with_options(request, runtime)
+
     def describe_local_available_recovery_time_with_options(self, request, runtime):
         """
         ### [](#)Supported database engines
