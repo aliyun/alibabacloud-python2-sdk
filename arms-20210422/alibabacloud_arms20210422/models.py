@@ -12816,8 +12816,9 @@ class SendMseIncidentResponse(TeaModel):
 
 
 class SetRetcodeShareStatusRequest(TeaModel):
-    def __init__(self, pid=None, status=None):
+    def __init__(self, pid=None, region_id=None, status=None):
         self.pid = pid  # type: str
+        self.region_id = region_id  # type: str
         self.status = status  # type: bool
 
     def validate(self):
@@ -12831,6 +12832,8 @@ class SetRetcodeShareStatusRequest(TeaModel):
         result = dict()
         if self.pid is not None:
             result['Pid'] = self.pid
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         if self.status is not None:
             result['Status'] = self.status
         return result
@@ -12839,6 +12842,8 @@ class SetRetcodeShareStatusRequest(TeaModel):
         m = m or dict()
         if m.get('Pid') is not None:
             self.pid = m.get('Pid')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         return self
