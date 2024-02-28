@@ -21342,12 +21342,47 @@ class GetWorkItemInfoResponseBodyWorkitemCustomFields(TeaModel):
         return self
 
 
+class GetWorkItemInfoResponseBodyWorkitemTagDetails(TeaModel):
+    def __init__(self, color=None, identifier=None, name=None):
+        self.color = color  # type: str
+        self.identifier = identifier  # type: str
+        self.name = name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetWorkItemInfoResponseBodyWorkitemTagDetails, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.color is not None:
+            result['color'] = self.color
+        if self.identifier is not None:
+            result['identifier'] = self.identifier
+        if self.name is not None:
+            result['name'] = self.name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('color') is not None:
+            self.color = m.get('color')
+        if m.get('identifier') is not None:
+            self.identifier = m.get('identifier')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        return self
+
+
 class GetWorkItemInfoResponseBodyWorkitem(TeaModel):
     def __init__(self, assigned_to=None, category_identifier=None, creator=None, custom_fields=None, document=None,
                  finish_time=None, gmt_create=None, gmt_modified=None, identifier=None, logical_status=None, modifier=None,
                  parent_identifier=None, participant=None, serial_number=None, space_identifier=None, space_name=None,
                  space_type=None, sprint=None, status=None, status_identifier=None, status_stage_identifier=None, subject=None,
-                 tag=None, tracker=None, update_status_at=None, verifier=None, workitem_type_identifier=None):
+                 tag=None, tag_details=None, tracker=None, update_status_at=None, verifier=None,
+                 workitem_type_identifier=None):
         self.assigned_to = assigned_to  # type: str
         self.category_identifier = category_identifier  # type: str
         self.creator = creator  # type: str
@@ -21371,6 +21406,7 @@ class GetWorkItemInfoResponseBodyWorkitem(TeaModel):
         self.status_stage_identifier = status_stage_identifier  # type: str
         self.subject = subject  # type: str
         self.tag = tag  # type: list[str]
+        self.tag_details = tag_details  # type: list[GetWorkItemInfoResponseBodyWorkitemTagDetails]
         self.tracker = tracker  # type: list[str]
         self.update_status_at = update_status_at  # type: long
         self.verifier = verifier  # type: list[str]
@@ -21379,6 +21415,10 @@ class GetWorkItemInfoResponseBodyWorkitem(TeaModel):
     def validate(self):
         if self.custom_fields:
             for k in self.custom_fields:
+                if k:
+                    k.validate()
+        if self.tag_details:
+            for k in self.tag_details:
                 if k:
                     k.validate()
 
@@ -21436,6 +21476,10 @@ class GetWorkItemInfoResponseBodyWorkitem(TeaModel):
             result['subject'] = self.subject
         if self.tag is not None:
             result['tag'] = self.tag
+        result['tagDetails'] = []
+        if self.tag_details is not None:
+            for k in self.tag_details:
+                result['tagDetails'].append(k.to_map() if k else None)
         if self.tracker is not None:
             result['tracker'] = self.tracker
         if self.update_status_at is not None:
@@ -21497,6 +21541,11 @@ class GetWorkItemInfoResponseBodyWorkitem(TeaModel):
             self.subject = m.get('subject')
         if m.get('tag') is not None:
             self.tag = m.get('tag')
+        self.tag_details = []
+        if m.get('tagDetails') is not None:
+            for k in m.get('tagDetails'):
+                temp_model = GetWorkItemInfoResponseBodyWorkitemTagDetails()
+                self.tag_details.append(temp_model.from_map(k))
         if m.get('tracker') is not None:
             self.tracker = m.get('tracker')
         if m.get('updateStatusAt') is not None:
