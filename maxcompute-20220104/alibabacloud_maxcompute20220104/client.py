@@ -604,6 +604,38 @@ class Client(OpenApiClient):
         headers = {}
         return self.get_running_jobs_with_options(request, headers, runtime)
 
+    def get_table_info_with_options(self, project_name, table_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.schema_name):
+            query['schemaName'] = request.schema_name
+        if not UtilClient.is_unset(request.type):
+            query['type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetTableInfo',
+            version='2022-01-04',
+            protocol='HTTPS',
+            pathname='/api/v1/projects/%s/tables/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(project_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(table_name))),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            max_compute_20220104_models.GetTableInfoResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_table_info(self, project_name, table_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_table_info_with_options(project_name, table_name, request, headers, runtime)
+
     def get_trusted_projects_with_options(self, project_name, headers, runtime):
         req = open_api_models.OpenApiRequest(
             headers=headers
