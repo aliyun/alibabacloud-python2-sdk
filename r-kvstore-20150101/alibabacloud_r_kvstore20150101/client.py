@@ -786,8 +786,8 @@ class Client(OpenApiClient):
     def create_instances_with_options(self, request, runtime):
         """
         Before you call this operation, make sure that you understand the billing methods and [pricing](~~54532~~) of ApsaraDB for Redis.
-        >  For more information about how to create an instance that meets your requirements in the ApsaraDB for Redis console, see [Step 1: Create an ApsaraDB for Redis instance](~~26351~~).
-        To create an ApsaraDB for Redis Enhanced Edition (Tair) instance that uses cloud disks, call [CreateTairInstance](~~208271~~).
+        >  For more information about how to create an instance that meets your requirements in the ApsaraDB for Redis console, see Step 1: Create an ApsaraDB for Redis instance.[](~~26351~~)
+        This operation can only be used to create ApsaraDB for Redis Community Edition instances and ApsaraDB for Redis Enhanced Edition (Tair) DRAM-based classic instances.
         
 
         @param request: CreateInstancesRequest
@@ -848,8 +848,8 @@ class Client(OpenApiClient):
     def create_instances(self, request):
         """
         Before you call this operation, make sure that you understand the billing methods and [pricing](~~54532~~) of ApsaraDB for Redis.
-        >  For more information about how to create an instance that meets your requirements in the ApsaraDB for Redis console, see [Step 1: Create an ApsaraDB for Redis instance](~~26351~~).
-        To create an ApsaraDB for Redis Enhanced Edition (Tair) instance that uses cloud disks, call [CreateTairInstance](~~208271~~).
+        >  For more information about how to create an instance that meets your requirements in the ApsaraDB for Redis console, see Step 1: Create an ApsaraDB for Redis instance.[](~~26351~~)
+        This operation can only be used to create ApsaraDB for Redis Community Edition instances and ApsaraDB for Redis Enhanced Edition (Tair) DRAM-based classic instances.
         
 
         @param request: CreateInstancesRequest
@@ -1309,9 +1309,7 @@ class Client(OpenApiClient):
 
     def describe_active_operation_task_with_options(self, request, runtime):
         """
-        Specifies whether to return the historical tasks. Valid values:
-        *   **0**: returns the current task. This is the default value.
-        *   **1**: returns the historical tasks.
+        After you have called this API operation and queried the information about a specific O&M task, you can also call the [ModifyActiveOperationTask](~~ModifyActiveOperationTask~~) operation to modify the scheduled switchover time of the O&M task.
         
 
         @param request: DescribeActiveOperationTaskRequest
@@ -1363,9 +1361,7 @@ class Client(OpenApiClient):
 
     def describe_active_operation_task(self, request):
         """
-        Specifies whether to return the historical tasks. Valid values:
-        *   **0**: returns the current task. This is the default value.
-        *   **1**: returns the historical tasks.
+        After you have called this API operation and queried the information about a specific O&M task, you can also call the [ModifyActiveOperationTask](~~ModifyActiveOperationTask~~) operation to modify the scheduled switchover time of the O&M task.
         
 
         @param request: DescribeActiveOperationTaskRequest
@@ -1980,6 +1976,16 @@ class Client(OpenApiClient):
         return self.describe_dbinstance_net_info_with_options(request, runtime)
 
     def describe_dbnode_direct_vip_info_with_options(self, request, runtime):
+        """
+        > Only instances that use cloud disks support this operation.
+        
+
+        @param request: DescribeDBNodeDirectVipInfoRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDBNodeDirectVipInfoResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.instance_id):
@@ -2012,6 +2018,14 @@ class Client(OpenApiClient):
         )
 
     def describe_dbnode_direct_vip_info(self, request):
+        """
+        > Only instances that use cloud disks support this operation.
+        
+
+        @param request: DescribeDBNodeDirectVipInfoRequest
+
+        @return: DescribeDBNodeDirectVipInfoResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_dbnode_direct_vip_info_with_options(request, runtime)
 
@@ -3151,7 +3165,7 @@ class Client(OpenApiClient):
 
     def describe_parameter_templates_with_options(self, request, runtime):
         """
-        An array that consists of the details about the parameters returned.
+        After you call this operation to query the parameters and default values of an instance, you can call the [ModifyInstanceConfig](~~61113~~) operation to reconfigure the parameters of the instance.
         
 
         @param request: DescribeParameterTemplatesRequest
@@ -3203,7 +3217,7 @@ class Client(OpenApiClient):
 
     def describe_parameter_templates(self, request):
         """
-        An array that consists of the details about the parameters returned.
+        After you call this operation to query the parameters and default values of an instance, you can call the [ModifyInstanceConfig](~~61113~~) operation to reconfigure the parameters of the instance.
         
 
         @param request: DescribeParameterTemplatesRequest
@@ -4061,7 +4075,7 @@ class Client(OpenApiClient):
 
     def initialize_kvstore_permission_with_options(self, request, runtime):
         """
-        The log management feature of ApsaraDB for Redis requires the resources of [Log Service](~~48869~~). To use the log management feature of ApsaraDB for Redis, you can call this operation to associate the RAM role named AliyunServiceRoleForKvstore with the ApsaraDB for Redis instance. For more information, see [Associated RAM roles of ApsaraDB for Redis] (~~184337~~).
+        The log management feature of ApsaraDB for Redis requires the resources of [Log Service](~~48869~~). To use the log management feature of ApsaraDB for Redis, you can call this operation to associate the RAM role named AliyunServiceRoleForKvstore with the ApsaraDB for Redis instance. For more information, see [Associated RAM roles of ApsaraDB for Redis](~~184337~~).
         
 
         @param request: InitializeKvstorePermissionRequest
@@ -4105,7 +4119,7 @@ class Client(OpenApiClient):
 
     def initialize_kvstore_permission(self, request):
         """
-        The log management feature of ApsaraDB for Redis requires the resources of [Log Service](~~48869~~). To use the log management feature of ApsaraDB for Redis, you can call this operation to associate the RAM role named AliyunServiceRoleForKvstore with the ApsaraDB for Redis instance. For more information, see [Associated RAM roles of ApsaraDB for Redis] (~~184337~~).
+        The log management feature of ApsaraDB for Redis requires the resources of [Log Service](~~48869~~). To use the log management feature of ApsaraDB for Redis, you can call this operation to associate the RAM role named AliyunServiceRoleForKvstore with the ApsaraDB for Redis instance. For more information, see [Associated RAM roles of ApsaraDB for Redis](~~184337~~).
         
 
         @param request: InitializeKvstorePermissionRequest
