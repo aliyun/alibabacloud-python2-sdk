@@ -178,7 +178,10 @@ class Client(OpenApiClient):
 
     def add_users_to_group_with_options(self, request, runtime):
         """
-        This parameter is deprecated.
+        #
+        You can call this operation to add one or more users to a user group. After you call the [CreateUserGroup](~~204596~~) operation to create a user group, you can call the AddUsersToGroup operation to add multiple users to the user group. Then, you can manage and grant permissions to the users at a time.
+        # Limit
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
 
         @param request: AddUsersToGroupRequest
@@ -218,7 +221,10 @@ class Client(OpenApiClient):
 
     def add_users_to_group(self, request):
         """
-        This parameter is deprecated.
+        #
+        You can call this operation to add one or more users to a user group. After you call the [CreateUserGroup](~~204596~~) operation to create a user group, you can call the AddUsersToGroup operation to add multiple users to the user group. Then, you can manage and grant permissions to the users at a time.
+        # Limit
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
 
         @param request: AddUsersToGroupRequest
@@ -692,6 +698,10 @@ class Client(OpenApiClient):
             query['Email'] = request.email
         if not UtilClient.is_unset(request.instance_id):
             query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.language):
+            query['Language'] = request.language
+        if not UtilClient.is_unset(request.language_status):
+            query['LanguageStatus'] = request.language_status
         if not UtilClient.is_unset(request.mobile):
             query['Mobile'] = request.mobile
         if not UtilClient.is_unset(request.mobile_country_code):
@@ -890,8 +900,11 @@ class Client(OpenApiClient):
 
     def delete_host_account_with_options(self, request, runtime):
         """
-        All Alibaba Cloud API operations must include common request parameters. For more information about common request parameters, see [Common parameters](~~315526~~).
-        For more information about sample requests, see the "Examples" section of this topic.
+        ## Usage notes
+        You can call this operation to remove a single host account. If you no longer use a host account that is added to a host in Bastionhost, you can call this operation to remove the host account from the host.
+        >  After you remove the host account, you must enter the username and password of the host when you log on to the host in Bastionhost.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
 
         @param request: DeleteHostAccountRequest
@@ -929,8 +942,11 @@ class Client(OpenApiClient):
 
     def delete_host_account(self, request):
         """
-        All Alibaba Cloud API operations must include common request parameters. For more information about common request parameters, see [Common parameters](~~315526~~).
-        For more information about sample requests, see the "Examples" section of this topic.
+        ## Usage notes
+        You can call this operation to remove a single host account. If you no longer use a host account that is added to a host in Bastionhost, you can call this operation to remove the host account from the host.
+        >  After you remove the host account, you must enter the username and password of the host when you log on to the host in Bastionhost.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
 
         @param request: DeleteHostAccountRequest
@@ -2640,7 +2656,8 @@ class Client(OpenApiClient):
 
     def modify_host_with_options(self, request, runtime):
         """
-        The ID of the request.
+        You can call the ModifyHost operation to modify the basic information about a host in a data center, an Elastic Compute Service (ECS) instance, or a host in an ApsaraDB MyBase dedicated cluster.
+        > The basic information about ECS instances and hosts in ApsaraDB MyBase dedicated clusters within your Alibaba Cloud account is synchronized to Bastionhost on a regular basis. After you modify the basic information about an ECS instance or a host in an ApsaraDB MyBase dedicated cluster, the modification result may be overwritten by the synchronized information.
         
 
         @param request: ModifyHostRequest
@@ -2690,7 +2707,8 @@ class Client(OpenApiClient):
 
     def modify_host(self, request):
         """
-        The ID of the request.
+        You can call the ModifyHost operation to modify the basic information about a host in a data center, an Elastic Compute Service (ECS) instance, or a host in an ApsaraDB MyBase dedicated cluster.
+        > The basic information about ECS instances and hosts in ApsaraDB MyBase dedicated clusters within your Alibaba Cloud account is synchronized to Bastionhost on a regular basis. After you modify the basic information about an ECS instance or a host in an ApsaraDB MyBase dedicated cluster, the modification result may be overwritten by the synchronized information.
         
 
         @param request: ModifyHostRequest
@@ -3103,6 +3121,10 @@ class Client(OpenApiClient):
             query['Email'] = request.email
         if not UtilClient.is_unset(request.instance_id):
             query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.language):
+            query['Language'] = request.language
+        if not UtilClient.is_unset(request.language_status):
+            query['LanguageStatus'] = request.language_status
         if not UtilClient.is_unset(request.mobile):
             query['Mobile'] = request.mobile
         if not UtilClient.is_unset(request.mobile_country_code):
@@ -3245,6 +3267,17 @@ class Client(OpenApiClient):
         return self.reject_approve_command_with_options(request, runtime)
 
     def reject_operation_ticket_with_options(self, request, runtime):
+        """
+        You can call this operation to reject an O\\&M application of an O\\&M engineer as a Bastionhost administrator.
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: RejectOperationTicketRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RejectOperationTicketResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.instance_id):
@@ -3273,6 +3306,15 @@ class Client(OpenApiClient):
         )
 
     def reject_operation_ticket(self, request):
+        """
+        You can call this operation to reject an O\\&M application of an O\\&M engineer as a Bastionhost administrator.
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: RejectOperationTicketRequest
+
+        @return: RejectOperationTicketResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.reject_operation_ticket_with_options(request, runtime)
 
@@ -3312,7 +3354,9 @@ class Client(OpenApiClient):
 
     def remove_users_from_group_with_options(self, request, runtime):
         """
-        This parameter is deprecated.
+        You can call this operation to remove one or more users from a user group. When users in a user group are transferred to a new position, resign, or are switched to another user group, you can call this operation to remove the users from the current user group at a time.
+        ## QPS limit
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
 
         @param request: RemoveUsersFromGroupRequest
@@ -3352,7 +3396,9 @@ class Client(OpenApiClient):
 
     def remove_users_from_group(self, request):
         """
-        This parameter is deprecated.
+        You can call this operation to remove one or more users from a user group. When users in a user group are transferred to a new position, resign, or are switched to another user group, you can call this operation to remove the users from the current user group at a time.
+        ## QPS limit
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
 
         @param request: RemoveUsersFromGroupRequest
