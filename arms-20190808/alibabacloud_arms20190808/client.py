@@ -1641,6 +1641,8 @@ class Client(OpenApiClient):
             query['ClusterName'] = request.cluster_name
         if not UtilClient.is_unset(request.cluster_type):
             query['ClusterType'] = request.cluster_type
+        if not UtilClient.is_unset(request.duration):
+            query['Duration'] = request.duration
         if not UtilClient.is_unset(request.grafana_instance_id):
             query['GrafanaInstanceId'] = request.grafana_instance_id
         if not UtilClient.is_unset(request.region_id):
