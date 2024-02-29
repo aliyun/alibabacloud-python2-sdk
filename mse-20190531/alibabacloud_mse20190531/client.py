@@ -1207,6 +1207,48 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_flow_rule_with_options(request, runtime)
 
+    def create_isolation_rule_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.app_name):
+            query['AppName'] = request.app_name
+        if not UtilClient.is_unset(request.enable):
+            query['Enable'] = request.enable
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource):
+            query['Resource'] = request.resource
+        if not UtilClient.is_unset(request.threshold):
+            query['Threshold'] = request.threshold
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateIsolationRule',
+            version='2019-05-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mse_20190531_models.CreateIsolationRuleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_isolation_rule(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_isolation_rule_with_options(request, runtime)
+
     def create_mse_service_application_with_options(self, request, runtime):
         """
         @deprecated : CreateMseServiceApplication is deprecated, please use mse::2019-05-31::CreateApplication instead.
@@ -2044,6 +2086,44 @@ class Client(OpenApiClient):
     def delete_gateway_slb(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_gateway_slb_with_options(request, runtime)
+
+    def delete_isolation_rules_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = mse_20190531_models.DeleteIsolationRulesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.ids):
+            request.ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ids, 'Ids', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.app_name):
+            query['AppName'] = request.app_name
+        if not UtilClient.is_unset(request.ids_shrink):
+            query['Ids'] = request.ids_shrink
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteIsolationRules',
+            version='2019-05-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mse_20190531_models.DeleteIsolationRulesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_isolation_rules(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_isolation_rules_with_options(request, runtime)
 
     def delete_migration_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -5079,6 +5159,48 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_instance_count_with_options(request, runtime)
 
+    def list_isolation_rules_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.app_name):
+            query['AppName'] = request.app_name
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
+        if not UtilClient.is_unset(request.page_index):
+            query['PageIndex'] = request.page_index
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.resource):
+            query['Resource'] = request.resource
+        if not UtilClient.is_unset(request.resource_search_key):
+            query['ResourceSearchKey'] = request.resource_search_key
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListIsolationRules',
+            version='2019-05-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mse_20190531_models.ListIsolationRulesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_isolation_rules(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_isolation_rules_with_options(request, runtime)
+
     def list_listeners_by_config_with_options(self, request, runtime):
         """
         > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
@@ -7888,6 +8010,46 @@ class Client(OpenApiClient):
     def update_image(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_image_with_options(request, runtime)
+
+    def update_isolation_rule_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.app_name):
+            query['AppName'] = request.app_name
+        if not UtilClient.is_unset(request.enable):
+            query['Enable'] = request.enable
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
+        if not UtilClient.is_unset(request.rule_id):
+            query['RuleId'] = request.rule_id
+        if not UtilClient.is_unset(request.threshold):
+            query['Threshold'] = request.threshold
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateIsolationRule',
+            version='2019-05-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mse_20190531_models.UpdateIsolationRuleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_isolation_rule(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_isolation_rule_with_options(request, runtime)
 
     def update_message_queue_route_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
