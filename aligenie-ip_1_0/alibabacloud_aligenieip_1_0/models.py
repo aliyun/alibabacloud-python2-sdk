@@ -117,9 +117,6 @@ class AddCartoonResponse(TeaModel):
         self.body = body  # type: AddCartoonResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -319,9 +316,6 @@ class AddCustomQAResponse(TeaModel):
         self.body = body  # type: AddCustomQAResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -347,6 +341,278 @@ class AddCustomQAResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = AddCustomQAResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class AddCustomQAV2Headers(TeaModel):
+    def __init__(self, common_headers=None, x_acs_aligenie_access_token=None, authorization=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_acs_aligenie_access_token = x_acs_aligenie_access_token  # type: str
+        self.authorization = authorization  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AddCustomQAV2Headers, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_acs_aligenie_access_token is not None:
+            result['x-acs-aligenie-access-token'] = self.x_acs_aligenie_access_token
+        if self.authorization is not None:
+            result['Authorization'] = self.authorization
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('x-acs-aligenie-access-token') is not None:
+            self.x_acs_aligenie_access_token = m.get('x-acs-aligenie-access-token')
+        if m.get('Authorization') is not None:
+            self.authorization = m.get('Authorization')
+        return self
+
+
+class AddCustomQAV2Request(TeaModel):
+    def __init__(self, answers=None, hotel_id=None, key_words=None, major_question=None,
+                 supplementary_questions=None):
+        self.answers = answers  # type: list[str]
+        self.hotel_id = hotel_id  # type: str
+        self.key_words = key_words  # type: list[str]
+        self.major_question = major_question  # type: str
+        self.supplementary_questions = supplementary_questions  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AddCustomQAV2Request, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.answers is not None:
+            result['Answers'] = self.answers
+        if self.hotel_id is not None:
+            result['HotelId'] = self.hotel_id
+        if self.key_words is not None:
+            result['KeyWords'] = self.key_words
+        if self.major_question is not None:
+            result['MajorQuestion'] = self.major_question
+        if self.supplementary_questions is not None:
+            result['SupplementaryQuestions'] = self.supplementary_questions
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Answers') is not None:
+            self.answers = m.get('Answers')
+        if m.get('HotelId') is not None:
+            self.hotel_id = m.get('HotelId')
+        if m.get('KeyWords') is not None:
+            self.key_words = m.get('KeyWords')
+        if m.get('MajorQuestion') is not None:
+            self.major_question = m.get('MajorQuestion')
+        if m.get('SupplementaryQuestions') is not None:
+            self.supplementary_questions = m.get('SupplementaryQuestions')
+        return self
+
+
+class AddCustomQAV2ShrinkRequest(TeaModel):
+    def __init__(self, answers_shrink=None, hotel_id=None, key_words_shrink=None, major_question=None,
+                 supplementary_questions_shrink=None):
+        self.answers_shrink = answers_shrink  # type: str
+        self.hotel_id = hotel_id  # type: str
+        self.key_words_shrink = key_words_shrink  # type: str
+        self.major_question = major_question  # type: str
+        self.supplementary_questions_shrink = supplementary_questions_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AddCustomQAV2ShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.answers_shrink is not None:
+            result['Answers'] = self.answers_shrink
+        if self.hotel_id is not None:
+            result['HotelId'] = self.hotel_id
+        if self.key_words_shrink is not None:
+            result['KeyWords'] = self.key_words_shrink
+        if self.major_question is not None:
+            result['MajorQuestion'] = self.major_question
+        if self.supplementary_questions_shrink is not None:
+            result['SupplementaryQuestions'] = self.supplementary_questions_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Answers') is not None:
+            self.answers_shrink = m.get('Answers')
+        if m.get('HotelId') is not None:
+            self.hotel_id = m.get('HotelId')
+        if m.get('KeyWords') is not None:
+            self.key_words_shrink = m.get('KeyWords')
+        if m.get('MajorQuestion') is not None:
+            self.major_question = m.get('MajorQuestion')
+        if m.get('SupplementaryQuestions') is not None:
+            self.supplementary_questions_shrink = m.get('SupplementaryQuestions')
+        return self
+
+
+class AddCustomQAV2ResponseBodyResult(TeaModel):
+    def __init__(self, answers=None, create_time=None, hotel_id=None, key_words=None, last_operator=None,
+                 major_question=None, qa_id=None, status=None, supplementary_question=None, update_time=None):
+        self.answers = answers  # type: str
+        self.create_time = create_time  # type: str
+        self.hotel_id = hotel_id  # type: str
+        self.key_words = key_words  # type: str
+        self.last_operator = last_operator  # type: str
+        self.major_question = major_question  # type: str
+        # qaID
+        self.qa_id = qa_id  # type: str
+        self.status = status  # type: int
+        self.supplementary_question = supplementary_question  # type: str
+        self.update_time = update_time  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AddCustomQAV2ResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.answers is not None:
+            result['Answers'] = self.answers
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.hotel_id is not None:
+            result['HotelId'] = self.hotel_id
+        if self.key_words is not None:
+            result['KeyWords'] = self.key_words
+        if self.last_operator is not None:
+            result['LastOperator'] = self.last_operator
+        if self.major_question is not None:
+            result['MajorQuestion'] = self.major_question
+        if self.qa_id is not None:
+            result['QaId'] = self.qa_id
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.supplementary_question is not None:
+            result['SupplementaryQuestion'] = self.supplementary_question
+        if self.update_time is not None:
+            result['UpdateTime'] = self.update_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Answers') is not None:
+            self.answers = m.get('Answers')
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('HotelId') is not None:
+            self.hotel_id = m.get('HotelId')
+        if m.get('KeyWords') is not None:
+            self.key_words = m.get('KeyWords')
+        if m.get('LastOperator') is not None:
+            self.last_operator = m.get('LastOperator')
+        if m.get('MajorQuestion') is not None:
+            self.major_question = m.get('MajorQuestion')
+        if m.get('QaId') is not None:
+            self.qa_id = m.get('QaId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('SupplementaryQuestion') is not None:
+            self.supplementary_question = m.get('SupplementaryQuestion')
+        if m.get('UpdateTime') is not None:
+            self.update_time = m.get('UpdateTime')
+        return self
+
+
+class AddCustomQAV2ResponseBody(TeaModel):
+    def __init__(self, message=None, request_id=None, result=None, status_code=None):
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.result = result  # type: AddCustomQAV2ResponseBodyResult
+        self.status_code = status_code  # type: int
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super(AddCustomQAV2ResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.result is not None:
+            result['Result'] = self.result.to_map()
+        if self.status_code is not None:
+            result['StatusCode'] = self.status_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Result') is not None:
+            temp_model = AddCustomQAV2ResponseBodyResult()
+            self.result = temp_model.from_map(m['Result'])
+        if m.get('StatusCode') is not None:
+            self.status_code = m.get('StatusCode')
+        return self
+
+
+class AddCustomQAV2Response(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: AddCustomQAV2ResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(AddCustomQAV2Response, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = AddCustomQAV2ResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -460,9 +726,6 @@ class AddMessageTemplateResponse(TeaModel):
         self.body = body  # type: AddMessageTemplateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -630,9 +893,6 @@ class AddOrUpdateDisPlayModesResponse(TeaModel):
         self.body = body  # type: AddOrUpdateDisPlayModesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -926,9 +1186,6 @@ class AddOrUpdateHotelSettingResponse(TeaModel):
         self.body = body  # type: AddOrUpdateHotelSettingResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1127,9 +1384,6 @@ class AddOrUpdateScreenSaverResponse(TeaModel):
         self.body = body  # type: AddOrUpdateScreenSaverResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1278,9 +1532,6 @@ class AddOrUpdateWelcomeTextResponse(TeaModel):
         self.body = body  # type: AddOrUpdateWelcomeTextResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1475,9 +1726,6 @@ class AuditHotelResponse(TeaModel):
         self.body = body  # type: AuditHotelResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1645,9 +1893,6 @@ class BatchAddHotelRoomResponse(TeaModel):
         self.body = body  # type: BatchAddHotelRoomResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1815,9 +2060,6 @@ class BatchDeleteHotelRoomResponse(TeaModel):
         self.body = body  # type: BatchDeleteHotelRoomResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1956,9 +2198,6 @@ class CheckoutWithAKResponse(TeaModel):
         self.body = body  # type: CheckoutWithAKResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2112,9 +2351,6 @@ class ChildAccountAuthResponse(TeaModel):
         self.body = body  # type: ChildAccountAuthResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2354,9 +2590,6 @@ class ControlRoomDeviceResponse(TeaModel):
         self.body = body  # type: ControlRoomDeviceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2623,9 +2856,6 @@ class CreateHotelResponse(TeaModel):
         self.body = body  # type: CreateHotelResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2990,9 +3220,6 @@ class CreateHotelAlarmResponse(TeaModel):
         self.body = body  # type: CreateHotelAlarmResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3211,9 +3438,6 @@ class CreateRcuSceneResponse(TeaModel):
         self.body = body  # type: CreateRcuSceneResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3347,9 +3571,6 @@ class DeleteCartoonResponse(TeaModel):
         self.body = body  # type: DeleteCartoonResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3517,9 +3738,6 @@ class DeleteCustomQAResponse(TeaModel):
         self.body = body  # type: DeleteCustomQAResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3739,9 +3957,6 @@ class DeleteHotelAlarmResponse(TeaModel):
         self.body = body  # type: DeleteHotelAlarmResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3886,9 +4101,6 @@ class DeleteHotelSceneBookItemResponse(TeaModel):
         self.body = body  # type: DeleteHotelSceneBookItemResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4027,9 +4239,6 @@ class DeleteHotelSettingResponse(TeaModel):
         self.body = body  # type: DeleteHotelSettingResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4163,9 +4372,6 @@ class DeleteMessageTemplateResponse(TeaModel):
         self.body = body  # type: DeleteMessageTemplateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4304,9 +4510,6 @@ class DeleteRcuSceneResponse(TeaModel):
         self.body = body  # type: DeleteRcuSceneResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4598,9 +4801,6 @@ class DeviceControlResponse(TeaModel):
         self.body = body  # type: DeviceControlResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4812,9 +5012,6 @@ class GetBasicInfoQAResponse(TeaModel):
         self.body = body  # type: GetBasicInfoQAResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4979,9 +5176,6 @@ class GetCartoonResponse(TeaModel):
         self.body = body  # type: GetCartoonResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5319,9 +5513,6 @@ class GetHotelContactByGenieDeviceResponse(TeaModel):
         self.body = body  # type: GetHotelContactByGenieDeviceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5597,9 +5788,6 @@ class GetHotelContactByNumberResponse(TeaModel):
         self.body = body  # type: GetHotelContactByNumberResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5871,9 +6059,6 @@ class GetHotelContactsResponse(TeaModel):
         self.body = body  # type: GetHotelContactsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6155,9 +6340,6 @@ class GetHotelHomeBackImageAndModesResponse(TeaModel):
         self.body = body  # type: GetHotelHomeBackImageAndModesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6362,9 +6544,6 @@ class GetHotelNoticeResponse(TeaModel):
         self.body = body  # type: GetHotelNoticeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6604,9 +6783,6 @@ class GetHotelNoticeV2Response(TeaModel):
         self.body = body  # type: GetHotelNoticeV2ResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6842,9 +7018,6 @@ class GetHotelOrderDetailResponse(TeaModel):
         self.body = body  # type: GetHotelOrderDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7040,9 +7213,6 @@ class GetHotelRoomDeviceResponse(TeaModel):
         self.body = body  # type: GetHotelRoomDeviceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7246,9 +7416,6 @@ class GetHotelSampleUtterancesResponse(TeaModel):
         self.body = body  # type: GetHotelSampleUtterancesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7538,9 +7705,6 @@ class GetHotelSceneItemDetailResponse(TeaModel):
         self.body = body  # type: GetHotelSceneItemDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7775,9 +7939,6 @@ class GetHotelScreenSaverResponse(TeaModel):
         self.body = body  # type: GetHotelScreenSaverResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7958,9 +8119,6 @@ class GetHotelScreenSaverStyleResponse(TeaModel):
         self.body = body  # type: GetHotelScreenSaverStyleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8247,9 +8405,6 @@ class GetHotelSettingResponse(TeaModel):
         self.body = body  # type: GetHotelSettingResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8401,9 +8556,6 @@ class GetRelationProductListResponse(TeaModel):
         self.body = body  # type: GetRelationProductListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8589,9 +8741,6 @@ class GetUnionIdResponse(TeaModel):
         self.body = body  # type: GetUnionIdResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8766,9 +8915,6 @@ class GetWelcomeTextAndMusicResponse(TeaModel):
         self.body = body  # type: GetWelcomeTextAndMusicResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9046,9 +9192,6 @@ class HotelQrBindResponse(TeaModel):
         self.body = body  # type: HotelQrBindResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9294,9 +9437,6 @@ class ImportHotelConfigResponse(TeaModel):
         self.body = body  # type: ImportHotelConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9714,9 +9854,6 @@ class ImportRoomControlDevicesResponse(TeaModel):
         self.body = body  # type: ImportRoomControlDevicesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10205,9 +10342,6 @@ class ImportRoomGenieScenesResponse(TeaModel):
         self.body = body  # type: ImportRoomGenieScenesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10422,9 +10556,6 @@ class InsertHotelSceneBookItemResponse(TeaModel):
         self.body = body  # type: InsertHotelSceneBookItemResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10568,9 +10699,6 @@ class InvokeRobotPushResponse(TeaModel):
         self.body = body  # type: InvokeRobotPushResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10680,9 +10808,6 @@ class ListAllProvincesResponse(TeaModel):
         self.body = body  # type: ListAllProvincesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10816,9 +10941,6 @@ class ListCitiesByProvinceResponse(TeaModel):
         self.body = body  # type: ListCitiesByProvinceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11142,9 +11264,6 @@ class ListCustomQAResponse(TeaModel):
         self.body = body  # type: ListCustomQAResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11426,9 +11545,6 @@ class ListDialogueTemplateResponse(TeaModel):
         self.body = body  # type: ListDialogueTemplateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11768,9 +11884,6 @@ class ListHotelAlarmResponse(TeaModel):
         self.body = body  # type: ListHotelAlarmResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11974,9 +12087,6 @@ class ListHotelControlDeviceResponse(TeaModel):
         self.body = body  # type: ListHotelControlDeviceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12170,9 +12280,6 @@ class ListHotelInfoResponse(TeaModel):
         self.body = body  # type: ListHotelInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12335,9 +12442,6 @@ class ListHotelMessageTemplateResponse(TeaModel):
         self.body = body  # type: ListHotelMessageTemplateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12734,9 +12838,6 @@ class ListHotelOrderResponse(TeaModel):
         self.body = body  # type: ListHotelOrderResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12800,12 +12901,38 @@ class ListHotelRoomsHeaders(TeaModel):
         return self
 
 
-class ListHotelRoomsRequest(TeaModel):
-    def __init__(self, hotel_id=None):
-        self.hotel_id = hotel_id  # type: str
+class ListHotelRoomsRequestHotelAdminRoom(TeaModel):
+    def __init__(self, room_no=None):
+        self.room_no = room_no  # type: str
 
     def validate(self):
         pass
+
+    def to_map(self):
+        _map = super(ListHotelRoomsRequestHotelAdminRoom, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.room_no is not None:
+            result['RoomNo'] = self.room_no
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RoomNo') is not None:
+            self.room_no = m.get('RoomNo')
+        return self
+
+
+class ListHotelRoomsRequest(TeaModel):
+    def __init__(self, hotel_admin_room=None, hotel_id=None):
+        self.hotel_admin_room = hotel_admin_room  # type: ListHotelRoomsRequestHotelAdminRoom
+        self.hotel_id = hotel_id  # type: str
+
+    def validate(self):
+        if self.hotel_admin_room:
+            self.hotel_admin_room.validate()
 
     def to_map(self):
         _map = super(ListHotelRoomsRequest, self).to_map()
@@ -12813,12 +12940,46 @@ class ListHotelRoomsRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.hotel_admin_room is not None:
+            result['HotelAdminRoom'] = self.hotel_admin_room.to_map()
         if self.hotel_id is not None:
             result['HotelId'] = self.hotel_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('HotelAdminRoom') is not None:
+            temp_model = ListHotelRoomsRequestHotelAdminRoom()
+            self.hotel_admin_room = temp_model.from_map(m['HotelAdminRoom'])
+        if m.get('HotelId') is not None:
+            self.hotel_id = m.get('HotelId')
+        return self
+
+
+class ListHotelRoomsShrinkRequest(TeaModel):
+    def __init__(self, hotel_admin_room_shrink=None, hotel_id=None):
+        self.hotel_admin_room_shrink = hotel_admin_room_shrink  # type: str
+        self.hotel_id = hotel_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListHotelRoomsShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.hotel_admin_room_shrink is not None:
+            result['HotelAdminRoom'] = self.hotel_admin_room_shrink
+        if self.hotel_id is not None:
+            result['HotelId'] = self.hotel_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('HotelAdminRoom') is not None:
+            self.hotel_admin_room_shrink = m.get('HotelAdminRoom')
         if m.get('HotelId') is not None:
             self.hotel_id = m.get('HotelId')
         return self
@@ -12907,9 +13068,6 @@ class ListHotelRoomsResponse(TeaModel):
         self.body = body  # type: ListHotelRoomsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13260,9 +13418,6 @@ class ListHotelSceneBookItemsResponse(TeaModel):
         self.body = body  # type: ListHotelSceneBookItemsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13686,9 +13841,6 @@ class ListHotelSceneItemResponse(TeaModel):
         self.body = body  # type: ListHotelSceneItemResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14115,9 +14267,6 @@ class ListHotelSceneItemsResponse(TeaModel):
         self.body = body  # type: ListHotelSceneItemsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14353,9 +14502,6 @@ class ListHotelServiceCategoryResponse(TeaModel):
         self.body = body  # type: ListHotelServiceCategoryResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14419,6 +14565,30 @@ class ListHotelsHeaders(TeaModel):
         return self
 
 
+class ListHotelsRequestHotelRequest(TeaModel):
+    def __init__(self, hotel_id=None):
+        self.hotel_id = hotel_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListHotelsRequestHotelRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.hotel_id is not None:
+            result['HotelId'] = self.hotel_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('HotelId') is not None:
+            self.hotel_id = m.get('HotelId')
+        return self
+
+
 class ListHotelsRequestPage(TeaModel):
     def __init__(self, page_number=None, page_size=None):
         self.page_number = page_number  # type: int
@@ -14449,11 +14619,14 @@ class ListHotelsRequestPage(TeaModel):
 
 
 class ListHotelsRequest(TeaModel):
-    def __init__(self, page=None, status=None):
+    def __init__(self, hotel_request=None, page=None, status=None):
+        self.hotel_request = hotel_request  # type: ListHotelsRequestHotelRequest
         self.page = page  # type: ListHotelsRequestPage
         self.status = status  # type: int
 
     def validate(self):
+        if self.hotel_request:
+            self.hotel_request.validate()
         if self.page:
             self.page.validate()
 
@@ -14463,6 +14636,8 @@ class ListHotelsRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.hotel_request is not None:
+            result['HotelRequest'] = self.hotel_request.to_map()
         if self.page is not None:
             result['Page'] = self.page.to_map()
         if self.status is not None:
@@ -14471,6 +14646,9 @@ class ListHotelsRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('HotelRequest') is not None:
+            temp_model = ListHotelsRequestHotelRequest()
+            self.hotel_request = temp_model.from_map(m['HotelRequest'])
         if m.get('Page') is not None:
             temp_model = ListHotelsRequestPage()
             self.page = temp_model.from_map(m['Page'])
@@ -14480,7 +14658,8 @@ class ListHotelsRequest(TeaModel):
 
 
 class ListHotelsShrinkRequest(TeaModel):
-    def __init__(self, page_shrink=None, status=None):
+    def __init__(self, hotel_request_shrink=None, page_shrink=None, status=None):
+        self.hotel_request_shrink = hotel_request_shrink  # type: str
         self.page_shrink = page_shrink  # type: str
         self.status = status  # type: int
 
@@ -14493,6 +14672,8 @@ class ListHotelsShrinkRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.hotel_request_shrink is not None:
+            result['HotelRequest'] = self.hotel_request_shrink
         if self.page_shrink is not None:
             result['Page'] = self.page_shrink
         if self.status is not None:
@@ -14501,6 +14682,8 @@ class ListHotelsShrinkRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('HotelRequest') is not None:
+            self.hotel_request_shrink = m.get('HotelRequest')
         if m.get('Page') is not None:
             self.page_shrink = m.get('Page')
         if m.get('Status') is not None:
@@ -14711,9 +14894,6 @@ class ListHotelsResponse(TeaModel):
         self.body = body  # type: ListHotelsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14852,9 +15032,6 @@ class ListInfraredDeviceBrandsResponse(TeaModel):
         self.body = body  # type: ListInfraredDeviceBrandsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15055,9 +15232,6 @@ class ListInfraredRemoteControllersResponse(TeaModel):
         self.body = body  # type: ListInfraredRemoteControllersResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15196,9 +15370,6 @@ class ListSTBServiceProvidersResponse(TeaModel):
         self.body = body  # type: ListSTBServiceProvidersResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15339,9 +15510,6 @@ class ListSceneCategoryResponse(TeaModel):
         self.body = body  # type: ListSceneCategoryResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15659,9 +15827,6 @@ class ListServiceQAResponse(TeaModel):
         self.body = body  # type: ListServiceQAResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16161,9 +16326,6 @@ class ListTicketsResponse(TeaModel):
         self.body = body  # type: ListTicketsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16432,9 +16594,6 @@ class PageGetHotelRoomDevicesResponse(TeaModel):
         self.body = body  # type: PageGetHotelRoomDevicesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16460,6 +16619,139 @@ class PageGetHotelRoomDevicesResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = PageGetHotelRoomDevicesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class PmsEventReportHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_acs_aligenie_access_token=None, authorization=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_acs_aligenie_access_token = x_acs_aligenie_access_token  # type: str
+        self.authorization = authorization  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PmsEventReportHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_acs_aligenie_access_token is not None:
+            result['x-acs-aligenie-access-token'] = self.x_acs_aligenie_access_token
+        if self.authorization is not None:
+            result['Authorization'] = self.authorization
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('x-acs-aligenie-access-token') is not None:
+            self.x_acs_aligenie_access_token = m.get('x-acs-aligenie-access-token')
+        if m.get('Authorization') is not None:
+            self.authorization = m.get('Authorization')
+        return self
+
+
+class PmsEventReportRequest(TeaModel):
+    def __init__(self, payload=None):
+        self.payload = payload  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PmsEventReportRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.payload is not None:
+            result['Payload'] = self.payload
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Payload') is not None:
+            self.payload = m.get('Payload')
+        return self
+
+
+class PmsEventReportResponseBody(TeaModel):
+    def __init__(self, message=None, request_id=None, result=None, status_code=None):
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.result = result  # type: bool
+        self.status_code = status_code  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PmsEventReportResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.result is not None:
+            result['Result'] = self.result
+        if self.status_code is not None:
+            result['StatusCode'] = self.status_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Result') is not None:
+            self.result = m.get('Result')
+        if m.get('StatusCode') is not None:
+            self.status_code = m.get('StatusCode')
+        return self
+
+
+class PmsEventReportResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: PmsEventReportResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(PmsEventReportResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = PmsEventReportResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -16635,9 +16927,6 @@ class PushHotelMessageResponse(TeaModel):
         self.body = body  # type: PushHotelMessageResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16663,6 +16952,378 @@ class PushHotelMessageResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = PushHotelMessageResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class PushVoiceBoxCommandsHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_acs_aligenie_access_token=None, authorization=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_acs_aligenie_access_token = x_acs_aligenie_access_token  # type: str
+        self.authorization = authorization  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PushVoiceBoxCommandsHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_acs_aligenie_access_token is not None:
+            result['x-acs-aligenie-access-token'] = self.x_acs_aligenie_access_token
+        if self.authorization is not None:
+            result['Authorization'] = self.authorization
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('x-acs-aligenie-access-token') is not None:
+            self.x_acs_aligenie_access_token = m.get('x-acs-aligenie-access-token')
+        if m.get('Authorization') is not None:
+            self.authorization = m.get('Authorization')
+        return self
+
+
+class PushVoiceBoxCommandsRequestCommands(TeaModel):
+    def __init__(self, command_domain=None, command_name=None, payload=None):
+        self.command_domain = command_domain  # type: str
+        self.command_name = command_name  # type: str
+        self.payload = payload  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PushVoiceBoxCommandsRequestCommands, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.command_domain is not None:
+            result['CommandDomain'] = self.command_domain
+        if self.command_name is not None:
+            result['CommandName'] = self.command_name
+        if self.payload is not None:
+            result['Payload'] = self.payload
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CommandDomain') is not None:
+            self.command_domain = m.get('CommandDomain')
+        if m.get('CommandName') is not None:
+            self.command_name = m.get('CommandName')
+        if m.get('Payload') is not None:
+            self.payload = m.get('Payload')
+        return self
+
+
+class PushVoiceBoxCommandsRequest(TeaModel):
+    def __init__(self, commands=None, hotel_id=None, room_no=None):
+        self.commands = commands  # type: list[PushVoiceBoxCommandsRequestCommands]
+        self.hotel_id = hotel_id  # type: str
+        self.room_no = room_no  # type: str
+
+    def validate(self):
+        if self.commands:
+            for k in self.commands:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(PushVoiceBoxCommandsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Commands'] = []
+        if self.commands is not None:
+            for k in self.commands:
+                result['Commands'].append(k.to_map() if k else None)
+        if self.hotel_id is not None:
+            result['HotelId'] = self.hotel_id
+        if self.room_no is not None:
+            result['RoomNo'] = self.room_no
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.commands = []
+        if m.get('Commands') is not None:
+            for k in m.get('Commands'):
+                temp_model = PushVoiceBoxCommandsRequestCommands()
+                self.commands.append(temp_model.from_map(k))
+        if m.get('HotelId') is not None:
+            self.hotel_id = m.get('HotelId')
+        if m.get('RoomNo') is not None:
+            self.room_no = m.get('RoomNo')
+        return self
+
+
+class PushVoiceBoxCommandsShrinkRequest(TeaModel):
+    def __init__(self, commands_shrink=None, hotel_id=None, room_no=None):
+        self.commands_shrink = commands_shrink  # type: str
+        self.hotel_id = hotel_id  # type: str
+        self.room_no = room_no  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PushVoiceBoxCommandsShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.commands_shrink is not None:
+            result['Commands'] = self.commands_shrink
+        if self.hotel_id is not None:
+            result['HotelId'] = self.hotel_id
+        if self.room_no is not None:
+            result['RoomNo'] = self.room_no
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Commands') is not None:
+            self.commands_shrink = m.get('Commands')
+        if m.get('HotelId') is not None:
+            self.hotel_id = m.get('HotelId')
+        if m.get('RoomNo') is not None:
+            self.room_no = m.get('RoomNo')
+        return self
+
+
+class PushVoiceBoxCommandsResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None, result=None, status_code=None):
+        self.code = code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.result = result  # type: bool
+        self.status_code = status_code  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PushVoiceBoxCommandsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.result is not None:
+            result['Result'] = self.result
+        if self.status_code is not None:
+            result['StatusCode'] = self.status_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Result') is not None:
+            self.result = m.get('Result')
+        if m.get('StatusCode') is not None:
+            self.status_code = m.get('StatusCode')
+        return self
+
+
+class PushVoiceBoxCommandsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: PushVoiceBoxCommandsResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(PushVoiceBoxCommandsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = PushVoiceBoxCommandsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class PushWelcomeHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_acs_aligenie_access_token=None, authorization=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_acs_aligenie_access_token = x_acs_aligenie_access_token  # type: str
+        self.authorization = authorization  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PushWelcomeHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_acs_aligenie_access_token is not None:
+            result['x-acs-aligenie-access-token'] = self.x_acs_aligenie_access_token
+        if self.authorization is not None:
+            result['Authorization'] = self.authorization
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('x-acs-aligenie-access-token') is not None:
+            self.x_acs_aligenie_access_token = m.get('x-acs-aligenie-access-token')
+        if m.get('Authorization') is not None:
+            self.authorization = m.get('Authorization')
+        return self
+
+
+class PushWelcomeRequest(TeaModel):
+    def __init__(self, hotel_id=None, room_no=None, welcome_music_url=None, welcome_text=None):
+        self.hotel_id = hotel_id  # type: str
+        self.room_no = room_no  # type: str
+        self.welcome_music_url = welcome_music_url  # type: str
+        self.welcome_text = welcome_text  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PushWelcomeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.hotel_id is not None:
+            result['HotelId'] = self.hotel_id
+        if self.room_no is not None:
+            result['RoomNo'] = self.room_no
+        if self.welcome_music_url is not None:
+            result['WelcomeMusicUrl'] = self.welcome_music_url
+        if self.welcome_text is not None:
+            result['WelcomeText'] = self.welcome_text
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('HotelId') is not None:
+            self.hotel_id = m.get('HotelId')
+        if m.get('RoomNo') is not None:
+            self.room_no = m.get('RoomNo')
+        if m.get('WelcomeMusicUrl') is not None:
+            self.welcome_music_url = m.get('WelcomeMusicUrl')
+        if m.get('WelcomeText') is not None:
+            self.welcome_text = m.get('WelcomeText')
+        return self
+
+
+class PushWelcomeResponseBody(TeaModel):
+    def __init__(self, message=None, request_id=None, result=None, status_code=None):
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.result = result  # type: bool
+        self.status_code = status_code  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PushWelcomeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.result is not None:
+            result['Result'] = self.result
+        if self.status_code is not None:
+            result['StatusCode'] = self.status_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Result') is not None:
+            self.result = m.get('Result')
+        if m.get('StatusCode') is not None:
+            self.status_code = m.get('StatusCode')
+        return self
+
+
+class PushWelcomeResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: PushWelcomeResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(PushWelcomeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = PushWelcomeResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -16820,9 +17481,6 @@ class PushWelcomeTextAndMusicResponse(TeaModel):
         self.body = body  # type: PushWelcomeTextAndMusicResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17110,9 +17768,6 @@ class QueryDeviceStatusResponse(TeaModel):
         self.body = body  # type: QueryDeviceStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17655,9 +18310,6 @@ class QueryHotelRoomDetailResponse(TeaModel):
         self.body = body  # type: QueryHotelRoomDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -18000,9 +18652,6 @@ class QueryRoomControlDevicesResponse(TeaModel):
         self.body = body  # type: QueryRoomControlDevicesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -18301,9 +18950,6 @@ class QuerySceneListResponse(TeaModel):
         self.body = body  # type: QuerySceneListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -18452,9 +19098,6 @@ class RemoveChildAccountAuthResponse(TeaModel):
         self.body = body  # type: RemoveChildAccountAuthResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -18605,9 +19248,6 @@ class RemoveHotelResponse(TeaModel):
         self.body = body  # type: RemoveHotelResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -18746,9 +19386,6 @@ class ResetWelcomeTextAndMusicResponse(TeaModel):
         self.body = body  # type: ResetWelcomeTextAndMusicResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19009,9 +19646,6 @@ class RoomCheckOutResponse(TeaModel):
         self.body = body  # type: RoomCheckOutResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19299,9 +19933,6 @@ class SubmitHotelOrderResponse(TeaModel):
         self.body = body  # type: SubmitHotelOrderResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19502,9 +20133,6 @@ class SyncDeviceStatusWithAkResponse(TeaModel):
         self.body = body  # type: SyncDeviceStatusWithAkResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19695,9 +20323,6 @@ class UpdateBasicInfoQAResponse(TeaModel):
         self.body = body  # type: UpdateBasicInfoQAResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19907,9 +20532,6 @@ class UpdateCustomQAResponse(TeaModel):
         self.body = body  # type: UpdateCustomQAResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -20175,9 +20797,6 @@ class UpdateHotelResponse(TeaModel):
         self.body = body  # type: UpdateHotelResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -20528,9 +21147,6 @@ class UpdateHotelAlarmResponse(TeaModel):
         self.body = body  # type: UpdateHotelAlarmResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -20744,9 +21360,6 @@ class UpdateHotelSceneBookItemResponse(TeaModel):
         self.body = body  # type: UpdateHotelSceneBookItemResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -21116,9 +21729,6 @@ class UpdateHotelSceneItemResponse(TeaModel):
         self.body = body  # type: UpdateHotelSceneItemResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -21262,9 +21872,6 @@ class UpdateMessageTemplateResponse(TeaModel):
         self.body = body  # type: UpdateMessageTemplateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -21483,9 +22090,6 @@ class UpdateRcuSceneResponse(TeaModel):
         self.body = body  # type: UpdateRcuSceneResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -21634,9 +22238,6 @@ class UpdateServiceQAResponse(TeaModel):
         self.body = body  # type: UpdateServiceQAResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -21780,9 +22381,6 @@ class UpdateTicketResponse(TeaModel):
         self.body = body  # type: UpdateTicketResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
