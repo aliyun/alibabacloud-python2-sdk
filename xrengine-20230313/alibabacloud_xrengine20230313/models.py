@@ -1687,13 +1687,15 @@ class ListDigitalHumanMaterialsResponseBodyDataComponents(TeaModel):
 
 
 class ListDigitalHumanMaterialsResponseBodyData(TeaModel):
-    def __init__(self, components=None, ext=None, file_url=None, files=None, id=None, name=None, type=None):
+    def __init__(self, components=None, ext=None, file_url=None, files=None, id=None, name=None, sort_order=None,
+                 type=None):
         self.components = components  # type: list[ListDigitalHumanMaterialsResponseBodyDataComponents]
         self.ext = ext  # type: str
         self.file_url = file_url  # type: str
         self.files = files  # type: dict[str, any]
         self.id = id  # type: str
         self.name = name  # type: str
+        self.sort_order = sort_order  # type: int
         self.type = type  # type: str
 
     def validate(self):
@@ -1722,6 +1724,8 @@ class ListDigitalHumanMaterialsResponseBodyData(TeaModel):
             result['Id'] = self.id
         if self.name is not None:
             result['Name'] = self.name
+        if self.sort_order is not None:
+            result['SortOrder'] = self.sort_order
         if self.type is not None:
             result['Type'] = self.type
         return result
@@ -1743,6 +1747,8 @@ class ListDigitalHumanMaterialsResponseBodyData(TeaModel):
             self.id = m.get('Id')
         if m.get('Name') is not None:
             self.name = m.get('Name')
+        if m.get('SortOrder') is not None:
+            self.sort_order = m.get('SortOrder')
         if m.get('Type') is not None:
             self.type = m.get('Type')
         return self
