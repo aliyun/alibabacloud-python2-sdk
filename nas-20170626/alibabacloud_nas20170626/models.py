@@ -1723,8 +1723,8 @@ class CreateDataFlowRequestAutoRefreshs(TeaModel):
 
 class CreateDataFlowRequest(TeaModel):
     def __init__(self, auto_refresh_interval=None, auto_refresh_policy=None, auto_refreshs=None, client_token=None,
-                 description=None, dry_run=None, file_system_id=None, fset_id=None, source_security_type=None,
-                 source_storage=None, throughput=None):
+                 description=None, dry_run=None, file_system_id=None, file_system_path=None, fset_id=None,
+                 source_security_type=None, source_storage=None, source_storage_path=None, throughput=None):
         # The automatic update interval. CPFS checks whether data is updated in the directory at the interval specified by this parameter. If data is updated, CPFS starts an automatic update task. Unit: minutes.
         # 
         # Valid values: 5 to 525600. Default value: 10.
@@ -1761,6 +1761,7 @@ class CreateDataFlowRequest(TeaModel):
         self.dry_run = dry_run  # type: bool
         # The ID of the file system.
         self.file_system_id = file_system_id  # type: str
+        self.file_system_path = file_system_path  # type: str
         # The fileset ID.
         self.fset_id = fset_id  # type: str
         # The type of security mechanism for the source storage. This parameter must be specified if the source storage is accessed with a security mechanism. Valid values:
@@ -1783,6 +1784,7 @@ class CreateDataFlowRequest(TeaModel):
         # 
         # >  The OSS bucket must be an existing bucket in the region.
         self.source_storage = source_storage  # type: str
+        self.source_storage_path = source_storage_path  # type: str
         # The maximum dataflow throughput. Unit: MB/s. Valid values:
         # 
         # *   600
@@ -1820,12 +1822,16 @@ class CreateDataFlowRequest(TeaModel):
             result['DryRun'] = self.dry_run
         if self.file_system_id is not None:
             result['FileSystemId'] = self.file_system_id
+        if self.file_system_path is not None:
+            result['FileSystemPath'] = self.file_system_path
         if self.fset_id is not None:
             result['FsetId'] = self.fset_id
         if self.source_security_type is not None:
             result['SourceSecurityType'] = self.source_security_type
         if self.source_storage is not None:
             result['SourceStorage'] = self.source_storage
+        if self.source_storage_path is not None:
+            result['SourceStoragePath'] = self.source_storage_path
         if self.throughput is not None:
             result['Throughput'] = self.throughput
         return result
@@ -1849,12 +1855,16 @@ class CreateDataFlowRequest(TeaModel):
             self.dry_run = m.get('DryRun')
         if m.get('FileSystemId') is not None:
             self.file_system_id = m.get('FileSystemId')
+        if m.get('FileSystemPath') is not None:
+            self.file_system_path = m.get('FileSystemPath')
         if m.get('FsetId') is not None:
             self.fset_id = m.get('FsetId')
         if m.get('SourceSecurityType') is not None:
             self.source_security_type = m.get('SourceSecurityType')
         if m.get('SourceStorage') is not None:
             self.source_storage = m.get('SourceStorage')
+        if m.get('SourceStoragePath') is not None:
+            self.source_storage_path = m.get('SourceStoragePath')
         if m.get('Throughput') is not None:
             self.throughput = m.get('Throughput')
         return self
@@ -1928,14 +1938,15 @@ class CreateDataFlowResponse(TeaModel):
 
 
 class CreateDataFlowTaskRequest(TeaModel):
-    def __init__(self, client_token=None, data_flow_id=None, data_type=None, directory=None, dry_run=None,
-                 entry_list=None, file_system_id=None, src_task_id=None, task_action=None):
+    def __init__(self, client_token=None, conflict_policy=None, data_flow_id=None, data_type=None, directory=None,
+                 dry_run=None, entry_list=None, file_system_id=None, src_task_id=None, task_action=None):
         # The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests.
         # 
         # The token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How do I ensure the idempotence?](~~25693~~)
         # 
         # >  If you do not specify this parameter, the system automatically uses the request ID as the client token. The value of RequestId may be different for each API request.
         self.client_token = client_token  # type: str
+        self.conflict_policy = conflict_policy  # type: str
         # The dataflow ID.
         self.data_flow_id = data_flow_id  # type: str
         # The type of data on which operations are performed by the dataflow task.
@@ -1998,6 +2009,8 @@ class CreateDataFlowTaskRequest(TeaModel):
         result = dict()
         if self.client_token is not None:
             result['ClientToken'] = self.client_token
+        if self.conflict_policy is not None:
+            result['ConflictPolicy'] = self.conflict_policy
         if self.data_flow_id is not None:
             result['DataFlowId'] = self.data_flow_id
         if self.data_type is not None:
@@ -2020,6 +2033,8 @@ class CreateDataFlowTaskRequest(TeaModel):
         m = m or dict()
         if m.get('ClientToken') is not None:
             self.client_token = m.get('ClientToken')
+        if m.get('ConflictPolicy') is not None:
+            self.conflict_policy = m.get('ConflictPolicy')
         if m.get('DataFlowId') is not None:
             self.data_flow_id = m.get('DataFlowId')
         if m.get('DataType') is not None:
@@ -6496,9 +6511,10 @@ class DescribeDataFlowTasksRequest(TeaModel):
 
 
 class DescribeDataFlowTasksResponseBodyTaskInfoTask(TeaModel):
-    def __init__(self, create_time=None, data_flow_id=None, data_type=None, end_time=None, file_system_path=None,
-                 filesystem_id=None, fs_path=None, originator=None, progress=None, report_path=None, source_storage=None,
-                 start_time=None, status=None, task_action=None, task_id=None):
+    def __init__(self, conflict_policy=None, create_time=None, data_flow_id=None, data_type=None, directory=None,
+                 end_time=None, file_system_path=None, filesystem_id=None, fs_path=None, originator=None, progress=None,
+                 report_path=None, source_storage=None, start_time=None, status=None, task_action=None, task_id=None):
+        self.conflict_policy = conflict_policy  # type: str
         # The time when the task was created.
         self.create_time = create_time  # type: str
         self.data_flow_id = data_flow_id  # type: str
@@ -6508,6 +6524,7 @@ class DescribeDataFlowTasksResponseBodyTaskInfoTask(TeaModel):
         # *   null
         # *   null
         self.data_type = data_type  # type: str
+        self.directory = directory  # type: str
         # The time when the task ended.
         self.end_time = end_time  # type: str
         # *\
@@ -6575,12 +6592,16 @@ class DescribeDataFlowTasksResponseBodyTaskInfoTask(TeaModel):
             return _map
 
         result = dict()
+        if self.conflict_policy is not None:
+            result['ConflictPolicy'] = self.conflict_policy
         if self.create_time is not None:
             result['CreateTime'] = self.create_time
         if self.data_flow_id is not None:
             result['DataFlowId'] = self.data_flow_id
         if self.data_type is not None:
             result['DataType'] = self.data_type
+        if self.directory is not None:
+            result['Directory'] = self.directory
         if self.end_time is not None:
             result['EndTime'] = self.end_time
         if self.file_system_path is not None:
@@ -6609,12 +6630,16 @@ class DescribeDataFlowTasksResponseBodyTaskInfoTask(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ConflictPolicy') is not None:
+            self.conflict_policy = m.get('ConflictPolicy')
         if m.get('CreateTime') is not None:
             self.create_time = m.get('CreateTime')
         if m.get('DataFlowId') is not None:
             self.data_flow_id = m.get('DataFlowId')
         if m.get('DataType') is not None:
             self.data_type = m.get('DataType')
+        if m.get('Directory') is not None:
+            self.directory = m.get('Directory')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
         if m.get('FileSystemPath') is not None:
@@ -6914,8 +6939,8 @@ class DescribeDataFlowsResponseBodyDataFlowInfoDataFlowAutoRefresh(TeaModel):
 class DescribeDataFlowsResponseBodyDataFlowInfoDataFlow(TeaModel):
     def __init__(self, auto_refresh=None, auto_refresh_interval=None, auto_refresh_policy=None, create_time=None,
                  data_flow_id=None, description=None, error_message=None, file_system_id=None, file_system_path=None,
-                 fset_description=None, fset_id=None, source_security_type=None, source_storage=None, status=None, throughput=None,
-                 update_time=None):
+                 fset_description=None, fset_id=None, source_security_type=None, source_storage=None, source_storage_path=None,
+                 status=None, throughput=None, update_time=None):
         # The details about automatic update policies.
         self.auto_refresh = auto_refresh  # type: DescribeDataFlowsResponseBodyDataFlowInfoDataFlowAutoRefresh
         # The automatic update interval. CPFS checks whether data is updated in the directory at the interval specified by this parameter. If data is updated, CPFS starts an automatic update task. Unit: minutes.
@@ -6982,6 +7007,8 @@ class DescribeDataFlowsResponseBodyDataFlowInfoDataFlow(TeaModel):
         # 
         # >  The OSS bucket must be an existing bucket in the region.
         self.source_storage = source_storage  # type: str
+        # 源端存储内的访问路径。
+        self.source_storage_path = source_storage_path  # type: str
         # The dataflow status. Valid values:
         # 
         # *   Starting: The dataflow is being created or enabled.
@@ -7041,6 +7068,8 @@ class DescribeDataFlowsResponseBodyDataFlowInfoDataFlow(TeaModel):
             result['SourceSecurityType'] = self.source_security_type
         if self.source_storage is not None:
             result['SourceStorage'] = self.source_storage
+        if self.source_storage_path is not None:
+            result['SourceStoragePath'] = self.source_storage_path
         if self.status is not None:
             result['Status'] = self.status
         if self.throughput is not None:
@@ -7078,6 +7107,8 @@ class DescribeDataFlowsResponseBodyDataFlowInfoDataFlow(TeaModel):
             self.source_security_type = m.get('SourceSecurityType')
         if m.get('SourceStorage') is not None:
             self.source_storage = m.get('SourceStorage')
+        if m.get('SourceStoragePath') is not None:
+            self.source_storage_path = m.get('SourceStoragePath')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         if m.get('Throughput') is not None:
