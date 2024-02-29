@@ -8043,10 +8043,10 @@ class GetStackResponseBody(TeaModel):
                  description=None, disable_rollback=None, drift_detection_time=None, interface=None, log=None,
                  not_checked_stack_resource_count=None, notification_urls=None, operation_info=None, order_ids=None, outputs=None, parameters=None,
                  parent_stack_id=None, ram_role_name=None, region_id=None, request_id=None, resource_group_id=None,
-                 resource_progress=None, root_stack_id=None, service_managed=None, service_name=None, stack_drift_status=None,
-                 stack_id=None, stack_name=None, stack_type=None, status=None, status_reason=None, tags=None,
-                 template_description=None, template_id=None, template_scratch_id=None, template_url=None, template_version=None,
-                 timeout_in_minutes=None, update_time=None):
+                 resource_progress=None, rollback_failed_root_reason=None, root_stack_id=None, service_managed=None,
+                 service_name=None, stack_drift_status=None, stack_id=None, stack_name=None, stack_type=None, status=None,
+                 status_reason=None, tags=None, template_description=None, template_id=None, template_scratch_id=None,
+                 template_url=None, template_version=None, timeout_in_minutes=None, update_time=None):
         # The number of resources on which drift detection is performed.
         # 
         # >  This parameter is returned only if the drift detection on the stack is successful.
@@ -8109,6 +8109,7 @@ class GetStackResponseBody(TeaModel):
         self.resource_group_id = resource_group_id  # type: str
         # The creation progress of resources.
         self.resource_progress = resource_progress  # type: GetStackResponseBodyResourceProgress
+        self.rollback_failed_root_reason = rollback_failed_root_reason  # type: str
         # The ID of the root stack. This parameter is returned if the specified stack is a nested stack.
         self.root_stack_id = root_stack_id  # type: str
         # Indicates whether the stack is a managed stack. Valid values: 
@@ -8257,6 +8258,8 @@ class GetStackResponseBody(TeaModel):
             result['ResourceGroupId'] = self.resource_group_id
         if self.resource_progress is not None:
             result['ResourceProgress'] = self.resource_progress.to_map()
+        if self.rollback_failed_root_reason is not None:
+            result['RollbackFailedRootReason'] = self.rollback_failed_root_reason
         if self.root_stack_id is not None:
             result['RootStackId'] = self.root_stack_id
         if self.service_managed is not None:
@@ -8343,6 +8346,8 @@ class GetStackResponseBody(TeaModel):
         if m.get('ResourceProgress') is not None:
             temp_model = GetStackResponseBodyResourceProgress()
             self.resource_progress = temp_model.from_map(m['ResourceProgress'])
+        if m.get('RollbackFailedRootReason') is not None:
+            self.rollback_failed_root_reason = m.get('RollbackFailedRootReason')
         if m.get('RootStackId') is not None:
             self.root_stack_id = m.get('RootStackId')
         if m.get('ServiceManaged') is not None:
