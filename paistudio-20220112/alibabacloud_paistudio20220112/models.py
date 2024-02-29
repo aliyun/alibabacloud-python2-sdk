@@ -2908,9 +2908,6 @@ class CreateAlgorithmResponse(TeaModel):
         self.body = body  # type: CreateAlgorithmResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3026,9 +3023,6 @@ class CreateAlgorithmVersionResponse(TeaModel):
         self.body = body  # type: CreateAlgorithmVersionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3179,9 +3173,6 @@ class CreateQuotaResponse(TeaModel):
         self.body = body  # type: CreateQuotaResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3337,9 +3328,6 @@ class CreateResourceGroupResponse(TeaModel):
         self.body = body  # type: CreateResourceGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3456,6 +3444,30 @@ class CreateTrainingJobRequestComputeResource(TeaModel):
             self.instance_spec = temp_model.from_map(m['InstanceSpec'])
         if m.get('ResourceId') is not None:
             self.resource_id = m.get('ResourceId')
+        return self
+
+
+class CreateTrainingJobRequestExperimentConfig(TeaModel):
+    def __init__(self, experiment_id=None):
+        self.experiment_id = experiment_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateTrainingJobRequestExperimentConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.experiment_id is not None:
+            result['ExperimentId'] = self.experiment_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ExperimentId') is not None:
+            self.experiment_id = m.get('ExperimentId')
         return self
 
 
@@ -3695,15 +3707,16 @@ class CreateTrainingJobRequestUserVpc(TeaModel):
 
 class CreateTrainingJobRequest(TeaModel):
     def __init__(self, algorithm_name=None, algorithm_provider=None, algorithm_spec=None, algorithm_version=None,
-                 code_dir=None, compute_resource=None, hyper_parameters=None, input_channels=None, labels=None,
-                 output_channels=None, role_arn=None, scheduler=None, settings=None, training_job_description=None,
-                 training_job_name=None, user_vpc=None, workspace_id=None):
+                 code_dir=None, compute_resource=None, experiment_config=None, hyper_parameters=None, input_channels=None,
+                 labels=None, output_channels=None, role_arn=None, scheduler=None, settings=None,
+                 training_job_description=None, training_job_name=None, user_vpc=None, workspace_id=None):
         self.algorithm_name = algorithm_name  # type: str
         self.algorithm_provider = algorithm_provider  # type: str
         self.algorithm_spec = algorithm_spec  # type: AlgorithmSpec
         self.algorithm_version = algorithm_version  # type: str
         self.code_dir = code_dir  # type: Location
         self.compute_resource = compute_resource  # type: CreateTrainingJobRequestComputeResource
+        self.experiment_config = experiment_config  # type: CreateTrainingJobRequestExperimentConfig
         self.hyper_parameters = hyper_parameters  # type: list[CreateTrainingJobRequestHyperParameters]
         self.input_channels = input_channels  # type: list[CreateTrainingJobRequestInputChannels]
         self.labels = labels  # type: list[CreateTrainingJobRequestLabels]
@@ -3723,6 +3736,8 @@ class CreateTrainingJobRequest(TeaModel):
             self.code_dir.validate()
         if self.compute_resource:
             self.compute_resource.validate()
+        if self.experiment_config:
+            self.experiment_config.validate()
         if self.hyper_parameters:
             for k in self.hyper_parameters:
                 if k:
@@ -3764,6 +3779,8 @@ class CreateTrainingJobRequest(TeaModel):
             result['CodeDir'] = self.code_dir.to_map()
         if self.compute_resource is not None:
             result['ComputeResource'] = self.compute_resource.to_map()
+        if self.experiment_config is not None:
+            result['ExperimentConfig'] = self.experiment_config.to_map()
         result['HyperParameters'] = []
         if self.hyper_parameters is not None:
             for k in self.hyper_parameters:
@@ -3813,6 +3830,9 @@ class CreateTrainingJobRequest(TeaModel):
         if m.get('ComputeResource') is not None:
             temp_model = CreateTrainingJobRequestComputeResource()
             self.compute_resource = temp_model.from_map(m['ComputeResource'])
+        if m.get('ExperimentConfig') is not None:
+            temp_model = CreateTrainingJobRequestExperimentConfig()
+            self.experiment_config = temp_model.from_map(m['ExperimentConfig'])
         self.hyper_parameters = []
         if m.get('HyperParameters') is not None:
             for k in m.get('HyperParameters'):
@@ -3889,9 +3909,6 @@ class CreateTrainingJobResponse(TeaModel):
         self.body = body  # type: CreateTrainingJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3957,9 +3974,6 @@ class DeleteMachineGroupResponse(TeaModel):
         self.body = body  # type: DeleteMachineGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4026,9 +4040,6 @@ class DeleteQuotaResponse(TeaModel):
         self.body = body  # type: DeleteQuotaResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4094,9 +4105,6 @@ class DeleteResourceGroupResponse(TeaModel):
         self.body = body  # type: DeleteResourceGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4162,9 +4170,6 @@ class DeleteResourceGroupMachineGroupResponse(TeaModel):
         self.body = body  # type: DeleteResourceGroupMachineGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4277,9 +4282,6 @@ class GetAlgorithmResponse(TeaModel):
         self.body = body  # type: GetAlgorithmResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4383,9 +4385,6 @@ class GetAlgorithmVersionResponse(TeaModel):
         self.body = body  # type: GetAlgorithmVersionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4529,9 +4528,6 @@ class GetMachineGroupResponse(TeaModel):
         self.body = body  # type: GetMachineGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4654,9 +4650,6 @@ class GetNodeMetricsResponse(TeaModel):
         self.body = body  # type: GetNodeMetricsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4861,9 +4854,6 @@ class GetQuotaResponse(TeaModel):
         self.body = body  # type: GetQuotaResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5126,9 +5116,6 @@ class GetResourceGroupResponse(TeaModel):
         self.body = body  # type: GetResourceGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5414,9 +5401,6 @@ class GetResourceGroupMachineGroupResponse(TeaModel):
         self.body = body  # type: GetResourceGroupMachineGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5529,9 +5513,6 @@ class GetResourceGroupRequestResponse(TeaModel):
         self.body = body  # type: GetResourceGroupRequestResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5639,9 +5620,6 @@ class GetResourceGroupTotalResponse(TeaModel):
         self.body = body  # type: GetResourceGroupTotalResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5758,6 +5736,35 @@ class GetTrainingJobResponseBodyComputeResource(TeaModel):
             self.instance_spec = temp_model.from_map(m['InstanceSpec'])
         if m.get('ResourceId') is not None:
             self.resource_id = m.get('ResourceId')
+        return self
+
+
+class GetTrainingJobResponseBodyExperimentConfig(TeaModel):
+    def __init__(self, experiment_id=None, experiment_name=None):
+        self.experiment_id = experiment_id  # type: str
+        self.experiment_name = experiment_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetTrainingJobResponseBodyExperimentConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.experiment_id is not None:
+            result['ExperimentId'] = self.experiment_id
+        if self.experiment_name is not None:
+            result['ExperimentName'] = self.experiment_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ExperimentId') is not None:
+            self.experiment_id = m.get('ExperimentId')
+        if m.get('ExperimentName') is not None:
+            self.experiment_name = m.get('ExperimentName')
         return self
 
 
@@ -6225,18 +6232,19 @@ class GetTrainingJobResponseBodyUserVpc(TeaModel):
 
 class GetTrainingJobResponseBody(TeaModel):
     def __init__(self, algorithm_id=None, algorithm_name=None, algorithm_provider=None, algorithm_spec=None,
-                 algorithm_version=None, compute_resource=None, gmt_create_time=None, gmt_modified_time=None, hyper_parameters=None,
-                 input_channels=None, instances=None, is_temp_algo=None, labels=None, latest_metrics=None, latest_progress=None,
-                 output_channels=None, output_model=None, reason_code=None, reason_message=None, request_id=None, role_arn=None,
-                 scheduler=None, settings=None, status=None, status_transitions=None, training_job_description=None,
-                 training_job_id=None, training_job_name=None, training_job_url=None, user_id=None, user_vpc=None,
-                 workspace_id=None):
+                 algorithm_version=None, compute_resource=None, experiment_config=None, gmt_create_time=None, gmt_modified_time=None,
+                 hyper_parameters=None, input_channels=None, instances=None, is_temp_algo=None, labels=None, latest_metrics=None,
+                 latest_progress=None, output_channels=None, output_model=None, reason_code=None, reason_message=None,
+                 request_id=None, role_arn=None, scheduler=None, settings=None, status=None, status_transitions=None,
+                 training_job_description=None, training_job_id=None, training_job_name=None, training_job_url=None, user_id=None,
+                 user_vpc=None, workspace_id=None):
         self.algorithm_id = algorithm_id  # type: str
         self.algorithm_name = algorithm_name  # type: str
         self.algorithm_provider = algorithm_provider  # type: str
         self.algorithm_spec = algorithm_spec  # type: AlgorithmSpec
         self.algorithm_version = algorithm_version  # type: str
         self.compute_resource = compute_resource  # type: GetTrainingJobResponseBodyComputeResource
+        self.experiment_config = experiment_config  # type: GetTrainingJobResponseBodyExperimentConfig
         self.gmt_create_time = gmt_create_time  # type: str
         self.gmt_modified_time = gmt_modified_time  # type: str
         self.hyper_parameters = hyper_parameters  # type: list[GetTrainingJobResponseBodyHyperParameters]
@@ -6269,6 +6277,8 @@ class GetTrainingJobResponseBody(TeaModel):
             self.algorithm_spec.validate()
         if self.compute_resource:
             self.compute_resource.validate()
+        if self.experiment_config:
+            self.experiment_config.validate()
         if self.hyper_parameters:
             for k in self.hyper_parameters:
                 if k:
@@ -6326,6 +6336,8 @@ class GetTrainingJobResponseBody(TeaModel):
             result['AlgorithmVersion'] = self.algorithm_version
         if self.compute_resource is not None:
             result['ComputeResource'] = self.compute_resource.to_map()
+        if self.experiment_config is not None:
+            result['ExperimentConfig'] = self.experiment_config.to_map()
         if self.gmt_create_time is not None:
             result['GmtCreateTime'] = self.gmt_create_time
         if self.gmt_modified_time is not None:
@@ -6410,6 +6422,9 @@ class GetTrainingJobResponseBody(TeaModel):
         if m.get('ComputeResource') is not None:
             temp_model = GetTrainingJobResponseBodyComputeResource()
             self.compute_resource = temp_model.from_map(m['ComputeResource'])
+        if m.get('ExperimentConfig') is not None:
+            temp_model = GetTrainingJobResponseBodyExperimentConfig()
+            self.experiment_config = temp_model.from_map(m['ExperimentConfig'])
         if m.get('GmtCreateTime') is not None:
             self.gmt_create_time = m.get('GmtCreateTime')
         if m.get('GmtModifiedTime') is not None:
@@ -6498,9 +6513,6 @@ class GetTrainingJobResponse(TeaModel):
         self.body = body  # type: GetTrainingJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6642,9 +6654,6 @@ class GetUserViewMetricsResponse(TeaModel):
         self.body = body  # type: GetUserViewMetricsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6812,9 +6821,6 @@ class ListAlgorithmVersionsResponse(TeaModel):
         self.body = body  # type: ListAlgorithmVersionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7008,9 +7014,6 @@ class ListAlgorithmsResponse(TeaModel):
         self.body = body  # type: ListAlgorithmsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7165,9 +7168,6 @@ class ListQuotasResponse(TeaModel):
         self.body = body  # type: ListQuotasResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7321,9 +7321,6 @@ class ListResourceGroupMachineGroupsResponse(TeaModel):
         self.body = body  # type: ListResourceGroupMachineGroupsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7467,9 +7464,6 @@ class ListResourceGroupsResponse(TeaModel):
         self.body = body  # type: ListResourceGroupsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7590,9 +7584,6 @@ class ListTrainingJobLogsResponse(TeaModel):
         self.body = body  # type: ListTrainingJobLogsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7749,9 +7740,6 @@ class ListTrainingJobMetricsResponse(TeaModel):
         self.body = body  # type: ListTrainingJobMetricsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8053,6 +8041,35 @@ class ListTrainingJobsResponseBodyTrainingJobsComputeResource(TeaModel):
         return self
 
 
+class ListTrainingJobsResponseBodyTrainingJobsExperimentConfig(TeaModel):
+    def __init__(self, experiment_id=None, experiment_name=None):
+        self.experiment_id = experiment_id  # type: str
+        self.experiment_name = experiment_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListTrainingJobsResponseBodyTrainingJobsExperimentConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.experiment_id is not None:
+            result['ExperimentId'] = self.experiment_id
+        if self.experiment_name is not None:
+            result['ExperimentName'] = self.experiment_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ExperimentId') is not None:
+            self.experiment_id = m.get('ExperimentId')
+        if m.get('ExperimentName') is not None:
+            self.experiment_name = m.get('ExperimentName')
+        return self
+
+
 class ListTrainingJobsResponseBodyTrainingJobsHyperParameters(TeaModel):
     def __init__(self, name=None, value=None):
         self.name = name  # type: str
@@ -8293,14 +8310,15 @@ class ListTrainingJobsResponseBodyTrainingJobsUserVpc(TeaModel):
 
 class ListTrainingJobsResponseBodyTrainingJobs(TeaModel):
     def __init__(self, algorithm_name=None, algorithm_provider=None, algorithm_version=None, compute_resource=None,
-                 gmt_create_time=None, gmt_modified_time=None, hyper_parameters=None, input_channels=None, is_temp_algo=None,
-                 labels=None, output_channels=None, reason_code=None, reason_message=None, role_arn=None, scheduler=None,
-                 status=None, status_transitions=None, training_job_description=None, training_job_id=None,
+                 experiment_config=None, gmt_create_time=None, gmt_modified_time=None, hyper_parameters=None, input_channels=None,
+                 is_temp_algo=None, labels=None, output_channels=None, reason_code=None, reason_message=None, role_arn=None,
+                 scheduler=None, status=None, status_transitions=None, training_job_description=None, training_job_id=None,
                  training_job_name=None, user_id=None, user_vpc=None, workspace_id=None):
         self.algorithm_name = algorithm_name  # type: str
         self.algorithm_provider = algorithm_provider  # type: str
         self.algorithm_version = algorithm_version  # type: str
         self.compute_resource = compute_resource  # type: ListTrainingJobsResponseBodyTrainingJobsComputeResource
+        self.experiment_config = experiment_config  # type: ListTrainingJobsResponseBodyTrainingJobsExperimentConfig
         self.gmt_create_time = gmt_create_time  # type: str
         self.gmt_modified_time = gmt_modified_time  # type: str
         self.hyper_parameters = hyper_parameters  # type: list[ListTrainingJobsResponseBodyTrainingJobsHyperParameters]
@@ -8324,6 +8342,8 @@ class ListTrainingJobsResponseBodyTrainingJobs(TeaModel):
     def validate(self):
         if self.compute_resource:
             self.compute_resource.validate()
+        if self.experiment_config:
+            self.experiment_config.validate()
         if self.hyper_parameters:
             for k in self.hyper_parameters:
                 if k:
@@ -8363,6 +8383,8 @@ class ListTrainingJobsResponseBodyTrainingJobs(TeaModel):
             result['AlgorithmVersion'] = self.algorithm_version
         if self.compute_resource is not None:
             result['ComputeResource'] = self.compute_resource.to_map()
+        if self.experiment_config is not None:
+            result['ExperimentConfig'] = self.experiment_config.to_map()
         if self.gmt_create_time is not None:
             result['GmtCreateTime'] = self.gmt_create_time
         if self.gmt_modified_time is not None:
@@ -8424,6 +8446,9 @@ class ListTrainingJobsResponseBodyTrainingJobs(TeaModel):
         if m.get('ComputeResource') is not None:
             temp_model = ListTrainingJobsResponseBodyTrainingJobsComputeResource()
             self.compute_resource = temp_model.from_map(m['ComputeResource'])
+        if m.get('ExperimentConfig') is not None:
+            temp_model = ListTrainingJobsResponseBodyTrainingJobsExperimentConfig()
+            self.experiment_config = temp_model.from_map(m['ExperimentConfig'])
         if m.get('GmtCreateTime') is not None:
             self.gmt_create_time = m.get('GmtCreateTime')
         if m.get('GmtModifiedTime') is not None:
@@ -8531,9 +8556,6 @@ class ListTrainingJobsResponse(TeaModel):
         self.body = body  # type: ListTrainingJobsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8631,9 +8653,6 @@ class ScaleQuotaResponse(TeaModel):
         self.body = body  # type: ScaleQuotaResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8694,9 +8713,6 @@ class StopTrainingJobResponse(TeaModel):
         self.body = body  # type: StopTrainingJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8791,9 +8807,6 @@ class UpdateAlgorithmResponse(TeaModel):
         self.body = body  # type: UpdateAlgorithmResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8909,9 +8922,6 @@ class UpdateAlgorithmVersionResponse(TeaModel):
         self.body = body  # type: UpdateAlgorithmVersionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9020,9 +9030,6 @@ class UpdateQuotaResponse(TeaModel):
         self.body = body  # type: UpdateQuotaResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9129,9 +9136,6 @@ class UpdateResourceGroupResponse(TeaModel):
         self.body = body  # type: UpdateResourceGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9253,9 +9257,6 @@ class UpdateTrainingJobLabelsResponse(TeaModel):
         self.body = body  # type: UpdateTrainingJobLabelsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
