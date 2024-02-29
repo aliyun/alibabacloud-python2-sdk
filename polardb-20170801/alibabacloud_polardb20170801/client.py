@@ -2580,6 +2580,8 @@ class Client(OpenApiClient):
             query['DBClusterId'] = request.dbcluster_id
         if not UtilClient.is_unset(request.end_time):
             query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.interval):
+            query['Interval'] = request.interval
         if not UtilClient.is_unset(request.key):
             query['Key'] = request.key
         if not UtilClient.is_unset(request.start_time):

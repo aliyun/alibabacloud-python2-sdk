@@ -9998,11 +9998,16 @@ class DescribeDBClusterParametersRequest(TeaModel):
 
 
 class DescribeDBClusterParametersResponseBodyParametersParameters(TeaModel):
-    def __init__(self, is_equal=None, dist_parameter_description=None, dist_parameter_name=None,
-                 dist_parameter_optional=None, dist_parameter_value=None, rds_parameter_description=None, rds_parameter_name=None,
-                 rds_parameter_optional=None, rds_parameter_value=None):
+    def __init__(self, is_equal=None, is_instance_polar_dbkey=None, is_instance_rds_key=None, is_polar_dbkey=None,
+                 is_rds_key=None, dist_parameter_description=None, dist_parameter_name=None, dist_parameter_optional=None,
+                 dist_parameter_value=None, rds_parameter_description=None, rds_parameter_name=None, rds_parameter_optional=None,
+                 rds_parameter_value=None):
         # Indicates whether the source parameters and current parameters have the same value.
         self.is_equal = is_equal  # type: str
+        self.is_instance_polar_dbkey = is_instance_polar_dbkey  # type: str
+        self.is_instance_rds_key = is_instance_rds_key  # type: str
+        self.is_polar_dbkey = is_polar_dbkey  # type: str
+        self.is_rds_key = is_rds_key  # type: str
         # The description of the parameter of the current cluster.
         self.dist_parameter_description = dist_parameter_description  # type: str
         # The name of the parameter of the current cluster.
@@ -10031,6 +10036,14 @@ class DescribeDBClusterParametersResponseBodyParametersParameters(TeaModel):
         result = dict()
         if self.is_equal is not None:
             result['IsEqual'] = self.is_equal
+        if self.is_instance_polar_dbkey is not None:
+            result['IsInstancePolarDBKey'] = self.is_instance_polar_dbkey
+        if self.is_instance_rds_key is not None:
+            result['IsInstanceRdsKey'] = self.is_instance_rds_key
+        if self.is_polar_dbkey is not None:
+            result['IsPolarDBKey'] = self.is_polar_dbkey
+        if self.is_rds_key is not None:
+            result['IsRdsKey'] = self.is_rds_key
         if self.dist_parameter_description is not None:
             result['distParameterDescription'] = self.dist_parameter_description
         if self.dist_parameter_name is not None:
@@ -10053,6 +10066,14 @@ class DescribeDBClusterParametersResponseBodyParametersParameters(TeaModel):
         m = m or dict()
         if m.get('IsEqual') is not None:
             self.is_equal = m.get('IsEqual')
+        if m.get('IsInstancePolarDBKey') is not None:
+            self.is_instance_polar_dbkey = m.get('IsInstancePolarDBKey')
+        if m.get('IsInstanceRdsKey') is not None:
+            self.is_instance_rds_key = m.get('IsInstanceRdsKey')
+        if m.get('IsPolarDBKey') is not None:
+            self.is_polar_dbkey = m.get('IsPolarDBKey')
+        if m.get('IsRdsKey') is not None:
+            self.is_rds_key = m.get('IsRdsKey')
         if m.get('distParameterDescription') is not None:
             self.dist_parameter_description = m.get('distParameterDescription')
         if m.get('distParameterName') is not None:
@@ -10366,11 +10387,12 @@ class DescribeDBClusterParametersResponse(TeaModel):
 
 
 class DescribeDBClusterPerformanceRequest(TeaModel):
-    def __init__(self, dbcluster_id=None, end_time=None, key=None, start_time=None):
+    def __init__(self, dbcluster_id=None, end_time=None, interval=None, key=None, start_time=None):
         # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
         # The end of the time range to query. Specify the time in the ISO 8601 standard in the `yyyy-MM-ddTHH:mmZ` format. The time must be in UTC.
         self.end_time = end_time  # type: str
+        self.interval = interval  # type: str
         # The performance metrics that you want to query. Separate multiple metrics with commas (,). For more information, see [Performance parameters](~~141787~~).
         # 
         # >  You can specify a maximum of five performance metrics.
@@ -10391,6 +10413,8 @@ class DescribeDBClusterPerformanceRequest(TeaModel):
             result['DBClusterId'] = self.dbcluster_id
         if self.end_time is not None:
             result['EndTime'] = self.end_time
+        if self.interval is not None:
+            result['Interval'] = self.interval
         if self.key is not None:
             result['Key'] = self.key
         if self.start_time is not None:
@@ -10403,6 +10427,8 @@ class DescribeDBClusterPerformanceRequest(TeaModel):
             self.dbcluster_id = m.get('DBClusterId')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
+        if m.get('Interval') is not None:
+            self.interval = m.get('Interval')
         if m.get('Key') is not None:
             self.key = m.get('Key')
         if m.get('StartTime') is not None:
