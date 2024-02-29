@@ -27292,6 +27292,278 @@ class DeletionProtectionResponse(TeaModel):
         return self
 
 
+class Describe95TrafficRequest(TeaModel):
+    def __init__(self, day=None, instance_id=None, owner_account=None, owner_id=None, region_id=None,
+                 resource_owner_account=None, resource_owner_id=None, resource_type=None):
+        # The date in UTC+8. Format: year-month-day.
+        self.day = day  # type: str
+        # The resource ID.
+        self.instance_id = instance_id  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The region ID of the resource.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        # The resource type. Set the value to cbwp, which specifies Internet Shared Bandwidth.
+        self.resource_type = resource_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(Describe95TrafficRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.day is not None:
+            result['Day'] = self.day
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Day') is not None:
+            self.day = m.get('Day')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        return self
+
+
+class Describe95TrafficResponseBodyTraffic95SummaryTraffic95DetailListTraffic95Detail(TeaModel):
+    def __init__(self, bill_bandwidth=None, in_bandwidth=None, out_bandwidth=None, time=None):
+        # The sampled bandwidth value, which is the larger bandwidth value in the inbound and outbound directions within a sampling interval. Unit: Mbit/s.
+        self.bill_bandwidth = bill_bandwidth  # type: str
+        # The inbound bandwidth. Unit: Mbit/s.
+        self.in_bandwidth = in_bandwidth  # type: str
+        # The outbound bandwidth. Unit: Mbit/s.
+        self.out_bandwidth = out_bandwidth  # type: str
+        # The statistical time. The value is a string.
+        self.time = time  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(Describe95TrafficResponseBodyTraffic95SummaryTraffic95DetailListTraffic95Detail, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bill_bandwidth is not None:
+            result['BillBandwidth'] = self.bill_bandwidth
+        if self.in_bandwidth is not None:
+            result['InBandwidth'] = self.in_bandwidth
+        if self.out_bandwidth is not None:
+            result['OutBandwidth'] = self.out_bandwidth
+        if self.time is not None:
+            result['Time'] = self.time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BillBandwidth') is not None:
+            self.bill_bandwidth = m.get('BillBandwidth')
+        if m.get('InBandwidth') is not None:
+            self.in_bandwidth = m.get('InBandwidth')
+        if m.get('OutBandwidth') is not None:
+            self.out_bandwidth = m.get('OutBandwidth')
+        if m.get('Time') is not None:
+            self.time = m.get('Time')
+        return self
+
+
+class Describe95TrafficResponseBodyTraffic95SummaryTraffic95DetailList(TeaModel):
+    def __init__(self, traffic_95detail=None):
+        self.traffic_95detail = traffic_95detail  # type: list[Describe95TrafficResponseBodyTraffic95SummaryTraffic95DetailListTraffic95Detail]
+
+    def validate(self):
+        if self.traffic_95detail:
+            for k in self.traffic_95detail:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(Describe95TrafficResponseBodyTraffic95SummaryTraffic95DetailList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Traffic95Detail'] = []
+        if self.traffic_95detail is not None:
+            for k in self.traffic_95detail:
+                result['Traffic95Detail'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.traffic_95detail = []
+        if m.get('Traffic95Detail') is not None:
+            for k in m.get('Traffic95Detail'):
+                temp_model = Describe95TrafficResponseBodyTraffic95SummaryTraffic95DetailListTraffic95Detail()
+                self.traffic_95detail.append(temp_model.from_map(k))
+        return self
+
+
+class Describe95TrafficResponseBodyTraffic95Summary(TeaModel):
+    def __init__(self, bandwidth=None, fifth_peak_bandwidth=None, instance_id=None, internet_charge_type=None,
+                 minimum_consume_bandwidth=None, traffic_95detail_list=None):
+        # The peak bandwidth of the Internet Shared Bandwidth instance. Unit: Mbit/s.
+        self.bandwidth = bandwidth  # type: long
+        # The daily peak bandwidth. Unit: Mbit/s. For more information, see [Daily peak bandwidth](~~89729~~).
+        self.fifth_peak_bandwidth = fifth_peak_bandwidth  # type: str
+        # The resource ID.
+        self.instance_id = instance_id  # type: str
+        # The metering method of the Internet Shared Bandwidth instance. Valid values:
+        # 
+        # *   PayBy95: pay-by-enhanced-95th-percentile
+        # *   PayByBandwidth: pay-by-bandwidth
+        # *   PayByDominantTraffic: pay-by-dominant-traffic
+        self.internet_charge_type = internet_charge_type  # type: str
+        # The guaranteed bandwidth of the Internet Shared Bandwidth instance. Unit: Mbit/s.
+        self.minimum_consume_bandwidth = minimum_consume_bandwidth  # type: str
+        # The average bandwidth every 5 minutes in the inbound and outbound directions.
+        self.traffic_95detail_list = traffic_95detail_list  # type: Describe95TrafficResponseBodyTraffic95SummaryTraffic95DetailList
+
+    def validate(self):
+        if self.traffic_95detail_list:
+            self.traffic_95detail_list.validate()
+
+    def to_map(self):
+        _map = super(Describe95TrafficResponseBodyTraffic95Summary, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bandwidth is not None:
+            result['Bandwidth'] = self.bandwidth
+        if self.fifth_peak_bandwidth is not None:
+            result['FifthPeakBandwidth'] = self.fifth_peak_bandwidth
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.internet_charge_type is not None:
+            result['InternetChargeType'] = self.internet_charge_type
+        if self.minimum_consume_bandwidth is not None:
+            result['MinimumConsumeBandwidth'] = self.minimum_consume_bandwidth
+        if self.traffic_95detail_list is not None:
+            result['Traffic95DetailList'] = self.traffic_95detail_list.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Bandwidth') is not None:
+            self.bandwidth = m.get('Bandwidth')
+        if m.get('FifthPeakBandwidth') is not None:
+            self.fifth_peak_bandwidth = m.get('FifthPeakBandwidth')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('InternetChargeType') is not None:
+            self.internet_charge_type = m.get('InternetChargeType')
+        if m.get('MinimumConsumeBandwidth') is not None:
+            self.minimum_consume_bandwidth = m.get('MinimumConsumeBandwidth')
+        if m.get('Traffic95DetailList') is not None:
+            temp_model = Describe95TrafficResponseBodyTraffic95SummaryTraffic95DetailList()
+            self.traffic_95detail_list = temp_model.from_map(m['Traffic95DetailList'])
+        return self
+
+
+class Describe95TrafficResponseBody(TeaModel):
+    def __init__(self, request_id=None, traffic_95summary=None):
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # The information returned.
+        self.traffic_95summary = traffic_95summary  # type: Describe95TrafficResponseBodyTraffic95Summary
+
+    def validate(self):
+        if self.traffic_95summary:
+            self.traffic_95summary.validate()
+
+    def to_map(self):
+        _map = super(Describe95TrafficResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.traffic_95summary is not None:
+            result['Traffic95Summary'] = self.traffic_95summary.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Traffic95Summary') is not None:
+            temp_model = Describe95TrafficResponseBodyTraffic95Summary()
+            self.traffic_95summary = temp_model.from_map(m['Traffic95Summary'])
+        return self
+
+
+class Describe95TrafficResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: Describe95TrafficResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(Describe95TrafficResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = Describe95TrafficResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeAccessPointsRequest(TeaModel):
     def __init__(self, accept_language=None, owner_id=None, page_number=None, page_size=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
@@ -62259,7 +62531,13 @@ class ListBusinessAccessPointsResponse(TeaModel):
 
 class ListDhcpOptionsSetsRequestTags(TeaModel):
     def __init__(self, key=None, value=None):
+        # The tag key. You can specify up to 20 tag keys. The tag key cannot be an empty string.
+        # 
+        # The tag key can be up to 64 characters in length and can contain digits, periods (.), underscores (\_), and hyphens (-). The tag key must start with a letter but cannot start with `aliyun` or `acs:`. The tag key cannot contain `http://` or `https://`.
         self.key = key  # type: str
+        # The tag value. You can specify at most 20 tag values. The tag value can be an empty string.
+        # 
+        # The tag value can be up to 128 characters in length and can contain digits, periods (.), underscores (\_), and hyphens (-). The tag value must start with a letter but cannot start with `aliyun` or `acs:`. The tag value cannot contain `http://` or `https://`.
         self.value = value  # type: str
 
     def validate(self):
@@ -62290,21 +62568,38 @@ class ListDhcpOptionsSetsRequest(TeaModel):
     def __init__(self, dhcp_options_set_id=None, dhcp_options_set_name=None, domain_name=None, max_results=None,
                  next_token=None, owner_account=None, owner_id=None, region_id=None, resource_group_id=None,
                  resource_owner_account=None, resource_owner_id=None, tags=None):
+        # The ID of the DHCP options set. You can specify at most 20 IDs.
         self.dhcp_options_set_id = dhcp_options_set_id  # type: list[str]
         # The name of the DHCP options set.
         # 
-        # The name must be 2 to 128 characters in length and can contain letters, digits, underscores (\_), and hyphens (-). It must start with a letter.
+        # The name must be 1 to 128 characters in length and can contain digits, underscores (\_), and hyphens (-). It must start with a letter.
+        # 
+        # Valid values:
+        # 
+        # *   tf-testAccVpcDhcpOptionsSets-1585169790614573448
+        # 
+        #     <!-- -->
+        # 
+        #     :
+        # 
+        #     <!-- -->
+        # 
+        #     tf-testAccVpcDhcpOptionsSets-1585169790614573448
+        # 
+        #     <!-- -->
+        # 
+        #     .
         self.dhcp_options_set_name = dhcp_options_set_name  # type: str
         # The root domain. For example, you can set the value to example.com.
         # 
-        # After a DHCP options set is associated with a virtual private cloud (VPC), the root domain in the DHCP options set is automatically synchronized with the Elastic Compute Service (ECS) instances in the VPC.
+        # After a DHCP options set is associated with a virtual private cloud (VPC), the root domain in the DHCP options set is automatically synchronized with the ECS instances in the VPC.
         self.domain_name = domain_name  # type: str
-        # The number of entries to return on each page. Valid values: **1** to **100**. Default value: **10**.
+        # The number of entries per page. Valid values: **1** to **100**. Default value: **10**.
         self.max_results = max_results  # type: int
-        # The token that is used for the next query. Valid values:
+        # The pagination token that is used in the next request to retrieve a new page of results. Valid values:
         # 
-        # *   If this is your first query or no next queries are to be sent, ignore this parameter.
-        # *   If a subsequent query is to be sent, set the value to the value of **NextToken** that is returned from the last call.
+        # *   You do not need to specify this parameter for the first request.
+        # *   You must specify the token that is obtained from the previous query as the value of the **NextToken** parameter.
         self.next_token = next_token  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -62312,9 +62607,11 @@ class ListDhcpOptionsSetsRequest(TeaModel):
         # 
         # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        # The ID of the resource group to which the DHCP options set belongs.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The tag list.
         self.tags = tags  # type: list[ListDhcpOptionsSetsRequestTags]
 
     def validate(self):
@@ -62393,7 +62690,7 @@ class ListDhcpOptionsSetsResponseBodyDhcpOptionsSetsDhcpOptions(TeaModel):
     def __init__(self, domain_name=None, domain_name_servers=None, ipv_6lease_time=None, lease_time=None):
         # The suffix of the hostname.
         self.domain_name = domain_name  # type: str
-        # The DNS server IP address.
+        # The IP address of the DNS server.
         self.domain_name_servers = domain_name_servers  # type: str
         # The lease time of the IPv6 addresses for the DHCP options set.
         # 
@@ -62440,7 +62737,9 @@ class ListDhcpOptionsSetsResponseBodyDhcpOptionsSetsDhcpOptions(TeaModel):
 
 class ListDhcpOptionsSetsResponseBodyDhcpOptionsSetsTags(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of tag N added to the resource.
         self.key = key  # type: str
+        # The value of tag N added to the resource.
         self.value = value  # type: str
 
     def validate(self):
@@ -62482,14 +62781,16 @@ class ListDhcpOptionsSetsResponseBodyDhcpOptionsSets(TeaModel):
         self.dhcp_options_set_name = dhcp_options_set_name  # type: str
         # The ID of the Alibaba Cloud account to which the DHCP options set belongs.
         self.owner_id = owner_id  # type: long
+        # The ID of the resource group to which the DHCP options set belongs.
         self.resource_group_id = resource_group_id  # type: str
         # The status of the DHCP options set. Valid values:
         # 
-        # *   **Available**: available
-        # *   **InUse**: in use
-        # *   **Pending**: being configured
-        # *   **Deleted**: deleted
+        # *   **Available**\
+        # *   **InUse**\
+        # *   **Pending**\
+        # *   **Deleted**\
         self.status = status  # type: str
+        # The tag list.
         self.tags = tags  # type: list[ListDhcpOptionsSetsResponseBodyDhcpOptionsSetsTags]
 
     def validate(self):
@@ -62559,13 +62860,14 @@ class ListDhcpOptionsSetsResponseBody(TeaModel):
     def __init__(self, dhcp_options_sets=None, next_token=None, request_id=None, total_count=None):
         # The list of the DHCP options sets.
         self.dhcp_options_sets = dhcp_options_sets  # type: list[ListDhcpOptionsSetsResponseBodyDhcpOptionsSets]
-        # The token that is used for the next query. Valid values:
+        # A pagination token. It can be used in the next request to retrieve a new page of results. Valid values:
         # 
-        # *   If **NextToken** is empty, it indicates that no next query is to be sent.
-        # *   If a value is returned for **NextToken**, the value is the token that is used for the next query.
+        # *   If **NextToken** is empty, no next page exists.
+        # *   If a value is returned for **NextToken**, the value is used to retrieve a new page of results.
         self.next_token = next_token  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The number of entries.
         self.total_count = total_count  # type: str
 
     def validate(self):
