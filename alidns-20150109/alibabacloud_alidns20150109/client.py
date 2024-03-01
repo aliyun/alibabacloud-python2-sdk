@@ -302,8 +302,8 @@ class Client(OpenApiClient):
 
     def add_domain_with_options(self, request, runtime):
         """
-        You can check whether a domain name is valid based on the following topic:
-        [Domain name validity](https://www.alibabacloud.com/help/zh/doc-detail/67788.htm)
+        For more information about how to check whether a domain name is valid, see
+        [Domain name validity](https://www.alibabacloud.com/help/zh/doc-detail/67788.htm).
         
 
         @param request: AddDomainRequest
@@ -343,8 +343,8 @@ class Client(OpenApiClient):
 
     def add_domain(self, request):
         """
-        You can check whether a domain name is valid based on the following topic:
-        [Domain name validity](https://www.alibabacloud.com/help/zh/doc-detail/67788.htm)
+        For more information about how to check whether a domain name is valid, see
+        [Domain name validity](https://www.alibabacloud.com/help/zh/doc-detail/67788.htm).
         
 
         @param request: AddDomainRequest
@@ -627,6 +627,17 @@ class Client(OpenApiClient):
         return self.add_gtm_recovery_plan_with_options(request, runtime)
 
     def bind_instance_domains_with_options(self, request, runtime):
+        """
+        A paid Alibaba Cloud DNS instance whose ID starts with dns is an instance of the new version. You can call this API operation to bind multiple domain names to the instance. If the upper limit is exceeded, an error message is returned.\\
+        A paid Alibaba Cloud DNS instance whose ID does not start with dns is an instance of the old version. You can call this API operation to bind only one domain name to the instance. However, if the instance is already bound to a domain name, you must unbind the original domain name from the instance and bind the desired domain name to the instance.
+        
+
+        @param request: BindInstanceDomainsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: BindInstanceDomainsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.domain_names):
@@ -655,10 +666,29 @@ class Client(OpenApiClient):
         )
 
     def bind_instance_domains(self, request):
+        """
+        A paid Alibaba Cloud DNS instance whose ID starts with dns is an instance of the new version. You can call this API operation to bind multiple domain names to the instance. If the upper limit is exceeded, an error message is returned.\\
+        A paid Alibaba Cloud DNS instance whose ID does not start with dns is an instance of the old version. You can call this API operation to bind only one domain name to the instance. However, if the instance is already bound to a domain name, you must unbind the original domain name from the instance and bind the desired domain name to the instance.
+        
+
+        @param request: BindInstanceDomainsRequest
+
+        @return: BindInstanceDomainsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.bind_instance_domains_with_options(request, runtime)
 
     def change_domain_group_with_options(self, request, runtime):
+        """
+        You can specify GroupId to move a domain name to a specific domain name group. You can move the domain name to the group that contains all domain names or the default group.
+        
+
+        @param request: ChangeDomainGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ChangeDomainGroupResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.domain_name):
@@ -687,6 +717,14 @@ class Client(OpenApiClient):
         )
 
     def change_domain_group(self, request):
+        """
+        You can specify GroupId to move a domain name to a specific domain name group. You can move the domain name to the group that contains all domain names or the default group.
+        
+
+        @param request: ChangeDomainGroupRequest
+
+        @return: ChangeDomainGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.change_domain_group_with_options(request, runtime)
 
@@ -959,17 +997,6 @@ class Client(OpenApiClient):
         return self.delete_dns_gtm_address_pool_with_options(request, runtime)
 
     def delete_domain_with_options(self, request, runtime):
-        """
-        Given the unique nature of a HiChina domain name, you are not allowed to delete the HiChina domain name by calling the Alibaba Cloud DNS API.
-        *   If the system prompts that a domain name does not exist, it is an unregistered domain name, it does not exist under the account, or its format in the request parameters is incorrect.
-        
-
-        @param request: DeleteDomainRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: DeleteDomainResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.domain_name):
@@ -996,21 +1023,12 @@ class Client(OpenApiClient):
         )
 
     def delete_domain(self, request):
-        """
-        Given the unique nature of a HiChina domain name, you are not allowed to delete the HiChina domain name by calling the Alibaba Cloud DNS API.
-        *   If the system prompts that a domain name does not exist, it is an unregistered domain name, it does not exist under the account, or its format in the request parameters is incorrect.
-        
-
-        @param request: DeleteDomainRequest
-
-        @return: DeleteDomainResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.delete_domain_with_options(request, runtime)
 
     def delete_domain_group_with_options(self, request, runtime):
         """
-        >  A domain name group can be deleted only when it contains no domain names. The default group cannot be deleted.
+        >  The default group cannot be deleted.
         
 
         @param request: DeleteDomainGroupRequest
@@ -1046,7 +1064,7 @@ class Client(OpenApiClient):
 
     def delete_domain_group(self, request):
         """
-        >  A domain name group can be deleted only when it contains no domain names. The default group cannot be deleted.
+        >  The default group cannot be deleted.
         
 
         @param request: DeleteDomainGroupRequest
@@ -1266,7 +1284,7 @@ class Client(OpenApiClient):
 
     def describe_batch_result_detail_with_options(self, request, runtime):
         """
-        *Before you call this operation, make sure that the batch operation task is complete.
+        Before you call this operation, make sure that the batch operation task is complete.
         
 
         @param request: DescribeBatchResultDetailRequest
@@ -1310,7 +1328,7 @@ class Client(OpenApiClient):
 
     def describe_batch_result_detail(self, request):
         """
-        *Before you call this operation, make sure that the batch operation task is complete.
+        Before you call this operation, make sure that the batch operation task is complete.
         
 
         @param request: DescribeBatchResultDetailRequest
@@ -3316,6 +3334,48 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_instance_domains_with_options(request, runtime)
 
+    def describe_internet_dns_logs_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.end_timestamp):
+            query['EndTimestamp'] = request.end_timestamp
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.module):
+            query['Module'] = request.module
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.query_condition):
+            query['QueryCondition'] = request.query_condition
+        if not UtilClient.is_unset(request.start_timestamp):
+            query['StartTimestamp'] = request.start_timestamp
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeInternetDnsLogs',
+            version='2015-01-09',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            alidns_20150109_models.DescribeInternetDnsLogsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_internet_dns_logs(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_internet_dns_logs_with_options(request, runtime)
+
     def describe_isp_flush_cache_instances_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -4227,6 +4287,17 @@ class Client(OpenApiClient):
         return self.execute_gtm_recovery_plan_with_options(request, runtime)
 
     def get_main_domain_name_with_options(self, request, runtime):
+        """
+        For more information about the difference between primary domain names and subdomain names, see
+        [Subdomain levels](https://www.alibabacloud.com/help/zh/faq-detail/39803.htm). For example, if you enter `www.abc.com`, abc.com is obtained.
+        
+
+        @param request: GetMainDomainNameRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetMainDomainNameResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.input_string):
@@ -4253,6 +4324,15 @@ class Client(OpenApiClient):
         )
 
     def get_main_domain_name(self, request):
+        """
+        For more information about the difference between primary domain names and subdomain names, see
+        [Subdomain levels](https://www.alibabacloud.com/help/zh/faq-detail/39803.htm). For example, if you enter `www.abc.com`, abc.com is obtained.
+        
+
+        @param request: GetMainDomainNameRequest
+
+        @return: GetMainDomainNameResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_main_domain_name_with_options(request, runtime)
 
@@ -4465,6 +4545,16 @@ class Client(OpenApiClient):
         return self.move_gtm_resource_group_with_options(request, runtime)
 
     def operate_batch_domain_with_options(self, request, runtime):
+        """
+        Scenario: You need to execute a large number of tasks related to DNS resolution and you do not have high requirements for efficiency.
+        
+
+        @param request: OperateBatchDomainRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: OperateBatchDomainResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.domain_record_info):
@@ -4493,6 +4583,14 @@ class Client(OpenApiClient):
         )
 
     def operate_batch_domain(self, request):
+        """
+        Scenario: You need to execute a large number of tasks related to DNS resolution and you do not have high requirements for efficiency.
+        
+
+        @param request: OperateBatchDomainRequest
+
+        @return: OperateBatchDomainResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.operate_batch_domain_with_options(request, runtime)
 
@@ -4651,6 +4749,16 @@ class Client(OpenApiClient):
         return self.resume_pdns_service_with_options(request, runtime)
 
     def retrieve_domain_with_options(self, request, runtime):
+        """
+        To retrieve a domain name, you must verify a text (TXT) record. Therefore, before you call this API operation to retrieve a domain name, call the [GetTxtRecordForVerify](https://www.alibabacloud.com/help/zh/alibaba-cloud-dns/latest/generating-a-txt-record) operation to generate a TXT record.
+        
+
+        @param request: RetrieveDomainRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RetrieveDomainResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.domain_name):
@@ -4677,6 +4785,14 @@ class Client(OpenApiClient):
         )
 
     def retrieve_domain(self, request):
+        """
+        To retrieve a domain name, you must verify a text (TXT) record. Therefore, before you call this API operation to retrieve a domain name, call the [GetTxtRecordForVerify](https://www.alibabacloud.com/help/zh/alibaba-cloud-dns/latest/generating-a-txt-record) operation to generate a TXT record.
+        
+
+        @param request: RetrieveDomainRequest
+
+        @return: RetrieveDomainResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.retrieve_domain_with_options(request, runtime)
 
@@ -5097,6 +5213,17 @@ class Client(OpenApiClient):
         return self.transfer_domain_with_options(request, runtime)
 
     def unbind_instance_domains_with_options(self, request, runtime):
+        """
+        A paid Alibaba Cloud DNS instance whose ID starts with dns is an instance of the new version. You can call an API operation to bind multiple domain names to the instance. If the upper limit is exceeded, an error message is returned.\\
+        A paid Alibaba Cloud DNS instance whose ID does not start with dns is an instance of the old version. You can call an API operation to bind only one domain name to the instance. However, if the instance that you want to bind to the desired domain name is already bound to a domain name, you can call this operation to unbind the original domain name from the instance and then bind the desired domain name to the instance.
+        
+
+        @param request: UnbindInstanceDomainsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UnbindInstanceDomainsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.domain_names):
@@ -5125,6 +5252,15 @@ class Client(OpenApiClient):
         )
 
     def unbind_instance_domains(self, request):
+        """
+        A paid Alibaba Cloud DNS instance whose ID starts with dns is an instance of the new version. You can call an API operation to bind multiple domain names to the instance. If the upper limit is exceeded, an error message is returned.\\
+        A paid Alibaba Cloud DNS instance whose ID does not start with dns is an instance of the old version. You can call an API operation to bind only one domain name to the instance. However, if the instance that you want to bind to the desired domain name is already bound to a domain name, you can call this operation to unbind the original domain name from the instance and then bind the desired domain name to the instance.
+        
+
+        @param request: UnbindInstanceDomainsRequest
+
+        @return: UnbindInstanceDomainsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.unbind_instance_domains_with_options(request, runtime)
 
@@ -5198,8 +5334,8 @@ class Client(OpenApiClient):
 
     def update_custom_line_with_options(self, request, runtime):
         """
-        In each CIDR block, the end IP address must be greater than or equal to the start IP address.
-        The CIDR blocks that are specified for all custom lines of a domain name cannot intersect.
+        In each CIDR block, the end IP address must be greater than or equal to the start IP address.\\
+        The CIDR blocks that are specified for all custom lines of a domain name cannot be overlapped.
         
 
         @param request: UpdateCustomLineRequest
@@ -5239,8 +5375,8 @@ class Client(OpenApiClient):
 
     def update_custom_line(self, request):
         """
-        In each CIDR block, the end IP address must be greater than or equal to the start IP address.
-        The CIDR blocks that are specified for all custom lines of a domain name cannot intersect.
+        In each CIDR block, the end IP address must be greater than or equal to the start IP address.\\
+        The CIDR blocks that are specified for all custom lines of a domain name cannot be overlapped.
         
 
         @param request: UpdateCustomLineRequest

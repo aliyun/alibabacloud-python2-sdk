@@ -334,9 +334,9 @@ class AddDnsCacheDomainResponse(TeaModel):
 
 class AddDnsGtmAccessStrategyRequestDefaultAddrPool(TeaModel):
     def __init__(self, id=None, lba_weight=None):
-        # The ID of the address pool in the primary address pool group.
+        # The ID of the address pool in the primary address pool set.
         self.id = id  # type: str
-        # The weight of the address pool in the primary address pool group.
+        # The weight of the address pool in the primary address pool set.
         self.lba_weight = lba_weight  # type: int
 
     def validate(self):
@@ -365,9 +365,9 @@ class AddDnsGtmAccessStrategyRequestDefaultAddrPool(TeaModel):
 
 class AddDnsGtmAccessStrategyRequestFailoverAddrPool(TeaModel):
     def __init__(self, id=None, lba_weight=None):
-        # The ID of the address pool in the secondary address pool group.
+        # The ID of the address pool in the secondary address pool set.
         self.id = id  # type: str
-        # The weight of the address pool in the secondary address pool group.
+        # The weight of the address pool in the secondary address pool set.
         self.lba_weight = lba_weight  # type: int
 
     def validate(self):
@@ -400,6 +400,7 @@ class AddDnsGtmAccessStrategyRequest(TeaModel):
                  failover_addr_pool=None, failover_addr_pool_type=None, failover_latency_optimization=None,
                  failover_lba_strategy=None, failover_max_return_addr_num=None, failover_min_available_addr_num=None, instance_id=None,
                  lang=None, lines=None, strategy_mode=None, strategy_name=None):
+        # The address pools in the primary address pool set.
         self.default_addr_pool = default_addr_pool  # type: list[AddDnsGtmAccessStrategyRequestDefaultAddrPool]
         # The type of the primary address pool. Valid values:
         # 
@@ -407,20 +408,21 @@ class AddDnsGtmAccessStrategyRequest(TeaModel):
         # *   IPV6
         # *   DOMAIN
         self.default_addr_pool_type = default_addr_pool_type  # type: str
-        # Specifies whether to enable scheduling optimization for latency resolution for the primary address pool group. Valid values:
+        # Specifies whether to enable DNS resolution with optimal latency for the primary address pool set. Valid values:
         # 
-        # *   OPEN: enable
-        # *   CLOSE: disable
+        # *   OPEN
+        # *   CLOSE
         self.default_latency_optimization = default_latency_optimization  # type: str
-        # The load balancing policy of the primary address pool group. Valid values:
+        # The load balancing policy of the primary address pool set. Valid values:
         # 
         # *   ALL_RR: returns all addresses.
         # *   RATIO: returns addresses by weight.
         self.default_lba_strategy = default_lba_strategy  # type: str
-        # The maximum number of addresses returned from the primary address pool group.
+        # The maximum number of addresses returned from the primary address pool set.
         self.default_max_return_addr_num = default_max_return_addr_num  # type: int
-        # The minimum number of available addresses in the primary address pool group.
+        # The minimum number of available addresses in the primary address pool set.
         self.default_min_available_addr_num = default_min_available_addr_num  # type: int
+        # The address pools in the secondary address pool set. If no address pool exists in the secondary address pool set, set this parameter to EMPTY.
         self.failover_addr_pool = failover_addr_pool  # type: list[AddDnsGtmAccessStrategyRequestFailoverAddrPool]
         # The type of the secondary address pool. Valid values:
         # 
@@ -428,30 +430,30 @@ class AddDnsGtmAccessStrategyRequest(TeaModel):
         # *   IPV6
         # *   DOMAIN
         self.failover_addr_pool_type = failover_addr_pool_type  # type: str
-        # Specifies whether to enable scheduling optimization for latency resolution for the secondary address pool group. Valid values:
+        # Specifies whether to enable DNS resolution with optimal latency for the secondary address pool set. Valid values:
         # 
-        # *   OPEN: enable
-        # *   CLOSE: disable
+        # *   OPEN
+        # *   CLOSE
         self.failover_latency_optimization = failover_latency_optimization  # type: str
-        # The load balancing policy of the secondary address pool group. Valid values:
+        # The load balancing policy of the secondary address pool set. Valid values:
         # 
         # *   ALL_RR: returns all addresses.
         # *   RATIO: returns addresses by weight.
         self.failover_lba_strategy = failover_lba_strategy  # type: str
-        # The maximum number of addresses returned from the secondary address pool group.
+        # The maximum number of addresses returned from the secondary address pool set.
         self.failover_max_return_addr_num = failover_max_return_addr_num  # type: int
-        # The minimum number of available addresses in the secondary address pool group.
+        # The minimum number of available addresses in the secondary address pool set.
         self.failover_min_available_addr_num = failover_min_available_addr_num  # type: int
-        # The ID of the instance.
+        # The instance ID.
         self.instance_id = instance_id  # type: str
-        # The language to return some response parameters. Default value: en. Valid values: en, zh, and ja.
+        # The language of the values for specific response parameters. Default value: en. Valid values: en, zh, and ja.
         self.lang = lang  # type: str
-        # The line codes of source regions. For example: `["default", "drpeng"]` indicates Global and Dr. Peng Telecom & Media Group.
+        # The Domain Name System (DNS) request source. For example: `["default", "drpeng"]` indicates Global and Dr. Peng Group.
         self.lines = lines  # type: str
         # The type of the access policy. Valid values:
         # 
-        # *   GEO: geographical location-based
-        # *   LATENCY: latency-based
+        # *   GEO: geographical location-based access policy
+        # *   LATENCY: latency-based access policy
         self.strategy_mode = strategy_mode  # type: str
         # The name of the access policy.
         self.strategy_name = strategy_name  # type: str
@@ -559,7 +561,7 @@ class AddDnsGtmAccessStrategyRequest(TeaModel):
 
 class AddDnsGtmAccessStrategyResponseBody(TeaModel):
     def __init__(self, request_id=None, strategy_id=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
         # The ID of the access policy.
         self.strategy_id = strategy_id  # type: str
@@ -1197,11 +1199,11 @@ class AddDnsGtmMonitorResponse(TeaModel):
 
 class AddDomainRequest(TeaModel):
     def __init__(self, domain_name=None, group_id=None, lang=None, resource_group_id=None):
-        # The domain name to be added.
+        # The domain name.
         self.domain_name = domain_name  # type: str
-        # The ID of the domain name group. The default value is the ID of the default domain name group.
+        # The ID of the group to which the domain name will belong. The default value is the ID of the default group.
         self.group_id = group_id  # type: str
-        # The language of the domain name.
+        # The language.
         self.lang = lang  # type: str
         # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
@@ -1265,7 +1267,7 @@ class AddDomainResponseBodyDnsServers(TeaModel):
 class AddDomainResponseBody(TeaModel):
     def __init__(self, dns_servers=None, domain_id=None, domain_name=None, group_id=None, group_name=None,
                  puny_code=None, request_id=None):
-        # The Domain Name System (DNS) servers that resolve the domain name.
+        # The Domain Name System (DNS) servers configured for the domain name.
         self.dns_servers = dns_servers  # type: AddDomainResponseBodyDnsServers
         # The ID of the domain name.
         self.domain_id = domain_id  # type: str
@@ -1277,7 +1279,7 @@ class AddDomainResponseBody(TeaModel):
         self.group_name = group_name  # type: str
         # The Punycode for the domain name. This parameter is returned only for Chinese domain names.
         self.puny_code = puny_code  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1364,7 +1366,7 @@ class AddDomainResponse(TeaModel):
 
 class AddDomainBackupRequest(TeaModel):
     def __init__(self, domain_name=None, lang=None, period_type=None):
-        # The domain name for which you want to create a backup task.
+        # The domain name.
         self.domain_name = domain_name  # type: str
         # The language in which you want the values of some response parameters to be returned. These response parameters support multiple languages.
         self.lang = lang  # type: str
@@ -1408,7 +1410,7 @@ class AddDomainBackupResponseBody(TeaModel):
         self.domain_name = domain_name  # type: str
         # The backup cycle.
         self.period_type = period_type  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1477,9 +1479,9 @@ class AddDomainBackupResponse(TeaModel):
 
 class AddDomainGroupRequest(TeaModel):
     def __init__(self, group_name=None, lang=None):
-        # The ID of the request.
-        self.group_name = group_name  # type: str
         # The name of the domain name group.
+        self.group_name = group_name  # type: str
+        # The language.
         self.lang = lang  # type: str
 
     def validate(self):
@@ -1508,10 +1510,11 @@ class AddDomainGroupRequest(TeaModel):
 
 class AddDomainGroupResponseBody(TeaModel):
     def __init__(self, group_id=None, group_name=None, request_id=None):
-        # The name of the domain name group.
-        self.group_id = group_id  # type: str
-        self.group_name = group_name  # type: str
         # The ID of the domain name group.
+        self.group_id = group_id  # type: str
+        # The name of the domain name group.
+        self.group_name = group_name  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1583,27 +1586,31 @@ class AddDomainRecordRequest(TeaModel):
                  user_client_ip=None, value=None):
         # The domain name.
         self.domain_name = domain_name  # type: str
-        # The language type.
+        # The language.
         self.lang = lang  # type: str
-        # The resolution line. Default value: **default**.
+        # The DNS resolution line. Default value: **default**. For more information, see
+        # 
+        # [DNS lines](https://www.alibabacloud.com/help/zh/doc-detail/29807.htm).
         self.line = line  # type: str
-        # The priority of an MX-type DNS record. Valid values: `[1,50]`.
+        # The priority of the mail exchanger (MX) record. Valid values: `1 to 50`.
         # 
         # This parameter must be specified if the type of the DNS record is MX. A smaller value indicates a higher priority.
         self.priority = priority  # type: long
-        # The host record.
+        # The hostname.
         # 
-        # For example, to resolve @.example.com, you must set RR to an at sign (@) instead of leaving it blank.
+        # For example, if you want to resolve @.example.com, you must set RR to an at sign (@) instead of leaving it empty.
         self.rr = rr  # type: str
-        # The TTL of the resolution. Default value: 600. Unit: seconds.
-        self.ttl = ttl  # type: long
-        # The type of the DNS record. DNS record types
+        # The time-to-live (TTL) of the DNS record. Default value: 600. Unit: seconds. For more information, see
         # 
-        # [dns records types](https://www.alibabacloud.com/help/en/alibaba-cloud-dns/latest/dns-record-types)
+        # [TTL definition](https://www.alibabacloud.com/help/zh/doc-detail/29806.htm).
+        self.ttl = ttl  # type: long
+        # The type of the DNS record. For more information, see
+        # 
+        # [DNS record types](https://www.alibabacloud.com/help/zh/doc-detail/29805.htm).
         self.type = type  # type: str
         # The IP address of the client.
         self.user_client_ip = user_client_ip  # type: str
-        # The value of the DNS record.
+        # The record value.
         self.value = value  # type: str
 
     def validate(self):
@@ -1662,7 +1669,7 @@ class AddDomainRecordResponseBody(TeaModel):
     def __init__(self, record_id=None, request_id=None):
         # The ID of the DNS record.
         self.record_id = record_id  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2458,13 +2465,13 @@ class AddGtmRecoveryPlanResponse(TeaModel):
 
 class BindInstanceDomainsRequest(TeaModel):
     def __init__(self, domain_names=None, instance_id=None, lang=None):
-        # The list of domain names.
+        # The domain names.
         # 
-        # >  Separate multiple domain names with commas (,). A maximum of 100 domain names can be entered.
+        # >  Separate multiple domain names with commas (,). Up to 100 domain names can be entered.
         self.domain_names = domain_names  # type: str
-        # The ID of the instance.
+        # The instance ID.
         self.instance_id = instance_id  # type: str
-        # The language type.
+        # The language.
         self.lang = lang  # type: str
 
     def validate(self):
@@ -2497,11 +2504,11 @@ class BindInstanceDomainsRequest(TeaModel):
 
 class BindInstanceDomainsResponseBody(TeaModel):
     def __init__(self, failed_count=None, request_id=None, success_count=None):
-        # The number of domain names that failed to be bound.
+        # The number of domain names that failed to be bound to the instance.
         self.failed_count = failed_count  # type: int
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # The number of domain names that have been bound.
+        # The number of domain names that are bound to the instance.
         self.success_count = success_count  # type: int
 
     def validate(self):
@@ -2572,9 +2579,14 @@ class ChangeDomainGroupRequest(TeaModel):
     def __init__(self, domain_name=None, group_id=None, lang=None):
         # The domain name.
         self.domain_name = domain_name  # type: str
-        # The ID of the target domain name group.
+        # The ID of the destination domain name group.
+        # 
+        # *   If you do not specify GroupId, the domain name is moved to the default group.
+        # *   If you set GroupId to an empty string, the domain name is moved to the default group.
+        # *   If you set GroupId to defaultGroup, the domain name is moved to the default group.
+        # *   If you do not set GroupId to one of the preceding values and set GroupId to an existing group ID, the domain name is moved to the existing group. If you set GroupId to a group ID that does not exist, the domain name remains in the original group.
         self.group_id = group_id  # type: str
-        # The language type.
+        # The language.
         self.lang = lang  # type: str
 
     def validate(self):
@@ -2607,11 +2619,11 @@ class ChangeDomainGroupRequest(TeaModel):
 
 class ChangeDomainGroupResponseBody(TeaModel):
     def __init__(self, group_id=None, group_name=None, request_id=None):
-        # The ID of the target domain name group.
+        # The ID of the destination domain name group.
         self.group_id = group_id  # type: str
-        # The name of the target domain name group.
+        # The name of the destination domain name group.
         self.group_name = group_name  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3083,7 +3095,7 @@ class CreatePdnsUdpIpSegmentResponse(TeaModel):
 
 class DeleteCustomLinesRequest(TeaModel):
     def __init__(self, lang=None, line_ids=None):
-        # The language type.
+        # The language.
         self.lang = lang  # type: str
         # The unique IDs of the custom lines that you want to delete. Separate the unique IDs with commas (,).
         self.line_ids = line_ids  # type: str
@@ -3114,7 +3126,7 @@ class DeleteCustomLinesRequest(TeaModel):
 
 class DeleteCustomLinesResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3175,7 +3187,9 @@ class DeleteCustomLinesResponse(TeaModel):
 
 class DeleteDnsCacheDomainRequest(TeaModel):
     def __init__(self, domain_name=None, lang=None):
+        # The domain name.
         self.domain_name = domain_name  # type: str
+        # The language.
         self.lang = lang  # type: str
 
     def validate(self):
@@ -3204,6 +3218,7 @@ class DeleteDnsCacheDomainRequest(TeaModel):
 
 class DeleteDnsCacheDomainResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3450,7 +3465,7 @@ class DeleteDomainRequest(TeaModel):
     def __init__(self, domain_name=None, lang=None):
         # The domain name.
         self.domain_name = domain_name  # type: str
-        # The language type.
+        # The language.
         self.lang = lang  # type: str
 
     def validate(self):
@@ -3481,7 +3496,7 @@ class DeleteDomainResponseBody(TeaModel):
     def __init__(self, domain_name=None, request_id=None):
         # The domain name.
         self.domain_name = domain_name  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3644,11 +3659,11 @@ class DeleteDomainGroupResponse(TeaModel):
 
 class DeleteDomainRecordRequest(TeaModel):
     def __init__(self, lang=None, record_id=None, user_client_ip=None):
-        # The language type.
+        # The language.
         self.lang = lang  # type: str
         # The ID of the DNS record.
         # 
-        # This parameter is returned when you add a DNS record or when you query the list of DNS records.
+        # This parameter is returned when you add a DNS record or when you query a list of DNS records.
         self.record_id = record_id  # type: str
         # The IP address of the client.
         self.user_client_ip = user_client_ip  # type: str
@@ -3685,7 +3700,7 @@ class DeleteDomainRecordResponseBody(TeaModel):
     def __init__(self, record_id=None, request_id=None):
         # The ID of the DNS record.
         self.record_id = record_id  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4602,7 +4617,7 @@ class DescribeBatchResultDetailResponse(TeaModel):
 
 class DescribeCustomLineRequest(TeaModel):
     def __init__(self, lang=None, line_id=None):
-        # The language type.
+        # The language.
         self.lang = lang  # type: str
         # The unique ID of the custom line.
         self.line_id = line_id  # type: long
@@ -4633,9 +4648,9 @@ class DescribeCustomLineRequest(TeaModel):
 
 class DescribeCustomLineResponseBodyIpSegmentList(TeaModel):
     def __init__(self, end_ip=None, start_ip=None):
-        # The end IP address.
+        # The end IP address of the CIDR block.
         self.end_ip = end_ip  # type: str
-        # The start IP address.
+        # The start IP address of the CIDR block.
         self.start_ip = start_ip  # type: str
 
     def validate(self):
@@ -4664,17 +4679,17 @@ class DescribeCustomLineResponseBodyIpSegmentList(TeaModel):
 
 class DescribeCustomLineResponseBody(TeaModel):
     def __init__(self, code=None, domain_name=None, id=None, ip_segment_list=None, name=None, request_id=None):
-        # The code of the custom line. The code is used when you configure a resolution record.
+        # The code of the custom line.
         self.code = code  # type: str
-        # The domain name for which the custom line is configured.
+        # The domain name.
         self.domain_name = domain_name  # type: str
-        # The unique ID of the custom line.
+        # The ID of the custom line.
         self.id = id  # type: long
-        # The list of CIDR blocks.
+        # The CIDR blocks. Separate IP addresses with a hyphen (-). Enter a CIDR block in each row. You can enter 1 to 50 CIDR blocks at a time. If a CIDR block contains only one IP address, enter the IP address in the format of IP1-IP1. Different CIDR blocks cannot be overlapped.
         self.ip_segment_list = ip_segment_list  # type: list[DescribeCustomLineResponseBodyIpSegmentList]
         # The name of the custom line.
         self.name = name  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4763,9 +4778,13 @@ class DescribeCustomLineResponse(TeaModel):
 
 class DescribeCustomLinesRequest(TeaModel):
     def __init__(self, domain_name=None, lang=None, page_number=None, page_size=None):
+        # The domain name.
         self.domain_name = domain_name  # type: str
+        # The language.
         self.lang = lang  # type: str
+        # The page number.
         self.page_number = page_number  # type: long
+        # The number of entries per page.
         self.page_size = page_size  # type: long
 
     def validate(self):
@@ -4802,8 +4821,11 @@ class DescribeCustomLinesRequest(TeaModel):
 
 class DescribeCustomLinesResponseBodyCustomLines(TeaModel):
     def __init__(self, code=None, id=None, name=None):
+        # The code of the custom line.
         self.code = code  # type: str
+        # The unique ID of the custom line.
         self.id = id  # type: long
+        # The name of the custom line.
         self.name = name  # type: str
 
     def validate(self):
@@ -4837,11 +4859,17 @@ class DescribeCustomLinesResponseBodyCustomLines(TeaModel):
 class DescribeCustomLinesResponseBody(TeaModel):
     def __init__(self, custom_lines=None, page_number=None, page_size=None, request_id=None, total_items=None,
                  total_pages=None):
+        # The custom lines.
         self.custom_lines = custom_lines  # type: list[DescribeCustomLinesResponseBodyCustomLines]
+        # The page number.
         self.page_number = page_number  # type: int
+        # The number of entries per page.
         self.page_size = page_size  # type: int
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The total number of custom lines.
         self.total_items = total_items  # type: int
+        # The total number of returned pages.
         self.total_pages = total_pages  # type: int
 
     def validate(self):
@@ -4930,16 +4958,17 @@ class DescribeCustomLinesResponse(TeaModel):
 
 class DescribeDNSSLBSubDomainsRequest(TeaModel):
     def __init__(self, domain_name=None, lang=None, page_number=None, page_size=None, rr=None, user_client_ip=None):
-        # The domain name whose subdomains you want to query.
+        # The domain name.
         self.domain_name = domain_name  # type: str
-        # The language of the domain name.
+        # The language.
         self.lang = lang  # type: str
-        # The number of the page to return. Pages start from page **1**. Default value: **1**.
+        # The page number. Pages start from page **1**. Default value: **1**.
         self.page_number = page_number  # type: long
-        # The number of entries to return on each page. Maximum value: **100**. Default value: **20**.
+        # The number of entries per page. Valid values: **1 to 100**. Default value: **20**.
         self.page_size = page_size  # type: long
+        # The hostname.
         self.rr = rr  # type: str
-        # The IP address of the client that you use to query subdomains.
+        # The IP address of the client.
         self.user_client_ip = user_client_ip  # type: str
 
     def validate(self):
@@ -4984,7 +5013,12 @@ class DescribeDNSSLBSubDomainsRequest(TeaModel):
 
 class DescribeDNSSLBSubDomainsResponseBodySlbSubDomainsSlbSubDomainLineAlgorithmsLineAlgorithm(TeaModel):
     def __init__(self, line=None, open=None):
+        # The DNS resolution line. The line can be China Telecom, China Mobile, and China Unicom.
         self.line = line  # type: str
+        # Indicates whether weighted round-robin is enabled for the line. Valid values:
+        # 
+        # *   **true** (default): Weighted round-robin is enabled.
+        # *   **false**: Weighted round-robin is disabled.
         self.open = open  # type: bool
 
     def validate(self):
@@ -5045,14 +5079,15 @@ class DescribeDNSSLBSubDomainsResponseBodySlbSubDomainsSlbSubDomainLineAlgorithm
 
 class DescribeDNSSLBSubDomainsResponseBodySlbSubDomainsSlbSubDomain(TeaModel):
     def __init__(self, line_algorithms=None, open=None, record_count=None, sub_domain=None, type=None):
+        # The lines for which weighted round-robin is enabled.
         self.line_algorithms = line_algorithms  # type: DescribeDNSSLBSubDomainsResponseBodySlbSubDomainsSlbSubDomainLineAlgorithms
         # Indicates whether weighted round-robin is enabled for the subdomain.
         self.open = open  # type: bool
         # The number of DNS records added for the subdomain.
         self.record_count = record_count  # type: long
-        # The subdomain.
+        # The subdomain name.
         self.sub_domain = sub_domain  # type: str
-        # The type of the DNS record that supports weighted round-robin. Valid values: A, AAAA, and CNAME.
+        # The type of the Domain Name System (DNS) record that supports weighted round-robin. Valid values: A, AAAA, and CNAME.
         self.type = type  # type: str
 
     def validate(self):
@@ -5127,15 +5162,15 @@ class DescribeDNSSLBSubDomainsResponseBodySlbSubDomains(TeaModel):
 
 class DescribeDNSSLBSubDomainsResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, request_id=None, slb_sub_domains=None, total_count=None):
-        # The page number of the returned page.
+        # The page number. Pages start from page **1**. Default value: **1**.
         self.page_number = page_number  # type: long
-        # The total number of subdomains returned.
+        # The number of entries per page. Valid values: **1 to 100**. Default value: **20**.
         self.page_size = page_size  # type: long
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # The details of the subdomains.
+        # The subdomains for which weighted round-robin is enabled.
         self.slb_sub_domains = slb_sub_domains  # type: DescribeDNSSLBSubDomainsResponseBodySlbSubDomains
-        # The number of domain name groups.
+        # The total number of entries returned.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -5214,9 +5249,13 @@ class DescribeDNSSLBSubDomainsResponse(TeaModel):
 
 class DescribeDnsCacheDomainsRequest(TeaModel):
     def __init__(self, keyword=None, lang=None, page_number=None, page_size=None):
+        # The keyword for searches in "%KeyWord%" mode. The value is not case-sensitive.
         self.keyword = keyword  # type: str
+        # The language.
         self.lang = lang  # type: str
+        # The page number. Pages start from page 1. Default value: 1.
         self.page_number = page_number  # type: long
+        # The number of entries per page. Valid values: **1 to 100**. Default value: **20**.
         self.page_size = page_size  # type: long
 
     def validate(self):
@@ -5253,7 +5292,9 @@ class DescribeDnsCacheDomainsRequest(TeaModel):
 
 class DescribeDnsCacheDomainsResponseBodyDomainsSourceDnsServers(TeaModel):
     def __init__(self, host=None, port=None):
+        # The domain name or IP address of the origin DNS server.
         self.host = host  # type: str
+        # The port of the origin DNS server.
         self.port = port  # type: str
 
     def validate(self):
@@ -5285,21 +5326,37 @@ class DescribeDnsCacheDomainsResponseBodyDomains(TeaModel):
                  domain_id=None, domain_name=None, expire_time=None, expire_timestamp=None, instance_id=None, remark=None,
                  source_dns_servers=None, source_edns=None, source_protocol=None, update_time=None, update_timestamp=None,
                  version_code=None):
+        # The maximum time-to-live (TTL) period of the cached data retrieved from the origin DNS server. Unit: seconds. Valid values: 30 to 86400.
         self.cache_ttl_max = cache_ttl_max  # type: int
+        # The minimum TTL period of the cached data retrieved from the origin DNS server. Unit: seconds. Valid values: 30 to 86400.
         self.cache_ttl_min = cache_ttl_min  # type: int
+        # The time when the domain name was added. The time follows the ISO 8601 standard in the YYYY-MM-DDThh:mm:ss format. The time is displayed in UTC.
         self.create_time = create_time  # type: str
+        # The time when the domain name was added. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.create_timestamp = create_timestamp  # type: long
+        # The ID of the cache-accelerated domain name.
         self.domain_id = domain_id  # type: str
+        # The cache-accelerated domain name.
         self.domain_name = domain_name  # type: str
+        # The time when the instance expires. The time follows the ISO 8601 standard in the YYYY-MM-DDThh:mm:ss format. The time is displayed in UTC.
         self.expire_time = expire_time  # type: str
+        # The time when the instance expires. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.expire_timestamp = expire_timestamp  # type: long
+        # The instance ID of the cache-accelerated domain name.
         self.instance_id = instance_id  # type: str
+        # The description of the domain name.
         self.remark = remark  # type: str
+        # The origin DNS servers.
         self.source_dns_servers = source_dns_servers  # type: list[DescribeDnsCacheDomainsResponseBodyDomainsSourceDnsServers]
+        # Specifies whether the origin Domain Name System (DNS) server supports Extension Mechanisms for DNS (EDNS). Valid values: NOT_SUPPORT and SUPPORT.
         self.source_edns = source_edns  # type: str
+        # The origin protocol policy. Valid values: TCP and UDP. Default value: UDP.
         self.source_protocol = source_protocol  # type: str
+        # The time when the configurations of the domain name were updated. The time follows the ISO 8601 standard in the YYYY-MM-DDThh:mm:ss format. The time is displayed in UTC.
         self.update_time = update_time  # type: str
+        # The time when the configurations of the domain name were updated. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.update_timestamp = update_timestamp  # type: long
+        # The edition code of Alibaba Cloud DNS.
         self.version_code = version_code  # type: str
 
     def validate(self):
@@ -5392,10 +5449,15 @@ class DescribeDnsCacheDomainsResponseBodyDomains(TeaModel):
 
 class DescribeDnsCacheDomainsResponseBody(TeaModel):
     def __init__(self, domains=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # The domain names.
         self.domains = domains  # type: list[DescribeDnsCacheDomainsResponseBodyDomains]
+        # The page number. Pages start from page **1**. Default value: **1**.
         self.page_number = page_number  # type: long
+        # The number of entries per page. Valid values: 1 to 100. Default value: 20.
         self.page_size = page_size  # type: long
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The total number of entries returned.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -10328,6 +10390,10 @@ class DescribeDnsProductInstanceResponseBody(TeaModel):
                  payment_type=None, region_lines=None, request_id=None, search_engine_lines=None, start_time=None,
                  start_timestamp=None, sub_domain_level=None, ttlmin_value=None, urlforward_count=None, version_code=None,
                  version_name=None):
+        # The auto-renewal status of the instance. Valid values:
+        # 
+        # *   **true**: Auto-renewal is enabled.
+        # *   **false**: Auto-renewal is disabled.
         self.auto_renewal = auto_renewal  # type: bool
         # The number of times that you can change the domain names that are bound to the paid Alibaba Cloud DNS instance. This parameter applies to Alibaba Cloud DNS instances of the custom edition.
         self.bind_count = bind_count  # type: long
@@ -12171,9 +12237,9 @@ class DescribeDohUserInfoResponse(TeaModel):
 
 class DescribeDomainDnssecInfoRequest(TeaModel):
     def __init__(self, domain_name=None, lang=None):
-        # The domain name for which DNSSEC configurations to query.
+        # The domain name.
         self.domain_name = domain_name  # type: str
-        # The language in which you want the values of some response parameters to be returned. These response parameters support multiple languages, such as the region parameter. Default value: en. Valid values: en, zh, and ja.
+        # The language.
         self.lang = lang  # type: str
 
     def validate(self):
@@ -12203,28 +12269,28 @@ class DescribeDomainDnssecInfoRequest(TeaModel):
 class DescribeDomainDnssecInfoResponseBody(TeaModel):
     def __init__(self, algorithm=None, digest=None, digest_type=None, domain_name=None, ds_record=None, flags=None,
                  key_tag=None, public_key=None, request_id=None, status=None):
-        # The algorithm configured in a DNSSEC record. This parameter is returned if DNSSEC is enabled.
+        # The algorithm type. This parameter is returned if DNSSEC is enabled.
         self.algorithm = algorithm  # type: str
-        # The digest configured in a DNSSEC record. This parameter is returned if DNSSEC is enabled.
+        # The digest. This parameter is returned if DNSSEC is enabled.
         self.digest = digest  # type: str
-        # The digest type configured in a DNSSEC record. This parameter is returned if DNSSEC is enabled.
+        # The digest type. This parameter is returned if DNSSEC is enabled.
         self.digest_type = digest_type  # type: str
-        # The domain name that is queried.
+        # The domain name.
         self.domain_name = domain_name  # type: str
-        # The DS record. This parameter is returned if DNSSEC is enabled.
+        # The delegation signer (DS) record. This parameter is returned if DNSSEC is enabled.
         self.ds_record = ds_record  # type: str
-        # The flag of a DNSSEC record. This parameter is returned if DNSSEC is enabled.
+        # The flag. This parameter is returned if DNSSEC is enabled.
         self.flags = flags  # type: str
-        # The key tag of a DNSSEC record. This parameter is returned if DNSSEC is enabled.
+        # The key tag. This parameter is returned if DNSSEC is enabled.
         self.key_tag = key_tag  # type: str
-        # The public key for a DNSSEC record. This parameter is returned if DNSSEC is enabled.
+        # The public key. This parameter is returned if DNSSEC is enabled.
         self.public_key = public_key  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # Indicates whether DNSSEC is enabled for the specified domain name.
+        # The state of the DNSSEC. Valid values:
         # 
-        # *   ON: DNSSEC is enabled.
-        # *   OFF: DNSSEC is disabled.
+        # *   ON
+        # *   OFF
         self.status = status  # type: str
 
     def validate(self):
@@ -12323,11 +12389,11 @@ class DescribeDomainGroupsRequest(TeaModel):
     def __init__(self, key_word=None, lang=None, page_number=None, page_size=None):
         # The keyword of the domain name group for searches in %KeyWord% mode. The value is not case-sensitive.
         self.key_word = key_word  # type: str
-        # The language type.
+        # The language.
         self.lang = lang  # type: str
-        # The number of the page to return. Pages start from page **1**. Default value: **1**.
+        # The page number. Pages start from page **1**. Default value: **1**.
         self.page_number = page_number  # type: long
-        # The number of entries to return on each page. Maximum value: **100**. Default value: **20**.
+        # The number of entries per page. Valid values: **1 to 100**. Default value: **20**.
         self.page_size = page_size  # type: long
 
     def validate(self):
@@ -12366,7 +12432,10 @@ class DescribeDomainGroupsResponseBodyDomainGroupsDomainGroup(TeaModel):
     def __init__(self, domain_count=None, group_id=None, group_name=None):
         # The number of domain name groups.
         self.domain_count = domain_count  # type: long
-        # The ID of the domain name group.
+        # The ID of the domain name group. Valid values:
+        # 
+        # *   defaultGroup: the default group
+        # *   If an empty string is returned, it indicates the group that contains all domain names.
         self.group_id = group_id  # type: str
         # The name of the domain name group.
         self.group_name = group_name  # type: str
@@ -12433,15 +12502,15 @@ class DescribeDomainGroupsResponseBodyDomainGroups(TeaModel):
 
 class DescribeDomainGroupsResponseBody(TeaModel):
     def __init__(self, domain_groups=None, page_number=None, page_size=None, request_id=None, total_count=None):
-        # The list of domain name groups.
+        # The domain name groups.
         self.domain_groups = domain_groups  # type: DescribeDomainGroupsResponseBodyDomainGroups
-        # The page number of the returned page.
+        # The page number. Pages start from page **1**. Default value: **1**.
         self.page_number = page_number  # type: long
-        # The number of entries returned per page.
+        # The number of entries per page. Valid values: **1 to 100**. Default value: **20**.
         self.page_size = page_size  # type: long
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # The total number of domain name groups.
+        # The total number of entries returned.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -12607,7 +12676,7 @@ class DescribeDomainInfoResponseBodyDnsServers(TeaModel):
 
 class DescribeDomainInfoResponseBodyRecordLinesRecordLine(TeaModel):
     def __init__(self, father_code=None, line_code=None, line_display_name=None, line_name=None):
-        # The code of the parent line. This parameter is left empty if the line has no parent line.
+        # The code of the parent line. This parameter is not returned if the line has no parent line.
         self.father_code = father_code  # type: str
         # The code of the line.
         self.line_code = line_code  # type: str
@@ -12729,6 +12798,10 @@ class DescribeDomainInfoResponseBody(TeaModel):
         self.resource_group_id = resource_group_id  # type: str
         # Indicates whether secondary DNS is supported.
         self.slave_dns = slave_dns  # type: bool
+        # Indicates whether the queried domain name is a hosted subdomain name. Valid values:
+        # 
+        # *   true
+        # *   false
         self.sub_domain = sub_domain  # type: bool
         # The version ID of Alibaba Cloud DNS.
         self.version_code = version_code  # type: str
@@ -12969,19 +13042,19 @@ class DescribeDomainLogsRequest(TeaModel):
 class DescribeDomainLogsResponseBodyDomainLogsDomainLog(TeaModel):
     def __init__(self, action=None, action_time=None, action_timestamp=None, client_ip=None, domain_name=None,
                  message=None, zone_id=None):
-        # The operation performed.
+        # The operation.
         self.action = action  # type: str
-        # The time when the operation was performed.
+        # The time when the operation is performed. The time follows the ISO 8601 standard in the YYYY-MM-DDThh:mm:ss format. The time is displayed in UTC.
         self.action_time = action_time  # type: str
-        # The UNIX timestamp that indicates when the operation was performed.
+        # The time when the operation was performed. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.action_timestamp = action_timestamp  # type: long
-        # The IP address from which the operation was performed.
+        # The IP address of the operator.
         self.client_ip = client_ip  # type: str
         # The domain name.
         self.domain_name = domain_name  # type: str
         # The message for the operation.
         self.message = message  # type: str
-        # The ID of the zone.
+        # The ID of the private zone.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -13062,15 +13135,15 @@ class DescribeDomainLogsResponseBodyDomainLogs(TeaModel):
 
 class DescribeDomainLogsResponseBody(TeaModel):
     def __init__(self, domain_logs=None, page_number=None, page_size=None, request_id=None, total_count=None):
-        # The details about the operation logs that are queried.
+        # The operation logs.
         self.domain_logs = domain_logs  # type: DescribeDomainLogsResponseBodyDomainLogs
-        # The page number of the returned page.
+        # The page number.
         self.page_number = page_number  # type: long
-        # The number of operation logs returned per page.
+        # The number of entries per page.
         self.page_size = page_size  # type: long
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # The total number of operation logs returned.
+        # The total number of entries returned.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -13325,11 +13398,11 @@ class DescribeDomainNsResponse(TeaModel):
 
 class DescribeDomainRecordInfoRequest(TeaModel):
     def __init__(self, lang=None, record_id=None, user_client_ip=None):
-        # The language type.
+        # The language.
         self.lang = lang  # type: str
         # The ID of the DNS record.
         # 
-        # This parameter is returned when you add a DNS record or when you query the list of DNS records.
+        # This parameter is returned when you add a DNS record or when you query a list of DNS records.
         self.record_id = record_id  # type: str
         # The IP address of the client.
         self.user_client_ip = user_client_ip  # type: str
@@ -13374,29 +13447,29 @@ class DescribeDomainRecordInfoResponseBody(TeaModel):
         self.group_id = group_id  # type: str
         # The name of the domain name group.
         self.group_name = group_name  # type: str
-        # The resolution line.
+        # The DNS resolution line.
         self.line = line  # type: str
-        # The lock status of the DNS record. Valid values: true and false.
+        # The lock state of the DNS record. Valid values: **true and false**.
         self.locked = locked  # type: bool
-        # The priority of the MX-type DNS record.
+        # The priority of the mail exchanger (MX) record.
         self.priority = priority  # type: long
-        # The punycode is only returned for Chinese domain names.
+        # The Punycode for the domain name. This parameter is returned only for Chinese domain names.
         self.puny_code = puny_code  # type: str
-        # The host record.
+        # The hostname.
         self.rr = rr  # type: str
         # The ID of the DNS record.
         self.record_id = record_id  # type: str
-        # The remark of the DNS record.
+        # The description of your DNS record.
         self.remark = remark  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # The status of the DNS record. Valid values: Enable and Disable.
+        # The state of the DNS records. Valid values: **Enable and Disable**.
         self.status = status  # type: str
-        # The TTL of the resolution.
+        # The time-to-live (TTL) of the DNS record.
         self.ttl = ttl  # type: long
         # The type of the DNS record.
         self.type = type  # type: str
-        # The value of the DNS record.
+        # The record value.
         self.value = value  # type: str
 
     def validate(self):
@@ -13650,6 +13723,7 @@ class DescribeDomainRecordsRequest(TeaModel):
 class DescribeDomainRecordsResponseBodyDomainRecordsRecord(TeaModel):
     def __init__(self, create_timestamp=None, domain_name=None, line=None, locked=None, priority=None, rr=None,
                  record_id=None, remark=None, status=None, ttl=None, type=None, update_timestamp=None, value=None, weight=None):
+        # The time when the DNS record was created. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since 00:00:00 UTC on January 1, 1970.
         self.create_timestamp = create_timestamp  # type: long
         # The domain name.
         self.domain_name = domain_name  # type: str
@@ -13663,14 +13737,15 @@ class DescribeDomainRecordsResponseBodyDomainRecordsRecord(TeaModel):
         self.rr = rr  # type: str
         # The ID of the DNS record.
         self.record_id = record_id  # type: str
-        # The description.
+        # The description of the DNS record.
         self.remark = remark  # type: str
         # The status of the DNS record.
         self.status = status  # type: str
-        # The time-to-live (TTL) of the cached data. Unit: seconds.
+        # The time-to-live (TTL) of the cached DNS record. Unit: seconds.
         self.ttl = ttl  # type: long
         # The type of the DNS record.
         self.type = type  # type: str
+        # The time when the DNS record was updated. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since 00:00:00 UTC on January 1, 1970.
         self.update_timestamp = update_timestamp  # type: long
         # The record value.
         self.value = value  # type: str
@@ -13783,7 +13858,7 @@ class DescribeDomainRecordsResponseBodyDomainRecords(TeaModel):
 
 class DescribeDomainRecordsResponseBody(TeaModel):
     def __init__(self, domain_records=None, page_number=None, page_size=None, request_id=None, total_count=None):
-        # The returned DNS records.
+        # The returned Domain Name System (DNS) records.
         self.domain_records = domain_records  # type: DescribeDomainRecordsResponseBodyDomainRecords
         # The page number.
         self.page_number = page_number  # type: long
@@ -13871,13 +13946,16 @@ class DescribeDomainRecordsResponse(TeaModel):
 class DescribeDomainResolveStatisticsSummaryRequest(TeaModel):
     def __init__(self, direction=None, end_date=None, keyword=None, lang=None, page_number=None, page_size=None,
                  search_mode=None, start_date=None, threshold=None):
-        # The order in which you want to sort the query results. Valid values: DESC and ASC. DESC indicates that the query results are sorted in descending order. ASC indicates that the query results are sorted in ascending order.
+        # The order in which you want to sort the returned entries. Valid values:
+        # 
+        # *   DESC: the descending order
+        # *   ASC: the ascending order
         self.direction = direction  # type: str
         # The end time in the yyyy-MM-dd format, for example, 2023-03-13.
         self.end_date = end_date  # type: str
-        # The keyword. The Keyword parameter must be used together with the SearchMode parameter.
+        # The keyword. The Keyword parameter is used together with the SearchMode parameter.
         self.keyword = keyword  # type: str
-        # The language used. Valid values: zh, en, and ja.
+        # The language. Valid values: zh, en, and ja.
         self.lang = lang  # type: str
         # The number of the page to return. Pages start from page 1. Default value: 1.
         self.page_number = page_number  # type: int
@@ -13885,11 +13963,20 @@ class DescribeDomainResolveStatisticsSummaryRequest(TeaModel):
         self.page_size = page_size  # type: int
         # The search mode of the keyword. Valid values:
         # 
-        # LIKE and EXACT. LIKE is the default value and indicates the fuzzy search mode. EXACT indicates the exact match mode.
+        # *   LIKE (default): fuzzy search
+        # *   EXACT: exact search
         self.search_mode = search_mode  # type: str
         # The start time in the yyyy-MM-dd format, for example, 2023-03-01.
         self.start_date = start_date  # type: str
-        # The threshold for the number of resolution requests. You can query the paid domain names at the specified quantity level of resolution requests and query the number of resolution requests. For example, if you set this parameter to 100, you can obtain data about the paid domain names with less than 100 resolution requests. If you do not specify this parameter, the data about the paid domain names that have resolution requests is obtained. If you set this parameter to a value less than 0, the data about all paid domain names is obtained. If you set this parameter to 0, the data about the paid domain names that do not have resolution requests is obtained. If you set this parameter to a value greater than 0, the data about the paid domain names whose number of resolution requests is less than or equal to the value of this parameter is obtained.
+        # The threshold for the number of Domain Name System (DNS) requests. You can query the domain names at the specified quantity level of DNS requests and query the number of DNS requests for each domain name.
+        # 
+        # If you do not specify this parameter, the data about the domain names that have DNS requests is obtained.
+        # 
+        # If you set this parameter to a value less than 0, the data about all domain names is obtained.
+        # 
+        # If you set this parameter to 0, the data about the domain names that do not have DNS requests is obtained.
+        # 
+        # If you set this parameter to a value greater than 0, the data about the domain names whose number of DNS requests is less than or equal to the value of this parameter is obtained.
         self.threshold = threshold  # type: long
 
     def validate(self):
@@ -13946,11 +14033,14 @@ class DescribeDomainResolveStatisticsSummaryRequest(TeaModel):
 
 class DescribeDomainResolveStatisticsSummaryResponseBodyStatistics(TeaModel):
     def __init__(self, count=None, domain_name=None, domain_type=None):
-        # The number of resolution requests.
+        # The number of DNS requests.
         self.count = count  # type: str
         # The domain name.
         self.domain_name = domain_name  # type: str
-        # The instance type. Valid values: PUBLIC and CACHE. PUBLIC indicates an authoritative domain name. CACHE indicates a cache-accelerated domain name.
+        # The type of the domain name. Valid values:
+        # 
+        # *   PUBLIC: hosted public domain name
+        # *   CACHE: cache-accelerated domain name
         self.domain_type = domain_type  # type: str
 
     def validate(self):
@@ -13984,9 +14074,9 @@ class DescribeDomainResolveStatisticsSummaryResponseBodyStatistics(TeaModel):
 class DescribeDomainResolveStatisticsSummaryResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, request_id=None, statistics=None, total_items=None,
                  total_pages=None):
-        # The page number of the returned page.
+        # The page number. Pages start from page **1**. Default value: **1**.
         self.page_number = page_number  # type: int
-        # The number of entries returned per page.
+        # The number of entries per page. Maximum value: **100**. Default value: **20**.
         self.page_size = page_size  # type: int
         # The request ID.
         self.request_id = request_id  # type: str
@@ -14141,8 +14231,9 @@ class DescribeDomainStatisticsResponseBodyStatisticsStatistic(TeaModel):
     def __init__(self, count=None, domain_name=None, timestamp=None):
         # The number of DNS requests.
         self.count = count  # type: long
+        # The domain name.
         self.domain_name = domain_name  # type: str
-        # The statistical timestamp. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # The statistical timestamp. Unit: milliseconds. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.timestamp = timestamp  # type: long
 
     def validate(self):
@@ -14209,7 +14300,7 @@ class DescribeDomainStatisticsResponseBody(TeaModel):
     def __init__(self, request_id=None, statistics=None):
         # The request ID.
         self.request_id = request_id  # type: str
-        # The DNS requests.
+        # The statistics on the Domain Name System (DNS) requests.
         self.statistics = statistics  # type: DescribeDomainStatisticsResponseBodyStatistics
 
     def validate(self):
@@ -14351,10 +14442,15 @@ class DescribeDomainStatisticsSummaryRequest(TeaModel):
 
 class DescribeDomainStatisticsSummaryResponseBodyStatisticsStatistic(TeaModel):
     def __init__(self, count=None, domain_name=None, domain_type=None, resolve_analysis_status=None):
-        # The number of queries.
+        # The number of DNS requests.
         self.count = count  # type: long
         # The domain name.
         self.domain_name = domain_name  # type: str
+        # The type of the domain name. The parameter value is not case-sensitive. Valid values:
+        # 
+        # PUBLIC (default): hosted public domain name
+        # 
+        # CACHE: cache-accelerated domain name
         self.domain_type = domain_type  # type: str
         self.resolve_analysis_status = resolve_analysis_status  # type: str
 
@@ -14431,7 +14527,7 @@ class DescribeDomainStatisticsSummaryResponseBody(TeaModel):
         self.page_size = page_size  # type: int
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # The list of query volume records.
+        # The statistics on the Domain Name System (DNS) requests.
         self.statistics = statistics  # type: DescribeDomainStatisticsSummaryResponseBodyStatistics
         # The total number of data records.
         self.total_items = total_items  # type: int
@@ -14613,7 +14709,9 @@ class DescribeDomainsResponseBodyDomainsDomainDnsServers(TeaModel):
 
 class DescribeDomainsResponseBodyDomainsDomainTagsTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag added to the resource.
         self.key = key  # type: str
+        # The value of the tag added to the resource.
         self.value = value  # type: str
 
     def validate(self):
@@ -14677,11 +14775,13 @@ class DescribeDomainsResponseBodyDomainsDomain(TeaModel):
                  domain_logging_switch_status=None, domain_name=None, group_id=None, group_name=None, instance_end_time=None,
                  instance_expired=None, instance_id=None, puny_code=None, record_count=None, registrant_email=None, remark=None,
                  resource_group_id=None, starmark=None, tags=None, version_code=None, version_name=None):
-        # Indicates whether the domain name is an Alibaba Cloud HiChina domain name.
+        # Indicates whether the domain name was registered in Alibaba Cloud.
         self.ali_domain = ali_domain  # type: bool
+        # The time when the domain name was added.
         self.create_time = create_time  # type: str
+        # The time when the domain name was added. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.create_timestamp = create_timestamp  # type: long
-        # The list of DNS servers of the domain name in the DNS system.
+        # The names of the DNS servers configured for the domain name.
         self.dns_servers = dns_servers  # type: DescribeDomainsResponseBodyDomainsDomainDnsServers
         # The ID of the domain name.
         self.domain_id = domain_id  # type: str
@@ -14692,27 +14792,29 @@ class DescribeDomainsResponseBodyDomainsDomain(TeaModel):
         self.group_id = group_id  # type: str
         # The name of the domain name group.
         self.group_name = group_name  # type: str
-        # The expiration time of the instance.
+        # The time when the Alibaba Cloud DNS instance expires.
         self.instance_end_time = instance_end_time  # type: str
-        # Indicates whether the instance expired.
+        # Indicates whether the Alibaba Cloud DNS instance expires.
         self.instance_expired = instance_expired  # type: bool
         # The ID of the Alibaba Cloud DNS instance.
         self.instance_id = instance_id  # type: str
-        # The punycode is returned for Chinese domain names and is left blank for English domain names.
+        # The Punycode for the domain name. This parameter is returned only for Chinese domain names.
         self.puny_code = puny_code  # type: str
-        # The number of DNS records of the domain name.
+        # The number of Domain Name System (DNS) records added for the domain name.
         self.record_count = record_count  # type: long
         # The email address of the registrant.
         self.registrant_email = registrant_email  # type: str
-        # The description.
+        # The description of the domain name.
         self.remark = remark  # type: str
+        # The ID of the resource group to which the domain name belongs.
         self.resource_group_id = resource_group_id  # type: str
-        # Indicates whether to query the starmark of the domain name.
+        # Indicates whether the domain name was added to favorites.
         self.starmark = starmark  # type: bool
+        # The tags added to the resource.
         self.tags = tags  # type: DescribeDomainsResponseBodyDomainsDomainTags
-        # The version code of the Alibaba Cloud DNS instance.
+        # The edition code of Alibaba Cloud DNS.
         self.version_code = version_code  # type: str
-        # The version name of the Alibaba Cloud DNS instance.
+        # The edition of Alibaba Cloud DNS.
         self.version_name = version_name  # type: str
 
     def validate(self):
@@ -14854,7 +14956,7 @@ class DescribeDomainsResponseBodyDomains(TeaModel):
 
 class DescribeDomainsResponseBody(TeaModel):
     def __init__(self, domains=None, page_number=None, page_size=None, request_id=None, total_count=None):
-        # The list of domain names queried by this operation.
+        # The domain names.
         self.domains = domains  # type: DescribeDomainsResponseBodyDomains
         # The page number of the returned page.
         self.page_number = page_number  # type: long
@@ -15590,9 +15692,9 @@ class DescribeGtmAccessStrategyResponse(TeaModel):
 
 class DescribeGtmAccessStrategyAvailableConfigRequest(TeaModel):
     def __init__(self, instance_id=None, lang=None):
-        # The ID of the GTM instance for which you want to query the available configurations of the current access policy.
+        # The ID of the Global Traffic Manager (GTM) instance.
         self.instance_id = instance_id  # type: str
-        # The language used by the user.
+        # The language.
         self.lang = lang  # type: str
 
     def validate(self):
@@ -15685,20 +15787,20 @@ class DescribeGtmAccessStrategyAvailableConfigResponseBodyAddrPools(TeaModel):
 class DescribeGtmAccessStrategyAvailableConfigResponseBodyLinesLine(TeaModel):
     def __init__(self, father_code=None, group_code=None, group_name=None, line_code=None, line_name=None,
                  status=None):
-        # The code of the parent line for the access region. If no parent line exists, leave this parameter blank.
+        # The code of the parent line. No value is returned if no parent line exists.
         self.father_code = father_code  # type: str
-        # The code of the access region group.
+        # The group number of the DNS request source.
         self.group_code = group_code  # type: str
-        # The name of the access region group.
+        # The group name of the DNS request source.
         self.group_name = group_name  # type: str
-        # The code for the line of the access region.
+        # The code of the DNS request source.
         self.line_code = line_code  # type: str
-        # The name for the line of the access region.
+        # The name of the DNS request source.
         self.line_name = line_name  # type: str
-        # The current status of the line. Valid values:
+        # The state of the line. Valid values:
         # 
-        # - **FORBIDDEN**: Unavailable
-        # - **OPTIONAL**: Availabe
+        # *   **FORBIDDEN**: The line is unavailable.
+        # *   **OPTIONAL**: The line is available.
         self.status = status  # type: str
 
     def validate(self):
@@ -15775,12 +15877,13 @@ class DescribeGtmAccessStrategyAvailableConfigResponseBodyLines(TeaModel):
 
 class DescribeGtmAccessStrategyAvailableConfigResponseBody(TeaModel):
     def __init__(self, addr_pools=None, lines=None, request_id=None, suggest_set_default_line=None):
-        # The returned list of address pools.
+        # The address pools.
         self.addr_pools = addr_pools  # type: DescribeGtmAccessStrategyAvailableConfigResponseBodyAddrPools
-        # The returned lines of access regions.
+        # The Domain Name System (DNS) request sources.
         self.lines = lines  # type: DescribeGtmAccessStrategyAvailableConfigResponseBodyLines
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the global line is recommended.
         self.suggest_set_default_line = suggest_set_default_line  # type: bool
 
     def validate(self):
@@ -18816,9 +18919,11 @@ class DescribeGtmRecoveryPlansResponse(TeaModel):
 
 class DescribeInstanceDomainsRequest(TeaModel):
     def __init__(self, instance_id=None, lang=None, page_number=None, page_size=None):
+        # The instance ID.
         self.instance_id = instance_id  # type: str
         self.lang = lang  # type: str
         self.page_number = page_number  # type: long
+        # The number of entries per page. Valid values: 1 to 100. Default value: 20.
         self.page_size = page_size  # type: long
 
     def validate(self):
@@ -18855,8 +18960,11 @@ class DescribeInstanceDomainsRequest(TeaModel):
 
 class DescribeInstanceDomainsResponseBodyInstanceDomains(TeaModel):
     def __init__(self, create_time=None, create_timestamp=None, domain_name=None):
+        # The time when the instance was created. The time follows the ISO 8601 standard in the YYYY-MM-DDThh:mm:ss format. The time is displayed in UTC.
         self.create_time = create_time  # type: str
+        # The time when the instance was created. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.create_timestamp = create_timestamp  # type: long
+        # The domain name.
         self.domain_name = domain_name  # type: str
 
     def validate(self):
@@ -18890,8 +18998,11 @@ class DescribeInstanceDomainsResponseBodyInstanceDomains(TeaModel):
 class DescribeInstanceDomainsResponseBody(TeaModel):
     def __init__(self, instance_domains=None, page_number=None, page_size=None, request_id=None, total_items=None,
                  total_pages=None):
+        # The domain names that are bound to the Alibaba Cloud DNS instance.
         self.instance_domains = instance_domains  # type: list[DescribeInstanceDomainsResponseBodyInstanceDomains]
+        # The page number. Pages start from page **1**. Default value: **1**.
         self.page_number = page_number  # type: int
+        # The number of entries per page. Valid values: **1 to 100**. Default value: **20**.
         self.page_size = page_size  # type: int
         self.request_id = request_id  # type: str
         self.total_items = total_items  # type: int
@@ -18977,6 +19088,287 @@ class DescribeInstanceDomainsResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeInstanceDomainsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeInternetDnsLogsRequest(TeaModel):
+    def __init__(self, domain_name=None, end_timestamp=None, lang=None, module=None, page_number=None,
+                 page_size=None, query_condition=None, start_timestamp=None):
+        self.domain_name = domain_name  # type: str
+        self.end_timestamp = end_timestamp  # type: long
+        self.lang = lang  # type: str
+        self.module = module  # type: str
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.query_condition = query_condition  # type: str
+        self.start_timestamp = start_timestamp  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeInternetDnsLogsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.end_timestamp is not None:
+            result['EndTimestamp'] = self.end_timestamp
+        if self.lang is not None:
+            result['Lang'] = self.lang
+        if self.module is not None:
+            result['Module'] = self.module
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.query_condition is not None:
+            result['QueryCondition'] = self.query_condition
+        if self.start_timestamp is not None:
+            result['StartTimestamp'] = self.start_timestamp
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('EndTimestamp') is not None:
+            self.end_timestamp = m.get('EndTimestamp')
+        if m.get('Lang') is not None:
+            self.lang = m.get('Lang')
+        if m.get('Module') is not None:
+            self.module = m.get('Module')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('QueryCondition') is not None:
+            self.query_condition = m.get('QueryCondition')
+        if m.get('StartTimestamp') is not None:
+            self.start_timestamp = m.get('StartTimestamp')
+        return self
+
+
+class DescribeInternetDnsLogsResponseBodyLogsLogValue(TeaModel):
+    def __init__(self, value=None):
+        self.value = value  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeInternetDnsLogsResponseBodyLogsLogValue, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class DescribeInternetDnsLogsResponseBodyLogsLog(TeaModel):
+    def __init__(self, dns_msg_id=None, log_time=None, query_name=None, query_type=None, rt=None, server_ip=None,
+                 source_ip=None, status=None, subnet_ip=None, value=None):
+        self.dns_msg_id = dns_msg_id  # type: str
+        self.log_time = log_time  # type: long
+        self.query_name = query_name  # type: str
+        self.query_type = query_type  # type: str
+        self.rt = rt  # type: int
+        self.server_ip = server_ip  # type: str
+        self.source_ip = source_ip  # type: str
+        self.status = status  # type: str
+        self.subnet_ip = subnet_ip  # type: str
+        self.value = value  # type: DescribeInternetDnsLogsResponseBodyLogsLogValue
+
+    def validate(self):
+        if self.value:
+            self.value.validate()
+
+    def to_map(self):
+        _map = super(DescribeInternetDnsLogsResponseBodyLogsLog, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dns_msg_id is not None:
+            result['DnsMsgId'] = self.dns_msg_id
+        if self.log_time is not None:
+            result['LogTime'] = self.log_time
+        if self.query_name is not None:
+            result['QueryName'] = self.query_name
+        if self.query_type is not None:
+            result['QueryType'] = self.query_type
+        if self.rt is not None:
+            result['Rt'] = self.rt
+        if self.server_ip is not None:
+            result['ServerIp'] = self.server_ip
+        if self.source_ip is not None:
+            result['SourceIp'] = self.source_ip
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.subnet_ip is not None:
+            result['SubnetIp'] = self.subnet_ip
+        if self.value is not None:
+            result['Value'] = self.value.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DnsMsgId') is not None:
+            self.dns_msg_id = m.get('DnsMsgId')
+        if m.get('LogTime') is not None:
+            self.log_time = m.get('LogTime')
+        if m.get('QueryName') is not None:
+            self.query_name = m.get('QueryName')
+        if m.get('QueryType') is not None:
+            self.query_type = m.get('QueryType')
+        if m.get('Rt') is not None:
+            self.rt = m.get('Rt')
+        if m.get('ServerIp') is not None:
+            self.server_ip = m.get('ServerIp')
+        if m.get('SourceIp') is not None:
+            self.source_ip = m.get('SourceIp')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('SubnetIp') is not None:
+            self.subnet_ip = m.get('SubnetIp')
+        if m.get('Value') is not None:
+            temp_model = DescribeInternetDnsLogsResponseBodyLogsLogValue()
+            self.value = temp_model.from_map(m['Value'])
+        return self
+
+
+class DescribeInternetDnsLogsResponseBodyLogs(TeaModel):
+    def __init__(self, log=None):
+        self.log = log  # type: list[DescribeInternetDnsLogsResponseBodyLogsLog]
+
+    def validate(self):
+        if self.log:
+            for k in self.log:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeInternetDnsLogsResponseBodyLogs, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Log'] = []
+        if self.log is not None:
+            for k in self.log:
+                result['Log'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.log = []
+        if m.get('Log') is not None:
+            for k in m.get('Log'):
+                temp_model = DescribeInternetDnsLogsResponseBodyLogsLog()
+                self.log.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeInternetDnsLogsResponseBody(TeaModel):
+    def __init__(self, complete=None, cur_page=None, logs=None, page_size=None, request_id=None, total_page=None,
+                 total_size=None):
+        self.complete = complete  # type: bool
+        self.cur_page = cur_page  # type: int
+        self.logs = logs  # type: DescribeInternetDnsLogsResponseBodyLogs
+        self.page_size = page_size  # type: int
+        self.request_id = request_id  # type: str
+        self.total_page = total_page  # type: int
+        self.total_size = total_size  # type: int
+
+    def validate(self):
+        if self.logs:
+            self.logs.validate()
+
+    def to_map(self):
+        _map = super(DescribeInternetDnsLogsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.complete is not None:
+            result['Complete'] = self.complete
+        if self.cur_page is not None:
+            result['CurPage'] = self.cur_page
+        if self.logs is not None:
+            result['Logs'] = self.logs.to_map()
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_page is not None:
+            result['TotalPage'] = self.total_page
+        if self.total_size is not None:
+            result['TotalSize'] = self.total_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Complete') is not None:
+            self.complete = m.get('Complete')
+        if m.get('CurPage') is not None:
+            self.cur_page = m.get('CurPage')
+        if m.get('Logs') is not None:
+            temp_model = DescribeInternetDnsLogsResponseBodyLogs()
+            self.logs = temp_model.from_map(m['Logs'])
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalPage') is not None:
+            self.total_page = m.get('TotalPage')
+        if m.get('TotalSize') is not None:
+            self.total_size = m.get('TotalSize')
+        return self
+
+
+class DescribeInternetDnsLogsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeInternetDnsLogsResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeInternetDnsLogsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeInternetDnsLogsResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -22048,19 +22440,23 @@ class DescribeRecordLogsResponse(TeaModel):
 class DescribeRecordResolveStatisticsSummaryRequest(TeaModel):
     def __init__(self, direction=None, domain_name=None, domain_type=None, end_date=None, keyword=None, lang=None,
                  page_number=None, page_size=None, search_mode=None, start_date=None, threshold=None):
-        # The order in which you want to sort the query results. Valid values: DESC and ASC. DESC is the default value and indicates that the query results are sorted in descending order. ASC indicates that the query results are sorted in ascending order.
+        # The order in which the returned entries are sorted. Valid values:
+        # 
+        # *   DESC (default): descending order
+        # *   ASC: ascending order
         self.direction = direction  # type: str
         # The domain name.
         self.domain_name = domain_name  # type: str
         # The type of the domain name. The parameter value is not case-sensitive. Valid values:
         # 
-        # PUBLIC and CACHE. PUBLIC is the default value and indicates an authoritative domain name. CACHE indicates a cache-accelerated domain name.
+        # *   PUBLIC (default): hosted public domain name
+        # *   CACHE: cache-accelerated domain name
         self.domain_type = domain_type  # type: str
-        # The end time in the yyyy-MM-dd format, for example, 2023-03-13.
+        # The end date of the time range to be queried. Specify the time in the yyyy-MM-dd format, such as 2023-03-13.
         self.end_date = end_date  # type: str
-        # The keyword. The Keyword parameter is used together with the SearchMode parameter.
+        # The keyword. Keyword is used together with SearchMode.
         self.keyword = keyword  # type: str
-        # The language used. Valid values: zh, en, and ja.
+        # The language. Valid values: zh, en, and ja.
         self.lang = lang  # type: str
         # The number of the page to return. Pages start from page 1. Default value: 1.
         self.page_number = page_number  # type: int
@@ -22068,19 +22464,20 @@ class DescribeRecordResolveStatisticsSummaryRequest(TeaModel):
         self.page_size = page_size  # type: int
         # The search mode of the keyword. Valid values:
         # 
-        # LIKE (default): fuzzy search. EXACT: exact match.
+        # *   LIKE (default): fuzzy search
+        # *   EXACT: exact search
         self.search_mode = search_mode  # type: str
-        # The start time in the yyyy-MM-dd format, for example, 2023-03-01.
+        # The start date of the time range to be queried. Specify the time in the yyyy-MM-dd format, such as 2023-03-01.
         self.start_date = start_date  # type: str
-        # The threshold for the number of resolution requests. You can query the subdomain names at the specified quantity level of resolution requests and query the number of resolution requests for each subdomain name. For example, if you set this parameter to 100, you can obtain data about the subdomain names with less than 100 resolution requests.
+        # The threshold for the number of Domain Name System (DNS) requests. You can query the subdomain names at the specified quantity level of DNS requests and query the number of DNS requests for each subdomain name.
         # 
-        # If you do not specify this parameter, the data about the subdomain names that have resolution requests is obtained.
+        # If you do not specify this parameter, the data about the subdomain names that have DNS requests is obtained.
         # 
         # If you set this parameter to a value less than 0, the data about all subdomain names is obtained.
         # 
-        # If you set this parameter to 0, the data about the subdomain names that do not have resolution requests is obtained.
+        # If you set this parameter to 0, the data about the subdomain names that do not have DNS requests is obtained.
         # 
-        # If you set this parameter to a value greater than 0, the data about the subdomain names whose number of resolution requests is less than or equal to the value of this parameter is obtained.
+        # If you set this parameter to a value greater than 0, the data about the subdomain names whose number of DNS requests is less than or equal to the value of this parameter is obtained.
         self.threshold = threshold  # type: long
 
     def validate(self):
@@ -22145,13 +22542,16 @@ class DescribeRecordResolveStatisticsSummaryRequest(TeaModel):
 
 class DescribeRecordResolveStatisticsSummaryResponseBodyStatistics(TeaModel):
     def __init__(self, count=None, domain_name=None, domain_type=None, sub_domain=None):
-        # The number of resolution requests.
+        # The number of DNS requests.
         self.count = count  # type: str
-        # The domain name.
+        # The subdomain name.
         self.domain_name = domain_name  # type: str
-        # The type of the domain name. Valid values: PUBLIC and CACHE. PUBLIC indicates an authoritative domain name. CACHE indicates a cache-accelerated domain name.
+        # The type of the domain name. The parameter value is not case-sensitive. Valid values:
+        # 
+        # *   PUBLIC (default): hosted public domain name
+        # *   CACHE: cache-accelerated domain name
         self.domain_type = domain_type  # type: str
-        # 子域名
+        # The subdomain.
         self.sub_domain = sub_domain  # type: str
 
     def validate(self):
@@ -22189,9 +22589,9 @@ class DescribeRecordResolveStatisticsSummaryResponseBodyStatistics(TeaModel):
 class DescribeRecordResolveStatisticsSummaryResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, request_id=None, statistics=None, total_items=None,
                  total_pages=None):
-        # The page number of the returned page.
+        # The page number. Pages start from page 1. Default value: 1.
         self.page_number = page_number  # type: int
-        # The number of entries returned per page.
+        # The number of entries per page. Valid values: **1 to 500**. Default value: **20**.
         self.page_size = page_size  # type: int
         # The request ID.
         self.request_id = request_id  # type: str
@@ -22290,20 +22690,26 @@ class DescribeRecordStatisticsRequest(TeaModel):
     def __init__(self, domain_name=None, domain_type=None, end_date=None, lang=None, rr=None, start_date=None):
         # The domain name.
         self.domain_name = domain_name  # type: str
+        # The type of the domain name. The parameter value is not case-sensitive. Valid values:
+        # 
+        # *   PUBLIC (default): hosted public domain name
+        # *   CACHE: cache-accelerated domain name
         self.domain_type = domain_type  # type: str
-        # The end of the time range to query. Specify the time in the **YYYY-MM-DD** format.
+        # The end date of the query. Specify the end date in the **YYYY-MM-DD** format.
         # 
-        # The default value is the day when you perform the operation.
+        # The default value is the day when you query the data.
         self.end_date = end_date  # type: str
-        # The language type.
+        # The language.
         self.lang = lang  # type: str
-        # The DNS record.
-        # 
-        # The host record. For example, to resolve `www.dns-exmaple.com`, you must set Rr to www.
+        # The hostname. If you want to resolve the subdomain name www.dns-exmaple.top, set this parameter to www.
         self.rr = rr  # type: str
-        # The beginning of the time range to query. Specify the time in the **YYYY-MM-DD** format.
+        # The start date of the query. Specify the start date in the **YYYY-MM-DD** format.
         # 
-        # You can only query DNS records of the last 90 days.
+        # You can only query the DNS records within the last 90 days.``
+        # 
+        # If the time range is less than or equal to seven days, data is returned on an hourly basis.````
+        # 
+        # If the time range is greater than seven days, data is returned on a daily basis.````
         self.start_date = start_date  # type: str
 
     def validate(self):
@@ -22348,9 +22754,9 @@ class DescribeRecordStatisticsRequest(TeaModel):
 
 class DescribeRecordStatisticsResponseBodyStatisticsStatistic(TeaModel):
     def __init__(self, count=None, timestamp=None):
-        # The number of queries.
+        # The number of DNS requests.
         self.count = count  # type: long
-        # The UNIX timestamp representing the collection time.
+        # The statistical timestamp. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.timestamp = timestamp  # type: long
 
     def validate(self):
@@ -22411,9 +22817,9 @@ class DescribeRecordStatisticsResponseBodyStatistics(TeaModel):
 
 class DescribeRecordStatisticsResponseBody(TeaModel):
     def __init__(self, request_id=None, statistics=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # The list of query volume records.
+        # The statistics on the DNS requests.
         self.statistics = statistics  # type: DescribeRecordStatisticsResponseBodyStatistics
 
     def validate(self):
@@ -22732,23 +23138,19 @@ class DescribeSubDomainRecordsRequest(TeaModel):
         self.domain_name = domain_name  # type: str
         # The language.
         self.lang = lang  # type: str
-        # The resolution line.
+        # The DNS resolution line.
         self.line = line  # type: str
-        # The number of the page to return. Pages start from page **1**. Default value: **1**.
+        # The page number. Pages start from page **1**. Default value: **1**.
         self.page_number = page_number  # type: long
-        # The number of entries to return on each page. Maximum value: **500**. Default value: **20**.
+        # The number of entries per page. Valid values: **1 to 100**. Default value: **20**.
         self.page_size = page_size  # type: long
-        # The subdomain. For example, assume that the SubDomain parameter is set to a.www.example.com.
+        # If you set SubDomain to `a.www.example.com` and leave
         # 
-        # If the DomainName parameter is empty, the DNS records of the subdomain whose domain name is example.com and hostname is "a.www" are queried.
-        # 
-        # If the DomainName parameter is set to www.example.com, the DNS records of the subdomain whose domain name is www.example.com and hostname is "a" are queried.
-        # 
-        # If the DomainName parameter is set to a.www.example.com, the DNS records of the subdomain whose domain name is a.www.example.com and hostname is "@" are queried.
+        # DomainName empty, the system returns the DNS records that contain the hostname `a.www` for the domain name example.com. If you set SubDomain to a.www.example.com and set DomainName to www.example.com, the system returns the DNS records that contain the hostname `a` for the domain name www.example.com. If you set SubDomain to a.www.example.com and set DomainName to a.www.example.com, the system returns the DNS records that contain the hostname `@` for the domain name a.www.example.com.
         self.sub_domain = sub_domain  # type: str
-        # The type of DNS records to query. If you do not specify this parameter, all types of DNS records corresponding to the subdomain are returned.
+        # The type of DNS records. If you do not specify this parameter, all types of DNS records for the subdomain name are returned.
         # 
-        # DNS record types include **A, MX, CNAME, TXT, REDIRECT_URL, FORWORD_URL, NS, AAAA, and SRV**. The value is not case-sensitive.
+        # Valid values: **A, MX, CNAME, TXT, REDIRECT_URL, FORWORD_URL, NS, AAAA, and SRV**.
         self.type = type  # type: str
         # The IP address of the client.
         self.user_client_ip = user_client_ip  # type: str
@@ -22806,11 +23208,11 @@ class DescribeSubDomainRecordsResponseBodyDomainRecordsRecord(TeaModel):
                  status=None, ttl=None, type=None, value=None, weight=None):
         # The domain name.
         self.domain_name = domain_name  # type: str
-        # The resolution line.
+        # The DNS resolution line.
         self.line = line  # type: str
-        # Indicates whether the DNS record is locked.
+        # The lock status of the DNS record.
         self.locked = locked  # type: bool
-        # The priority of the MX record.
+        # The priority of the mail exchanger (MX) record.
         self.priority = priority  # type: long
         # The hostname.
         self.rr = rr  # type: str
@@ -22820,7 +23222,7 @@ class DescribeSubDomainRecordsResponseBodyDomainRecordsRecord(TeaModel):
         self.remark = remark  # type: str
         # The status of the DNS record.
         self.status = status  # type: str
-        # The Time-to-Live (TTL) of the DNS record.
+        # The time-to-live (TTL) of the DNS record.
         self.ttl = ttl  # type: long
         # The type of the DNS record.
         self.type = type  # type: str
@@ -22927,15 +23329,15 @@ class DescribeSubDomainRecordsResponseBodyDomainRecords(TeaModel):
 
 class DescribeSubDomainRecordsResponseBody(TeaModel):
     def __init__(self, domain_records=None, page_number=None, page_size=None, request_id=None, total_count=None):
-        # The list of DNS records returned.
+        # The returned DNS records.
         self.domain_records = domain_records  # type: DescribeSubDomainRecordsResponseBodyDomainRecords
-        # The number of the returned page.
+        # The page number. Pages start from page **1**. Default value: **1**.
         self.page_number = page_number  # type: long
-        # The number of entries returned per page.
+        # The number of entries per page.
         self.page_size = page_size  # type: long
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # The total number of DNS records returned.
+        # The total number of entries returned.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -23014,11 +23416,11 @@ class DescribeSubDomainRecordsResponse(TeaModel):
 
 class DescribeSupportLinesRequest(TeaModel):
     def __init__(self, domain_name=None, lang=None, user_client_ip=None):
-        # The domain name.
+        # 域名名称。
         self.domain_name = domain_name  # type: str
-        # The language type.
+        # 语言。
         self.lang = lang  # type: str
-        # The IP address of the client.
+        # 用户端IP。
         self.user_client_ip = user_client_ip  # type: str
 
     def validate(self):
@@ -23051,13 +23453,13 @@ class DescribeSupportLinesRequest(TeaModel):
 
 class DescribeSupportLinesResponseBodyRecordLinesRecordLine(TeaModel):
     def __init__(self, father_code=None, line_code=None, line_display_name=None, line_name=None):
-        # The code of the parent line. Leave it blank if there is no parent line.
+        # 2021-12-06T02:47:26.000+0000
         self.father_code = father_code  # type: str
-        # The code of the child line.
+        # 子线路Code。
         self.line_code = line_code  # type: str
-        # The name of the parent line.
+        # 父线路展示名称。
         self.line_display_name = line_display_name  # type: str
-        # The name of the child line.
+        # 子线路展示名称。
         self.line_name = line_name  # type: str
 
     def validate(self):
@@ -23126,9 +23528,9 @@ class DescribeSupportLinesResponseBodyRecordLines(TeaModel):
 
 class DescribeSupportLinesResponseBody(TeaModel):
     def __init__(self, record_lines=None, request_id=None):
-        # The list of Alibaba Cloud DNS lines.
+        # 云解析线路列表。
         self.record_lines = record_lines  # type: DescribeSupportLinesResponseBodyRecordLines
-        # The ID of the request.
+        # 请求ID。
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -23197,7 +23599,7 @@ class DescribeTagsRequest(TeaModel):
     def __init__(self, lang=None, page_number=None, page_size=None, resource_type=None):
         # The language in which you want the values of some response parameters to be returned. These response parameters support multiple languages. Default value: en. Valid values: en, zh, and ja.
         self.lang = lang  # type: str
-        # The page number to return. Default value: 1.
+        # The page number. Pages start from page **1**. Default value: **1**.
         self.page_number = page_number  # type: long
         # The number of entries to return per page. Default value: 200.
         self.page_size = page_size  # type: long
@@ -23238,8 +23640,9 @@ class DescribeTagsRequest(TeaModel):
 
 class DescribeTagsResponseBodyTags(TeaModel):
     def __init__(self, key=None, values=None):
-        # The key of the tag.
+        # The key of tag N added to the resource.
         self.key = key  # type: str
+        # The values of tags added to the resource.
         self.values = values  # type: list[str]
 
     def validate(self):
@@ -23268,15 +23671,15 @@ class DescribeTagsResponseBodyTags(TeaModel):
 
 class DescribeTagsResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, request_id=None, tags=None, total_count=None):
-        # The returned page number. Default value: 1.
+        # The page number. Pages start from page **1**. Default value: **1**.
         self.page_number = page_number  # type: long
-        # The number of entries returned per page. Default value: 200.
+        # The number of entries per page. Default value: 200.
         self.page_size = page_size  # type: long
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # The list of tags.
+        # The tags added to the resource.
         self.tags = tags  # type: list[DescribeTagsResponseBodyTags]
-        # The total number of tags returned.
+        # The total number of entries returned.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -23362,19 +23765,22 @@ class DescribeTagsResponse(TeaModel):
 class DescribeTransferDomainsRequest(TeaModel):
     def __init__(self, domain_name=None, from_user_id=None, lang=None, page_number=None, page_size=None,
                  target_user_id=None, transfer_type=None):
+        # Specifies the domain name for which you want to view the transfer record.
         self.domain_name = domain_name  # type: str
+        # The user ID from which the domain name was transferred to the current account.
         self.from_user_id = from_user_id  # type: long
-        # The language type.
+        # The language.
         self.lang = lang  # type: str
-        # The number of the page to return. Pages start from page 1. Default value: 1.
+        # The page number. Pages start from page 1. Default value: 1.
         self.page_number = page_number  # type: long
-        # The number of entries to return on each page. Maximum value: 100. Default value: 20.
+        # The number of entries per page. Valid values: 1 to 100. Default value: 20.
         self.page_size = page_size  # type: long
+        # The user ID to which the domain name was transferred from the current account.
         self.target_user_id = target_user_id  # type: long
         # The transfer type. Valid values:
         # 
-        # *   IN: transferred to this account.
-        # *   OUT: transferred from this account.
+        # *   IN: The domain name was transferred to the current account.
+        # *   OUT: The domain name was transferred from the current account.
         self.transfer_type = transfer_type  # type: str
 
     def validate(self):
@@ -23424,17 +23830,17 @@ class DescribeTransferDomainsRequest(TeaModel):
 class DescribeTransferDomainsResponseBodyDomainTransfersDomainTransfer(TeaModel):
     def __init__(self, create_time=None, create_timestamp=None, domain_name=None, from_user_id=None, id=None,
                  target_user_id=None):
-        # The time when the task for transferring domain names was created.
+        # The time when the domain name was created. The time follows the ISO 8601 standard in the YYYY-MM-DDThh:mm:ss format. The time is displayed in UTC.
         self.create_time = create_time  # type: str
-        # The UNIX timestamp representing when the task for transferring domain names was created.
+        # The time when the domain name was created. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.create_timestamp = create_timestamp  # type: long
         # The domain name.
         self.domain_name = domain_name  # type: str
-        # The ID of the user from which the domain name was transferred.
+        # The user ID from which the domain name was transferred.
         self.from_user_id = from_user_id  # type: long
         # The ID of the domain name that was transferred.
         self.id = id  # type: long
-        # The ID of the user to which the domain name was transferred.
+        # The user ID to which the domain name was transferred.
         self.target_user_id = target_user_id  # type: long
 
     def validate(self):
@@ -23511,15 +23917,15 @@ class DescribeTransferDomainsResponseBodyDomainTransfers(TeaModel):
 
 class DescribeTransferDomainsResponseBody(TeaModel):
     def __init__(self, domain_transfers=None, page_number=None, page_size=None, request_id=None, total_count=None):
-        # The list of domain names that were transferred between accounts.
+        # The domain names that were transferred between accounts.
         self.domain_transfers = domain_transfers  # type: DescribeTransferDomainsResponseBodyDomainTransfers
-        # The page number of the returned page.
+        # The page number. Pages start from page **1**. Default value: **1**.
         self.page_number = page_number  # type: long
-        # The number of entries returned per page.
+        # The number of entries per page. Valid values: 1 to 100. Default value: 20.
         self.page_size = page_size  # type: long
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # The total number of domain names.
+        # The total number of entries returned.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -23690,9 +24096,9 @@ class ExecuteGtmRecoveryPlanResponse(TeaModel):
 
 class GetMainDomainNameRequest(TeaModel):
     def __init__(self, input_string=None, lang=None):
-        # The input string. The string can be up to 128 characters in length.
+        # The string. The string can be up to 128 characters in length.
         self.input_string = input_string  # type: str
-        # The language type.
+        # The language.
         self.lang = lang  # type: str
 
     def validate(self):
@@ -23725,9 +24131,9 @@ class GetMainDomainNameResponseBody(TeaModel):
         self.domain_level = domain_level  # type: long
         # The domain name.
         self.domain_name = domain_name  # type: str
-        # The host record.
+        # The hostname.
         self.rr = rr  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -23802,11 +24208,11 @@ class GetTxtRecordForVerifyRequest(TeaModel):
     def __init__(self, domain_name=None, lang=None, type=None):
         # The domain name.
         self.domain_name = domain_name  # type: str
-        # The language type.
+        # The language.
         self.lang = lang  # type: str
-        # The function verified by using the TXT record. Valid values:
+        # The feature verified by using the TXT record. Valid values:
         # 
-        # *   ADD_SUBDOMAIN
+        # *   ADD_SUB_DOMAIN
         # *   RETRIEVAL
         self.type = type  # type: str
 
@@ -23844,11 +24250,11 @@ class GetTxtRecordForVerifyResponseBody(TeaModel):
         # 
         # >  If you do not specify this parameter, it is not returned.
         self.domain_name = domain_name  # type: str
-        # The host record.
+        # The hostname.
         self.rr = rr  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # The value of the DNS record.
+        # The record value.
         # 
         # >  The validity period is three days.
         self.value = value  # type: str
@@ -24298,11 +24704,11 @@ class ModifyHichinaDomainDNSResponse(TeaModel):
 
 class MoveDomainResourceGroupRequest(TeaModel):
     def __init__(self, lang=None, new_resource_group_id=None, resource_id=None):
-        # The language of some returned parameters. Default value: en. Valid values: en, zh, and ja.
+        # The language of the values of specific response parameters. Default value: en. Valid values: en, zh, and ja.
         self.lang = lang  # type: str
-        # The ID of the resource group.
+        # The ID of the new resource group.
         self.new_resource_group_id = new_resource_group_id  # type: str
-        # The domain name.
+        # The resource ID. If Tag is left empty, ResourceId is required.
         self.resource_id = resource_id  # type: str
 
     def validate(self):
@@ -24335,7 +24741,7 @@ class MoveDomainResourceGroupRequest(TeaModel):
 
 class MoveDomainResourceGroupResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -24491,32 +24897,32 @@ class MoveGtmResourceGroupResponse(TeaModel):
 class OperateBatchDomainRequestDomainRecordInfo(TeaModel):
     def __init__(self, domain=None, line=None, new_rr=None, new_type=None, new_value=None, priority=None, rr=None,
                  ttl=None, type=None, value=None):
-        # The resolution line of DNS record N. Default value: default.
+        # The domain name.
         # 
-        # For more information, see [Resolution line enumeration](https://www.alibabacloud.com/help/zh/doc-detail/29807.htm).
+        # >  You can submit 1 to 1,000 domain names. Due to the limit on the length of HTTP request headers, excessive domain names are ignored. Do not enter more than 1,000 domain names.
         self.domain = domain  # type: str
-        # The host record corresponding to DNS record N.
-        # 
-        # >  If you set the Type parameter to **RR_ADD**, you must also specify this parameter.
+        # The resolution line. Default value: default.
         self.line = line  # type: str
         self.new_rr = new_rr  # type: str
         self.new_type = new_type  # type: str
         self.new_value = new_value  # type: str
-        # The ID of the task.
+        # The priority of the mail exchanger (MX) record.
+        # 
+        # This parameter is required if the type of the DNS record is MX. Default value: 10.
         self.priority = priority  # type: int
-        # The priority of MX-type DNS record N.
+        # The hostname.
         # 
-        # This parameter must be specified if the type of the DNS record is MX. Default value: 10.
+        # >  This parameter is required if you set Type to **RR_ADD** or **RR_DEL**.
         self.rr = rr  # type: str
-        # The domain name corresponding to DNS record N.
-        # 
-        # >  N is specified by users. **N** starts from **1**. The maximum value of N is **1000**. Extra data entries are ignored.
+        # The time-to-live (TTL) value of the cached DNS record. Unit: seconds. Default value: ***600***.
         self.ttl = ttl  # type: int
-        # The value of DNS record N.
+        # The type of the DNS record. Valid values: A, AAAA, TXT, MX, and CNAME.
         # 
-        # >  If you set the Type parameter to **RR_ADD**, you must also specify this parameter.
+        # >  This parameter is required if you set Type to **RR_ADD** or **RR_DEL**.
         self.type = type  # type: str
-        # The TTL of DNS record N. Unit: seconds. Default value: **600**.
+        # The record value.
+        # 
+        # >  This parameter is required if you set Type to **RR_ADD** or **RR_DEL**.
         self.value = value  # type: str
 
     def validate(self):
@@ -24577,17 +24983,16 @@ class OperateBatchDomainRequestDomainRecordInfo(TeaModel):
 
 class OperateBatchDomainRequest(TeaModel):
     def __init__(self, domain_record_info=None, lang=None, type=None):
+        # The DNS records. You can submit up to 1000 DNS records.
         self.domain_record_info = domain_record_info  # type: list[OperateBatchDomainRequestDomainRecordInfo]
+        # The language.
+        self.lang = lang  # type: str
         # The type of the batch operation. Valid values:
         # 
         # *   **DOMAIN_ADD**: adds domain names in batches.
         # *   **DOMAIN_DEL**: deletes domain names in batches.
         # *   **RR_ADD**: adds DNS records in batches.
-        # *   **RR_DEL**: deletes DNS records in batches. (If RR or VALUE exists, DNS records corresponding to the specified RR or VALUE are deleted. If both of them exist, DNS records corresponding to the specified RR and VALUE are deleted. If no RR or VALUE is specified, the DNS records corresponding to the DomainName parameter are deleted.)
-        self.lang = lang  # type: str
-        # The type of DNS record N. For the DNS record types supported by Alibaba Cloud DNS, see [Resolution record type formats](https://www.alibabacloud.com/help/zh/doc-detail/29805.htm).
-        # 
-        # >  If you set the Type parameter to **RR_ADD**, you must also specify this parameter.
+        # *   **RR_DEL**: deletes DNS records in batches. This operation deletes the DNS records with the specified hostname or record value. If you do not specify the Rr and Value parameters, this operation deletes the DNS records that are added for the specified domain names.
         self.type = type  # type: str
 
     def validate(self):
@@ -24628,8 +25033,9 @@ class OperateBatchDomainRequest(TeaModel):
 
 class OperateBatchDomainResponseBody(TeaModel):
     def __init__(self, request_id=None, task_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
-        # The ID of the request.
+        # The task ID.
         self.task_id = task_id  # type: long
 
     def validate(self):
@@ -25329,7 +25735,7 @@ class RetrieveDomainRequest(TeaModel):
     def __init__(self, domain_name=None, lang=None):
         # The domain name.
         self.domain_name = domain_name  # type: str
-        # The language type.
+        # The language.
         self.lang = lang  # type: str
 
     def validate(self):
@@ -25358,7 +25764,7 @@ class RetrieveDomainRequest(TeaModel):
 
 class RetrieveDomainResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -25751,14 +26157,14 @@ class SetDnsGtmAccessModeResponse(TeaModel):
 
 class SetDnsGtmMonitorStatusRequest(TeaModel):
     def __init__(self, lang=None, monitor_config_id=None, status=None):
-        # The language to return some response parameters. Default value: en. Valid values: en, zh, and ja.
+        # The language of the values for specific response parameters. Default value: en. Valid values: en, zh, and ja.
         self.lang = lang  # type: str
         # The ID of the health check task.
         self.monitor_config_id = monitor_config_id  # type: str
         # Specifies whether to enable the health check feature. Valid values:
         # 
-        # *   OPEN: enable
-        # *   CLOSE: disable
+        # *   OPEN: enables the health check feature.
+        # *   CLOSE: disables the health check feature.
         self.status = status  # type: str
 
     def validate(self):
@@ -25791,7 +26197,7 @@ class SetDnsGtmMonitorStatusRequest(TeaModel):
 
 class SetDnsGtmMonitorStatusResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -25953,14 +26359,14 @@ class SetDomainDnssecStatusResponse(TeaModel):
 
 class SetDomainRecordStatusRequest(TeaModel):
     def __init__(self, lang=None, record_id=None, status=None, user_client_ip=None):
-        # The language type.
+        # The language.
         self.lang = lang  # type: str
         # The ID of the DNS record.
         self.record_id = record_id  # type: str
-        # The status of the DNS record. Valid values:
+        # The state of the DNS record. Valid values:
         # 
-        # *   **Enable**: enables resolution.
-        # *   **Disable**: suspends resolution.
+        # *   **Enable**: enables the DNS record.
+        # *   **Disable**: disables the DNS record.
         self.status = status  # type: str
         # The IP address of the client.
         self.user_client_ip = user_client_ip  # type: str
@@ -26001,7 +26407,7 @@ class SetDomainRecordStatusResponseBody(TeaModel):
     def __init__(self, record_id=None, request_id=None, status=None):
         # The ID of the DNS record.
         self.record_id = record_id  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
         # The status of the DNS record.
         self.status = status  # type: str
@@ -26731,13 +27137,13 @@ class TransferDomainResponse(TeaModel):
 
 class UnbindInstanceDomainsRequest(TeaModel):
     def __init__(self, domain_names=None, instance_id=None, lang=None):
-        # The list of domain names.
+        # The domain names.
         # 
-        # Separate multiple domain names with commas (,). A maximum of 100 domain names can be entered.
+        # Separate multiple domain names with commas (,). Up to 100 domain names can be entered.
         self.domain_names = domain_names  # type: str
-        # The ID of the instance.
+        # The instance ID.
         self.instance_id = instance_id  # type: str
-        # The language type.
+        # The language.
         self.lang = lang  # type: str
 
     def validate(self):
@@ -26770,11 +27176,11 @@ class UnbindInstanceDomainsRequest(TeaModel):
 
 class UnbindInstanceDomainsResponseBody(TeaModel):
     def __init__(self, failed_count=None, request_id=None, success_count=None):
-        # The number of domain names that failed to be unbound.
+        # The number of domain names that failed to be unbound from the instance.
         self.failed_count = failed_count  # type: int
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # The number of domain names that have been unbound.
+        # The number of domain names that are unbound from the instance.
         self.success_count = success_count  # type: int
 
     def validate(self):
@@ -27078,12 +27484,13 @@ class UpdateCustomLineRequestIpSegment(TeaModel):
 
 class UpdateCustomLineRequest(TeaModel):
     def __init__(self, ip_segment=None, lang=None, line_id=None, line_name=None):
+        # The CIDR blocks. Separate IP addresses with a hyphen (-). Enter a CIDR block in each row. You can enter 1 to 50 CIDR blocks at a time. If a CIDR block contains only one IP address, enter the IP address in the format of IP1-IP1. Different CIDR blocks cannot be overlapped.
         self.ip_segment = ip_segment  # type: list[UpdateCustomLineRequestIpSegment]
-        # The language type.
+        # The language.
         self.lang = lang  # type: str
         # The unique ID of the custom line.
         self.line_id = line_id  # type: long
-        # The new name of the custom line.
+        # The name of the custom line. The name must be 1 to 20 characters in length and can contain letters, digits, hyphens (-), and underscores (\_).
         self.line_name = line_name  # type: str
 
     def validate(self):
@@ -27128,7 +27535,7 @@ class UpdateCustomLineRequest(TeaModel):
 
 class UpdateCustomLineResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -27189,13 +27596,13 @@ class UpdateCustomLineResponse(TeaModel):
 
 class UpdateDNSSLBWeightRequest(TeaModel):
     def __init__(self, lang=None, record_id=None, user_client_ip=None, weight=None):
-        # The language of the domain name.
+        # The language.
         self.lang = lang  # type: str
         # The ID of the DNS record.
         self.record_id = record_id  # type: str
-        # The IP address of the client that you use to change the weight.
+        # The IP address of the client.
         self.user_client_ip = user_client_ip  # type: str
-        # The updated weight of the DNS record. Valid values: `1 to 100`.
+        # The weight of the DNS record that you want to specify. Valid values: `1 to 100`.
         self.weight = weight  # type: int
 
     def validate(self):
@@ -27234,7 +27641,7 @@ class UpdateDNSSLBWeightResponseBody(TeaModel):
     def __init__(self, record_id=None, request_id=None, weight=None):
         # The ID of the DNS record.
         self.record_id = record_id  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
         # The updated weight.
         self.weight = weight  # type: int
@@ -27473,8 +27880,11 @@ class UpdateDnsCacheDomainResponse(TeaModel):
 
 class UpdateDnsCacheDomainRemarkRequest(TeaModel):
     def __init__(self, domain_name=None, lang=None, remark=None):
+        # The domain name.
         self.domain_name = domain_name  # type: str
+        # The language.
         self.lang = lang  # type: str
+        # The remarks. The remarks can be up to 50 characters in length and can contain only letters, digits, periods (.), underscores (\_), and hyphens (-).
         self.remark = remark  # type: str
 
     def validate(self):
@@ -27507,6 +27917,7 @@ class UpdateDnsCacheDomainRemarkRequest(TeaModel):
 
 class UpdateDnsCacheDomainRemarkResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -27567,9 +27978,9 @@ class UpdateDnsCacheDomainRemarkResponse(TeaModel):
 
 class UpdateDnsGtmAccessStrategyRequestDefaultAddrPool(TeaModel):
     def __init__(self, id=None, lba_weight=None):
-        # The ID of the address pool in the primary address pool group.
+        # The ID of the address pool in the primary address pool set.
         self.id = id  # type: str
-        # The weight of the address pool in the primary address pool group.
+        # The weight of the address pool in the primary address pool set.
         self.lba_weight = lba_weight  # type: int
 
     def validate(self):
@@ -27598,9 +28009,9 @@ class UpdateDnsGtmAccessStrategyRequestDefaultAddrPool(TeaModel):
 
 class UpdateDnsGtmAccessStrategyRequestFailoverAddrPool(TeaModel):
     def __init__(self, id=None, lba_weight=None):
-        # The ID of the address pool in the secondary address pool group.
+        # The ID of the address pool in the secondary address pool set.
         self.id = id  # type: str
-        # The weight of the address pool in the secondary address pool group.
+        # The weight of the address pool in the secondary address pool set.
         self.lba_weight = lba_weight  # type: int
 
     def validate(self):
@@ -27633,7 +28044,13 @@ class UpdateDnsGtmAccessStrategyRequest(TeaModel):
                  default_min_available_addr_num=None, failover_addr_pool=None, failover_addr_pool_type=None, failover_latency_optimization=None,
                  failover_lba_strategy=None, failover_max_return_addr_num=None, failover_min_available_addr_num=None, lang=None,
                  lines=None, strategy_id=None, strategy_name=None):
+        # The primary/secondary switchover policy for address pool sets. Valid values:
+        # 
+        # *   AUTO: performs automatic switchover between the primary and secondary address pool sets upon failures.
+        # *   DEFAULT: the primary address pool set
+        # *   FAILOVER: the secondary address pool set
         self.access_mode = access_mode  # type: str
+        # The address pools in the primary address pool set.
         self.default_addr_pool = default_addr_pool  # type: list[UpdateDnsGtmAccessStrategyRequestDefaultAddrPool]
         # The type of the primary address pool. Valid values:
         # 
@@ -27641,20 +28058,21 @@ class UpdateDnsGtmAccessStrategyRequest(TeaModel):
         # *   IPV6
         # *   DOMAIN
         self.default_addr_pool_type = default_addr_pool_type  # type: str
-        # Specifies whether to enable scheduling optimization for latency resolution for the primary address pool group. Valid values:
+        # Specifies whether to enable Domain Name System (DNS) resolution with optimal latency for the primary address pool set. Valid values:
         # 
-        # *   OPEN: enable
-        # *   CLOSE: disable
+        # *   OPEN
+        # *   CLOSE
         self.default_latency_optimization = default_latency_optimization  # type: str
-        # The load balancing policy of the primary address pool group. Valid values:
+        # The load balancing policy of the primary address pool set. Valid values:
         # 
         # *   ALL_RR: returns all addresses.
         # *   RATIO: returns addresses by weight.
         self.default_lba_strategy = default_lba_strategy  # type: str
-        # The maximum number of addresses returned from the primary address pool group.
+        # The maximum number of addresses returned from the primary address pool set.
         self.default_max_return_addr_num = default_max_return_addr_num  # type: int
-        # The minimum number of available addresses in the primary address pool group.
+        # The minimum number of available addresses in the primary address pool set.
         self.default_min_available_addr_num = default_min_available_addr_num  # type: int
+        # The address pools in the secondary address pool set. If no address pool exists in the secondary address pool set, set this parameter to EMPTY.
         self.failover_addr_pool = failover_addr_pool  # type: list[UpdateDnsGtmAccessStrategyRequestFailoverAddrPool]
         # The type of the secondary address pool. Valid values:
         # 
@@ -27662,23 +28080,23 @@ class UpdateDnsGtmAccessStrategyRequest(TeaModel):
         # *   IPV6
         # *   DOMAIN
         self.failover_addr_pool_type = failover_addr_pool_type  # type: str
-        # Specifies whether to enable scheduling optimization for latency resolution for the secondary address pool group. Valid values:
+        # Specifies whether to enable DNS resolution with optimal latency for the secondary address pool set. Valid values:
         # 
-        # *   OPEN: enable
-        # *   CLOSE: disable
+        # *   OPEN
+        # *   CLOSE
         self.failover_latency_optimization = failover_latency_optimization  # type: str
-        # The load balancing policy of the secondary address pool group. Valid values:
+        # The load balancing policy of the secondary address pool set. Valid values:
         # 
         # *   ALL_RR: returns all addresses.
         # *   RATIO: returns addresses by weight.
         self.failover_lba_strategy = failover_lba_strategy  # type: str
-        # The maximum number of addresses returned from the secondary address pool group.
+        # The maximum number of addresses returned from the secondary address pool set.
         self.failover_max_return_addr_num = failover_max_return_addr_num  # type: int
-        # The minimum number of available addresses in the secondary address pool group.
+        # The minimum number of available addresses in the secondary address pool set.
         self.failover_min_available_addr_num = failover_min_available_addr_num  # type: int
-        # The language to return some response parameters. Default value: en. Valid values: en, zh, and ja.
+        # The language of the values for specific response parameters. Default value: en. Valid values: en, zh, and ja.
         self.lang = lang  # type: str
-        # The line codes of source regions. For example: `["default", "drpeng"]` indicates Global and Dr. Peng Telecom & Media Group.
+        # The line codes of the source regions. Example: `["default", "drpeng"]`, which indicates the global line and Dr. Peng Group line.
         self.lines = lines  # type: str
         # The ID of the access policy.
         self.strategy_id = strategy_id  # type: str
@@ -27788,7 +28206,7 @@ class UpdateDnsGtmAccessStrategyRequest(TeaModel):
 
 class UpdateDnsGtmAccessStrategyResponseBody(TeaModel):
     def __init__(self, request_id=None, strategy_id=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
         # The ID of the access policy.
         self.strategy_id = strategy_id  # type: str
@@ -28472,7 +28890,7 @@ class UpdateDomainGroupRequest(TeaModel):
         self.group_id = group_id  # type: str
         # The new name of the domain name group.
         self.group_name = group_name  # type: str
-        # The language type.
+        # The language.
         self.lang = lang  # type: str
 
     def validate(self):
@@ -28509,7 +28927,7 @@ class UpdateDomainGroupResponseBody(TeaModel):
         self.group_id = group_id  # type: str
         # The new name of the domain name group.
         self.group_name = group_name  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -28579,27 +28997,37 @@ class UpdateDomainGroupResponse(TeaModel):
 class UpdateDomainRecordRequest(TeaModel):
     def __init__(self, lang=None, line=None, priority=None, rr=None, record_id=None, ttl=None, type=None,
                  user_client_ip=None, value=None):
-        # The language type.
+        # The language.
         self.lang = lang  # type: str
-        # The resolution line. Default value: **default**.
+        # The DNS resolution line. Default value: **default**.
+        # 
+        # For more information, see
+        # 
+        # [DNS lines](https://www.alibabacloud.com/help/zh/doc-detail/29807.htm).
         self.line = line  # type: str
-        # The priority of an MX-type DNS record. Valid values: `[1,50]`.
+        # The priority of the mail exchanger (MX) record. Valid values: `1 to 50`.
         # 
         # This parameter must be specified if the type of the DNS record is MX.
         self.priority = priority  # type: long
-        # The host record.
+        # The hostname.
         # 
-        # For example, to resolve @.example.com, you must set RR to an at sign (@) instead of leaving it blank.
+        # For example, if you want to resolve @.example.com, you must set RR to an at sign (@) instead of leaving it empty.
         self.rr = rr  # type: str
         # The ID of the DNS record.
         self.record_id = record_id  # type: str
-        # The TTL of the resolution. Default value: 600. Unit: seconds.
+        # The time-to-live (TTL) of the DNS record. Default value: 600. Unit: seconds.
+        # 
+        # For more information, see
+        # 
+        # [TTL definition](https://www.alibabacloud.com/help/zh/doc-detail/29806.htm).
         self.ttl = ttl  # type: long
-        # The type of the DNS record.
+        # The type of the DNS record. For more information, see
+        # 
+        # [DNS record types](https://www.alibabacloud.com/help/zh/doc-detail/29805.htm).
         self.type = type  # type: str
         # The IP address of the client.
         self.user_client_ip = user_client_ip  # type: str
-        # The value of the DNS record.
+        # The record value.
         self.value = value  # type: str
 
     def validate(self):
@@ -28658,7 +29086,7 @@ class UpdateDomainRecordResponseBody(TeaModel):
     def __init__(self, record_id=None, request_id=None):
         # The ID of the DNS record.
         self.record_id = record_id  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -28723,11 +29151,11 @@ class UpdateDomainRecordResponse(TeaModel):
 
 class UpdateDomainRecordRemarkRequest(TeaModel):
     def __init__(self, lang=None, record_id=None, remark=None, user_client_ip=None):
-        # The language type.
+        # The language.
         self.lang = lang  # type: str
         # The ID of the DNS record.
         self.record_id = record_id  # type: str
-        # The description of your DNS record.
+        # The description of the DNS record.
         self.remark = remark  # type: str
         # The IP address of the client.
         self.user_client_ip = user_client_ip  # type: str
@@ -28766,7 +29194,7 @@ class UpdateDomainRecordRemarkRequest(TeaModel):
 
 class UpdateDomainRecordRemarkResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -28827,9 +29255,9 @@ class UpdateDomainRecordRemarkResponse(TeaModel):
 
 class UpdateDomainRemarkRequest(TeaModel):
     def __init__(self, domain_name=None, lang=None, remark=None):
-        # The domain name in Alibaba Cloud DNS.
+        # The domain name that already exists in Alibaba Cloud DNS.
         self.domain_name = domain_name  # type: str
-        # The language type.
+        # The language.
         self.lang = lang  # type: str
         # The description of your domain name.
         self.remark = remark  # type: str
@@ -28864,7 +29292,7 @@ class UpdateDomainRemarkRequest(TeaModel):
 
 class UpdateDomainRemarkResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
