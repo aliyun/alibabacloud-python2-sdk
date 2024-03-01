@@ -11472,8 +11472,9 @@ class CreateTimingSyntheticTaskRequestMonitorConfApiHTTPRequestBody(TeaModel):
 
 
 class CreateTimingSyntheticTaskRequestMonitorConfApiHTTP(TeaModel):
-    def __init__(self, connect_timeout=None, method=None, request_body=None, request_headers=None, target_url=None,
-                 timeout=None):
+    def __init__(self, check_cert=None, connect_timeout=None, method=None, request_body=None, request_headers=None,
+                 target_url=None, timeout=None):
+        self.check_cert = check_cert  # type: bool
         self.connect_timeout = connect_timeout  # type: long
         self.method = method  # type: str
         self.request_body = request_body  # type: CreateTimingSyntheticTaskRequestMonitorConfApiHTTPRequestBody
@@ -11491,6 +11492,8 @@ class CreateTimingSyntheticTaskRequestMonitorConfApiHTTP(TeaModel):
             return _map
 
         result = dict()
+        if self.check_cert is not None:
+            result['CheckCert'] = self.check_cert
         if self.connect_timeout is not None:
             result['ConnectTimeout'] = self.connect_timeout
         if self.method is not None:
@@ -11507,6 +11510,8 @@ class CreateTimingSyntheticTaskRequestMonitorConfApiHTTP(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('CheckCert') is not None:
+            self.check_cert = m.get('CheckCert')
         if m.get('ConnectTimeout') is not None:
             self.connect_timeout = m.get('ConnectTimeout')
         if m.get('Method') is not None:
@@ -27889,8 +27894,9 @@ class GetTimingSyntheticTaskResponseBodyDataMonitorConfApiHTTPRequestBody(TeaMod
 
 
 class GetTimingSyntheticTaskResponseBodyDataMonitorConfApiHTTP(TeaModel):
-    def __init__(self, connect_timeout=None, method=None, request_body=None, request_headers=None, target_url=None,
-                 timeout=None):
+    def __init__(self, check_cert=None, connect_timeout=None, method=None, request_body=None, request_headers=None,
+                 target_url=None, timeout=None):
+        self.check_cert = check_cert  # type: bool
         # The connection timeout period. Unit: milliseconds. Default value: 5000. Minimum value: 1000. Maximum value: 300000.
         self.connect_timeout = connect_timeout  # type: long
         # The request method.
@@ -27917,6 +27923,8 @@ class GetTimingSyntheticTaskResponseBodyDataMonitorConfApiHTTP(TeaModel):
             return _map
 
         result = dict()
+        if self.check_cert is not None:
+            result['CheckCert'] = self.check_cert
         if self.connect_timeout is not None:
             result['ConnectTimeout'] = self.connect_timeout
         if self.method is not None:
@@ -27933,6 +27941,8 @@ class GetTimingSyntheticTaskResponseBodyDataMonitorConfApiHTTP(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('CheckCert') is not None:
+            self.check_cert = m.get('CheckCert')
         if m.get('ConnectTimeout') is not None:
             self.connect_timeout = m.get('ConnectTimeout')
         if m.get('Method') is not None:
@@ -51801,8 +51811,9 @@ class UpdateTimingSyntheticTaskRequestMonitorConfApiHTTPRequestBody(TeaModel):
 
 
 class UpdateTimingSyntheticTaskRequestMonitorConfApiHTTP(TeaModel):
-    def __init__(self, connect_timeout=None, method=None, request_body=None, request_headers=None, target_url=None,
-                 timeout=None):
+    def __init__(self, check_cert=None, connect_timeout=None, method=None, request_body=None, request_headers=None,
+                 target_url=None, timeout=None):
+        self.check_cert = check_cert  # type: bool
         # The connection timeout period. Unit: milliseconds. Default value: 5000. Minimum value: 1000. Maximum value: 300000.
         self.connect_timeout = connect_timeout  # type: long
         # The request method.
@@ -51829,6 +51840,8 @@ class UpdateTimingSyntheticTaskRequestMonitorConfApiHTTP(TeaModel):
             return _map
 
         result = dict()
+        if self.check_cert is not None:
+            result['CheckCert'] = self.check_cert
         if self.connect_timeout is not None:
             result['ConnectTimeout'] = self.connect_timeout
         if self.method is not None:
@@ -51845,6 +51858,8 @@ class UpdateTimingSyntheticTaskRequestMonitorConfApiHTTP(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('CheckCert') is not None:
+            self.check_cert = m.get('CheckCert')
         if m.get('ConnectTimeout') is not None:
             self.connect_timeout = m.get('ConnectTimeout')
         if m.get('Method') is not None:
