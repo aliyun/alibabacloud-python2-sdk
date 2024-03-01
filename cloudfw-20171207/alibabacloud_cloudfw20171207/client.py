@@ -37,7 +37,7 @@ class Client(OpenApiClient):
     def add_address_book_with_options(self, request, runtime):
         """
         You can call the AddAddressBook operation to create an address book for access control. The address book can be an IP address book, an ECS tag-based address book, a port address book, or a domain address book.
-        ## Limits
+        ## [](#qps)Limits
         You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
 
@@ -89,7 +89,7 @@ class Client(OpenApiClient):
     def add_address_book(self, request):
         """
         You can call the AddAddressBook operation to create an address book for access control. The address book can be an IP address book, an ECS tag-based address book, a port address book, or a domain address book.
-        ## Limits
+        ## [](#qps)Limits
         You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
 
@@ -307,6 +307,36 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.batch_copy_vpc_firewall_control_policy_with_options(request, runtime)
+
+    def create_download_task_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.task_data):
+            query['TaskData'] = request.task_data
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDownloadTask',
+            version='2017-12-07',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudfw_20171207_models.CreateDownloadTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_download_task(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_download_task_with_options(request, runtime)
 
     def create_nat_firewall_control_policy_with_options(self, request, runtime):
         """
@@ -844,6 +874,70 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_control_policy_with_options(request, runtime)
 
+    def delete_control_policy_template_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.source_ip):
+            query['SourceIp'] = request.source_ip
+        if not UtilClient.is_unset(request.template_id):
+            query['TemplateId'] = request.template_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteControlPolicyTemplate',
+            version='2017-12-07',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudfw_20171207_models.DeleteControlPolicyTemplateResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_control_policy_template(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_control_policy_template_with_options(request, runtime)
+
+    def delete_download_task_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDownloadTask',
+            version='2017-12-07',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudfw_20171207_models.DeleteDownloadTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_download_task(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_download_task_with_options(request, runtime)
+
     def delete_firewall_v2route_policies_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -977,6 +1071,40 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.delete_nat_firewall_control_policy_with_options(request, runtime)
+
+    def delete_nat_firewall_control_policy_batch_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.acl_uuid_list):
+            query['AclUuidList'] = request.acl_uuid_list
+        if not UtilClient.is_unset(request.direction):
+            query['Direction'] = request.direction
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.nat_gateway_id):
+            query['NatGatewayId'] = request.nat_gateway_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteNatFirewallControlPolicyBatch',
+            version='2017-12-07',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudfw_20171207_models.DeleteNatFirewallControlPolicyBatchResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_nat_firewall_control_policy_batch(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_nat_firewall_control_policy_batch_with_options(request, runtime)
 
     def delete_tr_firewall_v2with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1208,8 +1336,8 @@ class Client(OpenApiClient):
 
     def describe_address_book_with_options(self, request, runtime):
         """
-        You can call the DescribeAddressBook operation to query the details about an address book for an access control policy.
-        ## Limits
+        You can call this operation to query the details about an address book for an access control policy.
+        ## [](#qps)Limits
         You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
 
@@ -1254,8 +1382,8 @@ class Client(OpenApiClient):
 
     def describe_address_book(self, request):
         """
-        You can call the DescribeAddressBook operation to query the details about an address book for an access control policy.
-        ## Limits
+        You can call this operation to query the details about an address book for an access control policy.
+        ## [](#qps)Limits
         You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
 
@@ -1339,6 +1467,72 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.describe_asset_list_with_options(request, runtime)
+
+    def describe_asset_risk_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.ip_addr_list):
+            query['IpAddrList'] = request.ip_addr_list
+        if not UtilClient.is_unset(request.ip_version):
+            query['IpVersion'] = request.ip_version
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.source_ip):
+            query['SourceIp'] = request.source_ip
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeAssetRiskList',
+            version='2017-12-07',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudfw_20171207_models.DescribeAssetRiskListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_asset_risk_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_asset_risk_list_with_options(request, runtime)
+
+    def describe_cfw_risk_level_summary_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_type):
+            query['InstanceType'] = request.instance_type
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeCfwRiskLevelSummary',
+            version='2017-12-07',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudfw_20171207_models.DescribeCfwRiskLevelSummaryResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_cfw_risk_level_summary(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_cfw_risk_level_summary_with_options(request, runtime)
 
     def describe_control_policy_with_options(self, request, runtime):
         """
@@ -1504,6 +1698,74 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_domain_resolve_with_options(request, runtime)
 
+    def describe_download_task_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.current_page):
+            query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.task_type):
+            query['TaskType'] = request.task_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDownloadTask',
+            version='2017-12-07',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudfw_20171207_models.DescribeDownloadTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_download_task(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_download_task_with_options(request, runtime)
+
+    def describe_download_task_type_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.current_page):
+            query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.task_type):
+            query['TaskType'] = request.task_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDownloadTaskType',
+            version='2017-12-07',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudfw_20171207_models.DescribeDownloadTaskTypeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_download_task_type(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_download_task_type_with_options(request, runtime)
+
     def describe_instance_members_with_options(self, request, runtime):
         """
         You can use this operation to query the information about members in Cloud Firewall.
@@ -1561,6 +1823,36 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.describe_instance_members_with_options(request, runtime)
+
+    def describe_instance_risk_levels_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instances):
+            query['Instances'] = request.instances
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeInstanceRiskLevels',
+            version='2017-12-07',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudfw_20171207_models.DescribeInstanceRiskLevelsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_instance_risk_levels(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_instance_risk_levels_with_options(request, runtime)
 
     def describe_internet_open_ip_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1717,6 +2009,34 @@ class Client(OpenApiClient):
     def describe_invade_event_list(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_invade_event_list_with_options(request, runtime)
+
+    def describe_nat_acl_page_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeNatAclPageStatus',
+            version='2017-12-07',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudfw_20171207_models.DescribeNatAclPageStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_nat_acl_page_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_nat_acl_page_status_with_options(request, runtime)
 
     def describe_nat_firewall_control_policy_with_options(self, request, runtime):
         """
@@ -2052,6 +2372,32 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_policy_prior_used_with_options(request, runtime)
 
+    def describe_prefix_lists_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribePrefixLists',
+            version='2017-12-07',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudfw_20171207_models.DescribePrefixListsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_prefix_lists(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_prefix_lists_with_options(request, runtime)
+
     def describe_risk_event_group_with_options(self, request, runtime):
         """
         You can call the DescribeRiskEventGroup operation to query and download the details of intrusion events. We recommend that you query the details of 5 to 10 intrusion events at a time. If you do not need to query the geographical information about IP addresses, you can set the NoLocation parameter to true to prevent query timeout.
@@ -2190,9 +2536,37 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_risk_event_payload_with_options(request, runtime)
 
-    def describe_tr_firewall_policy_back_up_association_list_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
+    def describe_signature_lib_version_with_options(self, runtime):
+        req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='DescribeSignatureLibVersion',
+            version='2017-12-07',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudfw_20171207_models.DescribeSignatureLibVersionResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_signature_lib_version(self):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_signature_lib_version_with_options(runtime)
+
+    def describe_tr_firewall_policy_back_up_association_list_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = cloudfw_20171207_models.DescribeTrFirewallPolicyBackUpAssociationListShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.candidate_list):
+            request.candidate_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.candidate_list, 'CandidateList', 'json')
         query = {}
+        if not UtilClient.is_unset(request.candidate_list_shrink):
+            query['CandidateList'] = request.candidate_list_shrink
         if not UtilClient.is_unset(request.firewall_id):
             query['FirewallId'] = request.firewall_id
         if not UtilClient.is_unset(request.lang):
@@ -2804,6 +3178,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_vpc_firewall_detail_with_options(request, runtime)
 
+    def describe_vpc_firewall_ipswhitelist_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.member_uid):
+            query['MemberUid'] = request.member_uid
+        if not UtilClient.is_unset(request.vpc_firewall_id):
+            query['VpcFirewallId'] = request.vpc_firewall_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeVpcFirewallIPSWhitelist',
+            version='2017-12-07',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudfw_20171207_models.DescribeVpcFirewallIPSWhitelistResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_vpc_firewall_ipswhitelist(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_vpc_firewall_ipswhitelist_with_options(request, runtime)
+
     def describe_vpc_firewall_list_with_options(self, request, runtime):
         """
         You can call the DescribeVpcFirewallList operation to query the details about VPC firewalls by page. Each VPC firewall protects traffic between two VPCs that are connected by using an Express Connect circuit.
@@ -2927,6 +3333,76 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.describe_vpc_firewall_policy_prior_used_with_options(request, runtime)
+
+    def describe_vpc_list_lite_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.region_no):
+            query['RegionNo'] = request.region_no
+        if not UtilClient.is_unset(request.source_ip):
+            query['SourceIp'] = request.source_ip
+        if not UtilClient.is_unset(request.vpc_id):
+            query['VpcId'] = request.vpc_id
+        if not UtilClient.is_unset(request.vpc_name):
+            query['VpcName'] = request.vpc_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeVpcListLite',
+            version='2017-12-07',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudfw_20171207_models.DescribeVpcListLiteResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_vpc_list_lite(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_vpc_list_lite_with_options(request, runtime)
+
+    def describe_vpc_zone_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.environment):
+            query['Environment'] = request.environment
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.member_uid):
+            query['MemberUid'] = request.member_uid
+        if not UtilClient.is_unset(request.region_no):
+            query['RegionNo'] = request.region_no
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeVpcZone',
+            version='2017-12-07',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudfw_20171207_models.DescribeVpcZoneResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_vpc_zone(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_vpc_zone_with_options(request, runtime)
 
     def describe_vulnerability_protected_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -3150,8 +3626,8 @@ class Client(OpenApiClient):
 
     def modify_control_policy_position_with_options(self, request, runtime):
         """
-        You can call the ModifyControlPolicyPosition operation to modify the priority of an IPv4 access control policy for the Internet firewall. No API operations are provided for you to modify the priority of an IPv6 access control policy for the Internet firewall.
-        ## Limits
+        You can use this operation to modify the priority of an IPv4 access control policy for the Internet firewall. No API operations are provided for you to modify the priority of an IPv6 access control policy for the Internet firewall.
+        ## [](#qps)Limits
         You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
 
@@ -3194,8 +3670,8 @@ class Client(OpenApiClient):
 
     def modify_control_policy_position(self, request):
         """
-        You can call the ModifyControlPolicyPosition operation to modify the priority of an IPv4 access control policy for the Internet firewall. No API operations are provided for you to modify the priority of an IPv6 access control policy for the Internet firewall.
-        ## Limits
+        You can use this operation to modify the priority of an IPv4 access control policy for the Internet firewall. No API operations are provided for you to modify the priority of an IPv6 access control policy for the Internet firewall.
+        ## [](#qps)Limits
         You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
 
@@ -3565,6 +4041,8 @@ class Client(OpenApiClient):
             query['FirewallId'] = request.firewall_id
         if not UtilClient.is_unset(request.lang):
             query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.should_recover):
+            query['ShouldRecover'] = request.should_recover
         if not UtilClient.is_unset(request.src_candidate_list_shrink):
             query['SrcCandidateList'] = request.src_candidate_list_shrink
         if not UtilClient.is_unset(request.tr_firewall_route_policy_id):
@@ -4020,6 +4498,44 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_vpc_firewall_default_ipsconfig_with_options(request, runtime)
 
+    def modify_vpc_firewall_ipswhitelist_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.list_type):
+            query['ListType'] = request.list_type
+        if not UtilClient.is_unset(request.list_value):
+            query['ListValue'] = request.list_value
+        if not UtilClient.is_unset(request.member_uid):
+            query['MemberUid'] = request.member_uid
+        if not UtilClient.is_unset(request.vpc_firewall_id):
+            query['VpcFirewallId'] = request.vpc_firewall_id
+        if not UtilClient.is_unset(request.white_type):
+            query['WhiteType'] = request.white_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyVpcFirewallIPSWhitelist',
+            version='2017-12-07',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudfw_20171207_models.ModifyVpcFirewallIPSWhitelistResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_vpc_firewall_ipswhitelist(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_vpc_firewall_ipswhitelist_with_options(request, runtime)
+
     def modify_vpc_firewall_switch_status_with_options(self, request, runtime):
         """
         You can call the ModifyVpcFirewallSwitchStatus operation to enable or disable a VPC firewall. The VPC firewall protects traffic between two VPCs that are connected by using an Express Connect circuit. After you enable the VPC firewall, the VPC firewall protects access traffic between two VPCs that are connected by using an Express Connect circuit. After you disable the VPC firewall, the VPC firewall no longer protects access traffic between two VPCs that are connected by using an Express Connect circuit.
@@ -4329,6 +4845,38 @@ class Client(OpenApiClient):
     def release_post_instance(self, request):
         runtime = util_models.RuntimeOptions()
         return self.release_post_instance_with_options(request, runtime)
+
+    def reset_nat_firewall_rule_hit_count_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.acl_uuid):
+            query['AclUuid'] = request.acl_uuid
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.nat_gateway_id):
+            query['NatGatewayId'] = request.nat_gateway_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ResetNatFirewallRuleHitCount',
+            version='2017-12-07',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudfw_20171207_models.ResetNatFirewallRuleHitCountResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def reset_nat_firewall_rule_hit_count(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.reset_nat_firewall_rule_hit_count_with_options(request, runtime)
 
     def reset_vpc_firewall_rule_hit_count_with_options(self, request, runtime):
         """
