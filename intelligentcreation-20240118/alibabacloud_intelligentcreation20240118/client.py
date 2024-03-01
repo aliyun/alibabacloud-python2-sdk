@@ -57,6 +57,33 @@ class Client(OpenApiClient):
         headers = {}
         return self.actual_deduct_resource_with_options(request, headers, runtime)
 
+    def actual_deduct_resources_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(request.body)
+        )
+        params = open_api_models.Params(
+            action='ActualDeductResources',
+            version='2024-01-18',
+            protocol='HTTPS',
+            pathname='/yic/yic-console/openService/v1/digitalHuman/commands/actualDeductResources',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            intelligent_creation_20240118_models.ActualDeductResourcesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def actual_deduct_resources(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.actual_deduct_resources_with_options(request, headers, runtime)
+
     def direct_deduct_resource_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -84,6 +111,33 @@ class Client(OpenApiClient):
         headers = {}
         return self.direct_deduct_resource_with_options(request, headers, runtime)
 
+    def direct_deduct_resources_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(request.body)
+        )
+        params = open_api_models.Params(
+            action='DirectDeductResources',
+            version='2024-01-18',
+            protocol='HTTPS',
+            pathname='/yic/yic-console/openService/v1/digitalHuman/commands/directDeductResources',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            intelligent_creation_20240118_models.DirectDeductResourcesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def direct_deduct_resources(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.direct_deduct_resources_with_options(request, headers, runtime)
+
     def expect_deduct_resource_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -110,3 +164,64 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.expect_deduct_resource_with_options(request, headers, runtime)
+
+    def expect_deduct_resources_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(request.body)
+        )
+        params = open_api_models.Params(
+            action='ExpectDeductResources',
+            version='2024-01-18',
+            protocol='HTTPS',
+            pathname='/yic/yic-console/openService/v1/digitalHuman/commands/expectDeductResources',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            intelligent_creation_20240118_models.ExpectDeductResourcesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def expect_deduct_resources(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.expect_deduct_resources_with_options(request, headers, runtime)
+
+    def get_remain_resource_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.account_id):
+            query['accountId'] = request.account_id
+        if not UtilClient.is_unset(request.resource_type):
+            query['resourceType'] = request.resource_type
+        if not UtilClient.is_unset(request.sub_account_id):
+            query['subAccountId'] = request.sub_account_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetRemainResource',
+            version='2024-01-18',
+            protocol='HTTPS',
+            pathname='/yic/yic-console/openService/v1/digitalHuman/commands/getRemainResource',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            intelligent_creation_20240118_models.GetRemainResourceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_remain_resource(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_remain_resource_with_options(request, headers, runtime)
