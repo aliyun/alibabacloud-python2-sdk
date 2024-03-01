@@ -654,6 +654,72 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_sasl_users_with_options(request, runtime)
 
+    def enable_auto_group_creation_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.enable):
+            query['Enable'] = request.enable
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='EnableAutoGroupCreation',
+            version='2019-09-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            alikafka_20190916_models.EnableAutoGroupCreationResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def enable_auto_group_creation(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.enable_auto_group_creation_with_options(request, runtime)
+
+    def enable_auto_topic_creation_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.operate):
+            query['Operate'] = request.operate
+        if not UtilClient.is_unset(request.partition_num):
+            query['PartitionNum'] = request.partition_num
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='EnableAutoTopicCreation',
+            version='2019-09-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            alikafka_20190916_models.EnableAutoTopicCreationResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def enable_auto_topic_creation(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.enable_auto_topic_creation_with_options(request, runtime)
+
     def get_all_instance_id_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
