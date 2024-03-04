@@ -88,9 +88,6 @@ class CancelAsyncTaskResponse(TeaModel):
         self.body = body  # type: CancelAsyncTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -306,9 +303,6 @@ class CreateGeneratedContentResponse(TeaModel):
         self.body = body  # type: CreateGeneratedContentResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -449,9 +443,6 @@ class CreateTokenResponse(TeaModel):
         self.body = body  # type: CreateTokenResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -566,9 +557,6 @@ class DeleteGeneratedContentResponse(TeaModel):
         self.body = body  # type: DeleteGeneratedContentResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -683,9 +671,6 @@ class DeleteMaterialByIdResponse(TeaModel):
         self.body = body  # type: DeleteMaterialByIdResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -800,9 +785,6 @@ class ExportGeneratedContentResponse(TeaModel):
         self.body = body  # type: ExportGeneratedContentResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1003,9 +985,6 @@ class FeedbackDialogueResponse(TeaModel):
         self.body = body  # type: FeedbackDialogueResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1274,9 +1253,6 @@ class FetchImageTaskResponse(TeaModel):
         self.body = body  # type: FetchImageTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1307,9 +1283,10 @@ class FetchImageTaskResponse(TeaModel):
 
 
 class GenerateFileUrlByKeyRequest(TeaModel):
-    def __init__(self, agent_key=None, file_key=None):
+    def __init__(self, agent_key=None, file_key=None, file_name=None):
         self.agent_key = agent_key  # type: str
         self.file_key = file_key  # type: str
+        self.file_name = file_name  # type: str
 
     def validate(self):
         pass
@@ -1324,6 +1301,8 @@ class GenerateFileUrlByKeyRequest(TeaModel):
             result['AgentKey'] = self.agent_key
         if self.file_key is not None:
             result['FileKey'] = self.file_key
+        if self.file_name is not None:
+            result['FileName'] = self.file_name
         return result
 
     def from_map(self, m=None):
@@ -1332,6 +1311,8 @@ class GenerateFileUrlByKeyRequest(TeaModel):
             self.agent_key = m.get('AgentKey')
         if m.get('FileKey') is not None:
             self.file_key = m.get('FileKey')
+        if m.get('FileName') is not None:
+            self.file_name = m.get('FileName')
         return self
 
 
@@ -1391,9 +1372,6 @@ class GenerateFileUrlByKeyResponse(TeaModel):
         self.body = body  # type: GenerateFileUrlByKeyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1687,9 +1665,6 @@ class GenerateImageTaskResponse(TeaModel):
         self.body = body  # type: GenerateImageTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1845,9 +1820,6 @@ class GenerateUploadConfigResponse(TeaModel):
         self.body = body  # type: GenerateUploadConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2049,9 +2021,6 @@ class GenerateViewPointResponse(TeaModel):
         self.body = body  # type: GenerateViewPointResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2239,9 +2208,6 @@ class GetDataSourceOrderConfigResponse(TeaModel):
         self.body = body  # type: GetDataSourceOrderConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2454,9 +2420,6 @@ class GetGeneratedContentResponse(TeaModel):
         self.body = body  # type: GetGeneratedContentResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2690,9 +2653,6 @@ class GetMaterialByIdResponse(TeaModel):
         self.body = body  # type: GetMaterialByIdResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3231,9 +3191,6 @@ class GetPropertiesResponse(TeaModel):
         self.body = body  # type: GetPropertiesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3622,9 +3579,6 @@ class ListAsyncTasksResponse(TeaModel):
         self.body = body  # type: ListAsyncTasksResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3854,9 +3808,6 @@ class ListBuildConfigsResponse(TeaModel):
         self.body = body  # type: ListBuildConfigsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4070,9 +4021,6 @@ class ListDialoguesResponse(TeaModel):
         self.body = body  # type: ListDialoguesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4333,9 +4281,6 @@ class ListGeneratedContentsResponse(TeaModel):
         self.body = body  # type: ListGeneratedContentsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4649,9 +4594,6 @@ class ListHotNewsWithTypeResponse(TeaModel):
         self.body = body  # type: ListHotNewsWithTypeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5090,9 +5032,6 @@ class ListMaterialDocumentsResponse(TeaModel):
         self.body = body  # type: ListMaterialDocumentsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5291,9 +5230,6 @@ class ListVersionsResponse(TeaModel):
         self.body = body  # type: ListVersionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5501,9 +5437,6 @@ class QueryAsyncTaskResponse(TeaModel):
         self.body = body  # type: QueryAsyncTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5704,9 +5637,6 @@ class SaveDataSourceOrderConfigResponse(TeaModel):
         self.body = body  # type: SaveDataSourceOrderConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5974,9 +5904,6 @@ class SaveMaterialDocumentResponse(TeaModel):
         self.body = body  # type: SaveMaterialDocumentResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6281,9 +6208,6 @@ class SearchNewsResponse(TeaModel):
         self.body = body  # type: SearchNewsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6449,9 +6373,6 @@ class SubmitAsyncTaskResponse(TeaModel):
         self.body = body  # type: SubmitAsyncTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6647,9 +6568,6 @@ class UpdateGeneratedContentResponse(TeaModel):
         self.body = body  # type: UpdateGeneratedContentResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6917,9 +6835,6 @@ class UpdateMaterialDocumentResponse(TeaModel):
         self.body = body  # type: UpdateMaterialDocumentResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
