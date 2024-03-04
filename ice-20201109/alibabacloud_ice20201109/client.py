@@ -5939,6 +5939,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.submit_sync_media_info_job_with_options(request, runtime)
 
+    def submit_text_generate_job_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.generate_config):
+            query['GenerateConfig'] = request.generate_config
+        if not UtilClient.is_unset(request.title):
+            query['Title'] = request.title
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
+        if not UtilClient.is_unset(request.user_data):
+            query['UserData'] = request.user_data
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SubmitTextGenerateJob',
+            version='2020-11-09',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ice20201109_models.SubmitTextGenerateJobResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def submit_text_generate_job(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.submit_text_generate_job_with_options(request, runtime)
+
     def submit_transcode_job_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
         request = ice20201109_models.SubmitTranscodeJobShrinkRequest()
