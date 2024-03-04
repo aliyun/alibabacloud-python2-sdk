@@ -13005,7 +13005,9 @@ class CreatePublicIpAddressPoolRequest(TeaModel):
 
 
 class CreatePublicIpAddressPoolResponseBody(TeaModel):
-    def __init__(self, pulbic_ip_address_pool_id=None, request_id=None, resource_group_id=None):
+    def __init__(self, public_ip_address_pool_id=None, pulbic_ip_address_pool_id=None, request_id=None,
+                 resource_group_id=None):
+        self.public_ip_address_pool_id = public_ip_address_pool_id  # type: str
         # The ID of the IP address pool.
         self.pulbic_ip_address_pool_id = pulbic_ip_address_pool_id  # type: str
         # The request ID.
@@ -13022,6 +13024,8 @@ class CreatePublicIpAddressPoolResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.public_ip_address_pool_id is not None:
+            result['PublicIpAddressPoolId'] = self.public_ip_address_pool_id
         if self.pulbic_ip_address_pool_id is not None:
             result['PulbicIpAddressPoolId'] = self.pulbic_ip_address_pool_id
         if self.request_id is not None:
@@ -13032,6 +13036,8 @@ class CreatePublicIpAddressPoolResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('PublicIpAddressPoolId') is not None:
+            self.public_ip_address_pool_id = m.get('PublicIpAddressPoolId')
         if m.get('PulbicIpAddressPoolId') is not None:
             self.pulbic_ip_address_pool_id = m.get('PulbicIpAddressPoolId')
         if m.get('RequestId') is not None:
@@ -42492,7 +42498,7 @@ class DescribeRouteEntryListResponseBodyRouteEntrysRouteEntry(TeaModel):
         self.ip_version = ip_version  # type: str
         # The information about the next hops.
         self.next_hops = next_hops  # type: DescribeRouteEntryListResponseBodyRouteEntrysRouteEntryNextHops
-        # The route origin. Valid values：
+        # The route origin. Valid values:
         # * **RoutePropagation**: The route is created by a dynamic propagation source.
         # * **SystemCreate**: The route is created by the system.
         # * **CustomCreate**: The route is created by a user.
