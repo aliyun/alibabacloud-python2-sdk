@@ -1335,17 +1335,6 @@ class Client(OpenApiClient):
         return self.get_accounting_report_with_options(request, runtime)
 
     def get_auto_scale_config_with_options(self, request, runtime):
-        """
-        ## Debugging
-        [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=EHPC\\&api=GetAutoScaleConfig\\&type=RPC\\&version=2018-04-12)
-        
-
-        @param request: GetAutoScaleConfigRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: GetAutoScaleConfigResponse
-        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -1368,15 +1357,6 @@ class Client(OpenApiClient):
         )
 
     def get_auto_scale_config(self, request):
-        """
-        ## Debugging
-        [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=EHPC\\&api=GetAutoScaleConfig\\&type=RPC\\&version=2018-04-12)
-        
-
-        @param request: GetAutoScaleConfigRequest
-
-        @return: GetAutoScaleConfigResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.get_auto_scale_config_with_options(request, runtime)
 
