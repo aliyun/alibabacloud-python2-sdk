@@ -557,8 +557,8 @@ class CreateExchangeResponse(TeaModel):
 class CreateInstanceRequest(TeaModel):
     def __init__(self, auto_renew=None, auto_renew_period=None, client_token=None, instance_name=None,
                  instance_type=None, max_connections=None, max_eip_tps=None, max_private_tps=None, payment_type=None, period=None,
-                 period_cycle=None, queue_capacity=None, renew_status=None, renewal_duration_unit=None, storage_size=None,
-                 support_eip=None, support_tracing=None, tracing_storage_time=None):
+                 period_cycle=None, queue_capacity=None, renew_status=None, renewal_duration_unit=None,
+                 serverless_charge_type=None, storage_size=None, support_eip=None, support_tracing=None, tracing_storage_time=None):
         self.auto_renew = auto_renew  # type: bool
         self.auto_renew_period = auto_renew_period  # type: int
         self.client_token = client_token  # type: str
@@ -574,6 +574,7 @@ class CreateInstanceRequest(TeaModel):
         # autoRenew和renewStatus都是续费方式，当两个同时填写时，以renewStatus为准
         self.renew_status = renew_status  # type: str
         self.renewal_duration_unit = renewal_duration_unit  # type: str
+        self.serverless_charge_type = serverless_charge_type  # type: str
         self.storage_size = storage_size  # type: int
         self.support_eip = support_eip  # type: bool
         self.support_tracing = support_tracing  # type: bool
@@ -616,6 +617,8 @@ class CreateInstanceRequest(TeaModel):
             result['RenewStatus'] = self.renew_status
         if self.renewal_duration_unit is not None:
             result['RenewalDurationUnit'] = self.renewal_duration_unit
+        if self.serverless_charge_type is not None:
+            result['ServerlessChargeType'] = self.serverless_charge_type
         if self.storage_size is not None:
             result['StorageSize'] = self.storage_size
         if self.support_eip is not None:
@@ -656,6 +659,8 @@ class CreateInstanceRequest(TeaModel):
             self.renew_status = m.get('RenewStatus')
         if m.get('RenewalDurationUnit') is not None:
             self.renewal_duration_unit = m.get('RenewalDurationUnit')
+        if m.get('ServerlessChargeType') is not None:
+            self.serverless_charge_type = m.get('ServerlessChargeType')
         if m.get('StorageSize') is not None:
             self.storage_size = m.get('StorageSize')
         if m.get('SupportEip') is not None:
