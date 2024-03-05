@@ -39,9 +39,6 @@ class AllowResponse(TeaModel):
         self.body = body  # type: AllowResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -200,9 +197,6 @@ class GetSummaryDataResponse(TeaModel):
         self.body = body  # type: GetSummaryDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -360,9 +354,6 @@ class QueryCarbonTrackResponse(TeaModel):
         self.body = body  # type: QueryCarbonTrackResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -510,9 +501,6 @@ class QueryMultiAccountCarbonTrackResponse(TeaModel):
         self.body = body  # type: QueryMultiAccountCarbonTrackResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -542,12 +530,50 @@ class QueryMultiAccountCarbonTrackResponse(TeaModel):
         return self
 
 
-class VerifyResponseBodyData(TeaModel):
-    def __init__(self, allowed_uids=None):
-        self.allowed_uids = allowed_uids  # type: list[str]
+class VerifyResponseBodyDataAllMultiAccountUids(TeaModel):
+    def __init__(self, account_id=None, display_name=None):
+        self.account_id = account_id  # type: str
+        self.display_name = display_name  # type: str
 
     def validate(self):
         pass
+
+    def to_map(self):
+        _map = super(VerifyResponseBodyDataAllMultiAccountUids, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_id is not None:
+            result['accountId'] = self.account_id
+        if self.display_name is not None:
+            result['displayName'] = self.display_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('accountId') is not None:
+            self.account_id = m.get('accountId')
+        if m.get('displayName') is not None:
+            self.display_name = m.get('displayName')
+        return self
+
+
+class VerifyResponseBodyData(TeaModel):
+    def __init__(self, allowed_uids=None, account_type=None, all_multi_account_uids=None, code=None, message=None,
+                 multi_accounts_allow=None):
+        self.allowed_uids = allowed_uids  # type: list[str]
+        self.account_type = account_type  # type: int
+        self.all_multi_account_uids = all_multi_account_uids  # type: list[VerifyResponseBodyDataAllMultiAccountUids]
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.multi_accounts_allow = multi_accounts_allow  # type: int
+
+    def validate(self):
+        if self.all_multi_account_uids:
+            for k in self.all_multi_account_uids:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(VerifyResponseBodyData, self).to_map()
@@ -557,12 +583,37 @@ class VerifyResponseBodyData(TeaModel):
         result = dict()
         if self.allowed_uids is not None:
             result['AllowedUids'] = self.allowed_uids
+        if self.account_type is not None:
+            result['accountType'] = self.account_type
+        result['allMultiAccountUids'] = []
+        if self.all_multi_account_uids is not None:
+            for k in self.all_multi_account_uids:
+                result['allMultiAccountUids'].append(k.to_map() if k else None)
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.multi_accounts_allow is not None:
+            result['multiAccountsAllow'] = self.multi_accounts_allow
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('AllowedUids') is not None:
             self.allowed_uids = m.get('AllowedUids')
+        if m.get('accountType') is not None:
+            self.account_type = m.get('accountType')
+        self.all_multi_account_uids = []
+        if m.get('allMultiAccountUids') is not None:
+            for k in m.get('allMultiAccountUids'):
+                temp_model = VerifyResponseBodyDataAllMultiAccountUids()
+                self.all_multi_account_uids.append(temp_model.from_map(k))
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('multiAccountsAllow') is not None:
+            self.multi_accounts_allow = m.get('multiAccountsAllow')
         return self
 
 
@@ -604,9 +655,6 @@ class VerifyResponse(TeaModel):
         self.body = body  # type: VerifyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
