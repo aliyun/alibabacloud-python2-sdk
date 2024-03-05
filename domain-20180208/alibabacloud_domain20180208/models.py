@@ -68,9 +68,6 @@ class AcceptDemandResponse(TeaModel):
         self.body = body  # type: AcceptDemandResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -170,9 +167,6 @@ class BidDomainResponse(TeaModel):
         self.body = body  # type: BidDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -377,9 +371,6 @@ class ChangeAuctionResponse(TeaModel):
         self.body = body  # type: ChangeAuctionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -530,9 +521,6 @@ class CheckDomainStatusResponse(TeaModel):
         self.body = body  # type: CheckDomainStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -587,10 +575,11 @@ class CheckSelectedDomainStatusRequest(TeaModel):
 
 
 class CheckSelectedDomainStatusResponseBodyModule(TeaModel):
-    def __init__(self, dead_date=None, domain=None, end_time=None, price=None, reg_date=None):
+    def __init__(self, dead_date=None, domain=None, end_time=None, premium=None, price=None, reg_date=None):
         self.dead_date = dead_date  # type: long
         self.domain = domain  # type: str
         self.end_time = end_time  # type: long
+        self.premium = premium  # type: bool
         self.price = price  # type: float
         self.reg_date = reg_date  # type: long
 
@@ -609,6 +598,8 @@ class CheckSelectedDomainStatusResponseBodyModule(TeaModel):
             result['Domain'] = self.domain
         if self.end_time is not None:
             result['EndTime'] = self.end_time
+        if self.premium is not None:
+            result['Premium'] = self.premium
         if self.price is not None:
             result['Price'] = self.price
         if self.reg_date is not None:
@@ -623,6 +614,8 @@ class CheckSelectedDomainStatusResponseBodyModule(TeaModel):
             self.domain = m.get('Domain')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
+        if m.get('Premium') is not None:
+            self.premium = m.get('Premium')
         if m.get('Price') is not None:
             self.price = m.get('Price')
         if m.get('RegDate') is not None:
@@ -683,9 +676,6 @@ class CheckSelectedDomainStatusResponse(TeaModel):
         self.body = body  # type: CheckSelectedDomainStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -841,9 +831,6 @@ class CreateFixedPriceDemandOrderResponse(TeaModel):
         self.body = body  # type: CreateFixedPriceDemandOrderResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1004,9 +991,6 @@ class CreateFixedPriceSelectedOrderResponse(TeaModel):
         self.body = body  # type: CreateFixedPriceSelectedOrderResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1096,9 +1080,6 @@ class FailDemandResponse(TeaModel):
         self.body = body  # type: FailDemandResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1188,9 +1169,6 @@ class FinishDemandResponse(TeaModel):
         self.body = body  # type: FinishDemandResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1302,9 +1280,6 @@ class GetIntlDomainDownloadUrlResponse(TeaModel):
         self.body = body  # type: GetIntlDomainDownloadUrlResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1370,9 +1345,6 @@ class GetReserveDomainUrlResponse(TeaModel):
         self.body = body  # type: GetReserveDomainUrlResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1518,9 +1490,6 @@ class PurchaseIntlDomainResponse(TeaModel):
         self.body = body  # type: PurchaseIntlDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1724,9 +1693,6 @@ class QueryAuctionDetailResponse(TeaModel):
         self.body = body  # type: QueryAuctionDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2003,9 +1969,6 @@ class QueryAuctionsResponse(TeaModel):
         self.body = body  # type: QueryAuctionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2178,9 +2141,6 @@ class QueryBidRecordsResponse(TeaModel):
         self.body = body  # type: QueryBidRecordsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2296,9 +2256,6 @@ class QueryBookingDomainInfoResponse(TeaModel):
         self.body = body  # type: QueryBookingDomainInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2544,9 +2501,6 @@ class QueryBrokerDemandResponse(TeaModel):
         self.body = body  # type: QueryBrokerDemandResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2735,9 +2689,6 @@ class QueryBrokerDemandRecordResponse(TeaModel):
         self.body = body  # type: QueryBrokerDemandRecordResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2864,9 +2815,6 @@ class QueryDomainTransferStatusResponse(TeaModel):
         self.body = body  # type: QueryDomainTransferStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3076,9 +3024,6 @@ class QueryPurchasedDomainsResponse(TeaModel):
         self.body = body  # type: QueryPurchasedDomainsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3168,9 +3113,6 @@ class RecordDemandResponse(TeaModel):
         self.body = body  # type: RecordDemandResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3260,9 +3202,6 @@ class RefuseDemandResponse(TeaModel):
         self.body = body  # type: RefuseDemandResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3367,9 +3306,6 @@ class RequestPayDemandResponse(TeaModel):
         self.body = body  # type: RequestPayDemandResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3464,9 +3400,6 @@ class ReserveDomainResponse(TeaModel):
         self.body = body  # type: ReserveDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3602,9 +3535,6 @@ class ReserveIntlDomainResponse(TeaModel):
         self.body = body  # type: ReserveIntlDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3731,9 +3661,6 @@ class SelectedDomainListResponse(TeaModel):
         self.body = body  # type: SelectedDomainListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3759,6 +3686,156 @@ class SelectedDomainListResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SelectedDomainListResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SubmitPurchaseInfoRequest(TeaModel):
+    def __init__(self, biz_id=None, purchase_currency=None, purchase_price=None, purchase_proofs=None):
+        self.biz_id = biz_id  # type: str
+        self.purchase_currency = purchase_currency  # type: str
+        self.purchase_price = purchase_price  # type: float
+        self.purchase_proofs = purchase_proofs  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SubmitPurchaseInfoRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.biz_id is not None:
+            result['BizId'] = self.biz_id
+        if self.purchase_currency is not None:
+            result['PurchaseCurrency'] = self.purchase_currency
+        if self.purchase_price is not None:
+            result['PurchasePrice'] = self.purchase_price
+        if self.purchase_proofs is not None:
+            result['PurchaseProofs'] = self.purchase_proofs
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BizId') is not None:
+            self.biz_id = m.get('BizId')
+        if m.get('PurchaseCurrency') is not None:
+            self.purchase_currency = m.get('PurchaseCurrency')
+        if m.get('PurchasePrice') is not None:
+            self.purchase_price = m.get('PurchasePrice')
+        if m.get('PurchaseProofs') is not None:
+            self.purchase_proofs = m.get('PurchaseProofs')
+        return self
+
+
+class SubmitPurchaseInfoResponseBody(TeaModel):
+    def __init__(self, allow_retry=None, app_name=None, dynamic_code=None, dynamic_message=None, error_args=None,
+                 error_code=None, error_msg=None, http_status_code=None, module=None, request_id=None, success=None):
+        self.allow_retry = allow_retry  # type: bool
+        self.app_name = app_name  # type: str
+        self.dynamic_code = dynamic_code  # type: str
+        self.dynamic_message = dynamic_message  # type: str
+        self.error_args = error_args  # type: list[any]
+        self.error_code = error_code  # type: str
+        self.error_msg = error_msg  # type: str
+        self.http_status_code = http_status_code  # type: int
+        self.module = module  # type: any
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SubmitPurchaseInfoResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.allow_retry is not None:
+            result['AllowRetry'] = self.allow_retry
+        if self.app_name is not None:
+            result['AppName'] = self.app_name
+        if self.dynamic_code is not None:
+            result['DynamicCode'] = self.dynamic_code
+        if self.dynamic_message is not None:
+            result['DynamicMessage'] = self.dynamic_message
+        if self.error_args is not None:
+            result['ErrorArgs'] = self.error_args
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.error_msg is not None:
+            result['ErrorMsg'] = self.error_msg
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.module is not None:
+            result['Module'] = self.module
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AllowRetry') is not None:
+            self.allow_retry = m.get('AllowRetry')
+        if m.get('AppName') is not None:
+            self.app_name = m.get('AppName')
+        if m.get('DynamicCode') is not None:
+            self.dynamic_code = m.get('DynamicCode')
+        if m.get('DynamicMessage') is not None:
+            self.dynamic_message = m.get('DynamicMessage')
+        if m.get('ErrorArgs') is not None:
+            self.error_args = m.get('ErrorArgs')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('ErrorMsg') is not None:
+            self.error_msg = m.get('ErrorMsg')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Module') is not None:
+            self.module = m.get('Module')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class SubmitPurchaseInfoResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: SubmitPurchaseInfoResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SubmitPurchaseInfoResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = SubmitPurchaseInfoResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -3833,9 +3910,6 @@ class UpdatePartnerReservePriceResponse(TeaModel):
         self.body = body  # type: UpdatePartnerReservePriceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
