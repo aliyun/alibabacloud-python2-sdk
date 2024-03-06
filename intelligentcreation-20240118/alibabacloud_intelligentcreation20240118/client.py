@@ -88,11 +88,15 @@ class Client(OpenApiClient):
         UtilClient.validate_model(tmp_req)
         request = intelligent_creation_20240118_models.CopywritingQAShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.histories):
+            request.histories_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.histories, 'histories', 'json')
         if not UtilClient.is_unset(tmp_req.history):
             request.history_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.history, 'history', 'json')
         query = {}
         if not UtilClient.is_unset(request.account_id):
             query['accountId'] = request.account_id
+        if not UtilClient.is_unset(request.histories_shrink):
+            query['histories'] = request.histories_shrink
         if not UtilClient.is_unset(request.history_shrink):
             query['history'] = request.history_shrink
         if not UtilClient.is_unset(request.question):

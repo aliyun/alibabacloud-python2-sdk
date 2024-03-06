@@ -403,6 +403,35 @@ class ActualDeductResourcesResponse(TeaModel):
         return self
 
 
+class CopywritingQARequestHistories(TeaModel):
+    def __init__(self, bot=None, user=None):
+        self.bot = bot  # type: str
+        self.user = user  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CopywritingQARequestHistories, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bot is not None:
+            result['bot'] = self.bot
+        if self.user is not None:
+            result['user'] = self.user
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('bot') is not None:
+            self.bot = m.get('bot')
+        if m.get('user') is not None:
+            self.user = m.get('user')
+        return self
+
+
 class CopywritingQARequestHistory(TeaModel):
     def __init__(self, bot=None, user=None):
         self.bot = bot  # type: str
@@ -433,9 +462,10 @@ class CopywritingQARequestHistory(TeaModel):
 
 
 class CopywritingQARequest(TeaModel):
-    def __init__(self, account_id=None, history=None, question=None, session_id=None, stream=None,
+    def __init__(self, account_id=None, histories=None, history=None, question=None, session_id=None, stream=None,
                  sub_account_id=None):
         self.account_id = account_id  # type: str
+        self.histories = histories  # type: list[CopywritingQARequestHistories]
         self.history = history  # type: CopywritingQARequestHistory
         self.question = question  # type: str
         self.session_id = session_id  # type: str
@@ -443,6 +473,10 @@ class CopywritingQARequest(TeaModel):
         self.sub_account_id = sub_account_id  # type: str
 
     def validate(self):
+        if self.histories:
+            for k in self.histories:
+                if k:
+                    k.validate()
         if self.history:
             self.history.validate()
 
@@ -454,6 +488,10 @@ class CopywritingQARequest(TeaModel):
         result = dict()
         if self.account_id is not None:
             result['accountId'] = self.account_id
+        result['histories'] = []
+        if self.histories is not None:
+            for k in self.histories:
+                result['histories'].append(k.to_map() if k else None)
         if self.history is not None:
             result['history'] = self.history.to_map()
         if self.question is not None:
@@ -470,6 +508,11 @@ class CopywritingQARequest(TeaModel):
         m = m or dict()
         if m.get('accountId') is not None:
             self.account_id = m.get('accountId')
+        self.histories = []
+        if m.get('histories') is not None:
+            for k in m.get('histories'):
+                temp_model = CopywritingQARequestHistories()
+                self.histories.append(temp_model.from_map(k))
         if m.get('history') is not None:
             temp_model = CopywritingQARequestHistory()
             self.history = temp_model.from_map(m['history'])
@@ -485,9 +528,10 @@ class CopywritingQARequest(TeaModel):
 
 
 class CopywritingQAShrinkRequest(TeaModel):
-    def __init__(self, account_id=None, history_shrink=None, question=None, session_id=None, stream=None,
-                 sub_account_id=None):
+    def __init__(self, account_id=None, histories_shrink=None, history_shrink=None, question=None, session_id=None,
+                 stream=None, sub_account_id=None):
         self.account_id = account_id  # type: str
+        self.histories_shrink = histories_shrink  # type: str
         self.history_shrink = history_shrink  # type: str
         self.question = question  # type: str
         self.session_id = session_id  # type: str
@@ -505,6 +549,8 @@ class CopywritingQAShrinkRequest(TeaModel):
         result = dict()
         if self.account_id is not None:
             result['accountId'] = self.account_id
+        if self.histories_shrink is not None:
+            result['histories'] = self.histories_shrink
         if self.history_shrink is not None:
             result['history'] = self.history_shrink
         if self.question is not None:
@@ -521,6 +567,8 @@ class CopywritingQAShrinkRequest(TeaModel):
         m = m or dict()
         if m.get('accountId') is not None:
             self.account_id = m.get('accountId')
+        if m.get('histories') is not None:
+            self.histories_shrink = m.get('histories')
         if m.get('history') is not None:
             self.history_shrink = m.get('history')
         if m.get('question') is not None:
@@ -978,9 +1026,10 @@ class GetRemainResourceResponse(TeaModel):
 
 
 class SubmitBulletQuestionsRequestQuestions(TeaModel):
-    def __init__(self, content=None, id=None, username=None):
+    def __init__(self, content=None, id=None, time=None, username=None):
         self.content = content  # type: str
         self.id = id  # type: str
+        self.time = time  # type: long
         self.username = username  # type: str
 
     def validate(self):
@@ -996,6 +1045,8 @@ class SubmitBulletQuestionsRequestQuestions(TeaModel):
             result['content'] = self.content
         if self.id is not None:
             result['id'] = self.id
+        if self.time is not None:
+            result['time'] = self.time
         if self.username is not None:
             result['username'] = self.username
         return result
@@ -1006,6 +1057,8 @@ class SubmitBulletQuestionsRequestQuestions(TeaModel):
             self.content = m.get('content')
         if m.get('id') is not None:
             self.id = m.get('id')
+        if m.get('time') is not None:
+            self.time = m.get('time')
         if m.get('username') is not None:
             self.username = m.get('username')
         return self
