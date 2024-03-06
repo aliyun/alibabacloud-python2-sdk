@@ -84,6 +84,50 @@ class Client(OpenApiClient):
         headers = {}
         return self.actual_deduct_resources_with_options(request, headers, runtime)
 
+    def copywriting_qawith_options(self, tmp_req, headers, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = intelligent_creation_20240118_models.CopywritingQAShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.history):
+            request.history_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.history, 'history', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.account_id):
+            query['accountId'] = request.account_id
+        if not UtilClient.is_unset(request.history_shrink):
+            query['history'] = request.history_shrink
+        if not UtilClient.is_unset(request.question):
+            query['question'] = request.question
+        if not UtilClient.is_unset(request.session_id):
+            query['sessionId'] = request.session_id
+        if not UtilClient.is_unset(request.stream):
+            query['stream'] = request.stream
+        if not UtilClient.is_unset(request.sub_account_id):
+            query['subAccountId'] = request.sub_account_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CopywritingQA',
+            version='2024-01-18',
+            protocol='HTTPS',
+            pathname='/yic/yic-console/openService/v1/digitalHuman/commands/copywritingQA',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            intelligent_creation_20240118_models.CopywritingQAResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def copywriting_qa(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.copywriting_qawith_options(request, headers, runtime)
+
     def direct_deduct_resource_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -225,3 +269,43 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_remain_resource_with_options(request, headers, runtime)
+
+    def submit_bullet_questions_with_options(self, tmp_req, headers, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = intelligent_creation_20240118_models.SubmitBulletQuestionsShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.questions):
+            request.questions_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.questions, 'questions', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.account_id):
+            query['accountId'] = request.account_id
+        if not UtilClient.is_unset(request.questions_shrink):
+            query['questions'] = request.questions_shrink
+        if not UtilClient.is_unset(request.room_id):
+            query['roomId'] = request.room_id
+        if not UtilClient.is_unset(request.sub_account_id):
+            query['subAccountId'] = request.sub_account_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SubmitBulletQuestions',
+            version='2024-01-18',
+            protocol='HTTPS',
+            pathname='/yic/yic-console/openService/v1/digitalHuman/commands/submitBulletQuestions',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            intelligent_creation_20240118_models.SubmitBulletQuestionsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def submit_bullet_questions(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_bullet_questions_with_options(request, headers, runtime)
