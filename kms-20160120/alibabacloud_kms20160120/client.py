@@ -4,8 +4,10 @@ from __future__ import unicode_literals
 
 from Tea.core import TeaCore
 
+from alibabacloud_gateway_spi.client import Client as SPIClient
 from alibabacloud_tea_openapi.client import Client as OpenApiClient
 from alibabacloud_tea_openapi import models as open_api_models
+from alibabacloud_gateway_pop.client import Client as GatewayClientClient
 from alibabacloud_tea_util.client import Client as UtilClient
 from alibabacloud_endpoint_util.client import Client as EndpointUtilClient
 from alibabacloud_kms20160120 import models as kms_20160120_models
@@ -17,8 +19,13 @@ class Client(OpenApiClient):
     """
     *\
     """
+    _client = None  # type: SPIClient
+
     def __init__(self, config):
         super(Client, self).__init__(config)
+        self._product_id = 'Kms'
+        self._client = GatewayClientClient()
+        self._spi = self._client
         self._endpoint_rule = 'regional'
         self.check_config(config)
         self._endpoint = self.get_endpoint('kms', self._region_id, self._endpoint_rule, self._network, self._suffix, self._endpoint_map, self._endpoint)
@@ -73,10 +80,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.AsymmetricDecryptResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.AsymmetricDecryptResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.AsymmetricDecryptResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def asymmetric_decrypt(self, request):
         """
@@ -141,10 +154,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.AsymmetricEncryptResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.AsymmetricEncryptResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.AsymmetricEncryptResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def asymmetric_encrypt(self, request):
         """
@@ -201,10 +220,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.AsymmetricSignResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.AsymmetricSignResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.AsymmetricSignResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def asymmetric_sign(self, request):
         """
@@ -265,10 +290,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.AsymmetricVerifyResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.AsymmetricVerifyResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.AsymmetricVerifyResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def asymmetric_verify(self, request):
         """
@@ -321,10 +352,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.CancelKeyDeletionResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.CancelKeyDeletionResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.CancelKeyDeletionResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def cancel_key_deletion(self, request):
         """
@@ -378,10 +415,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.CertificatePrivateKeyDecryptResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.CertificatePrivateKeyDecryptResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.CertificatePrivateKeyDecryptResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def certificate_private_key_decrypt(self, request):
         """
@@ -444,10 +487,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.CertificatePrivateKeySignResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.CertificatePrivateKeySignResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.CertificatePrivateKeySignResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def certificate_private_key_sign(self, request):
         """
@@ -508,10 +557,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.CertificatePublicKeyEncryptResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.CertificatePublicKeyEncryptResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.CertificatePublicKeyEncryptResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def certificate_public_key_encrypt(self, request):
         """
@@ -576,10 +631,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.CertificatePublicKeyVerifyResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.CertificatePublicKeyVerifyResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.CertificatePublicKeyVerifyResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def certificate_public_key_verify(self, request):
         """
@@ -601,6 +662,17 @@ class Client(OpenApiClient):
         return self.certificate_public_key_verify_with_options(request, runtime)
 
     def connect_kms_instance_with_options(self, request, runtime):
+        """
+        ### [](#)Limits
+        You can enable only instances of the software key management type. You cannot enable instances of the hardware key management type.
+        
+
+        @param request: ConnectKmsInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ConnectKmsInstanceResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.kmprovider):
@@ -627,12 +699,27 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.ConnectKmsInstanceResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.ConnectKmsInstanceResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.ConnectKmsInstanceResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def connect_kms_instance(self, request):
+        """
+        ### [](#)Limits
+        You can enable only instances of the software key management type. You cannot enable instances of the hardware key management type.
+        
+
+        @param request: ConnectKmsInstanceRequest
+
+        @return: ConnectKmsInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.connect_kms_instance_with_options(request, runtime)
 
@@ -669,10 +756,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.CreateAliasResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.CreateAliasResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.CreateAliasResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def create_alias(self, request):
         """
@@ -689,6 +782,20 @@ class Client(OpenApiClient):
         return self.create_alias_with_options(request, runtime)
 
     def create_application_access_point_with_options(self, request, runtime):
+        """
+        To perform cryptographic operations and retrieve secret values, self-managed applications must use a client key to access a Key Management Service (KMS) instance. The following process shows how to create a client key-based AAP:
+        1.Create a network access rule: You can configure the private IP addresses or private CIDR blocks that are allowed to access KMS. For more information, see [CreateNetworkRule](~~2539407~~).
+        2.Create a permission policy: You can configure the keys and secrets that are allowed to access and bind network access rules to the keys and secrets. For more information, see [CreatePolicy](~~2539454~~).
+        3.Create an AAP: You can configure an authentication method and bind a permission policy to an AAP. This topic describes how to create an AAP.
+        4.Create a client key: You can configure the encryption password and validity period of a client key and bind the client key to an AAP. For more information, see [CreateClientKey](~~2539509~~).
+        
+
+        @param request: CreateApplicationAccessPointRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateApplicationAccessPointResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.authentication_method):
@@ -713,12 +820,30 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.CreateApplicationAccessPointResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.CreateApplicationAccessPointResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.CreateApplicationAccessPointResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def create_application_access_point(self, request):
+        """
+        To perform cryptographic operations and retrieve secret values, self-managed applications must use a client key to access a Key Management Service (KMS) instance. The following process shows how to create a client key-based AAP:
+        1.Create a network access rule: You can configure the private IP addresses or private CIDR blocks that are allowed to access KMS. For more information, see [CreateNetworkRule](~~2539407~~).
+        2.Create a permission policy: You can configure the keys and secrets that are allowed to access and bind network access rules to the keys and secrets. For more information, see [CreatePolicy](~~2539454~~).
+        3.Create an AAP: You can configure an authentication method and bind a permission policy to an AAP. This topic describes how to create an AAP.
+        4.Create a client key: You can configure the encryption password and validity period of a client key and bind the client key to an AAP. For more information, see [CreateClientKey](~~2539509~~).
+        
+
+        @param request: CreateApplicationAccessPointRequest
+
+        @return: CreateApplicationAccessPointResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_application_access_point_with_options(request, runtime)
 
@@ -762,10 +887,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.CreateCertificateResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.CreateCertificateResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.CreateCertificateResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def create_certificate(self, request):
         """
@@ -781,6 +912,22 @@ class Client(OpenApiClient):
         return self.create_certificate_with_options(request, runtime)
 
     def create_client_key_with_options(self, request, runtime):
+        """
+        To perform cryptographic operations and retrieve secret values, self-managed applications must use a client key to access a Key Management Service (KMS) instance. The following process shows how to create a client key-based application access point (AAP):
+        1.Create an access control rule: You can configure the private IP addresses or private CIDR blocks that are allowed to access a KMS instance. For more information, see [CreateNetworkRule](~~2539407~~).
+        2.Create a permission policy: You can configure the keys and secrets that are allowed to access and bind access control rules to the keys and secrets. For more information, see [CreatePolicy](~~2539454~~).
+        3.Create an AAP: You can configure an authentication method and bind a permission policy to an AAP. For more information, see [CreateApplicationAccessPoint](~~2539467~~).
+        4.Create a client key: You can configure the encryption password and validity period of a client key and bind the client key to an AAP.
+        ### Precautions
+        A client key has a validity period. After a client key expires, applications into which the client key is integrated cannot access the required KMS instance. You must replace the client key before the client key expires. We recommend that you delete the expired client key in KMS after the new client key is used.
+        
+
+        @param request: CreateClientKeyRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateClientKeyResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.aap_name):
@@ -805,32 +952,38 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.CreateClientKeyResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.CreateClientKeyResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.CreateClientKeyResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def create_client_key(self, request):
+        """
+        To perform cryptographic operations and retrieve secret values, self-managed applications must use a client key to access a Key Management Service (KMS) instance. The following process shows how to create a client key-based application access point (AAP):
+        1.Create an access control rule: You can configure the private IP addresses or private CIDR blocks that are allowed to access a KMS instance. For more information, see [CreateNetworkRule](~~2539407~~).
+        2.Create a permission policy: You can configure the keys and secrets that are allowed to access and bind access control rules to the keys and secrets. For more information, see [CreatePolicy](~~2539454~~).
+        3.Create an AAP: You can configure an authentication method and bind a permission policy to an AAP. For more information, see [CreateApplicationAccessPoint](~~2539467~~).
+        4.Create a client key: You can configure the encryption password and validity period of a client key and bind the client key to an AAP.
+        ### Precautions
+        A client key has a validity period. After a client key expires, applications into which the client key is integrated cannot access the required KMS instance. You must replace the client key before the client key expires. We recommend that you delete the expired client key in KMS after the new client key is used.
+        
+
+        @param request: CreateClientKeyRequest
+
+        @return: CreateClientKeyResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_client_key_with_options(request, runtime)
 
     def create_key_with_options(self, request, runtime):
         """
-        A CMK can be symmetric or asymmetric. Symmetric CMKs are used to generate data keys that can be used to encrypt large amounts of data. You can also use symmetric CMKs to encrypt small volume of data that is less than 6 KB. For more information, see [GenerateDataKey](https://www.alibabacloud.com/help/en/key-management-service/latest/generatedatakey). Asymmetric CMKs are used to encrypt data, decrypt data, generate digital signatures, and verify digital signatures. However, you cannot use asymmetric CMKs to generate data keys.
-        The following table describes different types of CMKs and the operations that are supported by the CMKs.
-        | CMK category | CMK type | Description | Encryption and decryption | Signature generation and verification |
-        | ------------ | -------- | ----------- | ------------------------- | ------------------------------------- |
-        | Symmetric CMK | Aliyun_AES_256 | An advanced Encryption Standard (AES) CMK with a length of 256 bits. | Yes | No |
-        | Symmetric CMK | Aliyun_AES_128 | An AES CMK with a length of 128 bits. Only Dedicated KMS supports this CMK type. | Yes | No |
-        | Symmetric CMK | Aliyun_AES_192 | An AES CMK with a length of 192 bits. Only Dedicated KMS supports this CMK type. | Yes | No |
-        | Symmetric CMK | Aliyun_SM4 | SM4 CMK. | Yes | No |
-        | Asymmetric CMK | RSA_2048 | Rivest-Shamir-Adleman (RSA) CMK with a length of 2,048 bits. | Supported | Supported |
-        | Asymmetric CMK | RSA_3072 | RSA CMK with a length of 3,072 bits. | Supported | Supported |
-        | Asymmetric CMK | EC_P256 | National Institute of Standards and Technology (NIST)-recommended elliptic curve P-256 (secp256r1). | Not supported | Supported |
-        | Asymmetric CMK | EC_P256K | Standards for Efficient Cryptography Group (SECG) elliptic curve secp256k1 | Not supported | Supported |
-        | Asymmetric CMK | EC_SM2 | 256-bit elliptic curves over the prime field that is defined in GB/T 32918. | Supported | Supported |
-        > - If the value of the KeySpec parameter that is used to create a symmetric CMK is prefixed with `Aliyun_`, a standard cryptographic algorithm is used, but non-standard ciphertext is generated. An asymmetric CMK can be used to generate standard ciphertext or signatures.
-        > - You can use an RSA CMK to perform one of the two types of operations: encrypt and decrypt data, and generate and verify signatures. You cannot use the RSA CMK to perform both two types of operations.
+        KMS supports common symmetric keys and asymmetric keys. For more information, see [Key types and specifications](~~480161~~).
         
 
         @param request: CreateKeyRequest
@@ -873,28 +1026,20 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.CreateKeyResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.CreateKeyResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.CreateKeyResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def create_key(self, request):
         """
-        A CMK can be symmetric or asymmetric. Symmetric CMKs are used to generate data keys that can be used to encrypt large amounts of data. You can also use symmetric CMKs to encrypt small volume of data that is less than 6 KB. For more information, see [GenerateDataKey](https://www.alibabacloud.com/help/en/key-management-service/latest/generatedatakey). Asymmetric CMKs are used to encrypt data, decrypt data, generate digital signatures, and verify digital signatures. However, you cannot use asymmetric CMKs to generate data keys.
-        The following table describes different types of CMKs and the operations that are supported by the CMKs.
-        | CMK category | CMK type | Description | Encryption and decryption | Signature generation and verification |
-        | ------------ | -------- | ----------- | ------------------------- | ------------------------------------- |
-        | Symmetric CMK | Aliyun_AES_256 | An advanced Encryption Standard (AES) CMK with a length of 256 bits. | Yes | No |
-        | Symmetric CMK | Aliyun_AES_128 | An AES CMK with a length of 128 bits. Only Dedicated KMS supports this CMK type. | Yes | No |
-        | Symmetric CMK | Aliyun_AES_192 | An AES CMK with a length of 192 bits. Only Dedicated KMS supports this CMK type. | Yes | No |
-        | Symmetric CMK | Aliyun_SM4 | SM4 CMK. | Yes | No |
-        | Asymmetric CMK | RSA_2048 | Rivest-Shamir-Adleman (RSA) CMK with a length of 2,048 bits. | Supported | Supported |
-        | Asymmetric CMK | RSA_3072 | RSA CMK with a length of 3,072 bits. | Supported | Supported |
-        | Asymmetric CMK | EC_P256 | National Institute of Standards and Technology (NIST)-recommended elliptic curve P-256 (secp256r1). | Not supported | Supported |
-        | Asymmetric CMK | EC_P256K | Standards for Efficient Cryptography Group (SECG) elliptic curve secp256k1 | Not supported | Supported |
-        | Asymmetric CMK | EC_SM2 | 256-bit elliptic curves over the prime field that is defined in GB/T 32918. | Supported | Supported |
-        > - If the value of the KeySpec parameter that is used to create a symmetric CMK is prefixed with `Aliyun_`, a standard cryptographic algorithm is used, but non-standard ciphertext is generated. An asymmetric CMK can be used to generate standard ciphertext or signatures.
-        > - You can use an RSA CMK to perform one of the two types of operations: encrypt and decrypt data, and generate and verify signatures. You cannot use the RSA CMK to perform both two types of operations.
+        KMS supports common symmetric keys and asymmetric keys. For more information, see [Key types and specifications](~~480161~~).
         
 
         @param request: CreateKeyRequest
@@ -937,10 +1082,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.CreateKeyVersionResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.CreateKeyVersionResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.CreateKeyVersionResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def create_key_version(self, request):
         """
@@ -959,6 +1110,20 @@ class Client(OpenApiClient):
         return self.create_key_version_with_options(request, runtime)
 
     def create_network_rule_with_options(self, request, runtime):
+        """
+        To perform cryptographic operations and retrieve secret values, self-managed applications must use a client key to access a KMS instance. The following process shows how to create a client key-based application access point (AAP):
+        1.Create an access control rule: You can configure the private IP addresses or private CIDR blocks that are allowed to access a KMS instance.
+        2.Create a permission policy: You can configure the keys and secrets that are allowed to access and bind access control rules to the keys and secrets. For more information, see [CreatePolicy](~~2539454~~).
+        3.Create an AAP: You can configure an authentication method and bind a permission policy to an AAP. For more information, see [CreateApplicationAccessPoint](~~2539467~~).
+        4.Create a client key: You can configure the encryption password and validity period of a client key and bind the client key to an AAP. For more information, see [CreateClientKey](~~2539509~~).
+        
+
+        @param request: CreateNetworkRuleRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateNetworkRuleResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.description):
@@ -983,16 +1148,48 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.CreateNetworkRuleResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.CreateNetworkRuleResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.CreateNetworkRuleResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def create_network_rule(self, request):
+        """
+        To perform cryptographic operations and retrieve secret values, self-managed applications must use a client key to access a KMS instance. The following process shows how to create a client key-based application access point (AAP):
+        1.Create an access control rule: You can configure the private IP addresses or private CIDR blocks that are allowed to access a KMS instance.
+        2.Create a permission policy: You can configure the keys and secrets that are allowed to access and bind access control rules to the keys and secrets. For more information, see [CreatePolicy](~~2539454~~).
+        3.Create an AAP: You can configure an authentication method and bind a permission policy to an AAP. For more information, see [CreateApplicationAccessPoint](~~2539467~~).
+        4.Create a client key: You can configure the encryption password and validity period of a client key and bind the client key to an AAP. For more information, see [CreateClientKey](~~2539509~~).
+        
+
+        @param request: CreateNetworkRuleRequest
+
+        @return: CreateNetworkRuleResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_network_rule_with_options(request, runtime)
 
     def create_policy_with_options(self, request, runtime):
+        """
+        To perform cryptographic operations and retrieve secret values, self-managed applications must use a client key to access a Key Management Service (KMS) instance. The following process shows how to create a client key-based application access point (AAP):
+        1.Create an access control rule: You can configure the private IP addresses or private CIDR blocks that are allowed to access a KMS instance. For more information, see [CreateNetworkRule](~~2539407~~).
+        2.Create a permission policy: You can configure the keys and secrets that are allowed to access and bind access control rules to the keys and secrets.
+        3.Create an AAP: You can configure an authentication method and bind a permission policy to an AAP. For more information, see [CreateApplicationAccessPoint](~~2539467~~).
+        4.Create a client key: You can configure the encryption password and validity period of a client key and bind the client key to an AAP. For more information, see [CreateClientKey](~~2539509~~).
+        
+
+        @param request: CreatePolicyRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreatePolicyResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.access_control_rules):
@@ -1021,12 +1218,30 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.CreatePolicyResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.CreatePolicyResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.CreatePolicyResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def create_policy(self, request):
+        """
+        To perform cryptographic operations and retrieve secret values, self-managed applications must use a client key to access a Key Management Service (KMS) instance. The following process shows how to create a client key-based application access point (AAP):
+        1.Create an access control rule: You can configure the private IP addresses or private CIDR blocks that are allowed to access a KMS instance. For more information, see [CreateNetworkRule](~~2539407~~).
+        2.Create a permission policy: You can configure the keys and secrets that are allowed to access and bind access control rules to the keys and secrets.
+        3.Create an AAP: You can configure an authentication method and bind a permission policy to an AAP. For more information, see [CreateApplicationAccessPoint](~~2539467~~).
+        4.Create a client key: You can configure the encryption password and validity period of a client key and bind the client key to an AAP. For more information, see [CreateClientKey](~~2539509~~).
+        
+
+        @param request: CreatePolicyRequest
+
+        @return: CreatePolicyResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_policy_with_options(request, runtime)
 
@@ -1089,10 +1304,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.CreateSecretResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.CreateSecretResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.CreateSecretResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def create_secret(self, request):
         """
@@ -1135,10 +1356,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.DecryptResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.DecryptResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.DecryptResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def decrypt(self, request):
         runtime = util_models.RuntimeOptions()
@@ -1163,16 +1390,32 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.DeleteAliasResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.DeleteAliasResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.DeleteAliasResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def delete_alias(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_alias_with_options(request, runtime)
 
     def delete_application_access_point_with_options(self, request, runtime):
+        """
+        Before you delete an AAP, make sure that the AAP is no longer in use. If you delete an AAP that is in use, applications that use the AAP cannot access Key Management Service (KMS). Exercise caution when you delete an AAP.
+        
+
+        @param request: DeleteApplicationAccessPointRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteApplicationAccessPointResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.name):
@@ -1191,12 +1434,26 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.DeleteApplicationAccessPointResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.DeleteApplicationAccessPointResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.DeleteApplicationAccessPointResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def delete_application_access_point(self, request):
+        """
+        Before you delete an AAP, make sure that the AAP is no longer in use. If you delete an AAP that is in use, applications that use the AAP cannot access Key Management Service (KMS). Exercise caution when you delete an AAP.
+        
+
+        @param request: DeleteApplicationAccessPointRequest
+
+        @return: DeleteApplicationAccessPointResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_application_access_point_with_options(request, runtime)
 
@@ -1230,10 +1487,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.DeleteCertificateResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.DeleteCertificateResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.DeleteCertificateResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def delete_certificate(self, request):
         """
@@ -1249,6 +1512,16 @@ class Client(OpenApiClient):
         return self.delete_certificate_with_options(request, runtime)
 
     def delete_client_key_with_options(self, request, runtime):
+        """
+        Before you delete a client key, make sure that the client key is no longer in use. If you delete a client key that is in use, applications that use the client key cannot access Key Management Service (KMS). Exercise caution when you delete a client key.
+        
+
+        @param request: DeleteClientKeyRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteClientKeyResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_key_id):
@@ -1267,12 +1540,26 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.DeleteClientKeyResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.DeleteClientKeyResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.DeleteClientKeyResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def delete_client_key(self, request):
+        """
+        Before you delete a client key, make sure that the client key is no longer in use. If you delete a client key that is in use, applications that use the client key cannot access Key Management Service (KMS). Exercise caution when you delete a client key.
+        
+
+        @param request: DeleteClientKeyRequest
+
+        @return: DeleteClientKeyResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_client_key_with_options(request, runtime)
 
@@ -1307,10 +1594,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.DeleteKeyMaterialResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.DeleteKeyMaterialResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.DeleteKeyMaterialResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def delete_key_material(self, request):
         """
@@ -1327,6 +1620,16 @@ class Client(OpenApiClient):
         return self.delete_key_material_with_options(request, runtime)
 
     def delete_network_rule_with_options(self, request, runtime):
+        """
+        Before you delete a network access rule, make sure that the network access rule is not bound to permission policies. Otherwise, related applications cannot access Key Management Service (KMS).
+        
+
+        @param request: DeleteNetworkRuleRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteNetworkRuleResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.name):
@@ -1345,16 +1648,40 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.DeleteNetworkRuleResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.DeleteNetworkRuleResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.DeleteNetworkRuleResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def delete_network_rule(self, request):
+        """
+        Before you delete a network access rule, make sure that the network access rule is not bound to permission policies. Otherwise, related applications cannot access Key Management Service (KMS).
+        
+
+        @param request: DeleteNetworkRuleRequest
+
+        @return: DeleteNetworkRuleResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_network_rule_with_options(request, runtime)
 
     def delete_policy_with_options(self, request, runtime):
+        """
+        Before you delete a permission policy, make sure that the permission policy is not associated with application access points (AAPs). Otherwise, related applications cannot access Key Management Service (KMS).
+        
+
+        @param request: DeletePolicyRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeletePolicyResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.name):
@@ -1373,12 +1700,26 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.DeletePolicyResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.DeletePolicyResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.DeletePolicyResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def delete_policy(self, request):
+        """
+        Before you delete a permission policy, make sure that the permission policy is not associated with application access points (AAPs). Otherwise, related applications cannot access Key Management Service (KMS).
+        
+
+        @param request: DeletePolicyRequest
+
+        @return: DeletePolicyResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_policy_with_options(request, runtime)
 
@@ -1416,10 +1757,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.DeleteSecretResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.DeleteSecretResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.DeleteSecretResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def delete_secret(self, request):
         """
@@ -1447,10 +1794,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.DescribeAccountKmsStatusResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.DescribeAccountKmsStatusResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.DescribeAccountKmsStatusResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def describe_account_kms_status(self):
         runtime = util_models.RuntimeOptions()
@@ -1475,10 +1828,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.DescribeApplicationAccessPointResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.DescribeApplicationAccessPointResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.DescribeApplicationAccessPointResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def describe_application_access_point(self, request):
         runtime = util_models.RuntimeOptions()
@@ -1513,10 +1872,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.DescribeCertificateResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.DescribeCertificateResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.DescribeCertificateResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def describe_certificate(self, request):
         """
@@ -1559,10 +1924,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.DescribeKeyResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.DescribeKeyResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.DescribeKeyResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def describe_key(self, request):
         """
@@ -1607,10 +1978,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.DescribeKeyVersionResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.DescribeKeyVersionResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.DescribeKeyVersionResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def describe_key_version(self, request):
         """
@@ -1643,10 +2020,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.DescribeNetworkRuleResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.DescribeNetworkRuleResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.DescribeNetworkRuleResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def describe_network_rule(self, request):
         runtime = util_models.RuntimeOptions()
@@ -1671,16 +2054,33 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.DescribePolicyResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.DescribePolicyResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.DescribePolicyResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def describe_policy(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_policy_with_options(request, runtime)
 
     def describe_regions_with_options(self, runtime):
+        """
+        ## Debugging
+        [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=Kms\\&api=DescribeRegions\\&type=RPC\\&version=2016-01-20)
+        
+
+        @param request: DescribeRegionsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeRegionsResponse
+        """
         req = open_api_models.OpenApiRequest()
         params = open_api_models.Params(
             action='DescribeRegions',
@@ -1693,12 +2093,25 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.DescribeRegionsResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.DescribeRegionsResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.DescribeRegionsResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def describe_regions(self):
+        """
+        ## Debugging
+        [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=Kms\\&api=DescribeRegions\\&type=RPC\\&version=2016-01-20)
+        
+
+        @return: DescribeRegionsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_regions_with_options(runtime)
 
@@ -1734,10 +2147,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.DescribeSecretResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.DescribeSecretResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.DescribeSecretResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def describe_secret(self, request):
         """
@@ -1782,10 +2201,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.DisableKeyResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.DisableKeyResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.DisableKeyResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def disable_key(self, request):
         """
@@ -1819,10 +2244,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.EnableKeyResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.EnableKeyResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.EnableKeyResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def enable_key(self, request):
         runtime = util_models.RuntimeOptions()
@@ -1867,10 +2298,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.EncryptResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.EncryptResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.EncryptResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def encrypt(self, request):
         """
@@ -1928,10 +2365,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.ExportDataKeyResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.ExportDataKeyResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.ExportDataKeyResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def export_data_key(self, request):
         """
@@ -1995,10 +2438,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.GenerateAndExportDataKeyResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.GenerateAndExportDataKeyResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.GenerateAndExportDataKeyResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def generate_and_export_data_key(self, request):
         """
@@ -2064,10 +2513,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.GenerateDataKeyResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.GenerateDataKeyResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.GenerateDataKeyResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def generate_data_key(self, request):
         """
@@ -2132,10 +2587,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.GenerateDataKeyWithoutPlaintextResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.GenerateDataKeyWithoutPlaintextResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.GenerateDataKeyWithoutPlaintextResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def generate_data_key_without_plaintext(self, request):
         """
@@ -2181,10 +2642,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.GetCertificateResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.GetCertificateResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.GetCertificateResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def get_certificate(self, request):
         """
@@ -2215,10 +2682,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.GetClientKeyResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.GetClientKeyResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.GetClientKeyResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def get_client_key(self, request):
         runtime = util_models.RuntimeOptions()
@@ -2243,10 +2716,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.GetKmsInstanceResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.GetKmsInstanceResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.GetKmsInstanceResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def get_kms_instance(self, request):
         runtime = util_models.RuntimeOptions()
@@ -2297,10 +2776,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.GetParametersForImportResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.GetParametersForImportResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.GetParametersForImportResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def get_parameters_for_import(self, request):
         """
@@ -2347,10 +2832,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.GetPublicKeyResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.GetPublicKeyResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.GetPublicKeyResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def get_public_key(self, request):
         runtime = util_models.RuntimeOptions()
@@ -2387,10 +2878,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.GetRandomPasswordResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.GetRandomPasswordResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.GetRandomPasswordResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def get_random_password(self, request):
         runtime = util_models.RuntimeOptions()
@@ -2433,10 +2930,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.GetSecretValueResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.GetSecretValueResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.GetSecretValueResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def get_secret_value(self, request):
         """
@@ -2494,10 +2997,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.ImportKeyMaterialResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.ImportKeyMaterialResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.ImportKeyMaterialResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def import_key_material(self, request):
         """
@@ -2539,10 +3048,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.ListAliasesResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.ListAliasesResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.ListAliasesResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def list_aliases(self, request):
         runtime = util_models.RuntimeOptions()
@@ -2571,10 +3086,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.ListAliasesByKeyIdResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.ListAliasesByKeyIdResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.ListAliasesByKeyIdResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def list_aliases_by_key_id(self, request):
         runtime = util_models.RuntimeOptions()
@@ -2601,10 +3122,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.ListApplicationAccessPointsResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.ListApplicationAccessPointsResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.ListApplicationAccessPointsResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def list_application_access_points(self, request):
         runtime = util_models.RuntimeOptions()
@@ -2627,10 +3154,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.ListClientKeysResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.ListClientKeysResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.ListClientKeysResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def list_client_keys(self, request):
         runtime = util_models.RuntimeOptions()
@@ -2659,10 +3192,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.ListKeyVersionsResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.ListKeyVersionsResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.ListKeyVersionsResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def list_key_versions(self, request):
         runtime = util_models.RuntimeOptions()
@@ -2691,10 +3230,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.ListKeysResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.ListKeysResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.ListKeysResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def list_keys(self, request):
         runtime = util_models.RuntimeOptions()
@@ -2721,10 +3266,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.ListKmsInstancesResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.ListKmsInstancesResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.ListKmsInstancesResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def list_kms_instances(self, request):
         runtime = util_models.RuntimeOptions()
@@ -2751,10 +3302,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.ListNetworkRulesResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.ListNetworkRulesResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.ListNetworkRulesResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def list_network_rules(self, request):
         runtime = util_models.RuntimeOptions()
@@ -2781,10 +3338,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.ListPoliciesResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.ListPoliciesResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.ListPoliciesResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def list_policies(self, request):
         runtime = util_models.RuntimeOptions()
@@ -2819,10 +3382,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.ListResourceTagsResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.ListResourceTagsResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.ListResourceTagsResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def list_resource_tags(self, request):
         """
@@ -2871,10 +3440,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.ListSecretVersionIdsResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.ListSecretVersionIdsResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.ListSecretVersionIdsResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def list_secret_version_ids(self, request):
         """
@@ -2925,10 +3500,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.ListSecretsResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.ListSecretsResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.ListSecretsResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def list_secrets(self, request):
         """
@@ -2971,10 +3552,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.ListTagResourcesResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.ListTagResourcesResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.ListTagResourcesResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def list_tag_resources(self, request):
         runtime = util_models.RuntimeOptions()
@@ -3006,10 +3593,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.OpenKmsServiceResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.OpenKmsServiceResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.OpenKmsServiceResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def open_kms_service(self):
         """
@@ -3068,10 +3661,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.PutSecretValueResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.PutSecretValueResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.PutSecretValueResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def put_secret_value(self, request):
         """
@@ -3146,10 +3745,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.ReEncryptResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.ReEncryptResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.ReEncryptResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def re_encrypt(self, request):
         """
@@ -3199,10 +3804,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.RestoreSecretResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.RestoreSecretResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.RestoreSecretResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def restore_secret(self, request):
         """
@@ -3250,10 +3861,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.RotateSecretResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.RotateSecretResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.RotateSecretResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def rotate_secret(self, request):
         """
@@ -3303,10 +3920,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.ScheduleKeyDeletionResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.ScheduleKeyDeletionResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.ScheduleKeyDeletionResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def schedule_key_deletion(self, request):
         """
@@ -3357,10 +3980,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.SetDeletionProtectionResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.SetDeletionProtectionResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.SetDeletionProtectionResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def set_deletion_protection(self, request):
         """
@@ -3412,10 +4041,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.TagResourceResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.TagResourceResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.TagResourceResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def tag_resource(self, request):
         """
@@ -3431,6 +4066,16 @@ class Client(OpenApiClient):
         return self.tag_resource_with_options(request, runtime)
 
     def tag_resources_with_options(self, request, runtime):
+        """
+        You can add multiple tags to multiple keys or multiple secrets at a time.
+        
+
+        @param request: TagResourcesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: TagResourcesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.region_id):
@@ -3455,12 +4100,26 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.TagResourcesResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.TagResourcesResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.TagResourcesResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def tag_resources(self, request):
+        """
+        You can add multiple tags to multiple keys or multiple secrets at a time.
+        
+
+        @param request: TagResourcesRequest
+
+        @return: TagResourcesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.tag_resources_with_options(request, runtime)
 
@@ -3501,10 +4160,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.UntagResourceResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.UntagResourceResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.UntagResourceResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def untag_resource(self, request):
         """
@@ -3521,6 +4186,17 @@ class Client(OpenApiClient):
         return self.untag_resource_with_options(request, runtime)
 
     def untag_resources_with_options(self, request, runtime):
+        """
+        You can remove multiple tags from multiple keys or multiple secrets at a time. You cannot remove tags that start with aliyun or acs:.
+        If you enter multiple tag keys in the request parameters and only some of the tag keys are associated with resources, the operation can be called and the tags whose keys are associated with resources are removed from the resources.
+        
+
+        @param request: UntagResourcesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UntagResourcesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.all):
@@ -3547,12 +4223,27 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.UntagResourcesResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.UntagResourcesResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.UntagResourcesResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def untag_resources(self, request):
+        """
+        You can remove multiple tags from multiple keys or multiple secrets at a time. You cannot remove tags that start with aliyun or acs:.
+        If you enter multiple tag keys in the request parameters and only some of the tag keys are associated with resources, the operation can be called and the tags whose keys are associated with resources are removed from the resources.
+        
+
+        @param request: UntagResourcesRequest
+
+        @return: UntagResourcesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.untag_resources_with_options(request, runtime)
 
@@ -3577,16 +4268,32 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.UpdateAliasResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.UpdateAliasResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.UpdateAliasResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def update_alias(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_alias_with_options(request, runtime)
 
     def update_application_access_point_with_options(self, request, runtime):
+        """
+        The update takes effect immediately after an AAP information is updated. Exercise caution when you perform this operation. You can update the description of an AAP and the permission policies that are associated with the AAP. You cannot update the name of the AAP.
+        
+
+        @param request: UpdateApplicationAccessPointRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateApplicationAccessPointResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.description):
@@ -3609,12 +4316,26 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.UpdateApplicationAccessPointResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.UpdateApplicationAccessPointResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.UpdateApplicationAccessPointResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def update_application_access_point(self, request):
+        """
+        The update takes effect immediately after an AAP information is updated. Exercise caution when you perform this operation. You can update the description of an AAP and the permission policies that are associated with the AAP. You cannot update the name of the AAP.
+        
+
+        @param request: UpdateApplicationAccessPointRequest
+
+        @return: UpdateApplicationAccessPointResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_application_access_point_with_options(request, runtime)
 
@@ -3649,10 +4370,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.UpdateCertificateStatusResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.UpdateCertificateStatusResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.UpdateCertificateStatusResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def update_certificate_status(self, request):
         """
@@ -3697,10 +4424,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.UpdateKeyDescriptionResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.UpdateKeyDescriptionResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.UpdateKeyDescriptionResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def update_key_description(self, request):
         """
@@ -3715,6 +4448,18 @@ class Client(OpenApiClient):
         return self.update_key_description_with_options(request, runtime)
 
     def update_kms_instance_bind_vpc_with_options(self, request, runtime):
+        """
+        If your own applications are deployed in multiple VPCs in the same region, you can associate the VPCs except the VPC in which the KMS instance resides with the KMS instance. This topic describes how to configure the VPCs.
+        The VPCs can belong to the same Alibaba Cloud account or different Alibaba Cloud accounts. After the configuration is complete, the applications in these VPCs can access the KMS instance.
+        > If the VPCs belong to different Alibaba Cloud accounts, you must first configure resource sharing to share the vSwitches of other Alibaba Cloud accounts with the Alibaba Cloud account to which the KMS instance belongs. For more information, see [Access a KMS instance from multiple VPCs in the same region](~~2393236~~).
+        
+
+        @param request: UpdateKmsInstanceBindVpcRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateKmsInstanceBindVpcResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -3731,16 +4476,43 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.UpdateKmsInstanceBindVpcResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.UpdateKmsInstanceBindVpcResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.UpdateKmsInstanceBindVpcResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def update_kms_instance_bind_vpc(self, request):
+        """
+        If your own applications are deployed in multiple VPCs in the same region, you can associate the VPCs except the VPC in which the KMS instance resides with the KMS instance. This topic describes how to configure the VPCs.
+        The VPCs can belong to the same Alibaba Cloud account or different Alibaba Cloud accounts. After the configuration is complete, the applications in these VPCs can access the KMS instance.
+        > If the VPCs belong to different Alibaba Cloud accounts, you must first configure resource sharing to share the vSwitches of other Alibaba Cloud accounts with the Alibaba Cloud account to which the KMS instance belongs. For more information, see [Access a KMS instance from multiple VPCs in the same region](~~2393236~~).
+        
+
+        @param request: UpdateKmsInstanceBindVpcRequest
+
+        @return: UpdateKmsInstanceBindVpcResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_kms_instance_bind_vpc_with_options(request, runtime)
 
     def update_network_rule_with_options(self, request, runtime):
+        """
+        - You can update only private IP addresses and description of an access control rule. You cannot update the name and network type of an access control rule.
+        - Updating an access control rule affects all permission policies that are bound to the access control rule. Exercise caution when you perform this operation.
+        
+
+        @param request: UpdateNetworkRuleRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateNetworkRuleResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.description):
@@ -3763,16 +4535,42 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.UpdateNetworkRuleResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.UpdateNetworkRuleResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.UpdateNetworkRuleResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def update_network_rule(self, request):
+        """
+        - You can update only private IP addresses and description of an access control rule. You cannot update the name and network type of an access control rule.
+        - Updating an access control rule affects all permission policies that are bound to the access control rule. Exercise caution when you perform this operation.
+        
+
+        @param request: UpdateNetworkRuleRequest
+
+        @return: UpdateNetworkRuleResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_network_rule_with_options(request, runtime)
 
     def update_policy_with_options(self, request, runtime):
+        """
+        - You can update the role-based access control (RBAC) permissions, accessible resources, access control rules, and description of a permission policy. You cannot update the name or scope of a permission policy.
+        - Updating a permission policy affects all application access points (AAPs) that are bound to the permission policy. Exercise caution when you perform this operation.
+        
+
+        @param request: UpdatePolicyRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdatePolicyResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.access_control_rules):
@@ -3799,12 +4597,27 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.UpdatePolicyResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.UpdatePolicyResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.UpdatePolicyResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def update_policy(self, request):
+        """
+        - You can update the role-based access control (RBAC) permissions, accessible resources, access control rules, and description of a permission policy. You cannot update the name or scope of a permission policy.
+        - Updating a permission policy affects all application access points (AAPs) that are bound to the permission policy. Exercise caution when you perform this operation.
+        
+
+        @param request: UpdatePolicyRequest
+
+        @return: UpdatePolicyResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_policy_with_options(request, runtime)
 
@@ -3847,10 +4660,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.UpdateRotationPolicyResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.UpdateRotationPolicyResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.UpdateRotationPolicyResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def update_rotation_policy(self, request):
         """
@@ -3903,10 +4722,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.UpdateSecretResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.UpdateSecretResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.UpdateSecretResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def update_secret(self, request):
         """
@@ -3957,10 +4782,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.UpdateSecretRotationPolicyResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.UpdateSecretRotationPolicyResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.UpdateSecretRotationPolicyResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def update_secret_rotation_policy(self, request):
         """
@@ -4013,10 +4844,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.UpdateSecretVersionStageResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.UpdateSecretVersionStageResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.UpdateSecretVersionStageResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def update_secret_version_stage(self, request):
         """
@@ -4063,10 +4900,16 @@ class Client(OpenApiClient):
             req_body_type='formData',
             body_type='json'
         )
-        return TeaCore.from_map(
-            kms_20160120_models.UploadCertificateResponse(),
-            self.call_api(params, req, runtime)
-        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                kms_20160120_models.UploadCertificateResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                kms_20160120_models.UploadCertificateResponse(),
+                self.execute(params, req, runtime)
+            )
 
     def upload_certificate(self, request):
         """
