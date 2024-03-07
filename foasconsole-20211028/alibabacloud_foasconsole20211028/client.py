@@ -76,6 +76,10 @@ class Client(OpenApiClient):
         UtilClient.validate_model(tmp_req)
         request = foasconsole_20211028_models.CreateInstanceShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.ha_resource_spec):
+            request.ha_resource_spec_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ha_resource_spec, 'HaResourceSpec', 'json')
+        if not UtilClient.is_unset(tmp_req.ha_vswitch_ids):
+            request.ha_vswitch_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ha_vswitch_ids, 'HaVSwitchIds', 'json')
         if not UtilClient.is_unset(tmp_req.resource_spec):
             request.resource_spec_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.resource_spec, 'ResourceSpec', 'json')
         if not UtilClient.is_unset(tmp_req.storage):
@@ -83,24 +87,42 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(tmp_req.v_switch_ids):
             request.v_switch_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.v_switch_ids, 'VSwitchIds', 'json')
         body = {}
+        if not UtilClient.is_unset(request.architecture_type):
+            body['ArchitectureType'] = request.architecture_type
         if not UtilClient.is_unset(request.auto_renew):
             body['AutoRenew'] = request.auto_renew
         if not UtilClient.is_unset(request.charge_type):
             body['ChargeType'] = request.charge_type
         if not UtilClient.is_unset(request.duration):
             body['Duration'] = request.duration
+        if not UtilClient.is_unset(request.extra):
+            body['Extra'] = request.extra
+        if not UtilClient.is_unset(request.ha):
+            body['Ha'] = request.ha
+        if not UtilClient.is_unset(request.ha_resource_spec_shrink):
+            body['HaResourceSpec'] = request.ha_resource_spec_shrink
+        if not UtilClient.is_unset(request.ha_vswitch_ids_shrink):
+            body['HaVSwitchIds'] = request.ha_vswitch_ids_shrink
+        if not UtilClient.is_unset(request.ha_zone_id):
+            body['HaZoneId'] = request.ha_zone_id
         if not UtilClient.is_unset(request.instance_name):
             body['InstanceName'] = request.instance_name
+        if not UtilClient.is_unset(request.monitor_type):
+            body['MonitorType'] = request.monitor_type
         if not UtilClient.is_unset(request.pricing_cycle):
             body['PricingCycle'] = request.pricing_cycle
         if not UtilClient.is_unset(request.promotion_code):
             body['PromotionCode'] = request.promotion_code
         if not UtilClient.is_unset(request.region):
             body['Region'] = request.region
+        if not UtilClient.is_unset(request.resource_group_id):
+            body['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.resource_spec_shrink):
             body['ResourceSpec'] = request.resource_spec_shrink
         if not UtilClient.is_unset(request.storage_shrink):
             body['Storage'] = request.storage_shrink
+        if not UtilClient.is_unset(request.use_promotion_code):
+            body['UsePromotionCode'] = request.use_promotion_code
         if not UtilClient.is_unset(request.v_switch_ids_shrink):
             body['VSwitchIds'] = request.v_switch_ids_shrink
         if not UtilClient.is_unset(request.vpc_id):
@@ -137,6 +159,8 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(tmp_req.resource_spec):
             request.resource_spec_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.resource_spec, 'ResourceSpec', 'json')
         body = {}
+        if not UtilClient.is_unset(request.ha):
+            body['Ha'] = request.ha
         if not UtilClient.is_unset(request.instance_id):
             body['InstanceId'] = request.instance_id
         if not UtilClient.is_unset(request.namespace):
@@ -375,12 +399,35 @@ class Client(OpenApiClient):
         return self.list_tag_resources_with_options(request, runtime)
 
     def modify_prepay_instance_spec_with_options(self, tmp_req, runtime):
+        """
+        @deprecated : ModifyPrepayInstanceSpec is deprecated, please use foasconsole::2021-10-28::ModifyInstanceSpec instead.
+        
+
+        @param tmp_req: ModifyPrepayInstanceSpecRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyPrepayInstanceSpecResponse
+        Deprecated
+        """
         UtilClient.validate_model(tmp_req)
         request = foasconsole_20211028_models.ModifyPrepayInstanceSpecShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.ha_resource_spec):
+            request.ha_resource_spec_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ha_resource_spec, 'HaResourceSpec', 'json')
+        if not UtilClient.is_unset(tmp_req.ha_vswitch_ids):
+            request.ha_vswitch_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ha_vswitch_ids, 'HaVSwitchIds', 'json')
         if not UtilClient.is_unset(tmp_req.resource_spec):
             request.resource_spec_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.resource_spec, 'ResourceSpec', 'json')
         body = {}
+        if not UtilClient.is_unset(request.ha):
+            body['Ha'] = request.ha
+        if not UtilClient.is_unset(request.ha_resource_spec_shrink):
+            body['HaResourceSpec'] = request.ha_resource_spec_shrink
+        if not UtilClient.is_unset(request.ha_vswitch_ids_shrink):
+            body['HaVSwitchIds'] = request.ha_vswitch_ids_shrink
+        if not UtilClient.is_unset(request.ha_zone_id):
+            body['HaZoneId'] = request.ha_zone_id
         if not UtilClient.is_unset(request.instance_id):
             body['InstanceId'] = request.instance_id
         if not UtilClient.is_unset(request.region):
@@ -407,10 +454,30 @@ class Client(OpenApiClient):
         )
 
     def modify_prepay_instance_spec(self, request):
+        """
+        @deprecated : ModifyPrepayInstanceSpec is deprecated, please use foasconsole::2021-10-28::ModifyInstanceSpec instead.
+        
+
+        @param request: ModifyPrepayInstanceSpecRequest
+
+        @return: ModifyPrepayInstanceSpecResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_prepay_instance_spec_with_options(request, runtime)
 
     def modify_prepay_namespace_spec_with_options(self, tmp_req, runtime):
+        """
+        @deprecated : ModifyPrepayNamespaceSpec is deprecated, please use foasconsole::2021-10-28::ModifyNamespaceSpec instead.
+        
+
+        @param tmp_req: ModifyPrepayNamespaceSpecRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyPrepayNamespaceSpecResponse
+        Deprecated
+        """
         UtilClient.validate_model(tmp_req)
         request = foasconsole_20211028_models.ModifyPrepayNamespaceSpecShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
@@ -445,6 +512,15 @@ class Client(OpenApiClient):
         )
 
     def modify_prepay_namespace_spec(self, request):
+        """
+        @deprecated : ModifyPrepayNamespaceSpec is deprecated, please use foasconsole::2021-10-28::ModifyNamespaceSpec instead.
+        
+
+        @param request: ModifyPrepayNamespaceSpecRequest
+
+        @return: ModifyPrepayNamespaceSpecResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_prepay_namespace_spec_with_options(request, runtime)
 
@@ -494,6 +570,8 @@ class Client(OpenApiClient):
         UtilClient.validate_model(tmp_req)
         request = foasconsole_20211028_models.QueryCreateInstancePriceShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.ha_resource_spec):
+            request.ha_resource_spec_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ha_resource_spec, 'HaResourceSpec', 'json')
         if not UtilClient.is_unset(tmp_req.resource_spec):
             request.resource_spec_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.resource_spec, 'ResourceSpec', 'json')
         if not UtilClient.is_unset(tmp_req.storage):
@@ -501,12 +579,20 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(tmp_req.v_switch_ids):
             request.v_switch_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.v_switch_ids, 'VSwitchIds', 'json')
         body = {}
+        if not UtilClient.is_unset(request.architecture_type):
+            body['ArchitectureType'] = request.architecture_type
         if not UtilClient.is_unset(request.auto_renew):
             body['AutoRenew'] = request.auto_renew
         if not UtilClient.is_unset(request.charge_type):
             body['ChargeType'] = request.charge_type
         if not UtilClient.is_unset(request.duration):
             body['Duration'] = request.duration
+        if not UtilClient.is_unset(request.extra):
+            body['Extra'] = request.extra
+        if not UtilClient.is_unset(request.ha):
+            body['Ha'] = request.ha
+        if not UtilClient.is_unset(request.ha_resource_spec_shrink):
+            body['HaResourceSpec'] = request.ha_resource_spec_shrink
         if not UtilClient.is_unset(request.instance_name):
             body['InstanceName'] = request.instance_name
         if not UtilClient.is_unset(request.pricing_cycle):
@@ -519,6 +605,8 @@ class Client(OpenApiClient):
             body['ResourceSpec'] = request.resource_spec_shrink
         if not UtilClient.is_unset(request.storage_shrink):
             body['Storage'] = request.storage_shrink
+        if not UtilClient.is_unset(request.use_promotion_code):
+            body['UsePromotionCode'] = request.use_promotion_code
         if not UtilClient.is_unset(request.v_switch_ids_shrink):
             body['VSwitchIds'] = request.v_switch_ids_shrink
         if not UtilClient.is_unset(request.vpc_id):
@@ -552,9 +640,21 @@ class Client(OpenApiClient):
         UtilClient.validate_model(tmp_req)
         request = foasconsole_20211028_models.QueryModifyInstancePriceShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.ha_resource_spec):
+            request.ha_resource_spec_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ha_resource_spec, 'HaResourceSpec', 'json')
+        if not UtilClient.is_unset(tmp_req.ha_vswitch_ids):
+            request.ha_vswitch_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ha_vswitch_ids, 'HaVSwitchIds', 'json')
         if not UtilClient.is_unset(tmp_req.resource_spec):
             request.resource_spec_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.resource_spec, 'ResourceSpec', 'json')
         body = {}
+        if not UtilClient.is_unset(request.ha):
+            body['Ha'] = request.ha
+        if not UtilClient.is_unset(request.ha_resource_spec_shrink):
+            body['HaResourceSpec'] = request.ha_resource_spec_shrink
+        if not UtilClient.is_unset(request.ha_vswitch_ids_shrink):
+            body['HaVSwitchIds'] = request.ha_vswitch_ids_shrink
+        if not UtilClient.is_unset(request.ha_zone_id):
+            body['HaZoneId'] = request.ha_zone_id
         if not UtilClient.is_unset(request.instance_id):
             body['InstanceId'] = request.instance_id
         if not UtilClient.is_unset(request.region):

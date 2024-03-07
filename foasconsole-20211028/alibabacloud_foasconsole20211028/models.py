@@ -241,6 +241,35 @@ class ConvertInstanceResponse(TeaModel):
         return self
 
 
+class CreateInstanceRequestHaResourceSpec(TeaModel):
+    def __init__(self, cpu=None, memory_gb=None):
+        self.cpu = cpu  # type: int
+        self.memory_gb = memory_gb  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateInstanceRequestHaResourceSpec, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cpu is not None:
+            result['Cpu'] = self.cpu
+        if self.memory_gb is not None:
+            result['MemoryGB'] = self.memory_gb
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Cpu') is not None:
+            self.cpu = m.get('Cpu')
+        if m.get('MemoryGB') is not None:
+            self.memory_gb = m.get('MemoryGB')
+        return self
+
+
 class CreateInstanceRequestResourceSpec(TeaModel):
     def __init__(self, cpu=None, memory_gb=None):
         self.cpu = cpu  # type: int
@@ -321,22 +350,35 @@ class CreateInstanceRequestStorage(TeaModel):
 
 
 class CreateInstanceRequest(TeaModel):
-    def __init__(self, auto_renew=None, charge_type=None, duration=None, instance_name=None, pricing_cycle=None,
-                 promotion_code=None, region=None, resource_spec=None, storage=None, v_switch_ids=None, vpc_id=None, zone_id=None):
+    def __init__(self, architecture_type=None, auto_renew=None, charge_type=None, duration=None, extra=None, ha=None,
+                 ha_resource_spec=None, ha_vswitch_ids=None, ha_zone_id=None, instance_name=None, monitor_type=None,
+                 pricing_cycle=None, promotion_code=None, region=None, resource_group_id=None, resource_spec=None, storage=None,
+                 use_promotion_code=None, v_switch_ids=None, vpc_id=None, zone_id=None):
+        self.architecture_type = architecture_type  # type: str
         self.auto_renew = auto_renew  # type: bool
         self.charge_type = charge_type  # type: str
         self.duration = duration  # type: int
+        self.extra = extra  # type: str
+        self.ha = ha  # type: bool
+        self.ha_resource_spec = ha_resource_spec  # type: CreateInstanceRequestHaResourceSpec
+        self.ha_vswitch_ids = ha_vswitch_ids  # type: list[str]
+        self.ha_zone_id = ha_zone_id  # type: str
         self.instance_name = instance_name  # type: str
+        self.monitor_type = monitor_type  # type: str
         self.pricing_cycle = pricing_cycle  # type: str
         self.promotion_code = promotion_code  # type: str
         self.region = region  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_spec = resource_spec  # type: CreateInstanceRequestResourceSpec
         self.storage = storage  # type: CreateInstanceRequestStorage
+        self.use_promotion_code = use_promotion_code  # type: bool
         self.v_switch_ids = v_switch_ids  # type: list[str]
         self.vpc_id = vpc_id  # type: str
         self.zone_id = zone_id  # type: str
 
     def validate(self):
+        if self.ha_resource_spec:
+            self.ha_resource_spec.validate()
         if self.resource_spec:
             self.resource_spec.validate()
         if self.storage:
@@ -348,24 +390,42 @@ class CreateInstanceRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.architecture_type is not None:
+            result['ArchitectureType'] = self.architecture_type
         if self.auto_renew is not None:
             result['AutoRenew'] = self.auto_renew
         if self.charge_type is not None:
             result['ChargeType'] = self.charge_type
         if self.duration is not None:
             result['Duration'] = self.duration
+        if self.extra is not None:
+            result['Extra'] = self.extra
+        if self.ha is not None:
+            result['Ha'] = self.ha
+        if self.ha_resource_spec is not None:
+            result['HaResourceSpec'] = self.ha_resource_spec.to_map()
+        if self.ha_vswitch_ids is not None:
+            result['HaVSwitchIds'] = self.ha_vswitch_ids
+        if self.ha_zone_id is not None:
+            result['HaZoneId'] = self.ha_zone_id
         if self.instance_name is not None:
             result['InstanceName'] = self.instance_name
+        if self.monitor_type is not None:
+            result['MonitorType'] = self.monitor_type
         if self.pricing_cycle is not None:
             result['PricingCycle'] = self.pricing_cycle
         if self.promotion_code is not None:
             result['PromotionCode'] = self.promotion_code
         if self.region is not None:
             result['Region'] = self.region
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_spec is not None:
             result['ResourceSpec'] = self.resource_spec.to_map()
         if self.storage is not None:
             result['Storage'] = self.storage.to_map()
+        if self.use_promotion_code is not None:
+            result['UsePromotionCode'] = self.use_promotion_code
         if self.v_switch_ids is not None:
             result['VSwitchIds'] = self.v_switch_ids
         if self.vpc_id is not None:
@@ -376,26 +436,45 @@ class CreateInstanceRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ArchitectureType') is not None:
+            self.architecture_type = m.get('ArchitectureType')
         if m.get('AutoRenew') is not None:
             self.auto_renew = m.get('AutoRenew')
         if m.get('ChargeType') is not None:
             self.charge_type = m.get('ChargeType')
         if m.get('Duration') is not None:
             self.duration = m.get('Duration')
+        if m.get('Extra') is not None:
+            self.extra = m.get('Extra')
+        if m.get('Ha') is not None:
+            self.ha = m.get('Ha')
+        if m.get('HaResourceSpec') is not None:
+            temp_model = CreateInstanceRequestHaResourceSpec()
+            self.ha_resource_spec = temp_model.from_map(m['HaResourceSpec'])
+        if m.get('HaVSwitchIds') is not None:
+            self.ha_vswitch_ids = m.get('HaVSwitchIds')
+        if m.get('HaZoneId') is not None:
+            self.ha_zone_id = m.get('HaZoneId')
         if m.get('InstanceName') is not None:
             self.instance_name = m.get('InstanceName')
+        if m.get('MonitorType') is not None:
+            self.monitor_type = m.get('MonitorType')
         if m.get('PricingCycle') is not None:
             self.pricing_cycle = m.get('PricingCycle')
         if m.get('PromotionCode') is not None:
             self.promotion_code = m.get('PromotionCode')
         if m.get('Region') is not None:
             self.region = m.get('Region')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceSpec') is not None:
             temp_model = CreateInstanceRequestResourceSpec()
             self.resource_spec = temp_model.from_map(m['ResourceSpec'])
         if m.get('Storage') is not None:
             temp_model = CreateInstanceRequestStorage()
             self.storage = temp_model.from_map(m['Storage'])
+        if m.get('UsePromotionCode') is not None:
+            self.use_promotion_code = m.get('UsePromotionCode')
         if m.get('VSwitchIds') is not None:
             self.v_switch_ids = m.get('VSwitchIds')
         if m.get('VpcId') is not None:
@@ -406,18 +485,28 @@ class CreateInstanceRequest(TeaModel):
 
 
 class CreateInstanceShrinkRequest(TeaModel):
-    def __init__(self, auto_renew=None, charge_type=None, duration=None, instance_name=None, pricing_cycle=None,
-                 promotion_code=None, region=None, resource_spec_shrink=None, storage_shrink=None, v_switch_ids_shrink=None,
-                 vpc_id=None, zone_id=None):
+    def __init__(self, architecture_type=None, auto_renew=None, charge_type=None, duration=None, extra=None, ha=None,
+                 ha_resource_spec_shrink=None, ha_vswitch_ids_shrink=None, ha_zone_id=None, instance_name=None, monitor_type=None,
+                 pricing_cycle=None, promotion_code=None, region=None, resource_group_id=None, resource_spec_shrink=None,
+                 storage_shrink=None, use_promotion_code=None, v_switch_ids_shrink=None, vpc_id=None, zone_id=None):
+        self.architecture_type = architecture_type  # type: str
         self.auto_renew = auto_renew  # type: bool
         self.charge_type = charge_type  # type: str
         self.duration = duration  # type: int
+        self.extra = extra  # type: str
+        self.ha = ha  # type: bool
+        self.ha_resource_spec_shrink = ha_resource_spec_shrink  # type: str
+        self.ha_vswitch_ids_shrink = ha_vswitch_ids_shrink  # type: str
+        self.ha_zone_id = ha_zone_id  # type: str
         self.instance_name = instance_name  # type: str
+        self.monitor_type = monitor_type  # type: str
         self.pricing_cycle = pricing_cycle  # type: str
         self.promotion_code = promotion_code  # type: str
         self.region = region  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_spec_shrink = resource_spec_shrink  # type: str
         self.storage_shrink = storage_shrink  # type: str
+        self.use_promotion_code = use_promotion_code  # type: bool
         self.v_switch_ids_shrink = v_switch_ids_shrink  # type: str
         self.vpc_id = vpc_id  # type: str
         self.zone_id = zone_id  # type: str
@@ -431,24 +520,42 @@ class CreateInstanceShrinkRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.architecture_type is not None:
+            result['ArchitectureType'] = self.architecture_type
         if self.auto_renew is not None:
             result['AutoRenew'] = self.auto_renew
         if self.charge_type is not None:
             result['ChargeType'] = self.charge_type
         if self.duration is not None:
             result['Duration'] = self.duration
+        if self.extra is not None:
+            result['Extra'] = self.extra
+        if self.ha is not None:
+            result['Ha'] = self.ha
+        if self.ha_resource_spec_shrink is not None:
+            result['HaResourceSpec'] = self.ha_resource_spec_shrink
+        if self.ha_vswitch_ids_shrink is not None:
+            result['HaVSwitchIds'] = self.ha_vswitch_ids_shrink
+        if self.ha_zone_id is not None:
+            result['HaZoneId'] = self.ha_zone_id
         if self.instance_name is not None:
             result['InstanceName'] = self.instance_name
+        if self.monitor_type is not None:
+            result['MonitorType'] = self.monitor_type
         if self.pricing_cycle is not None:
             result['PricingCycle'] = self.pricing_cycle
         if self.promotion_code is not None:
             result['PromotionCode'] = self.promotion_code
         if self.region is not None:
             result['Region'] = self.region
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_spec_shrink is not None:
             result['ResourceSpec'] = self.resource_spec_shrink
         if self.storage_shrink is not None:
             result['Storage'] = self.storage_shrink
+        if self.use_promotion_code is not None:
+            result['UsePromotionCode'] = self.use_promotion_code
         if self.v_switch_ids_shrink is not None:
             result['VSwitchIds'] = self.v_switch_ids_shrink
         if self.vpc_id is not None:
@@ -459,24 +566,42 @@ class CreateInstanceShrinkRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ArchitectureType') is not None:
+            self.architecture_type = m.get('ArchitectureType')
         if m.get('AutoRenew') is not None:
             self.auto_renew = m.get('AutoRenew')
         if m.get('ChargeType') is not None:
             self.charge_type = m.get('ChargeType')
         if m.get('Duration') is not None:
             self.duration = m.get('Duration')
+        if m.get('Extra') is not None:
+            self.extra = m.get('Extra')
+        if m.get('Ha') is not None:
+            self.ha = m.get('Ha')
+        if m.get('HaResourceSpec') is not None:
+            self.ha_resource_spec_shrink = m.get('HaResourceSpec')
+        if m.get('HaVSwitchIds') is not None:
+            self.ha_vswitch_ids_shrink = m.get('HaVSwitchIds')
+        if m.get('HaZoneId') is not None:
+            self.ha_zone_id = m.get('HaZoneId')
         if m.get('InstanceName') is not None:
             self.instance_name = m.get('InstanceName')
+        if m.get('MonitorType') is not None:
+            self.monitor_type = m.get('MonitorType')
         if m.get('PricingCycle') is not None:
             self.pricing_cycle = m.get('PricingCycle')
         if m.get('PromotionCode') is not None:
             self.promotion_code = m.get('PromotionCode')
         if m.get('Region') is not None:
             self.region = m.get('Region')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceSpec') is not None:
             self.resource_spec_shrink = m.get('ResourceSpec')
         if m.get('Storage') is not None:
             self.storage_shrink = m.get('Storage')
+        if m.get('UsePromotionCode') is not None:
+            self.use_promotion_code = m.get('UsePromotionCode')
         if m.get('VSwitchIds') is not None:
             self.v_switch_ids_shrink = m.get('VSwitchIds')
         if m.get('VpcId') is not None:
@@ -617,7 +742,8 @@ class CreateNamespaceRequestResourceSpec(TeaModel):
 
 
 class CreateNamespaceRequest(TeaModel):
-    def __init__(self, instance_id=None, namespace=None, region=None, resource_spec=None):
+    def __init__(self, ha=None, instance_id=None, namespace=None, region=None, resource_spec=None):
+        self.ha = ha  # type: bool
         self.instance_id = instance_id  # type: str
         self.namespace = namespace  # type: str
         self.region = region  # type: str
@@ -633,6 +759,8 @@ class CreateNamespaceRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.ha is not None:
+            result['Ha'] = self.ha
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
         if self.namespace is not None:
@@ -645,6 +773,8 @@ class CreateNamespaceRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Ha') is not None:
+            self.ha = m.get('Ha')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
         if m.get('Namespace') is not None:
@@ -658,7 +788,8 @@ class CreateNamespaceRequest(TeaModel):
 
 
 class CreateNamespaceShrinkRequest(TeaModel):
-    def __init__(self, instance_id=None, namespace=None, region=None, resource_spec_shrink=None):
+    def __init__(self, ha=None, instance_id=None, namespace=None, region=None, resource_spec_shrink=None):
+        self.ha = ha  # type: bool
         self.instance_id = instance_id  # type: str
         self.namespace = namespace  # type: str
         self.region = region  # type: str
@@ -673,6 +804,8 @@ class CreateNamespaceShrinkRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.ha is not None:
+            result['Ha'] = self.ha
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
         if self.namespace is not None:
@@ -685,6 +818,8 @@ class CreateNamespaceShrinkRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Ha') is not None:
+            self.ha = m.get('Ha')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
         if m.get('Namespace') is not None:
@@ -984,12 +1119,15 @@ class DescribeInstancesRequestTags(TeaModel):
 
 
 class DescribeInstancesRequest(TeaModel):
-    def __init__(self, charge_type=None, instance_id=None, page_index=None, page_size=None, region=None, tags=None):
+    def __init__(self, architecture_type=None, charge_type=None, instance_id=None, page_index=None, page_size=None,
+                 region=None, resource_group_id=None, tags=None):
+        self.architecture_type = architecture_type  # type: str
         self.charge_type = charge_type  # type: str
         self.instance_id = instance_id  # type: str
         self.page_index = page_index  # type: int
         self.page_size = page_size  # type: int
         self.region = region  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.tags = tags  # type: list[DescribeInstancesRequestTags]
 
     def validate(self):
@@ -1004,6 +1142,8 @@ class DescribeInstancesRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.architecture_type is not None:
+            result['ArchitectureType'] = self.architecture_type
         if self.charge_type is not None:
             result['ChargeType'] = self.charge_type
         if self.instance_id is not None:
@@ -1014,6 +1154,8 @@ class DescribeInstancesRequest(TeaModel):
             result['PageSize'] = self.page_size
         if self.region is not None:
             result['Region'] = self.region
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         result['Tags'] = []
         if self.tags is not None:
             for k in self.tags:
@@ -1022,6 +1164,8 @@ class DescribeInstancesRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ArchitectureType') is not None:
+            self.architecture_type = m.get('ArchitectureType')
         if m.get('ChargeType') is not None:
             self.charge_type = m.get('ChargeType')
         if m.get('InstanceId') is not None:
@@ -1032,6 +1176,8 @@ class DescribeInstancesRequest(TeaModel):
             self.page_size = m.get('PageSize')
         if m.get('Region') is not None:
             self.region = m.get('Region')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         self.tags = []
         if m.get('Tags') is not None:
             for k in m.get('Tags'):
@@ -1041,13 +1187,15 @@ class DescribeInstancesRequest(TeaModel):
 
 
 class DescribeInstancesShrinkRequest(TeaModel):
-    def __init__(self, charge_type=None, instance_id=None, page_index=None, page_size=None, region=None,
-                 tags_shrink=None):
+    def __init__(self, architecture_type=None, charge_type=None, instance_id=None, page_index=None, page_size=None,
+                 region=None, resource_group_id=None, tags_shrink=None):
+        self.architecture_type = architecture_type  # type: str
         self.charge_type = charge_type  # type: str
         self.instance_id = instance_id  # type: str
         self.page_index = page_index  # type: int
         self.page_size = page_size  # type: int
         self.region = region  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.tags_shrink = tags_shrink  # type: str
 
     def validate(self):
@@ -1059,6 +1207,8 @@ class DescribeInstancesShrinkRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.architecture_type is not None:
+            result['ArchitectureType'] = self.architecture_type
         if self.charge_type is not None:
             result['ChargeType'] = self.charge_type
         if self.instance_id is not None:
@@ -1069,12 +1219,16 @@ class DescribeInstancesShrinkRequest(TeaModel):
             result['PageSize'] = self.page_size
         if self.region is not None:
             result['Region'] = self.region
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.tags_shrink is not None:
             result['Tags'] = self.tags_shrink
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ArchitectureType') is not None:
+            self.architecture_type = m.get('ArchitectureType')
         if m.get('ChargeType') is not None:
             self.charge_type = m.get('ChargeType')
         if m.get('InstanceId') is not None:
@@ -1085,8 +1239,68 @@ class DescribeInstancesShrinkRequest(TeaModel):
             self.page_size = m.get('PageSize')
         if m.get('Region') is not None:
             self.region = m.get('Region')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('Tags') is not None:
             self.tags_shrink = m.get('Tags')
+        return self
+
+
+class DescribeInstancesResponseBodyInstancesHaResourceSpec(TeaModel):
+    def __init__(self, cpu=None, memory_gb=None):
+        self.cpu = cpu  # type: int
+        self.memory_gb = memory_gb  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeInstancesResponseBodyInstancesHaResourceSpec, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cpu is not None:
+            result['Cpu'] = self.cpu
+        if self.memory_gb is not None:
+            result['MemoryGB'] = self.memory_gb
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Cpu') is not None:
+            self.cpu = m.get('Cpu')
+        if m.get('MemoryGB') is not None:
+            self.memory_gb = m.get('MemoryGB')
+        return self
+
+
+class DescribeInstancesResponseBodyInstancesHostAliases(TeaModel):
+    def __init__(self, host_names=None, ip=None):
+        self.host_names = host_names  # type: list[str]
+        self.ip = ip  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeInstancesResponseBodyInstancesHostAliases, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.host_names is not None:
+            result['HostNames'] = self.host_names
+        if self.ip is not None:
+            result['Ip'] = self.ip
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('HostNames') is not None:
+            self.host_names = m.get('HostNames')
+        if m.get('Ip') is not None:
+            self.ip = m.get('Ip')
         return self
 
 
@@ -1199,17 +1413,28 @@ class DescribeInstancesResponseBodyInstancesTags(TeaModel):
 
 
 class DescribeInstancesResponseBodyInstances(TeaModel):
-    def __init__(self, charge_type=None, cluster_status=None, instance_id=None, instance_name=None,
-                 order_state=None, region=None, resource_create_time=None, resource_expired_time=None, resource_id=None,
-                 resource_spec=None, storage=None, tags=None, uid=None, v_switch_ids=None, vpc_id=None, zone_id=None):
+    def __init__(self, architecture_type=None, ask_cluster_id=None, charge_type=None, cluster_status=None, ha=None,
+                 ha_resource_spec=None, ha_vswitch_ids=None, ha_zone_id=None, host_aliases=None, instance_id=None,
+                 instance_name=None, monitor_type=None, order_state=None, region=None, resource_create_time=None,
+                 resource_expired_time=None, resource_group_id=None, resource_id=None, resource_spec=None, storage=None, tags=None,
+                 uid=None, v_switch_ids=None, vpc_id=None, zone_id=None):
+        self.architecture_type = architecture_type  # type: str
+        self.ask_cluster_id = ask_cluster_id  # type: str
         self.charge_type = charge_type  # type: str
         self.cluster_status = cluster_status  # type: str
+        self.ha = ha  # type: bool
+        self.ha_resource_spec = ha_resource_spec  # type: DescribeInstancesResponseBodyInstancesHaResourceSpec
+        self.ha_vswitch_ids = ha_vswitch_ids  # type: list[str]
+        self.ha_zone_id = ha_zone_id  # type: str
+        self.host_aliases = host_aliases  # type: list[DescribeInstancesResponseBodyInstancesHostAliases]
         self.instance_id = instance_id  # type: str
         self.instance_name = instance_name  # type: str
+        self.monitor_type = monitor_type  # type: str
         self.order_state = order_state  # type: str
         self.region = region  # type: str
         self.resource_create_time = resource_create_time  # type: long
         self.resource_expired_time = resource_expired_time  # type: long
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_id = resource_id  # type: str
         self.resource_spec = resource_spec  # type: DescribeInstancesResponseBodyInstancesResourceSpec
         self.storage = storage  # type: DescribeInstancesResponseBodyInstancesStorage
@@ -1220,6 +1445,12 @@ class DescribeInstancesResponseBodyInstances(TeaModel):
         self.zone_id = zone_id  # type: str
 
     def validate(self):
+        if self.ha_resource_spec:
+            self.ha_resource_spec.validate()
+        if self.host_aliases:
+            for k in self.host_aliases:
+                if k:
+                    k.validate()
         if self.resource_spec:
             self.resource_spec.validate()
         if self.storage:
@@ -1235,14 +1466,32 @@ class DescribeInstancesResponseBodyInstances(TeaModel):
             return _map
 
         result = dict()
+        if self.architecture_type is not None:
+            result['ArchitectureType'] = self.architecture_type
+        if self.ask_cluster_id is not None:
+            result['AskClusterId'] = self.ask_cluster_id
         if self.charge_type is not None:
             result['ChargeType'] = self.charge_type
         if self.cluster_status is not None:
             result['ClusterStatus'] = self.cluster_status
+        if self.ha is not None:
+            result['Ha'] = self.ha
+        if self.ha_resource_spec is not None:
+            result['HaResourceSpec'] = self.ha_resource_spec.to_map()
+        if self.ha_vswitch_ids is not None:
+            result['HaVSwitchIds'] = self.ha_vswitch_ids
+        if self.ha_zone_id is not None:
+            result['HaZoneId'] = self.ha_zone_id
+        result['HostAliases'] = []
+        if self.host_aliases is not None:
+            for k in self.host_aliases:
+                result['HostAliases'].append(k.to_map() if k else None)
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
         if self.instance_name is not None:
             result['InstanceName'] = self.instance_name
+        if self.monitor_type is not None:
+            result['MonitorType'] = self.monitor_type
         if self.order_state is not None:
             result['OrderState'] = self.order_state
         if self.region is not None:
@@ -1251,6 +1500,8 @@ class DescribeInstancesResponseBodyInstances(TeaModel):
             result['ResourceCreateTime'] = self.resource_create_time
         if self.resource_expired_time is not None:
             result['ResourceExpiredTime'] = self.resource_expired_time
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_id is not None:
             result['ResourceId'] = self.resource_id
         if self.resource_spec is not None:
@@ -1273,14 +1524,34 @@ class DescribeInstancesResponseBodyInstances(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ArchitectureType') is not None:
+            self.architecture_type = m.get('ArchitectureType')
+        if m.get('AskClusterId') is not None:
+            self.ask_cluster_id = m.get('AskClusterId')
         if m.get('ChargeType') is not None:
             self.charge_type = m.get('ChargeType')
         if m.get('ClusterStatus') is not None:
             self.cluster_status = m.get('ClusterStatus')
+        if m.get('Ha') is not None:
+            self.ha = m.get('Ha')
+        if m.get('HaResourceSpec') is not None:
+            temp_model = DescribeInstancesResponseBodyInstancesHaResourceSpec()
+            self.ha_resource_spec = temp_model.from_map(m['HaResourceSpec'])
+        if m.get('HaVSwitchIds') is not None:
+            self.ha_vswitch_ids = m.get('HaVSwitchIds')
+        if m.get('HaZoneId') is not None:
+            self.ha_zone_id = m.get('HaZoneId')
+        self.host_aliases = []
+        if m.get('HostAliases') is not None:
+            for k in m.get('HostAliases'):
+                temp_model = DescribeInstancesResponseBodyInstancesHostAliases()
+                self.host_aliases.append(temp_model.from_map(k))
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
         if m.get('InstanceName') is not None:
             self.instance_name = m.get('InstanceName')
+        if m.get('MonitorType') is not None:
+            self.monitor_type = m.get('MonitorType')
         if m.get('OrderState') is not None:
             self.order_state = m.get('OrderState')
         if m.get('Region') is not None:
@@ -1289,6 +1560,8 @@ class DescribeInstancesResponseBodyInstances(TeaModel):
             self.resource_create_time = m.get('ResourceCreateTime')
         if m.get('ResourceExpiredTime') is not None:
             self.resource_expired_time = m.get('ResourceExpiredTime')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceId') is not None:
             self.resource_id = m.get('ResourceId')
         if m.get('ResourceSpec') is not None:
@@ -1442,7 +1715,9 @@ class DescribeNamespacesRequestTags(TeaModel):
 
 
 class DescribeNamespacesRequest(TeaModel):
-    def __init__(self, instance_id=None, namespace=None, page_index=None, page_size=None, region=None, tags=None):
+    def __init__(self, ha=None, instance_id=None, namespace=None, page_index=None, page_size=None, region=None,
+                 tags=None):
+        self.ha = ha  # type: bool
         self.instance_id = instance_id  # type: str
         self.namespace = namespace  # type: str
         self.page_index = page_index  # type: int
@@ -1462,6 +1737,8 @@ class DescribeNamespacesRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.ha is not None:
+            result['Ha'] = self.ha
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
         if self.namespace is not None:
@@ -1480,6 +1757,8 @@ class DescribeNamespacesRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Ha') is not None:
+            self.ha = m.get('Ha')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
         if m.get('Namespace') is not None:
@@ -1499,8 +1778,9 @@ class DescribeNamespacesRequest(TeaModel):
 
 
 class DescribeNamespacesShrinkRequest(TeaModel):
-    def __init__(self, instance_id=None, namespace=None, page_index=None, page_size=None, region=None,
+    def __init__(self, ha=None, instance_id=None, namespace=None, page_index=None, page_size=None, region=None,
                  tags_shrink=None):
+        self.ha = ha  # type: bool
         self.instance_id = instance_id  # type: str
         self.namespace = namespace  # type: str
         self.page_index = page_index  # type: int
@@ -1517,6 +1797,8 @@ class DescribeNamespacesShrinkRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.ha is not None:
+            result['Ha'] = self.ha
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
         if self.namespace is not None:
@@ -1533,6 +1815,8 @@ class DescribeNamespacesShrinkRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Ha') is not None:
+            self.ha = m.get('Ha')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
         if m.get('Namespace') is not None:
@@ -1578,8 +1862,9 @@ class DescribeNamespacesResponseBodyNamespacesResourceSpec(TeaModel):
 
 
 class DescribeNamespacesResponseBodyNamespacesResourceUsed(TeaModel):
-    def __init__(self, cpu=None, memory_gb=None):
+    def __init__(self, cpu=None, cu=None, memory_gb=None):
         self.cpu = cpu  # type: float
+        self.cu = cu  # type: float
         self.memory_gb = memory_gb  # type: float
 
     def validate(self):
@@ -1593,6 +1878,8 @@ class DescribeNamespacesResponseBodyNamespacesResourceUsed(TeaModel):
         result = dict()
         if self.cpu is not None:
             result['Cpu'] = self.cpu
+        if self.cu is not None:
+            result['Cu'] = self.cu
         if self.memory_gb is not None:
             result['MemoryGB'] = self.memory_gb
         return result
@@ -1601,6 +1888,8 @@ class DescribeNamespacesResponseBodyNamespacesResourceUsed(TeaModel):
         m = m or dict()
         if m.get('Cpu') is not None:
             self.cpu = m.get('Cpu')
+        if m.get('Cu') is not None:
+            self.cu = m.get('Cu')
         if m.get('MemoryGB') is not None:
             self.memory_gb = m.get('MemoryGB')
         return self
@@ -1636,10 +1925,11 @@ class DescribeNamespacesResponseBodyNamespacesTags(TeaModel):
 
 
 class DescribeNamespacesResponseBodyNamespaces(TeaModel):
-    def __init__(self, gmt_create=None, gmt_modified=None, namespace=None, resource_spec=None, resource_used=None,
-                 status=None, tags=None):
+    def __init__(self, gmt_create=None, gmt_modified=None, ha=None, namespace=None, resource_spec=None,
+                 resource_used=None, status=None, tags=None):
         self.gmt_create = gmt_create  # type: long
         self.gmt_modified = gmt_modified  # type: long
+        self.ha = ha  # type: bool
         self.namespace = namespace  # type: str
         self.resource_spec = resource_spec  # type: DescribeNamespacesResponseBodyNamespacesResourceSpec
         self.resource_used = resource_used  # type: DescribeNamespacesResponseBodyNamespacesResourceUsed
@@ -1666,6 +1956,8 @@ class DescribeNamespacesResponseBodyNamespaces(TeaModel):
             result['GmtCreate'] = self.gmt_create
         if self.gmt_modified is not None:
             result['GmtModified'] = self.gmt_modified
+        if self.ha is not None:
+            result['Ha'] = self.ha
         if self.namespace is not None:
             result['Namespace'] = self.namespace
         if self.resource_spec is not None:
@@ -1686,6 +1978,8 @@ class DescribeNamespacesResponseBodyNamespaces(TeaModel):
             self.gmt_create = m.get('GmtCreate')
         if m.get('GmtModified') is not None:
             self.gmt_modified = m.get('GmtModified')
+        if m.get('Ha') is not None:
+            self.ha = m.get('Ha')
         if m.get('Namespace') is not None:
             self.namespace = m.get('Namespace')
         if m.get('ResourceSpec') is not None:
@@ -1932,7 +2226,8 @@ class DescribeSupportedRegionsResponse(TeaModel):
 
 
 class DescribeSupportedZonesRequest(TeaModel):
-    def __init__(self, region=None):
+    def __init__(self, architecture_type=None, region=None):
+        self.architecture_type = architecture_type  # type: str
         self.region = region  # type: str
 
     def validate(self):
@@ -1944,12 +2239,16 @@ class DescribeSupportedZonesRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.architecture_type is not None:
+            result['ArchitectureType'] = self.architecture_type
         if self.region is not None:
             result['Region'] = self.region
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ArchitectureType') is not None:
+            self.architecture_type = m.get('ArchitectureType')
         if m.get('Region') is not None:
             self.region = m.get('Region')
         return self
@@ -2254,6 +2553,35 @@ class ListTagResourcesResponse(TeaModel):
         return self
 
 
+class ModifyPrepayInstanceSpecRequestHaResourceSpec(TeaModel):
+    def __init__(self, cpu=None, memory_gb=None):
+        self.cpu = cpu  # type: int
+        self.memory_gb = memory_gb  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyPrepayInstanceSpecRequestHaResourceSpec, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cpu is not None:
+            result['Cpu'] = self.cpu
+        if self.memory_gb is not None:
+            result['MemoryGB'] = self.memory_gb
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Cpu') is not None:
+            self.cpu = m.get('Cpu')
+        if m.get('MemoryGB') is not None:
+            self.memory_gb = m.get('MemoryGB')
+        return self
+
+
 class ModifyPrepayInstanceSpecRequestResourceSpec(TeaModel):
     def __init__(self, cpu=None, memory_gb=None):
         self.cpu = cpu  # type: int
@@ -2284,12 +2612,19 @@ class ModifyPrepayInstanceSpecRequestResourceSpec(TeaModel):
 
 
 class ModifyPrepayInstanceSpecRequest(TeaModel):
-    def __init__(self, instance_id=None, region=None, resource_spec=None):
+    def __init__(self, ha=None, ha_resource_spec=None, ha_vswitch_ids=None, ha_zone_id=None, instance_id=None,
+                 region=None, resource_spec=None):
+        self.ha = ha  # type: bool
+        self.ha_resource_spec = ha_resource_spec  # type: ModifyPrepayInstanceSpecRequestHaResourceSpec
+        self.ha_vswitch_ids = ha_vswitch_ids  # type: list[str]
+        self.ha_zone_id = ha_zone_id  # type: str
         self.instance_id = instance_id  # type: str
         self.region = region  # type: str
         self.resource_spec = resource_spec  # type: ModifyPrepayInstanceSpecRequestResourceSpec
 
     def validate(self):
+        if self.ha_resource_spec:
+            self.ha_resource_spec.validate()
         if self.resource_spec:
             self.resource_spec.validate()
 
@@ -2299,6 +2634,14 @@ class ModifyPrepayInstanceSpecRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.ha is not None:
+            result['Ha'] = self.ha
+        if self.ha_resource_spec is not None:
+            result['HaResourceSpec'] = self.ha_resource_spec.to_map()
+        if self.ha_vswitch_ids is not None:
+            result['HaVSwitchIds'] = self.ha_vswitch_ids
+        if self.ha_zone_id is not None:
+            result['HaZoneId'] = self.ha_zone_id
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
         if self.region is not None:
@@ -2309,6 +2652,15 @@ class ModifyPrepayInstanceSpecRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Ha') is not None:
+            self.ha = m.get('Ha')
+        if m.get('HaResourceSpec') is not None:
+            temp_model = ModifyPrepayInstanceSpecRequestHaResourceSpec()
+            self.ha_resource_spec = temp_model.from_map(m['HaResourceSpec'])
+        if m.get('HaVSwitchIds') is not None:
+            self.ha_vswitch_ids = m.get('HaVSwitchIds')
+        if m.get('HaZoneId') is not None:
+            self.ha_zone_id = m.get('HaZoneId')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
         if m.get('Region') is not None:
@@ -2320,7 +2672,12 @@ class ModifyPrepayInstanceSpecRequest(TeaModel):
 
 
 class ModifyPrepayInstanceSpecShrinkRequest(TeaModel):
-    def __init__(self, instance_id=None, region=None, resource_spec_shrink=None):
+    def __init__(self, ha=None, ha_resource_spec_shrink=None, ha_vswitch_ids_shrink=None, ha_zone_id=None,
+                 instance_id=None, region=None, resource_spec_shrink=None):
+        self.ha = ha  # type: bool
+        self.ha_resource_spec_shrink = ha_resource_spec_shrink  # type: str
+        self.ha_vswitch_ids_shrink = ha_vswitch_ids_shrink  # type: str
+        self.ha_zone_id = ha_zone_id  # type: str
         self.instance_id = instance_id  # type: str
         self.region = region  # type: str
         self.resource_spec_shrink = resource_spec_shrink  # type: str
@@ -2334,6 +2691,14 @@ class ModifyPrepayInstanceSpecShrinkRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.ha is not None:
+            result['Ha'] = self.ha
+        if self.ha_resource_spec_shrink is not None:
+            result['HaResourceSpec'] = self.ha_resource_spec_shrink
+        if self.ha_vswitch_ids_shrink is not None:
+            result['HaVSwitchIds'] = self.ha_vswitch_ids_shrink
+        if self.ha_zone_id is not None:
+            result['HaZoneId'] = self.ha_zone_id
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
         if self.region is not None:
@@ -2344,6 +2709,14 @@ class ModifyPrepayInstanceSpecShrinkRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Ha') is not None:
+            self.ha = m.get('Ha')
+        if m.get('HaResourceSpec') is not None:
+            self.ha_resource_spec_shrink = m.get('HaResourceSpec')
+        if m.get('HaVSwitchIds') is not None:
+            self.ha_vswitch_ids_shrink = m.get('HaVSwitchIds')
+        if m.get('HaZoneId') is not None:
+            self.ha_zone_id = m.get('HaZoneId')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
         if m.get('Region') is not None:
@@ -2982,6 +3355,35 @@ class QueryConvertInstancePriceResponse(TeaModel):
         return self
 
 
+class QueryCreateInstancePriceRequestHaResourceSpec(TeaModel):
+    def __init__(self, cpu=None, memory_gb=None):
+        self.cpu = cpu  # type: int
+        self.memory_gb = memory_gb  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryCreateInstancePriceRequestHaResourceSpec, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cpu is not None:
+            result['Cpu'] = self.cpu
+        if self.memory_gb is not None:
+            result['MemoryGB'] = self.memory_gb
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Cpu') is not None:
+            self.cpu = m.get('Cpu')
+        if m.get('MemoryGB') is not None:
+            self.memory_gb = m.get('MemoryGB')
+        return self
+
+
 class QueryCreateInstancePriceRequestResourceSpec(TeaModel):
     def __init__(self, cpu=None, memory_gb=None):
         self.cpu = cpu  # type: int
@@ -3062,22 +3464,30 @@ class QueryCreateInstancePriceRequestStorage(TeaModel):
 
 
 class QueryCreateInstancePriceRequest(TeaModel):
-    def __init__(self, auto_renew=None, charge_type=None, duration=None, instance_name=None, pricing_cycle=None,
-                 promotion_code=None, region=None, resource_spec=None, storage=None, v_switch_ids=None, vpc_id=None, zone_id=None):
+    def __init__(self, architecture_type=None, auto_renew=None, charge_type=None, duration=None, extra=None, ha=None,
+                 ha_resource_spec=None, instance_name=None, pricing_cycle=None, promotion_code=None, region=None, resource_spec=None,
+                 storage=None, use_promotion_code=None, v_switch_ids=None, vpc_id=None, zone_id=None):
+        self.architecture_type = architecture_type  # type: str
         self.auto_renew = auto_renew  # type: bool
         self.charge_type = charge_type  # type: str
         self.duration = duration  # type: int
+        self.extra = extra  # type: str
+        self.ha = ha  # type: bool
+        self.ha_resource_spec = ha_resource_spec  # type: QueryCreateInstancePriceRequestHaResourceSpec
         self.instance_name = instance_name  # type: str
         self.pricing_cycle = pricing_cycle  # type: str
         self.promotion_code = promotion_code  # type: str
         self.region = region  # type: str
         self.resource_spec = resource_spec  # type: QueryCreateInstancePriceRequestResourceSpec
         self.storage = storage  # type: QueryCreateInstancePriceRequestStorage
+        self.use_promotion_code = use_promotion_code  # type: bool
         self.v_switch_ids = v_switch_ids  # type: list[str]
         self.vpc_id = vpc_id  # type: str
         self.zone_id = zone_id  # type: str
 
     def validate(self):
+        if self.ha_resource_spec:
+            self.ha_resource_spec.validate()
         if self.resource_spec:
             self.resource_spec.validate()
         if self.storage:
@@ -3089,12 +3499,20 @@ class QueryCreateInstancePriceRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.architecture_type is not None:
+            result['ArchitectureType'] = self.architecture_type
         if self.auto_renew is not None:
             result['AutoRenew'] = self.auto_renew
         if self.charge_type is not None:
             result['ChargeType'] = self.charge_type
         if self.duration is not None:
             result['Duration'] = self.duration
+        if self.extra is not None:
+            result['Extra'] = self.extra
+        if self.ha is not None:
+            result['Ha'] = self.ha
+        if self.ha_resource_spec is not None:
+            result['HaResourceSpec'] = self.ha_resource_spec.to_map()
         if self.instance_name is not None:
             result['InstanceName'] = self.instance_name
         if self.pricing_cycle is not None:
@@ -3107,6 +3525,8 @@ class QueryCreateInstancePriceRequest(TeaModel):
             result['ResourceSpec'] = self.resource_spec.to_map()
         if self.storage is not None:
             result['Storage'] = self.storage.to_map()
+        if self.use_promotion_code is not None:
+            result['UsePromotionCode'] = self.use_promotion_code
         if self.v_switch_ids is not None:
             result['VSwitchIds'] = self.v_switch_ids
         if self.vpc_id is not None:
@@ -3117,12 +3537,21 @@ class QueryCreateInstancePriceRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ArchitectureType') is not None:
+            self.architecture_type = m.get('ArchitectureType')
         if m.get('AutoRenew') is not None:
             self.auto_renew = m.get('AutoRenew')
         if m.get('ChargeType') is not None:
             self.charge_type = m.get('ChargeType')
         if m.get('Duration') is not None:
             self.duration = m.get('Duration')
+        if m.get('Extra') is not None:
+            self.extra = m.get('Extra')
+        if m.get('Ha') is not None:
+            self.ha = m.get('Ha')
+        if m.get('HaResourceSpec') is not None:
+            temp_model = QueryCreateInstancePriceRequestHaResourceSpec()
+            self.ha_resource_spec = temp_model.from_map(m['HaResourceSpec'])
         if m.get('InstanceName') is not None:
             self.instance_name = m.get('InstanceName')
         if m.get('PricingCycle') is not None:
@@ -3137,6 +3566,8 @@ class QueryCreateInstancePriceRequest(TeaModel):
         if m.get('Storage') is not None:
             temp_model = QueryCreateInstancePriceRequestStorage()
             self.storage = temp_model.from_map(m['Storage'])
+        if m.get('UsePromotionCode') is not None:
+            self.use_promotion_code = m.get('UsePromotionCode')
         if m.get('VSwitchIds') is not None:
             self.v_switch_ids = m.get('VSwitchIds')
         if m.get('VpcId') is not None:
@@ -3147,18 +3578,24 @@ class QueryCreateInstancePriceRequest(TeaModel):
 
 
 class QueryCreateInstancePriceShrinkRequest(TeaModel):
-    def __init__(self, auto_renew=None, charge_type=None, duration=None, instance_name=None, pricing_cycle=None,
-                 promotion_code=None, region=None, resource_spec_shrink=None, storage_shrink=None, v_switch_ids_shrink=None,
-                 vpc_id=None, zone_id=None):
+    def __init__(self, architecture_type=None, auto_renew=None, charge_type=None, duration=None, extra=None, ha=None,
+                 ha_resource_spec_shrink=None, instance_name=None, pricing_cycle=None, promotion_code=None, region=None,
+                 resource_spec_shrink=None, storage_shrink=None, use_promotion_code=None, v_switch_ids_shrink=None, vpc_id=None,
+                 zone_id=None):
+        self.architecture_type = architecture_type  # type: str
         self.auto_renew = auto_renew  # type: bool
         self.charge_type = charge_type  # type: str
         self.duration = duration  # type: int
+        self.extra = extra  # type: str
+        self.ha = ha  # type: bool
+        self.ha_resource_spec_shrink = ha_resource_spec_shrink  # type: str
         self.instance_name = instance_name  # type: str
         self.pricing_cycle = pricing_cycle  # type: str
         self.promotion_code = promotion_code  # type: str
         self.region = region  # type: str
         self.resource_spec_shrink = resource_spec_shrink  # type: str
         self.storage_shrink = storage_shrink  # type: str
+        self.use_promotion_code = use_promotion_code  # type: bool
         self.v_switch_ids_shrink = v_switch_ids_shrink  # type: str
         self.vpc_id = vpc_id  # type: str
         self.zone_id = zone_id  # type: str
@@ -3172,12 +3609,20 @@ class QueryCreateInstancePriceShrinkRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.architecture_type is not None:
+            result['ArchitectureType'] = self.architecture_type
         if self.auto_renew is not None:
             result['AutoRenew'] = self.auto_renew
         if self.charge_type is not None:
             result['ChargeType'] = self.charge_type
         if self.duration is not None:
             result['Duration'] = self.duration
+        if self.extra is not None:
+            result['Extra'] = self.extra
+        if self.ha is not None:
+            result['Ha'] = self.ha
+        if self.ha_resource_spec_shrink is not None:
+            result['HaResourceSpec'] = self.ha_resource_spec_shrink
         if self.instance_name is not None:
             result['InstanceName'] = self.instance_name
         if self.pricing_cycle is not None:
@@ -3190,6 +3635,8 @@ class QueryCreateInstancePriceShrinkRequest(TeaModel):
             result['ResourceSpec'] = self.resource_spec_shrink
         if self.storage_shrink is not None:
             result['Storage'] = self.storage_shrink
+        if self.use_promotion_code is not None:
+            result['UsePromotionCode'] = self.use_promotion_code
         if self.v_switch_ids_shrink is not None:
             result['VSwitchIds'] = self.v_switch_ids_shrink
         if self.vpc_id is not None:
@@ -3200,12 +3647,20 @@ class QueryCreateInstancePriceShrinkRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ArchitectureType') is not None:
+            self.architecture_type = m.get('ArchitectureType')
         if m.get('AutoRenew') is not None:
             self.auto_renew = m.get('AutoRenew')
         if m.get('ChargeType') is not None:
             self.charge_type = m.get('ChargeType')
         if m.get('Duration') is not None:
             self.duration = m.get('Duration')
+        if m.get('Extra') is not None:
+            self.extra = m.get('Extra')
+        if m.get('Ha') is not None:
+            self.ha = m.get('Ha')
+        if m.get('HaResourceSpec') is not None:
+            self.ha_resource_spec_shrink = m.get('HaResourceSpec')
         if m.get('InstanceName') is not None:
             self.instance_name = m.get('InstanceName')
         if m.get('PricingCycle') is not None:
@@ -3218,6 +3673,8 @@ class QueryCreateInstancePriceShrinkRequest(TeaModel):
             self.resource_spec_shrink = m.get('ResourceSpec')
         if m.get('Storage') is not None:
             self.storage_shrink = m.get('Storage')
+        if m.get('UsePromotionCode') is not None:
+            self.use_promotion_code = m.get('UsePromotionCode')
         if m.get('VSwitchIds') is not None:
             self.v_switch_ids_shrink = m.get('VSwitchIds')
         if m.get('VpcId') is not None:
@@ -3444,6 +3901,35 @@ class QueryCreateInstancePriceResponse(TeaModel):
         return self
 
 
+class QueryModifyInstancePriceRequestHaResourceSpec(TeaModel):
+    def __init__(self, cpu=None, memory_gb=None):
+        self.cpu = cpu  # type: int
+        self.memory_gb = memory_gb  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryModifyInstancePriceRequestHaResourceSpec, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cpu is not None:
+            result['Cpu'] = self.cpu
+        if self.memory_gb is not None:
+            result['MemoryGB'] = self.memory_gb
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Cpu') is not None:
+            self.cpu = m.get('Cpu')
+        if m.get('MemoryGB') is not None:
+            self.memory_gb = m.get('MemoryGB')
+        return self
+
+
 class QueryModifyInstancePriceRequestResourceSpec(TeaModel):
     def __init__(self, cpu=None, memory_gb=None):
         self.cpu = cpu  # type: int
@@ -3474,12 +3960,19 @@ class QueryModifyInstancePriceRequestResourceSpec(TeaModel):
 
 
 class QueryModifyInstancePriceRequest(TeaModel):
-    def __init__(self, instance_id=None, region=None, resource_spec=None):
+    def __init__(self, ha=None, ha_resource_spec=None, ha_vswitch_ids=None, ha_zone_id=None, instance_id=None,
+                 region=None, resource_spec=None):
+        self.ha = ha  # type: bool
+        self.ha_resource_spec = ha_resource_spec  # type: QueryModifyInstancePriceRequestHaResourceSpec
+        self.ha_vswitch_ids = ha_vswitch_ids  # type: list[str]
+        self.ha_zone_id = ha_zone_id  # type: str
         self.instance_id = instance_id  # type: str
         self.region = region  # type: str
         self.resource_spec = resource_spec  # type: QueryModifyInstancePriceRequestResourceSpec
 
     def validate(self):
+        if self.ha_resource_spec:
+            self.ha_resource_spec.validate()
         if self.resource_spec:
             self.resource_spec.validate()
 
@@ -3489,6 +3982,14 @@ class QueryModifyInstancePriceRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.ha is not None:
+            result['Ha'] = self.ha
+        if self.ha_resource_spec is not None:
+            result['HaResourceSpec'] = self.ha_resource_spec.to_map()
+        if self.ha_vswitch_ids is not None:
+            result['HaVSwitchIds'] = self.ha_vswitch_ids
+        if self.ha_zone_id is not None:
+            result['HaZoneId'] = self.ha_zone_id
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
         if self.region is not None:
@@ -3499,6 +4000,15 @@ class QueryModifyInstancePriceRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Ha') is not None:
+            self.ha = m.get('Ha')
+        if m.get('HaResourceSpec') is not None:
+            temp_model = QueryModifyInstancePriceRequestHaResourceSpec()
+            self.ha_resource_spec = temp_model.from_map(m['HaResourceSpec'])
+        if m.get('HaVSwitchIds') is not None:
+            self.ha_vswitch_ids = m.get('HaVSwitchIds')
+        if m.get('HaZoneId') is not None:
+            self.ha_zone_id = m.get('HaZoneId')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
         if m.get('Region') is not None:
@@ -3510,7 +4020,12 @@ class QueryModifyInstancePriceRequest(TeaModel):
 
 
 class QueryModifyInstancePriceShrinkRequest(TeaModel):
-    def __init__(self, instance_id=None, region=None, resource_spec_shrink=None):
+    def __init__(self, ha=None, ha_resource_spec_shrink=None, ha_vswitch_ids_shrink=None, ha_zone_id=None,
+                 instance_id=None, region=None, resource_spec_shrink=None):
+        self.ha = ha  # type: bool
+        self.ha_resource_spec_shrink = ha_resource_spec_shrink  # type: str
+        self.ha_vswitch_ids_shrink = ha_vswitch_ids_shrink  # type: str
+        self.ha_zone_id = ha_zone_id  # type: str
         self.instance_id = instance_id  # type: str
         self.region = region  # type: str
         self.resource_spec_shrink = resource_spec_shrink  # type: str
@@ -3524,6 +4039,14 @@ class QueryModifyInstancePriceShrinkRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.ha is not None:
+            result['Ha'] = self.ha
+        if self.ha_resource_spec_shrink is not None:
+            result['HaResourceSpec'] = self.ha_resource_spec_shrink
+        if self.ha_vswitch_ids_shrink is not None:
+            result['HaVSwitchIds'] = self.ha_vswitch_ids_shrink
+        if self.ha_zone_id is not None:
+            result['HaZoneId'] = self.ha_zone_id
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
         if self.region is not None:
@@ -3534,6 +4057,14 @@ class QueryModifyInstancePriceShrinkRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Ha') is not None:
+            self.ha = m.get('Ha')
+        if m.get('HaResourceSpec') is not None:
+            self.ha_resource_spec_shrink = m.get('HaResourceSpec')
+        if m.get('HaVSwitchIds') is not None:
+            self.ha_vswitch_ids_shrink = m.get('HaVSwitchIds')
+        if m.get('HaZoneId') is not None:
+            self.ha_zone_id = m.get('HaZoneId')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
         if m.get('Region') is not None:
