@@ -10282,6 +10282,213 @@ class DiagnoseInstanceResponse(TeaModel):
         return self
 
 
+class DisableKibanaPvlNetworkResponseBody(TeaModel):
+    def __init__(self, request_id=None, result=None):
+        # request id
+        self.request_id = request_id  # type: str
+        self.result = result  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DisableKibanaPvlNetworkResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.result is not None:
+            result['Result'] = self.result
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Result') is not None:
+            self.result = m.get('Result')
+        return self
+
+
+class DisableKibanaPvlNetworkResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DisableKibanaPvlNetworkResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DisableKibanaPvlNetworkResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DisableKibanaPvlNetworkResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class EnableKibanaPvlNetworkRequestVSwitchIdsZone(TeaModel):
+    def __init__(self, vswitch_id=None, zone_id=None):
+        self.vswitch_id = vswitch_id  # type: str
+        self.zone_id = zone_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(EnableKibanaPvlNetworkRequestVSwitchIdsZone, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.vswitch_id is not None:
+            result['vswitchId'] = self.vswitch_id
+        if self.zone_id is not None:
+            result['zoneId'] = self.zone_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('vswitchId') is not None:
+            self.vswitch_id = m.get('vswitchId')
+        if m.get('zoneId') is not None:
+            self.zone_id = m.get('zoneId')
+        return self
+
+
+class EnableKibanaPvlNetworkRequest(TeaModel):
+    def __init__(self, endpoint_name=None, security_groups=None, v_switch_ids_zone=None, vpc_id=None):
+        self.endpoint_name = endpoint_name  # type: str
+        self.security_groups = security_groups  # type: list[str]
+        self.v_switch_ids_zone = v_switch_ids_zone  # type: list[EnableKibanaPvlNetworkRequestVSwitchIdsZone]
+        self.vpc_id = vpc_id  # type: str
+
+    def validate(self):
+        if self.v_switch_ids_zone:
+            for k in self.v_switch_ids_zone:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(EnableKibanaPvlNetworkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.endpoint_name is not None:
+            result['endpointName'] = self.endpoint_name
+        if self.security_groups is not None:
+            result['securityGroups'] = self.security_groups
+        result['vSwitchIdsZone'] = []
+        if self.v_switch_ids_zone is not None:
+            for k in self.v_switch_ids_zone:
+                result['vSwitchIdsZone'].append(k.to_map() if k else None)
+        if self.vpc_id is not None:
+            result['vpcId'] = self.vpc_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('endpointName') is not None:
+            self.endpoint_name = m.get('endpointName')
+        if m.get('securityGroups') is not None:
+            self.security_groups = m.get('securityGroups')
+        self.v_switch_ids_zone = []
+        if m.get('vSwitchIdsZone') is not None:
+            for k in m.get('vSwitchIdsZone'):
+                temp_model = EnableKibanaPvlNetworkRequestVSwitchIdsZone()
+                self.v_switch_ids_zone.append(temp_model.from_map(k))
+        if m.get('vpcId') is not None:
+            self.vpc_id = m.get('vpcId')
+        return self
+
+
+class EnableKibanaPvlNetworkResponseBody(TeaModel):
+    def __init__(self, request_id=None, result=None):
+        self.request_id = request_id  # type: str
+        self.result = result  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(EnableKibanaPvlNetworkResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.result is not None:
+            result['Result'] = self.result
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Result') is not None:
+            self.result = m.get('Result')
+        return self
+
+
+class EnableKibanaPvlNetworkResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: EnableKibanaPvlNetworkResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(EnableKibanaPvlNetworkResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = EnableKibanaPvlNetworkResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class EstimatedLogstashRestartTimeRequest(TeaModel):
     def __init__(self, body=None, force=None):
         self.body = body  # type: str
@@ -20801,6 +21008,177 @@ class ListKibanaPluginsResponse(TeaModel):
         return self
 
 
+class ListKibanaPvlNetworkResponseBodyResultVSwitchIdsZone(TeaModel):
+    def __init__(self, vswitch_id=None, zone_id=None):
+        self.vswitch_id = vswitch_id  # type: str
+        self.zone_id = zone_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListKibanaPvlNetworkResponseBodyResultVSwitchIdsZone, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.vswitch_id is not None:
+            result['vswitchId'] = self.vswitch_id
+        if self.zone_id is not None:
+            result['zoneId'] = self.zone_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('vswitchId') is not None:
+            self.vswitch_id = m.get('vswitchId')
+        if m.get('zoneId') is not None:
+            self.zone_id = m.get('zoneId')
+        return self
+
+
+class ListKibanaPvlNetworkResponseBodyResult(TeaModel):
+    def __init__(self, create_time=None, endpoint_id=None, endpoint_name=None, endpoint_status=None, pvl_id=None,
+                 security_groups=None, v_switch_ids_zone=None, vpc_id=None):
+        self.create_time = create_time  # type: str
+        self.endpoint_id = endpoint_id  # type: str
+        self.endpoint_name = endpoint_name  # type: str
+        self.endpoint_status = endpoint_status  # type: str
+        self.pvl_id = pvl_id  # type: str
+        self.security_groups = security_groups  # type: list[str]
+        self.v_switch_ids_zone = v_switch_ids_zone  # type: list[ListKibanaPvlNetworkResponseBodyResultVSwitchIdsZone]
+        self.vpc_id = vpc_id  # type: str
+
+    def validate(self):
+        if self.v_switch_ids_zone:
+            for k in self.v_switch_ids_zone:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListKibanaPvlNetworkResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.create_time is not None:
+            result['createTime'] = self.create_time
+        if self.endpoint_id is not None:
+            result['endpointId'] = self.endpoint_id
+        if self.endpoint_name is not None:
+            result['endpointName'] = self.endpoint_name
+        if self.endpoint_status is not None:
+            result['endpointStatus'] = self.endpoint_status
+        if self.pvl_id is not None:
+            result['pvlId'] = self.pvl_id
+        if self.security_groups is not None:
+            result['securityGroups'] = self.security_groups
+        result['vSwitchIdsZone'] = []
+        if self.v_switch_ids_zone is not None:
+            for k in self.v_switch_ids_zone:
+                result['vSwitchIdsZone'].append(k.to_map() if k else None)
+        if self.vpc_id is not None:
+            result['vpcId'] = self.vpc_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('createTime') is not None:
+            self.create_time = m.get('createTime')
+        if m.get('endpointId') is not None:
+            self.endpoint_id = m.get('endpointId')
+        if m.get('endpointName') is not None:
+            self.endpoint_name = m.get('endpointName')
+        if m.get('endpointStatus') is not None:
+            self.endpoint_status = m.get('endpointStatus')
+        if m.get('pvlId') is not None:
+            self.pvl_id = m.get('pvlId')
+        if m.get('securityGroups') is not None:
+            self.security_groups = m.get('securityGroups')
+        self.v_switch_ids_zone = []
+        if m.get('vSwitchIdsZone') is not None:
+            for k in m.get('vSwitchIdsZone'):
+                temp_model = ListKibanaPvlNetworkResponseBodyResultVSwitchIdsZone()
+                self.v_switch_ids_zone.append(temp_model.from_map(k))
+        if m.get('vpcId') is not None:
+            self.vpc_id = m.get('vpcId')
+        return self
+
+
+class ListKibanaPvlNetworkResponseBody(TeaModel):
+    def __init__(self, request_id=None, result=None):
+        # request id
+        self.request_id = request_id  # type: str
+        self.result = result  # type: list[ListKibanaPvlNetworkResponseBodyResult]
+
+    def validate(self):
+        if self.result:
+            for k in self.result:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListKibanaPvlNetworkResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        result['Result'] = []
+        if self.result is not None:
+            for k in self.result:
+                result['Result'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        self.result = []
+        if m.get('Result') is not None:
+            for k in m.get('Result'):
+                temp_model = ListKibanaPvlNetworkResponseBodyResult()
+                self.result.append(temp_model.from_map(k))
+        return self
+
+
+class ListKibanaPvlNetworkResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListKibanaPvlNetworkResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListKibanaPvlNetworkResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListKibanaPvlNetworkResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListLogstashRequest(TeaModel):
     def __init__(self, description=None, instance_id=None, page=None, resource_group_id=None, size=None, tags=None,
                  version=None):
@@ -31219,6 +31597,105 @@ class UpdateInstanceSettingsResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UpdateInstanceSettingsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdateKibanaPvlNetworkRequest(TeaModel):
+    def __init__(self, endpoint_name=None, security_groups=None, pvl_id=None):
+        self.endpoint_name = endpoint_name  # type: str
+        self.security_groups = security_groups  # type: list[str]
+        self.pvl_id = pvl_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateKibanaPvlNetworkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.endpoint_name is not None:
+            result['endpointName'] = self.endpoint_name
+        if self.security_groups is not None:
+            result['securityGroups'] = self.security_groups
+        if self.pvl_id is not None:
+            result['pvlId'] = self.pvl_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('endpointName') is not None:
+            self.endpoint_name = m.get('endpointName')
+        if m.get('securityGroups') is not None:
+            self.security_groups = m.get('securityGroups')
+        if m.get('pvlId') is not None:
+            self.pvl_id = m.get('pvlId')
+        return self
+
+
+class UpdateKibanaPvlNetworkResponseBody(TeaModel):
+    def __init__(self, request_id=None, result=None):
+        self.request_id = request_id  # type: str
+        self.result = result  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateKibanaPvlNetworkResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.result is not None:
+            result['Result'] = self.result
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Result') is not None:
+            self.result = m.get('Result')
+        return self
+
+
+class UpdateKibanaPvlNetworkResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateKibanaPvlNetworkResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateKibanaPvlNetworkResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateKibanaPvlNetworkResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 

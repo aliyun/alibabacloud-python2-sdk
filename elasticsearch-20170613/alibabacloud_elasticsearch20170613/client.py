@@ -1817,6 +1817,67 @@ class Client(OpenApiClient):
         headers = {}
         return self.diagnose_instance_with_options(instance_id, request, headers, runtime)
 
+    def disable_kibana_pvl_network_with_options(self, instance_id, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DisableKibanaPvlNetwork',
+            version='2017-06-13',
+            protocol='HTTPS',
+            pathname='/openapi/instances/%s/actions/disable-kibana-private' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            elasticsearch_20170613_models.DisableKibanaPvlNetworkResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def disable_kibana_pvl_network(self, instance_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.disable_kibana_pvl_network_with_options(instance_id, headers, runtime)
+
+    def enable_kibana_pvl_network_with_options(self, instance_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.endpoint_name):
+            body['endpointName'] = request.endpoint_name
+        if not UtilClient.is_unset(request.security_groups):
+            body['securityGroups'] = request.security_groups
+        if not UtilClient.is_unset(request.v_switch_ids_zone):
+            body['vSwitchIdsZone'] = request.v_switch_ids_zone
+        if not UtilClient.is_unset(request.vpc_id):
+            body['vpcId'] = request.vpc_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='EnableKibanaPvlNetwork',
+            version='2017-06-13',
+            protocol='HTTPS',
+            pathname='/openapi/instances/%s/actions/enable-kibana-private' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            elasticsearch_20170613_models.EnableKibanaPvlNetworkResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def enable_kibana_pvl_network(self, instance_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.enable_kibana_pvl_network_with_options(instance_id, request, headers, runtime)
+
     def estimated_logstash_restart_time_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -3483,6 +3544,31 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_kibana_plugins_with_options(instance_id, request, headers, runtime)
+
+    def list_kibana_pvl_network_with_options(self, instance_id, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='ListKibanaPvlNetwork',
+            version='2017-06-13',
+            protocol='HTTPS',
+            pathname='/openapi/instances/%s/actions/get-kibana-private' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            elasticsearch_20170613_models.ListKibanaPvlNetworkResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_kibana_pvl_network(self, instance_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_kibana_pvl_network_with_options(instance_id, headers, runtime)
 
     def list_logstash_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -6015,6 +6101,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_instance_settings_with_options(instance_id, request, headers, runtime)
+
+    def update_kibana_pvl_network_with_options(self, instance_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.pvl_id):
+            query['pvlId'] = request.pvl_id
+        body = {}
+        if not UtilClient.is_unset(request.endpoint_name):
+            body['endpointName'] = request.endpoint_name
+        if not UtilClient.is_unset(request.security_groups):
+            body['securityGroups'] = request.security_groups
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateKibanaPvlNetwork',
+            version='2017-06-13',
+            protocol='HTTPS',
+            pathname='/openapi/instances/%s/actions/update-kibana-private' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            elasticsearch_20170613_models.UpdateKibanaPvlNetworkResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_kibana_pvl_network(self, instance_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_kibana_pvl_network_with_options(instance_id, request, headers, runtime)
 
     def update_kibana_settings_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
