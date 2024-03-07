@@ -287,10 +287,12 @@ class GetSummaryDataResponse(TeaModel):
 
 
 class QueryCarbonTrackRequest(TeaModel):
-    def __init__(self, end_time=None, group=None, start_time=None):
+    def __init__(self, end_time=None, filter_rdaccount=None, group=None, start_time=None, uids=None):
         self.end_time = end_time  # type: str
+        self.filter_rdaccount = filter_rdaccount  # type: int
         self.group = group  # type: str
         self.start_time = start_time  # type: str
+        self.uids = uids  # type: list[str]
 
     def validate(self):
         pass
@@ -303,20 +305,72 @@ class QueryCarbonTrackRequest(TeaModel):
         result = dict()
         if self.end_time is not None:
             result['EndTime'] = self.end_time
+        if self.filter_rdaccount is not None:
+            result['FilterRDAccount'] = self.filter_rdaccount
         if self.group is not None:
             result['Group'] = self.group
         if self.start_time is not None:
             result['StartTime'] = self.start_time
+        if self.uids is not None:
+            result['Uids'] = self.uids
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
+        if m.get('FilterRDAccount') is not None:
+            self.filter_rdaccount = m.get('FilterRDAccount')
         if m.get('Group') is not None:
             self.group = m.get('Group')
         if m.get('StartTime') is not None:
             self.start_time = m.get('StartTime')
+        if m.get('Uids') is not None:
+            self.uids = m.get('Uids')
+        return self
+
+
+class QueryCarbonTrackShrinkRequest(TeaModel):
+    def __init__(self, end_time=None, filter_rdaccount=None, group=None, start_time=None, uids_shrink=None):
+        self.end_time = end_time  # type: str
+        self.filter_rdaccount = filter_rdaccount  # type: int
+        self.group = group  # type: str
+        self.start_time = start_time  # type: str
+        self.uids_shrink = uids_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryCarbonTrackShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.filter_rdaccount is not None:
+            result['FilterRDAccount'] = self.filter_rdaccount
+        if self.group is not None:
+            result['Group'] = self.group
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.uids_shrink is not None:
+            result['Uids'] = self.uids_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('FilterRDAccount') is not None:
+            self.filter_rdaccount = m.get('FilterRDAccount')
+        if m.get('Group') is not None:
+            self.group = m.get('Group')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('Uids') is not None:
+            self.uids_shrink = m.get('Uids')
         return self
 
 

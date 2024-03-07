@@ -90,15 +90,23 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_summary_data_with_options(request, runtime)
 
-    def query_carbon_track_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
+    def query_carbon_track_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = carbon_footprint_20230711_models.QueryCarbonTrackShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.uids):
+            request.uids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.uids, 'Uids', 'json')
         query = {}
         if not UtilClient.is_unset(request.end_time):
             query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.filter_rdaccount):
+            query['FilterRDAccount'] = request.filter_rdaccount
         if not UtilClient.is_unset(request.group):
             query['Group'] = request.group
         if not UtilClient.is_unset(request.start_time):
             query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.uids_shrink):
+            query['Uids'] = request.uids_shrink
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
