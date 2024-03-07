@@ -1164,3 +1164,278 @@ class CreateHpoExperimentResponse(TeaModel):
         return self
 
 
+class ListHpoExperimentsRequest(TeaModel):
+    def __init__(self, accessibility=None, creator=None, include_config_data=None, max_create_time=None,
+                 min_create_time=None, name=None, order=None, page_number=None, page_size=None, sort_by=None, status=None,
+                 workspace_id=None):
+        self.accessibility = accessibility  # type: str
+        self.creator = creator  # type: str
+        self.include_config_data = include_config_data  # type: str
+        self.max_create_time = max_create_time  # type: str
+        self.min_create_time = min_create_time  # type: str
+        self.name = name  # type: str
+        self.order = order  # type: str
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.sort_by = sort_by  # type: str
+        self.status = status  # type: str
+        self.workspace_id = workspace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListHpoExperimentsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accessibility is not None:
+            result['Accessibility'] = self.accessibility
+        if self.creator is not None:
+            result['Creator'] = self.creator
+        if self.include_config_data is not None:
+            result['IncludeConfigData'] = self.include_config_data
+        if self.max_create_time is not None:
+            result['MaxCreateTime'] = self.max_create_time
+        if self.min_create_time is not None:
+            result['MinCreateTime'] = self.min_create_time
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.order is not None:
+            result['Order'] = self.order
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.sort_by is not None:
+            result['SortBy'] = self.sort_by
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.workspace_id is not None:
+            result['WorkspaceId'] = self.workspace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Accessibility') is not None:
+            self.accessibility = m.get('Accessibility')
+        if m.get('Creator') is not None:
+            self.creator = m.get('Creator')
+        if m.get('IncludeConfigData') is not None:
+            self.include_config_data = m.get('IncludeConfigData')
+        if m.get('MaxCreateTime') is not None:
+            self.max_create_time = m.get('MaxCreateTime')
+        if m.get('MinCreateTime') is not None:
+            self.min_create_time = m.get('MinCreateTime')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Order') is not None:
+            self.order = m.get('Order')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('SortBy') is not None:
+            self.sort_by = m.get('SortBy')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('WorkspaceId') is not None:
+            self.workspace_id = m.get('WorkspaceId')
+        return self
+
+
+class ListHpoExperimentsResponseBodyExperiments(TeaModel):
+    def __init__(self, accessibility=None, config_ini=None, config_yml=None, creator=None, deleted=None,
+                 description=None, experiment_id=None, gmt_create_time=None, gmt_modified_time=None, job_type=None, name=None,
+                 search_space=None, status=None, trial_count=None, trial_status=None, workspace_id=None):
+        self.accessibility = accessibility  # type: str
+        self.config_ini = config_ini  # type: str
+        self.config_yml = config_yml  # type: str
+        self.creator = creator  # type: str
+        self.deleted = deleted  # type: bool
+        self.description = description  # type: str
+        self.experiment_id = experiment_id  # type: str
+        self.gmt_create_time = gmt_create_time  # type: str
+        self.gmt_modified_time = gmt_modified_time  # type: str
+        self.job_type = job_type  # type: str
+        self.name = name  # type: str
+        self.search_space = search_space  # type: str
+        self.status = status  # type: str
+        self.trial_count = trial_count  # type: int
+        self.trial_status = trial_status  # type: dict[str, str]
+        self.workspace_id = workspace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListHpoExperimentsResponseBodyExperiments, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accessibility is not None:
+            result['Accessibility'] = self.accessibility
+        if self.config_ini is not None:
+            result['ConfigIni'] = self.config_ini
+        if self.config_yml is not None:
+            result['ConfigYml'] = self.config_yml
+        if self.creator is not None:
+            result['Creator'] = self.creator
+        if self.deleted is not None:
+            result['Deleted'] = self.deleted
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.experiment_id is not None:
+            result['ExperimentId'] = self.experiment_id
+        if self.gmt_create_time is not None:
+            result['GmtCreateTime'] = self.gmt_create_time
+        if self.gmt_modified_time is not None:
+            result['GmtModifiedTime'] = self.gmt_modified_time
+        if self.job_type is not None:
+            result['JobType'] = self.job_type
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.search_space is not None:
+            result['SearchSpace'] = self.search_space
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.trial_count is not None:
+            result['TrialCount'] = self.trial_count
+        if self.trial_status is not None:
+            result['TrialStatus'] = self.trial_status
+        if self.workspace_id is not None:
+            result['WorkspaceId'] = self.workspace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Accessibility') is not None:
+            self.accessibility = m.get('Accessibility')
+        if m.get('ConfigIni') is not None:
+            self.config_ini = m.get('ConfigIni')
+        if m.get('ConfigYml') is not None:
+            self.config_yml = m.get('ConfigYml')
+        if m.get('Creator') is not None:
+            self.creator = m.get('Creator')
+        if m.get('Deleted') is not None:
+            self.deleted = m.get('Deleted')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('ExperimentId') is not None:
+            self.experiment_id = m.get('ExperimentId')
+        if m.get('GmtCreateTime') is not None:
+            self.gmt_create_time = m.get('GmtCreateTime')
+        if m.get('GmtModifiedTime') is not None:
+            self.gmt_modified_time = m.get('GmtModifiedTime')
+        if m.get('JobType') is not None:
+            self.job_type = m.get('JobType')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('SearchSpace') is not None:
+            self.search_space = m.get('SearchSpace')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('TrialCount') is not None:
+            self.trial_count = m.get('TrialCount')
+        if m.get('TrialStatus') is not None:
+            self.trial_status = m.get('TrialStatus')
+        if m.get('WorkspaceId') is not None:
+            self.workspace_id = m.get('WorkspaceId')
+        return self
+
+
+class ListHpoExperimentsResponseBody(TeaModel):
+    def __init__(self, code=None, detail=None, experiments=None, message=None, request_id=None, total_count=None):
+        self.code = code  # type: str
+        self.detail = detail  # type: dict[str, str]
+        self.experiments = experiments  # type: list[ListHpoExperimentsResponseBodyExperiments]
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.experiments:
+            for k in self.experiments:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListHpoExperimentsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.detail is not None:
+            result['Detail'] = self.detail
+        result['Experiments'] = []
+        if self.experiments is not None:
+            for k in self.experiments:
+                result['Experiments'].append(k.to_map() if k else None)
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Detail') is not None:
+            self.detail = m.get('Detail')
+        self.experiments = []
+        if m.get('Experiments') is not None:
+            for k in m.get('Experiments'):
+                temp_model = ListHpoExperimentsResponseBodyExperiments()
+                self.experiments.append(temp_model.from_map(k))
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class ListHpoExperimentsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListHpoExperimentsResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListHpoExperimentsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListHpoExperimentsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
