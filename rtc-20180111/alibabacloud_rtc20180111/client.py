@@ -1000,34 +1000,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_channel_users_with_options(request, runtime)
 
-    def describe_channels_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.app_id):
-            query['AppId'] = request.app_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeChannels',
-            version='2018-01-11',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            rtc_20180111_models.DescribeChannelsResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_channels(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_channels_with_options(request, runtime)
-
     def describe_end_point_event_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
