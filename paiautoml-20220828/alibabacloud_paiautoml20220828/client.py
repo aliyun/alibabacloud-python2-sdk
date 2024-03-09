@@ -144,6 +144,40 @@ class Client(OpenApiClient):
         headers = {}
         return self.get_hpo_trial_with_options(experiment_id, trial_id, headers, runtime)
 
+    def list_hpo_experiment_logs_with_options(self, experiment_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.log_name):
+            query['LogName'] = request.log_name
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListHpoExperimentLogs',
+            version='2022-08-28',
+            protocol='HTTPS',
+            pathname='/api/automl/v1/hpo/experiment/%s/logs' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(experiment_id)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_auto_ml20220828_models.ListHpoExperimentLogsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_hpo_experiment_logs(self, experiment_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_hpo_experiment_logs_with_options(experiment_id, request, headers, runtime)
+
     def list_hpo_experiments_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -195,6 +229,56 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_hpo_experiments_with_options(request, headers, runtime)
+
+    def list_hpo_trial_commands_with_options(self, experiment_id, trial_id, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='ListHpoTrialCommands',
+            version='2022-08-28',
+            protocol='HTTPS',
+            pathname='/api/automl/v1/hpo/experiment/%s/trial/%s/commands' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(experiment_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(trial_id))),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_auto_ml20220828_models.ListHpoTrialCommandsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_hpo_trial_commands(self, experiment_id, trial_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_hpo_trial_commands_with_options(experiment_id, trial_id, headers, runtime)
+
+    def list_hpo_trial_log_names_with_options(self, experiment_id, trial_id, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='ListHpoTrialLogNames',
+            version='2022-08-28',
+            protocol='HTTPS',
+            pathname='/api/automl/v1/hpo/experiment/%s/trial/%s/lognames' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(experiment_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(trial_id))),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_auto_ml20220828_models.ListHpoTrialLogNamesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_hpo_trial_log_names(self, experiment_id, trial_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_hpo_trial_log_names_with_options(experiment_id, trial_id, headers, runtime)
 
     def list_hpo_trial_logs_with_options(self, experiment_id, trial_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -352,3 +436,41 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.stop_hpo_trials_with_options(experiment_id, request, headers, runtime)
+
+    def update_hpo_experiment_with_options(self, experiment_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.accessibility):
+            body['Accessibility'] = request.accessibility
+        if not UtilClient.is_unset(request.description):
+            body['Description'] = request.description
+        if not UtilClient.is_unset(request.hpo_experiment_configuration):
+            body['HpoExperimentConfiguration'] = request.hpo_experiment_configuration
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.workspace_id):
+            body['WorkspaceId'] = request.workspace_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateHpoExperiment',
+            version='2022-08-28',
+            protocol='HTTPS',
+            pathname='/api/automl/v1/hpo/experiment/%s/update' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(experiment_id)),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_auto_ml20220828_models.UpdateHpoExperimentResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_hpo_experiment(self, experiment_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_hpo_experiment_with_options(experiment_id, request, headers, runtime)
