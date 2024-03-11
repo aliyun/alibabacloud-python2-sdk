@@ -30,71 +30,6 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
-    def delete_app_exp_metric_rule(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.delete_app_exp_metric_rule_with_options(request, headers, runtime)
-
-    def delete_app_exp_metric_rule_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.app_id):
-            query['AppId'] = request.app_id
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DeleteAppExpMetricRule',
-            version='2020-12-14',
-            protocol='HTTPS',
-            pathname='/api/config/deleteAppExpMetricRule',
-            method='POST',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            vdc_20201214_models.DeleteAppExpMetricRuleResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def delete_app_follow_call_rule(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.delete_app_follow_call_rule_with_options(request, headers, runtime)
-
-    def delete_app_follow_call_rule_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.app_id):
-            query['AppId'] = request.app_id
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DeleteAppFollowCallRule',
-            version='2020-12-14',
-            protocol='HTTPS',
-            pathname='/api/config/deleteAppFollowCallRule',
-            method='POST',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            vdc_20201214_models.DeleteAppFollowCallRuleResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_app_config(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.describe_app_config_with_options(request, headers, runtime)
-
     def describe_app_config_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -120,120 +55,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_app_exp_metric_rule(self, request):
+    def describe_app_config(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_app_exp_metric_rule_with_options(request, headers, runtime)
-
-    def describe_app_exp_metric_rule_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.app_id):
-            query['AppId'] = request.app_id
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeAppExpMetricRule',
-            version='2020-12-14',
-            protocol='HTTPS',
-            pathname='/api/config/describeAppExpMetricRule',
-            method='POST',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            vdc_20201214_models.DescribeAppExpMetricRuleResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_app_exp_metric_rule_list(self):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.describe_app_exp_metric_rule_list_with_options(headers, runtime)
-
-    def describe_app_exp_metric_rule_list_with_options(self, headers, runtime):
-        req = open_api_models.OpenApiRequest(
-            headers=headers
-        )
-        params = open_api_models.Params(
-            action='DescribeAppExpMetricRuleList',
-            version='2020-12-14',
-            protocol='HTTPS',
-            pathname='/api/config/describeAppExpMetricRuleList',
-            method='POST',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            vdc_20201214_models.DescribeAppExpMetricRuleListResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_app_follow_call_rule(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.describe_app_follow_call_rule_with_options(request, headers, runtime)
-
-    def describe_app_follow_call_rule_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.app_id):
-            query['AppId'] = request.app_id
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeAppFollowCallRule',
-            version='2020-12-14',
-            protocol='HTTPS',
-            pathname='/api/config/describeAppFollowCallRule',
-            method='POST',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            vdc_20201214_models.DescribeAppFollowCallRuleResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_app_follow_call_rule_list(self):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.describe_app_follow_call_rule_list_with_options(headers, runtime)
-
-    def describe_app_follow_call_rule_list_with_options(self, headers, runtime):
-        req = open_api_models.OpenApiRequest(
-            headers=headers
-        )
-        params = open_api_models.Params(
-            action='DescribeAppFollowCallRuleList',
-            version='2020-12-14',
-            protocol='HTTPS',
-            pathname='/api/config/describeAppFollowCallRuleList',
-            method='POST',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            vdc_20201214_models.DescribeAppFollowCallRuleListResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_call(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.describe_call_with_options(request, headers, runtime)
+        return self.describe_app_config_with_options(request, headers, runtime)
 
     def describe_call_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -270,10 +95,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_call_info(self, request):
+    def describe_call(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_call_info_with_options(request, headers, runtime)
+        return self.describe_call_with_options(request, headers, runtime)
 
     def describe_call_info_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -306,10 +131,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_call_list(self, request):
+    def describe_call_info(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_call_list_with_options(request, headers, runtime)
+        return self.describe_call_info_with_options(request, headers, runtime)
 
     def describe_call_list_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -354,44 +179,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_call_list_test(self, request):
+    def describe_call_list(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_call_list_test_with_options(request, headers, runtime)
-
-    def describe_call_list_test_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.app_id):
-            query['AppId'] = request.app_id
-        if not UtilClient.is_unset(request.end_ts):
-            query['EndTs'] = request.end_ts
-        if not UtilClient.is_unset(request.start_ts):
-            query['StartTs'] = request.start_ts
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeCallListTest',
-            version='2020-12-14',
-            protocol='HTTPS',
-            pathname='/api/call/describeCallListTest',
-            method='POST',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            vdc_20201214_models.DescribeCallListTestResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_call_user_exp(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.describe_call_user_exp_with_options(request, headers, runtime)
+        return self.describe_call_list_with_options(request, headers, runtime)
 
     def describe_call_user_exp_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -424,10 +215,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_call_user_list(self, request):
+    def describe_call_user_exp(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_call_user_list_with_options(request, headers, runtime)
+        return self.describe_call_user_exp_with_options(request, headers, runtime)
 
     def describe_call_user_list_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -472,10 +263,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_channel_area_distribution_stat_data(self, request):
+    def describe_call_user_list(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_channel_area_distribution_stat_data_with_options(request, headers, runtime)
+        return self.describe_call_user_list_with_options(request, headers, runtime)
 
     def describe_channel_area_distribution_stat_data_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -510,10 +301,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_channel_distribution_stat_data(self, request):
+    def describe_channel_area_distribution_stat_data(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_channel_distribution_stat_data_with_options(request, headers, runtime)
+        return self.describe_channel_area_distribution_stat_data_with_options(request, headers, runtime)
 
     def describe_channel_distribution_stat_data_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -548,10 +339,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_channel_join_info(self, request):
+    def describe_channel_distribution_stat_data(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_channel_join_info_with_options(request, headers, runtime)
+        return self.describe_channel_distribution_stat_data_with_options(request, headers, runtime)
 
     def describe_channel_join_info_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -584,10 +375,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_channel_overall_data(self, request):
+    def describe_channel_join_info(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_channel_overall_data_with_options(request, headers, runtime)
+        return self.describe_channel_join_info_with_options(request, headers, runtime)
 
     def describe_channel_overall_data_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -620,10 +411,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_channel_top_pub_user_list(self, request):
+    def describe_channel_overall_data(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_channel_top_pub_user_list_with_options(request, headers, runtime)
+        return self.describe_channel_overall_data_with_options(request, headers, runtime)
 
     def describe_channel_top_pub_user_list_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -656,10 +447,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_channel_user_metrics(self, request):
+    def describe_channel_top_pub_user_list(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_channel_user_metrics_with_options(request, headers, runtime)
+        return self.describe_channel_top_pub_user_list_with_options(request, headers, runtime)
 
     def describe_channel_user_metrics_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -692,10 +483,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_end_point_event_list(self, request):
+    def describe_channel_user_metrics(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_end_point_event_list_with_options(request, headers, runtime)
+        return self.describe_channel_user_metrics_with_options(request, headers, runtime)
 
     def describe_end_point_event_list_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -730,10 +521,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_end_point_metric_data(self, request):
+    def describe_end_point_event_list(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_end_point_metric_data_with_options(request, headers, runtime)
+        return self.describe_end_point_event_list_with_options(request, headers, runtime)
 
     def describe_end_point_metric_data_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -774,10 +565,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_fault_diagnosis_factor_distribution_stat(self, request):
+    def describe_end_point_metric_data(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_fault_diagnosis_factor_distribution_stat_with_options(request, headers, runtime)
+        return self.describe_end_point_metric_data_with_options(request, headers, runtime)
 
     def describe_fault_diagnosis_factor_distribution_stat_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -808,10 +599,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_fault_diagnosis_overall_data(self, request):
+    def describe_fault_diagnosis_factor_distribution_stat(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_fault_diagnosis_overall_data_with_options(request, headers, runtime)
+        return self.describe_fault_diagnosis_factor_distribution_stat_with_options(request, headers, runtime)
 
     def describe_fault_diagnosis_overall_data_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -844,10 +635,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_fault_diagnosis_user_detail(self, request):
+    def describe_fault_diagnosis_overall_data(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_fault_diagnosis_user_detail_with_options(request, headers, runtime)
+        return self.describe_fault_diagnosis_overall_data_with_options(request, headers, runtime)
 
     def describe_fault_diagnosis_user_detail_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -884,10 +675,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_fault_diagnosis_user_list(self, request):
+    def describe_fault_diagnosis_user_detail(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_fault_diagnosis_user_list_with_options(request, headers, runtime)
+        return self.describe_fault_diagnosis_user_detail_with_options(request, headers, runtime)
 
     def describe_fault_diagnosis_user_list_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -928,10 +719,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_ice_dur_period_by_day_sub_type(self, request):
+    def describe_fault_diagnosis_user_list(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_ice_dur_period_by_day_sub_type_with_options(request, headers, runtime)
+        return self.describe_fault_diagnosis_user_list_with_options(request, headers, runtime)
 
     def describe_ice_dur_period_by_day_sub_type_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -964,10 +755,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_ice_dur_summary_overview(self, request):
+    def describe_ice_dur_period_by_day_sub_type(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_ice_dur_summary_overview_with_options(request, headers, runtime)
+        return self.describe_ice_dur_period_by_day_sub_type_with_options(request, headers, runtime)
 
     def describe_ice_dur_summary_overview_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -996,10 +787,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_pub_user_list_by_sub_user(self, request):
+    def describe_ice_dur_summary_overview(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_pub_user_list_by_sub_user_with_options(request, headers, runtime)
+        return self.describe_ice_dur_summary_overview_with_options(request, headers, runtime)
 
     def describe_pub_user_list_by_sub_user_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1034,10 +825,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_qoe_metric_data(self, request):
+    def describe_pub_user_list_by_sub_user(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_qoe_metric_data_with_options(request, headers, runtime)
+        return self.describe_pub_user_list_by_sub_user_with_options(request, headers, runtime)
 
     def describe_qoe_metric_data_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1072,10 +863,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_quality_area_distribution_stat_data(self, request):
+    def describe_qoe_metric_data(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_quality_area_distribution_stat_data_with_options(request, headers, runtime)
+        return self.describe_qoe_metric_data_with_options(request, headers, runtime)
 
     def describe_quality_area_distribution_stat_data_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1108,10 +899,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_quality_distribution_stat_data(self, request):
+    def describe_quality_area_distribution_stat_data(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_quality_distribution_stat_data_with_options(request, headers, runtime)
+        return self.describe_quality_area_distribution_stat_data_with_options(request, headers, runtime)
 
     def describe_quality_distribution_stat_data_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1144,10 +935,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_quality_os_sdk_version_distribution_stat_data(self, request):
+    def describe_quality_distribution_stat_data(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_quality_os_sdk_version_distribution_stat_data_with_options(request, headers, runtime)
+        return self.describe_quality_distribution_stat_data_with_options(request, headers, runtime)
 
     def describe_quality_os_sdk_version_distribution_stat_data_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1178,10 +969,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_quality_overall_data(self, request):
+    def describe_quality_os_sdk_version_distribution_stat_data(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_quality_overall_data_with_options(request, headers, runtime)
+        return self.describe_quality_os_sdk_version_distribution_stat_data_with_options(request, headers, runtime)
 
     def describe_quality_overall_data_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1214,242 +1005,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_rtc_channel_details(self, request):
+    def describe_quality_overall_data(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_rtc_channel_details_with_options(request, headers, runtime)
-
-    def describe_rtc_channel_details_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.app_id):
-            query['AppId'] = request.app_id
-        if not UtilClient.is_unset(request.channel_id):
-            query['ChannelId'] = request.channel_id
-        if not UtilClient.is_unset(request.end_time):
-            query['EndTime'] = request.end_time
-        if not UtilClient.is_unset(request.page_no):
-            query['PageNo'] = request.page_no
-        if not UtilClient.is_unset(request.page_size):
-            query['PageSize'] = request.page_size
-        if not UtilClient.is_unset(request.start_time):
-            query['StartTime'] = request.start_time
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeRtcChannelDetails',
-            version='2020-12-14',
-            protocol='HTTPS',
-            pathname='/api/channel/describeRtcChannelDetails',
-            method='POST',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            vdc_20201214_models.DescribeRtcChannelDetailsResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_rtc_channel_list(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.describe_rtc_channel_list_with_options(request, headers, runtime)
-
-    def describe_rtc_channel_list_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.app_id):
-            query['AppId'] = request.app_id
-        if not UtilClient.is_unset(request.channel_id):
-            query['ChannelId'] = request.channel_id
-        if not UtilClient.is_unset(request.end_time):
-            query['EndTime'] = request.end_time
-        if not UtilClient.is_unset(request.page_no):
-            query['PageNo'] = request.page_no
-        if not UtilClient.is_unset(request.page_size):
-            query['PageSize'] = request.page_size
-        if not UtilClient.is_unset(request.start_time):
-            query['StartTime'] = request.start_time
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeRtcChannelList',
-            version='2020-12-14',
-            protocol='HTTPS',
-            pathname='/api/channel/describeRtcChannelList',
-            method='POST',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            vdc_20201214_models.DescribeRtcChannelListResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_rtc_channel_metric_list(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.describe_rtc_channel_metric_list_with_options(request, headers, runtime)
-
-    def describe_rtc_channel_metric_list_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.app_id):
-            query['AppId'] = request.app_id
-        if not UtilClient.is_unset(request.channel_id):
-            query['ChannelId'] = request.channel_id
-        if not UtilClient.is_unset(request.end_time):
-            query['EndTime'] = request.end_time
-        if not UtilClient.is_unset(request.pub_uid):
-            query['PubUid'] = request.pub_uid
-        if not UtilClient.is_unset(request.start_time):
-            query['StartTime'] = request.start_time
-        if not UtilClient.is_unset(request.sub_uid):
-            query['SubUid'] = request.sub_uid
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeRtcChannelMetricList',
-            version='2020-12-14',
-            protocol='HTTPS',
-            pathname='/api/call/describeRtcChannelMetricList',
-            method='POST',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            vdc_20201214_models.DescribeRtcChannelMetricListResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_rtc_channel_users(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.describe_rtc_channel_users_with_options(request, headers, runtime)
-
-    def describe_rtc_channel_users_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.app_id):
-            query['AppId'] = request.app_id
-        if not UtilClient.is_unset(request.channel_id):
-            query['ChannelId'] = request.channel_id
-        if not UtilClient.is_unset(request.page_no):
-            query['PageNo'] = request.page_no
-        if not UtilClient.is_unset(request.page_size):
-            query['PageSize'] = request.page_size
-        if not UtilClient.is_unset(request.time_point):
-            query['TimePoint'] = request.time_point
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeRtcChannelUsers',
-            version='2020-12-14',
-            protocol='HTTPS',
-            pathname='/api/channel/describeRtcChannelUsers',
-            method='POST',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            vdc_20201214_models.DescribeRtcChannelUsersResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_rtc_record_metric_data(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.describe_rtc_record_metric_data_with_options(request, headers, runtime)
-
-    def describe_rtc_record_metric_data_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.app_id):
-            query['AppId'] = request.app_id
-        if not UtilClient.is_unset(request.end_time):
-            query['EndTime'] = request.end_time
-        if not UtilClient.is_unset(request.service_area):
-            query['ServiceArea'] = request.service_area
-        if not UtilClient.is_unset(request.start_time):
-            query['StartTime'] = request.start_time
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeRtcRecordMetricData',
-            version='2020-12-14',
-            protocol='HTTPS',
-            pathname='/api/record/describeRtcRecordMetricData',
-            method='POST',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            vdc_20201214_models.DescribeRtcRecordMetricDataResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_rtc_user_event_list(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.describe_rtc_user_event_list_with_options(request, headers, runtime)
-
-    def describe_rtc_user_event_list_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.app_id):
-            query['AppId'] = request.app_id
-        if not UtilClient.is_unset(request.channel_id):
-            query['ChannelId'] = request.channel_id
-        if not UtilClient.is_unset(request.end_time):
-            query['EndTime'] = request.end_time
-        if not UtilClient.is_unset(request.start_time):
-            query['StartTime'] = request.start_time
-        if not UtilClient.is_unset(request.uid):
-            query['Uid'] = request.uid
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeRtcUserEventList',
-            version='2020-12-14',
-            protocol='HTTPS',
-            pathname='/api/call/describeRtcUserEventList',
-            method='POST',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            vdc_20201214_models.DescribeRtcUserEventListResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_usage_area_distribution_stat_data(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.describe_usage_area_distribution_stat_data_with_options(request, headers, runtime)
+        return self.describe_quality_overall_data_with_options(request, headers, runtime)
 
     def describe_usage_area_distribution_stat_data_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1482,10 +1041,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_usage_distribution_stat_data(self, request):
+    def describe_usage_area_distribution_stat_data(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_usage_distribution_stat_data_with_options(request, headers, runtime)
+        return self.describe_usage_area_distribution_stat_data_with_options(request, headers, runtime)
 
     def describe_usage_distribution_stat_data_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1518,10 +1077,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_usage_os_sdk_version_distribution_stat_data(self, request):
+    def describe_usage_distribution_stat_data(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_usage_os_sdk_version_distribution_stat_data_with_options(request, headers, runtime)
+        return self.describe_usage_distribution_stat_data_with_options(request, headers, runtime)
 
     def describe_usage_os_sdk_version_distribution_stat_data_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1552,10 +1111,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_usage_overall_data(self, request):
+    def describe_usage_os_sdk_version_distribution_stat_data(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_usage_overall_data_with_options(request, headers, runtime)
+        return self.describe_usage_os_sdk_version_distribution_stat_data_with_options(request, headers, runtime)
 
     def describe_usage_overall_data_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1588,66 +1147,7 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_app_exp_metric_rule(self, request):
+    def describe_usage_overall_data(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_app_exp_metric_rule_with_options(request, headers, runtime)
-
-    def update_app_exp_metric_rule_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.app_id):
-            query['AppId'] = request.app_id
-        if not UtilClient.is_unset(request.rule):
-            query['Rule'] = request.rule
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='UpdateAppExpMetricRule',
-            version='2020-12-14',
-            protocol='HTTPS',
-            pathname='/api/config/updateAppExpMetricRule',
-            method='POST',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            vdc_20201214_models.UpdateAppExpMetricRuleResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def update_app_follow_call_rule(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.update_app_follow_call_rule_with_options(request, headers, runtime)
-
-    def update_app_follow_call_rule_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.app_id):
-            query['AppId'] = request.app_id
-        if not UtilClient.is_unset(request.rule):
-            query['Rule'] = request.rule
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='UpdateAppFollowCallRule',
-            version='2020-12-14',
-            protocol='HTTPS',
-            pathname='/api/config/updateAppFollowCallRule',
-            method='POST',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            vdc_20201214_models.UpdateAppFollowCallRuleResponse(),
-            self.call_api(params, req, runtime)
-        )
+        return self.describe_usage_overall_data_with_options(request, headers, runtime)
