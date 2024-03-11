@@ -287,13 +287,15 @@ class GetSummaryDataResponse(TeaModel):
 
 
 class QueryCarbonTrackRequest(TeaModel):
-    def __init__(self, end_time=None, filter_rdaccount=None, group=None, start_time=None, top_num=None, uids=None):
+    def __init__(self, end_time=None, filter_rdaccount=None, group=None, start_time=None, top_num=None, uids=None,
+                 use_code=None):
         self.end_time = end_time  # type: str
         self.filter_rdaccount = filter_rdaccount  # type: int
         self.group = group  # type: str
         self.start_time = start_time  # type: str
         self.top_num = top_num  # type: int
         self.uids = uids  # type: list[str]
+        self.use_code = use_code  # type: int
 
     def validate(self):
         pass
@@ -316,6 +318,8 @@ class QueryCarbonTrackRequest(TeaModel):
             result['TopNum'] = self.top_num
         if self.uids is not None:
             result['Uids'] = self.uids
+        if self.use_code is not None:
+            result['UseCode'] = self.use_code
         return result
 
     def from_map(self, m=None):
@@ -332,18 +336,21 @@ class QueryCarbonTrackRequest(TeaModel):
             self.top_num = m.get('TopNum')
         if m.get('Uids') is not None:
             self.uids = m.get('Uids')
+        if m.get('UseCode') is not None:
+            self.use_code = m.get('UseCode')
         return self
 
 
 class QueryCarbonTrackShrinkRequest(TeaModel):
     def __init__(self, end_time=None, filter_rdaccount=None, group=None, start_time=None, top_num=None,
-                 uids_shrink=None):
+                 uids_shrink=None, use_code=None):
         self.end_time = end_time  # type: str
         self.filter_rdaccount = filter_rdaccount  # type: int
         self.group = group  # type: str
         self.start_time = start_time  # type: str
         self.top_num = top_num  # type: int
         self.uids_shrink = uids_shrink  # type: str
+        self.use_code = use_code  # type: int
 
     def validate(self):
         pass
@@ -366,6 +373,8 @@ class QueryCarbonTrackShrinkRequest(TeaModel):
             result['TopNum'] = self.top_num
         if self.uids_shrink is not None:
             result['Uids'] = self.uids_shrink
+        if self.use_code is not None:
+            result['UseCode'] = self.use_code
         return result
 
     def from_map(self, m=None):
@@ -382,6 +391,8 @@ class QueryCarbonTrackShrinkRequest(TeaModel):
             self.top_num = m.get('TopNum')
         if m.get('Uids') is not None:
             self.uids_shrink = m.get('Uids')
+        if m.get('UseCode') is not None:
+            self.use_code = m.get('UseCode')
         return self
 
 

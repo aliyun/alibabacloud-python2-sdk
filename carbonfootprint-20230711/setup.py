@@ -25,7 +25,7 @@ from setuptools import setup, find_packages
 """
 setup module for alibabacloud_carbonfootprint20230711_py2.
 
-Created on 08/03/2024
+Created on 11/03/2024
 
 @author: Alibaba Cloud SDK
 """
