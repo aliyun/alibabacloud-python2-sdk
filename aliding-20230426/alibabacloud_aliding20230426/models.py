@@ -5526,7 +5526,7 @@ class CreateEventResponseBodyAttendees(TeaModel):
         self.display_name = display_name  # type: str
         self.is_optional = is_optional  # type: bool
         self.response_status = response_status  # type: str
-        self.self = self_  # type: bool
+        self.self_ = self_  # type: bool
 
     def validate(self):
         pass
@@ -5543,8 +5543,8 @@ class CreateEventResponseBodyAttendees(TeaModel):
             result['IsOptional'] = self.is_optional
         if self.response_status is not None:
             result['ResponseStatus'] = self.response_status
-        if self.self is not None:
-            result['Self'] = self.self
+        if self.self_ is not None:
+            result['Self'] = self.self_
         return result
 
     def from_map(self, m=None):
@@ -5556,7 +5556,7 @@ class CreateEventResponseBodyAttendees(TeaModel):
         if m.get('ResponseStatus') is not None:
             self.response_status = m.get('ResponseStatus')
         if m.get('Self') is not None:
-            self.self = m.get('Self')
+            self.self_ = m.get('Self')
         return self
 
 
@@ -5662,7 +5662,7 @@ class CreateEventResponseBodyOrganizer(TeaModel):
         self.display_name = display_name  # type: str
         self.id = id  # type: str
         self.response_status = response_status  # type: str
-        self.self = self_  # type: bool
+        self.self_ = self_  # type: bool
 
     def validate(self):
         pass
@@ -5679,8 +5679,8 @@ class CreateEventResponseBodyOrganizer(TeaModel):
             result['Id'] = self.id
         if self.response_status is not None:
             result['ResponseStatus'] = self.response_status
-        if self.self is not None:
-            result['Self'] = self.self
+        if self.self_ is not None:
+            result['Self'] = self.self_
         return result
 
     def from_map(self, m=None):
@@ -5692,7 +5692,7 @@ class CreateEventResponseBodyOrganizer(TeaModel):
         if m.get('ResponseStatus') is not None:
             self.response_status = m.get('ResponseStatus')
         if m.get('Self') is not None:
-            self.self = m.get('Self')
+            self.self_ = m.get('Self')
         return self
 
 
@@ -7594,8 +7594,8 @@ class CreateOrgHonorTemplateResponse(TeaModel):
 
 
 class CreatePersonalTodoTaskHeadersAccountContext(TeaModel):
-    def __init__(self, user_token=None):
-        self.user_token = user_token  # type: str
+    def __init__(self, account_id=None):
+        self.account_id = account_id  # type: str
 
     def validate(self):
         pass
@@ -7606,14 +7606,14 @@ class CreatePersonalTodoTaskHeadersAccountContext(TeaModel):
             return _map
 
         result = dict()
-        if self.user_token is not None:
-            result['userToken'] = self.user_token
+        if self.account_id is not None:
+            result['accountId'] = self.account_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('userToken') is not None:
-            self.user_token = m.get('userToken')
+        if m.get('accountId') is not None:
+            self.account_id = m.get('accountId')
         return self
 
 
@@ -17410,7 +17410,7 @@ class GetEventResponseBodyAttendees(TeaModel):
         self.id = id  # type: str
         self.is_optional = is_optional  # type: bool
         self.response_status = response_status  # type: str
-        self.self = self_  # type: bool
+        self.self_ = self_  # type: bool
 
     def validate(self):
         pass
@@ -17429,8 +17429,8 @@ class GetEventResponseBodyAttendees(TeaModel):
             result['IsOptional'] = self.is_optional
         if self.response_status is not None:
             result['ResponseStatus'] = self.response_status
-        if self.self is not None:
-            result['Self'] = self.self
+        if self.self_ is not None:
+            result['Self'] = self.self_
         return result
 
     def from_map(self, m=None):
@@ -17444,7 +17444,7 @@ class GetEventResponseBodyAttendees(TeaModel):
         if m.get('ResponseStatus') is not None:
             self.response_status = m.get('ResponseStatus')
         if m.get('Self') is not None:
-            self.self = m.get('Self')
+            self.self_ = m.get('Self')
         return self
 
 
@@ -17669,7 +17669,7 @@ class GetEventResponseBodyOrganizer(TeaModel):
         self.display_name = display_name  # type: str
         self.id = id  # type: str
         self.response_status = response_status  # type: str
-        self.self = self_  # type: bool
+        self.self_ = self_  # type: bool
 
     def validate(self):
         pass
@@ -17686,8 +17686,8 @@ class GetEventResponseBodyOrganizer(TeaModel):
             result['Id'] = self.id
         if self.response_status is not None:
             result['ResponseStatus'] = self.response_status
-        if self.self is not None:
-            result['Self'] = self.self
+        if self.self_ is not None:
+            result['Self'] = self.self_
         return result
 
     def from_map(self, m=None):
@@ -17699,7 +17699,7 @@ class GetEventResponseBodyOrganizer(TeaModel):
         if m.get('ResponseStatus') is not None:
             self.response_status = m.get('ResponseStatus')
         if m.get('Self') is not None:
-            self.self = m.get('Self')
+            self.self_ = m.get('Self')
         return self
 
 
@@ -33435,7 +33435,7 @@ class ListEventsResponseBodyEventsAttendees(TeaModel):
         self.display_name = display_name  # type: str
         self.is_optional = is_optional  # type: bool
         self.response_status = response_status  # type: str
-        self.self = self_  # type: bool
+        self.self_ = self_  # type: bool
 
     def validate(self):
         pass
@@ -33452,8 +33452,8 @@ class ListEventsResponseBodyEventsAttendees(TeaModel):
             result['IsOptional'] = self.is_optional
         if self.response_status is not None:
             result['ResponseStatus'] = self.response_status
-        if self.self is not None:
-            result['Self'] = self.self
+        if self.self_ is not None:
+            result['Self'] = self.self_
         return result
 
     def from_map(self, m=None):
@@ -33465,7 +33465,7 @@ class ListEventsResponseBodyEventsAttendees(TeaModel):
         if m.get('ResponseStatus') is not None:
             self.response_status = m.get('ResponseStatus')
         if m.get('Self') is not None:
-            self.self = m.get('Self')
+            self.self_ = m.get('Self')
         return self
 
 
@@ -33688,7 +33688,7 @@ class ListEventsResponseBodyEventsOrganizer(TeaModel):
     def __init__(self, display_name=None, response_status=None, self_=None):
         self.display_name = display_name  # type: str
         self.response_status = response_status  # type: str
-        self.self = self_  # type: bool
+        self.self_ = self_  # type: bool
 
     def validate(self):
         pass
@@ -33703,8 +33703,8 @@ class ListEventsResponseBodyEventsOrganizer(TeaModel):
             result['DisplayName'] = self.display_name
         if self.response_status is not None:
             result['ResponseStatus'] = self.response_status
-        if self.self is not None:
-            result['Self'] = self.self
+        if self.self_ is not None:
+            result['Self'] = self.self_
         return result
 
     def from_map(self, m=None):
@@ -33714,7 +33714,7 @@ class ListEventsResponseBodyEventsOrganizer(TeaModel):
         if m.get('ResponseStatus') is not None:
             self.response_status = m.get('ResponseStatus')
         if m.get('Self') is not None:
-            self.self = m.get('Self')
+            self.self_ = m.get('Self')
         return self
 
 
@@ -34365,7 +34365,7 @@ class ListEventsViewResponseBodyEventsAttendees(TeaModel):
         self.id = id  # type: str
         self.is_optional = is_optional  # type: bool
         self.response_status = response_status  # type: str
-        self.self = self_  # type: bool
+        self.self_ = self_  # type: bool
 
     def validate(self):
         pass
@@ -34384,8 +34384,8 @@ class ListEventsViewResponseBodyEventsAttendees(TeaModel):
             result['IsOptional'] = self.is_optional
         if self.response_status is not None:
             result['ResponseStatus'] = self.response_status
-        if self.self is not None:
-            result['Self'] = self.self
+        if self.self_ is not None:
+            result['Self'] = self.self_
         return result
 
     def from_map(self, m=None):
@@ -34399,7 +34399,7 @@ class ListEventsViewResponseBodyEventsAttendees(TeaModel):
         if m.get('ResponseStatus') is not None:
             self.response_status = m.get('ResponseStatus')
         if m.get('Self') is not None:
-            self.self = m.get('Self')
+            self.self_ = m.get('Self')
         return self
 
 
@@ -34623,7 +34623,7 @@ class ListEventsViewResponseBodyEventsOrganizer(TeaModel):
         self.display_name = display_name  # type: str
         self.id = id  # type: str
         self.response_status = response_status  # type: str
-        self.self = self_  # type: bool
+        self.self_ = self_  # type: bool
 
     def validate(self):
         pass
@@ -34640,8 +34640,8 @@ class ListEventsViewResponseBodyEventsOrganizer(TeaModel):
             result['Id'] = self.id
         if self.response_status is not None:
             result['ResponseStatus'] = self.response_status
-        if self.self is not None:
-            result['Self'] = self.self
+        if self.self_ is not None:
+            result['Self'] = self.self_
         return result
 
     def from_map(self, m=None):
@@ -34653,7 +34653,7 @@ class ListEventsViewResponseBodyEventsOrganizer(TeaModel):
         if m.get('ResponseStatus') is not None:
             self.response_status = m.get('ResponseStatus')
         if m.get('Self') is not None:
-            self.self = m.get('Self')
+            self.self_ = m.get('Self')
         return self
 
 
@@ -38016,7 +38016,7 @@ class PatchEventResponseBodyAttendees(TeaModel):
         self.id = id  # type: str
         self.is_optional = is_optional  # type: bool
         self.response_status = response_status  # type: str
-        self.self = self_  # type: bool
+        self.self_ = self_  # type: bool
 
     def validate(self):
         pass
@@ -38035,8 +38035,8 @@ class PatchEventResponseBodyAttendees(TeaModel):
             result['IsOptional'] = self.is_optional
         if self.response_status is not None:
             result['ResponseStatus'] = self.response_status
-        if self.self is not None:
-            result['Self'] = self.self
+        if self.self_ is not None:
+            result['Self'] = self.self_
         return result
 
     def from_map(self, m=None):
@@ -38050,7 +38050,7 @@ class PatchEventResponseBodyAttendees(TeaModel):
         if m.get('ResponseStatus') is not None:
             self.response_status = m.get('ResponseStatus')
         if m.get('Self') is not None:
-            self.self = m.get('Self')
+            self.self_ = m.get('Self')
         return self
 
 
@@ -38122,7 +38122,7 @@ class PatchEventResponseBodyOrganizer(TeaModel):
         self.display_name = display_name  # type: str
         self.id = id  # type: str
         self.response_status = response_status  # type: str
-        self.self = self_  # type: bool
+        self.self_ = self_  # type: bool
 
     def validate(self):
         pass
@@ -38139,8 +38139,8 @@ class PatchEventResponseBodyOrganizer(TeaModel):
             result['Id'] = self.id
         if self.response_status is not None:
             result['ResponseStatus'] = self.response_status
-        if self.self is not None:
-            result['Self'] = self.self
+        if self.self_ is not None:
+            result['Self'] = self.self_
         return result
 
     def from_map(self, m=None):
@@ -38152,7 +38152,7 @@ class PatchEventResponseBodyOrganizer(TeaModel):
         if m.get('ResponseStatus') is not None:
             self.response_status = m.get('ResponseStatus')
         if m.get('Self') is not None:
-            self.self = m.get('Self')
+            self.self_ = m.get('Self')
         return self
 
 
