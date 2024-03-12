@@ -117,6 +117,146 @@ class CancelAsyncTaskResponse(TeaModel):
         return self
 
 
+class ClearIntervenesRequest(TeaModel):
+    def __init__(self, agent_key=None):
+        self.agent_key = agent_key  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ClearIntervenesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agent_key is not None:
+            result['AgentKey'] = self.agent_key
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AgentKey') is not None:
+            self.agent_key = m.get('AgentKey')
+        return self
+
+
+class ClearIntervenesResponseBodyData(TeaModel):
+    def __init__(self, fail_id_list=None, task_id=None):
+        self.fail_id_list = fail_id_list  # type: list[str]
+        self.task_id = task_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ClearIntervenesResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.fail_id_list is not None:
+            result['FailIdList'] = self.fail_id_list
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FailIdList') is not None:
+            self.fail_id_list = m.get('FailIdList')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
+        return self
+
+
+class ClearIntervenesResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: ClearIntervenesResponseBodyData
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(ClearIntervenesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = ClearIntervenesResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ClearIntervenesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ClearIntervenesResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ClearIntervenesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ClearIntervenesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateGeneratedContentRequest(TeaModel):
     def __init__(self, agent_key=None, content=None, content_domain=None, content_text=None, keywords=None,
                  prompt=None, task_id=None, title=None, uuid=None):
@@ -586,6 +726,151 @@ class DeleteGeneratedContentResponse(TeaModel):
         return self
 
 
+class DeleteInterveneRuleRequest(TeaModel):
+    def __init__(self, agent_key=None, rule_id=None):
+        self.agent_key = agent_key  # type: str
+        self.rule_id = rule_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteInterveneRuleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agent_key is not None:
+            result['AgentKey'] = self.agent_key
+        if self.rule_id is not None:
+            result['RuleId'] = self.rule_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AgentKey') is not None:
+            self.agent_key = m.get('AgentKey')
+        if m.get('RuleId') is not None:
+            self.rule_id = m.get('RuleId')
+        return self
+
+
+class DeleteInterveneRuleResponseBodyData(TeaModel):
+    def __init__(self, fail_id_list=None, task_id=None):
+        self.fail_id_list = fail_id_list  # type: list[str]
+        self.task_id = task_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteInterveneRuleResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.fail_id_list is not None:
+            result['FailIdList'] = self.fail_id_list
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FailIdList') is not None:
+            self.fail_id_list = m.get('FailIdList')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
+        return self
+
+
+class DeleteInterveneRuleResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: DeleteInterveneRuleResponseBodyData
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(DeleteInterveneRuleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = DeleteInterveneRuleResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class DeleteInterveneRuleResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteInterveneRuleResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteInterveneRuleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteInterveneRuleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DeleteMaterialByIdRequest(TeaModel):
     def __init__(self, agent_key=None, id=None):
         self.agent_key = agent_key  # type: str
@@ -810,6 +1095,141 @@ class ExportGeneratedContentResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ExportGeneratedContentResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ExportIntervenesRequest(TeaModel):
+    def __init__(self, agent_key=None):
+        self.agent_key = agent_key  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ExportIntervenesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agent_key is not None:
+            result['AgentKey'] = self.agent_key
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AgentKey') is not None:
+            self.agent_key = m.get('AgentKey')
+        return self
+
+
+class ExportIntervenesResponseBodyData(TeaModel):
+    def __init__(self, file_url=None):
+        self.file_url = file_url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ExportIntervenesResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.file_url is not None:
+            result['FileUrl'] = self.file_url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FileUrl') is not None:
+            self.file_url = m.get('FileUrl')
+        return self
+
+
+class ExportIntervenesResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: ExportIntervenesResponseBodyData
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(ExportIntervenesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = ExportIntervenesResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ExportIntervenesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ExportIntervenesResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ExportIntervenesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ExportIntervenesResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -2449,6 +2869,770 @@ class GetGeneratedContentResponse(TeaModel):
         return self
 
 
+class GetInterveneGlobalReplyRequest(TeaModel):
+    def __init__(self, agent_key=None):
+        self.agent_key = agent_key  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetInterveneGlobalReplyRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agent_key is not None:
+            result['AgentKey'] = self.agent_key
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AgentKey') is not None:
+            self.agent_key = m.get('AgentKey')
+        return self
+
+
+class GetInterveneGlobalReplyResponseBodyDataReplyMessagList(TeaModel):
+    def __init__(self, message=None, reply_type=None):
+        self.message = message  # type: str
+        self.reply_type = reply_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetInterveneGlobalReplyResponseBodyDataReplyMessagList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.reply_type is not None:
+            result['ReplyType'] = self.reply_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('ReplyType') is not None:
+            self.reply_type = m.get('ReplyType')
+        return self
+
+
+class GetInterveneGlobalReplyResponseBodyData(TeaModel):
+    def __init__(self, reply_messag_list=None):
+        self.reply_messag_list = reply_messag_list  # type: list[GetInterveneGlobalReplyResponseBodyDataReplyMessagList]
+
+    def validate(self):
+        if self.reply_messag_list:
+            for k in self.reply_messag_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetInterveneGlobalReplyResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['ReplyMessagList'] = []
+        if self.reply_messag_list is not None:
+            for k in self.reply_messag_list:
+                result['ReplyMessagList'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.reply_messag_list = []
+        if m.get('ReplyMessagList') is not None:
+            for k in m.get('ReplyMessagList'):
+                temp_model = GetInterveneGlobalReplyResponseBodyDataReplyMessagList()
+                self.reply_messag_list.append(temp_model.from_map(k))
+        return self
+
+
+class GetInterveneGlobalReplyResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: GetInterveneGlobalReplyResponseBodyData
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetInterveneGlobalReplyResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = GetInterveneGlobalReplyResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetInterveneGlobalReplyResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetInterveneGlobalReplyResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetInterveneGlobalReplyResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetInterveneGlobalReplyResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetInterveneImportTaskInfoRequest(TeaModel):
+    def __init__(self, agent_key=None, task_id=None):
+        self.agent_key = agent_key  # type: str
+        self.task_id = task_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetInterveneImportTaskInfoRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agent_key is not None:
+            result['AgentKey'] = self.agent_key
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AgentKey') is not None:
+            self.agent_key = m.get('AgentKey')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
+        return self
+
+
+class GetInterveneImportTaskInfoResponseBodyDataStatus(TeaModel):
+    def __init__(self, msg=None, percentage=None, status=None, task_id=None, task_name=None):
+        self.msg = msg  # type: str
+        self.percentage = percentage  # type: int
+        self.status = status  # type: int
+        self.task_id = task_id  # type: str
+        self.task_name = task_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetInterveneImportTaskInfoResponseBodyDataStatus, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.msg is not None:
+            result['Msg'] = self.msg
+        if self.percentage is not None:
+            result['Percentage'] = self.percentage
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
+        if self.task_name is not None:
+            result['TaskName'] = self.task_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Msg') is not None:
+            self.msg = m.get('Msg')
+        if m.get('Percentage') is not None:
+            self.percentage = m.get('Percentage')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
+        if m.get('TaskName') is not None:
+            self.task_name = m.get('TaskName')
+        return self
+
+
+class GetInterveneImportTaskInfoResponseBodyData(TeaModel):
+    def __init__(self, status=None):
+        self.status = status  # type: GetInterveneImportTaskInfoResponseBodyDataStatus
+
+    def validate(self):
+        if self.status:
+            self.status.validate()
+
+    def to_map(self):
+        _map = super(GetInterveneImportTaskInfoResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.status is not None:
+            result['Status'] = self.status.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Status') is not None:
+            temp_model = GetInterveneImportTaskInfoResponseBodyDataStatus()
+            self.status = temp_model.from_map(m['Status'])
+        return self
+
+
+class GetInterveneImportTaskInfoResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: GetInterveneImportTaskInfoResponseBodyData
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetInterveneImportTaskInfoResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = GetInterveneImportTaskInfoResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetInterveneImportTaskInfoResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetInterveneImportTaskInfoResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetInterveneImportTaskInfoResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetInterveneImportTaskInfoResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetInterveneRuleDetailRequest(TeaModel):
+    def __init__(self, agent_key=None, rule_id=None):
+        self.agent_key = agent_key  # type: str
+        self.rule_id = rule_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetInterveneRuleDetailRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agent_key is not None:
+            result['AgentKey'] = self.agent_key
+        if self.rule_id is not None:
+            result['RuleId'] = self.rule_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AgentKey') is not None:
+            self.agent_key = m.get('AgentKey')
+        if m.get('RuleId') is not None:
+            self.rule_id = m.get('RuleId')
+        return self
+
+
+class GetInterveneRuleDetailResponseBodyDataInterveneRuleDetailAnswerConfig(TeaModel):
+    def __init__(self, answer_type=None, message=None, namespace=None):
+        self.answer_type = answer_type  # type: int
+        self.message = message  # type: str
+        self.namespace = namespace  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetInterveneRuleDetailResponseBodyDataInterveneRuleDetailAnswerConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.answer_type is not None:
+            result['AnswerType'] = self.answer_type
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AnswerType') is not None:
+            self.answer_type = m.get('AnswerType')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
+        return self
+
+
+class GetInterveneRuleDetailResponseBodyDataInterveneRuleDetailEffectConfig(TeaModel):
+    def __init__(self, effect_type=None, end_time=None, start_time=None):
+        self.effect_type = effect_type  # type: int
+        self.end_time = end_time  # type: str
+        self.start_time = start_time  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetInterveneRuleDetailResponseBodyDataInterveneRuleDetailEffectConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.effect_type is not None:
+            result['EffectType'] = self.effect_type
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EffectType') is not None:
+            self.effect_type = m.get('EffectType')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        return self
+
+
+class GetInterveneRuleDetailResponseBodyDataInterveneRuleDetail(TeaModel):
+    def __init__(self, answer_config=None, effect_config=None, intervene_type=None, namespace_list=None,
+                 rule_id=None, rule_name=None):
+        self.answer_config = answer_config  # type: list[GetInterveneRuleDetailResponseBodyDataInterveneRuleDetailAnswerConfig]
+        self.effect_config = effect_config  # type: GetInterveneRuleDetailResponseBodyDataInterveneRuleDetailEffectConfig
+        self.intervene_type = intervene_type  # type: int
+        self.namespace_list = namespace_list  # type: list[str]
+        self.rule_id = rule_id  # type: long
+        self.rule_name = rule_name  # type: str
+
+    def validate(self):
+        if self.answer_config:
+            for k in self.answer_config:
+                if k:
+                    k.validate()
+        if self.effect_config:
+            self.effect_config.validate()
+
+    def to_map(self):
+        _map = super(GetInterveneRuleDetailResponseBodyDataInterveneRuleDetail, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['AnswerConfig'] = []
+        if self.answer_config is not None:
+            for k in self.answer_config:
+                result['AnswerConfig'].append(k.to_map() if k else None)
+        if self.effect_config is not None:
+            result['EffectConfig'] = self.effect_config.to_map()
+        if self.intervene_type is not None:
+            result['InterveneType'] = self.intervene_type
+        if self.namespace_list is not None:
+            result['NamespaceList'] = self.namespace_list
+        if self.rule_id is not None:
+            result['RuleId'] = self.rule_id
+        if self.rule_name is not None:
+            result['RuleName'] = self.rule_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.answer_config = []
+        if m.get('AnswerConfig') is not None:
+            for k in m.get('AnswerConfig'):
+                temp_model = GetInterveneRuleDetailResponseBodyDataInterveneRuleDetailAnswerConfig()
+                self.answer_config.append(temp_model.from_map(k))
+        if m.get('EffectConfig') is not None:
+            temp_model = GetInterveneRuleDetailResponseBodyDataInterveneRuleDetailEffectConfig()
+            self.effect_config = temp_model.from_map(m['EffectConfig'])
+        if m.get('InterveneType') is not None:
+            self.intervene_type = m.get('InterveneType')
+        if m.get('NamespaceList') is not None:
+            self.namespace_list = m.get('NamespaceList')
+        if m.get('RuleId') is not None:
+            self.rule_id = m.get('RuleId')
+        if m.get('RuleName') is not None:
+            self.rule_name = m.get('RuleName')
+        return self
+
+
+class GetInterveneRuleDetailResponseBodyData(TeaModel):
+    def __init__(self, intervene_rule_detail=None):
+        self.intervene_rule_detail = intervene_rule_detail  # type: GetInterveneRuleDetailResponseBodyDataInterveneRuleDetail
+
+    def validate(self):
+        if self.intervene_rule_detail:
+            self.intervene_rule_detail.validate()
+
+    def to_map(self):
+        _map = super(GetInterveneRuleDetailResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.intervene_rule_detail is not None:
+            result['InterveneRuleDetail'] = self.intervene_rule_detail.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InterveneRuleDetail') is not None:
+            temp_model = GetInterveneRuleDetailResponseBodyDataInterveneRuleDetail()
+            self.intervene_rule_detail = temp_model.from_map(m['InterveneRuleDetail'])
+        return self
+
+
+class GetInterveneRuleDetailResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: GetInterveneRuleDetailResponseBodyData
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetInterveneRuleDetailResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = GetInterveneRuleDetailResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetInterveneRuleDetailResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetInterveneRuleDetailResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetInterveneRuleDetailResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetInterveneRuleDetailResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetInterveneTemplateFileUrlRequest(TeaModel):
+    def __init__(self, agent_key=None):
+        self.agent_key = agent_key  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetInterveneTemplateFileUrlRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agent_key is not None:
+            result['AgentKey'] = self.agent_key
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AgentKey') is not None:
+            self.agent_key = m.get('AgentKey')
+        return self
+
+
+class GetInterveneTemplateFileUrlResponseBodyData(TeaModel):
+    def __init__(self, file_url=None):
+        self.file_url = file_url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetInterveneTemplateFileUrlResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.file_url is not None:
+            result['FileUrl'] = self.file_url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FileUrl') is not None:
+            self.file_url = m.get('FileUrl')
+        return self
+
+
+class GetInterveneTemplateFileUrlResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: GetInterveneTemplateFileUrlResponseBodyData
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetInterveneTemplateFileUrlResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = GetInterveneTemplateFileUrlResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetInterveneTemplateFileUrlResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetInterveneTemplateFileUrlResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetInterveneTemplateFileUrlResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetInterveneTemplateFileUrlResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetMaterialByIdRequest(TeaModel):
     def __init__(self, agent_key=None, id=None):
         self.agent_key = agent_key  # type: str
@@ -3216,6 +4400,876 @@ class GetPropertiesResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetPropertiesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ImportInterveneFileRequest(TeaModel):
+    def __init__(self, agent_key=None, doc_name=None, file_key=None, file_url=None):
+        self.agent_key = agent_key  # type: str
+        self.doc_name = doc_name  # type: str
+        self.file_key = file_key  # type: str
+        self.file_url = file_url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ImportInterveneFileRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agent_key is not None:
+            result['AgentKey'] = self.agent_key
+        if self.doc_name is not None:
+            result['DocName'] = self.doc_name
+        if self.file_key is not None:
+            result['FileKey'] = self.file_key
+        if self.file_url is not None:
+            result['FileUrl'] = self.file_url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AgentKey') is not None:
+            self.agent_key = m.get('AgentKey')
+        if m.get('DocName') is not None:
+            self.doc_name = m.get('DocName')
+        if m.get('FileKey') is not None:
+            self.file_key = m.get('FileKey')
+        if m.get('FileUrl') is not None:
+            self.file_url = m.get('FileUrl')
+        return self
+
+
+class ImportInterveneFileResponseBodyData(TeaModel):
+    def __init__(self, fail_id_list=None, task_id=None):
+        self.fail_id_list = fail_id_list  # type: list[str]
+        self.task_id = task_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ImportInterveneFileResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.fail_id_list is not None:
+            result['FailIdList'] = self.fail_id_list
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FailIdList') is not None:
+            self.fail_id_list = m.get('FailIdList')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
+        return self
+
+
+class ImportInterveneFileResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: ImportInterveneFileResponseBodyData
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(ImportInterveneFileResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = ImportInterveneFileResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ImportInterveneFileResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ImportInterveneFileResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ImportInterveneFileResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ImportInterveneFileResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ImportInterveneFileAsyncRequest(TeaModel):
+    def __init__(self, agent_key=None, doc_name=None, file_key=None, file_url=None):
+        self.agent_key = agent_key  # type: str
+        self.doc_name = doc_name  # type: str
+        self.file_key = file_key  # type: str
+        self.file_url = file_url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ImportInterveneFileAsyncRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agent_key is not None:
+            result['AgentKey'] = self.agent_key
+        if self.doc_name is not None:
+            result['DocName'] = self.doc_name
+        if self.file_key is not None:
+            result['FileKey'] = self.file_key
+        if self.file_url is not None:
+            result['FileUrl'] = self.file_url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AgentKey') is not None:
+            self.agent_key = m.get('AgentKey')
+        if m.get('DocName') is not None:
+            self.doc_name = m.get('DocName')
+        if m.get('FileKey') is not None:
+            self.file_key = m.get('FileKey')
+        if m.get('FileUrl') is not None:
+            self.file_url = m.get('FileUrl')
+        return self
+
+
+class ImportInterveneFileAsyncResponseBodyData(TeaModel):
+    def __init__(self, fail_id_list=None, task_id=None):
+        self.fail_id_list = fail_id_list  # type: list[str]
+        self.task_id = task_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ImportInterveneFileAsyncResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.fail_id_list is not None:
+            result['FailIdList'] = self.fail_id_list
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FailIdList') is not None:
+            self.fail_id_list = m.get('FailIdList')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
+        return self
+
+
+class ImportInterveneFileAsyncResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: ImportInterveneFileAsyncResponseBodyData
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(ImportInterveneFileAsyncResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = ImportInterveneFileAsyncResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ImportInterveneFileAsyncResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ImportInterveneFileAsyncResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ImportInterveneFileAsyncResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ImportInterveneFileAsyncResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class InsertInterveneGlobalReplyRequestReplyMessagList(TeaModel):
+    def __init__(self, message=None, reply_type=None):
+        self.message = message  # type: str
+        self.reply_type = reply_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(InsertInterveneGlobalReplyRequestReplyMessagList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.reply_type is not None:
+            result['ReplyType'] = self.reply_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('ReplyType') is not None:
+            self.reply_type = m.get('ReplyType')
+        return self
+
+
+class InsertInterveneGlobalReplyRequest(TeaModel):
+    def __init__(self, agent_key=None, reply_messag_list=None):
+        self.agent_key = agent_key  # type: str
+        self.reply_messag_list = reply_messag_list  # type: list[InsertInterveneGlobalReplyRequestReplyMessagList]
+
+    def validate(self):
+        if self.reply_messag_list:
+            for k in self.reply_messag_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(InsertInterveneGlobalReplyRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agent_key is not None:
+            result['AgentKey'] = self.agent_key
+        result['ReplyMessagList'] = []
+        if self.reply_messag_list is not None:
+            for k in self.reply_messag_list:
+                result['ReplyMessagList'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AgentKey') is not None:
+            self.agent_key = m.get('AgentKey')
+        self.reply_messag_list = []
+        if m.get('ReplyMessagList') is not None:
+            for k in m.get('ReplyMessagList'):
+                temp_model = InsertInterveneGlobalReplyRequestReplyMessagList()
+                self.reply_messag_list.append(temp_model.from_map(k))
+        return self
+
+
+class InsertInterveneGlobalReplyShrinkRequest(TeaModel):
+    def __init__(self, agent_key=None, reply_messag_list_shrink=None):
+        self.agent_key = agent_key  # type: str
+        self.reply_messag_list_shrink = reply_messag_list_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(InsertInterveneGlobalReplyShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agent_key is not None:
+            result['AgentKey'] = self.agent_key
+        if self.reply_messag_list_shrink is not None:
+            result['ReplyMessagList'] = self.reply_messag_list_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AgentKey') is not None:
+            self.agent_key = m.get('AgentKey')
+        if m.get('ReplyMessagList') is not None:
+            self.reply_messag_list_shrink = m.get('ReplyMessagList')
+        return self
+
+
+class InsertInterveneGlobalReplyResponseBodyData(TeaModel):
+    def __init__(self, fail_id_list=None, task_id=None):
+        self.fail_id_list = fail_id_list  # type: list[str]
+        self.task_id = task_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(InsertInterveneGlobalReplyResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.fail_id_list is not None:
+            result['FailIdList'] = self.fail_id_list
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FailIdList') is not None:
+            self.fail_id_list = m.get('FailIdList')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
+        return self
+
+
+class InsertInterveneGlobalReplyResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: InsertInterveneGlobalReplyResponseBodyData
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(InsertInterveneGlobalReplyResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = InsertInterveneGlobalReplyResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class InsertInterveneGlobalReplyResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: InsertInterveneGlobalReplyResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(InsertInterveneGlobalReplyResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = InsertInterveneGlobalReplyResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class InsertInterveneRuleRequestInterveneRuleConfigAnswerConfig(TeaModel):
+    def __init__(self, answer_type=None, message=None, namespace=None):
+        self.answer_type = answer_type  # type: int
+        self.message = message  # type: str
+        self.namespace = namespace  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(InsertInterveneRuleRequestInterveneRuleConfigAnswerConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.answer_type is not None:
+            result['AnswerType'] = self.answer_type
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AnswerType') is not None:
+            self.answer_type = m.get('AnswerType')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
+        return self
+
+
+class InsertInterveneRuleRequestInterveneRuleConfigEffectConfig(TeaModel):
+    def __init__(self, effect_type=None, end_time=None, start_time=None):
+        self.effect_type = effect_type  # type: int
+        self.end_time = end_time  # type: str
+        self.start_time = start_time  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(InsertInterveneRuleRequestInterveneRuleConfigEffectConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.effect_type is not None:
+            result['EffectType'] = self.effect_type
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EffectType') is not None:
+            self.effect_type = m.get('EffectType')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        return self
+
+
+class InsertInterveneRuleRequestInterveneRuleConfigInterveneConfigList(TeaModel):
+    def __init__(self, id=None, operation_type=None, query=None):
+        # id
+        self.id = id  # type: str
+        self.operation_type = operation_type  # type: int
+        self.query = query  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(InsertInterveneRuleRequestInterveneRuleConfigInterveneConfigList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.operation_type is not None:
+            result['OperationType'] = self.operation_type
+        if self.query is not None:
+            result['Query'] = self.query
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('OperationType') is not None:
+            self.operation_type = m.get('OperationType')
+        if m.get('Query') is not None:
+            self.query = m.get('Query')
+        return self
+
+
+class InsertInterveneRuleRequestInterveneRuleConfig(TeaModel):
+    def __init__(self, answer_config=None, effect_config=None, intervene_config_list=None, intervene_type=None,
+                 namespace_list=None, rule_id=None, rule_name=None):
+        self.answer_config = answer_config  # type: list[InsertInterveneRuleRequestInterveneRuleConfigAnswerConfig]
+        self.effect_config = effect_config  # type: InsertInterveneRuleRequestInterveneRuleConfigEffectConfig
+        self.intervene_config_list = intervene_config_list  # type: list[InsertInterveneRuleRequestInterveneRuleConfigInterveneConfigList]
+        self.intervene_type = intervene_type  # type: int
+        self.namespace_list = namespace_list  # type: list[str]
+        self.rule_id = rule_id  # type: long
+        self.rule_name = rule_name  # type: str
+
+    def validate(self):
+        if self.answer_config:
+            for k in self.answer_config:
+                if k:
+                    k.validate()
+        if self.effect_config:
+            self.effect_config.validate()
+        if self.intervene_config_list:
+            for k in self.intervene_config_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(InsertInterveneRuleRequestInterveneRuleConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['AnswerConfig'] = []
+        if self.answer_config is not None:
+            for k in self.answer_config:
+                result['AnswerConfig'].append(k.to_map() if k else None)
+        if self.effect_config is not None:
+            result['EffectConfig'] = self.effect_config.to_map()
+        result['InterveneConfigList'] = []
+        if self.intervene_config_list is not None:
+            for k in self.intervene_config_list:
+                result['InterveneConfigList'].append(k.to_map() if k else None)
+        if self.intervene_type is not None:
+            result['InterveneType'] = self.intervene_type
+        if self.namespace_list is not None:
+            result['NamespaceList'] = self.namespace_list
+        if self.rule_id is not None:
+            result['RuleId'] = self.rule_id
+        if self.rule_name is not None:
+            result['RuleName'] = self.rule_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.answer_config = []
+        if m.get('AnswerConfig') is not None:
+            for k in m.get('AnswerConfig'):
+                temp_model = InsertInterveneRuleRequestInterveneRuleConfigAnswerConfig()
+                self.answer_config.append(temp_model.from_map(k))
+        if m.get('EffectConfig') is not None:
+            temp_model = InsertInterveneRuleRequestInterveneRuleConfigEffectConfig()
+            self.effect_config = temp_model.from_map(m['EffectConfig'])
+        self.intervene_config_list = []
+        if m.get('InterveneConfigList') is not None:
+            for k in m.get('InterveneConfigList'):
+                temp_model = InsertInterveneRuleRequestInterveneRuleConfigInterveneConfigList()
+                self.intervene_config_list.append(temp_model.from_map(k))
+        if m.get('InterveneType') is not None:
+            self.intervene_type = m.get('InterveneType')
+        if m.get('NamespaceList') is not None:
+            self.namespace_list = m.get('NamespaceList')
+        if m.get('RuleId') is not None:
+            self.rule_id = m.get('RuleId')
+        if m.get('RuleName') is not None:
+            self.rule_name = m.get('RuleName')
+        return self
+
+
+class InsertInterveneRuleRequest(TeaModel):
+    def __init__(self, agent_key=None, intervene_rule_config=None):
+        self.agent_key = agent_key  # type: str
+        self.intervene_rule_config = intervene_rule_config  # type: InsertInterveneRuleRequestInterveneRuleConfig
+
+    def validate(self):
+        if self.intervene_rule_config:
+            self.intervene_rule_config.validate()
+
+    def to_map(self):
+        _map = super(InsertInterveneRuleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agent_key is not None:
+            result['AgentKey'] = self.agent_key
+        if self.intervene_rule_config is not None:
+            result['InterveneRuleConfig'] = self.intervene_rule_config.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AgentKey') is not None:
+            self.agent_key = m.get('AgentKey')
+        if m.get('InterveneRuleConfig') is not None:
+            temp_model = InsertInterveneRuleRequestInterveneRuleConfig()
+            self.intervene_rule_config = temp_model.from_map(m['InterveneRuleConfig'])
+        return self
+
+
+class InsertInterveneRuleShrinkRequest(TeaModel):
+    def __init__(self, agent_key=None, intervene_rule_config_shrink=None):
+        self.agent_key = agent_key  # type: str
+        self.intervene_rule_config_shrink = intervene_rule_config_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(InsertInterveneRuleShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agent_key is not None:
+            result['AgentKey'] = self.agent_key
+        if self.intervene_rule_config_shrink is not None:
+            result['InterveneRuleConfig'] = self.intervene_rule_config_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AgentKey') is not None:
+            self.agent_key = m.get('AgentKey')
+        if m.get('InterveneRuleConfig') is not None:
+            self.intervene_rule_config_shrink = m.get('InterveneRuleConfig')
+        return self
+
+
+class InsertInterveneRuleResponseBodyData(TeaModel):
+    def __init__(self, rule_id=None):
+        self.rule_id = rule_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(InsertInterveneRuleResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.rule_id is not None:
+            result['RuleId'] = self.rule_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RuleId') is not None:
+            self.rule_id = m.get('RuleId')
+        return self
+
+
+class InsertInterveneRuleResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: InsertInterveneRuleResponseBodyData
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(InsertInterveneRuleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = InsertInterveneRuleResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class InsertInterveneRuleResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: InsertInterveneRuleResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(InsertInterveneRuleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = InsertInterveneRuleResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -4619,6 +6673,857 @@ class ListHotNewsWithTypeResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListHotNewsWithTypeResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListInterveneCntRequest(TeaModel):
+    def __init__(self, agent_key=None, page_index=None, page_size=None):
+        self.agent_key = agent_key  # type: str
+        self.page_index = page_index  # type: int
+        self.page_size = page_size  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListInterveneCntRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agent_key is not None:
+            result['AgentKey'] = self.agent_key
+        if self.page_index is not None:
+            result['PageIndex'] = self.page_index
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AgentKey') is not None:
+            self.agent_key = m.get('AgentKey')
+        if m.get('PageIndex') is not None:
+            self.page_index = m.get('PageIndex')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        return self
+
+
+class ListInterveneCntResponseBodyData(TeaModel):
+    def __init__(self, cnt_list=None, page_cnt=None, page_index=None, page_size=None):
+        self.cnt_list = cnt_list  # type: list[any]
+        self.page_cnt = page_cnt  # type: int
+        self.page_index = page_index  # type: int
+        self.page_size = page_size  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListInterveneCntResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cnt_list is not None:
+            result['CntList'] = self.cnt_list
+        if self.page_cnt is not None:
+            result['PageCnt'] = self.page_cnt
+        if self.page_index is not None:
+            result['PageIndex'] = self.page_index
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CntList') is not None:
+            self.cnt_list = m.get('CntList')
+        if m.get('PageCnt') is not None:
+            self.page_cnt = m.get('PageCnt')
+        if m.get('PageIndex') is not None:
+            self.page_index = m.get('PageIndex')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        return self
+
+
+class ListInterveneCntResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: ListInterveneCntResponseBodyData
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(ListInterveneCntResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = ListInterveneCntResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ListInterveneCntResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListInterveneCntResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListInterveneCntResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListInterveneCntResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListInterveneImportTasksRequest(TeaModel):
+    def __init__(self, agent_key=None, page_index=None, page_size=None):
+        self.agent_key = agent_key  # type: str
+        self.page_index = page_index  # type: int
+        self.page_size = page_size  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListInterveneImportTasksRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agent_key is not None:
+            result['AgentKey'] = self.agent_key
+        if self.page_index is not None:
+            result['PageIndex'] = self.page_index
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AgentKey') is not None:
+            self.agent_key = m.get('AgentKey')
+        if m.get('PageIndex') is not None:
+            self.page_index = m.get('PageIndex')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        return self
+
+
+class ListInterveneImportTasksResponseBodyDataStatusList(TeaModel):
+    def __init__(self, msg=None, percentage=None, status=None, task_id=None, task_name=None):
+        self.msg = msg  # type: str
+        self.percentage = percentage  # type: int
+        self.status = status  # type: int
+        self.task_id = task_id  # type: str
+        self.task_name = task_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListInterveneImportTasksResponseBodyDataStatusList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.msg is not None:
+            result['Msg'] = self.msg
+        if self.percentage is not None:
+            result['Percentage'] = self.percentage
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
+        if self.task_name is not None:
+            result['TaskName'] = self.task_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Msg') is not None:
+            self.msg = m.get('Msg')
+        if m.get('Percentage') is not None:
+            self.percentage = m.get('Percentage')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
+        if m.get('TaskName') is not None:
+            self.task_name = m.get('TaskName')
+        return self
+
+
+class ListInterveneImportTasksResponseBodyData(TeaModel):
+    def __init__(self, page_index=None, page_size=None, status_list=None, total_size=None):
+        self.page_index = page_index  # type: int
+        self.page_size = page_size  # type: int
+        self.status_list = status_list  # type: list[ListInterveneImportTasksResponseBodyDataStatusList]
+        self.total_size = total_size  # type: int
+
+    def validate(self):
+        if self.status_list:
+            for k in self.status_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListInterveneImportTasksResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.page_index is not None:
+            result['PageIndex'] = self.page_index
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        result['StatusList'] = []
+        if self.status_list is not None:
+            for k in self.status_list:
+                result['StatusList'].append(k.to_map() if k else None)
+        if self.total_size is not None:
+            result['TotalSize'] = self.total_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PageIndex') is not None:
+            self.page_index = m.get('PageIndex')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        self.status_list = []
+        if m.get('StatusList') is not None:
+            for k in m.get('StatusList'):
+                temp_model = ListInterveneImportTasksResponseBodyDataStatusList()
+                self.status_list.append(temp_model.from_map(k))
+        if m.get('TotalSize') is not None:
+            self.total_size = m.get('TotalSize')
+        return self
+
+
+class ListInterveneImportTasksResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: ListInterveneImportTasksResponseBodyData
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(ListInterveneImportTasksResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = ListInterveneImportTasksResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ListInterveneImportTasksResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListInterveneImportTasksResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListInterveneImportTasksResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListInterveneImportTasksResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListInterveneRulesRequest(TeaModel):
+    def __init__(self, agent_key=None, page_index=None, page_size=None):
+        self.agent_key = agent_key  # type: str
+        self.page_index = page_index  # type: int
+        self.page_size = page_size  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListInterveneRulesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agent_key is not None:
+            result['AgentKey'] = self.agent_key
+        if self.page_index is not None:
+            result['PageIndex'] = self.page_index
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AgentKey') is not None:
+            self.agent_key = m.get('AgentKey')
+        if m.get('PageIndex') is not None:
+            self.page_index = m.get('PageIndex')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        return self
+
+
+class ListInterveneRulesResponseBodyDataInterveneRuleListAnswerConfig(TeaModel):
+    def __init__(self, answer_type=None, message=None, namespace=None):
+        self.answer_type = answer_type  # type: int
+        self.message = message  # type: str
+        self.namespace = namespace  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListInterveneRulesResponseBodyDataInterveneRuleListAnswerConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.answer_type is not None:
+            result['AnswerType'] = self.answer_type
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AnswerType') is not None:
+            self.answer_type = m.get('AnswerType')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
+        return self
+
+
+class ListInterveneRulesResponseBodyDataInterveneRuleList(TeaModel):
+    def __init__(self, answer_config=None, create_time=None, effect_time=None, intervene_type=None,
+                 namespace_list=None, rule_id=None, rule_name=None):
+        self.answer_config = answer_config  # type: list[ListInterveneRulesResponseBodyDataInterveneRuleListAnswerConfig]
+        self.create_time = create_time  # type: str
+        self.effect_time = effect_time  # type: str
+        self.intervene_type = intervene_type  # type: int
+        self.namespace_list = namespace_list  # type: list[str]
+        self.rule_id = rule_id  # type: long
+        self.rule_name = rule_name  # type: str
+
+    def validate(self):
+        if self.answer_config:
+            for k in self.answer_config:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListInterveneRulesResponseBodyDataInterveneRuleList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['AnswerConfig'] = []
+        if self.answer_config is not None:
+            for k in self.answer_config:
+                result['AnswerConfig'].append(k.to_map() if k else None)
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.effect_time is not None:
+            result['EffectTime'] = self.effect_time
+        if self.intervene_type is not None:
+            result['InterveneType'] = self.intervene_type
+        if self.namespace_list is not None:
+            result['NamespaceList'] = self.namespace_list
+        if self.rule_id is not None:
+            result['RuleId'] = self.rule_id
+        if self.rule_name is not None:
+            result['RuleName'] = self.rule_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.answer_config = []
+        if m.get('AnswerConfig') is not None:
+            for k in m.get('AnswerConfig'):
+                temp_model = ListInterveneRulesResponseBodyDataInterveneRuleListAnswerConfig()
+                self.answer_config.append(temp_model.from_map(k))
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('EffectTime') is not None:
+            self.effect_time = m.get('EffectTime')
+        if m.get('InterveneType') is not None:
+            self.intervene_type = m.get('InterveneType')
+        if m.get('NamespaceList') is not None:
+            self.namespace_list = m.get('NamespaceList')
+        if m.get('RuleId') is not None:
+            self.rule_id = m.get('RuleId')
+        if m.get('RuleName') is not None:
+            self.rule_name = m.get('RuleName')
+        return self
+
+
+class ListInterveneRulesResponseBodyData(TeaModel):
+    def __init__(self, count=None, intervene_rule_list=None, page_index=None, page_size=None):
+        self.count = count  # type: long
+        self.intervene_rule_list = intervene_rule_list  # type: list[ListInterveneRulesResponseBodyDataInterveneRuleList]
+        self.page_index = page_index  # type: int
+        self.page_size = page_size  # type: int
+
+    def validate(self):
+        if self.intervene_rule_list:
+            for k in self.intervene_rule_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListInterveneRulesResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.count is not None:
+            result['Count'] = self.count
+        result['InterveneRuleList'] = []
+        if self.intervene_rule_list is not None:
+            for k in self.intervene_rule_list:
+                result['InterveneRuleList'].append(k.to_map() if k else None)
+        if self.page_index is not None:
+            result['PageIndex'] = self.page_index
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        self.intervene_rule_list = []
+        if m.get('InterveneRuleList') is not None:
+            for k in m.get('InterveneRuleList'):
+                temp_model = ListInterveneRulesResponseBodyDataInterveneRuleList()
+                self.intervene_rule_list.append(temp_model.from_map(k))
+        if m.get('PageIndex') is not None:
+            self.page_index = m.get('PageIndex')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        return self
+
+
+class ListInterveneRulesResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: ListInterveneRulesResponseBodyData
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(ListInterveneRulesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = ListInterveneRulesResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ListInterveneRulesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListInterveneRulesResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListInterveneRulesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListInterveneRulesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListIntervenesRequest(TeaModel):
+    def __init__(self, agent_key=None, intervene_type=None, page_index=None, page_size=None, query=None,
+                 rule_id=None):
+        self.agent_key = agent_key  # type: str
+        self.intervene_type = intervene_type  # type: int
+        self.page_index = page_index  # type: int
+        self.page_size = page_size  # type: int
+        self.query = query  # type: str
+        self.rule_id = rule_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListIntervenesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agent_key is not None:
+            result['AgentKey'] = self.agent_key
+        if self.intervene_type is not None:
+            result['InterveneType'] = self.intervene_type
+        if self.page_index is not None:
+            result['PageIndex'] = self.page_index
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.query is not None:
+            result['Query'] = self.query
+        if self.rule_id is not None:
+            result['RuleId'] = self.rule_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AgentKey') is not None:
+            self.agent_key = m.get('AgentKey')
+        if m.get('InterveneType') is not None:
+            self.intervene_type = m.get('InterveneType')
+        if m.get('PageIndex') is not None:
+            self.page_index = m.get('PageIndex')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('Query') is not None:
+            self.query = m.get('Query')
+        if m.get('RuleId') is not None:
+            self.rule_id = m.get('RuleId')
+        return self
+
+
+class ListIntervenesResponseBodyDataInterveneList(TeaModel):
+    def __init__(self, id=None, query=None):
+        # id
+        self.id = id  # type: str
+        self.query = query  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListIntervenesResponseBodyDataInterveneList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.query is not None:
+            result['Query'] = self.query
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('Query') is not None:
+            self.query = m.get('Query')
+        return self
+
+
+class ListIntervenesResponseBodyData(TeaModel):
+    def __init__(self, intervene_list=None, page_index=None, page_size=None, total_size=None):
+        self.intervene_list = intervene_list  # type: list[ListIntervenesResponseBodyDataInterveneList]
+        self.page_index = page_index  # type: int
+        self.page_size = page_size  # type: int
+        self.total_size = total_size  # type: long
+
+    def validate(self):
+        if self.intervene_list:
+            for k in self.intervene_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListIntervenesResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['InterveneList'] = []
+        if self.intervene_list is not None:
+            for k in self.intervene_list:
+                result['InterveneList'].append(k.to_map() if k else None)
+        if self.page_index is not None:
+            result['PageIndex'] = self.page_index
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.total_size is not None:
+            result['TotalSize'] = self.total_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.intervene_list = []
+        if m.get('InterveneList') is not None:
+            for k in m.get('InterveneList'):
+                temp_model = ListIntervenesResponseBodyDataInterveneList()
+                self.intervene_list.append(temp_model.from_map(k))
+        if m.get('PageIndex') is not None:
+            self.page_index = m.get('PageIndex')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('TotalSize') is not None:
+            self.total_size = m.get('TotalSize')
+        return self
+
+
+class ListIntervenesResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: ListIntervenesResponseBodyData
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(ListIntervenesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = ListIntervenesResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ListIntervenesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListIntervenesResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListIntervenesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListIntervenesResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
