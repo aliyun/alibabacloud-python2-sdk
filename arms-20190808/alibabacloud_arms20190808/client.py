@@ -6226,6 +6226,40 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_silence_policies_with_options(request, runtime)
 
+    def list_synthetic_detail_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = arms20190808_models.ListSyntheticDetailShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.advanced_filters):
+            request.advanced_filters_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.advanced_filters, 'AdvancedFilters', 'json')
+        if not UtilClient.is_unset(tmp_req.exact_filters):
+            request.exact_filters_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.exact_filters, 'ExactFilters', 'json')
+        if not UtilClient.is_unset(tmp_req.filters):
+            request.filters_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.filters, 'Filters', 'json')
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListSyntheticDetail',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.ListSyntheticDetailResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_synthetic_detail(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_synthetic_detail_with_options(request, runtime)
+
     def list_timing_synthetic_tasks_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
         request = arms20190808_models.ListTimingSyntheticTasksShrinkRequest()

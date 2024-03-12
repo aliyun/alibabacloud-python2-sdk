@@ -18812,9 +18812,27 @@ class DescribeEnvironmentResponse(TeaModel):
 
 class DescribeEnvironmentFeatureRequest(TeaModel):
     def __init__(self, environment_id=None, feature_name=None, region_id=None):
-        # Environment ID.
+        # The environment ID.
         self.environment_id = environment_id  # type: str
-        # Name of Feature.
+        # The name of the feature.
+        # 
+        # Valid values:
+        # 
+        # *   app-agent-pilot
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   metric-agent
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
         self.feature_name = feature_name  # type: str
         # The region ID.
         self.region_id = region_id  # type: str
@@ -18850,26 +18868,26 @@ class DescribeEnvironmentFeatureRequest(TeaModel):
 class DescribeEnvironmentFeatureResponseBodyDataFeature(TeaModel):
     def __init__(self, alias=None, config=None, description=None, environment_id=None, icon=None, language=None,
                  latest_version=None, managed=None, name=None, status=None, version=None):
-        # Alias of Feature.
+        # The alias of the feature.
         self.alias = alias  # type: str
-        # Config of Feature.
+        # The configuration of the feature.
         self.config = config  # type: dict[str, str]
-        # Description of Feature.
+        # The description of the feature.
         self.description = description  # type: str
-        # Environment ID.
+        # The environment ID.
         self.environment_id = environment_id  # type: str
-        # Icon address.
+        # The URL of the icon.
         self.icon = icon  # type: str
-        # Lanuage.
+        # The language.
         self.language = language  # type: str
-        # This is the latest version of Feature.
+        # The latest version number.
         self.latest_version = latest_version  # type: str
         self.managed = managed  # type: bool
-        # Name of Feature.
+        # The name of the feature.
         self.name = name  # type: str
-        # Installation status of Feature.
+        # The status.
         self.status = status  # type: str
-        # Version of Feature.
+        # The version number.
         self.version = version  # type: str
 
     def validate(self):
@@ -18934,11 +18952,11 @@ class DescribeEnvironmentFeatureResponseBodyDataFeature(TeaModel):
 
 class DescribeEnvironmentFeatureResponseBodyDataFeatureStatusFeatureContainers(TeaModel):
     def __init__(self, args=None, image=None, name=None):
-        # Container parameters.
+        # The container parameters.
         self.args = args  # type: list[str]
-        # Container image.
+        # The image of the container.
         self.image = image  # type: str
-        # Name of the container.
+        # The name of the container.
         self.name = name  # type: str
 
     def validate(self):
@@ -18971,16 +18989,17 @@ class DescribeEnvironmentFeatureResponseBodyDataFeatureStatusFeatureContainers(T
 
 class DescribeEnvironmentFeatureResponseBodyDataFeatureStatus(TeaModel):
     def __init__(self, feature_containers=None, name=None, namespace=None, status=None):
-        # Feature container list.
+        # The containers of the feature.
         self.feature_containers = feature_containers  # type: list[DescribeEnvironmentFeatureResponseBodyDataFeatureStatusFeatureContainers]
-        # K8s resource name of the Feature.
+        # The Kubernetes resource name of the feature.
         self.name = name  # type: str
-        # Namespace.
+        # The namespace.
         self.namespace = namespace  # type: str
-        # Running status.
-        # - Success: Running normal
-        # - Failed: Running exception
-        # - Not Found: Not installed
+        # The status of the agent. Valid values:
+        # 
+        # *   Success: The agent is running.
+        # *   Failed: The agent failed to run.
+        # *   Not Found: The agent is not installed.
         self.status = status  # type: str
 
     def validate(self):
@@ -19025,9 +19044,9 @@ class DescribeEnvironmentFeatureResponseBodyDataFeatureStatus(TeaModel):
 
 class DescribeEnvironmentFeatureResponseBodyData(TeaModel):
     def __init__(self, feature=None, feature_status=None):
-        # Feature Installation information.
+        # The installation information of the feature.
         self.feature = feature  # type: DescribeEnvironmentFeatureResponseBodyDataFeature
-        # Running status of the Feature.
+        # The status of the feature.
         self.feature_status = feature_status  # type: DescribeEnvironmentFeatureResponseBodyDataFeatureStatus
 
     def validate(self):
@@ -19061,18 +19080,15 @@ class DescribeEnvironmentFeatureResponseBodyData(TeaModel):
 
 class DescribeEnvironmentFeatureResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # Status code: 200 indicates success.
+        # The HTTP status code. The status code 200 indicates that the request was successful.
         self.code = code  # type: int
-        # The return data.
+        # The returned struct.
         self.data = data  # type: DescribeEnvironmentFeatureResponseBodyData
-        # The message returned.
+        # The returned message.
         self.message = message  # type: str
-        # Id of the request
+        # The ID of the request.
         self.request_id = request_id  # type: str
-        # Indicates whether the request is successful.
-        # 
-        # *   `true`: successful
-        # *   `false`: failed
+        # Indicates whether the request was successful. Valid values: true and false.
         self.success = success  # type: bool
 
     def validate(self):
@@ -35235,9 +35251,9 @@ class ListEnvironmentFeaturesResponse(TeaModel):
 
 class ListEnvironmentsRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # Tag key.
+        # The tag key.
         self.key = key  # type: str
-        # Tag value.
+        # The tag value.
         self.value = value  # type: str
 
     def validate(self):
@@ -35267,16 +35283,55 @@ class ListEnvironmentsRequestTag(TeaModel):
 class ListEnvironmentsRequest(TeaModel):
     def __init__(self, addon_name=None, bind_resource_id=None, environment_type=None, region_id=None,
                  resource_group_id=None, tag=None):
-        # Name of Addon.
+        # The add-on name. You must specify at least one of the AddonName and EnvironmentType parameters.
         self.addon_name = addon_name  # type: str
+        # 绑定的资源ID。
         self.bind_resource_id = bind_resource_id  # type: str
-        # Environment type, AddonName or EnvironmentType must be at least one.
+        # The environment type. You must specify at least one of the AddonName and EnvironmentType parameters.
+        # 
+        # Valid values:
+        # 
+        # *   CS
+        # 
+        #     <!-- -->
+        # 
+        #     :
+        # 
+        #     <!-- -->
+        # 
+        #     Container Service for Kubernetes (ACK)
+        # 
+        #     <!-- -->
+        # 
+        # *   ECS
+        # 
+        #     <!-- -->
+        # 
+        #     :
+        # 
+        #     <!-- -->
+        # 
+        #     Elastic Compute Service (ECS)
+        # 
+        #     <!-- -->
+        # 
+        # *   Cloud
+        # 
+        #     <!-- -->
+        # 
+        #     :
+        # 
+        #     <!-- -->
+        # 
+        #     cloud service
+        # 
+        #     <!-- -->
         self.environment_type = environment_type  # type: str
         # The region ID.
         self.region_id = region_id  # type: str
         # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
-        # Resource tag list.
+        # The tags.
         self.tag = tag  # type: list[ListEnvironmentsRequestTag]
 
     def validate(self):
@@ -35330,16 +35385,55 @@ class ListEnvironmentsRequest(TeaModel):
 class ListEnvironmentsShrinkRequest(TeaModel):
     def __init__(self, addon_name=None, bind_resource_id=None, environment_type=None, region_id=None,
                  resource_group_id=None, tag_shrink=None):
-        # Name of Addon.
+        # The add-on name. You must specify at least one of the AddonName and EnvironmentType parameters.
         self.addon_name = addon_name  # type: str
+        # 绑定的资源ID。
         self.bind_resource_id = bind_resource_id  # type: str
-        # Environment type, AddonName or EnvironmentType must be at least one.
+        # The environment type. You must specify at least one of the AddonName and EnvironmentType parameters.
+        # 
+        # Valid values:
+        # 
+        # *   CS
+        # 
+        #     <!-- -->
+        # 
+        #     :
+        # 
+        #     <!-- -->
+        # 
+        #     Container Service for Kubernetes (ACK)
+        # 
+        #     <!-- -->
+        # 
+        # *   ECS
+        # 
+        #     <!-- -->
+        # 
+        #     :
+        # 
+        #     <!-- -->
+        # 
+        #     Elastic Compute Service (ECS)
+        # 
+        #     <!-- -->
+        # 
+        # *   Cloud
+        # 
+        #     <!-- -->
+        # 
+        #     :
+        # 
+        #     <!-- -->
+        # 
+        #     cloud service
+        # 
+        #     <!-- -->
         self.environment_type = environment_type  # type: str
         # The region ID.
         self.region_id = region_id  # type: str
         # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
-        # Resource tag list.
+        # The tags.
         self.tag_shrink = tag_shrink  # type: str
 
     def validate(self):
@@ -35384,13 +35478,13 @@ class ListEnvironmentsShrinkRequest(TeaModel):
 
 class ListEnvironmentsResponseBodyDataEnvironmentsAddons(TeaModel):
     def __init__(self, alias=None, description=None, icon=None, name=None):
-        # Alias of Addon.
+        # The alias of the add-on.
         self.alias = alias  # type: str
-        # Description of Addon.
+        # The description of the add-on.
         self.description = description  # type: str
-        # Icon of Addon.
+        # The URL of the icon.
         self.icon = icon  # type: str
-        # Name of Addon.
+        # The name of the add-on.
         self.name = name  # type: str
 
     def validate(self):
@@ -35427,13 +35521,13 @@ class ListEnvironmentsResponseBodyDataEnvironmentsAddons(TeaModel):
 
 class ListEnvironmentsResponseBodyDataEnvironmentsFeatures(TeaModel):
     def __init__(self, alias=None, description=None, icon=None, name=None):
-        # Alias of Feature.
+        # The alias of the feature.
         self.alias = alias  # type: str
-        # Description of Feature.
+        # The description of the feature.
         self.description = description  # type: str
-        # Icon address.
+        # The URL of the feature icon.
         self.icon = icon  # type: str
-        # Name of Feature.
+        # The name of the feature.
         self.name = name  # type: str
 
     def validate(self):
@@ -35470,9 +35564,9 @@ class ListEnvironmentsResponseBodyDataEnvironmentsFeatures(TeaModel):
 
 class ListEnvironmentsResponseBodyDataEnvironmentsTags(TeaModel):
     def __init__(self, key=None, value=None):
-        # Tag key.
+        # The tag key.
         self.key = key  # type: str
-        # Tag value.
+        # The tag value.
         self.value = value  # type: str
 
     def validate(self):
@@ -35505,50 +35599,58 @@ class ListEnvironmentsResponseBodyDataEnvironments(TeaModel):
                  environment_type=None, features=None, grafana_datasource_uid=None, grafana_folder_title=None,
                  grafana_folder_uid=None, latest_release_create_time=None, managed_type=None, prometheus_id=None,
                  prometheus_instance_id=None, region_id=None, release_count=None, resource_group_id=None, tags=None, user_id=None):
-        # Addon list.
+        # The queried add-ons.
         self.addons = addons  # type: list[ListEnvironmentsResponseBodyDataEnvironmentsAddons]
-        # Id of the resource to be bound.
+        # The ID of the resource associated with the environment, such as the ACK cluster ID or VPC ID.
         self.bind_resource_id = bind_resource_id  # type: str
-        # Profile of the resource to be bound.
+        # The profile of the resource.
         self.bind_resource_profile = bind_resource_profile  # type: str
-        # Type of the resource to be bound.
+        # The resource type.
         self.bind_resource_type = bind_resource_type  # type: str
-        # Bound Vpc IP Cidr.
+        # The CIDR block that is bound to the VPC.
         self.bind_vpc_cidr = bind_vpc_cidr  # type: str
-        # Create time.
+        # The time when the VPC was created.
         self.create_time = create_time  # type: str
-        # Created User ID.
+        # The ID of the user that created the VPC.
         self.created_user_id = created_user_id  # type: str
-        # Environment ID.
+        # The ID of the environment instance.
         self.environment_id = environment_id  # type: str
-        # Environment name.
+        # The name of the environment.
         self.environment_name = environment_name  # type: str
-        # Environment type.
+        # The type of the environment. Valid values:
+        # 
+        # *   CS: Container Service for Kubernetes (ACK)
+        # *   ECS: Elastic Compute Service (ECS)
+        # *   Cloud: cloud service
         self.environment_type = environment_type  # type: str
-        # Featyre list.
+        # The features.
         self.features = features  # type: list[ListEnvironmentsResponseBodyDataEnvironmentsFeatures]
-        # Grafana datasource UID.
+        # The unique ID of the Grafana data source.
         self.grafana_datasource_uid = grafana_datasource_uid  # type: str
-        # Grafana folder title.
+        # The name of the Grafana directory.
         self.grafana_folder_title = grafana_folder_title  # type: str
-        # Grafana folder UID.
+        # The unique ID of the Grafana directory.
         self.grafana_folder_uid = grafana_folder_uid  # type: str
-        # Latest Release create time.
+        # The time when the add-on was last created.
         self.latest_release_create_time = latest_release_create_time  # type: str
+        # type of managed: 
+        # - none: not managed. default value of prometheus for ACK.
+        # - agent: managed agent. default value of  promehtues for ASK/ACS/AckOne.
+        # - agent-exproter: maanged agent and exporter. default of prometheus for Cloud.
         self.managed_type = managed_type  # type: str
-        # Prometheus ID.
+        # The ID of the Prometheus service.
         self.prometheus_id = prometheus_id  # type: long
-        # Prometheus instance ID.
+        # The ID of the Prometheus instance.
         self.prometheus_instance_id = prometheus_instance_id  # type: str
-        # The ID of the region.
+        # The region ID.
         self.region_id = region_id  # type: str
-        # Number of Release.
+        # The number of installed add-ons.
         self.release_count = release_count  # type: int
         # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
-        # The tag value.
+        # The tags of the environment resource.
         self.tags = tags  # type: list[ListEnvironmentsResponseBodyDataEnvironmentsTags]
-        # User ID.
+        # The user ID.
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -35687,9 +35789,9 @@ class ListEnvironmentsResponseBodyDataEnvironments(TeaModel):
 
 class ListEnvironmentsResponseBodyData(TeaModel):
     def __init__(self, environments=None, total=None):
-        # Environment list.
+        # The queried environments.
         self.environments = environments  # type: list[ListEnvironmentsResponseBodyDataEnvironments]
-        # The total number of entries returned.
+        # The total number of returned entries.
         self.total = total  # type: long
 
     def validate(self):
@@ -35726,18 +35828,15 @@ class ListEnvironmentsResponseBodyData(TeaModel):
 
 class ListEnvironmentsResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # Status code: 200 indicates success.
+        # The HTTP status code. The status code 200 indicates that the request was successful.
         self.code = code  # type: int
-        # The returned message.
+        # The returned struct.
         self.data = data  # type: ListEnvironmentsResponseBodyData
         # The returned message.
         self.message = message  # type: str
-        # Id of the request
+        # The request ID.
         self.request_id = request_id  # type: str
-        # Indicates whether the request was successful. Valid values:
-        # 
-        # *   `true`
-        # *   `false`
+        # Indicates whether the request was successful. Valid values: true and false.
         self.success = success  # type: bool
 
     def validate(self):
@@ -40249,6 +40348,385 @@ class ListSilencePoliciesResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListSilencePoliciesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListSyntheticDetailRequestAdvancedFilters(TeaModel):
+    def __init__(self, key=None, op_type=None, value=None):
+        self.key = key  # type: str
+        self.op_type = op_type  # type: str
+        self.value = value  # type: any
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListSyntheticDetailRequestAdvancedFilters, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.op_type is not None:
+            result['OpType'] = self.op_type
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('OpType') is not None:
+            self.op_type = m.get('OpType')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class ListSyntheticDetailRequestExactFilters(TeaModel):
+    def __init__(self, key=None, op_type=None, value=None):
+        self.key = key  # type: str
+        self.op_type = op_type  # type: str
+        self.value = value  # type: any
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListSyntheticDetailRequestExactFilters, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.op_type is not None:
+            result['OpType'] = self.op_type
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('OpType') is not None:
+            self.op_type = m.get('OpType')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class ListSyntheticDetailRequest(TeaModel):
+    def __init__(self, advanced_filters=None, category=None, detail=None, end_time=None, exact_filters=None,
+                 filters=None, order=None, order_by=None, page=None, page_size=None, region_id=None, start_time=None,
+                 synthetic_type=None):
+        self.advanced_filters = advanced_filters  # type: list[ListSyntheticDetailRequestAdvancedFilters]
+        self.category = category  # type: str
+        self.detail = detail  # type: str
+        self.end_time = end_time  # type: long
+        self.exact_filters = exact_filters  # type: list[ListSyntheticDetailRequestExactFilters]
+        self.filters = filters  # type: dict[str, str]
+        self.order = order  # type: str
+        self.order_by = order_by  # type: str
+        self.page = page  # type: int
+        self.page_size = page_size  # type: int
+        self.region_id = region_id  # type: str
+        self.start_time = start_time  # type: long
+        self.synthetic_type = synthetic_type  # type: int
+
+    def validate(self):
+        if self.advanced_filters:
+            for k in self.advanced_filters:
+                if k:
+                    k.validate()
+        if self.exact_filters:
+            for k in self.exact_filters:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListSyntheticDetailRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['AdvancedFilters'] = []
+        if self.advanced_filters is not None:
+            for k in self.advanced_filters:
+                result['AdvancedFilters'].append(k.to_map() if k else None)
+        if self.category is not None:
+            result['Category'] = self.category
+        if self.detail is not None:
+            result['Detail'] = self.detail
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        result['ExactFilters'] = []
+        if self.exact_filters is not None:
+            for k in self.exact_filters:
+                result['ExactFilters'].append(k.to_map() if k else None)
+        if self.filters is not None:
+            result['Filters'] = self.filters
+        if self.order is not None:
+            result['Order'] = self.order
+        if self.order_by is not None:
+            result['OrderBy'] = self.order_by
+        if self.page is not None:
+            result['Page'] = self.page
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.synthetic_type is not None:
+            result['SyntheticType'] = self.synthetic_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.advanced_filters = []
+        if m.get('AdvancedFilters') is not None:
+            for k in m.get('AdvancedFilters'):
+                temp_model = ListSyntheticDetailRequestAdvancedFilters()
+                self.advanced_filters.append(temp_model.from_map(k))
+        if m.get('Category') is not None:
+            self.category = m.get('Category')
+        if m.get('Detail') is not None:
+            self.detail = m.get('Detail')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        self.exact_filters = []
+        if m.get('ExactFilters') is not None:
+            for k in m.get('ExactFilters'):
+                temp_model = ListSyntheticDetailRequestExactFilters()
+                self.exact_filters.append(temp_model.from_map(k))
+        if m.get('Filters') is not None:
+            self.filters = m.get('Filters')
+        if m.get('Order') is not None:
+            self.order = m.get('Order')
+        if m.get('OrderBy') is not None:
+            self.order_by = m.get('OrderBy')
+        if m.get('Page') is not None:
+            self.page = m.get('Page')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('SyntheticType') is not None:
+            self.synthetic_type = m.get('SyntheticType')
+        return self
+
+
+class ListSyntheticDetailShrinkRequest(TeaModel):
+    def __init__(self, advanced_filters_shrink=None, category=None, detail=None, end_time=None,
+                 exact_filters_shrink=None, filters_shrink=None, order=None, order_by=None, page=None, page_size=None, region_id=None,
+                 start_time=None, synthetic_type=None):
+        self.advanced_filters_shrink = advanced_filters_shrink  # type: str
+        self.category = category  # type: str
+        self.detail = detail  # type: str
+        self.end_time = end_time  # type: long
+        self.exact_filters_shrink = exact_filters_shrink  # type: str
+        self.filters_shrink = filters_shrink  # type: str
+        self.order = order  # type: str
+        self.order_by = order_by  # type: str
+        self.page = page  # type: int
+        self.page_size = page_size  # type: int
+        self.region_id = region_id  # type: str
+        self.start_time = start_time  # type: long
+        self.synthetic_type = synthetic_type  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListSyntheticDetailShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.advanced_filters_shrink is not None:
+            result['AdvancedFilters'] = self.advanced_filters_shrink
+        if self.category is not None:
+            result['Category'] = self.category
+        if self.detail is not None:
+            result['Detail'] = self.detail
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.exact_filters_shrink is not None:
+            result['ExactFilters'] = self.exact_filters_shrink
+        if self.filters_shrink is not None:
+            result['Filters'] = self.filters_shrink
+        if self.order is not None:
+            result['Order'] = self.order
+        if self.order_by is not None:
+            result['OrderBy'] = self.order_by
+        if self.page is not None:
+            result['Page'] = self.page
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.synthetic_type is not None:
+            result['SyntheticType'] = self.synthetic_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AdvancedFilters') is not None:
+            self.advanced_filters_shrink = m.get('AdvancedFilters')
+        if m.get('Category') is not None:
+            self.category = m.get('Category')
+        if m.get('Detail') is not None:
+            self.detail = m.get('Detail')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('ExactFilters') is not None:
+            self.exact_filters_shrink = m.get('ExactFilters')
+        if m.get('Filters') is not None:
+            self.filters_shrink = m.get('Filters')
+        if m.get('Order') is not None:
+            self.order = m.get('Order')
+        if m.get('OrderBy') is not None:
+            self.order_by = m.get('OrderBy')
+        if m.get('Page') is not None:
+            self.page = m.get('Page')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('SyntheticType') is not None:
+            self.synthetic_type = m.get('SyntheticType')
+        return self
+
+
+class ListSyntheticDetailResponseBodyData(TeaModel):
+    def __init__(self, items=None, page=None, page_size=None, task_create_time=None, total=None):
+        self.items = items  # type: list[dict[str, any]]
+        self.page = page  # type: int
+        self.page_size = page_size  # type: int
+        self.task_create_time = task_create_time  # type: long
+        self.total = total  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListSyntheticDetailResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.items is not None:
+            result['Items'] = self.items
+        if self.page is not None:
+            result['Page'] = self.page
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.task_create_time is not None:
+            result['TaskCreateTime'] = self.task_create_time
+        if self.total is not None:
+            result['Total'] = self.total
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Items') is not None:
+            self.items = m.get('Items')
+        if m.get('Page') is not None:
+            self.page = m.get('Page')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('TaskCreateTime') is not None:
+            self.task_create_time = m.get('TaskCreateTime')
+        if m.get('Total') is not None:
+            self.total = m.get('Total')
+        return self
+
+
+class ListSyntheticDetailResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None):
+        self.code = code  # type: long
+        self.data = data  # type: ListSyntheticDetailResponseBodyData
+        self.message = message  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(ListSyntheticDetailResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = ListSyntheticDetailResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ListSyntheticDetailResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListSyntheticDetailResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListSyntheticDetailResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListSyntheticDetailResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
