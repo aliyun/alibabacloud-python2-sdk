@@ -93,9 +93,6 @@ class AcceptVpcPeerConnectionResponse(TeaModel):
         self.body = body  # type: AcceptVpcPeerConnectionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -273,9 +270,6 @@ class CreateVpcPeerConnectionResponse(TeaModel):
         self.body = body  # type: CreateVpcPeerConnectionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -390,9 +384,6 @@ class DeleteVpcPeerConnectionResponse(TeaModel):
         self.body = body  # type: DeleteVpcPeerConnectionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -731,9 +722,6 @@ class GetVpcPeerConnectionAttributeResponse(TeaModel):
         self.body = body  # type: GetVpcPeerConnectionAttributeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -981,9 +969,6 @@ class ListTagResourcesResponse(TeaModel):
         self.body = body  # type: ListTagResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1581,9 +1566,6 @@ class ListVpcPeerConnectionsResponse(TeaModel):
         self.body = body  # type: ListVpcPeerConnectionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1712,9 +1694,6 @@ class ModifyVpcPeerConnectionResponse(TeaModel):
         self.body = body  # type: ModifyVpcPeerConnectionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1832,9 +1811,6 @@ class MoveResourceGroupResponse(TeaModel):
         self.body = body  # type: MoveResourceGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1945,9 +1921,6 @@ class RejectVpcPeerConnectionResponse(TeaModel):
         self.body = body  # type: RejectVpcPeerConnectionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2116,9 +2089,6 @@ class TagResourcesResponse(TeaModel):
         self.body = body  # type: TagResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2254,9 +2224,6 @@ class UnTagResourcesResponse(TeaModel):
         self.body = body  # type: UnTagResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
