@@ -386,7 +386,8 @@ class CreateTaskRequest(TeaModel):
 
 
 class CreateTaskResponseBodyData(TeaModel):
-    def __init__(self, task_id=None, task_key=None):
+    def __init__(self, meeting_join_url=None, task_id=None, task_key=None):
+        self.meeting_join_url = meeting_join_url  # type: str
         self.task_id = task_id  # type: str
         self.task_key = task_key  # type: str
 
@@ -399,6 +400,8 @@ class CreateTaskResponseBodyData(TeaModel):
             return _map
 
         result = dict()
+        if self.meeting_join_url is not None:
+            result['MeetingJoinUrl'] = self.meeting_join_url
         if self.task_id is not None:
             result['TaskId'] = self.task_id
         if self.task_key is not None:
@@ -407,6 +410,8 @@ class CreateTaskResponseBodyData(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('MeetingJoinUrl') is not None:
+            self.meeting_join_url = m.get('MeetingJoinUrl')
         if m.get('TaskId') is not None:
             self.task_id = m.get('TaskId')
         if m.get('TaskKey') is not None:
