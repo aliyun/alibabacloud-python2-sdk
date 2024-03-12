@@ -68,9 +68,6 @@ class ApproveOperationResponse(TeaModel):
         self.body = body  # type: ApproveOperationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -166,9 +163,6 @@ class ChangeResourceGroupResponse(TeaModel):
         self.body = body  # type: ChangeResourceGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1103,9 +1097,6 @@ class CreateClusterResponse(TeaModel):
         self.body = body  # type: CreateClusterResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1190,9 +1181,6 @@ class DeleteClusterResponse(TeaModel):
         self.body = body  # type: DeleteClusterResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1424,9 +1412,6 @@ class DescribeClusterResponse(TeaModel):
         self.body = body  # type: DescribeClusterResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1452,6 +1437,365 @@ class DescribeClusterResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeClusterResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeInvocationsRequest(TeaModel):
+    def __init__(self, content_encoding=None, include_output=None, invoke_id=None, node_id=None):
+        self.content_encoding = content_encoding  # type: str
+        self.include_output = include_output  # type: bool
+        self.invoke_id = invoke_id  # type: str
+        self.node_id = node_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeInvocationsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content_encoding is not None:
+            result['ContentEncoding'] = self.content_encoding
+        if self.include_output is not None:
+            result['IncludeOutput'] = self.include_output
+        if self.invoke_id is not None:
+            result['InvokeId'] = self.invoke_id
+        if self.node_id is not None:
+            result['NodeId'] = self.node_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ContentEncoding') is not None:
+            self.content_encoding = m.get('ContentEncoding')
+        if m.get('IncludeOutput') is not None:
+            self.include_output = m.get('IncludeOutput')
+        if m.get('InvokeId') is not None:
+            self.invoke_id = m.get('InvokeId')
+        if m.get('NodeId') is not None:
+            self.node_id = m.get('NodeId')
+        return self
+
+
+class DescribeInvocationsResponseBodyInvocationsInvocationInvokeNodesInvokeNode(TeaModel):
+    def __init__(self, creation_time=None, dropped=None, error_code=None, error_info=None, exit_code=None,
+                 finish_time=None, invocation_status=None, node_id=None, node_invoke_status=None, output=None, repeats=None,
+                 start_time=None, stop_time=None, timed=None, update_time=None):
+        self.creation_time = creation_time  # type: str
+        self.dropped = dropped  # type: int
+        self.error_code = error_code  # type: bool
+        self.error_info = error_info  # type: str
+        self.exit_code = exit_code  # type: int
+        self.finish_time = finish_time  # type: str
+        self.invocation_status = invocation_status  # type: str
+        self.node_id = node_id  # type: str
+        self.node_invoke_status = node_invoke_status  # type: str
+        self.output = output  # type: str
+        self.repeats = repeats  # type: int
+        self.start_time = start_time  # type: str
+        self.stop_time = stop_time  # type: str
+        self.timed = timed  # type: str
+        self.update_time = update_time  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeInvocationsResponseBodyInvocationsInvocationInvokeNodesInvokeNode, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.creation_time is not None:
+            result['CreationTime'] = self.creation_time
+        if self.dropped is not None:
+            result['Dropped'] = self.dropped
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.error_info is not None:
+            result['ErrorInfo'] = self.error_info
+        if self.exit_code is not None:
+            result['ExitCode'] = self.exit_code
+        if self.finish_time is not None:
+            result['FinishTime'] = self.finish_time
+        if self.invocation_status is not None:
+            result['InvocationStatus'] = self.invocation_status
+        if self.node_id is not None:
+            result['NodeId'] = self.node_id
+        if self.node_invoke_status is not None:
+            result['NodeInvokeStatus'] = self.node_invoke_status
+        if self.output is not None:
+            result['Output'] = self.output
+        if self.repeats is not None:
+            result['Repeats'] = self.repeats
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.stop_time is not None:
+            result['StopTime'] = self.stop_time
+        if self.timed is not None:
+            result['Timed'] = self.timed
+        if self.update_time is not None:
+            result['UpdateTime'] = self.update_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CreationTime') is not None:
+            self.creation_time = m.get('CreationTime')
+        if m.get('Dropped') is not None:
+            self.dropped = m.get('Dropped')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('ErrorInfo') is not None:
+            self.error_info = m.get('ErrorInfo')
+        if m.get('ExitCode') is not None:
+            self.exit_code = m.get('ExitCode')
+        if m.get('FinishTime') is not None:
+            self.finish_time = m.get('FinishTime')
+        if m.get('InvocationStatus') is not None:
+            self.invocation_status = m.get('InvocationStatus')
+        if m.get('NodeId') is not None:
+            self.node_id = m.get('NodeId')
+        if m.get('NodeInvokeStatus') is not None:
+            self.node_invoke_status = m.get('NodeInvokeStatus')
+        if m.get('Output') is not None:
+            self.output = m.get('Output')
+        if m.get('Repeats') is not None:
+            self.repeats = m.get('Repeats')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('StopTime') is not None:
+            self.stop_time = m.get('StopTime')
+        if m.get('Timed') is not None:
+            self.timed = m.get('Timed')
+        if m.get('UpdateTime') is not None:
+            self.update_time = m.get('UpdateTime')
+        return self
+
+
+class DescribeInvocationsResponseBodyInvocationsInvocationInvokeNodes(TeaModel):
+    def __init__(self, invoke_node=None):
+        self.invoke_node = invoke_node  # type: list[DescribeInvocationsResponseBodyInvocationsInvocationInvokeNodesInvokeNode]
+
+    def validate(self):
+        if self.invoke_node:
+            for k in self.invoke_node:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeInvocationsResponseBodyInvocationsInvocationInvokeNodes, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['InvokeNode'] = []
+        if self.invoke_node is not None:
+            for k in self.invoke_node:
+                result['InvokeNode'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.invoke_node = []
+        if m.get('InvokeNode') is not None:
+            for k in m.get('InvokeNode'):
+                temp_model = DescribeInvocationsResponseBodyInvocationsInvocationInvokeNodesInvokeNode()
+                self.invoke_node.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeInvocationsResponseBodyInvocationsInvocation(TeaModel):
+    def __init__(self, command_content=None, command_description=None, command_name=None, creation_time=None,
+                 frequency=None, invocation_status=None, invoke_id=None, invoke_nodes=None, invoke_status=None,
+                 parameters=None, repeat_mode=None, timeout=None, username=None, working_dir=None):
+        self.command_content = command_content  # type: str
+        self.command_description = command_description  # type: str
+        self.command_name = command_name  # type: str
+        self.creation_time = creation_time  # type: str
+        self.frequency = frequency  # type: str
+        self.invocation_status = invocation_status  # type: str
+        self.invoke_id = invoke_id  # type: str
+        self.invoke_nodes = invoke_nodes  # type: DescribeInvocationsResponseBodyInvocationsInvocationInvokeNodes
+        self.invoke_status = invoke_status  # type: str
+        self.parameters = parameters  # type: str
+        self.repeat_mode = repeat_mode  # type: str
+        self.timeout = timeout  # type: int
+        self.username = username  # type: str
+        self.working_dir = working_dir  # type: str
+
+    def validate(self):
+        if self.invoke_nodes:
+            self.invoke_nodes.validate()
+
+    def to_map(self):
+        _map = super(DescribeInvocationsResponseBodyInvocationsInvocation, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.command_content is not None:
+            result['CommandContent'] = self.command_content
+        if self.command_description is not None:
+            result['CommandDescription'] = self.command_description
+        if self.command_name is not None:
+            result['CommandName'] = self.command_name
+        if self.creation_time is not None:
+            result['CreationTime'] = self.creation_time
+        if self.frequency is not None:
+            result['Frequency'] = self.frequency
+        if self.invocation_status is not None:
+            result['InvocationStatus'] = self.invocation_status
+        if self.invoke_id is not None:
+            result['InvokeId'] = self.invoke_id
+        if self.invoke_nodes is not None:
+            result['InvokeNodes'] = self.invoke_nodes.to_map()
+        if self.invoke_status is not None:
+            result['InvokeStatus'] = self.invoke_status
+        if self.parameters is not None:
+            result['Parameters'] = self.parameters
+        if self.repeat_mode is not None:
+            result['RepeatMode'] = self.repeat_mode
+        if self.timeout is not None:
+            result['Timeout'] = self.timeout
+        if self.username is not None:
+            result['Username'] = self.username
+        if self.working_dir is not None:
+            result['WorkingDir'] = self.working_dir
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CommandContent') is not None:
+            self.command_content = m.get('CommandContent')
+        if m.get('CommandDescription') is not None:
+            self.command_description = m.get('CommandDescription')
+        if m.get('CommandName') is not None:
+            self.command_name = m.get('CommandName')
+        if m.get('CreationTime') is not None:
+            self.creation_time = m.get('CreationTime')
+        if m.get('Frequency') is not None:
+            self.frequency = m.get('Frequency')
+        if m.get('InvocationStatus') is not None:
+            self.invocation_status = m.get('InvocationStatus')
+        if m.get('InvokeId') is not None:
+            self.invoke_id = m.get('InvokeId')
+        if m.get('InvokeNodes') is not None:
+            temp_model = DescribeInvocationsResponseBodyInvocationsInvocationInvokeNodes()
+            self.invoke_nodes = temp_model.from_map(m['InvokeNodes'])
+        if m.get('InvokeStatus') is not None:
+            self.invoke_status = m.get('InvokeStatus')
+        if m.get('Parameters') is not None:
+            self.parameters = m.get('Parameters')
+        if m.get('RepeatMode') is not None:
+            self.repeat_mode = m.get('RepeatMode')
+        if m.get('Timeout') is not None:
+            self.timeout = m.get('Timeout')
+        if m.get('Username') is not None:
+            self.username = m.get('Username')
+        if m.get('WorkingDir') is not None:
+            self.working_dir = m.get('WorkingDir')
+        return self
+
+
+class DescribeInvocationsResponseBodyInvocations(TeaModel):
+    def __init__(self, invocation=None):
+        self.invocation = invocation  # type: list[DescribeInvocationsResponseBodyInvocationsInvocation]
+
+    def validate(self):
+        if self.invocation:
+            for k in self.invocation:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeInvocationsResponseBodyInvocations, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Invocation'] = []
+        if self.invocation is not None:
+            for k in self.invocation:
+                result['Invocation'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.invocation = []
+        if m.get('Invocation') is not None:
+            for k in m.get('Invocation'):
+                temp_model = DescribeInvocationsResponseBodyInvocationsInvocation()
+                self.invocation.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeInvocationsResponseBody(TeaModel):
+    def __init__(self, invocations=None, request_id=None):
+        self.invocations = invocations  # type: DescribeInvocationsResponseBodyInvocations
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.invocations:
+            self.invocations.validate()
+
+    def to_map(self):
+        _map = super(DescribeInvocationsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.invocations is not None:
+            result['Invocations'] = self.invocations.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Invocations') is not None:
+            temp_model = DescribeInvocationsResponseBodyInvocations()
+            self.invocations = temp_model.from_map(m['Invocations'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeInvocationsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeInvocationsResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeInvocationsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeInvocationsResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -1647,9 +1991,6 @@ class DescribeNodeResponse(TeaModel):
         self.body = body  # type: DescribeNodeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1776,9 +2117,6 @@ class DescribeRegionsResponse(TeaModel):
         self.body = body  # type: DescribeRegionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1804,6 +2142,320 @@ class DescribeRegionsResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeRegionsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeSendFileResultsRequest(TeaModel):
+    def __init__(self, invoke_id=None, node_id=None):
+        self.invoke_id = invoke_id  # type: str
+        self.node_id = node_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeSendFileResultsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.invoke_id is not None:
+            result['InvokeId'] = self.invoke_id
+        if self.node_id is not None:
+            result['NodeId'] = self.node_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InvokeId') is not None:
+            self.invoke_id = m.get('InvokeId')
+        if m.get('NodeId') is not None:
+            self.node_id = m.get('NodeId')
+        return self
+
+
+class DescribeSendFileResultsResponseBodyInvocationsInvocationInvokeNodesInvokeNode(TeaModel):
+    def __init__(self, creation_time=None, error_code=None, error_info=None, finish_time=None,
+                 invocation_status=None, node_id=None, start_time=None, update_time=None):
+        self.creation_time = creation_time  # type: str
+        self.error_code = error_code  # type: str
+        self.error_info = error_info  # type: str
+        self.finish_time = finish_time  # type: str
+        self.invocation_status = invocation_status  # type: str
+        self.node_id = node_id  # type: str
+        self.start_time = start_time  # type: str
+        self.update_time = update_time  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeSendFileResultsResponseBodyInvocationsInvocationInvokeNodesInvokeNode, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.creation_time is not None:
+            result['CreationTime'] = self.creation_time
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.error_info is not None:
+            result['ErrorInfo'] = self.error_info
+        if self.finish_time is not None:
+            result['FinishTime'] = self.finish_time
+        if self.invocation_status is not None:
+            result['InvocationStatus'] = self.invocation_status
+        if self.node_id is not None:
+            result['NodeId'] = self.node_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.update_time is not None:
+            result['UpdateTime'] = self.update_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CreationTime') is not None:
+            self.creation_time = m.get('CreationTime')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('ErrorInfo') is not None:
+            self.error_info = m.get('ErrorInfo')
+        if m.get('FinishTime') is not None:
+            self.finish_time = m.get('FinishTime')
+        if m.get('InvocationStatus') is not None:
+            self.invocation_status = m.get('InvocationStatus')
+        if m.get('NodeId') is not None:
+            self.node_id = m.get('NodeId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('UpdateTime') is not None:
+            self.update_time = m.get('UpdateTime')
+        return self
+
+
+class DescribeSendFileResultsResponseBodyInvocationsInvocationInvokeNodes(TeaModel):
+    def __init__(self, invoke_node=None):
+        self.invoke_node = invoke_node  # type: list[DescribeSendFileResultsResponseBodyInvocationsInvocationInvokeNodesInvokeNode]
+
+    def validate(self):
+        if self.invoke_node:
+            for k in self.invoke_node:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeSendFileResultsResponseBodyInvocationsInvocationInvokeNodes, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['InvokeNode'] = []
+        if self.invoke_node is not None:
+            for k in self.invoke_node:
+                result['InvokeNode'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.invoke_node = []
+        if m.get('InvokeNode') is not None:
+            for k in m.get('InvokeNode'):
+                temp_model = DescribeSendFileResultsResponseBodyInvocationsInvocationInvokeNodesInvokeNode()
+                self.invoke_node.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeSendFileResultsResponseBodyInvocationsInvocation(TeaModel):
+    def __init__(self, content=None, content_type=None, creation_time=None, description=None, file_group=None,
+                 file_mode=None, file_owner=None, invocation_status=None, invoke_nodes=None, name=None, node_count=None,
+                 overwrite=None, target_dir=None):
+        self.content = content  # type: str
+        self.content_type = content_type  # type: str
+        self.creation_time = creation_time  # type: str
+        self.description = description  # type: str
+        self.file_group = file_group  # type: str
+        self.file_mode = file_mode  # type: str
+        self.file_owner = file_owner  # type: str
+        self.invocation_status = invocation_status  # type: str
+        self.invoke_nodes = invoke_nodes  # type: DescribeSendFileResultsResponseBodyInvocationsInvocationInvokeNodes
+        self.name = name  # type: str
+        self.node_count = node_count  # type: int
+        self.overwrite = overwrite  # type: bool
+        self.target_dir = target_dir  # type: str
+
+    def validate(self):
+        if self.invoke_nodes:
+            self.invoke_nodes.validate()
+
+    def to_map(self):
+        _map = super(DescribeSendFileResultsResponseBodyInvocationsInvocation, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['Content'] = self.content
+        if self.content_type is not None:
+            result['ContentType'] = self.content_type
+        if self.creation_time is not None:
+            result['CreationTime'] = self.creation_time
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.file_group is not None:
+            result['FileGroup'] = self.file_group
+        if self.file_mode is not None:
+            result['FileMode'] = self.file_mode
+        if self.file_owner is not None:
+            result['FileOwner'] = self.file_owner
+        if self.invocation_status is not None:
+            result['InvocationStatus'] = self.invocation_status
+        if self.invoke_nodes is not None:
+            result['InvokeNodes'] = self.invoke_nodes.to_map()
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.node_count is not None:
+            result['NodeCount'] = self.node_count
+        if self.overwrite is not None:
+            result['Overwrite'] = self.overwrite
+        if self.target_dir is not None:
+            result['TargetDir'] = self.target_dir
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Content') is not None:
+            self.content = m.get('Content')
+        if m.get('ContentType') is not None:
+            self.content_type = m.get('ContentType')
+        if m.get('CreationTime') is not None:
+            self.creation_time = m.get('CreationTime')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('FileGroup') is not None:
+            self.file_group = m.get('FileGroup')
+        if m.get('FileMode') is not None:
+            self.file_mode = m.get('FileMode')
+        if m.get('FileOwner') is not None:
+            self.file_owner = m.get('FileOwner')
+        if m.get('InvocationStatus') is not None:
+            self.invocation_status = m.get('InvocationStatus')
+        if m.get('InvokeNodes') is not None:
+            temp_model = DescribeSendFileResultsResponseBodyInvocationsInvocationInvokeNodes()
+            self.invoke_nodes = temp_model.from_map(m['InvokeNodes'])
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('NodeCount') is not None:
+            self.node_count = m.get('NodeCount')
+        if m.get('Overwrite') is not None:
+            self.overwrite = m.get('Overwrite')
+        if m.get('TargetDir') is not None:
+            self.target_dir = m.get('TargetDir')
+        return self
+
+
+class DescribeSendFileResultsResponseBodyInvocations(TeaModel):
+    def __init__(self, invocation=None):
+        self.invocation = invocation  # type: list[DescribeSendFileResultsResponseBodyInvocationsInvocation]
+
+    def validate(self):
+        if self.invocation:
+            for k in self.invocation:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeSendFileResultsResponseBodyInvocations, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Invocation'] = []
+        if self.invocation is not None:
+            for k in self.invocation:
+                result['Invocation'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.invocation = []
+        if m.get('Invocation') is not None:
+            for k in m.get('Invocation'):
+                temp_model = DescribeSendFileResultsResponseBodyInvocationsInvocation()
+                self.invocation.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeSendFileResultsResponseBody(TeaModel):
+    def __init__(self, invocations=None, request_id=None, total_count=None):
+        self.invocations = invocations  # type: DescribeSendFileResultsResponseBodyInvocations
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: str
+
+    def validate(self):
+        if self.invocations:
+            self.invocations.validate()
+
+    def to_map(self):
+        _map = super(DescribeSendFileResultsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.invocations is not None:
+            result['Invocations'] = self.invocations.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Invocations') is not None:
+            temp_model = DescribeSendFileResultsResponseBodyInvocations()
+            self.invocations = temp_model.from_map(m['Invocations'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class DescribeSendFileResultsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeSendFileResultsResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeSendFileResultsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeSendFileResultsResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -2035,9 +2687,6 @@ class DescribeTaskResponse(TeaModel):
         self.body = body  # type: DescribeTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2164,9 +2813,6 @@ class DescribeZonesResponse(TeaModel):
         self.body = body  # type: DescribeZonesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2692,9 +3338,6 @@ class ExtendClusterResponse(TeaModel):
         self.body = body  # type: ExtendClusterResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2945,9 +3588,6 @@ class ListClusterNodesResponse(TeaModel):
         self.body = body  # type: ListClusterNodesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3151,9 +3791,6 @@ class ListClustersResponse(TeaModel):
         self.body = body  # type: ListClustersResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3336,9 +3973,6 @@ class ListFreeNodesResponse(TeaModel):
         self.body = body  # type: ListFreeNodesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3563,9 +4197,6 @@ class ListTagResourcesResponse(TeaModel):
         self.body = body  # type: ListTagResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3699,9 +4330,6 @@ class RebootNodesResponse(TeaModel):
         self.body = body  # type: RebootNodesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3892,9 +4520,6 @@ class ReimageNodesResponse(TeaModel):
         self.body = body  # type: ReimageNodesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3920,6 +4545,460 @@ class ReimageNodesResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ReimageNodesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class RunCommandRequest(TeaModel):
+    def __init__(self, client_token=None, command_content=None, content_encoding=None, description=None,
+                 enable_parameter=None, frequency=None, name=None, node_id_list=None, parameters=None, repeat_mode=None, timeout=None,
+                 username=None, working_dir=None):
+        self.client_token = client_token  # type: str
+        self.command_content = command_content  # type: str
+        self.content_encoding = content_encoding  # type: str
+        self.description = description  # type: str
+        self.enable_parameter = enable_parameter  # type: bool
+        self.frequency = frequency  # type: str
+        self.name = name  # type: str
+        self.node_id_list = node_id_list  # type: list[str]
+        self.parameters = parameters  # type: dict[str, any]
+        self.repeat_mode = repeat_mode  # type: str
+        self.timeout = timeout  # type: int
+        self.username = username  # type: str
+        self.working_dir = working_dir  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RunCommandRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.command_content is not None:
+            result['CommandContent'] = self.command_content
+        if self.content_encoding is not None:
+            result['ContentEncoding'] = self.content_encoding
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.enable_parameter is not None:
+            result['EnableParameter'] = self.enable_parameter
+        if self.frequency is not None:
+            result['Frequency'] = self.frequency
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.node_id_list is not None:
+            result['NodeIdList'] = self.node_id_list
+        if self.parameters is not None:
+            result['Parameters'] = self.parameters
+        if self.repeat_mode is not None:
+            result['RepeatMode'] = self.repeat_mode
+        if self.timeout is not None:
+            result['Timeout'] = self.timeout
+        if self.username is not None:
+            result['Username'] = self.username
+        if self.working_dir is not None:
+            result['WorkingDir'] = self.working_dir
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('CommandContent') is not None:
+            self.command_content = m.get('CommandContent')
+        if m.get('ContentEncoding') is not None:
+            self.content_encoding = m.get('ContentEncoding')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('EnableParameter') is not None:
+            self.enable_parameter = m.get('EnableParameter')
+        if m.get('Frequency') is not None:
+            self.frequency = m.get('Frequency')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('NodeIdList') is not None:
+            self.node_id_list = m.get('NodeIdList')
+        if m.get('Parameters') is not None:
+            self.parameters = m.get('Parameters')
+        if m.get('RepeatMode') is not None:
+            self.repeat_mode = m.get('RepeatMode')
+        if m.get('Timeout') is not None:
+            self.timeout = m.get('Timeout')
+        if m.get('Username') is not None:
+            self.username = m.get('Username')
+        if m.get('WorkingDir') is not None:
+            self.working_dir = m.get('WorkingDir')
+        return self
+
+
+class RunCommandShrinkRequest(TeaModel):
+    def __init__(self, client_token=None, command_content=None, content_encoding=None, description=None,
+                 enable_parameter=None, frequency=None, name=None, node_id_list_shrink=None, parameters_shrink=None,
+                 repeat_mode=None, timeout=None, username=None, working_dir=None):
+        self.client_token = client_token  # type: str
+        self.command_content = command_content  # type: str
+        self.content_encoding = content_encoding  # type: str
+        self.description = description  # type: str
+        self.enable_parameter = enable_parameter  # type: bool
+        self.frequency = frequency  # type: str
+        self.name = name  # type: str
+        self.node_id_list_shrink = node_id_list_shrink  # type: str
+        self.parameters_shrink = parameters_shrink  # type: str
+        self.repeat_mode = repeat_mode  # type: str
+        self.timeout = timeout  # type: int
+        self.username = username  # type: str
+        self.working_dir = working_dir  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RunCommandShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.command_content is not None:
+            result['CommandContent'] = self.command_content
+        if self.content_encoding is not None:
+            result['ContentEncoding'] = self.content_encoding
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.enable_parameter is not None:
+            result['EnableParameter'] = self.enable_parameter
+        if self.frequency is not None:
+            result['Frequency'] = self.frequency
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.node_id_list_shrink is not None:
+            result['NodeIdList'] = self.node_id_list_shrink
+        if self.parameters_shrink is not None:
+            result['Parameters'] = self.parameters_shrink
+        if self.repeat_mode is not None:
+            result['RepeatMode'] = self.repeat_mode
+        if self.timeout is not None:
+            result['Timeout'] = self.timeout
+        if self.username is not None:
+            result['Username'] = self.username
+        if self.working_dir is not None:
+            result['WorkingDir'] = self.working_dir
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('CommandContent') is not None:
+            self.command_content = m.get('CommandContent')
+        if m.get('ContentEncoding') is not None:
+            self.content_encoding = m.get('ContentEncoding')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('EnableParameter') is not None:
+            self.enable_parameter = m.get('EnableParameter')
+        if m.get('Frequency') is not None:
+            self.frequency = m.get('Frequency')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('NodeIdList') is not None:
+            self.node_id_list_shrink = m.get('NodeIdList')
+        if m.get('Parameters') is not None:
+            self.parameters_shrink = m.get('Parameters')
+        if m.get('RepeatMode') is not None:
+            self.repeat_mode = m.get('RepeatMode')
+        if m.get('Timeout') is not None:
+            self.timeout = m.get('Timeout')
+        if m.get('Username') is not None:
+            self.username = m.get('Username')
+        if m.get('WorkingDir') is not None:
+            self.working_dir = m.get('WorkingDir')
+        return self
+
+
+class RunCommandResponseBody(TeaModel):
+    def __init__(self, invoke_id=None, request_id=None):
+        self.invoke_id = invoke_id  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RunCommandResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.invoke_id is not None:
+            result['InvokeId'] = self.invoke_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InvokeId') is not None:
+            self.invoke_id = m.get('InvokeId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class RunCommandResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: RunCommandResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(RunCommandResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = RunCommandResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SendFileRequest(TeaModel):
+    def __init__(self, content=None, content_type=None, description=None, file_group=None, file_mode=None,
+                 file_owner=None, name=None, node_id_list=None, overwrite=None, target_dir=None, timeout=None):
+        self.content = content  # type: str
+        self.content_type = content_type  # type: str
+        self.description = description  # type: str
+        self.file_group = file_group  # type: str
+        self.file_mode = file_mode  # type: str
+        self.file_owner = file_owner  # type: str
+        self.name = name  # type: str
+        self.node_id_list = node_id_list  # type: list[str]
+        self.overwrite = overwrite  # type: bool
+        self.target_dir = target_dir  # type: str
+        self.timeout = timeout  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SendFileRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['Content'] = self.content
+        if self.content_type is not None:
+            result['ContentType'] = self.content_type
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.file_group is not None:
+            result['FileGroup'] = self.file_group
+        if self.file_mode is not None:
+            result['FileMode'] = self.file_mode
+        if self.file_owner is not None:
+            result['FileOwner'] = self.file_owner
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.node_id_list is not None:
+            result['NodeIdList'] = self.node_id_list
+        if self.overwrite is not None:
+            result['Overwrite'] = self.overwrite
+        if self.target_dir is not None:
+            result['TargetDir'] = self.target_dir
+        if self.timeout is not None:
+            result['Timeout'] = self.timeout
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Content') is not None:
+            self.content = m.get('Content')
+        if m.get('ContentType') is not None:
+            self.content_type = m.get('ContentType')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('FileGroup') is not None:
+            self.file_group = m.get('FileGroup')
+        if m.get('FileMode') is not None:
+            self.file_mode = m.get('FileMode')
+        if m.get('FileOwner') is not None:
+            self.file_owner = m.get('FileOwner')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('NodeIdList') is not None:
+            self.node_id_list = m.get('NodeIdList')
+        if m.get('Overwrite') is not None:
+            self.overwrite = m.get('Overwrite')
+        if m.get('TargetDir') is not None:
+            self.target_dir = m.get('TargetDir')
+        if m.get('Timeout') is not None:
+            self.timeout = m.get('Timeout')
+        return self
+
+
+class SendFileShrinkRequest(TeaModel):
+    def __init__(self, content=None, content_type=None, description=None, file_group=None, file_mode=None,
+                 file_owner=None, name=None, node_id_list_shrink=None, overwrite=None, target_dir=None, timeout=None):
+        self.content = content  # type: str
+        self.content_type = content_type  # type: str
+        self.description = description  # type: str
+        self.file_group = file_group  # type: str
+        self.file_mode = file_mode  # type: str
+        self.file_owner = file_owner  # type: str
+        self.name = name  # type: str
+        self.node_id_list_shrink = node_id_list_shrink  # type: str
+        self.overwrite = overwrite  # type: bool
+        self.target_dir = target_dir  # type: str
+        self.timeout = timeout  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SendFileShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['Content'] = self.content
+        if self.content_type is not None:
+            result['ContentType'] = self.content_type
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.file_group is not None:
+            result['FileGroup'] = self.file_group
+        if self.file_mode is not None:
+            result['FileMode'] = self.file_mode
+        if self.file_owner is not None:
+            result['FileOwner'] = self.file_owner
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.node_id_list_shrink is not None:
+            result['NodeIdList'] = self.node_id_list_shrink
+        if self.overwrite is not None:
+            result['Overwrite'] = self.overwrite
+        if self.target_dir is not None:
+            result['TargetDir'] = self.target_dir
+        if self.timeout is not None:
+            result['Timeout'] = self.timeout
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Content') is not None:
+            self.content = m.get('Content')
+        if m.get('ContentType') is not None:
+            self.content_type = m.get('ContentType')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('FileGroup') is not None:
+            self.file_group = m.get('FileGroup')
+        if m.get('FileMode') is not None:
+            self.file_mode = m.get('FileMode')
+        if m.get('FileOwner') is not None:
+            self.file_owner = m.get('FileOwner')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('NodeIdList') is not None:
+            self.node_id_list_shrink = m.get('NodeIdList')
+        if m.get('Overwrite') is not None:
+            self.overwrite = m.get('Overwrite')
+        if m.get('TargetDir') is not None:
+            self.target_dir = m.get('TargetDir')
+        if m.get('Timeout') is not None:
+            self.timeout = m.get('Timeout')
+        return self
+
+
+class SendFileResponseBody(TeaModel):
+    def __init__(self, invoke_id=None, request_id=None):
+        self.invoke_id = invoke_id  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SendFileResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.invoke_id is not None:
+            result['InvokeId'] = self.invoke_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InvokeId') is not None:
+            self.invoke_id = m.get('InvokeId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class SendFileResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: SendFileResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SendFileResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = SendFileResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -4097,9 +5176,6 @@ class ShrinkClusterResponse(TeaModel):
         self.body = body  # type: ShrinkClusterResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4125,6 +5201,125 @@ class ShrinkClusterResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ShrinkClusterResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class StopInvocationRequest(TeaModel):
+    def __init__(self, invoke_id=None, node_id_list=None):
+        self.invoke_id = invoke_id  # type: str
+        self.node_id_list = node_id_list  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(StopInvocationRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.invoke_id is not None:
+            result['InvokeId'] = self.invoke_id
+        if self.node_id_list is not None:
+            result['NodeIdList'] = self.node_id_list
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InvokeId') is not None:
+            self.invoke_id = m.get('InvokeId')
+        if m.get('NodeIdList') is not None:
+            self.node_id_list = m.get('NodeIdList')
+        return self
+
+
+class StopInvocationShrinkRequest(TeaModel):
+    def __init__(self, invoke_id=None, node_id_list_shrink=None):
+        self.invoke_id = invoke_id  # type: str
+        self.node_id_list_shrink = node_id_list_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(StopInvocationShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.invoke_id is not None:
+            result['InvokeId'] = self.invoke_id
+        if self.node_id_list_shrink is not None:
+            result['NodeIdList'] = self.node_id_list_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InvokeId') is not None:
+            self.invoke_id = m.get('InvokeId')
+        if m.get('NodeIdList') is not None:
+            self.node_id_list_shrink = m.get('NodeIdList')
+        return self
+
+
+class StopInvocationResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        # Id of the request
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(StopInvocationResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class StopInvocationResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: StopInvocationResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(StopInvocationResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = StopInvocationResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -4237,9 +5432,6 @@ class TagResourcesResponse(TeaModel):
         self.body = body  # type: TagResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4344,9 +5536,6 @@ class UntagResourcesResponse(TeaModel):
         self.body = body  # type: UntagResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
