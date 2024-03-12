@@ -72,9 +72,6 @@ class AddUserToOrganizationalUnitsResponse(TeaModel):
         self.body = body  # type: AddUserToOrganizationalUnitsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -173,9 +170,6 @@ class AddUsersToGroupResponse(TeaModel):
         self.body = body  # type: AddUsersToGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -274,9 +268,6 @@ class AuthorizeApplicationToGroupsResponse(TeaModel):
         self.body = body  # type: AuthorizeApplicationToGroupsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -375,9 +366,6 @@ class AuthorizeApplicationToOrganizationalUnitsResponse(TeaModel):
         self.body = body  # type: AuthorizeApplicationToOrganizationalUnitsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -476,9 +464,6 @@ class AuthorizeApplicationToUsersResponse(TeaModel):
         self.body = body  # type: AuthorizeApplicationToUsersResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -614,9 +599,6 @@ class CreateApplicationResponse(TeaModel):
         self.body = body  # type: CreateApplicationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -754,9 +736,6 @@ class CreateApplicationClientSecretResponse(TeaModel):
         self.body = body  # type: CreateApplicationClientSecretResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -886,9 +865,6 @@ class CreateDomainResponse(TeaModel):
         self.body = body  # type: CreateDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -985,9 +961,6 @@ class CreateDomainProxyTokenResponse(TeaModel):
         self.body = body  # type: CreateDomainProxyTokenResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1098,9 +1071,6 @@ class CreateGroupResponse(TeaModel):
         self.body = body  # type: CreateGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1193,9 +1163,6 @@ class CreateInstanceResponse(TeaModel):
         self.body = body  # type: CreateInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1317,9 +1284,6 @@ class CreateNetworkAccessEndpointResponse(TeaModel):
         self.body = body  # type: CreateNetworkAccessEndpointResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1437,9 +1401,6 @@ class CreateOrganizationalUnitResponse(TeaModel):
         self.body = body  # type: CreateOrganizationalUnitResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1713,9 +1674,6 @@ class CreateUserResponse(TeaModel):
         self.body = body  # type: CreateUserResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1808,9 +1766,6 @@ class DeleteApplicationResponse(TeaModel):
         self.body = body  # type: DeleteApplicationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1909,9 +1864,6 @@ class DeleteApplicationClientSecretResponse(TeaModel):
         self.body = body  # type: DeleteApplicationClientSecretResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2003,9 +1955,6 @@ class DeleteDomainResponse(TeaModel):
         self.body = body  # type: DeleteDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2103,9 +2052,6 @@ class DeleteDomainProxyTokenResponse(TeaModel):
         self.body = body  # type: DeleteDomainProxyTokenResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2198,9 +2144,6 @@ class DeleteGroupResponse(TeaModel):
         self.body = body  # type: DeleteGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2287,9 +2230,6 @@ class DeleteInstanceResponse(TeaModel):
         self.body = body  # type: DeleteInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2381,9 +2321,6 @@ class DeleteNetworkAccessEndpointResponse(TeaModel):
         self.body = body  # type: DeleteNetworkAccessEndpointResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2476,9 +2413,6 @@ class DeleteOrganizationalUnitResponse(TeaModel):
         self.body = body  # type: DeleteOrganizationalUnitResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2571,9 +2505,6 @@ class DeleteUserResponse(TeaModel):
         self.body = body  # type: DeleteUserResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2666,9 +2597,6 @@ class DisableApplicationResponse(TeaModel):
         self.body = body  # type: DisableApplicationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2761,9 +2689,6 @@ class DisableApplicationApiInvokeResponse(TeaModel):
         self.body = body  # type: DisableApplicationApiInvokeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2862,9 +2787,6 @@ class DisableApplicationClientSecretResponse(TeaModel):
         self.body = body  # type: DisableApplicationClientSecretResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2957,9 +2879,6 @@ class DisableApplicationProvisioningResponse(TeaModel):
         self.body = body  # type: DisableApplicationProvisioningResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3051,9 +2970,6 @@ class DisableApplicationSsoResponse(TeaModel):
         self.body = body  # type: DisableApplicationSsoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3151,9 +3067,6 @@ class DisableDomainProxyTokenResponse(TeaModel):
         self.body = body  # type: DisableDomainProxyTokenResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3239,9 +3152,6 @@ class DisableInitDomainAutoRedirectResponse(TeaModel):
         self.body = body  # type: DisableInitDomainAutoRedirectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3334,9 +3244,6 @@ class DisableUserResponse(TeaModel):
         self.body = body  # type: DisableUserResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3429,9 +3336,6 @@ class EnableApplicationResponse(TeaModel):
         self.body = body  # type: EnableApplicationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3524,9 +3428,6 @@ class EnableApplicationApiInvokeResponse(TeaModel):
         self.body = body  # type: EnableApplicationApiInvokeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3625,9 +3526,6 @@ class EnableApplicationClientSecretResponse(TeaModel):
         self.body = body  # type: EnableApplicationClientSecretResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3720,9 +3618,6 @@ class EnableApplicationProvisioningResponse(TeaModel):
         self.body = body  # type: EnableApplicationProvisioningResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3814,9 +3709,6 @@ class EnableApplicationSsoResponse(TeaModel):
         self.body = body  # type: EnableApplicationSsoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3914,9 +3806,6 @@ class EnableDomainProxyTokenResponse(TeaModel):
         self.body = body  # type: EnableDomainProxyTokenResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4002,9 +3891,6 @@ class EnableInitDomainAutoRedirectResponse(TeaModel):
         self.body = body  # type: EnableInitDomainAutoRedirectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4097,9 +3983,6 @@ class EnableUserResponse(TeaModel):
         self.body = body  # type: EnableUserResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4343,9 +4226,6 @@ class GetApplicationResponse(TeaModel):
         self.body = body  # type: GetApplicationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4471,9 +4351,6 @@ class GetApplicationGrantScopeResponse(TeaModel):
         self.body = body  # type: GetApplicationGrantScopeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4863,9 +4740,6 @@ class GetApplicationProvisioningConfigResponse(TeaModel):
         self.body = body  # type: GetApplicationProvisioningConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4991,9 +4865,6 @@ class GetApplicationProvisioningScopeResponse(TeaModel):
         self.body = body  # type: GetApplicationProvisioningScopeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5515,9 +5386,6 @@ class GetApplicationSsoConfigResponse(TeaModel):
         self.body = body  # type: GetApplicationSsoConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5717,9 +5585,6 @@ class GetDomainResponse(TeaModel):
         self.body = body  # type: GetDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5855,9 +5720,6 @@ class GetDomainDnsChallengeResponse(TeaModel):
         self.body = body  # type: GetDomainDnsChallengeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6002,9 +5864,6 @@ class GetForgetPasswordConfigurationResponse(TeaModel):
         self.body = body  # type: GetForgetPasswordConfigurationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6082,7 +5941,7 @@ class GetGroupResponseBodyGroup(TeaModel):
         self.group_source_id = group_source_id  # type: str
         # The source type of the group. Only build_in may be returned, which indicates that the group was created in IDaaS.
         # 
-        # *\
+        # *build_in：Create By Self。
         self.group_source_type = group_source_type  # type: str
         # The instance ID.
         self.instance_id = instance_id  # type: str
@@ -6181,9 +6040,6 @@ class GetGroupResponse(TeaModel):
         self.body = body  # type: GetGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6422,9 +6278,6 @@ class GetInstanceResponse(TeaModel):
         self.body = body  # type: GetInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6623,9 +6476,6 @@ class GetNetworkAccessEndpointResponse(TeaModel):
         self.body = body  # type: GetNetworkAccessEndpointResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6822,9 +6672,6 @@ class GetOrganizationalUnitResponse(TeaModel):
         self.body = body  # type: GetOrganizationalUnitResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6992,9 +6839,6 @@ class GetPasswordComplexityConfigurationResponse(TeaModel):
         self.body = body  # type: GetPasswordComplexityConfigurationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7162,9 +7006,6 @@ class GetPasswordExpirationConfigurationResponse(TeaModel):
         self.body = body  # type: GetPasswordExpirationConfigurationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7293,9 +7134,6 @@ class GetPasswordHistoryConfigurationResponse(TeaModel):
         self.body = body  # type: GetPasswordHistoryConfigurationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7442,9 +7280,6 @@ class GetPasswordInitializationConfigurationResponse(TeaModel):
         self.body = body  # type: GetPasswordInitializationConfigurationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7595,9 +7430,6 @@ class GetRootOrganizationalUnitResponse(TeaModel):
         self.body = body  # type: GetRootOrganizationalUnitResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7767,8 +7599,9 @@ class GetUserResponseBodyUser(TeaModel):
     def __init__(self, account_expire_time=None, create_time=None, custom_fields=None, description=None,
                  display_name=None, email=None, email_verified=None, groups=None, instance_id=None, lock_expire_time=None,
                  organizational_units=None, password_expire_time=None, password_set=None, phone_number=None, phone_number_verified=None,
-                 phone_region=None, primary_organizational_unit_id=None, register_time=None, status=None, update_time=None,
-                 user_external_id=None, user_id=None, user_source_id=None, user_source_type=None, username=None):
+                 phone_region=None, preferred_language=None, primary_organizational_unit_id=None, register_time=None,
+                 status=None, update_time=None, user_external_id=None, user_id=None, user_source_id=None,
+                 user_source_type=None, username=None):
         # The time when the account expires. This value is a UNIX timestamp. Unit: milliseconds.
         self.account_expire_time = account_expire_time  # type: long
         # The time when the account was created. This value is a UNIX timestamp. Unit: milliseconds.
@@ -7805,6 +7638,7 @@ class GetUserResponseBodyUser(TeaModel):
         self.phone_number_verified = phone_number_verified  # type: bool
         # The country code of the mobile number. For example, the country code of China is 86 without 00 or +.
         self.phone_region = phone_region  # type: str
+        self.preferred_language = preferred_language  # type: str
         # The ID of the primary organizational unit to which the account belongs.
         self.primary_organizational_unit_id = primary_organizational_unit_id  # type: str
         # The time when the account was registered. This value is a UNIX timestamp. Unit: milliseconds.
@@ -7894,6 +7728,8 @@ class GetUserResponseBodyUser(TeaModel):
             result['PhoneNumberVerified'] = self.phone_number_verified
         if self.phone_region is not None:
             result['PhoneRegion'] = self.phone_region
+        if self.preferred_language is not None:
+            result['PreferredLanguage'] = self.preferred_language
         if self.primary_organizational_unit_id is not None:
             result['PrimaryOrganizationalUnitId'] = self.primary_organizational_unit_id
         if self.register_time is not None:
@@ -7957,6 +7793,8 @@ class GetUserResponseBodyUser(TeaModel):
             self.phone_number_verified = m.get('PhoneNumberVerified')
         if m.get('PhoneRegion') is not None:
             self.phone_region = m.get('PhoneRegion')
+        if m.get('PreferredLanguage') is not None:
+            self.preferred_language = m.get('PreferredLanguage')
         if m.get('PrimaryOrganizationalUnitId') is not None:
             self.primary_organizational_unit_id = m.get('PrimaryOrganizationalUnitId')
         if m.get('RegisterTime') is not None:
@@ -8018,9 +7856,6 @@ class GetUserResponse(TeaModel):
         self.body = body  # type: GetUserResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8198,9 +8033,6 @@ class ListApplicationClientSecretsResponse(TeaModel):
         self.body = body  # type: ListApplicationClientSecretsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8299,9 +8131,10 @@ class ListApplicationsRequest(TeaModel):
 
 
 class ListApplicationsResponseBodyApplications(TeaModel):
-    def __init__(self, application_id=None, application_name=None, application_source_type=None, client_id=None,
-                 create_time=None, description=None, features=None, instance_id=None, logo_url=None, managed_service_code=None,
-                 service_managed=None, sso_type=None, status=None, update_time=None):
+    def __init__(self, application_id=None, application_name=None, application_source_type=None,
+                 application_template_id=None, client_id=None, create_time=None, description=None, features=None, instance_id=None,
+                 logo_url=None, managed_service_code=None, service_managed=None, sso_type=None, status=None,
+                 update_time=None):
         # The ID of the application.
         self.application_id = application_id  # type: str
         # The name of the application.
@@ -8311,6 +8144,8 @@ class ListApplicationsResponseBodyApplications(TeaModel):
         # *   urn:alibaba:idaas:app:source:template: The application is created based on a template.
         # *   urn:alibaba:idaas: The application is created based on the standard protocol.
         self.application_source_type = application_source_type  # type: str
+        # 应用模板ID
+        self.application_template_id = application_template_id  # type: str
         # The client ID of the application.
         self.client_id = client_id  # type: str
         # The time when the application was created. The value is a UNIX timestamp. Unit: milliseconds.
@@ -8359,6 +8194,8 @@ class ListApplicationsResponseBodyApplications(TeaModel):
             result['ApplicationName'] = self.application_name
         if self.application_source_type is not None:
             result['ApplicationSourceType'] = self.application_source_type
+        if self.application_template_id is not None:
+            result['ApplicationTemplateId'] = self.application_template_id
         if self.client_id is not None:
             result['ClientId'] = self.client_id
         if self.create_time is not None:
@@ -8391,6 +8228,8 @@ class ListApplicationsResponseBodyApplications(TeaModel):
             self.application_name = m.get('ApplicationName')
         if m.get('ApplicationSourceType') is not None:
             self.application_source_type = m.get('ApplicationSourceType')
+        if m.get('ApplicationTemplateId') is not None:
+            self.application_template_id = m.get('ApplicationTemplateId')
         if m.get('ClientId') is not None:
             self.client_id = m.get('ClientId')
         if m.get('CreateTime') is not None:
@@ -8468,9 +8307,6 @@ class ListApplicationsResponse(TeaModel):
         self.body = body  # type: ListApplicationsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8627,9 +8463,6 @@ class ListApplicationsForOrganizationalUnitResponse(TeaModel):
         self.body = body  # type: ListApplicationsForOrganizationalUnitResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8813,9 +8646,6 @@ class ListApplicationsForUserResponse(TeaModel):
         self.body = body  # type: ListApplicationsForUserResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8988,9 +8818,6 @@ class ListDomainProxyTokensResponse(TeaModel):
         self.body = body  # type: ListDomainProxyTokensResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9190,9 +9017,6 @@ class ListDomainsResponse(TeaModel):
         self.body = body  # type: ListDomainsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9378,9 +9202,6 @@ class ListEiamInstancesResponse(TeaModel):
         self.body = body  # type: ListEiamInstancesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9485,9 +9306,6 @@ class ListEiamRegionsResponse(TeaModel):
         self.body = body  # type: ListEiamRegionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9707,9 +9525,6 @@ class ListGroupsResponse(TeaModel):
         self.body = body  # type: ListGroupsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9865,9 +9680,6 @@ class ListGroupsForApplicationResponse(TeaModel):
         self.body = body  # type: ListGroupsForApplicationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10017,9 +9829,6 @@ class ListGroupsForUserResponse(TeaModel):
         self.body = body  # type: ListGroupsForUserResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10235,9 +10044,6 @@ class ListInstancesResponse(TeaModel):
         self.body = body  # type: ListInstancesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10342,9 +10148,6 @@ class ListNetworkAccessEndpointAvailableRegionsResponse(TeaModel):
         self.body = body  # type: ListNetworkAccessEndpointAvailableRegionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10474,9 +10277,6 @@ class ListNetworkAccessEndpointAvailableZonesResponse(TeaModel):
         self.body = body  # type: ListNetworkAccessEndpointAvailableZonesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10710,9 +10510,6 @@ class ListNetworkAccessEndpointsResponse(TeaModel):
         self.body = body  # type: ListNetworkAccessEndpointsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10892,9 +10689,6 @@ class ListNetworkAccessPathsResponse(TeaModel):
         self.body = body  # type: ListNetworkAccessPathsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11030,9 +10824,6 @@ class ListOrganizationalUnitParentsResponse(TeaModel):
         self.body = body  # type: ListOrganizationalUnitParentsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11270,9 +11061,6 @@ class ListOrganizationalUnitsResponse(TeaModel):
         self.body = body  # type: ListOrganizationalUnitsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11429,9 +11217,6 @@ class ListOrganizationalUnitsForApplicationResponse(TeaModel):
         self.body = body  # type: ListOrganizationalUnitsForApplicationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11544,9 +11329,6 @@ class ListRegionsResponse(TeaModel):
         self.body = body  # type: ListRegionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11906,9 +11688,6 @@ class ListUsersResponse(TeaModel):
         self.body = body  # type: ListUsersResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12064,9 +11843,6 @@ class ListUsersForApplicationResponse(TeaModel):
         self.body = body  # type: ListUsersForApplicationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12222,9 +11998,6 @@ class ListUsersForGroupResponse(TeaModel):
         self.body = body  # type: ListUsersForGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12396,9 +12169,6 @@ class ObtainApplicationClientSecretResponse(TeaModel):
         self.body = body  # type: ObtainApplicationClientSecretResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12571,9 +12341,6 @@ class ObtainDomainProxyTokenResponse(TeaModel):
         self.body = body  # type: ObtainDomainProxyTokenResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12672,9 +12439,6 @@ class RemoveUserFromOrganizationalUnitsResponse(TeaModel):
         self.body = body  # type: RemoveUserFromOrganizationalUnitsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12773,9 +12537,6 @@ class RemoveUsersFromGroupResponse(TeaModel):
         self.body = body  # type: RemoveUsersFromGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12874,9 +12635,6 @@ class RevokeApplicationFromGroupsResponse(TeaModel):
         self.body = body  # type: RevokeApplicationFromGroupsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12975,9 +12733,6 @@ class RevokeApplicationFromOrganizationalUnitsResponse(TeaModel):
         self.body = body  # type: RevokeApplicationFromOrganizationalUnitsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13076,9 +12831,6 @@ class RevokeApplicationFromUsersResponse(TeaModel):
         self.body = body  # type: RevokeApplicationFromUsersResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13177,9 +12929,6 @@ class SetApplicationGrantScopeResponse(TeaModel):
         self.body = body  # type: SetApplicationGrantScopeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13506,9 +13255,6 @@ class SetApplicationProvisioningConfigResponse(TeaModel):
         self.body = body  # type: SetApplicationProvisioningConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13607,9 +13353,6 @@ class SetApplicationProvisioningScopeResponse(TeaModel):
         self.body = body  # type: SetApplicationProvisioningScopeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14005,9 +13748,6 @@ class SetApplicationSsoConfigResponse(TeaModel):
         self.body = body  # type: SetApplicationSsoConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14099,9 +13839,6 @@ class SetDefaultDomainResponse(TeaModel):
         self.body = body  # type: SetDefaultDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14200,9 +13937,6 @@ class SetForgetPasswordConfigurationResponse(TeaModel):
         self.body = body  # type: SetForgetPasswordConfigurationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14343,9 +14077,6 @@ class SetPasswordComplexityConfigurationResponse(TeaModel):
         self.body = body  # type: SetPasswordComplexityConfigurationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14487,9 +14218,6 @@ class SetPasswordExpirationConfigurationResponse(TeaModel):
         self.body = body  # type: SetPasswordExpirationConfigurationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14591,9 +14319,6 @@ class SetPasswordHistoryConfigurationResponse(TeaModel):
         self.body = body  # type: SetPasswordHistoryConfigurationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14713,9 +14438,6 @@ class SetPasswordInitializationConfigurationResponse(TeaModel):
         self.body = body  # type: SetPasswordInitializationConfigurationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14814,9 +14536,6 @@ class SetUserPrimaryOrganizationalUnitResponse(TeaModel):
         self.body = body  # type: SetUserPrimaryOrganizationalUnitResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14909,9 +14628,6 @@ class UnlockUserResponse(TeaModel):
         self.body = body  # type: UnlockUserResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15013,9 +14729,6 @@ class UpdateApplicationAuthorizationTypeResponse(TeaModel):
         self.body = body  # type: UpdateApplicationAuthorizationTypeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15114,9 +14827,6 @@ class UpdateApplicationDescriptionResponse(TeaModel):
         self.body = body  # type: UpdateApplicationDescriptionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15221,9 +14931,6 @@ class UpdateGroupResponse(TeaModel):
         self.body = body  # type: UpdateGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15322,9 +15029,6 @@ class UpdateGroupDescriptionResponse(TeaModel):
         self.body = body  # type: UpdateGroupDescriptionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15417,9 +15121,6 @@ class UpdateInstanceDescriptionResponse(TeaModel):
         self.body = body  # type: UpdateInstanceDescriptionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15517,9 +15218,6 @@ class UpdateNetworkAccessEndpointNameResponse(TeaModel):
         self.body = body  # type: UpdateNetworkAccessEndpointNameResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15618,9 +15316,6 @@ class UpdateOrganizationalUnitResponse(TeaModel):
         self.body = body  # type: UpdateOrganizationalUnitResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15719,9 +15414,6 @@ class UpdateOrganizationalUnitDescriptionResponse(TeaModel):
         self.body = body  # type: UpdateOrganizationalUnitDescriptionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15820,9 +15512,6 @@ class UpdateOrganizationalUnitParentIdResponse(TeaModel):
         self.body = body  # type: UpdateOrganizationalUnitParentIdResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16013,9 +15702,6 @@ class UpdateUserResponse(TeaModel):
         self.body = body  # type: UpdateUserResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16114,9 +15800,6 @@ class UpdateUserDescriptionResponse(TeaModel):
         self.body = body  # type: UpdateUserDescriptionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16231,9 +15914,6 @@ class UpdateUserPasswordResponse(TeaModel):
         self.body = body  # type: UpdateUserPasswordResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
