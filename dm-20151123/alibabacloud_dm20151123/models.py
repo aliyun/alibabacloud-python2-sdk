@@ -5506,12 +5506,13 @@ class SenderStatisticsDetailByParamRequest(TeaModel):
 
 
 class SenderStatisticsDetailByParamResponseBodyDataMailDetail(TeaModel):
-    def __init__(self, account_name=None, last_update_time=None, message=None, status=None, to_address=None,
-                 utc_last_update_time=None):
+    def __init__(self, account_name=None, last_update_time=None, message=None, status=None, subject=None,
+                 to_address=None, utc_last_update_time=None):
         self.account_name = account_name  # type: str
         self.last_update_time = last_update_time  # type: str
         self.message = message  # type: str
         self.status = status  # type: int
+        self.subject = subject  # type: str
         self.to_address = to_address  # type: str
         self.utc_last_update_time = utc_last_update_time  # type: str
 
@@ -5532,6 +5533,8 @@ class SenderStatisticsDetailByParamResponseBodyDataMailDetail(TeaModel):
             result['Message'] = self.message
         if self.status is not None:
             result['Status'] = self.status
+        if self.subject is not None:
+            result['Subject'] = self.subject
         if self.to_address is not None:
             result['ToAddress'] = self.to_address
         if self.utc_last_update_time is not None:
@@ -5548,6 +5551,8 @@ class SenderStatisticsDetailByParamResponseBodyDataMailDetail(TeaModel):
             self.message = m.get('Message')
         if m.get('Status') is not None:
             self.status = m.get('Status')
+        if m.get('Subject') is not None:
+            self.subject = m.get('Subject')
         if m.get('ToAddress') is not None:
             self.to_address = m.get('ToAddress')
         if m.get('UtcLastUpdateTime') is not None:
