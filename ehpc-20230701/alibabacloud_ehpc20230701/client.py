@@ -240,6 +240,40 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_images_with_options(request, runtime)
 
+    def list_job_executors_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.job_id):
+            query['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.task_name):
+            query['TaskName'] = request.task_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListJobExecutors',
+            version='2023-07-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ehpc20230701_models.ListJobExecutorsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_job_executors(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_job_executors_with_options(request, runtime)
+
     def list_jobs_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
         request = ehpc20230701_models.ListJobsShrinkRequest()
