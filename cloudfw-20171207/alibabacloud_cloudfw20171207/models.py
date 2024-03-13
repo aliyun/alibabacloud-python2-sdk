@@ -802,7 +802,14 @@ class BatchCopyVpcFirewallControlPolicyResponse(TeaModel):
 
 class CreateDownloadTaskRequest(TeaModel):
     def __init__(self, lang=None, task_data=None):
+        # The language of the content within the response.
+        # 
+        # Valid values:
+        # 
+        # *   **zh**: Chinese (default)
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The query condition of the download task.
         self.task_data = task_data  # type: str
 
     def validate(self):
@@ -831,9 +838,21 @@ class CreateDownloadTaskRequest(TeaModel):
 
 class CreateDownloadTaskResponseBody(TeaModel):
     def __init__(self, request_id=None, status=None, task_id=None, task_name=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The status of the task. Valid values:
+        # 
+        # finish: You can query the task to obtain the download link of the file.
+        # 
+        # start
+        # 
+        # error
+        # 
+        # expire: The task file is invalid and cannot be downloaded.
         self.status = status  # type: str
+        # The unique ID of the task.
         self.task_id = task_id  # type: long
+        # The name of the file download task.
         self.task_name = task_name  # type: str
 
     def validate(self):
@@ -9511,6 +9530,309 @@ class DescribePolicyPriorUsedResponse(TeaModel):
         return self
 
 
+class DescribePostpayTrafficDetailRequest(TeaModel):
+    def __init__(self, current_page=None, end_time=None, lang=None, order=None, page_size=None, search_item=None,
+                 start_time=None, traffic_type=None):
+        self.current_page = current_page  # type: long
+        self.end_time = end_time  # type: str
+        self.lang = lang  # type: str
+        self.order = order  # type: str
+        self.page_size = page_size  # type: long
+        self.search_item = search_item  # type: str
+        self.start_time = start_time  # type: str
+        self.traffic_type = traffic_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribePostpayTrafficDetailRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.lang is not None:
+            result['Lang'] = self.lang
+        if self.order is not None:
+            result['Order'] = self.order
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.search_item is not None:
+            result['SearchItem'] = self.search_item
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.traffic_type is not None:
+            result['TrafficType'] = self.traffic_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('Lang') is not None:
+            self.lang = m.get('Lang')
+        if m.get('Order') is not None:
+            self.order = m.get('Order')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('SearchItem') is not None:
+            self.search_item = m.get('SearchItem')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('TrafficType') is not None:
+            self.traffic_type = m.get('TrafficType')
+        return self
+
+
+class DescribePostpayTrafficDetailResponseBodyTrafficList(TeaModel):
+    def __init__(self, in_bytes=None, instance_id=None, instance_type=None, out_bytes=None, resource_id=None,
+                 total_bytes=None, traffic_day=None, traffic_type=None):
+        self.in_bytes = in_bytes  # type: long
+        self.instance_id = instance_id  # type: str
+        self.instance_type = instance_type  # type: str
+        self.out_bytes = out_bytes  # type: long
+        self.resource_id = resource_id  # type: str
+        self.total_bytes = total_bytes  # type: long
+        self.traffic_day = traffic_day  # type: str
+        self.traffic_type = traffic_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribePostpayTrafficDetailResponseBodyTrafficList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.in_bytes is not None:
+            result['InBytes'] = self.in_bytes
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.instance_type is not None:
+            result['InstanceType'] = self.instance_type
+        if self.out_bytes is not None:
+            result['OutBytes'] = self.out_bytes
+        if self.resource_id is not None:
+            result['ResourceId'] = self.resource_id
+        if self.total_bytes is not None:
+            result['TotalBytes'] = self.total_bytes
+        if self.traffic_day is not None:
+            result['TrafficDay'] = self.traffic_day
+        if self.traffic_type is not None:
+            result['TrafficType'] = self.traffic_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InBytes') is not None:
+            self.in_bytes = m.get('InBytes')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('InstanceType') is not None:
+            self.instance_type = m.get('InstanceType')
+        if m.get('OutBytes') is not None:
+            self.out_bytes = m.get('OutBytes')
+        if m.get('ResourceId') is not None:
+            self.resource_id = m.get('ResourceId')
+        if m.get('TotalBytes') is not None:
+            self.total_bytes = m.get('TotalBytes')
+        if m.get('TrafficDay') is not None:
+            self.traffic_day = m.get('TrafficDay')
+        if m.get('TrafficType') is not None:
+            self.traffic_type = m.get('TrafficType')
+        return self
+
+
+class DescribePostpayTrafficDetailResponseBody(TeaModel):
+    def __init__(self, request_id=None, total_count=None, traffic_list=None):
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
+        self.traffic_list = traffic_list  # type: list[DescribePostpayTrafficDetailResponseBodyTrafficList]
+
+    def validate(self):
+        if self.traffic_list:
+            for k in self.traffic_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribePostpayTrafficDetailResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        result['TrafficList'] = []
+        if self.traffic_list is not None:
+            for k in self.traffic_list:
+                result['TrafficList'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        self.traffic_list = []
+        if m.get('TrafficList') is not None:
+            for k in m.get('TrafficList'):
+                temp_model = DescribePostpayTrafficDetailResponseBodyTrafficList()
+                self.traffic_list.append(temp_model.from_map(k))
+        return self
+
+
+class DescribePostpayTrafficDetailResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribePostpayTrafficDetailResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribePostpayTrafficDetailResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribePostpayTrafficDetailResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribePostpayTrafficTotalRequest(TeaModel):
+    def __init__(self, lang=None):
+        self.lang = lang  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribePostpayTrafficTotalRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.lang is not None:
+            result['Lang'] = self.lang
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Lang') is not None:
+            self.lang = m.get('Lang')
+        return self
+
+
+class DescribePostpayTrafficTotalResponseBody(TeaModel):
+    def __init__(self, request_id=None, total_assets=None, total_nat_assets=None, total_nat_traffic=None,
+                 total_traffic=None):
+        self.request_id = request_id  # type: str
+        self.total_assets = total_assets  # type: long
+        self.total_nat_assets = total_nat_assets  # type: long
+        self.total_nat_traffic = total_nat_traffic  # type: long
+        self.total_traffic = total_traffic  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribePostpayTrafficTotalResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_assets is not None:
+            result['TotalAssets'] = self.total_assets
+        if self.total_nat_assets is not None:
+            result['TotalNatAssets'] = self.total_nat_assets
+        if self.total_nat_traffic is not None:
+            result['TotalNatTraffic'] = self.total_nat_traffic
+        if self.total_traffic is not None:
+            result['TotalTraffic'] = self.total_traffic
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalAssets') is not None:
+            self.total_assets = m.get('TotalAssets')
+        if m.get('TotalNatAssets') is not None:
+            self.total_nat_assets = m.get('TotalNatAssets')
+        if m.get('TotalNatTraffic') is not None:
+            self.total_nat_traffic = m.get('TotalNatTraffic')
+        if m.get('TotalTraffic') is not None:
+            self.total_traffic = m.get('TotalTraffic')
+        return self
+
+
+class DescribePostpayTrafficTotalResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribePostpayTrafficTotalResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribePostpayTrafficTotalResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribePostpayTrafficTotalResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribePrefixListsRequest(TeaModel):
     def __init__(self, region_no=None, source_ip=None):
         self.region_no = region_no  # type: str
@@ -14905,7 +15227,7 @@ class DescribeVpcFirewallListRequest(TeaModel):
         self.member_uid = member_uid  # type: str
         # The number of entries to return on each page.
         # 
-        # Default value: **10**.**** Maximum value: **50**.
+        # Default value: **10**. Maximum value: **50**.
         self.page_size = page_size  # type: str
         # The UID of the Alibaba Cloud account to which the peer VPC belongs.
         self.peer_uid = peer_uid  # type: str
@@ -16657,7 +16979,7 @@ class ModifyControlPolicyRequest(TeaModel):
         # *   **Memcache**\
         # *   **SSL**\
         # 
-        # >  The value ANY** indicates all types of applications.
+        # >  The value *ANY* indicates all types of applications.
         self.application_name = application_name  # type: str
         # The application names.
         self.application_name_list = application_name_list  # type: list[str]
@@ -16707,7 +17029,7 @@ class ModifyControlPolicyRequest(TeaModel):
         # *   **UDP**\
         # *   **ICMP**\
         # 
-        # >  The value ANY** indicates all types of applications.
+        # >  The value *ANY* indicates all types of applications.
         self.proto = proto  # type: str
         # The status of the access control policy. Valid values:
         # 
@@ -18754,7 +19076,7 @@ class ModifyVpcFirewallControlPolicyRequest(TeaModel):
         # 
         # Valid values:
         # 
-        # *   ANY
+        # *   ANY: all application types
         # *   FTP
         # *   HTTP
         # *   HTTPS
@@ -18769,7 +19091,6 @@ class ModifyVpcFirewallControlPolicyRequest(TeaModel):
         # *   MongoDB
         # *   Memcache
         # *   SSL
-        # *   ANY: all application types
         self.application_name = application_name  # type: str
         # The application names.
         self.application_name_list = application_name_list  # type: list[str]
