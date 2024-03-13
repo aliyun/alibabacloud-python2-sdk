@@ -91,7 +91,7 @@ class CancelOrderRequestRequest(TeaModel):
     def __init__(self, order_id=None):
         # The ID of the certificate application order that you want to cancel.
         # 
-        # >  After you call the [CreateCertificateForPackageRequest](~~204087~~), [CreateCertificateRequest](~~164105~~), or [CreateCertificateWithCsrRequest](~~178732~~) operation to submit a certificate application, you can obtain the ID of the certificate application order from the **OrderId** response parameter.
+        # >  After you call the [CreateCertificateForPackageRequest](~~CreateCertificateForPackageRequest~~), [CreateCertificateRequest](~~CreateCertificateRequest~~), or [CreateCertificateWithCsrRequest](~~CreateCertificateWithCsrRequest~~) operation to submit a certificate application, you can obtain the ID of the certificate application order from the **OrderId** response parameter.
         self.order_id = order_id  # type: long
 
     def validate(self):
@@ -778,6 +778,121 @@ class CreateCsrResponse(TeaModel):
         return self
 
 
+class CreateDeploymentJobRequest(TeaModel):
+    def __init__(self, cert_ids=None, contact_ids=None, job_type=None, name=None, resource_ids=None,
+                 schedule_time=None):
+        self.cert_ids = cert_ids  # type: str
+        self.contact_ids = contact_ids  # type: str
+        self.job_type = job_type  # type: str
+        self.name = name  # type: str
+        self.resource_ids = resource_ids  # type: str
+        self.schedule_time = schedule_time  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDeploymentJobRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cert_ids is not None:
+            result['CertIds'] = self.cert_ids
+        if self.contact_ids is not None:
+            result['ContactIds'] = self.contact_ids
+        if self.job_type is not None:
+            result['JobType'] = self.job_type
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.resource_ids is not None:
+            result['ResourceIds'] = self.resource_ids
+        if self.schedule_time is not None:
+            result['ScheduleTime'] = self.schedule_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CertIds') is not None:
+            self.cert_ids = m.get('CertIds')
+        if m.get('ContactIds') is not None:
+            self.contact_ids = m.get('ContactIds')
+        if m.get('JobType') is not None:
+            self.job_type = m.get('JobType')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('ResourceIds') is not None:
+            self.resource_ids = m.get('ResourceIds')
+        if m.get('ScheduleTime') is not None:
+            self.schedule_time = m.get('ScheduleTime')
+        return self
+
+
+class CreateDeploymentJobResponseBody(TeaModel):
+    def __init__(self, job_id=None, request_id=None):
+        self.job_id = job_id  # type: long
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDeploymentJobResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CreateDeploymentJobResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateDeploymentJobResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateDeploymentJobResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateDeploymentJobResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateWHClientCertificateRequest(TeaModel):
     def __init__(self, after_time=None, algorithm=None, before_time=None, common_name=None, country=None, csr=None,
                  days=None, immediately=None, locality=None, months=None, organization=None, organization_unit=None,
@@ -1252,6 +1367,90 @@ class DeleteCsrResponse(TeaModel):
         return self
 
 
+class DeleteDeploymentJobRequest(TeaModel):
+    def __init__(self, job_id=None):
+        self.job_id = job_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteDeploymentJobRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        return self
+
+
+class DeleteDeploymentJobResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteDeploymentJobResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteDeploymentJobResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteDeploymentJobResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteDeploymentJobResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteDeploymentJobResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DeletePCACertRequest(TeaModel):
     def __init__(self, identifier=None):
         self.identifier = identifier  # type: str
@@ -1418,6 +1617,95 @@ class DeleteUserCertificateResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteUserCertificateResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteWorkerResourceRequest(TeaModel):
+    def __init__(self, job_id=None, worker_id=None):
+        self.job_id = job_id  # type: long
+        self.worker_id = worker_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteWorkerResourceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        if self.worker_id is not None:
+            result['WorkerId'] = self.worker_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        if m.get('WorkerId') is not None:
+            self.worker_id = m.get('WorkerId')
+        return self
+
+
+class DeleteWorkerResourceResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteWorkerResourceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteWorkerResourceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteWorkerResourceResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteWorkerResourceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteWorkerResourceResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -1605,6 +1893,194 @@ class DescribeCertificateStateResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeCertificateStateResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeDeploymentJobStatusRequest(TeaModel):
+    def __init__(self, job_id=None):
+        self.job_id = job_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDeploymentJobStatusRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        return self
+
+
+class DescribeDeploymentJobStatusResponseBodyProductWorkerCount(TeaModel):
+    def __init__(self, count=None, product_name=None):
+        self.count = count  # type: int
+        self.product_name = product_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDeploymentJobStatusResponseBodyProductWorkerCount, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.count is not None:
+            result['Count'] = self.count
+        if self.product_name is not None:
+            result['ProductName'] = self.product_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        if m.get('ProductName') is not None:
+            self.product_name = m.get('ProductName')
+        return self
+
+
+class DescribeDeploymentJobStatusResponseBody(TeaModel):
+    def __init__(self, buy_count=None, cert_count=None, cost_count=None, failed_count=None, match_worker_count=None,
+                 product_worker_count=None, request_id=None, resource_count=None, rollback_count=None, rollback_failed_count=None,
+                 rollback_success_count=None, success_count=None, use_count=None, worker_count=None):
+        self.buy_count = buy_count  # type: int
+        self.cert_count = cert_count  # type: int
+        self.cost_count = cost_count  # type: int
+        self.failed_count = failed_count  # type: int
+        self.match_worker_count = match_worker_count  # type: int
+        self.product_worker_count = product_worker_count  # type: list[DescribeDeploymentJobStatusResponseBodyProductWorkerCount]
+        self.request_id = request_id  # type: str
+        self.resource_count = resource_count  # type: int
+        self.rollback_count = rollback_count  # type: int
+        self.rollback_failed_count = rollback_failed_count  # type: int
+        self.rollback_success_count = rollback_success_count  # type: int
+        self.success_count = success_count  # type: int
+        self.use_count = use_count  # type: int
+        self.worker_count = worker_count  # type: int
+
+    def validate(self):
+        if self.product_worker_count:
+            for k in self.product_worker_count:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDeploymentJobStatusResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.buy_count is not None:
+            result['BuyCount'] = self.buy_count
+        if self.cert_count is not None:
+            result['CertCount'] = self.cert_count
+        if self.cost_count is not None:
+            result['CostCount'] = self.cost_count
+        if self.failed_count is not None:
+            result['FailedCount'] = self.failed_count
+        if self.match_worker_count is not None:
+            result['MatchWorkerCount'] = self.match_worker_count
+        result['ProductWorkerCount'] = []
+        if self.product_worker_count is not None:
+            for k in self.product_worker_count:
+                result['ProductWorkerCount'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.resource_count is not None:
+            result['ResourceCount'] = self.resource_count
+        if self.rollback_count is not None:
+            result['RollbackCount'] = self.rollback_count
+        if self.rollback_failed_count is not None:
+            result['RollbackFailedCount'] = self.rollback_failed_count
+        if self.rollback_success_count is not None:
+            result['RollbackSuccessCount'] = self.rollback_success_count
+        if self.success_count is not None:
+            result['SuccessCount'] = self.success_count
+        if self.use_count is not None:
+            result['UseCount'] = self.use_count
+        if self.worker_count is not None:
+            result['WorkerCount'] = self.worker_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BuyCount') is not None:
+            self.buy_count = m.get('BuyCount')
+        if m.get('CertCount') is not None:
+            self.cert_count = m.get('CertCount')
+        if m.get('CostCount') is not None:
+            self.cost_count = m.get('CostCount')
+        if m.get('FailedCount') is not None:
+            self.failed_count = m.get('FailedCount')
+        if m.get('MatchWorkerCount') is not None:
+            self.match_worker_count = m.get('MatchWorkerCount')
+        self.product_worker_count = []
+        if m.get('ProductWorkerCount') is not None:
+            for k in m.get('ProductWorkerCount'):
+                temp_model = DescribeDeploymentJobStatusResponseBodyProductWorkerCount()
+                self.product_worker_count.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('ResourceCount') is not None:
+            self.resource_count = m.get('ResourceCount')
+        if m.get('RollbackCount') is not None:
+            self.rollback_count = m.get('RollbackCount')
+        if m.get('RollbackFailedCount') is not None:
+            self.rollback_failed_count = m.get('RollbackFailedCount')
+        if m.get('RollbackSuccessCount') is not None:
+            self.rollback_success_count = m.get('RollbackSuccessCount')
+        if m.get('SuccessCount') is not None:
+            self.success_count = m.get('SuccessCount')
+        if m.get('UseCount') is not None:
+            self.use_count = m.get('UseCount')
+        if m.get('WorkerCount') is not None:
+            self.worker_count = m.get('WorkerCount')
+        return self
+
+
+class DescribeDeploymentJobStatusResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeDeploymentJobStatusResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDeploymentJobStatusResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeDeploymentJobStatusResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -2722,6 +3198,271 @@ class ListCertWarehouseResponse(TeaModel):
         return self
 
 
+class ListCloudResourcesRequest(TeaModel):
+    def __init__(self, cloud_name=None, cloud_product=None, current_page=None, keyword=None, secret_id=None,
+                 show_size=None):
+        self.cloud_name = cloud_name  # type: str
+        self.cloud_product = cloud_product  # type: str
+        self.current_page = current_page  # type: int
+        self.keyword = keyword  # type: str
+        self.secret_id = secret_id  # type: str
+        self.show_size = show_size  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListCloudResourcesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cloud_name is not None:
+            result['CloudName'] = self.cloud_name
+        if self.cloud_product is not None:
+            result['CloudProduct'] = self.cloud_product
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        if self.keyword is not None:
+            result['Keyword'] = self.keyword
+        if self.secret_id is not None:
+            result['SecretId'] = self.secret_id
+        if self.show_size is not None:
+            result['ShowSize'] = self.show_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CloudName') is not None:
+            self.cloud_name = m.get('CloudName')
+        if m.get('CloudProduct') is not None:
+            self.cloud_product = m.get('CloudProduct')
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        if m.get('Keyword') is not None:
+            self.keyword = m.get('Keyword')
+        if m.get('SecretId') is not None:
+            self.secret_id = m.get('SecretId')
+        if m.get('ShowSize') is not None:
+            self.show_size = m.get('ShowSize')
+        return self
+
+
+class ListCloudResourcesResponseBodyData(TeaModel):
+    def __init__(self, cert_end_time=None, cert_id=None, cert_name=None, cert_start_time=None, cloud_access_id=None,
+                 cloud_name=None, cloud_product=None, cloud_region=None, default_resource=None, domain=None, enable_https=None,
+                 gmt_create=None, gmt_modified=None, id=None, instance_id=None, listener_id=None, listener_port=None,
+                 region_id=None, status=None, use_ssl=None, user_id=None):
+        self.cert_end_time = cert_end_time  # type: str
+        self.cert_id = cert_id  # type: long
+        self.cert_name = cert_name  # type: str
+        self.cert_start_time = cert_start_time  # type: str
+        self.cloud_access_id = cloud_access_id  # type: str
+        self.cloud_name = cloud_name  # type: str
+        self.cloud_product = cloud_product  # type: str
+        self.cloud_region = cloud_region  # type: str
+        self.default_resource = default_resource  # type: int
+        self.domain = domain  # type: str
+        self.enable_https = enable_https  # type: int
+        self.gmt_create = gmt_create  # type: str
+        self.gmt_modified = gmt_modified  # type: str
+        self.id = id  # type: long
+        self.instance_id = instance_id  # type: str
+        self.listener_id = listener_id  # type: str
+        self.listener_port = listener_port  # type: str
+        self.region_id = region_id  # type: str
+        self.status = status  # type: str
+        self.use_ssl = use_ssl  # type: int
+        self.user_id = user_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListCloudResourcesResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cert_end_time is not None:
+            result['CertEndTime'] = self.cert_end_time
+        if self.cert_id is not None:
+            result['CertId'] = self.cert_id
+        if self.cert_name is not None:
+            result['CertName'] = self.cert_name
+        if self.cert_start_time is not None:
+            result['CertStartTime'] = self.cert_start_time
+        if self.cloud_access_id is not None:
+            result['CloudAccessId'] = self.cloud_access_id
+        if self.cloud_name is not None:
+            result['CloudName'] = self.cloud_name
+        if self.cloud_product is not None:
+            result['CloudProduct'] = self.cloud_product
+        if self.cloud_region is not None:
+            result['CloudRegion'] = self.cloud_region
+        if self.default_resource is not None:
+            result['DefaultResource'] = self.default_resource
+        if self.domain is not None:
+            result['Domain'] = self.domain
+        if self.enable_https is not None:
+            result['EnableHttps'] = self.enable_https
+        if self.gmt_create is not None:
+            result['GmtCreate'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['GmtModified'] = self.gmt_modified
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.listener_id is not None:
+            result['ListenerId'] = self.listener_id
+        if self.listener_port is not None:
+            result['ListenerPort'] = self.listener_port
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.use_ssl is not None:
+            result['UseSsl'] = self.use_ssl
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CertEndTime') is not None:
+            self.cert_end_time = m.get('CertEndTime')
+        if m.get('CertId') is not None:
+            self.cert_id = m.get('CertId')
+        if m.get('CertName') is not None:
+            self.cert_name = m.get('CertName')
+        if m.get('CertStartTime') is not None:
+            self.cert_start_time = m.get('CertStartTime')
+        if m.get('CloudAccessId') is not None:
+            self.cloud_access_id = m.get('CloudAccessId')
+        if m.get('CloudName') is not None:
+            self.cloud_name = m.get('CloudName')
+        if m.get('CloudProduct') is not None:
+            self.cloud_product = m.get('CloudProduct')
+        if m.get('CloudRegion') is not None:
+            self.cloud_region = m.get('CloudRegion')
+        if m.get('DefaultResource') is not None:
+            self.default_resource = m.get('DefaultResource')
+        if m.get('Domain') is not None:
+            self.domain = m.get('Domain')
+        if m.get('EnableHttps') is not None:
+            self.enable_https = m.get('EnableHttps')
+        if m.get('GmtCreate') is not None:
+            self.gmt_create = m.get('GmtCreate')
+        if m.get('GmtModified') is not None:
+            self.gmt_modified = m.get('GmtModified')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('ListenerId') is not None:
+            self.listener_id = m.get('ListenerId')
+        if m.get('ListenerPort') is not None:
+            self.listener_port = m.get('ListenerPort')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('UseSsl') is not None:
+            self.use_ssl = m.get('UseSsl')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        return self
+
+
+class ListCloudResourcesResponseBody(TeaModel):
+    def __init__(self, current_page=None, data=None, request_id=None, show_size=None, total=None):
+        self.current_page = current_page  # type: int
+        self.data = data  # type: list[ListCloudResourcesResponseBodyData]
+        self.request_id = request_id  # type: str
+        self.show_size = show_size  # type: int
+        self.total = total  # type: long
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListCloudResourcesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.show_size is not None:
+            result['ShowSize'] = self.show_size
+        if self.total is not None:
+            result['Total'] = self.total
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = ListCloudResourcesResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('ShowSize') is not None:
+            self.show_size = m.get('ShowSize')
+        if m.get('Total') is not None:
+            self.total = m.get('Total')
+        return self
+
+
+class ListCloudResourcesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListCloudResourcesResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListCloudResourcesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListCloudResourcesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListCsrRequest(TeaModel):
     def __init__(self, algorithm=None, current_page=None, key_word=None, show_size=None):
         self.algorithm = algorithm  # type: str
@@ -2932,6 +3673,651 @@ class ListCsrResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListCsrResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListDeploymentJobRequest(TeaModel):
+    def __init__(self, current_page=None, job_type=None, show_size=None, status=None):
+        self.current_page = current_page  # type: int
+        self.job_type = job_type  # type: str
+        self.show_size = show_size  # type: int
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListDeploymentJobRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        if self.job_type is not None:
+            result['JobType'] = self.job_type
+        if self.show_size is not None:
+            result['ShowSize'] = self.show_size
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        if m.get('JobType') is not None:
+            self.job_type = m.get('JobType')
+        if m.get('ShowSize') is not None:
+            self.show_size = m.get('ShowSize')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class ListDeploymentJobResponseBodyData(TeaModel):
+    def __init__(self, cert_domain=None, cert_type=None, del_=None, end_time=None, gmt_create=None,
+                 gmt_modified=None, id=None, instance_id=None, job_type=None, name=None, product_name=None, rollback=None,
+                 schedule_time=None, start_time=None, status=None, user_id=None):
+        self.cert_domain = cert_domain  # type: str
+        self.cert_type = cert_type  # type: str
+        self.del_ = del_  # type: int
+        self.end_time = end_time  # type: str
+        self.gmt_create = gmt_create  # type: str
+        self.gmt_modified = gmt_modified  # type: str
+        self.id = id  # type: long
+        self.instance_id = instance_id  # type: str
+        self.job_type = job_type  # type: str
+        self.name = name  # type: str
+        self.product_name = product_name  # type: str
+        self.rollback = rollback  # type: int
+        self.schedule_time = schedule_time  # type: str
+        self.start_time = start_time  # type: str
+        self.status = status  # type: str
+        self.user_id = user_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListDeploymentJobResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cert_domain is not None:
+            result['CertDomain'] = self.cert_domain
+        if self.cert_type is not None:
+            result['CertType'] = self.cert_type
+        if self.del_ is not None:
+            result['Del'] = self.del_
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.gmt_create is not None:
+            result['GmtCreate'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['GmtModified'] = self.gmt_modified
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.job_type is not None:
+            result['JobType'] = self.job_type
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.product_name is not None:
+            result['ProductName'] = self.product_name
+        if self.rollback is not None:
+            result['Rollback'] = self.rollback
+        if self.schedule_time is not None:
+            result['ScheduleTime'] = self.schedule_time
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CertDomain') is not None:
+            self.cert_domain = m.get('CertDomain')
+        if m.get('CertType') is not None:
+            self.cert_type = m.get('CertType')
+        if m.get('Del') is not None:
+            self.del_ = m.get('Del')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('GmtCreate') is not None:
+            self.gmt_create = m.get('GmtCreate')
+        if m.get('GmtModified') is not None:
+            self.gmt_modified = m.get('GmtModified')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('JobType') is not None:
+            self.job_type = m.get('JobType')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('ProductName') is not None:
+            self.product_name = m.get('ProductName')
+        if m.get('Rollback') is not None:
+            self.rollback = m.get('Rollback')
+        if m.get('ScheduleTime') is not None:
+            self.schedule_time = m.get('ScheduleTime')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        return self
+
+
+class ListDeploymentJobResponseBody(TeaModel):
+    def __init__(self, current_page=None, data=None, request_id=None, show_size=None, total=None):
+        self.current_page = current_page  # type: int
+        self.data = data  # type: list[ListDeploymentJobResponseBodyData]
+        self.request_id = request_id  # type: str
+        self.show_size = show_size  # type: int
+        self.total = total  # type: long
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListDeploymentJobResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.show_size is not None:
+            result['ShowSize'] = self.show_size
+        if self.total is not None:
+            result['Total'] = self.total
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = ListDeploymentJobResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('ShowSize') is not None:
+            self.show_size = m.get('ShowSize')
+        if m.get('Total') is not None:
+            self.total = m.get('Total')
+        return self
+
+
+class ListDeploymentJobResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListDeploymentJobResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListDeploymentJobResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListDeploymentJobResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListDeploymentJobCertRequest(TeaModel):
+    def __init__(self, job_id=None):
+        self.job_id = job_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListDeploymentJobCertRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        return self
+
+
+class ListDeploymentJobCertResponseBodyData(TeaModel):
+    def __init__(self, algorithm=None, cert_id=None, cert_instance_id=None, cert_name=None, cert_order_type=None,
+                 cert_type=None, common_name=None, is_trustee=None, month=None, not_after_time=None, not_before_time=None,
+                 order_id=None, sans=None, status_code=None):
+        self.algorithm = algorithm  # type: str
+        self.cert_id = cert_id  # type: long
+        self.cert_instance_id = cert_instance_id  # type: str
+        self.cert_name = cert_name  # type: str
+        self.cert_order_type = cert_order_type  # type: str
+        self.cert_type = cert_type  # type: str
+        self.common_name = common_name  # type: str
+        self.is_trustee = is_trustee  # type: bool
+        self.month = month  # type: int
+        self.not_after_time = not_after_time  # type: long
+        self.not_before_time = not_before_time  # type: long
+        self.order_id = order_id  # type: long
+        self.sans = sans  # type: list[str]
+        self.status_code = status_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListDeploymentJobCertResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.algorithm is not None:
+            result['Algorithm'] = self.algorithm
+        if self.cert_id is not None:
+            result['CertId'] = self.cert_id
+        if self.cert_instance_id is not None:
+            result['CertInstanceId'] = self.cert_instance_id
+        if self.cert_name is not None:
+            result['CertName'] = self.cert_name
+        if self.cert_order_type is not None:
+            result['CertOrderType'] = self.cert_order_type
+        if self.cert_type is not None:
+            result['CertType'] = self.cert_type
+        if self.common_name is not None:
+            result['CommonName'] = self.common_name
+        if self.is_trustee is not None:
+            result['IsTrustee'] = self.is_trustee
+        if self.month is not None:
+            result['Month'] = self.month
+        if self.not_after_time is not None:
+            result['NotAfterTime'] = self.not_after_time
+        if self.not_before_time is not None:
+            result['NotBeforeTime'] = self.not_before_time
+        if self.order_id is not None:
+            result['OrderId'] = self.order_id
+        if self.sans is not None:
+            result['Sans'] = self.sans
+        if self.status_code is not None:
+            result['StatusCode'] = self.status_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Algorithm') is not None:
+            self.algorithm = m.get('Algorithm')
+        if m.get('CertId') is not None:
+            self.cert_id = m.get('CertId')
+        if m.get('CertInstanceId') is not None:
+            self.cert_instance_id = m.get('CertInstanceId')
+        if m.get('CertName') is not None:
+            self.cert_name = m.get('CertName')
+        if m.get('CertOrderType') is not None:
+            self.cert_order_type = m.get('CertOrderType')
+        if m.get('CertType') is not None:
+            self.cert_type = m.get('CertType')
+        if m.get('CommonName') is not None:
+            self.common_name = m.get('CommonName')
+        if m.get('IsTrustee') is not None:
+            self.is_trustee = m.get('IsTrustee')
+        if m.get('Month') is not None:
+            self.month = m.get('Month')
+        if m.get('NotAfterTime') is not None:
+            self.not_after_time = m.get('NotAfterTime')
+        if m.get('NotBeforeTime') is not None:
+            self.not_before_time = m.get('NotBeforeTime')
+        if m.get('OrderId') is not None:
+            self.order_id = m.get('OrderId')
+        if m.get('Sans') is not None:
+            self.sans = m.get('Sans')
+        if m.get('StatusCode') is not None:
+            self.status_code = m.get('StatusCode')
+        return self
+
+
+class ListDeploymentJobCertResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: list[ListDeploymentJobCertResponseBodyData]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListDeploymentJobCertResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = ListDeploymentJobCertResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ListDeploymentJobCertResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListDeploymentJobCertResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListDeploymentJobCertResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListDeploymentJobCertResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListDeploymentJobResourceRequest(TeaModel):
+    def __init__(self, job_id=None):
+        self.job_id = job_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListDeploymentJobResourceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        return self
+
+
+class ListDeploymentJobResourceResponseBodyData(TeaModel):
+    def __init__(self, cert_end_time=None, cert_id=None, cert_name=None, cert_start_time=None, cloud_access_id=None,
+                 cloud_name=None, cloud_product=None, cloud_region=None, default_resource=None, domain=None, enable_https=None,
+                 gmt_create=None, gmt_modified=None, id=None, instance_id=None, listener_id=None, listener_port=None,
+                 region_id=None, remark=None, status=None, use_ssl=None, user_id=None):
+        self.cert_end_time = cert_end_time  # type: str
+        self.cert_id = cert_id  # type: long
+        self.cert_name = cert_name  # type: str
+        self.cert_start_time = cert_start_time  # type: str
+        self.cloud_access_id = cloud_access_id  # type: str
+        self.cloud_name = cloud_name  # type: str
+        self.cloud_product = cloud_product  # type: str
+        self.cloud_region = cloud_region  # type: str
+        self.default_resource = default_resource  # type: int
+        self.domain = domain  # type: str
+        self.enable_https = enable_https  # type: int
+        self.gmt_create = gmt_create  # type: str
+        self.gmt_modified = gmt_modified  # type: str
+        self.id = id  # type: long
+        self.instance_id = instance_id  # type: str
+        self.listener_id = listener_id  # type: str
+        self.listener_port = listener_port  # type: str
+        self.region_id = region_id  # type: str
+        self.remark = remark  # type: str
+        self.status = status  # type: str
+        self.use_ssl = use_ssl  # type: int
+        self.user_id = user_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListDeploymentJobResourceResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cert_end_time is not None:
+            result['CertEndTime'] = self.cert_end_time
+        if self.cert_id is not None:
+            result['CertId'] = self.cert_id
+        if self.cert_name is not None:
+            result['CertName'] = self.cert_name
+        if self.cert_start_time is not None:
+            result['CertStartTime'] = self.cert_start_time
+        if self.cloud_access_id is not None:
+            result['CloudAccessId'] = self.cloud_access_id
+        if self.cloud_name is not None:
+            result['CloudName'] = self.cloud_name
+        if self.cloud_product is not None:
+            result['CloudProduct'] = self.cloud_product
+        if self.cloud_region is not None:
+            result['CloudRegion'] = self.cloud_region
+        if self.default_resource is not None:
+            result['DefaultResource'] = self.default_resource
+        if self.domain is not None:
+            result['Domain'] = self.domain
+        if self.enable_https is not None:
+            result['EnableHttps'] = self.enable_https
+        if self.gmt_create is not None:
+            result['GmtCreate'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['GmtModified'] = self.gmt_modified
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.listener_id is not None:
+            result['ListenerId'] = self.listener_id
+        if self.listener_port is not None:
+            result['ListenerPort'] = self.listener_port
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.remark is not None:
+            result['Remark'] = self.remark
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.use_ssl is not None:
+            result['UseSsl'] = self.use_ssl
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CertEndTime') is not None:
+            self.cert_end_time = m.get('CertEndTime')
+        if m.get('CertId') is not None:
+            self.cert_id = m.get('CertId')
+        if m.get('CertName') is not None:
+            self.cert_name = m.get('CertName')
+        if m.get('CertStartTime') is not None:
+            self.cert_start_time = m.get('CertStartTime')
+        if m.get('CloudAccessId') is not None:
+            self.cloud_access_id = m.get('CloudAccessId')
+        if m.get('CloudName') is not None:
+            self.cloud_name = m.get('CloudName')
+        if m.get('CloudProduct') is not None:
+            self.cloud_product = m.get('CloudProduct')
+        if m.get('CloudRegion') is not None:
+            self.cloud_region = m.get('CloudRegion')
+        if m.get('DefaultResource') is not None:
+            self.default_resource = m.get('DefaultResource')
+        if m.get('Domain') is not None:
+            self.domain = m.get('Domain')
+        if m.get('EnableHttps') is not None:
+            self.enable_https = m.get('EnableHttps')
+        if m.get('GmtCreate') is not None:
+            self.gmt_create = m.get('GmtCreate')
+        if m.get('GmtModified') is not None:
+            self.gmt_modified = m.get('GmtModified')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('ListenerId') is not None:
+            self.listener_id = m.get('ListenerId')
+        if m.get('ListenerPort') is not None:
+            self.listener_port = m.get('ListenerPort')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Remark') is not None:
+            self.remark = m.get('Remark')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('UseSsl') is not None:
+            self.use_ssl = m.get('UseSsl')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        return self
+
+
+class ListDeploymentJobResourceResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: list[ListDeploymentJobResourceResponseBodyData]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListDeploymentJobResourceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = ListDeploymentJobResourceResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ListDeploymentJobResourceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListDeploymentJobResourceResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListDeploymentJobResourceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListDeploymentJobResourceResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -3748,6 +5134,309 @@ class UpdateCsrResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UpdateCsrResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdateDeploymentJobRequest(TeaModel):
+    def __init__(self, cert_ids=None, contact_ids=None, job_id=None, name=None, resource_ids=None,
+                 schedule_time=None):
+        self.cert_ids = cert_ids  # type: str
+        self.contact_ids = contact_ids  # type: str
+        self.job_id = job_id  # type: long
+        self.name = name  # type: str
+        self.resource_ids = resource_ids  # type: str
+        self.schedule_time = schedule_time  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateDeploymentJobRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cert_ids is not None:
+            result['CertIds'] = self.cert_ids
+        if self.contact_ids is not None:
+            result['ContactIds'] = self.contact_ids
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.resource_ids is not None:
+            result['ResourceIds'] = self.resource_ids
+        if self.schedule_time is not None:
+            result['ScheduleTime'] = self.schedule_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CertIds') is not None:
+            self.cert_ids = m.get('CertIds')
+        if m.get('ContactIds') is not None:
+            self.contact_ids = m.get('ContactIds')
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('ResourceIds') is not None:
+            self.resource_ids = m.get('ResourceIds')
+        if m.get('ScheduleTime') is not None:
+            self.schedule_time = m.get('ScheduleTime')
+        return self
+
+
+class UpdateDeploymentJobResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateDeploymentJobResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UpdateDeploymentJobResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateDeploymentJobResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateDeploymentJobResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateDeploymentJobResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdateDeploymentJobStatusRequest(TeaModel):
+    def __init__(self, job_id=None, status=None):
+        self.job_id = job_id  # type: long
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateDeploymentJobStatusRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class UpdateDeploymentJobStatusResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: any
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateDeploymentJobStatusResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UpdateDeploymentJobStatusResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateDeploymentJobStatusResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateDeploymentJobStatusResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateDeploymentJobStatusResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdateWorkerResourceStatusRequest(TeaModel):
+    def __init__(self, job_id=None, status=None, worker_id=None):
+        self.job_id = job_id  # type: long
+        self.status = status  # type: str
+        self.worker_id = worker_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateWorkerResourceStatusRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.worker_id is not None:
+            result['WorkerId'] = self.worker_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('WorkerId') is not None:
+            self.worker_id = m.get('WorkerId')
+        return self
+
+
+class UpdateWorkerResourceStatusResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: any
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateWorkerResourceStatusResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UpdateWorkerResourceStatusResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateWorkerResourceStatusResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateWorkerResourceStatusResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateWorkerResourceStatusResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
