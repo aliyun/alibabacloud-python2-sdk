@@ -1,3 +1,7 @@
+2024-03-13 Version: 1.8.0
+- Support API DeleteDigitalVideo.
+
+
 2024-03-12 Version: 1.7.0
 - Support API ActualDeductResources.
 - Support API CopywritingQA.

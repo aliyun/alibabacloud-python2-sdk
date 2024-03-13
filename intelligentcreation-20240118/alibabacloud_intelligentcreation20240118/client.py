@@ -159,6 +159,38 @@ class Client(OpenApiClient):
         headers = {}
         return self.copywriting_qav1with_options(request, headers, runtime)
 
+    def delete_digital_video_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.account_id):
+            body['accountId'] = request.account_id
+        if not UtilClient.is_unset(request.video_id):
+            body['videoId'] = request.video_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteDigitalVideo',
+            version='2024-01-18',
+            protocol='HTTPS',
+            pathname='/yic/yic-console/openService/v1/digitalHuman/videos',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            intelligent_creation_20240118_models.DeleteDigitalVideoResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_digital_video(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_digital_video_with_options(request, headers, runtime)
+
     def direct_deduct_resource_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(

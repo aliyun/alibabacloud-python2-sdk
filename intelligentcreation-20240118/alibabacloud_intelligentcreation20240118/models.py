@@ -312,10 +312,11 @@ class DirectDeductResourceResult(TeaModel):
 
 
 class ExpectDeductResourceCmd(TeaModel):
-    def __init__(self, account_id=None, cost=None, extra_info=None, idempotent_id=None, resource_type=None,
-                 sub_account_id=None, token=None):
+    def __init__(self, account_id=None, cost=None, deduct_scene=None, extra_info=None, idempotent_id=None,
+                 resource_type=None, sub_account_id=None, token=None):
         self.account_id = account_id  # type: str
         self.cost = cost  # type: long
+        self.deduct_scene = deduct_scene  # type: str
         self.extra_info = extra_info  # type: str
         self.idempotent_id = idempotent_id  # type: str
         self.resource_type = resource_type  # type: long
@@ -335,6 +336,8 @@ class ExpectDeductResourceCmd(TeaModel):
             result['accountId'] = self.account_id
         if self.cost is not None:
             result['cost'] = self.cost
+        if self.deduct_scene is not None:
+            result['deductScene'] = self.deduct_scene
         if self.extra_info is not None:
             result['extraInfo'] = self.extra_info
         if self.idempotent_id is not None:
@@ -353,6 +356,8 @@ class ExpectDeductResourceCmd(TeaModel):
             self.account_id = m.get('accountId')
         if m.get('cost') is not None:
             self.cost = m.get('cost')
+        if m.get('deductScene') is not None:
+            self.deduct_scene = m.get('deductScene')
         if m.get('extraInfo') is not None:
             self.extra_info = m.get('extraInfo')
         if m.get('idempotentId') is not None:
@@ -971,6 +976,111 @@ class CopywritingQAV1Response(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DigitalHumanLiveBroadcastQAResult()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteDigitalVideoRequest(TeaModel):
+    def __init__(self, account_id=None, video_id=None):
+        self.account_id = account_id  # type: str
+        self.video_id = video_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteDigitalVideoRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_id is not None:
+            result['accountId'] = self.account_id
+        if self.video_id is not None:
+            result['videoId'] = self.video_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('accountId') is not None:
+            self.account_id = m.get('accountId')
+        if m.get('videoId') is not None:
+            self.video_id = m.get('videoId')
+        return self
+
+
+class DeleteDigitalVideoResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_message=None, request_id=None, success=None):
+        self.error_code = error_code  # type: str
+        self.error_message = error_message  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteDigitalVideoResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['errorCode'] = self.error_code
+        if self.error_message is not None:
+            result['errorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('errorCode') is not None:
+            self.error_code = m.get('errorCode')
+        if m.get('errorMessage') is not None:
+            self.error_message = m.get('errorMessage')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class DeleteDigitalVideoResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteDigitalVideoResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteDigitalVideoResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteDigitalVideoResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
