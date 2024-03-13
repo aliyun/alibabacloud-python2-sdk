@@ -59718,13 +59718,14 @@ class IntlFlightListingSearchRequestSearchPassengerList(TeaModel):
 
 class IntlFlightListingSearchRequest(TeaModel):
     def __init__(self, btrip_user_id=None, buyer_name=None, cabin_type=None, direct_only=None, isv_name=None,
-                 need_share_flight=None, out_wheel_search=None, query_record_id=None, search_journeys=None, search_mode=None,
-                 search_passenger_list=None, supplier_code=None, token=None, trip_type=None):
+                 language=None, need_share_flight=None, out_wheel_search=None, query_record_id=None, search_journeys=None,
+                 search_mode=None, search_passenger_list=None, supplier_code=None, token=None, trip_type=None):
         self.btrip_user_id = btrip_user_id  # type: str
         self.buyer_name = buyer_name  # type: str
         self.cabin_type = cabin_type  # type: int
         self.direct_only = direct_only  # type: bool
         self.isv_name = isv_name  # type: str
+        self.language = language  # type: str
         self.need_share_flight = need_share_flight  # type: bool
         self.out_wheel_search = out_wheel_search  # type: bool
         self.query_record_id = query_record_id  # type: str
@@ -59761,6 +59762,8 @@ class IntlFlightListingSearchRequest(TeaModel):
             result['direct_only'] = self.direct_only
         if self.isv_name is not None:
             result['isv_name'] = self.isv_name
+        if self.language is not None:
+            result['language'] = self.language
         if self.need_share_flight is not None:
             result['need_share_flight'] = self.need_share_flight
         if self.out_wheel_search is not None:
@@ -59797,6 +59800,8 @@ class IntlFlightListingSearchRequest(TeaModel):
             self.direct_only = m.get('direct_only')
         if m.get('isv_name') is not None:
             self.isv_name = m.get('isv_name')
+        if m.get('language') is not None:
+            self.language = m.get('language')
         if m.get('need_share_flight') is not None:
             self.need_share_flight = m.get('need_share_flight')
         if m.get('out_wheel_search') is not None:
@@ -59826,13 +59831,15 @@ class IntlFlightListingSearchRequest(TeaModel):
 
 class IntlFlightListingSearchShrinkRequest(TeaModel):
     def __init__(self, btrip_user_id=None, buyer_name=None, cabin_type=None, direct_only=None, isv_name=None,
-                 need_share_flight=None, out_wheel_search=None, query_record_id=None, search_journeys_shrink=None, search_mode=None,
-                 search_passenger_list_shrink=None, supplier_code=None, token=None, trip_type=None):
+                 language=None, need_share_flight=None, out_wheel_search=None, query_record_id=None,
+                 search_journeys_shrink=None, search_mode=None, search_passenger_list_shrink=None, supplier_code=None, token=None,
+                 trip_type=None):
         self.btrip_user_id = btrip_user_id  # type: str
         self.buyer_name = buyer_name  # type: str
         self.cabin_type = cabin_type  # type: int
         self.direct_only = direct_only  # type: bool
         self.isv_name = isv_name  # type: str
+        self.language = language  # type: str
         self.need_share_flight = need_share_flight  # type: bool
         self.out_wheel_search = out_wheel_search  # type: bool
         self.query_record_id = query_record_id  # type: str
@@ -59862,6 +59869,8 @@ class IntlFlightListingSearchShrinkRequest(TeaModel):
             result['direct_only'] = self.direct_only
         if self.isv_name is not None:
             result['isv_name'] = self.isv_name
+        if self.language is not None:
+            result['language'] = self.language
         if self.need_share_flight is not None:
             result['need_share_flight'] = self.need_share_flight
         if self.out_wheel_search is not None:
@@ -59894,6 +59903,8 @@ class IntlFlightListingSearchShrinkRequest(TeaModel):
             self.direct_only = m.get('direct_only')
         if m.get('isv_name') is not None:
             self.isv_name = m.get('isv_name')
+        if m.get('language') is not None:
+            self.language = m.get('language')
         if m.get('need_share_flight') is not None:
             self.need_share_flight = m.get('need_share_flight')
         if m.get('out_wheel_search') is not None:
@@ -60699,10 +60710,11 @@ class IntlFlightOtaItemDetailHeaders(TeaModel):
 
 
 class IntlFlightOtaItemDetailRequest(TeaModel):
-    def __init__(self, btrip_user_id=None, buyer_name=None, isv_name=None, supplier_code=None):
+    def __init__(self, btrip_user_id=None, buyer_name=None, isv_name=None, language=None, supplier_code=None):
         self.btrip_user_id = btrip_user_id  # type: str
         self.buyer_name = buyer_name  # type: str
         self.isv_name = isv_name  # type: str
+        self.language = language  # type: str
         self.supplier_code = supplier_code  # type: str
 
     def validate(self):
@@ -60720,6 +60732,8 @@ class IntlFlightOtaItemDetailRequest(TeaModel):
             result['buyer_name'] = self.buyer_name
         if self.isv_name is not None:
             result['isv_name'] = self.isv_name
+        if self.language is not None:
+            result['language'] = self.language
         if self.supplier_code is not None:
             result['supplier_code'] = self.supplier_code
         return result
@@ -60732,6 +60746,8 @@ class IntlFlightOtaItemDetailRequest(TeaModel):
             self.buyer_name = m.get('buyer_name')
         if m.get('isv_name') is not None:
             self.isv_name = m.get('isv_name')
+        if m.get('language') is not None:
+            self.language = m.get('language')
         if m.get('supplier_code') is not None:
             self.supplier_code = m.get('supplier_code')
         return self
@@ -62069,12 +62085,14 @@ class IntlFlightOtaSearchRequestSearchPassengerList(TeaModel):
 
 class IntlFlightOtaSearchRequest(TeaModel):
     def __init__(self, btrip_user_id=None, buyer_name=None, cabin_type=None, direct_only=None, isv_name=None,
-                 need_share_flight=None, search_journeys=None, search_passenger_list=None, supplier_code=None, trip_type=None):
+                 language=None, need_share_flight=None, search_journeys=None, search_passenger_list=None,
+                 supplier_code=None, trip_type=None):
         self.btrip_user_id = btrip_user_id  # type: str
         self.buyer_name = buyer_name  # type: str
         self.cabin_type = cabin_type  # type: int
         self.direct_only = direct_only  # type: bool
         self.isv_name = isv_name  # type: str
+        self.language = language  # type: str
         self.need_share_flight = need_share_flight  # type: bool
         self.search_journeys = search_journeys  # type: list[IntlFlightOtaSearchRequestSearchJourneys]
         self.search_passenger_list = search_passenger_list  # type: list[IntlFlightOtaSearchRequestSearchPassengerList]
@@ -62107,6 +62125,8 @@ class IntlFlightOtaSearchRequest(TeaModel):
             result['direct_only'] = self.direct_only
         if self.isv_name is not None:
             result['isv_name'] = self.isv_name
+        if self.language is not None:
+            result['language'] = self.language
         if self.need_share_flight is not None:
             result['need_share_flight'] = self.need_share_flight
         result['search_journeys'] = []
@@ -62135,6 +62155,8 @@ class IntlFlightOtaSearchRequest(TeaModel):
             self.direct_only = m.get('direct_only')
         if m.get('isv_name') is not None:
             self.isv_name = m.get('isv_name')
+        if m.get('language') is not None:
+            self.language = m.get('language')
         if m.get('need_share_flight') is not None:
             self.need_share_flight = m.get('need_share_flight')
         self.search_journeys = []
@@ -62156,13 +62178,14 @@ class IntlFlightOtaSearchRequest(TeaModel):
 
 class IntlFlightOtaSearchShrinkRequest(TeaModel):
     def __init__(self, btrip_user_id=None, buyer_name=None, cabin_type=None, direct_only=None, isv_name=None,
-                 need_share_flight=None, search_journeys_shrink=None, search_passenger_list_shrink=None, supplier_code=None,
-                 trip_type=None):
+                 language=None, need_share_flight=None, search_journeys_shrink=None, search_passenger_list_shrink=None,
+                 supplier_code=None, trip_type=None):
         self.btrip_user_id = btrip_user_id  # type: str
         self.buyer_name = buyer_name  # type: str
         self.cabin_type = cabin_type  # type: int
         self.direct_only = direct_only  # type: bool
         self.isv_name = isv_name  # type: str
+        self.language = language  # type: str
         self.need_share_flight = need_share_flight  # type: bool
         self.search_journeys_shrink = search_journeys_shrink  # type: str
         self.search_passenger_list_shrink = search_passenger_list_shrink  # type: str
@@ -62188,6 +62211,8 @@ class IntlFlightOtaSearchShrinkRequest(TeaModel):
             result['direct_only'] = self.direct_only
         if self.isv_name is not None:
             result['isv_name'] = self.isv_name
+        if self.language is not None:
+            result['language'] = self.language
         if self.need_share_flight is not None:
             result['need_share_flight'] = self.need_share_flight
         if self.search_journeys_shrink is not None:
@@ -62212,6 +62237,8 @@ class IntlFlightOtaSearchShrinkRequest(TeaModel):
             self.direct_only = m.get('direct_only')
         if m.get('isv_name') is not None:
             self.isv_name = m.get('isv_name')
+        if m.get('language') is not None:
+            self.language = m.get('language')
         if m.get('need_share_flight') is not None:
             self.need_share_flight = m.get('need_share_flight')
         if m.get('search_journeys') is not None:

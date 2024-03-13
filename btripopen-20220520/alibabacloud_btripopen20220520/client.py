@@ -4894,6 +4894,8 @@ class Client(OpenApiClient):
             query['direct_only'] = request.direct_only
         if not UtilClient.is_unset(request.isv_name):
             query['isv_name'] = request.isv_name
+        if not UtilClient.is_unset(request.language):
+            query['language'] = request.language
         if not UtilClient.is_unset(request.need_share_flight):
             query['need_share_flight'] = request.need_share_flight
         if not UtilClient.is_unset(request.out_wheel_search):
@@ -4951,6 +4953,8 @@ class Client(OpenApiClient):
             query['buyer_name'] = request.buyer_name
         if not UtilClient.is_unset(request.isv_name):
             query['isv_name'] = request.isv_name
+        if not UtilClient.is_unset(request.language):
+            query['language'] = request.language
         if not UtilClient.is_unset(request.supplier_code):
             query['supplier_code'] = request.supplier_code
         real_headers = {}
@@ -5002,6 +5006,8 @@ class Client(OpenApiClient):
             query['direct_only'] = request.direct_only
         if not UtilClient.is_unset(request.isv_name):
             query['isv_name'] = request.isv_name
+        if not UtilClient.is_unset(request.language):
+            query['language'] = request.language
         if not UtilClient.is_unset(request.need_share_flight):
             query['need_share_flight'] = request.need_share_flight
         if not UtilClient.is_unset(request.search_journeys_shrink):
