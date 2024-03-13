@@ -3555,6 +3555,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.app_key_id):
             query['AppKeyId'] = request.app_key_id
+        if not UtilClient.is_unset(request.auth_code):
+            query['AuthCode'] = request.auth_code
         if not UtilClient.is_unset(request.lang):
             query['Lang'] = request.lang
         req = open_api_models.OpenApiRequest(
