@@ -3034,6 +3034,8 @@ class Client(OpenApiClient):
             query['DBNodeId'] = request.dbnode_id
         if not UtilClient.is_unset(request.end_time):
             query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.interval):
+            query['Interval'] = request.interval
         if not UtilClient.is_unset(request.key):
             query['Key'] = request.key
         if not UtilClient.is_unset(request.start_time):
@@ -3137,6 +3139,8 @@ class Client(OpenApiClient):
             query['DBEndpointId'] = request.dbendpoint_id
         if not UtilClient.is_unset(request.end_time):
             query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.interval):
+            query['Interval'] = request.interval
         if not UtilClient.is_unset(request.key):
             query['Key'] = request.key
         if not UtilClient.is_unset(request.start_time):
@@ -4697,6 +4701,8 @@ class Client(OpenApiClient):
             query['OwnerAccount'] = request.owner_account
         if not UtilClient.is_unset(request.owner_id):
             query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.password_type):
+            query['PasswordType'] = request.password_type
         if not UtilClient.is_unset(request.resource_owner_account):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
