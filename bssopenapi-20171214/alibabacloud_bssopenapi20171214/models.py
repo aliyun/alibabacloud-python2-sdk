@@ -162,9 +162,6 @@ class AddAccountRelationResponse(TeaModel):
         self.body = body  # type: AddAccountRelationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -402,9 +399,6 @@ class AllocateCostUnitResourceResponse(TeaModel):
         self.body = body  # type: AllocateCostUnitResourceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -599,9 +593,6 @@ class ApplyInvoiceResponse(TeaModel):
         self.body = body  # type: ApplyInvoiceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -744,9 +735,6 @@ class CancelOrderResponse(TeaModel):
         self.body = body  # type: CancelOrderResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -899,9 +887,6 @@ class ChangeResellerConsumeAmountResponse(TeaModel):
         self.body = body  # type: ChangeResellerConsumeAmountResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1088,9 +1073,6 @@ class ConfirmRelationResponse(TeaModel):
         self.body = body  # type: ConfirmRelationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1268,9 +1250,6 @@ class ConvertChargeTypeResponse(TeaModel):
         self.body = body  # type: ConvertChargeTypeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1477,9 +1456,6 @@ class CreateAgAccountResponse(TeaModel):
         self.body = body  # type: CreateAgAccountResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1713,9 +1689,6 @@ class CreateCostUnitResponse(TeaModel):
         self.body = body  # type: CreateCostUnitResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1964,9 +1937,6 @@ class CreateInstanceResponse(TeaModel):
         self.body = body  # type: CreateInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2086,9 +2056,6 @@ class CreateResellerUserQuotaResponse(TeaModel):
         self.body = body  # type: CreateResellerUserQuotaResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2281,9 +2248,6 @@ class CreateResourcePackageResponse(TeaModel):
         self.body = body  # type: CreateResourcePackageResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2595,9 +2559,6 @@ class CreateSavingsPlansInstanceResponse(TeaModel):
         self.body = body  # type: CreateSavingsPlansInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2753,9 +2714,6 @@ class DeleteCostUnitResponse(TeaModel):
         self.body = body  # type: DeleteCostUnitResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3005,9 +2963,6 @@ class DescribeCostBudgetsSummaryResponse(TeaModel):
         self.body = body  # type: DescribeCostBudgetsSummaryResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3639,9 +3594,6 @@ class DescribeInstanceAmortizedCostByAmortizationPeriodResponse(TeaModel):
         self.body = body  # type: DescribeInstanceAmortizedCostByAmortizationPeriodResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4204,9 +4156,6 @@ class DescribeInstanceAmortizedCostByAmortizationPeriodDateResponse(TeaModel):
         self.body = body  # type: DescribeInstanceAmortizedCostByAmortizationPeriodDateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4749,9 +4698,6 @@ class DescribeInstanceAmortizedCostByConsumePeriodResponse(TeaModel):
         self.body = body  # type: DescribeInstanceAmortizedCostByConsumePeriodResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5344,9 +5290,6 @@ class DescribeInstanceBillResponse(TeaModel):
         self.body = body  # type: DescribeInstanceBillResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5818,9 +5761,6 @@ class DescribeInstanceDeductAmortizedCostByAmortizationPeriodResponse(TeaModel):
         self.body = body  # type: DescribeInstanceDeductAmortizedCostByAmortizationPeriodResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6259,9 +6199,6 @@ class DescribePricingModuleResponse(TeaModel):
         self.body = body  # type: DescribePricingModuleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6807,9 +6744,6 @@ class DescribeProductAmortizedCostByAmortizationPeriodResponse(TeaModel):
         self.body = body  # type: DescribeProductAmortizedCostByAmortizationPeriodResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7280,9 +7214,6 @@ class DescribeProductAmortizedCostByConsumePeriodResponse(TeaModel):
         self.body = body  # type: DescribeProductAmortizedCostByConsumePeriodResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7627,9 +7558,6 @@ class DescribeResourceCoverageDetailResponse(TeaModel):
         self.body = body  # type: DescribeResourceCoverageDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7884,9 +7812,6 @@ class DescribeResourceCoverageTotalResponse(TeaModel):
         self.body = body  # type: DescribeResourceCoverageTotalResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8397,9 +8322,6 @@ class DescribeResourcePackageProductResponse(TeaModel):
         self.body = body  # type: DescribeResourcePackageProductResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8759,9 +8681,6 @@ class DescribeResourceUsageDetailResponse(TeaModel):
         self.body = body  # type: DescribeResourceUsageDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9021,9 +8940,6 @@ class DescribeResourceUsageTotalResponse(TeaModel):
         self.body = body  # type: DescribeResourceUsageTotalResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9310,9 +9226,6 @@ class DescribeSavingsPlansCoverageDetailResponse(TeaModel):
         self.body = body  # type: DescribeSavingsPlansCoverageDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9549,9 +9462,6 @@ class DescribeSavingsPlansCoverageTotalResponse(TeaModel):
         self.body = body  # type: DescribeSavingsPlansCoverageTotalResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9841,9 +9751,6 @@ class DescribeSavingsPlansUsageDetailResponse(TeaModel):
         self.body = body  # type: DescribeSavingsPlansUsageDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10092,9 +9999,6 @@ class DescribeSavingsPlansUsageTotalResponse(TeaModel):
         self.body = body  # type: DescribeSavingsPlansUsageTotalResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10759,9 +10663,6 @@ class DescribeSplitItemBillResponse(TeaModel):
         self.body = body  # type: DescribeSplitItemBillResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10904,9 +10805,6 @@ class EnableBillGenerationResponse(TeaModel):
         self.body = body  # type: EnableBillGenerationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11093,9 +10991,6 @@ class GetAccountRelationResponse(TeaModel):
         self.body = body  # type: GetAccountRelationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11275,9 +11170,6 @@ class GetCustomerAccountInfoResponse(TeaModel):
         self.body = body  # type: GetCustomerAccountInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11393,9 +11285,6 @@ class GetCustomerListResponse(TeaModel):
         self.body = body  # type: GetCustomerListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11799,9 +11688,6 @@ class GetOrderDetailResponse(TeaModel):
         self.body = body  # type: GetOrderDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12197,9 +12083,6 @@ class GetPayAsYouGoPriceResponse(TeaModel):
         self.body = body  # type: GetPayAsYouGoPriceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12483,9 +12366,6 @@ class GetResourcePackagePriceResponse(TeaModel):
         self.body = body  # type: GetResourcePackagePriceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12944,9 +12824,6 @@ class GetSubscriptionPriceResponse(TeaModel):
         self.body = body  # type: GetSubscriptionPriceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13120,9 +12997,6 @@ class InquiryPriceRefundInstanceResponse(TeaModel):
         self.body = body  # type: InquiryPriceRefundInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13320,9 +13194,6 @@ class ModifyAccountRelationResponse(TeaModel):
         self.body = body  # type: ModifyAccountRelationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13523,9 +13394,6 @@ class ModifyCostUnitResponse(TeaModel):
         self.body = body  # type: ModifyCostUnitResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13758,9 +13626,6 @@ class ModifyInstanceResponse(TeaModel):
         self.body = body  # type: ModifyInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13907,9 +13772,6 @@ class QueryAccountBalanceResponse(TeaModel):
         self.body = body  # type: QueryAccountBalanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14072,7 +13934,7 @@ class QueryAccountBillResponseBodyDataItemsItem(TeaModel):
         self.pretax_gross_amount = pretax_gross_amount  # type: float
         # The code of the service.
         # 
-        # >A value is returned only if the **IsGroupByProduct** parameter is set to true.
+        # > A value is returned only if the **IsGroupByProduct** parameter is set to true.
         self.product_code = product_code  # type: str
         # The name of the service.
         # 
@@ -14344,9 +14206,6 @@ class QueryAccountBillResponse(TeaModel):
         self.body = body  # type: QueryAccountBillResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14698,9 +14557,6 @@ class QueryAccountTransactionDetailsResponse(TeaModel):
         self.body = body  # type: QueryAccountTransactionDetailsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15099,9 +14955,6 @@ class QueryAccountTransactionsResponse(TeaModel):
         self.body = body  # type: QueryAccountTransactionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15487,9 +15340,6 @@ class QueryAvailableInstancesResponse(TeaModel):
         self.body = body  # type: QueryAvailableInstancesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16008,9 +15858,6 @@ class QueryBillResponse(TeaModel):
         self.body = body  # type: QueryBillResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16428,9 +16275,6 @@ class QueryBillOverviewResponse(TeaModel):
         self.body = body  # type: QueryBillOverviewResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16659,9 +16503,6 @@ class QueryBillToOSSSubscriptionResponse(TeaModel):
         self.body = body  # type: QueryBillToOSSSubscriptionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16911,9 +16752,6 @@ class QueryCashCouponsResponse(TeaModel):
         self.body = body  # type: QueryCashCouponsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17101,9 +16939,6 @@ class QueryCommodityListResponse(TeaModel):
         self.body = body  # type: QueryCommodityListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17328,9 +17163,6 @@ class QueryCostUnitResponse(TeaModel):
         self.body = body  # type: QueryCostUnitResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17735,9 +17567,6 @@ class QueryCostUnitResourceResponse(TeaModel):
         self.body = body  # type: QueryCostUnitResourceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -18000,9 +17829,6 @@ class QueryCustomerAddressListResponse(TeaModel):
         self.body = body  # type: QueryCustomerAddressListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -18346,9 +18172,6 @@ class QueryDPUtilizationDetailResponse(TeaModel):
         self.body = body  # type: QueryDPUtilizationDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -18807,9 +18630,6 @@ class QueryEvaluateListResponse(TeaModel):
         self.body = body  # type: QueryEvaluateListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -18978,9 +18798,6 @@ class QueryFinancialAccountInfoResponse(TeaModel):
         self.body = body  # type: QueryFinancialAccountInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19564,9 +19381,6 @@ class QueryInstanceBillResponse(TeaModel):
         self.body = body  # type: QueryInstanceBillResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19818,9 +19632,6 @@ class QueryInstanceByTagResponse(TeaModel):
         self.body = body  # type: QueryInstanceByTagResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -20323,9 +20134,6 @@ class QueryInstanceGaapCostResponse(TeaModel):
         self.body = body  # type: QueryInstanceGaapCostResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -20653,9 +20461,6 @@ class QueryInvoicingCustomerListResponse(TeaModel):
         self.body = body  # type: QueryInvoicingCustomerListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -21057,9 +20862,6 @@ class QueryOrdersResponse(TeaModel):
         self.body = body  # type: QueryOrdersResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -21291,9 +21093,6 @@ class QueryPermissionListResponse(TeaModel):
         self.body = body  # type: QueryPermissionListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -21538,9 +21337,6 @@ class QueryPrepaidCardsResponse(TeaModel):
         self.body = body  # type: QueryPrepaidCardsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -21773,9 +21569,6 @@ class QueryPriceEntityListResponse(TeaModel):
         self.body = body  # type: QueryPriceEntityListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -22023,9 +21816,6 @@ class QueryProductListResponse(TeaModel):
         self.body = body  # type: QueryProductListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -22336,9 +22126,6 @@ class QueryRIUtilizationDetailResponse(TeaModel):
         self.body = body  # type: QueryRIUtilizationDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -22649,9 +22436,6 @@ class QueryRedeemResponse(TeaModel):
         self.body = body  # type: QueryRedeemResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -22913,9 +22697,6 @@ class QueryRelationListResponse(TeaModel):
         self.body = body  # type: QueryRelationListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -23025,9 +22806,6 @@ class QueryResellerAvailableQuotaResponse(TeaModel):
         self.body = body  # type: QueryResellerAvailableQuotaResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -23189,9 +22967,6 @@ class QueryResellerUserAlarmThresholdResponse(TeaModel):
         self.body = body  # type: QueryResellerUserAlarmThresholdResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -23576,9 +23351,6 @@ class QueryResourcePackageInstancesResponse(TeaModel):
         self.body = body  # type: QueryResourcePackageInstancesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -23911,9 +23683,6 @@ class QuerySavingsPlansDeductLogResponse(TeaModel):
         self.body = body  # type: QuerySavingsPlansDeductLogResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24203,9 +23972,6 @@ class QuerySavingsPlansDiscountResponse(TeaModel):
         self.body = body  # type: QuerySavingsPlansDiscountResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24669,9 +24435,6 @@ class QuerySavingsPlansInstanceResponse(TeaModel):
         self.body = body  # type: QuerySavingsPlansInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25124,9 +24887,6 @@ class QuerySettleBillResponse(TeaModel):
         self.body = body  # type: QuerySettleBillResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25560,9 +25320,6 @@ class QuerySkuPriceListResponse(TeaModel):
         self.body = body  # type: QuerySkuPriceListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26129,9 +25886,6 @@ class QuerySplitItemBillResponse(TeaModel):
         self.body = body  # type: QuerySplitItemBillResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26325,9 +26079,6 @@ class QueryUserOmsDataResponse(TeaModel):
         self.body = body  # type: QueryUserOmsDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26496,9 +26247,6 @@ class RefundInstanceResponse(TeaModel):
         self.body = body  # type: RefundInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26531,12 +26279,28 @@ class RefundInstanceResponse(TeaModel):
 class ReleaseInstanceRequest(TeaModel):
     def __init__(self, instance_ids=None, owner_id=None, product_code=None, product_type=None, region=None,
                  renew_status=None, subscription_type=None):
+        # The ID of the instance. Separate multiple IDs with commas (,). A maximum of 100 IDs can be specified.
         self.instance_ids = instance_ids  # type: str
         self.owner_id = owner_id  # type: long
+        # The code of the service.
         self.product_code = product_code  # type: str
+        # The type of the service.
         self.product_type = product_type  # type: str
+        # The region in which the instance resides.
         self.region = region  # type: str
+        # The method that is used to renew the instance. Valid values:
+        # 
+        # AutoRenewal: automatically renews the instance.
+        # 
+        # ManualRenewal: manually renews the instance.
+        # 
+        # NotRenewal: does not renew the instance.
         self.renew_status = renew_status  # type: str
+        # The billing method. Valid values:
+        # 
+        # Subscription: the subscription billing method.
+        # 
+        # PayAsYouGo: the pay-as-you-go billing method.
         self.subscription_type = subscription_type  # type: str
 
     def validate(self):
@@ -26585,7 +26349,9 @@ class ReleaseInstanceRequest(TeaModel):
 
 class ReleaseInstanceResponseBodyData(TeaModel):
     def __init__(self, host_id=None, release_result=None):
+        # The site of the execution host.
         self.host_id = host_id  # type: str
+        # Indicates whether the instance is released.
         self.release_result = release_result  # type: bool
 
     def validate(self):
@@ -26614,10 +26380,17 @@ class ReleaseInstanceResponseBodyData(TeaModel):
 
 class ReleaseInstanceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: str
+        # data
         self.data = data  # type: ReleaseInstanceResponseBodyData
+        # The description of the execution result.
         self.message = message  # type: str
+        # The ID of the request, which can be used for troubleshooting.
         self.request_id = request_id  # type: str
+        # A value of true indicates that the execution is complete.
+        # 
+        # A value of false indicates that an error occurs during the execution.
         self.success = success  # type: bool
 
     def validate(self):
@@ -26665,9 +26438,6 @@ class ReleaseInstanceResponse(TeaModel):
         self.body = body  # type: ReleaseInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26830,9 +26600,6 @@ class RelieveAccountRelationResponse(TeaModel):
         self.body = body  # type: RelieveAccountRelationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -27037,9 +26804,6 @@ class RenewChangeInstanceResponse(TeaModel):
         self.body = body  # type: RenewChangeInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -27212,9 +26976,6 @@ class RenewInstanceResponse(TeaModel):
         self.body = body  # type: RenewInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -27394,9 +27155,6 @@ class RenewResourcePackageResponse(TeaModel):
         self.body = body  # type: RenewResourcePackageResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -27422,156 +27180,6 @@ class RenewResourcePackageResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = RenewResourcePackageResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class SaveUserCreditRequest(TeaModel):
-    def __init__(self, avoid_expiration=None, avoid_notification=None, avoid_prepaid_expiration=None,
-                 avoid_prepaid_notification=None, credit_type=None, credit_value=None, description=None, operator=None):
-        # Specifies whether to enable service suspension protection for pay-as-you-go services.
-        self.avoid_expiration = avoid_expiration  # type: bool
-        # Specifies whether to allow the use of pay-as-you-go services without the need to send notifications.
-        self.avoid_notification = avoid_notification  # type: bool
-        # Specifies whether to enable service suspension protection for subscription services.
-        self.avoid_prepaid_expiration = avoid_prepaid_expiration  # type: bool
-        # Specifies whether to allow the use of subscription services without the need to send notifications.
-        self.avoid_prepaid_notification = avoid_prepaid_notification  # type: bool
-        # The type of the credit.
-        self.credit_type = credit_type  # type: str
-        # The value of the credit.
-        self.credit_value = credit_value  # type: str
-        # Description
-        self.description = description  # type: str
-        # The operator who performs the action.
-        self.operator = operator  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(SaveUserCreditRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.avoid_expiration is not None:
-            result['AvoidExpiration'] = self.avoid_expiration
-        if self.avoid_notification is not None:
-            result['AvoidNotification'] = self.avoid_notification
-        if self.avoid_prepaid_expiration is not None:
-            result['AvoidPrepaidExpiration'] = self.avoid_prepaid_expiration
-        if self.avoid_prepaid_notification is not None:
-            result['AvoidPrepaidNotification'] = self.avoid_prepaid_notification
-        if self.credit_type is not None:
-            result['CreditType'] = self.credit_type
-        if self.credit_value is not None:
-            result['CreditValue'] = self.credit_value
-        if self.description is not None:
-            result['Description'] = self.description
-        if self.operator is not None:
-            result['Operator'] = self.operator
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('AvoidExpiration') is not None:
-            self.avoid_expiration = m.get('AvoidExpiration')
-        if m.get('AvoidNotification') is not None:
-            self.avoid_notification = m.get('AvoidNotification')
-        if m.get('AvoidPrepaidExpiration') is not None:
-            self.avoid_prepaid_expiration = m.get('AvoidPrepaidExpiration')
-        if m.get('AvoidPrepaidNotification') is not None:
-            self.avoid_prepaid_notification = m.get('AvoidPrepaidNotification')
-        if m.get('CreditType') is not None:
-            self.credit_type = m.get('CreditType')
-        if m.get('CreditValue') is not None:
-            self.credit_value = m.get('CreditValue')
-        if m.get('Description') is not None:
-            self.description = m.get('Description')
-        if m.get('Operator') is not None:
-            self.operator = m.get('Operator')
-        return self
-
-
-class SaveUserCreditResponseBody(TeaModel):
-    def __init__(self, code=None, message=None, request_id=None, success=None):
-        # The error code returned if the call failed. For more information, see the "Error codes" section of the topic.
-        self.code = code  # type: str
-        # The message returned.
-        self.message = message  # type: str
-        # The ID of the request.
-        self.request_id = request_id  # type: str
-        # Indicates whether the call is successful. A value of true indicates that the call is successful. A value of false indicates that call failed.
-        self.success = success  # type: bool
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(SaveUserCreditResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.message is not None:
-            result['Message'] = self.message
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
-        return self
-
-
-class SaveUserCreditResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: SaveUserCreditResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(SaveUserCreditResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = SaveUserCreditResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -27658,9 +27266,6 @@ class SetAllExpirationDayResponse(TeaModel):
         self.body = body  # type: SetAllExpirationDayResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -27686,218 +27291,6 @@ class SetAllExpirationDayResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SetAllExpirationDayResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class SetCreditLabelActionRequest(TeaModel):
-    def __init__(self, action_type=None, clear_cycle=None, credit_amount=None, currency_code=None, daily_cycle=None,
-                 description=None, is_need_add_settle_label=None, is_need_adjust_credit_account=None,
-                 is_need_save_notify_rule=None, is_need_set_credit_amount=None, need_notice=None, new_create_mode=None, operator=None,
-                 request_id=None, site_code=None, source=None, uid=None):
-        # The type of the action. Valid values: SET: adds the pay-as-you-go tag. CANCEL: removes the pay-as-you-go tag.
-        self.action_type = action_type  # type: str
-        # The cycle in which the account is notified of payment. **You do not need to specify this parameter.
-        self.clear_cycle = clear_cycle  # type: str
-        # The credit line of the account.
-        self.credit_amount = credit_amount  # type: str
-        # The code of currency that is used. Valid values: USD and CNY.
-        self.currency_code = currency_code  # type: str
-        # The cycle in which payment can be deferred. **You do not need to specify this parameter.
-        self.daily_cycle = daily_cycle  # type: str
-        # The description of the action.
-        self.description = description  # type: str
-        # Specifies whether to add the post-settlement tag. **You do not need to specify this parameter.
-        self.is_need_add_settle_label = is_need_add_settle_label  # type: str
-        # Specifies whether to synchronize the monthly settlement tag. **You do not need to specify this parameter.
-        self.is_need_adjust_credit_account = is_need_adjust_credit_account  # type: str
-        # Specifies whether to save the notification rule. **You do not need to specify this parameter.
-        self.is_need_save_notify_rule = is_need_save_notify_rule  # type: str
-        # Specifies whether to set a credit line. **You do not need to specify this parameter.
-        self.is_need_set_credit_amount = is_need_set_credit_amount  # type: str
-        # Specifies whether to notify the account of an identity change. **You do not need to specify this parameter.
-        self.need_notice = need_notice  # type: bool
-        # Specifies whether to call another operation to create a credit ledger. **You do not need to specify this parameter.
-        self.new_create_mode = new_create_mode  # type: bool
-        # The operator who performs the action.
-        self.operator = operator  # type: str
-        # The ID of the request.
-        self.request_id = request_id  # type: str
-        # The code of the site. **You do not need to specify this parameter.
-        self.site_code = site_code  # type: str
-        # The source of the action.
-        self.source = source  # type: str
-        # The ID of the Alibaba Cloud account.
-        self.uid = uid  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(SetCreditLabelActionRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.action_type is not None:
-            result['ActionType'] = self.action_type
-        if self.clear_cycle is not None:
-            result['ClearCycle'] = self.clear_cycle
-        if self.credit_amount is not None:
-            result['CreditAmount'] = self.credit_amount
-        if self.currency_code is not None:
-            result['CurrencyCode'] = self.currency_code
-        if self.daily_cycle is not None:
-            result['DailyCycle'] = self.daily_cycle
-        if self.description is not None:
-            result['Description'] = self.description
-        if self.is_need_add_settle_label is not None:
-            result['IsNeedAddSettleLabel'] = self.is_need_add_settle_label
-        if self.is_need_adjust_credit_account is not None:
-            result['IsNeedAdjustCreditAccount'] = self.is_need_adjust_credit_account
-        if self.is_need_save_notify_rule is not None:
-            result['IsNeedSaveNotifyRule'] = self.is_need_save_notify_rule
-        if self.is_need_set_credit_amount is not None:
-            result['IsNeedSetCreditAmount'] = self.is_need_set_credit_amount
-        if self.need_notice is not None:
-            result['NeedNotice'] = self.need_notice
-        if self.new_create_mode is not None:
-            result['NewCreateMode'] = self.new_create_mode
-        if self.operator is not None:
-            result['Operator'] = self.operator
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.site_code is not None:
-            result['SiteCode'] = self.site_code
-        if self.source is not None:
-            result['Source'] = self.source
-        if self.uid is not None:
-            result['Uid'] = self.uid
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ActionType') is not None:
-            self.action_type = m.get('ActionType')
-        if m.get('ClearCycle') is not None:
-            self.clear_cycle = m.get('ClearCycle')
-        if m.get('CreditAmount') is not None:
-            self.credit_amount = m.get('CreditAmount')
-        if m.get('CurrencyCode') is not None:
-            self.currency_code = m.get('CurrencyCode')
-        if m.get('DailyCycle') is not None:
-            self.daily_cycle = m.get('DailyCycle')
-        if m.get('Description') is not None:
-            self.description = m.get('Description')
-        if m.get('IsNeedAddSettleLabel') is not None:
-            self.is_need_add_settle_label = m.get('IsNeedAddSettleLabel')
-        if m.get('IsNeedAdjustCreditAccount') is not None:
-            self.is_need_adjust_credit_account = m.get('IsNeedAdjustCreditAccount')
-        if m.get('IsNeedSaveNotifyRule') is not None:
-            self.is_need_save_notify_rule = m.get('IsNeedSaveNotifyRule')
-        if m.get('IsNeedSetCreditAmount') is not None:
-            self.is_need_set_credit_amount = m.get('IsNeedSetCreditAmount')
-        if m.get('NeedNotice') is not None:
-            self.need_notice = m.get('NeedNotice')
-        if m.get('NewCreateMode') is not None:
-            self.new_create_mode = m.get('NewCreateMode')
-        if m.get('Operator') is not None:
-            self.operator = m.get('Operator')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('SiteCode') is not None:
-            self.site_code = m.get('SiteCode')
-        if m.get('Source') is not None:
-            self.source = m.get('Source')
-        if m.get('Uid') is not None:
-            self.uid = m.get('Uid')
-        return self
-
-
-class SetCreditLabelActionResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # The error code returned if the call failed. For more information, see the "Error codes" section of this topic.
-        self.code = code  # type: str
-        # Indicates whether the action is successful. Valid values: true: The action was successful. false: The action failed.
-        self.data = data  # type: bool
-        # The message returned.
-        self.message = message  # type: str
-        # The ID of the request.
-        self.request_id = request_id  # type: str
-        # Indicates whether the call is successful. A value of true indicates that the call is successful. A value of false indicates that the call failed.
-        self.success = success  # type: bool
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(SetCreditLabelActionResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.data is not None:
-            result['Data'] = self.data
-        if self.message is not None:
-            result['Message'] = self.message
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Data') is not None:
-            self.data = m.get('Data')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
-        return self
-
-
-class SetCreditLabelActionResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: SetCreditLabelActionResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(SetCreditLabelActionResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = SetCreditLabelActionResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -28039,9 +27432,6 @@ class SetRenewalResponse(TeaModel):
         self.body = body  # type: SetRenewalResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28156,9 +27546,6 @@ class SetResellerUserAlarmThresholdResponse(TeaModel):
         self.body = body  # type: SetResellerUserAlarmThresholdResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28286,9 +27673,6 @@ class SetResellerUserQuotaResponse(TeaModel):
         self.body = body  # type: SetResellerUserQuotaResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28419,9 +27803,6 @@ class SetResellerUserStatusResponse(TeaModel):
         self.body = body  # type: SetResellerUserStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28574,9 +27955,6 @@ class SubscribeBillToOSSResponse(TeaModel):
         self.body = body  # type: SubscribeBillToOSSResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28738,9 +28116,6 @@ class TagResourcesResponse(TeaModel):
         self.body = body  # type: TagResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28863,9 +28238,6 @@ class UnsubscribeBillToOSSResponse(TeaModel):
         self.body = body  # type: UnsubscribeBillToOSSResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28994,9 +28366,6 @@ class UntagResourcesResponse(TeaModel):
         self.body = body  # type: UntagResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -29165,9 +28534,6 @@ class UpgradeResourcePackageResponse(TeaModel):
         self.body = body  # type: UpgradeResourcePackageResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
