@@ -1,3 +1,7 @@
+2024-03-13 Version: 2.2.0
+- Support API AIGCFaceVerify.
+
+
 2024-02-22 Version: 2.1.0
 - Support API AIGCFaceVerify.
 
