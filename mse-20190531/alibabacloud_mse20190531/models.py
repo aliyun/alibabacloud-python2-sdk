@@ -9475,13 +9475,16 @@ class CreateOrUpdateSwimmingLaneRequestGatewaySwimmingLaneRouteJsonConditions(Te
 
 
 class CreateOrUpdateSwimmingLaneRequestGatewaySwimmingLaneRouteJson(TeaModel):
-    def __init__(self, conditions=None, gateway_id=None, gateway_unique_id=None, route_id_list=None):
+    def __init__(self, canary_model=None, conditions=None, gateway_id=None, gateway_unique_id=None, percentage=None,
+                 route_id_list=None):
+        self.canary_model = canary_model  # type: int
         # The matching conditions.
         self.conditions = conditions  # type: list[CreateOrUpdateSwimmingLaneRequestGatewaySwimmingLaneRouteJsonConditions]
         # The ID of the gateway.
         self.gateway_id = gateway_id  # type: long
         # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        self.percentage = percentage  # type: int
         # The route IDs.
         self.route_id_list = route_id_list  # type: list[long]
 
@@ -9497,6 +9500,8 @@ class CreateOrUpdateSwimmingLaneRequestGatewaySwimmingLaneRouteJson(TeaModel):
             return _map
 
         result = dict()
+        if self.canary_model is not None:
+            result['CanaryModel'] = self.canary_model
         result['Conditions'] = []
         if self.conditions is not None:
             for k in self.conditions:
@@ -9505,12 +9510,16 @@ class CreateOrUpdateSwimmingLaneRequestGatewaySwimmingLaneRouteJson(TeaModel):
             result['GatewayId'] = self.gateway_id
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.percentage is not None:
+            result['Percentage'] = self.percentage
         if self.route_id_list is not None:
             result['RouteIdList'] = self.route_id_list
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('CanaryModel') is not None:
+            self.canary_model = m.get('CanaryModel')
         self.conditions = []
         if m.get('Conditions') is not None:
             for k in m.get('Conditions'):
@@ -9520,6 +9529,8 @@ class CreateOrUpdateSwimmingLaneRequestGatewaySwimmingLaneRouteJson(TeaModel):
             self.gateway_id = m.get('GatewayId')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('Percentage') is not None:
+            self.percentage = m.get('Percentage')
         if m.get('RouteIdList') is not None:
             self.route_id_list = m.get('RouteIdList')
         return self
@@ -10166,9 +10177,9 @@ class CreateOrUpdateSwimmingLaneResponse(TeaModel):
 
 
 class CreateOrUpdateSwimmingLaneGroupRequest(TeaModel):
-    def __init__(self, accept_language=None, app_ids=None, db_gray_enable=None, entry_app=None, id=None,
-                 message_queue_filter_side=None, message_queue_gray_enable=None, name=None, namespace=None, record_canary_detail=None,
-                 region=None, status=None):
+    def __init__(self, accept_language=None, app_ids=None, canary_model=None, db_gray_enable=None, entry_app=None,
+                 id=None, message_queue_filter_side=None, message_queue_gray_enable=None, name=None, namespace=None,
+                 paths=None, record_canary_detail=None, region=None, route_ids=None, status=None):
         # The language of the response. Valid values:
         # 
         # *   zh: Chinese
@@ -10176,6 +10187,7 @@ class CreateOrUpdateSwimmingLaneGroupRequest(TeaModel):
         self.accept_language = accept_language  # type: str
         # The IDs of applications. Separate application IDs with commas (,).
         self.app_ids = app_ids  # type: str
+        self.canary_model = canary_model  # type: int
         # Specifies whether to enable database canary release.
         self.db_gray_enable = db_gray_enable  # type: bool
         # The ingress application.
@@ -10190,10 +10202,12 @@ class CreateOrUpdateSwimmingLaneGroupRequest(TeaModel):
         self.name = name  # type: str
         # The name of the Microservices Engine (MSE) namespace.
         self.namespace = namespace  # type: str
+        self.paths = paths  # type: list[str]
         # Specifies whether to record request details.
         self.record_canary_detail = record_canary_detail  # type: bool
         # The region ID.
         self.region = region  # type: str
+        self.route_ids = route_ids  # type: list[long]
         # The status of the lane group. The value 0 specifies that the lane group is disabled. The value 1 specifies that the lane group is enabled.
         self.status = status  # type: int
 
@@ -10210,6 +10224,8 @@ class CreateOrUpdateSwimmingLaneGroupRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.app_ids is not None:
             result['AppIds'] = self.app_ids
+        if self.canary_model is not None:
+            result['CanaryModel'] = self.canary_model
         if self.db_gray_enable is not None:
             result['DbGrayEnable'] = self.db_gray_enable
         if self.entry_app is not None:
@@ -10224,10 +10240,14 @@ class CreateOrUpdateSwimmingLaneGroupRequest(TeaModel):
             result['Name'] = self.name
         if self.namespace is not None:
             result['Namespace'] = self.namespace
+        if self.paths is not None:
+            result['Paths'] = self.paths
         if self.record_canary_detail is not None:
             result['RecordCanaryDetail'] = self.record_canary_detail
         if self.region is not None:
             result['Region'] = self.region
+        if self.route_ids is not None:
+            result['RouteIds'] = self.route_ids
         if self.status is not None:
             result['Status'] = self.status
         return result
@@ -10238,6 +10258,8 @@ class CreateOrUpdateSwimmingLaneGroupRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('AppIds') is not None:
             self.app_ids = m.get('AppIds')
+        if m.get('CanaryModel') is not None:
+            self.canary_model = m.get('CanaryModel')
         if m.get('DbGrayEnable') is not None:
             self.db_gray_enable = m.get('DbGrayEnable')
         if m.get('EntryApp') is not None:
@@ -10252,19 +10274,136 @@ class CreateOrUpdateSwimmingLaneGroupRequest(TeaModel):
             self.name = m.get('Name')
         if m.get('Namespace') is not None:
             self.namespace = m.get('Namespace')
+        if m.get('Paths') is not None:
+            self.paths = m.get('Paths')
         if m.get('RecordCanaryDetail') is not None:
             self.record_canary_detail = m.get('RecordCanaryDetail')
         if m.get('Region') is not None:
             self.region = m.get('Region')
+        if m.get('RouteIds') is not None:
+            self.route_ids = m.get('RouteIds')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class CreateOrUpdateSwimmingLaneGroupShrinkRequest(TeaModel):
+    def __init__(self, accept_language=None, app_ids=None, canary_model=None, db_gray_enable=None, entry_app=None,
+                 id=None, message_queue_filter_side=None, message_queue_gray_enable=None, name=None, namespace=None,
+                 paths_shrink=None, record_canary_detail=None, region=None, route_ids_shrink=None, status=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
+        self.accept_language = accept_language  # type: str
+        # The IDs of applications. Separate application IDs with commas (,).
+        self.app_ids = app_ids  # type: str
+        self.canary_model = canary_model  # type: int
+        # Specifies whether to enable database canary release.
+        self.db_gray_enable = db_gray_enable  # type: bool
+        # The ingress application.
+        self.entry_app = entry_app  # type: str
+        # The ID of the lane group. A value of -1 is used to create a lane group. A value greater than 0 is used to modify the specified lane group.
+        self.id = id  # type: long
+        # The side for message filtering when the canary release for messaging feature is enabled.
+        self.message_queue_filter_side = message_queue_filter_side  # type: str
+        # Specifies whether to enable canary release for messaging.
+        self.message_queue_gray_enable = message_queue_gray_enable  # type: bool
+        # The name.
+        self.name = name  # type: str
+        # The name of the Microservices Engine (MSE) namespace.
+        self.namespace = namespace  # type: str
+        self.paths_shrink = paths_shrink  # type: str
+        # Specifies whether to record request details.
+        self.record_canary_detail = record_canary_detail  # type: bool
+        # The region ID.
+        self.region = region  # type: str
+        self.route_ids_shrink = route_ids_shrink  # type: str
+        # The status of the lane group. The value 0 specifies that the lane group is disabled. The value 1 specifies that the lane group is enabled.
+        self.status = status  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateOrUpdateSwimmingLaneGroupShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
+        if self.app_ids is not None:
+            result['AppIds'] = self.app_ids
+        if self.canary_model is not None:
+            result['CanaryModel'] = self.canary_model
+        if self.db_gray_enable is not None:
+            result['DbGrayEnable'] = self.db_gray_enable
+        if self.entry_app is not None:
+            result['EntryApp'] = self.entry_app
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.message_queue_filter_side is not None:
+            result['MessageQueueFilterSide'] = self.message_queue_filter_side
+        if self.message_queue_gray_enable is not None:
+            result['MessageQueueGrayEnable'] = self.message_queue_gray_enable
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
+        if self.paths_shrink is not None:
+            result['Paths'] = self.paths_shrink
+        if self.record_canary_detail is not None:
+            result['RecordCanaryDetail'] = self.record_canary_detail
+        if self.region is not None:
+            result['Region'] = self.region
+        if self.route_ids_shrink is not None:
+            result['RouteIds'] = self.route_ids_shrink
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
+        if m.get('AppIds') is not None:
+            self.app_ids = m.get('AppIds')
+        if m.get('CanaryModel') is not None:
+            self.canary_model = m.get('CanaryModel')
+        if m.get('DbGrayEnable') is not None:
+            self.db_gray_enable = m.get('DbGrayEnable')
+        if m.get('EntryApp') is not None:
+            self.entry_app = m.get('EntryApp')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('MessageQueueFilterSide') is not None:
+            self.message_queue_filter_side = m.get('MessageQueueFilterSide')
+        if m.get('MessageQueueGrayEnable') is not None:
+            self.message_queue_gray_enable = m.get('MessageQueueGrayEnable')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
+        if m.get('Paths') is not None:
+            self.paths_shrink = m.get('Paths')
+        if m.get('RecordCanaryDetail') is not None:
+            self.record_canary_detail = m.get('RecordCanaryDetail')
+        if m.get('Region') is not None:
+            self.region = m.get('Region')
+        if m.get('RouteIds') is not None:
+            self.route_ids_shrink = m.get('RouteIds')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         return self
 
 
 class CreateOrUpdateSwimmingLaneGroupResponseBodyData(TeaModel):
-    def __init__(self, app_ids=None, db_gray_enable=None, entry_app=None, id=None, message_queue_filter_side=None,
-                 message_queue_gray_enable=None, name=None, namespace=None, record_canary_detail=None, region=None, user_id=None):
+    def __init__(self, app_ids=None, canary_model=None, db_gray_enable=None, entry_app=None, id=None,
+                 message_queue_filter_side=None, message_queue_gray_enable=None, name=None, namespace=None, paths=None,
+                 record_canary_detail=None, region=None, user_id=None):
         self.app_ids = app_ids  # type: str
+        self.canary_model = canary_model  # type: int
         self.db_gray_enable = db_gray_enable  # type: str
         self.entry_app = entry_app  # type: str
         self.id = id  # type: long
@@ -10272,6 +10411,7 @@ class CreateOrUpdateSwimmingLaneGroupResponseBodyData(TeaModel):
         self.message_queue_gray_enable = message_queue_gray_enable  # type: bool
         self.name = name  # type: str
         self.namespace = namespace  # type: str
+        self.paths = paths  # type: str
         self.record_canary_detail = record_canary_detail  # type: bool
         self.region = region  # type: str
         self.user_id = user_id  # type: str
@@ -10287,6 +10427,8 @@ class CreateOrUpdateSwimmingLaneGroupResponseBodyData(TeaModel):
         result = dict()
         if self.app_ids is not None:
             result['AppIds'] = self.app_ids
+        if self.canary_model is not None:
+            result['CanaryModel'] = self.canary_model
         if self.db_gray_enable is not None:
             result['DbGrayEnable'] = self.db_gray_enable
         if self.entry_app is not None:
@@ -10301,6 +10443,8 @@ class CreateOrUpdateSwimmingLaneGroupResponseBodyData(TeaModel):
             result['Name'] = self.name
         if self.namespace is not None:
             result['Namespace'] = self.namespace
+        if self.paths is not None:
+            result['Paths'] = self.paths
         if self.record_canary_detail is not None:
             result['RecordCanaryDetail'] = self.record_canary_detail
         if self.region is not None:
@@ -10313,6 +10457,8 @@ class CreateOrUpdateSwimmingLaneGroupResponseBodyData(TeaModel):
         m = m or dict()
         if m.get('AppIds') is not None:
             self.app_ids = m.get('AppIds')
+        if m.get('CanaryModel') is not None:
+            self.canary_model = m.get('CanaryModel')
         if m.get('DbGrayEnable') is not None:
             self.db_gray_enable = m.get('DbGrayEnable')
         if m.get('EntryApp') is not None:
@@ -10327,6 +10473,8 @@ class CreateOrUpdateSwimmingLaneGroupResponseBodyData(TeaModel):
             self.name = m.get('Name')
         if m.get('Namespace') is not None:
             self.namespace = m.get('Namespace')
+        if m.get('Paths') is not None:
+            self.paths = m.get('Paths')
         if m.get('RecordCanaryDetail') is not None:
             self.record_canary_detail = m.get('RecordCanaryDetail')
         if m.get('Region') is not None:
@@ -40806,11 +40954,109 @@ class QueryAllSwimmingLaneResponseBodyDataEntryRules(TeaModel):
         return self
 
 
+class QueryAllSwimmingLaneResponseBodyDataGatewaySwimmingLaneRouteConditions(TeaModel):
+    def __init__(self, cond=None, name=None, type=None, value=None):
+        self.cond = cond  # type: str
+        self.name = name  # type: str
+        self.type = type  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryAllSwimmingLaneResponseBodyDataGatewaySwimmingLaneRouteConditions, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cond is not None:
+            result['Cond'] = self.cond
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.type is not None:
+            result['Type'] = self.type
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Cond') is not None:
+            self.cond = m.get('Cond')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class QueryAllSwimmingLaneResponseBodyDataGatewaySwimmingLaneRoute(TeaModel):
+    def __init__(self, canary_model=None, conditions=None, gateway_id=None, gateway_unique_id=None, percentage=None,
+                 route_id_list=None):
+        self.canary_model = canary_model  # type: int
+        self.conditions = conditions  # type: list[QueryAllSwimmingLaneResponseBodyDataGatewaySwimmingLaneRouteConditions]
+        self.gateway_id = gateway_id  # type: long
+        self.gateway_unique_id = gateway_unique_id  # type: str
+        self.percentage = percentage  # type: int
+        self.route_id_list = route_id_list  # type: list[long]
+
+    def validate(self):
+        if self.conditions:
+            for k in self.conditions:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(QueryAllSwimmingLaneResponseBodyDataGatewaySwimmingLaneRoute, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.canary_model is not None:
+            result['CanaryModel'] = self.canary_model
+        result['Conditions'] = []
+        if self.conditions is not None:
+            for k in self.conditions:
+                result['Conditions'].append(k.to_map() if k else None)
+        if self.gateway_id is not None:
+            result['GatewayId'] = self.gateway_id
+        if self.gateway_unique_id is not None:
+            result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.percentage is not None:
+            result['Percentage'] = self.percentage
+        if self.route_id_list is not None:
+            result['RouteIdList'] = self.route_id_list
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CanaryModel') is not None:
+            self.canary_model = m.get('CanaryModel')
+        self.conditions = []
+        if m.get('Conditions') is not None:
+            for k in m.get('Conditions'):
+                temp_model = QueryAllSwimmingLaneResponseBodyDataGatewaySwimmingLaneRouteConditions()
+                self.conditions.append(temp_model.from_map(k))
+        if m.get('GatewayId') is not None:
+            self.gateway_id = m.get('GatewayId')
+        if m.get('GatewayUniqueId') is not None:
+            self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('Percentage') is not None:
+            self.percentage = m.get('Percentage')
+        if m.get('RouteIdList') is not None:
+            self.route_id_list = m.get('RouteIdList')
+        return self
+
+
 class QueryAllSwimmingLaneResponseBodyData(TeaModel):
-    def __init__(self, entry_rules=None, group_id=None, id=None, message_queue_filter_side=None,
-                 message_queue_gray_enable=None, name=None, namespace=None, record_canary_detail=None, region_id=None, tag=None, user_id=None,
-                 enable_rules=None, gmt_create=None, gmt_modified=None):
+    def __init__(self, entry_rules=None, gateway_swimming_lane_route=None, group_id=None, id=None,
+                 message_queue_filter_side=None, message_queue_gray_enable=None, name=None, namespace=None, record_canary_detail=None,
+                 region_id=None, tag=None, user_id=None, enable_rules=None, gmt_create=None, gmt_modified=None):
         self.entry_rules = entry_rules  # type: list[QueryAllSwimmingLaneResponseBodyDataEntryRules]
+        self.gateway_swimming_lane_route = gateway_swimming_lane_route  # type: QueryAllSwimmingLaneResponseBodyDataGatewaySwimmingLaneRoute
         self.group_id = group_id  # type: str
         self.id = id  # type: long
         self.message_queue_filter_side = message_queue_filter_side  # type: str
@@ -40830,6 +41076,8 @@ class QueryAllSwimmingLaneResponseBodyData(TeaModel):
             for k in self.entry_rules:
                 if k:
                     k.validate()
+        if self.gateway_swimming_lane_route:
+            self.gateway_swimming_lane_route.validate()
 
     def to_map(self):
         _map = super(QueryAllSwimmingLaneResponseBodyData, self).to_map()
@@ -40841,6 +41089,8 @@ class QueryAllSwimmingLaneResponseBodyData(TeaModel):
         if self.entry_rules is not None:
             for k in self.entry_rules:
                 result['EntryRules'].append(k.to_map() if k else None)
+        if self.gateway_swimming_lane_route is not None:
+            result['GatewaySwimmingLaneRoute'] = self.gateway_swimming_lane_route.to_map()
         if self.group_id is not None:
             result['GroupId'] = self.group_id
         if self.id is not None:
@@ -40876,6 +41126,9 @@ class QueryAllSwimmingLaneResponseBodyData(TeaModel):
             for k in m.get('EntryRules'):
                 temp_model = QueryAllSwimmingLaneResponseBodyDataEntryRules()
                 self.entry_rules.append(temp_model.from_map(k))
+        if m.get('GatewaySwimmingLaneRoute') is not None:
+            temp_model = QueryAllSwimmingLaneResponseBodyDataGatewaySwimmingLaneRoute()
+            self.gateway_swimming_lane_route = temp_model.from_map(m['GatewaySwimmingLaneRoute'])
         if m.get('GroupId') is not None:
             self.group_id = m.get('GroupId')
         if m.get('Id') is not None:
@@ -41036,15 +41289,17 @@ class QueryAllSwimmingLaneGroupRequest(TeaModel):
 
 
 class QueryAllSwimmingLaneGroupResponseBodyData(TeaModel):
-    def __init__(self, app_ids=None, entry_app=None, id=None, message_queue_filter_side=None,
-                 message_queue_gray_enable=None, name=None, namespace=None, record_canary_detail=None, region=None, user_id=None):
+    def __init__(self, app_ids=None, canary_model=None, entry_app=None, id=None, message_queue_filter_side=None,
+                 message_queue_gray_enable=None, name=None, namespace=None, paths=None, record_canary_detail=None, region=None, user_id=None):
         self.app_ids = app_ids  # type: str
+        self.canary_model = canary_model  # type: int
         self.entry_app = entry_app  # type: str
         self.id = id  # type: long
         self.message_queue_filter_side = message_queue_filter_side  # type: str
         self.message_queue_gray_enable = message_queue_gray_enable  # type: bool
         self.name = name  # type: str
         self.namespace = namespace  # type: str
+        self.paths = paths  # type: str
         self.record_canary_detail = record_canary_detail  # type: bool
         self.region = region  # type: str
         self.user_id = user_id  # type: str
@@ -41060,6 +41315,8 @@ class QueryAllSwimmingLaneGroupResponseBodyData(TeaModel):
         result = dict()
         if self.app_ids is not None:
             result['AppIds'] = self.app_ids
+        if self.canary_model is not None:
+            result['CanaryModel'] = self.canary_model
         if self.entry_app is not None:
             result['EntryApp'] = self.entry_app
         if self.id is not None:
@@ -41072,6 +41329,8 @@ class QueryAllSwimmingLaneGroupResponseBodyData(TeaModel):
             result['Name'] = self.name
         if self.namespace is not None:
             result['Namespace'] = self.namespace
+        if self.paths is not None:
+            result['Paths'] = self.paths
         if self.record_canary_detail is not None:
             result['RecordCanaryDetail'] = self.record_canary_detail
         if self.region is not None:
@@ -41084,6 +41343,8 @@ class QueryAllSwimmingLaneGroupResponseBodyData(TeaModel):
         m = m or dict()
         if m.get('AppIds') is not None:
             self.app_ids = m.get('AppIds')
+        if m.get('CanaryModel') is not None:
+            self.canary_model = m.get('CanaryModel')
         if m.get('EntryApp') is not None:
             self.entry_app = m.get('EntryApp')
         if m.get('Id') is not None:
@@ -41096,6 +41357,8 @@ class QueryAllSwimmingLaneGroupResponseBodyData(TeaModel):
             self.name = m.get('Name')
         if m.get('Namespace') is not None:
             self.namespace = m.get('Namespace')
+        if m.get('Paths') is not None:
+            self.paths = m.get('Paths')
         if m.get('RecordCanaryDetail') is not None:
             self.record_canary_detail = m.get('RecordCanaryDetail')
         if m.get('Region') is not None:
