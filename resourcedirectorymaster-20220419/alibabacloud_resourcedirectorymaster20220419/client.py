@@ -512,6 +512,8 @@ class Client(OpenApiClient):
             query['AccountNamePrefix'] = request.account_name_prefix
         if not UtilClient.is_unset(request.display_name):
             query['DisplayName'] = request.display_name
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
         if not UtilClient.is_unset(request.parent_folder_id):
             query['ParentFolderId'] = request.parent_folder_id
         if not UtilClient.is_unset(request.payer_account_id):
@@ -898,7 +900,8 @@ class Client(OpenApiClient):
 
     def disable_control_policy_with_options(self, runtime):
         """
-        The ID of the request.
+        After you disable the Control Policy feature, the system automatically detaches all access control policies that are attached to folders and members. The system does not delete these access control policies, but you cannot attach them to folders or members again.
+        > If you disable the Control Policy feature, the permissions of all folders and members in your resource directory are affected. Therefore, proceed with caution.
         
 
         @param request: DisableControlPolicyRequest
@@ -926,7 +929,8 @@ class Client(OpenApiClient):
 
     def disable_control_policy(self):
         """
-        The ID of the request.
+        After you disable the Control Policy feature, the system automatically detaches all access control policies that are attached to folders and members. The system does not delete these access control policies, but you cannot attach them to folders or members again.
+        > If you disable the Control Policy feature, the permissions of all folders and members in your resource directory are affected. Therefore, proceed with caution.
         
 
         @return: DisableControlPolicyResponse
@@ -1015,6 +1019,8 @@ class Client(OpenApiClient):
         """
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
         if not UtilClient.is_unset(request.enable_mode):
             query['EnableMode'] = request.enable_mode
         if not UtilClient.is_unset(request.maname):
@@ -2469,6 +2475,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.account_id):
             query['AccountId'] = request.account_id
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
         if not UtilClient.is_unset(request.new_account_type):
             query['NewAccountType'] = request.new_account_type
         if not UtilClient.is_unset(request.new_display_name):
