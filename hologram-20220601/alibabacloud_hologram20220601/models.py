@@ -959,11 +959,11 @@ class GetInstanceResponseBodyInstanceTags(TeaModel):
 
 class GetInstanceResponseBodyInstance(TeaModel):
     def __init__(self, auto_renewal=None, cold_storage=None, commodity_code=None, compute_node_count=None, cpu=None,
-                 creation_time=None, disk=None, enable_hive_access=None, endpoints=None, expiration_time=None, gateway_count=None,
-                 gateway_cpu=None, gateway_memory=None, instance_charge_type=None, instance_id=None, instance_name=None,
-                 instance_owner=None, instance_status=None, instance_type=None, leader_instance_id=None, memory=None,
-                 region_id=None, replica_role=None, resource_group_id=None, suspend_reason=None, tags=None, version=None,
-                 zone_id=None):
+                 creation_time=None, disk=None, enable_hive_access=None, enable_serverless=None, endpoints=None,
+                 expiration_time=None, gateway_count=None, gateway_cpu=None, gateway_memory=None, instance_charge_type=None,
+                 instance_id=None, instance_name=None, instance_owner=None, instance_status=None, instance_type=None,
+                 leader_instance_id=None, memory=None, region_id=None, replica_role=None, resource_group_id=None, suspend_reason=None,
+                 tags=None, version=None, zone_id=None):
         # Indicates whether auto-renewal is enabled.
         # 
         # Valid values:
@@ -1108,6 +1108,7 @@ class GetInstanceResponseBodyInstance(TeaModel):
         self.disk = disk  # type: str
         # Indicates whether data lake acceleration is enabled.
         self.enable_hive_access = enable_hive_access  # type: str
+        self.enable_serverless = enable_serverless  # type: bool
         # The list of endpoints.
         self.endpoints = endpoints  # type: list[GetInstanceResponseBodyInstanceEndpoints]
         # The expiration time. This parameter is invalid for pay-as-you-go instances.
@@ -1318,6 +1319,8 @@ class GetInstanceResponseBodyInstance(TeaModel):
             result['Disk'] = self.disk
         if self.enable_hive_access is not None:
             result['EnableHiveAccess'] = self.enable_hive_access
+        if self.enable_serverless is not None:
+            result['EnableServerless'] = self.enable_serverless
         result['Endpoints'] = []
         if self.endpoints is not None:
             for k in self.endpoints:
@@ -1382,6 +1385,8 @@ class GetInstanceResponseBodyInstance(TeaModel):
             self.disk = m.get('Disk')
         if m.get('EnableHiveAccess') is not None:
             self.enable_hive_access = m.get('EnableHiveAccess')
+        if m.get('EnableServerless') is not None:
+            self.enable_serverless = m.get('EnableServerless')
         self.endpoints = []
         if m.get('Endpoints') is not None:
             for k in m.get('Endpoints'):
