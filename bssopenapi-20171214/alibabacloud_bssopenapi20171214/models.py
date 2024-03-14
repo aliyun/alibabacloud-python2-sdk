@@ -11346,10 +11346,11 @@ class GetOrderDetailRequest(TeaModel):
 
 class GetOrderDetailResponseBodyDataOrderListOrder(TeaModel):
     def __init__(self, after_tax_amount=None, commodity_code=None, config=None, create_time=None, currency=None,
-                 instance_ids=None, operator=None, order_id=None, order_sub_type=None, order_type=None, original_config=None,
-                 payment_currency=None, payment_status=None, payment_time=None, pretax_amount=None, pretax_amount_local=None,
-                 pretax_gross_amount=None, product_code=None, product_type=None, quantity=None, region=None, related_order_id=None,
-                 sub_order_id=None, subscription_type=None, tax=None, usage_end_time=None, usage_start_time=None):
+                 extend_infos=None, instance_ids=None, operator=None, order_id=None, order_sub_type=None, order_type=None,
+                 original_config=None, payment_currency=None, payment_status=None, payment_time=None, pretax_amount=None,
+                 pretax_amount_local=None, pretax_gross_amount=None, product_code=None, product_type=None, quantity=None, region=None,
+                 related_order_id=None, sub_order_id=None, subscription_type=None, tax=None, usage_end_time=None,
+                 usage_start_time=None):
         # The after-tax amount of the order.
         self.after_tax_amount = after_tax_amount  # type: str
         # The service code.
@@ -11360,6 +11361,7 @@ class GetOrderDetailResponseBodyDataOrderListOrder(TeaModel):
         self.create_time = create_time  # type: str
         # The currency.
         self.currency = currency  # type: str
+        self.extend_infos = extend_infos  # type: dict[str, str]
         # The instance IDs.
         self.instance_ids = instance_ids  # type: str
         # The ID of the Resource Access Management (RAM) user who performs operations on the order. If no RAM user is involved, leave this parameter blank.
@@ -11442,6 +11444,8 @@ class GetOrderDetailResponseBodyDataOrderListOrder(TeaModel):
             result['CreateTime'] = self.create_time
         if self.currency is not None:
             result['Currency'] = self.currency
+        if self.extend_infos is not None:
+            result['ExtendInfos'] = self.extend_infos
         if self.instance_ids is not None:
             result['InstanceIDs'] = self.instance_ids
         if self.operator is not None:
@@ -11500,6 +11504,8 @@ class GetOrderDetailResponseBodyDataOrderListOrder(TeaModel):
             self.create_time = m.get('CreateTime')
         if m.get('Currency') is not None:
             self.currency = m.get('Currency')
+        if m.get('ExtendInfos') is not None:
+            self.extend_infos = m.get('ExtendInfos')
         if m.get('InstanceIDs') is not None:
             self.instance_ids = m.get('InstanceIDs')
         if m.get('Operator') is not None:
