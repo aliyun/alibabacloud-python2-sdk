@@ -6232,18 +6232,19 @@ class GetTrainingJobResponseBodyUserVpc(TeaModel):
 
 class GetTrainingJobResponseBody(TeaModel):
     def __init__(self, algorithm_id=None, algorithm_name=None, algorithm_provider=None, algorithm_spec=None,
-                 algorithm_version=None, compute_resource=None, experiment_config=None, gmt_create_time=None, gmt_modified_time=None,
-                 hyper_parameters=None, input_channels=None, instances=None, is_temp_algo=None, labels=None, latest_metrics=None,
-                 latest_progress=None, output_channels=None, output_model=None, reason_code=None, reason_message=None,
-                 request_id=None, role_arn=None, scheduler=None, settings=None, status=None, status_transitions=None,
-                 training_job_description=None, training_job_id=None, training_job_name=None, training_job_url=None, user_id=None,
-                 user_vpc=None, workspace_id=None):
+                 algorithm_version=None, compute_resource=None, duration=None, experiment_config=None, gmt_create_time=None,
+                 gmt_modified_time=None, hyper_parameters=None, input_channels=None, instances=None, is_temp_algo=None, labels=None,
+                 latest_metrics=None, latest_progress=None, output_channels=None, output_model=None, reason_code=None,
+                 reason_message=None, request_id=None, role_arn=None, scheduler=None, settings=None, status=None,
+                 status_transitions=None, training_job_description=None, training_job_id=None, training_job_name=None,
+                 training_job_url=None, user_id=None, user_vpc=None, workspace_id=None):
         self.algorithm_id = algorithm_id  # type: str
         self.algorithm_name = algorithm_name  # type: str
         self.algorithm_provider = algorithm_provider  # type: str
         self.algorithm_spec = algorithm_spec  # type: AlgorithmSpec
         self.algorithm_version = algorithm_version  # type: str
         self.compute_resource = compute_resource  # type: GetTrainingJobResponseBodyComputeResource
+        self.duration = duration  # type: long
         self.experiment_config = experiment_config  # type: GetTrainingJobResponseBodyExperimentConfig
         self.gmt_create_time = gmt_create_time  # type: str
         self.gmt_modified_time = gmt_modified_time  # type: str
@@ -6336,6 +6337,8 @@ class GetTrainingJobResponseBody(TeaModel):
             result['AlgorithmVersion'] = self.algorithm_version
         if self.compute_resource is not None:
             result['ComputeResource'] = self.compute_resource.to_map()
+        if self.duration is not None:
+            result['Duration'] = self.duration
         if self.experiment_config is not None:
             result['ExperimentConfig'] = self.experiment_config.to_map()
         if self.gmt_create_time is not None:
@@ -6422,6 +6425,8 @@ class GetTrainingJobResponseBody(TeaModel):
         if m.get('ComputeResource') is not None:
             temp_model = GetTrainingJobResponseBodyComputeResource()
             self.compute_resource = temp_model.from_map(m['ComputeResource'])
+        if m.get('Duration') is not None:
+            self.duration = m.get('Duration')
         if m.get('ExperimentConfig') is not None:
             temp_model = GetTrainingJobResponseBodyExperimentConfig()
             self.experiment_config = temp_model.from_map(m['ExperimentConfig'])
