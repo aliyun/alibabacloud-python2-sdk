@@ -800,6 +800,95 @@ class BatchCopyVpcFirewallControlPolicyResponse(TeaModel):
         return self
 
 
+class BatchDeleteVpcFirewallControlPolicyRequest(TeaModel):
+    def __init__(self, acl_uuid_list=None, vpc_firewall_id=None):
+        self.acl_uuid_list = acl_uuid_list  # type: list[str]
+        self.vpc_firewall_id = vpc_firewall_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BatchDeleteVpcFirewallControlPolicyRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.acl_uuid_list is not None:
+            result['AclUuidList'] = self.acl_uuid_list
+        if self.vpc_firewall_id is not None:
+            result['VpcFirewallId'] = self.vpc_firewall_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AclUuidList') is not None:
+            self.acl_uuid_list = m.get('AclUuidList')
+        if m.get('VpcFirewallId') is not None:
+            self.vpc_firewall_id = m.get('VpcFirewallId')
+        return self
+
+
+class BatchDeleteVpcFirewallControlPolicyResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BatchDeleteVpcFirewallControlPolicyResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class BatchDeleteVpcFirewallControlPolicyResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: BatchDeleteVpcFirewallControlPolicyResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(BatchDeleteVpcFirewallControlPolicyResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = BatchDeleteVpcFirewallControlPolicyResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateDownloadTaskRequest(TeaModel):
     def __init__(self, lang=None, task_data=None):
         # The language of the content within the response.
@@ -994,7 +1083,7 @@ class CreateNatFirewallControlPolicyRequest(TeaModel):
         # 
         # *   **out**: outbound traffic
         self.direction = direction  # type: str
-        # The domain name resolution method of the access control policy. By default, the access control policy is enabled after the policy is created. Valid values:
+        # The domain name resolution method of the access control policy. Valid values:
         # 
         # *   **0**: fully qualified domain name (FQDN)-based resolution
         # *   **1**: Domain Name System (DNS)-based dynamic resolution
@@ -1298,9 +1387,11 @@ class CreateTrFirewallV2Request(TeaModel):
         self.route_mode = route_mode  # type: str
         # The primary subnet CIDR block that the VPC uses to connect to the transit router in automatic mode.
         self.tr_attachment_master_cidr = tr_attachment_master_cidr  # type: str
+        # The primary zone for the vSwitch.
         self.tr_attachment_master_zone = tr_attachment_master_zone  # type: str
         # The secondary subnet CIDR block that the VPC uses to connect to the transit router in automatic mode.
         self.tr_attachment_slave_cidr = tr_attachment_slave_cidr  # type: str
+        # The secondary zone for the vSwitch.
         self.tr_attachment_slave_zone = tr_attachment_slave_zone  # type: str
         # The ID of the transit router.
         self.transit_router_id = transit_router_id  # type: str
@@ -2567,8 +2658,14 @@ class DeleteControlPolicyResponse(TeaModel):
 
 class DeleteControlPolicyTemplateRequest(TeaModel):
     def __init__(self, lang=None, source_ip=None, template_id=None):
+        # The language of the content within the request and response. Valid values:
+        # 
+        # *   **zh** (default): Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The source IP address of the request.
         self.source_ip = source_ip  # type: str
+        # The ID of the access control policy template.
         self.template_id = template_id  # type: str
 
     def validate(self):
@@ -2601,6 +2698,7 @@ class DeleteControlPolicyTemplateRequest(TeaModel):
 
 class DeleteControlPolicyTemplateResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2661,7 +2759,12 @@ class DeleteControlPolicyTemplateResponse(TeaModel):
 
 class DeleteDownloadTaskRequest(TeaModel):
     def __init__(self, lang=None, task_id=None):
+        # The language of the content within the request and response. Valid values:
+        # 
+        # *   **zh** (default): Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The ID of the file download task.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -2690,6 +2793,7 @@ class DeleteDownloadTaskRequest(TeaModel):
 
 class DeleteDownloadTaskResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3043,9 +3147,18 @@ class DeleteNatFirewallControlPolicyResponse(TeaModel):
 
 class DeleteNatFirewallControlPolicyBatchRequest(TeaModel):
     def __init__(self, acl_uuid_list=None, direction=None, lang=None, nat_gateway_id=None):
+        # The UUIDs of access control policies.
         self.acl_uuid_list = acl_uuid_list  # type: list[str]
+        # The direction of the traffic to which the access control policy applies. Valid values:
+        # 
+        # *   **out**: outbound traffic
         self.direction = direction  # type: str
+        # The language of the content within the request and response. Valid values:
+        # 
+        # *   **zh** (default): Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The ID of the NAT gateway.
         self.nat_gateway_id = nat_gateway_id  # type: str
 
     def validate(self):
@@ -3082,6 +3195,7 @@ class DeleteNatFirewallControlPolicyBatchRequest(TeaModel):
 
 class DeleteNatFirewallControlPolicyBatchResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4445,9 +4559,27 @@ class DescribeAssetListResponse(TeaModel):
 
 class DescribeAssetRiskListRequest(TeaModel):
     def __init__(self, ip_addr_list=None, ip_version=None, lang=None, source_ip=None):
+        # The IP addresses to query. Separate the IP addresses with commas (,). You can specify up to 20 IP addresses at a time.
+        # 
+        # > 
+        # 
+        # *   Example of an IPv4 address: 47.97.221.164
+        # 
+        # *   Example of an IPv6 address: 2001:db8:ffff:ffff:ffff:\*\*\*\*:ffff
         self.ip_addr_list = ip_addr_list  # type: list[str]
+        # The IP version of the asset that is protected by Cloud Firewall.
+        # 
+        # Valid values:
+        # 
+        # *   **4** (default): IPv4
+        # *   **6**: IPv6
         self.ip_version = ip_version  # type: int
+        # The language of the content within the response. Valid values:
+        # 
+        # *   **zh** (default): Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The source IP address of the request.
         self.source_ip = source_ip  # type: str
 
     def validate(self):
@@ -4484,9 +4616,22 @@ class DescribeAssetRiskListRequest(TeaModel):
 
 class DescribeAssetRiskListResponseBodyAssetList(TeaModel):
     def __init__(self, ip=None, ip_version=None, reason=None, risk_level=None):
+        # The IP address of the server.
         self.ip = ip  # type: str
+        # The IP version of the asset that is protected by Cloud Firewall.
+        # 
+        # Valid values:
+        # 
+        # *   **4**: IPv4
+        # *   **6**: IPv6
         self.ip_version = ip_version  # type: long
+        # The reason for the risk.
         self.reason = reason  # type: str
+        # The risk level. Valid values:
+        # 
+        # *   **low**\
+        # *   **middle**\
+        # *   **high**\
         self.risk_level = risk_level  # type: str
 
     def validate(self):
@@ -4523,8 +4668,11 @@ class DescribeAssetRiskListResponseBodyAssetList(TeaModel):
 
 class DescribeAssetRiskListResponseBody(TeaModel):
     def __init__(self, asset_list=None, request_id=None, total_count=None):
+        # The details of the asset.
         self.asset_list = asset_list  # type: list[DescribeAssetRiskListResponseBodyAssetList]
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of entries returned.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -4601,8 +4749,18 @@ class DescribeAssetRiskListResponse(TeaModel):
 
 class DescribeCfwRiskLevelSummaryRequest(TeaModel):
     def __init__(self, instance_type=None, lang=None, region_id=None):
+        # The instance type.
         self.instance_type = instance_type  # type: str
+        # The language of the content within the response.
+        # 
+        # Valid values:
+        # 
+        # *   **zh** (default): Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The region ID of your Cloud Firewall.
+        # 
+        # >  For more information about Cloud Firewall supported regions, see [Supported regions](~~195657~~).
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -4635,8 +4793,13 @@ class DescribeCfwRiskLevelSummaryRequest(TeaModel):
 
 class DescribeCfwRiskLevelSummaryResponseBodyRiskList(TeaModel):
     def __init__(self, level=None, num=None, type=None):
+        # The risk levels. Valid values:
+        # 
+        # *   **medium**\
         self.level = level  # type: str
+        # The number of at-risk Elastic Compute Service (ECS) instances.
         self.num = num  # type: str
+        # The type.
         self.type = type  # type: str
 
     def validate(self):
@@ -4669,7 +4832,9 @@ class DescribeCfwRiskLevelSummaryResponseBodyRiskList(TeaModel):
 
 class DescribeCfwRiskLevelSummaryResponseBody(TeaModel):
     def __init__(self, request_id=None, risk_list=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The list of risks.
         self.risk_list = risk_list  # type: list[DescribeCfwRiskLevelSummaryResponseBodyRiskList]
 
     def validate(self):
@@ -5596,9 +5761,16 @@ class DescribeDomainResolveResponse(TeaModel):
 
 class DescribeDownloadTaskRequest(TeaModel):
     def __init__(self, current_page=None, lang=None, page_size=None, task_type=None):
+        # The page number.
         self.current_page = current_page  # type: str
+        # The language of the content within the response. Valid values:
+        # 
+        # *   **zh** (default): Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The number of entries per page. Default value: 10. Maximum value: 50.
         self.page_size = page_size  # type: str
+        # The type of the task. For more information about task types, see the descriptions in the "DescribeDownloadTaskType" topic. If you do not specify this parameter, all files are queried by default.
         self.task_type = task_type  # type: str
 
     def validate(self):
@@ -5636,13 +5808,26 @@ class DescribeDownloadTaskRequest(TeaModel):
 class DescribeDownloadTaskResponseBodyTasks(TeaModel):
     def __init__(self, create_time=None, expire_time=None, file_size=None, file_url=None, status=None, task_id=None,
                  task_name=None, task_type=None):
+        # The time when the task was created. The value is a UNIX timestamp. Unit: seconds.
         self.create_time = create_time  # type: long
+        # The expiration time of the task. The value is a UNIX timestamp. Unit: seconds.
         self.expire_time = expire_time  # type: long
+        # The size of the file.
         self.file_size = file_size  # type: str
+        # The URL of the OSS object.
         self.file_url = file_url  # type: str
+        # The status of the task. Valid values:
+        # 
+        # *   **finish**\
+        # *   **start**\
+        # *   **error**\
+        # *   **expire**: The task file is invalid and cannot be downloaded.
         self.status = status  # type: str
+        # The task ID.
         self.task_id = task_id  # type: str
+        # The name of the task.
         self.task_name = task_name  # type: str
+        # The type of the task.
         self.task_type = task_type  # type: str
 
     def validate(self):
@@ -5695,8 +5880,11 @@ class DescribeDownloadTaskResponseBodyTasks(TeaModel):
 
 class DescribeDownloadTaskResponseBody(TeaModel):
     def __init__(self, request_id=None, tasks=None, total_count=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The tasks.
         self.tasks = tasks  # type: list[DescribeDownloadTaskResponseBodyTasks]
+        # The total number of tasks.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -5773,9 +5961,16 @@ class DescribeDownloadTaskResponse(TeaModel):
 
 class DescribeDownloadTaskTypeRequest(TeaModel):
     def __init__(self, current_page=None, lang=None, page_size=None, task_type=None):
+        # The page number. Pages start from page 1. Default value: **1**.
         self.current_page = current_page  # type: str
+        # The language of the content within the response. Valid values:
+        # 
+        # *   **zh** (default): Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The number of entries per page. Default value: 10. Maximum value: 50.
         self.page_size = page_size  # type: str
+        # The type of the task.
         self.task_type = task_type  # type: str
 
     def validate(self):
@@ -5812,7 +6007,9 @@ class DescribeDownloadTaskTypeRequest(TeaModel):
 
 class DescribeDownloadTaskTypeResponseBodyTaskTypeArray(TeaModel):
     def __init__(self, task_name=None, task_type=None):
+        # The name of the task type.
         self.task_name = task_name  # type: str
+        # The type of the task.
         self.task_type = task_type  # type: str
 
     def validate(self):
@@ -5841,8 +6038,11 @@ class DescribeDownloadTaskTypeResponseBodyTaskTypeArray(TeaModel):
 
 class DescribeDownloadTaskTypeResponseBody(TeaModel):
     def __init__(self, request_id=None, task_type_array=None, total_count=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The task types.
         self.task_type_array = task_type_array  # type: list[DescribeDownloadTaskTypeResponseBodyTaskTypeArray]
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -7470,6 +7670,10 @@ class DescribeInvadeEventListResponse(TeaModel):
 
 class DescribeNatAclPageStatusRequest(TeaModel):
     def __init__(self, lang=None):
+        # The language of the content within the request and response. Valid values:
+        # 
+        # *   **zh** (default): Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
 
     def validate(self):
@@ -7494,7 +7698,9 @@ class DescribeNatAclPageStatusRequest(TeaModel):
 
 class DescribeNatAclPageStatusResponseBody(TeaModel):
     def __init__(self, nat_acl_page_enable=None, request_id=None):
+        # Indicates whether pagination for access control policies for NAT firewalls is supported.
         self.nat_acl_page_enable = nat_acl_page_enable  # type: bool
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -9835,7 +10041,9 @@ class DescribePostpayTrafficTotalResponse(TeaModel):
 
 class DescribePrefixListsRequest(TeaModel):
     def __init__(self, region_no=None, source_ip=None):
+        # The region ID of the instance.
         self.region_no = region_no  # type: str
+        # The source IP address of the request.
         self.source_ip = source_ip  # type: str
 
     def validate(self):
@@ -9865,12 +10073,22 @@ class DescribePrefixListsRequest(TeaModel):
 class DescribePrefixListsResponseBodyPrefixList(TeaModel):
     def __init__(self, address_family=None, association_count=None, creation_time=None, description=None,
                  max_entries=None, prefix_list_id=None, prefix_list_name=None):
+        # The IP address family of the prefix list. Valid values:
+        # 
+        # *   IPv4
+        # *   IPv6
         self.address_family = address_family  # type: str
+        # The number of associated resources.
         self.association_count = association_count  # type: int
+        # The creation time.
         self.creation_time = creation_time  # type: str
+        # The description.
         self.description = description  # type: str
+        # The maximum number of entries in the prefix list.
         self.max_entries = max_entries  # type: int
+        # The ID of the prefix list.
         self.prefix_list_id = prefix_list_id  # type: str
+        # The name of the prefix list.
         self.prefix_list_name = prefix_list_name  # type: str
 
     def validate(self):
@@ -9919,7 +10137,9 @@ class DescribePrefixListsResponseBodyPrefixList(TeaModel):
 
 class DescribePrefixListsResponseBody(TeaModel):
     def __init__(self, prefix_list=None, request_id=None):
+        # Details about the prefix lists.
         self.prefix_list = prefix_list  # type: list[DescribePrefixListsResponseBodyPrefixList]
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -10903,7 +11123,37 @@ class DescribeRiskEventPayloadResponse(TeaModel):
 
 class DescribeSignatureLibVersionResponseBodyVersion(TeaModel):
     def __init__(self, type=None, version=None):
+        # The type.
+        # 
+        # Valid values:
+        # 
+        # *   ips
+        # 
+        #     <!-- -->
+        # 
+        #     :
+        # 
+        #     <!-- -->
+        # 
+        #     Basic Rules and Virtual Patching
+        # 
+        #     <!-- -->
+        # 
+        #     .
+        # 
+        # *   intelligence
+        # 
+        #     <!-- -->
+        # 
+        #     :
+        # 
+        #     <!-- -->
+        # 
+        #     Threat Intelligence
+        # 
+        #     <!-- -->
         self.type = type  # type: str
+        # The version number.
         self.version = version  # type: str
 
     def validate(self):
@@ -10932,8 +11182,11 @@ class DescribeSignatureLibVersionResponseBodyVersion(TeaModel):
 
 class DescribeSignatureLibVersionResponseBody(TeaModel):
     def __init__(self, request_id=None, total_count=None, version=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
+        # The information about the versions.
         self.version = version  # type: list[DescribeSignatureLibVersionResponseBodyVersion]
 
     def validate(self):
@@ -15046,8 +15299,16 @@ class DescribeVpcFirewallDetailResponse(TeaModel):
 
 class DescribeVpcFirewallIPSWhitelistRequest(TeaModel):
     def __init__(self, lang=None, member_uid=None, vpc_firewall_id=None):
+        # The language of the content within the request and response.
+        # 
+        # Valid values:
+        # 
+        # *   **zh** (default): Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The UID of the member in Cloud Firewall.
         self.member_uid = member_uid  # type: long
+        # The instance ID of the VPC firewall.
         self.vpc_firewall_id = vpc_firewall_id  # type: str
 
     def validate(self):
@@ -15081,10 +15342,21 @@ class DescribeVpcFirewallIPSWhitelistRequest(TeaModel):
 class DescribeVpcFirewallIPSWhitelistResponseBodyWhitelists(TeaModel):
     def __init__(self, list_type=None, list_value=None, vpc_firewall_id=None, white_list_value=None,
                  white_type=None):
+        # The type of the list. Valid values:
+        # 
+        # *   **1**: user-defined
+        # *   **2**: address book
         self.list_type = list_type  # type: long
+        # The entries in the list.
         self.list_value = list_value  # type: str
+        # The instance ID of the VPC firewall.
         self.vpc_firewall_id = vpc_firewall_id  # type: str
+        # An array of entries in the list.
         self.white_list_value = white_list_value  # type: list[str]
+        # The type of the whitelist. Valid values:
+        # 
+        # *   **1**: destination
+        # *   **2**: source
         self.white_type = white_type  # type: long
 
     def validate(self):
@@ -15125,7 +15397,9 @@ class DescribeVpcFirewallIPSWhitelistResponseBodyWhitelists(TeaModel):
 
 class DescribeVpcFirewallIPSWhitelistResponseBody(TeaModel):
     def __init__(self, request_id=None, whitelists=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The details of the IPS whitelist of the VPC firewall.
         self.whitelists = whitelists  # type: list[DescribeVpcFirewallIPSWhitelistResponseBodyWhitelists]
 
     def validate(self):
@@ -15932,10 +16206,20 @@ class DescribeVpcFirewallPolicyPriorUsedResponse(TeaModel):
 
 class DescribeVpcListLiteRequest(TeaModel):
     def __init__(self, lang=None, region_no=None, source_ip=None, vpc_id=None, vpc_name=None):
+        # The language of the content within the request and response. Valid values:
+        # 
+        # *   **zh** (default): Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The region ID of the VPC.
+        # 
+        # >  For more information about Cloud Firewall supported regions, see [Supported regions](~~195657~~).
         self.region_no = region_no  # type: str
+        # The source IP address of the request.
         self.source_ip = source_ip  # type: str
+        # The ID of the VPC.
         self.vpc_id = vpc_id  # type: str
+        # The name of the VPC.
         self.vpc_name = vpc_name  # type: str
 
     def validate(self):
@@ -15976,8 +16260,11 @@ class DescribeVpcListLiteRequest(TeaModel):
 
 class DescribeVpcListLiteResponseBodyVpcList(TeaModel):
     def __init__(self, region_no=None, vpc_id=None, vpc_name=None):
+        # The region ID of the VPC.
         self.region_no = region_no  # type: str
+        # The ID of the VPC.
         self.vpc_id = vpc_id  # type: str
+        # The name of the VPC.
         self.vpc_name = vpc_name  # type: str
 
     def validate(self):
@@ -16010,7 +16297,9 @@ class DescribeVpcListLiteResponseBodyVpcList(TeaModel):
 
 class DescribeVpcListLiteResponseBody(TeaModel):
     def __init__(self, request_id=None, vpc_list=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The information about the VPCs.
         self.vpc_list = vpc_list  # type: list[DescribeVpcListLiteResponseBodyVpcList]
 
     def validate(self):
@@ -16083,9 +16372,19 @@ class DescribeVpcListLiteResponse(TeaModel):
 
 class DescribeVpcZoneRequest(TeaModel):
     def __init__(self, environment=None, lang=None, member_uid=None, region_no=None):
+        # The environment. Valid values:
+        # 
+        # *   **VPC**\
+        # *   **TransitRouter**\
         self.environment = environment  # type: str
+        # The language of the content within the request and response. Valid values:
+        # 
+        # *   **zh** (default): Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The UID of the member in Cloud Firewall.
         self.member_uid = member_uid  # type: str
+        # The region ID.
         self.region_no = region_no  # type: str
 
     def validate(self):
@@ -16122,8 +16421,11 @@ class DescribeVpcZoneRequest(TeaModel):
 
 class DescribeVpcZoneResponseBodyZoneList(TeaModel):
     def __init__(self, local_name=None, zone_id=None, zone_type=None):
+        # The name of the zone.
         self.local_name = local_name  # type: str
+        # The zone ID.
         self.zone_id = zone_id  # type: str
+        # The zone type. Default value: AvailabilityZone. This value indicates Alibaba Cloud zones.
         self.zone_type = zone_type  # type: str
 
     def validate(self):
@@ -16156,7 +16458,9 @@ class DescribeVpcZoneResponseBodyZoneList(TeaModel):
 
 class DescribeVpcZoneResponseBody(TeaModel):
     def __init__(self, request_id=None, zone_list=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The zones.
         self.zone_list = zone_list  # type: list[DescribeVpcZoneResponseBodyZoneList]
 
     def validate(self):
@@ -19648,11 +19952,26 @@ class ModifyVpcFirewallDefaultIPSConfigResponse(TeaModel):
 class ModifyVpcFirewallIPSWhitelistRequest(TeaModel):
     def __init__(self, lang=None, list_type=None, list_value=None, member_uid=None, vpc_firewall_id=None,
                  white_type=None):
+        # The language of the content within the request and response. Valid values:
+        # 
+        # *   **zh** (default): Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The type of the list. Valid values:
+        # 
+        # *   **1**: user-defined
+        # *   **2**: address book
         self.list_type = list_type  # type: long
+        # The entry in the list.
         self.list_value = list_value  # type: str
+        # The UID of the member that is managed by your Alibaba Cloud account.
         self.member_uid = member_uid  # type: long
+        # The instance ID of the VPC firewall.
         self.vpc_firewall_id = vpc_firewall_id  # type: str
+        # The type of the whitelist. Valid values:
+        # 
+        # *   **1**: destination
+        # *   **2**: source
         self.white_type = white_type  # type: long
 
     def validate(self):
@@ -19697,6 +20016,7 @@ class ModifyVpcFirewallIPSWhitelistRequest(TeaModel):
 
 class ModifyVpcFirewallIPSWhitelistResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -20477,8 +20797,14 @@ class ReleasePostInstanceResponse(TeaModel):
 
 class ResetNatFirewallRuleHitCountRequest(TeaModel):
     def __init__(self, acl_uuid=None, lang=None, nat_gateway_id=None):
+        # The UUID of the access control policy.
         self.acl_uuid = acl_uuid  # type: str
+        # The language of the content within the request and response. Valid values:
+        # 
+        # *   **zh** (default): Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The ID of the NAT gateway.
         self.nat_gateway_id = nat_gateway_id  # type: str
 
     def validate(self):
@@ -20511,6 +20837,7 @@ class ResetNatFirewallRuleHitCountRequest(TeaModel):
 
 class ResetNatFirewallRuleHitCountResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
