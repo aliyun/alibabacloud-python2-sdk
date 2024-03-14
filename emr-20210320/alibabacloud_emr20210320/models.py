@@ -6536,134 +6536,6 @@ class CreateNodeGroupResponse(TeaModel):
         return self
 
 
-class CreateReportRequest(TeaModel):
-    def __init__(self, cluster_id=None, region_id=None, select_timestamp=None):
-        # 集群ID。
-        self.cluster_id = cluster_id  # type: str
-        # 地域ID。
-        self.region_id = region_id  # type: str
-        self.select_timestamp = select_timestamp  # type: long
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(CreateReportRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.cluster_id is not None:
-            result['ClusterId'] = self.cluster_id
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
-        if self.select_timestamp is not None:
-            result['SelectTimestamp'] = self.select_timestamp
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ClusterId') is not None:
-            self.cluster_id = m.get('ClusterId')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
-        if m.get('SelectTimestamp') is not None:
-            self.select_timestamp = m.get('SelectTimestamp')
-        return self
-
-
-class CreateReportResponseBodyData(TeaModel):
-    def __init__(self, report_id=None):
-        self.report_id = report_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(CreateReportResponseBodyData, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.report_id is not None:
-            result['ReportId'] = self.report_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ReportId') is not None:
-            self.report_id = m.get('ReportId')
-        return self
-
-
-class CreateReportResponseBody(TeaModel):
-    def __init__(self, data=None, request_id=None):
-        self.data = data  # type: CreateReportResponseBodyData
-        # 请求ID。
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        if self.data:
-            self.data.validate()
-
-    def to_map(self):
-        _map = super(CreateReportResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Data') is not None:
-            temp_model = CreateReportResponseBodyData()
-            self.data = temp_model.from_map(m['Data'])
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class CreateReportResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: CreateReportResponseBody
-
-    def validate(self):
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(CreateReportResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = CreateReportResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class DecreaseNodesRequest(TeaModel):
     def __init__(self, cluster_id=None, decrease_node_count=None, node_group_id=None, node_ids=None, region_id=None):
         # The cluster ID.
@@ -6874,157 +6746,6 @@ class DeleteClusterResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteClusterResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class GetApmDataRequest(TeaModel):
-    def __init__(self, cluster_id=None, component_name=None, language=None, provider=None, region_id=None,
-                 resource_group_id=None):
-        # 集群ID。非必传参数。
-        self.cluster_id = cluster_id  # type: str
-        self.component_name = component_name  # type: str
-        self.language = language  # type: str
-        self.provider = provider  # type: str
-        # 地域ID。
-        self.region_id = region_id  # type: str
-        # 如果存在clusterId，从Cluster中获取该值，如果clusterId为空，用户显式指定
-        self.resource_group_id = resource_group_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(GetApmDataRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.cluster_id is not None:
-            result['ClusterId'] = self.cluster_id
-        if self.component_name is not None:
-            result['ComponentName'] = self.component_name
-        if self.language is not None:
-            result['Language'] = self.language
-        if self.provider is not None:
-            result['Provider'] = self.provider
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
-        if self.resource_group_id is not None:
-            result['ResourceGroupId'] = self.resource_group_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ClusterId') is not None:
-            self.cluster_id = m.get('ClusterId')
-        if m.get('ComponentName') is not None:
-            self.component_name = m.get('ComponentName')
-        if m.get('Language') is not None:
-            self.language = m.get('Language')
-        if m.get('Provider') is not None:
-            self.provider = m.get('Provider')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
-        if m.get('ResourceGroupId') is not None:
-            self.resource_group_id = m.get('ResourceGroupId')
-        return self
-
-
-class GetApmDataResponseBodyData(TeaModel):
-    def __init__(self, data=None, type=None):
-        self.data = data  # type: str
-        self.type = type  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(GetApmDataResponseBodyData, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.data is not None:
-            result['Data'] = self.data
-        if self.type is not None:
-            result['Type'] = self.type
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Data') is not None:
-            self.data = m.get('Data')
-        if m.get('Type') is not None:
-            self.type = m.get('Type')
-        return self
-
-
-class GetApmDataResponseBody(TeaModel):
-    def __init__(self, data=None, request_id=None):
-        # Created on 2022/7/11 3:16 PM
-        self.data = data  # type: GetApmDataResponseBodyData
-        # 请求ID。
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        if self.data:
-            self.data.validate()
-
-    def to_map(self):
-        _map = super(GetApmDataResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Data') is not None:
-            temp_model = GetApmDataResponseBodyData()
-            self.data = temp_model.from_map(m['Data'])
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class GetApmDataResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: GetApmDataResponseBody
-
-    def validate(self):
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(GetApmDataResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = GetApmDataResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -7948,471 +7669,6 @@ class GetClusterResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetClusterResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class GetClusterCloneMetaRequest(TeaModel):
-    def __init__(self, cluster_id=None, region_id=None):
-        # 集群ID。
-        self.cluster_id = cluster_id  # type: str
-        # 地域ID。
-        self.region_id = region_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(GetClusterCloneMetaRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.cluster_id is not None:
-            result['ClusterId'] = self.cluster_id
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ClusterId') is not None:
-            self.cluster_id = m.get('ClusterId')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
-        return self
-
-
-class GetClusterCloneMetaResponseBodyClusterCloneMetaScalingPolicyDTOSConstraints(TeaModel):
-    def __init__(self, max_capacity=None, min_capacity=None):
-        # 最大值
-        self.max_capacity = max_capacity  # type: int
-        # 最小值
-        self.min_capacity = min_capacity  # type: int
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(GetClusterCloneMetaResponseBodyClusterCloneMetaScalingPolicyDTOSConstraints, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.max_capacity is not None:
-            result['MaxCapacity'] = self.max_capacity
-        if self.min_capacity is not None:
-            result['MinCapacity'] = self.min_capacity
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('MaxCapacity') is not None:
-            self.max_capacity = m.get('MaxCapacity')
-        if m.get('MinCapacity') is not None:
-            self.min_capacity = m.get('MinCapacity')
-        return self
-
-
-class GetClusterCloneMetaResponseBodyClusterCloneMetaScalingPolicyDTOSScalingRules(TeaModel):
-    def __init__(self, activity_type=None, adjustment_value=None, metrics_trigger=None, rule_name=None,
-                 time_trigger=None, trigger_type=None):
-        # 伸缩类型。取值范围：
-        # - SCALE_OUT：扩容
-        # - SCALE_IN：缩容
-        self.activity_type = activity_type  # type: str
-        # 调整值。需要为正数，代表需要扩容或者缩容的实例数量。
-        self.adjustment_value = adjustment_value  # type: int
-        # 按照负载伸缩描述。
-        self.metrics_trigger = metrics_trigger  # type: MetricsTrigger
-        # 弹性伸缩规则名称。
-        self.rule_name = rule_name  # type: str
-        # 按照时间伸缩描述。
-        self.time_trigger = time_trigger  # type: TimeTrigger
-        # 伸缩规则类型。取值范围：
-        # - TIME_TRIGGER: 按时间伸缩。
-        # - METRICS_TRIGGER: 按负载伸缩。
-        self.trigger_type = trigger_type  # type: str
-
-    def validate(self):
-        if self.metrics_trigger:
-            self.metrics_trigger.validate()
-        if self.time_trigger:
-            self.time_trigger.validate()
-
-    def to_map(self):
-        _map = super(GetClusterCloneMetaResponseBodyClusterCloneMetaScalingPolicyDTOSScalingRules, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.activity_type is not None:
-            result['ActivityType'] = self.activity_type
-        if self.adjustment_value is not None:
-            result['AdjustmentValue'] = self.adjustment_value
-        if self.metrics_trigger is not None:
-            result['MetricsTrigger'] = self.metrics_trigger.to_map()
-        if self.rule_name is not None:
-            result['RuleName'] = self.rule_name
-        if self.time_trigger is not None:
-            result['TimeTrigger'] = self.time_trigger.to_map()
-        if self.trigger_type is not None:
-            result['TriggerType'] = self.trigger_type
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ActivityType') is not None:
-            self.activity_type = m.get('ActivityType')
-        if m.get('AdjustmentValue') is not None:
-            self.adjustment_value = m.get('AdjustmentValue')
-        if m.get('MetricsTrigger') is not None:
-            temp_model = MetricsTrigger()
-            self.metrics_trigger = temp_model.from_map(m['MetricsTrigger'])
-        if m.get('RuleName') is not None:
-            self.rule_name = m.get('RuleName')
-        if m.get('TimeTrigger') is not None:
-            temp_model = TimeTrigger()
-            self.time_trigger = temp_model.from_map(m['TimeTrigger'])
-        if m.get('TriggerType') is not None:
-            self.trigger_type = m.get('TriggerType')
-        return self
-
-
-class GetClusterCloneMetaResponseBodyClusterCloneMetaScalingPolicyDTOS(TeaModel):
-    def __init__(self, cluster_id=None, constraints=None, node_group_id=None, scaling_policy_id=None,
-                 scaling_rules=None):
-        # 集群ID。
-        self.cluster_id = cluster_id  # type: str
-        # 最大最小值约束
-        self.constraints = constraints  # type: GetClusterCloneMetaResponseBodyClusterCloneMetaScalingPolicyDTOSConstraints
-        # 节点组ID。
-        self.node_group_id = node_group_id  # type: str
-        # 伸缩策略ID。
-        self.scaling_policy_id = scaling_policy_id  # type: str
-        # 伸缩规则列表
-        self.scaling_rules = scaling_rules  # type: list[GetClusterCloneMetaResponseBodyClusterCloneMetaScalingPolicyDTOSScalingRules]
-
-    def validate(self):
-        if self.constraints:
-            self.constraints.validate()
-        if self.scaling_rules:
-            for k in self.scaling_rules:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(GetClusterCloneMetaResponseBodyClusterCloneMetaScalingPolicyDTOS, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.cluster_id is not None:
-            result['ClusterId'] = self.cluster_id
-        if self.constraints is not None:
-            result['Constraints'] = self.constraints.to_map()
-        if self.node_group_id is not None:
-            result['NodeGroupId'] = self.node_group_id
-        if self.scaling_policy_id is not None:
-            result['ScalingPolicyId'] = self.scaling_policy_id
-        result['ScalingRules'] = []
-        if self.scaling_rules is not None:
-            for k in self.scaling_rules:
-                result['ScalingRules'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ClusterId') is not None:
-            self.cluster_id = m.get('ClusterId')
-        if m.get('Constraints') is not None:
-            temp_model = GetClusterCloneMetaResponseBodyClusterCloneMetaScalingPolicyDTOSConstraints()
-            self.constraints = temp_model.from_map(m['Constraints'])
-        if m.get('NodeGroupId') is not None:
-            self.node_group_id = m.get('NodeGroupId')
-        if m.get('ScalingPolicyId') is not None:
-            self.scaling_policy_id = m.get('ScalingPolicyId')
-        self.scaling_rules = []
-        if m.get('ScalingRules') is not None:
-            for k in m.get('ScalingRules'):
-                temp_model = GetClusterCloneMetaResponseBodyClusterCloneMetaScalingPolicyDTOSScalingRules()
-                self.scaling_rules.append(temp_model.from_map(k))
-        return self
-
-
-class GetClusterCloneMetaResponseBodyClusterCloneMeta(TeaModel):
-    def __init__(self, application_configs=None, applications=None, bootstrap_scripts=None, cluster_id=None,
-                 cluster_name=None, cluster_state=None, cluster_type=None, deploy_mode=None, emr_default_role=None,
-                 exist_clone_config=None, meta_store_type=None, network_type=None, node_attributes=None, node_groups=None,
-                 payment_type=None, region_id=None, release_version=None, resource_group_id=None, scaling_policy_dtos=None,
-                 security_mode=None, subscription_config=None, tags=None):
-        # 创建集群时的服务配置项。创建集群时需要记录用户传入的配置项参数key，返回集群最新的配置项值。
-        self.application_configs = application_configs  # type: list[ApplicationConfig]
-        # 集群应用。
-        self.applications = applications  # type: list[Application]
-        self.bootstrap_scripts = bootstrap_scripts  # type: list[Script]
-        # 集群ID。
-        self.cluster_id = cluster_id  # type: str
-        # 集群名称。
-        self.cluster_name = cluster_name  # type: str
-        # 集群状态。
-        self.cluster_state = cluster_state  # type: str
-        # 集群类型。
-        self.cluster_type = cluster_type  # type: str
-        # 部署模式。
-        self.deploy_mode = deploy_mode  # type: str
-        # EMR服务角色。
-        self.emr_default_role = emr_default_role  # type: str
-        self.exist_clone_config = exist_clone_config  # type: bool
-        # 元数据类型。
-        self.meta_store_type = meta_store_type  # type: str
-        # 网络类型。
-        self.network_type = network_type  # type: str
-        # 节点属性。
-        self.node_attributes = node_attributes  # type: NodeAttributes
-        self.node_groups = node_groups  # type: list[NodeGroup]
-        # 付费类型。
-        self.payment_type = payment_type  # type: str
-        # 地域ID。
-        self.region_id = region_id  # type: str
-        # EMR发行版。
-        self.release_version = release_version  # type: str
-        # 资源组ID。
-        self.resource_group_id = resource_group_id  # type: str
-        self.scaling_policy_dtos = scaling_policy_dtos  # type: list[GetClusterCloneMetaResponseBodyClusterCloneMetaScalingPolicyDTOS]
-        # Kerberos安全模式。
-        self.security_mode = security_mode  # type: str
-        # 预付费配置。
-        self.subscription_config = subscription_config  # type: SubscriptionConfig
-        self.tags = tags  # type: list[Tag]
-
-    def validate(self):
-        if self.application_configs:
-            for k in self.application_configs:
-                if k:
-                    k.validate()
-        if self.applications:
-            for k in self.applications:
-                if k:
-                    k.validate()
-        if self.bootstrap_scripts:
-            for k in self.bootstrap_scripts:
-                if k:
-                    k.validate()
-        if self.node_attributes:
-            self.node_attributes.validate()
-        if self.node_groups:
-            for k in self.node_groups:
-                if k:
-                    k.validate()
-        if self.scaling_policy_dtos:
-            for k in self.scaling_policy_dtos:
-                if k:
-                    k.validate()
-        if self.subscription_config:
-            self.subscription_config.validate()
-        if self.tags:
-            for k in self.tags:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(GetClusterCloneMetaResponseBodyClusterCloneMeta, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        result['ApplicationConfigs'] = []
-        if self.application_configs is not None:
-            for k in self.application_configs:
-                result['ApplicationConfigs'].append(k.to_map() if k else None)
-        result['Applications'] = []
-        if self.applications is not None:
-            for k in self.applications:
-                result['Applications'].append(k.to_map() if k else None)
-        result['BootstrapScripts'] = []
-        if self.bootstrap_scripts is not None:
-            for k in self.bootstrap_scripts:
-                result['BootstrapScripts'].append(k.to_map() if k else None)
-        if self.cluster_id is not None:
-            result['ClusterId'] = self.cluster_id
-        if self.cluster_name is not None:
-            result['ClusterName'] = self.cluster_name
-        if self.cluster_state is not None:
-            result['ClusterState'] = self.cluster_state
-        if self.cluster_type is not None:
-            result['ClusterType'] = self.cluster_type
-        if self.deploy_mode is not None:
-            result['DeployMode'] = self.deploy_mode
-        if self.emr_default_role is not None:
-            result['EmrDefaultRole'] = self.emr_default_role
-        if self.exist_clone_config is not None:
-            result['ExistCloneConfig'] = self.exist_clone_config
-        if self.meta_store_type is not None:
-            result['MetaStoreType'] = self.meta_store_type
-        if self.network_type is not None:
-            result['NetworkType'] = self.network_type
-        if self.node_attributes is not None:
-            result['NodeAttributes'] = self.node_attributes.to_map()
-        result['NodeGroups'] = []
-        if self.node_groups is not None:
-            for k in self.node_groups:
-                result['NodeGroups'].append(k.to_map() if k else None)
-        if self.payment_type is not None:
-            result['PaymentType'] = self.payment_type
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
-        if self.release_version is not None:
-            result['ReleaseVersion'] = self.release_version
-        if self.resource_group_id is not None:
-            result['ResourceGroupId'] = self.resource_group_id
-        result['ScalingPolicyDTOS'] = []
-        if self.scaling_policy_dtos is not None:
-            for k in self.scaling_policy_dtos:
-                result['ScalingPolicyDTOS'].append(k.to_map() if k else None)
-        if self.security_mode is not None:
-            result['SecurityMode'] = self.security_mode
-        if self.subscription_config is not None:
-            result['SubscriptionConfig'] = self.subscription_config.to_map()
-        result['Tags'] = []
-        if self.tags is not None:
-            for k in self.tags:
-                result['Tags'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        self.application_configs = []
-        if m.get('ApplicationConfigs') is not None:
-            for k in m.get('ApplicationConfigs'):
-                temp_model = ApplicationConfig()
-                self.application_configs.append(temp_model.from_map(k))
-        self.applications = []
-        if m.get('Applications') is not None:
-            for k in m.get('Applications'):
-                temp_model = Application()
-                self.applications.append(temp_model.from_map(k))
-        self.bootstrap_scripts = []
-        if m.get('BootstrapScripts') is not None:
-            for k in m.get('BootstrapScripts'):
-                temp_model = Script()
-                self.bootstrap_scripts.append(temp_model.from_map(k))
-        if m.get('ClusterId') is not None:
-            self.cluster_id = m.get('ClusterId')
-        if m.get('ClusterName') is not None:
-            self.cluster_name = m.get('ClusterName')
-        if m.get('ClusterState') is not None:
-            self.cluster_state = m.get('ClusterState')
-        if m.get('ClusterType') is not None:
-            self.cluster_type = m.get('ClusterType')
-        if m.get('DeployMode') is not None:
-            self.deploy_mode = m.get('DeployMode')
-        if m.get('EmrDefaultRole') is not None:
-            self.emr_default_role = m.get('EmrDefaultRole')
-        if m.get('ExistCloneConfig') is not None:
-            self.exist_clone_config = m.get('ExistCloneConfig')
-        if m.get('MetaStoreType') is not None:
-            self.meta_store_type = m.get('MetaStoreType')
-        if m.get('NetworkType') is not None:
-            self.network_type = m.get('NetworkType')
-        if m.get('NodeAttributes') is not None:
-            temp_model = NodeAttributes()
-            self.node_attributes = temp_model.from_map(m['NodeAttributes'])
-        self.node_groups = []
-        if m.get('NodeGroups') is not None:
-            for k in m.get('NodeGroups'):
-                temp_model = NodeGroup()
-                self.node_groups.append(temp_model.from_map(k))
-        if m.get('PaymentType') is not None:
-            self.payment_type = m.get('PaymentType')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
-        if m.get('ReleaseVersion') is not None:
-            self.release_version = m.get('ReleaseVersion')
-        if m.get('ResourceGroupId') is not None:
-            self.resource_group_id = m.get('ResourceGroupId')
-        self.scaling_policy_dtos = []
-        if m.get('ScalingPolicyDTOS') is not None:
-            for k in m.get('ScalingPolicyDTOS'):
-                temp_model = GetClusterCloneMetaResponseBodyClusterCloneMetaScalingPolicyDTOS()
-                self.scaling_policy_dtos.append(temp_model.from_map(k))
-        if m.get('SecurityMode') is not None:
-            self.security_mode = m.get('SecurityMode')
-        if m.get('SubscriptionConfig') is not None:
-            temp_model = SubscriptionConfig()
-            self.subscription_config = temp_model.from_map(m['SubscriptionConfig'])
-        self.tags = []
-        if m.get('Tags') is not None:
-            for k in m.get('Tags'):
-                temp_model = Tag()
-                self.tags.append(temp_model.from_map(k))
-        return self
-
-
-class GetClusterCloneMetaResponseBody(TeaModel):
-    def __init__(self, cluster_clone_meta=None, request_id=None):
-        self.cluster_clone_meta = cluster_clone_meta  # type: GetClusterCloneMetaResponseBodyClusterCloneMeta
-        # 请求ID。
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        if self.cluster_clone_meta:
-            self.cluster_clone_meta.validate()
-
-    def to_map(self):
-        _map = super(GetClusterCloneMetaResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.cluster_clone_meta is not None:
-            result['ClusterCloneMeta'] = self.cluster_clone_meta.to_map()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ClusterCloneMeta') is not None:
-            temp_model = GetClusterCloneMetaResponseBodyClusterCloneMeta()
-            self.cluster_clone_meta = temp_model.from_map(m['ClusterCloneMeta'])
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class GetClusterCloneMetaResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: GetClusterCloneMetaResponseBody
-
-    def validate(self):
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(GetClusterCloneMetaResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = GetClusterCloneMetaResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -26187,166 +25443,6 @@ class JoinResourceGroupResponse(TeaModel):
         return self
 
 
-class ListApmMetadataRequest(TeaModel):
-    def __init__(self, cluster_id=None, region_id=None, resource_group_id=None, type=None):
-        # 集群ID。非必传参数。
-        self.cluster_id = cluster_id  # type: str
-        # 地域ID。
-        self.region_id = region_id  # type: str
-        # 如果存在clusterId，从Cluster中获取该值，如果clusterId为空，用户显式指定
-        self.resource_group_id = resource_group_id  # type: str
-        # 元数据类型。
-        self.type = type  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ListApmMetadataRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.cluster_id is not None:
-            result['ClusterId'] = self.cluster_id
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
-        if self.resource_group_id is not None:
-            result['ResourceGroupId'] = self.resource_group_id
-        if self.type is not None:
-            result['Type'] = self.type
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ClusterId') is not None:
-            self.cluster_id = m.get('ClusterId')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
-        if m.get('ResourceGroupId') is not None:
-            self.resource_group_id = m.get('ResourceGroupId')
-        if m.get('Type') is not None:
-            self.type = m.get('Type')
-        return self
-
-
-class ListApmMetadataResponseBodyMetadata(TeaModel):
-    def __init__(self, value=None):
-        # 元数据值。
-        self.value = value  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ListApmMetadataResponseBodyMetadata, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.value is not None:
-            result['Value'] = self.value
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Value') is not None:
-            self.value = m.get('Value')
-        return self
-
-
-class ListApmMetadataResponseBody(TeaModel):
-    def __init__(self, max_results=None, metadata=None, next_token=None, request_id=None, total_count=None):
-        # 本次请求所返回的最大记录条数。
-        self.max_results = max_results  # type: int
-        self.metadata = metadata  # type: list[ListApmMetadataResponseBodyMetadata]
-        # 返回读取到的数据位置，空代表数据已经读取完毕。
-        self.next_token = next_token  # type: str
-        # 请求ID。
-        self.request_id = request_id  # type: str
-        # 本次请求条件下的数据总量。
-        self.total_count = total_count  # type: int
-
-    def validate(self):
-        if self.metadata:
-            for k in self.metadata:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(ListApmMetadataResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.max_results is not None:
-            result['MaxResults'] = self.max_results
-        result['Metadata'] = []
-        if self.metadata is not None:
-            for k in self.metadata:
-                result['Metadata'].append(k.to_map() if k else None)
-        if self.next_token is not None:
-            result['NextToken'] = self.next_token
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('MaxResults') is not None:
-            self.max_results = m.get('MaxResults')
-        self.metadata = []
-        if m.get('Metadata') is not None:
-            for k in m.get('Metadata'):
-                temp_model = ListApmMetadataResponseBodyMetadata()
-                self.metadata.append(temp_model.from_map(k))
-        if m.get('NextToken') is not None:
-            self.next_token = m.get('NextToken')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
-        return self
-
-
-class ListApmMetadataResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: ListApmMetadataResponseBody
-
-    def validate(self):
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(ListApmMetadataResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = ListApmMetadataResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class ListApplicationConfigsRequest(TeaModel):
     def __init__(self, application_name=None, cluster_id=None, config_file_name=None, config_item_key=None,
                  config_item_value=None, max_results=None, next_token=None, node_group_id=None, node_id=None, region_id=None):
@@ -27103,6 +26199,34 @@ class ListClustersRequest(TeaModel):
         # The billing methods. You can specify a maximum of 2 items.
         self.payment_types = payment_types  # type: list[str]
         # The region ID.
+        # 
+        # Valid values:
+        # 
+        # *   cn-qingdao
+        # *   cn-beijing
+        # *   cn-zhangjiakou
+        # *   cn-huhehaote
+        # *   cn-hangzhou
+        # *   cn-shanghai
+        # *   cn-shenzhen
+        # *   cn-chengdu
+        # *   cn-hongkong
+        # *   cn-wulanchabu
+        # *   cn-heyuan-acdr-1
+        # *   cn-qingdao-acdr-ut-1
+        # *   ap-northeast-1
+        # *   ap-southeast-1
+        # *   ap-southeast-2
+        # *   ap-southeast-3
+        # *   ap-southeast-5
+        # *   ap-south-1
+        # *   us-east-1
+        # *   us-west-1
+        # *   me-east-1
+        # *   me-central-1
+        # *   eu-central-1
+        # *   eu-west-1
+        # *   cn-north-2-gov-1
         self.region_id = region_id  # type: str
         # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
@@ -40618,6 +39742,247 @@ class ListReleaseVersionsResponse(TeaModel):
         return self
 
 
+class ListScriptsRequest(TeaModel):
+    def __init__(self, cluster_id=None, max_results=None, next_token=None, region_id=None, script_type=None):
+        # 集群ID。
+        self.cluster_id = cluster_id  # type: str
+        # 一次获取的最大记录数。取值范围：1~100。
+        self.max_results = max_results  # type: int
+        # 标记当前开始读取的位置，置空表示从头开始。
+        self.next_token = next_token  # type: str
+        # 区域ID。
+        self.region_id = region_id  # type: str
+        # 集群脚本类型。
+        self.script_type = script_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListScriptsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cluster_id is not None:
+            result['ClusterId'] = self.cluster_id
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.script_type is not None:
+            result['ScriptType'] = self.script_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClusterId') is not None:
+            self.cluster_id = m.get('ClusterId')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ScriptType') is not None:
+            self.script_type = m.get('ScriptType')
+        return self
+
+
+class ListScriptsResponseBodyScripts(TeaModel):
+    def __init__(self, action=None, end_time=None, execution_fail_strategy=None, execution_moment=None,
+                 execution_state=None, last_update_time=None, node_selector=None, region_id=None, script_args=None, script_id=None,
+                 script_name=None, script_path=None, start_time=None):
+        # API名称。
+        self.action = action  # type: str
+        # 结束执行时间。
+        self.end_time = end_time  # type: long
+        # 执行失败策略。
+        self.execution_fail_strategy = execution_fail_strategy  # type: str
+        # 执行时机。
+        self.execution_moment = execution_moment  # type: str
+        self.execution_state = execution_state  # type: str
+        # 最近一次编辑时间。
+        self.last_update_time = last_update_time  # type: long
+        # 节点选择器。
+        self.node_selector = node_selector  # type: NodeSelector
+        # 区域ID。
+        self.region_id = region_id  # type: str
+        # 集群脚本执行参数。
+        self.script_args = script_args  # type: str
+        # 脚本ID。
+        self.script_id = script_id  # type: str
+        # 集群脚本名称。
+        self.script_name = script_name  # type: str
+        # 集群脚本路径。
+        self.script_path = script_path  # type: str
+        # 开始执行时间。
+        self.start_time = start_time  # type: long
+
+    def validate(self):
+        if self.node_selector:
+            self.node_selector.validate()
+
+    def to_map(self):
+        _map = super(ListScriptsResponseBodyScripts, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.action is not None:
+            result['Action'] = self.action
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.execution_fail_strategy is not None:
+            result['ExecutionFailStrategy'] = self.execution_fail_strategy
+        if self.execution_moment is not None:
+            result['ExecutionMoment'] = self.execution_moment
+        if self.execution_state is not None:
+            result['ExecutionState'] = self.execution_state
+        if self.last_update_time is not None:
+            result['LastUpdateTime'] = self.last_update_time
+        if self.node_selector is not None:
+            result['NodeSelector'] = self.node_selector.to_map()
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.script_args is not None:
+            result['ScriptArgs'] = self.script_args
+        if self.script_id is not None:
+            result['ScriptId'] = self.script_id
+        if self.script_name is not None:
+            result['ScriptName'] = self.script_name
+        if self.script_path is not None:
+            result['ScriptPath'] = self.script_path
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Action') is not None:
+            self.action = m.get('Action')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('ExecutionFailStrategy') is not None:
+            self.execution_fail_strategy = m.get('ExecutionFailStrategy')
+        if m.get('ExecutionMoment') is not None:
+            self.execution_moment = m.get('ExecutionMoment')
+        if m.get('ExecutionState') is not None:
+            self.execution_state = m.get('ExecutionState')
+        if m.get('LastUpdateTime') is not None:
+            self.last_update_time = m.get('LastUpdateTime')
+        if m.get('NodeSelector') is not None:
+            temp_model = NodeSelector()
+            self.node_selector = temp_model.from_map(m['NodeSelector'])
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ScriptArgs') is not None:
+            self.script_args = m.get('ScriptArgs')
+        if m.get('ScriptId') is not None:
+            self.script_id = m.get('ScriptId')
+        if m.get('ScriptName') is not None:
+            self.script_name = m.get('ScriptName')
+        if m.get('ScriptPath') is not None:
+            self.script_path = m.get('ScriptPath')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        return self
+
+
+class ListScriptsResponseBody(TeaModel):
+    def __init__(self, max_results=None, next_token=None, request_id=None, scripts=None, total_count=None):
+        # 本次请求所返回的最大记录条数。
+        self.max_results = max_results  # type: int
+        # 返回读取到的数据位置，空代表数据已经读取完毕。
+        self.next_token = next_token  # type: str
+        # 请求ID。
+        self.request_id = request_id  # type: str
+        self.scripts = scripts  # type: list[ListScriptsResponseBodyScripts]
+        # 本次请求条件下的数据总量。
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.scripts:
+            for k in self.scripts:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListScriptsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        result['Scripts'] = []
+        if self.scripts is not None:
+            for k in self.scripts:
+                result['Scripts'].append(k.to_map() if k else None)
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        self.scripts = []
+        if m.get('Scripts') is not None:
+            for k in m.get('Scripts'):
+                temp_model = ListScriptsResponseBodyScripts()
+                self.scripts.append(temp_model.from_map(k))
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class ListScriptsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListScriptsResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListScriptsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListScriptsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListTagResourcesRequest(TeaModel):
     def __init__(self, max_results=None, next_token=None, region_id=None, resource_ids=None, resource_type=None,
                  tags=None):
@@ -40936,482 +40301,6 @@ class PutAutoScalingPolicyResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = PutAutoScalingPolicyResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class QueryApmComponentsRequest(TeaModel):
-    def __init__(self, cluster_id=None, provider=None, region_id=None, resource_group_id=None):
-        # 集群ID。
-        self.cluster_id = cluster_id  # type: str
-        self.provider = provider  # type: str
-        # 地域ID。
-        self.region_id = region_id  # type: str
-        # 如果存在clusterId，从Cluster中获取该值，如果clusterId为空，用户显式指定
-        self.resource_group_id = resource_group_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(QueryApmComponentsRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.cluster_id is not None:
-            result['ClusterId'] = self.cluster_id
-        if self.provider is not None:
-            result['Provider'] = self.provider
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
-        if self.resource_group_id is not None:
-            result['ResourceGroupId'] = self.resource_group_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ClusterId') is not None:
-            self.cluster_id = m.get('ClusterId')
-        if m.get('Provider') is not None:
-            self.provider = m.get('Provider')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
-        if m.get('ResourceGroupId') is not None:
-            self.resource_group_id = m.get('ResourceGroupId')
-        return self
-
-
-class QueryApmComponentsResponseBodyData(TeaModel):
-    def __init__(self, data=None):
-        self.data = data  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(QueryApmComponentsResponseBodyData, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.data is not None:
-            result['Data'] = self.data
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Data') is not None:
-            self.data = m.get('Data')
-        return self
-
-
-class QueryApmComponentsResponseBody(TeaModel):
-    def __init__(self, data=None, request_id=None):
-        # Created on 2022/7/11 5:27 PM
-        self.data = data  # type: QueryApmComponentsResponseBodyData
-        # 请求ID。
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        if self.data:
-            self.data.validate()
-
-    def to_map(self):
-        _map = super(QueryApmComponentsResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Data') is not None:
-            temp_model = QueryApmComponentsResponseBodyData()
-            self.data = temp_model.from_map(m['Data'])
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class QueryApmComponentsResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: QueryApmComponentsResponseBody
-
-    def validate(self):
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(QueryApmComponentsResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = QueryApmComponentsResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class QueryApmGrafanaDataRequestQueryParams(TeaModel):
-    def __init__(self, panel_id=None, ref_id=None, variable_name=None):
-        self.panel_id = panel_id  # type: long
-        self.ref_id = ref_id  # type: str
-        self.variable_name = variable_name  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(QueryApmGrafanaDataRequestQueryParams, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.panel_id is not None:
-            result['PanelId'] = self.panel_id
-        if self.ref_id is not None:
-            result['RefId'] = self.ref_id
-        if self.variable_name is not None:
-            result['VariableName'] = self.variable_name
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('PanelId') is not None:
-            self.panel_id = m.get('PanelId')
-        if m.get('RefId') is not None:
-            self.ref_id = m.get('RefId')
-        if m.get('VariableName') is not None:
-            self.variable_name = m.get('VariableName')
-        return self
-
-
-class QueryApmGrafanaDataRequest(TeaModel):
-    def __init__(self, cluster_id=None, dashboard_id=None, end=None, provider=None, query=None, query_params=None,
-                 query_url=None, region_id=None, resource_group_id=None, start=None, step=None, time=None, variables=None):
-        # 集群ID。
-        self.cluster_id = cluster_id  # type: str
-        self.dashboard_id = dashboard_id  # type: str
-        self.end = end  # type: str
-        self.provider = provider  # type: str
-        self.query = query  # type: str
-        self.query_params = query_params  # type: QueryApmGrafanaDataRequestQueryParams
-        self.query_url = query_url  # type: str
-        # 地域ID。
-        self.region_id = region_id  # type: str
-        # 如果存在clusterId，从Cluster中获取该值，如果clusterId为空，用户显式指定
-        self.resource_group_id = resource_group_id  # type: str
-        self.start = start  # type: str
-        self.step = step  # type: str
-        self.time = time  # type: str
-        self.variables = variables  # type: dict[str, str]
-
-    def validate(self):
-        if self.query_params:
-            self.query_params.validate()
-
-    def to_map(self):
-        _map = super(QueryApmGrafanaDataRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.cluster_id is not None:
-            result['ClusterId'] = self.cluster_id
-        if self.dashboard_id is not None:
-            result['DashboardId'] = self.dashboard_id
-        if self.end is not None:
-            result['End'] = self.end
-        if self.provider is not None:
-            result['Provider'] = self.provider
-        if self.query is not None:
-            result['Query'] = self.query
-        if self.query_params is not None:
-            result['QueryParams'] = self.query_params.to_map()
-        if self.query_url is not None:
-            result['QueryUrl'] = self.query_url
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
-        if self.resource_group_id is not None:
-            result['ResourceGroupId'] = self.resource_group_id
-        if self.start is not None:
-            result['Start'] = self.start
-        if self.step is not None:
-            result['Step'] = self.step
-        if self.time is not None:
-            result['Time'] = self.time
-        if self.variables is not None:
-            result['Variables'] = self.variables
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ClusterId') is not None:
-            self.cluster_id = m.get('ClusterId')
-        if m.get('DashboardId') is not None:
-            self.dashboard_id = m.get('DashboardId')
-        if m.get('End') is not None:
-            self.end = m.get('End')
-        if m.get('Provider') is not None:
-            self.provider = m.get('Provider')
-        if m.get('Query') is not None:
-            self.query = m.get('Query')
-        if m.get('QueryParams') is not None:
-            temp_model = QueryApmGrafanaDataRequestQueryParams()
-            self.query_params = temp_model.from_map(m['QueryParams'])
-        if m.get('QueryUrl') is not None:
-            self.query_url = m.get('QueryUrl')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
-        if m.get('ResourceGroupId') is not None:
-            self.resource_group_id = m.get('ResourceGroupId')
-        if m.get('Start') is not None:
-            self.start = m.get('Start')
-        if m.get('Step') is not None:
-            self.step = m.get('Step')
-        if m.get('Time') is not None:
-            self.time = m.get('Time')
-        if m.get('Variables') is not None:
-            self.variables = m.get('Variables')
-        return self
-
-
-class QueryApmGrafanaDataShrinkRequestQueryParams(TeaModel):
-    def __init__(self, panel_id=None, ref_id=None, variable_name=None):
-        self.panel_id = panel_id  # type: long
-        self.ref_id = ref_id  # type: str
-        self.variable_name = variable_name  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(QueryApmGrafanaDataShrinkRequestQueryParams, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.panel_id is not None:
-            result['PanelId'] = self.panel_id
-        if self.ref_id is not None:
-            result['RefId'] = self.ref_id
-        if self.variable_name is not None:
-            result['VariableName'] = self.variable_name
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('PanelId') is not None:
-            self.panel_id = m.get('PanelId')
-        if m.get('RefId') is not None:
-            self.ref_id = m.get('RefId')
-        if m.get('VariableName') is not None:
-            self.variable_name = m.get('VariableName')
-        return self
-
-
-class QueryApmGrafanaDataShrinkRequest(TeaModel):
-    def __init__(self, cluster_id=None, dashboard_id=None, end=None, provider=None, query=None, query_params=None,
-                 query_url=None, region_id=None, resource_group_id=None, start=None, step=None, time=None,
-                 variables_shrink=None):
-        # 集群ID。
-        self.cluster_id = cluster_id  # type: str
-        self.dashboard_id = dashboard_id  # type: str
-        self.end = end  # type: str
-        self.provider = provider  # type: str
-        self.query = query  # type: str
-        self.query_params = query_params  # type: QueryApmGrafanaDataShrinkRequestQueryParams
-        self.query_url = query_url  # type: str
-        # 地域ID。
-        self.region_id = region_id  # type: str
-        # 如果存在clusterId，从Cluster中获取该值，如果clusterId为空，用户显式指定
-        self.resource_group_id = resource_group_id  # type: str
-        self.start = start  # type: str
-        self.step = step  # type: str
-        self.time = time  # type: str
-        self.variables_shrink = variables_shrink  # type: str
-
-    def validate(self):
-        if self.query_params:
-            self.query_params.validate()
-
-    def to_map(self):
-        _map = super(QueryApmGrafanaDataShrinkRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.cluster_id is not None:
-            result['ClusterId'] = self.cluster_id
-        if self.dashboard_id is not None:
-            result['DashboardId'] = self.dashboard_id
-        if self.end is not None:
-            result['End'] = self.end
-        if self.provider is not None:
-            result['Provider'] = self.provider
-        if self.query is not None:
-            result['Query'] = self.query
-        if self.query_params is not None:
-            result['QueryParams'] = self.query_params.to_map()
-        if self.query_url is not None:
-            result['QueryUrl'] = self.query_url
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
-        if self.resource_group_id is not None:
-            result['ResourceGroupId'] = self.resource_group_id
-        if self.start is not None:
-            result['Start'] = self.start
-        if self.step is not None:
-            result['Step'] = self.step
-        if self.time is not None:
-            result['Time'] = self.time
-        if self.variables_shrink is not None:
-            result['Variables'] = self.variables_shrink
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ClusterId') is not None:
-            self.cluster_id = m.get('ClusterId')
-        if m.get('DashboardId') is not None:
-            self.dashboard_id = m.get('DashboardId')
-        if m.get('End') is not None:
-            self.end = m.get('End')
-        if m.get('Provider') is not None:
-            self.provider = m.get('Provider')
-        if m.get('Query') is not None:
-            self.query = m.get('Query')
-        if m.get('QueryParams') is not None:
-            temp_model = QueryApmGrafanaDataShrinkRequestQueryParams()
-            self.query_params = temp_model.from_map(m['QueryParams'])
-        if m.get('QueryUrl') is not None:
-            self.query_url = m.get('QueryUrl')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
-        if m.get('ResourceGroupId') is not None:
-            self.resource_group_id = m.get('ResourceGroupId')
-        if m.get('Start') is not None:
-            self.start = m.get('Start')
-        if m.get('Step') is not None:
-            self.step = m.get('Step')
-        if m.get('Time') is not None:
-            self.time = m.get('Time')
-        if m.get('Variables') is not None:
-            self.variables_shrink = m.get('Variables')
-        return self
-
-
-class QueryApmGrafanaDataResponseBodyData(TeaModel):
-    def __init__(self, query_grafana_data=None):
-        self.query_grafana_data = query_grafana_data  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(QueryApmGrafanaDataResponseBodyData, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.query_grafana_data is not None:
-            result['QueryGrafanaData'] = self.query_grafana_data
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('QueryGrafanaData') is not None:
-            self.query_grafana_data = m.get('QueryGrafanaData')
-        return self
-
-
-class QueryApmGrafanaDataResponseBody(TeaModel):
-    def __init__(self, data=None, request_id=None):
-        self.data = data  # type: QueryApmGrafanaDataResponseBodyData
-        # 请求ID。
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        if self.data:
-            self.data.validate()
-
-    def to_map(self):
-        _map = super(QueryApmGrafanaDataResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Data') is not None:
-            temp_model = QueryApmGrafanaDataResponseBodyData()
-            self.data = temp_model.from_map(m['Data'])
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class QueryApmGrafanaDataResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: QueryApmGrafanaDataResponseBody
-
-    def validate(self):
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(QueryApmGrafanaDataResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = QueryApmGrafanaDataResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
