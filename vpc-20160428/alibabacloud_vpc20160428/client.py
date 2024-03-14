@@ -10650,6 +10650,8 @@ class Client(OpenApiClient):
             query['SecurityProtectionEnabled'] = request.security_protection_enabled
         if not UtilClient.is_unset(request.segment_instance_id):
             query['SegmentInstanceId'] = request.segment_instance_id
+        if not UtilClient.is_unset(request.service_managed):
+            query['ServiceManaged'] = request.service_managed
         if not UtilClient.is_unset(request.status):
             query['Status'] = request.status
         if not UtilClient.is_unset(request.tag):
@@ -11686,6 +11688,8 @@ class Client(OpenApiClient):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
             query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.service_managed):
+            query['ServiceManaged'] = request.service_managed
         if not UtilClient.is_unset(request.tag):
             query['Tag'] = request.tag
         if not UtilClient.is_unset(request.v_switch_id):

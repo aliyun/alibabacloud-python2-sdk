@@ -997,7 +997,8 @@ class AddPublicIpAddressPoolCidrBlockRequest(TeaModel):
 
 
 class AddPublicIpAddressPoolCidrBlockResponseBody(TeaModel):
-    def __init__(self, request_id=None):
+    def __init__(self, cidr_block=None, request_id=None):
+        self.cidr_block = cidr_block  # type: str
         # The request ID.
         self.request_id = request_id  # type: str
 
@@ -1010,12 +1011,16 @@ class AddPublicIpAddressPoolCidrBlockResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.cidr_block is not None:
+            result['CidrBlock'] = self.cidr_block
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('CidrBlock') is not None:
+            self.cidr_block = m.get('CidrBlock')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         return self
@@ -27444,7 +27449,8 @@ class Describe95TrafficResponseBodyTraffic95Summary(TeaModel):
                  minimum_consume_bandwidth=None, traffic_95detail_list=None):
         # The peak bandwidth of the Internet Shared Bandwidth instance. Unit: Mbit/s.
         self.bandwidth = bandwidth  # type: long
-        # The daily peak bandwidth. Unit: Mbit/s. For more information, see [Daily peak bandwidth](~~89729~~).
+        # The daily peak bandwidth. Unit: Mbit/s.
+        # <props="china"> For more information, see [Daily peak bandwidth](~~89729~~).</props>
         self.fifth_peak_bandwidth = fifth_peak_bandwidth  # type: str
         # The resource ID.
         self.instance_id = instance_id  # type: str
@@ -30443,7 +30449,7 @@ class DescribeEipAddressesRequest(TeaModel):
                  charge_type=None, dry_run=None, eip_address=None, eip_name=None, isp=None, include_reservation_data=None,
                  lock_reason=None, owner_account=None, owner_id=None, page_number=None, page_size=None,
                  public_ip_address_pool_id=None, region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
-                 security_protection_enabled=None, segment_instance_id=None, status=None, tag=None):
+                 security_protection_enabled=None, segment_instance_id=None, service_managed=None, status=None, tag=None):
         self.filter = filter  # type: list[DescribeEipAddressesRequestFilter]
         # The ID of the EIP that you want to query.
         # 
@@ -30535,6 +30541,7 @@ class DescribeEipAddressesRequest(TeaModel):
         self.security_protection_enabled = security_protection_enabled  # type: bool
         # The ID of the contiguous EIP group.
         self.segment_instance_id = segment_instance_id  # type: str
+        self.service_managed = service_managed  # type: bool
         # The state of the EIP. Valid values:
         # 
         # *   **Associating**\
@@ -30608,6 +30615,8 @@ class DescribeEipAddressesRequest(TeaModel):
             result['SecurityProtectionEnabled'] = self.security_protection_enabled
         if self.segment_instance_id is not None:
             result['SegmentInstanceId'] = self.segment_instance_id
+        if self.service_managed is not None:
+            result['ServiceManaged'] = self.service_managed
         if self.status is not None:
             result['Status'] = self.status
         result['Tag'] = []
@@ -30665,6 +30674,8 @@ class DescribeEipAddressesRequest(TeaModel):
             self.security_protection_enabled = m.get('SecurityProtectionEnabled')
         if m.get('SegmentInstanceId') is not None:
             self.segment_instance_id = m.get('SegmentInstanceId')
+        if m.get('ServiceManaged') is not None:
+            self.service_managed = m.get('ServiceManaged')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         self.tag = []
@@ -36961,7 +36972,7 @@ class DescribeIpv6AddressesRequest(TeaModel):
     def __init__(self, associated_instance_id=None, associated_instance_type=None, include_reservation_data=None,
                  ipv_6address=None, ipv_6address_id=None, ipv_6internet_bandwidth_id=None, name=None, network_type=None,
                  owner_account=None, owner_id=None, page_number=None, page_size=None, region_id=None, resource_group_id=None,
-                 resource_owner_account=None, resource_owner_id=None, tag=None, v_switch_id=None, vpc_id=None):
+                 resource_owner_account=None, resource_owner_id=None, service_managed=None, tag=None, v_switch_id=None, vpc_id=None):
         # The ID of the instance that is assigned the IPv6 address.
         self.associated_instance_id = associated_instance_id  # type: str
         # The type of instance associated with the IPv6 address. Valid values:
@@ -37000,6 +37011,7 @@ class DescribeIpv6AddressesRequest(TeaModel):
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        self.service_managed = service_managed  # type: bool
         # The tag list.
         self.tag = tag  # type: list[DescribeIpv6AddressesRequestTag]
         # The ID of the vSwitch to which the IPv6 address belongs.
@@ -37051,6 +37063,8 @@ class DescribeIpv6AddressesRequest(TeaModel):
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
+        if self.service_managed is not None:
+            result['ServiceManaged'] = self.service_managed
         result['Tag'] = []
         if self.tag is not None:
             for k in self.tag:
@@ -37095,6 +37109,8 @@ class DescribeIpv6AddressesRequest(TeaModel):
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('ServiceManaged') is not None:
+            self.service_managed = m.get('ServiceManaged')
         self.tag = []
         if m.get('Tag') is not None:
             for k in m.get('Tag'):
@@ -37276,7 +37292,7 @@ class DescribeIpv6AddressesResponseBodyIpv6AddressesIpv6Address(TeaModel):
     def __init__(self, allocation_time=None, associated_instance_id=None, associated_instance_type=None,
                  ipv_6address=None, ipv_6address_description=None, ipv_6address_id=None, ipv_6address_name=None,
                  ipv_6gateway_id=None, ipv_6internet_bandwidth=None, ipv_6isp=None, network_type=None, real_bandwidth=None,
-                 resource_group_id=None, status=None, tags=None, v_switch_id=None, vpc_id=None):
+                 resource_group_id=None, service_managed=None, status=None, tags=None, v_switch_id=None, vpc_id=None):
         # The time when the IPv6 address was created.
         self.allocation_time = allocation_time  # type: str
         # The ID of the instance associated with the IPv6 address.
@@ -37311,6 +37327,7 @@ class DescribeIpv6AddressesResponseBodyIpv6AddressesIpv6Address(TeaModel):
         self.real_bandwidth = real_bandwidth  # type: int
         # The ID of the resource group to which the IPv6 gateway belongs.
         self.resource_group_id = resource_group_id  # type: str
+        self.service_managed = service_managed  # type: int
         # The status of the IPv6 address.
         # 
         # *   **Pending**\
@@ -37361,6 +37378,8 @@ class DescribeIpv6AddressesResponseBodyIpv6AddressesIpv6Address(TeaModel):
             result['RealBandwidth'] = self.real_bandwidth
         if self.resource_group_id is not None:
             result['ResourceGroupId'] = self.resource_group_id
+        if self.service_managed is not None:
+            result['ServiceManaged'] = self.service_managed
         if self.status is not None:
             result['Status'] = self.status
         if self.tags is not None:
@@ -37400,6 +37419,8 @@ class DescribeIpv6AddressesResponseBodyIpv6AddressesIpv6Address(TeaModel):
             self.real_bandwidth = m.get('RealBandwidth')
         if m.get('ResourceGroupId') is not None:
             self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('ServiceManaged') is not None:
+            self.service_managed = m.get('ServiceManaged')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         if m.get('Tags') is not None:
@@ -42204,16 +42225,20 @@ class DescribeRouteEntryListRequest(TeaModel):
         self.max_result = max_result  # type: int
         # The ID of the next hop.
         self.next_hop_id = next_hop_id  # type: str
-        # The type of the next hop. Valid values:
+        # The next hop type. Valid values:
         # 
-        # *   **Instance** (default): an Elastic Compute Service (ECS) instance
+        # *   **Instance**: an Elastic Compute Service (ECS) instance. This is the default value.
         # *   **HaVip**: a high-availability virtual IP address (HAVIP).
-        # *   **VpnGateway**: a VPN gateway
-        # *   **NatGateway**: a NAT gateway
-        # *   **NetworkInterface**: a secondary elastic network interface (ENI)
-        # *   **RouterInterface**: a router interface
-        # *   **IPv6Gateway**: an IPv6 gateway
-        # *   **Attachment**: a transit router
+        # *   **VpnGateway**: a VPN gateway.
+        # *   **NatGateway**: a NAT gateway.
+        # *   **NetworkInterface**: a secondary elastic network interface (ENI).
+        # *   **RouterInterface**: a router interface.
+        # *   **IPv6Gateway**: an IPv6 gateway.
+        # *   **Attachment**: a transit router.
+        # *   **Ipv4Gateway**: an IPv4 gateway.
+        # *   **GatewayEndpoint**: a gateway endpoint.
+        # *   **CenBasic**: CEN does not support transit routers.
+        # *   **Ecr**: Express Connect Router (ECR).
         self.next_hop_type = next_hop_type  # type: str
         # The pagination token that is used in the next request to retrieve a new page of results. Valid values:
         # 
@@ -42236,10 +42261,11 @@ class DescribeRouteEntryListRequest(TeaModel):
         self.route_entry_name = route_entry_name  # type: str
         # The route type. Valid values:
         # 
-        # *   **Custom**\
-        # *   **System**\
-        # *   **BGP**\
-        # *   **CEN**\
+        # *   **Custom**: custom routes.
+        # *   **System**: system routes.
+        # *   **BGP**: BGP routes.
+        # *   **CEN**: Cloud Enterprise Network (CEN) routes.
+        # *   **ECR**: Express Connect Router (ECR) routes.
         self.route_entry_type = route_entry_type  # type: str
         # The ID of the route table that you want to query.
         self.route_table_id = route_table_id  # type: str
@@ -42391,16 +42417,20 @@ class DescribeRouteEntryListResponseBodyRouteEntrysRouteEntryNextHopsNextHop(Tea
         self.next_hop_region_id = next_hop_region_id  # type: str
         # The information about the next hop.
         self.next_hop_related_info = next_hop_related_info  # type: DescribeRouteEntryListResponseBodyRouteEntrysRouteEntryNextHopsNextHopNextHopRelatedInfo
-        # The type of the next hop. Valid values:
+        # The next hop type. Valid values:
         # 
-        # *   **Instance**: an Elastic Compute Service (ECS) instance
-        # *   **HaVip**: a high-availability virtual IP address (HAVIP)
-        # *   **VpnGateway**: a VPN gateway
-        # *   **NatGateway**: a NAT gateway
-        # *   **NetworkInterface**: a secondary elastic network interface (ENI)
-        # *   **RouterInterface**: a router interface
-        # *   **IPv6Gateway**: an IPv6 gateway
-        # *   **Attachment**: a transit router
+        # *   **Instance**: an ECS instance.
+        # *   **HaVip**: an HAVIP.
+        # *   **VpnGateway**: a VPN gateway.
+        # *   **NatGateway**: a NAT gateway.
+        # *   **NetworkInterface**: a secondary ENI.
+        # *   **RouterInterface**: a router interface.
+        # *   **IPv6Gateway**: an IPv6 gateway.
+        # *   **Attachment**: a transit router.
+        # *   **Ipv4Gateway**: an IPv4 gateway.
+        # *   **GatewayEndpoint**: a gateway endpoint.
+        # *   **CenBasic**: CEN does not support transit routers.
+        # *   **Ecr**: ECR.
         self.next_hop_type = next_hop_type  # type: str
         # The weight of the route.
         # 
@@ -42489,9 +42519,9 @@ class DescribeRouteEntryListResponseBodyRouteEntrysRouteEntry(TeaModel):
         self.description = description  # type: str
         # The destination CIDR block of the route.
         self.destination_cidr_block = destination_cidr_block  # type: str
-        # The time when the route was modified. Specify the time in the `YYYY-MM-DDThh:mm:ssZ` format. The time must be in UTC.
+        # The time when the route was modified. The time follows the ISO 8601 standard in the `YYYY-MM-DDThh:mm:ssZ` format. The time is displayed in UTC.
         self.gmt_modified = gmt_modified  # type: str
-        # The IP version. Valid values:
+        # The IP version. Valid values: Valid values:
         # 
         # *   **ipv4**\
         # *   **ipv6**\
@@ -42505,7 +42535,7 @@ class DescribeRouteEntryListResponseBodyRouteEntrysRouteEntry(TeaModel):
         self.origin = origin  # type: str
         # The ID of the route.
         self.route_entry_id = route_entry_id  # type: str
-        # The route name.
+        # The name of the route.
         self.route_entry_name = route_entry_name  # type: str
         # The ID of the route table.
         self.route_table_id = route_table_id  # type: str
@@ -42517,14 +42547,15 @@ class DescribeRouteEntryListResponseBodyRouteEntrysRouteEntry(TeaModel):
         # 
         # *   **Pending**\
         # *   **Available**\
-        # *   **Modifying**: The Internet Shared Bandwidth instance is being modified.
+        # *   **Modifying**\
         self.status = status  # type: str
         # The route type. Valid values:
         # 
-        # *   **Custom**\
-        # *   **System**\
-        # *   **BGP**\
-        # *   **CEN**\
+        # *   **Custom**: custom routes.
+        # *   **System**: system routes.
+        # *   **BGP**: BGP routes.
+        # *   **CEN**: CEN routes.
+        # *   **ECR**: ECR routes.
         self.type = type  # type: str
 
     def validate(self):
