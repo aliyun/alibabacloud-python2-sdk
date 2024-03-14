@@ -103,9 +103,6 @@ class AttachPolicyResponse(TeaModel):
         self.body = body  # type: AttachPolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -216,9 +213,6 @@ class CheckCreatedByEnabledResponse(TeaModel):
         self.body = body  # type: CheckCreatedByEnabledResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -324,9 +318,6 @@ class CloseCreatedByResponse(TeaModel):
         self.body = body  # type: CloseCreatedByResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -359,10 +350,10 @@ class CloseCreatedByResponse(TeaModel):
 class CreatePolicyRequest(TeaModel):
     def __init__(self, dry_run=None, owner_account=None, owner_id=None, policy_content=None, policy_desc=None,
                  policy_name=None, region_id=None, resource_owner_account=None, user_type=None):
-        # Specifies whether to perform a dry run for the request. Valid values:
+        # Specifies whether to perform only a dry run, without performing the actual request. Valid values:
         # 
-        # *   false: The system performs the related operation based on the parameter settings in the request. This is the default value.
-        # *   true: The system does not perform the related operation based on the parameter settings in the request but only verifies the parameter settings.
+        # *   false (default): performs a dry run and performs the actual request.
+        # *   true: performs only a dry run.
         self.dry_run = dry_run  # type: bool
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -445,8 +436,9 @@ class CreatePolicyResponseBody(TeaModel):
     def __init__(self, policy_id=None, policy_name=None, request_id=None):
         # The ID of the tag policy.
         self.policy_id = policy_id  # type: str
+        # The name of the tag policy.
         self.policy_name = policy_name  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -484,9 +476,6 @@ class CreatePolicyResponse(TeaModel):
         self.body = body  # type: CreatePolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -518,13 +507,13 @@ class CreatePolicyResponse(TeaModel):
 
 class CreateTagsRequestTagKeyValueParamListTagValueParamList(TeaModel):
     def __init__(self, description=None, value=None):
-        # The description of the tag value.
+        # The description of the value for tag N.
         # 
         # Valid values of N: 1 to 10.
         self.description = description  # type: str
-        # The tag value.
+        # The value of tag N.
         # 
-        # The tag value can be a maximum of 128 characters in length. It cannot contain `http://` or `https://` and cannot start with `acs:` or `aliyun`.
+        # The tag value can be up to 128 characters in length and cannot contain `http://` or `https://`. 
         # 
         # Valid values of N: 1 to 10.
         self.value = value  # type: str
@@ -555,17 +544,17 @@ class CreateTagsRequestTagKeyValueParamListTagValueParamList(TeaModel):
 
 class CreateTagsRequestTagKeyValueParamList(TeaModel):
     def __init__(self, description=None, key=None, tag_value_param_list=None):
-        # The description of the tag key.
+        # The description of the key for tag N.
         # 
         # Valid values of N: 1 to 10.
         self.description = description  # type: str
-        # The tag key.
+        # The key of tag N.
         # 
-        # The tag key can be a maximum of 128 characters in length. It cannot contain `http://` or `https://` and cannot start with `acs:` or `aliyun`.
+        # The tag key can be up to 128 characters in length and cannot contain `http://` or `https://`. The tag key cannot start with `acs:` or `aliyun`.
         # 
         # Valid values of N: 1 to 10.
         self.key = key  # type: str
-        # The tag values list.
+        # The information about the tag value.
         self.tag_value_param_list = tag_value_param_list  # type: list[CreateTagsRequestTagKeyValueParamListTagValueParamList]
 
     def validate(self):
@@ -611,10 +600,10 @@ class CreateTagsRequest(TeaModel):
         self.owner_id = owner_id  # type: long
         # The region ID.
         # 
-        # >  Only `cn-hangzhou` is supported.
+        # > Only `cn-hangzhou` is supported.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
-        # The tag keys and values list.
+        # The information about the tags.
         self.tag_key_value_param_list = tag_key_value_param_list  # type: list[CreateTagsRequestTagKeyValueParamList]
 
     def validate(self):
@@ -663,7 +652,7 @@ class CreateTagsRequest(TeaModel):
 
 class CreateTagsResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -693,9 +682,6 @@ class CreateTagsResponse(TeaModel):
         self.body = body  # type: CreateTagsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -804,9 +790,6 @@ class DeletePolicyResponse(TeaModel):
         self.body = body  # type: DeletePolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -925,9 +908,6 @@ class DeleteTagResponse(TeaModel):
         self.body = body  # type: DeleteTagResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1122,9 +1102,6 @@ class DescribeRegionsResponse(TeaModel):
         self.body = body  # type: DescribeRegionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1254,9 +1231,6 @@ class DetachPolicyResponse(TeaModel):
         self.body = body  # type: DetachPolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1287,8 +1261,9 @@ class DetachPolicyResponse(TeaModel):
 
 
 class DisablePolicyTypeRequest(TeaModel):
-    def __init__(self, owner_account=None, owner_id=None, region_id=None, resource_owner_account=None,
-                 resource_owner_id=None, user_type=None):
+    def __init__(self, open_type=None, owner_account=None, owner_id=None, region_id=None,
+                 resource_owner_account=None, resource_owner_id=None, user_type=None):
+        self.open_type = open_type  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.region_id = region_id  # type: str
@@ -1305,6 +1280,8 @@ class DisablePolicyTypeRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.open_type is not None:
+            result['OpenType'] = self.open_type
         if self.owner_account is not None:
             result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
@@ -1321,6 +1298,8 @@ class DisablePolicyTypeRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('OpenType') is not None:
+            self.open_type = m.get('OpenType')
         if m.get('OwnerAccount') is not None:
             self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
@@ -1368,9 +1347,6 @@ class DisablePolicyTypeResponse(TeaModel):
         self.body = body  # type: DisablePolicyTypeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1401,8 +1377,9 @@ class DisablePolicyTypeResponse(TeaModel):
 
 
 class EnablePolicyTypeRequest(TeaModel):
-    def __init__(self, owner_account=None, owner_id=None, region_id=None, resource_owner_account=None,
-                 resource_owner_id=None, user_type=None):
+    def __init__(self, open_type=None, owner_account=None, owner_id=None, region_id=None,
+                 resource_owner_account=None, resource_owner_id=None, user_type=None):
+        self.open_type = open_type  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.region_id = region_id  # type: str
@@ -1419,6 +1396,8 @@ class EnablePolicyTypeRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.open_type is not None:
+            result['OpenType'] = self.open_type
         if self.owner_account is not None:
             result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
@@ -1435,6 +1414,8 @@ class EnablePolicyTypeRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('OpenType') is not None:
+            self.open_type = m.get('OpenType')
         if m.get('OwnerAccount') is not None:
             self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
@@ -1481,9 +1462,6 @@ class EnablePolicyTypeResponse(TeaModel):
         self.body = body  # type: EnablePolicyTypeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1624,9 +1602,6 @@ class GenerateConfigRuleReportResponse(TeaModel):
         self.body = body  # type: GenerateConfigRuleReportResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1836,9 +1811,6 @@ class GetConfigRuleReportResponse(TeaModel):
         self.body = body  # type: GetConfigRuleReportResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1968,9 +1940,6 @@ class GetEffectivePolicyResponse(TeaModel):
         self.body = body  # type: GetEffectivePolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2135,9 +2104,6 @@ class GetPolicyResponse(TeaModel):
         self.body = body  # type: GetPolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2168,8 +2134,9 @@ class GetPolicyResponse(TeaModel):
 
 
 class GetPolicyEnableStatusRequest(TeaModel):
-    def __init__(self, owner_account=None, owner_id=None, region_id=None, resource_owner_account=None,
-                 resource_owner_id=None, user_type=None):
+    def __init__(self, open_type=None, owner_account=None, owner_id=None, region_id=None,
+                 resource_owner_account=None, resource_owner_id=None, user_type=None):
+        self.open_type = open_type  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         # The region ID. Set the value to cn-shanghai.
@@ -2195,6 +2162,8 @@ class GetPolicyEnableStatusRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.open_type is not None:
+            result['OpenType'] = self.open_type
         if self.owner_account is not None:
             result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
@@ -2211,6 +2180,8 @@ class GetPolicyEnableStatusRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('OpenType') is not None:
+            self.open_type = m.get('OpenType')
         if m.get('OwnerAccount') is not None:
             self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
@@ -2313,9 +2284,6 @@ class GetPolicyEnableStatusResponse(TeaModel):
         self.body = body  # type: GetPolicyEnableStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2585,9 +2553,6 @@ class ListConfigRulesForTargetResponse(TeaModel):
         self.body = body  # type: ListConfigRulesForTargetResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2806,9 +2771,6 @@ class ListPoliciesResponse(TeaModel):
         self.body = body  # type: ListPoliciesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3021,9 +2983,6 @@ class ListPoliciesForTargetResponse(TeaModel):
         self.body = body  # type: ListPoliciesForTargetResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3061,7 +3020,7 @@ class ListResourcesByTagRequestTagFilter(TeaModel):
         self.key = key  # type: str
         # The tag value. This parameter specifies a filter condition for the query.
         # 
-        # The tag value can be a maximum of 128 characters in length. It cannot contain `http://` or `https://` and cannot start with `acs:` or `aliyun`.
+        # The tag value can be a maximum of 128 characters in length. It cannot contain `http://` or `https://`.
         self.value = value  # type: str
 
     def validate(self):
@@ -3315,9 +3274,6 @@ class ListResourcesByTagResponse(TeaModel):
         self.body = body  # type: ListResourcesByTagResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3360,16 +3316,16 @@ class ListSupportResourceTypesRequest(TeaModel):
         self.owner_id = owner_id  # type: long
         # The service code. This parameter specifies a filter condition for the query.
         # 
-        # For more information about service codes, see [Services that work with Tag](~~171455~~).
+        # This parameter is obtained from the response.
         self.product_code = product_code  # type: str
         # The region ID.
         # 
-        # For more information about the region ID, see [Endpoints](~~170112~~).
+        # For more information about region IDs, see [Endpoints](~~2330902~~).
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         # The resource type. This parameter specifies a filter condition for the query.
         # 
-        # For more information about resource types, see [Services that work with Tag](~~171455~~).
+        # This parameter is obtained from the response.
         self.resource_tye = resource_tye  # type: str
         # Specifies whether to return tag-related capability items. Valid values:
         # 
@@ -3377,6 +3333,8 @@ class ListSupportResourceTypesRequest(TeaModel):
         # *   false (default value): The system does not return tag-related capability items.
         self.show_items = show_items  # type: bool
         # The code of the tag-related capability item. This parameter specifies a filter condition for the query.
+        # 
+        # For more information, see **Tag-related capability items**.
         self.support_code = support_code  # type: str
 
     def validate(self):
@@ -3577,9 +3535,6 @@ class ListSupportResourceTypesResponse(TeaModel):
         self.body = body  # type: ListSupportResourceTypesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3869,9 +3824,6 @@ class ListTagKeysResponse(TeaModel):
         self.body = body  # type: ListTagKeysResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3920,7 +3872,10 @@ class ListTagResourcesRequest(TeaModel):
         # 
         # Maximum value: 1000. Default value: 50.
         self.page_size = page_size  # type: int
-        # The region ID of the resources.
+        # The region ID.
+        # 
+        # *   If the resources belong to a service that is centrally deployed, set the value to the region ID of the resources by referring to [Regions supported by tag-related operations on resources of centrally deployed Alibaba Cloud services](~~2579691~~).
+        # *   If the resources belong to a service that is not centrally deployed, set the value to the region ID of the resources.
         self.region_id = region_id  # type: str
         # The Alibaba Cloud Resource Name (ARN) of a resource.
         self.resource_arn = resource_arn  # type: list[str]
@@ -4123,9 +4078,6 @@ class ListTagResourcesResponse(TeaModel):
         self.body = body  # type: ListTagResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4361,9 +4313,6 @@ class ListTagValuesResponse(TeaModel):
         self.body = body  # type: ListTagValuesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4562,9 +4511,6 @@ class ListTargetsForPolicyResponse(TeaModel):
         self.body = body  # type: ListTargetsForPolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4706,9 +4652,6 @@ class ModifyPolicyResponse(TeaModel):
         self.body = body  # type: ModifyPolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4816,9 +4759,6 @@ class OpenCreatedByResponse(TeaModel):
         self.body = body  # type: OpenCreatedByResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4853,7 +4793,10 @@ class TagResourcesRequest(TeaModel):
                  resource_owner_account=None, tags=None):
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The region ID of the resources.
+        # The region ID.
+        # 
+        # *   If the resources belong to a service that is centrally deployed, set the value to `cn-hangzhou` or to the region ID of the resources by referring to [Regions supported by tag-related operations on resources of centrally deployed Alibaba Cloud services](~~2579691~~).
+        # *   If the resources belong to a service that is not centrally deployed, set the value to the region ID of the resources.
         self.region_id = region_id  # type: str
         # The Alibaba Cloud Resource Name (ARN) of a resource.
         self.resource_arn = resource_arn  # type: list[str]
@@ -5052,9 +4995,6 @@ class TagResourcesResponse(TeaModel):
         self.body = body  # type: TagResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5089,7 +5029,10 @@ class UntagResourcesRequest(TeaModel):
                  resource_owner_account=None, tag_key=None):
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The region ID of the resources.
+        # The region ID.
+        # 
+        # *   If the resources belong to a service that is centrally deployed, set the value to `cn-hangzhou` or to the region ID of the resources by referring to [Regions supported by tag-related operations on resources of centrally deployed Alibaba Cloud services](~~2579691~~).
+        # *   If the resources belong to a service that is not centrally deployed, set the value to the region ID of the resources.
         self.region_id = region_id  # type: str
         # The Alibaba Cloud Resource Name (ARN) of a resource.
         self.resource_arn = resource_arn  # type: list[str]
@@ -5279,9 +5222,6 @@ class UntagResourcesResponse(TeaModel):
         self.body = body  # type: UntagResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 

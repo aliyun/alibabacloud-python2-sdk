@@ -207,6 +207,7 @@ class Client(OpenApiClient):
 
     def create_policy_with_options(self, request, runtime):
         """
+        ###
         This topic provides an example on how to call the API operation to create a tag policy named `test`. In this example, the Tag Policy feature in multi-account mode is used. The tag policy defines that resources to which the `CostCenter:Beijing` or `CostCenter:Shanghai` tag is added are compliant and other resources are not compliant.
         
 
@@ -257,6 +258,7 @@ class Client(OpenApiClient):
 
     def create_policy(self, request):
         """
+        ###
         This topic provides an example on how to call the API operation to create a tag policy named `test`. In this example, the Tag Policy feature in multi-account mode is used. The tag policy defines that resources to which the `CostCenter:Beijing` or `CostCenter:Shanghai` tag is added are compliant and other resources are not compliant.
         
 
@@ -269,6 +271,7 @@ class Client(OpenApiClient):
 
     def create_tags_with_options(self, request, runtime):
         """
+        ###
         A preset tag is a tag that you create in advance and is available for the resources in all regions. You can create preset tags in the stage of tag planning and add them to specific resources in the stage of tag implementation. When you create a preset tag, you can specify only the tag key. You can specify a tag value in the future.
         This topic provides an example on how to call the API operation to create a preset tag whose tag key is `Environment` to indicate the business environment.
         
@@ -312,6 +315,7 @@ class Client(OpenApiClient):
 
     def create_tags(self, request):
         """
+        ###
         A preset tag is a tag that you create in advance and is available for the resources in all regions. You can create preset tags in the stage of tag planning and add them to specific resources in the stage of tag implementation. When you create a preset tag, you can specify only the tag key. You can specify a tag value in the future.
         This topic provides an example on how to call the API operation to create a preset tag whose tag key is `Environment` to indicate the business environment.
         
@@ -536,6 +540,8 @@ class Client(OpenApiClient):
     def disable_policy_type_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.open_type):
+            query['OpenType'] = request.open_type
         if not UtilClient.is_unset(request.owner_account):
             query['OwnerAccount'] = request.owner_account
         if not UtilClient.is_unset(request.owner_id):
@@ -574,6 +580,8 @@ class Client(OpenApiClient):
     def enable_policy_type_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.open_type):
+            query['OpenType'] = request.open_type
         if not UtilClient.is_unset(request.owner_account):
             query['OwnerAccount'] = request.owner_account
         if not UtilClient.is_unset(request.owner_id):
@@ -856,6 +864,8 @@ class Client(OpenApiClient):
         """
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.open_type):
+            query['OpenType'] = request.open_type
         if not UtilClient.is_unset(request.owner_account):
             query['OwnerAccount'] = request.owner_account
         if not UtilClient.is_unset(request.owner_id):
@@ -1161,7 +1171,10 @@ class Client(OpenApiClient):
 
     def list_support_resource_types_with_options(self, request, runtime):
         """
-        This topic provides an example on how to call the API operation to query the resource types supported by tags.
+        ### [](#)Call examples
+        *   Query a list of resource types supported by TagResources or UntagResources. For more information, see [Example](https://api.alibabacloud.com/api/Tag/2018-08-28/ListSupportResourceTypes?tab=DEBUG\\&params=%7B%22RegionId%22:%22cn-hangzhou%22,%22SupportCode%22:%22TAG_CONSOLE_SUPPORT%22%7D).
+        *   Query a list of resource types supported by ListTagResources or ListResourcesByTag. For more information, see [Example](https://api.alibabacloud.com/api/Tag/2018-08-28/ListSupportResourceTypes?tab=DEBUG\\&params=%7B%22RegionId%22:%22cn-hangzhou%22%7D).
+        *   Query a list of resource types that support createdby tags. For more information, see [Example](https://api.alibabacloud.com/api/Tag/2018-08-28/ListSupportResourceTypes?tab=DEBUG\\&params=%7B%22RegionId%22:%22cn-hangzhou%22,%22SupportCode%22:%22CREATED_BY_TAG_CONSOLE_SUPPORT%22%7D).
         
 
         @param request: ListSupportResourceTypesRequest
@@ -1213,7 +1226,10 @@ class Client(OpenApiClient):
 
     def list_support_resource_types(self, request):
         """
-        This topic provides an example on how to call the API operation to query the resource types supported by tags.
+        ### [](#)Call examples
+        *   Query a list of resource types supported by TagResources or UntagResources. For more information, see [Example](https://api.alibabacloud.com/api/Tag/2018-08-28/ListSupportResourceTypes?tab=DEBUG\\&params=%7B%22RegionId%22:%22cn-hangzhou%22,%22SupportCode%22:%22TAG_CONSOLE_SUPPORT%22%7D).
+        *   Query a list of resource types supported by ListTagResources or ListResourcesByTag. For more information, see [Example](https://api.alibabacloud.com/api/Tag/2018-08-28/ListSupportResourceTypes?tab=DEBUG\\&params=%7B%22RegionId%22:%22cn-hangzhou%22%7D).
+        *   Query a list of resource types that support createdby tags. For more information, see [Example](https://api.alibabacloud.com/api/Tag/2018-08-28/ListSupportResourceTypes?tab=DEBUG\\&params=%7B%22RegionId%22:%22cn-hangzhou%22,%22SupportCode%22:%22CREATED_BY_TAG_CONSOLE_SUPPORT%22%7D).
         
 
         @param request: ListSupportResourceTypesRequest
