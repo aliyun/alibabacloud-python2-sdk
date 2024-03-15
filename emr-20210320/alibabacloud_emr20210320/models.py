@@ -7372,7 +7372,7 @@ class GetAutoScalingPolicyResponseBodyScalingPolicyConstraints(TeaModel):
 
 class GetAutoScalingPolicyResponseBodyScalingPolicyScalingRules(TeaModel):
     def __init__(self, activity_type=None, adjustment_type=None, adjustment_value=None, metrics_trigger=None,
-                 rule_name=None, time_trigger=None, trigger_type=None):
+                 min_adjustment_value=None, rule_name=None, time_trigger=None, trigger_type=None):
         # The type of the scaling activity. Valid values:
         # 
         # *   SCALE_OUT: scale-out rules
@@ -7384,6 +7384,7 @@ class GetAutoScalingPolicyResponseBodyScalingPolicyScalingRules(TeaModel):
         self.adjustment_value = adjustment_value  # type: int
         # The description of scaling by load.
         self.metrics_trigger = metrics_trigger  # type: MetricsTrigger
+        self.min_adjustment_value = min_adjustment_value  # type: int
         # The name of the auto scaling rule.
         self.rule_name = rule_name  # type: str
         # The description of scaling by time.
@@ -7414,6 +7415,8 @@ class GetAutoScalingPolicyResponseBodyScalingPolicyScalingRules(TeaModel):
             result['AdjustmentValue'] = self.adjustment_value
         if self.metrics_trigger is not None:
             result['MetricsTrigger'] = self.metrics_trigger.to_map()
+        if self.min_adjustment_value is not None:
+            result['MinAdjustmentValue'] = self.min_adjustment_value
         if self.rule_name is not None:
             result['RuleName'] = self.rule_name
         if self.time_trigger is not None:
@@ -7433,6 +7436,8 @@ class GetAutoScalingPolicyResponseBodyScalingPolicyScalingRules(TeaModel):
         if m.get('MetricsTrigger') is not None:
             temp_model = MetricsTrigger()
             self.metrics_trigger = temp_model.from_map(m['MetricsTrigger'])
+        if m.get('MinAdjustmentValue') is not None:
+            self.min_adjustment_value = m.get('MinAdjustmentValue')
         if m.get('RuleName') is not None:
             self.rule_name = m.get('RuleName')
         if m.get('TimeTrigger') is not None:
