@@ -1220,6 +1220,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.release_instance_with_options(request, runtime)
 
+    def reopen_instance_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ReopenInstance',
+            version='2019-09-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            alikafka_20190916_models.ReopenInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def reopen_instance(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.reopen_instance_with_options(request, runtime)
+
     def start_instance_with_options(self, request, runtime):
         """
         >  You can call this operation up to twice per second.
@@ -1305,6 +1335,36 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.start_instance_with_options(request, runtime)
+
+    def stop_instance_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='StopInstance',
+            version='2019-09-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            alikafka_20190916_models.StopInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def stop_instance(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.stop_instance_with_options(request, runtime)
 
     def tag_resources_with_options(self, request, runtime):
         UtilClient.validate_model(request)
