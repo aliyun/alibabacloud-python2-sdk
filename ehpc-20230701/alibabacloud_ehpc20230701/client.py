@@ -116,9 +116,13 @@ class Client(OpenApiClient):
         UtilClient.validate_model(tmp_req)
         request = ehpc20230701_models.DeleteJobsShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.executor_ids):
+            request.executor_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.executor_ids, 'ExecutorIds', 'json')
         if not UtilClient.is_unset(tmp_req.job_spec):
             request.job_spec_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.job_spec, 'JobSpec', 'json')
         query = {}
+        if not UtilClient.is_unset(request.executor_ids_shrink):
+            query['ExecutorIds'] = request.executor_ids_shrink
         if not UtilClient.is_unset(request.job_spec_shrink):
             query['JobSpec'] = request.job_spec_shrink
         req = open_api_models.OpenApiRequest(
@@ -199,6 +203,42 @@ class Client(OpenApiClient):
     def get_job(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_job_with_options(request, runtime)
+
+    def list_executors_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = ehpc20230701_models.ListExecutorsShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.filter):
+            request.filter_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.filter, 'Filter', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.filter_shrink):
+            query['Filter'] = request.filter_shrink
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListExecutors',
+            version='2023-07-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ehpc20230701_models.ListExecutorsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_executors(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_executors_with_options(request, runtime)
 
     def list_images_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
