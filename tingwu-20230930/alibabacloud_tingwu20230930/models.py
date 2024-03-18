@@ -63,6 +63,30 @@ class CreateTaskRequestInput(TeaModel):
         return self
 
 
+class CreateTaskRequestParametersExtraParams(TeaModel):
+    def __init__(self, nfix_enabled=None):
+        self.nfix_enabled = nfix_enabled  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateTaskRequestParametersExtraParams, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.nfix_enabled is not None:
+            result['NfixEnabled'] = self.nfix_enabled
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('NfixEnabled') is not None:
+            self.nfix_enabled = m.get('NfixEnabled')
+        return self
+
+
 class CreateTaskRequestParametersMeetingAssistance(TeaModel):
     def __init__(self, types=None):
         self.types = types  # type: list[str]
@@ -262,10 +286,11 @@ class CreateTaskRequestParametersTranslation(TeaModel):
 
 
 class CreateTaskRequestParameters(TeaModel):
-    def __init__(self, auto_chapters_enabled=None, meeting_assistance=None, meeting_assistance_enabled=None,
-                 ppt_extraction_enabled=None, summarization=None, summarization_enabled=None, text_polish_enabled=None, transcoding=None,
-                 transcription=None, translation=None, translation_enabled=None):
+    def __init__(self, auto_chapters_enabled=None, extra_params=None, meeting_assistance=None,
+                 meeting_assistance_enabled=None, ppt_extraction_enabled=None, summarization=None, summarization_enabled=None,
+                 text_polish_enabled=None, transcoding=None, transcription=None, translation=None, translation_enabled=None):
         self.auto_chapters_enabled = auto_chapters_enabled  # type: bool
+        self.extra_params = extra_params  # type: CreateTaskRequestParametersExtraParams
         self.meeting_assistance = meeting_assistance  # type: CreateTaskRequestParametersMeetingAssistance
         self.meeting_assistance_enabled = meeting_assistance_enabled  # type: bool
         self.ppt_extraction_enabled = ppt_extraction_enabled  # type: bool
@@ -278,6 +303,8 @@ class CreateTaskRequestParameters(TeaModel):
         self.translation_enabled = translation_enabled  # type: bool
 
     def validate(self):
+        if self.extra_params:
+            self.extra_params.validate()
         if self.meeting_assistance:
             self.meeting_assistance.validate()
         if self.summarization:
@@ -297,6 +324,8 @@ class CreateTaskRequestParameters(TeaModel):
         result = dict()
         if self.auto_chapters_enabled is not None:
             result['AutoChaptersEnabled'] = self.auto_chapters_enabled
+        if self.extra_params is not None:
+            result['ExtraParams'] = self.extra_params.to_map()
         if self.meeting_assistance is not None:
             result['MeetingAssistance'] = self.meeting_assistance.to_map()
         if self.meeting_assistance_enabled is not None:
@@ -323,6 +352,9 @@ class CreateTaskRequestParameters(TeaModel):
         m = m or dict()
         if m.get('AutoChaptersEnabled') is not None:
             self.auto_chapters_enabled = m.get('AutoChaptersEnabled')
+        if m.get('ExtraParams') is not None:
+            temp_model = CreateTaskRequestParametersExtraParams()
+            self.extra_params = temp_model.from_map(m['ExtraParams'])
         if m.get('MeetingAssistance') is not None:
             temp_model = CreateTaskRequestParametersMeetingAssistance()
             self.meeting_assistance = temp_model.from_map(m['MeetingAssistance'])
@@ -401,10 +433,11 @@ class CreateTaskRequest(TeaModel):
 
 
 class CreateTaskResponseBodyData(TeaModel):
-    def __init__(self, meeting_join_url=None, task_id=None, task_key=None):
+    def __init__(self, meeting_join_url=None, task_id=None, task_key=None, task_status=None):
         self.meeting_join_url = meeting_join_url  # type: str
         self.task_id = task_id  # type: str
         self.task_key = task_key  # type: str
+        self.task_status = task_status  # type: str
 
     def validate(self):
         pass
@@ -421,6 +454,8 @@ class CreateTaskResponseBodyData(TeaModel):
             result['TaskId'] = self.task_id
         if self.task_key is not None:
             result['TaskKey'] = self.task_key
+        if self.task_status is not None:
+            result['TaskStatus'] = self.task_status
         return result
 
     def from_map(self, m=None):
@@ -431,6 +466,8 @@ class CreateTaskResponseBodyData(TeaModel):
             self.task_id = m.get('TaskId')
         if m.get('TaskKey') is not None:
             self.task_key = m.get('TaskKey')
+        if m.get('TaskStatus') is not None:
+            self.task_status = m.get('TaskStatus')
         return self
 
 
