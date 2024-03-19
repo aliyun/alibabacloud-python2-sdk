@@ -4971,13 +4971,129 @@ class CreateTriggerResponse(TeaModel):
         return self
 
 
-class DeleteAlertContactResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
+class DeleteAlertContactRequest(TeaModel):
+    def __init__(self, contact_ids=None):
+        self.contact_ids = contact_ids  # type: list[long]
 
     def validate(self):
         pass
+
+    def to_map(self):
+        _map = super(DeleteAlertContactRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.contact_ids is not None:
+            result['contact_ids'] = self.contact_ids
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('contact_ids') is not None:
+            self.contact_ids = m.get('contact_ids')
+        return self
+
+
+class DeleteAlertContactShrinkRequest(TeaModel):
+    def __init__(self, contact_ids_shrink=None):
+        self.contact_ids_shrink = contact_ids_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteAlertContactShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.contact_ids_shrink is not None:
+            result['contact_ids'] = self.contact_ids_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('contact_ids') is not None:
+            self.contact_ids_shrink = m.get('contact_ids')
+        return self
+
+
+class DeleteAlertContactResponseBodyBody(TeaModel):
+    def __init__(self, status=None, msg=None, contact_id=None):
+        self.status = status  # type: bool
+        self.msg = msg  # type: str
+        self.contact_id = contact_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteAlertContactResponseBodyBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.status is not None:
+            result['status'] = self.status
+        if self.msg is not None:
+            result['msg'] = self.msg
+        if self.contact_id is not None:
+            result['contact_id'] = self.contact_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('msg') is not None:
+            self.msg = m.get('msg')
+        if m.get('contact_id') is not None:
+            self.contact_id = m.get('contact_id')
+        return self
+
+
+class DeleteAlertContactResponseBody(TeaModel):
+    def __init__(self, body=None):
+        self.body = body  # type: list[DeleteAlertContactResponseBodyBody]
+
+    def validate(self):
+        if self.body:
+            for k in self.body:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DeleteAlertContactResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['body'] = []
+        if self.body is not None:
+            for k in self.body:
+                result['body'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.body = []
+        if m.get('body') is not None:
+            for k in m.get('body'):
+                temp_model = DeleteAlertContactResponseBodyBody()
+                self.body.append(temp_model.from_map(k))
+        return self
+
+
+class DeleteAlertContactResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteAlertContactResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
 
     def to_map(self):
         _map = super(DeleteAlertContactResponse, self).to_map()
@@ -4989,6 +5105,8 @@ class DeleteAlertContactResponse(TeaModel):
             result['headers'] = self.headers
         if self.status_code is not None:
             result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
         return result
 
     def from_map(self, m=None):
@@ -4997,16 +5115,105 @@ class DeleteAlertContactResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('statusCode') is not None:
             self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteAlertContactResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteAlertContactGroupRequest(TeaModel):
+    def __init__(self, contact_group_ids=None):
+        self.contact_group_ids = contact_group_ids  # type: list[long]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteAlertContactGroupRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.contact_group_ids is not None:
+            result['contact_group_ids'] = self.contact_group_ids
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('contact_group_ids') is not None:
+            self.contact_group_ids = m.get('contact_group_ids')
+        return self
+
+
+class DeleteAlertContactGroupShrinkRequest(TeaModel):
+    def __init__(self, contact_group_ids_shrink=None):
+        self.contact_group_ids_shrink = contact_group_ids_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteAlertContactGroupShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.contact_group_ids_shrink is not None:
+            result['contact_group_ids'] = self.contact_group_ids_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('contact_group_ids') is not None:
+            self.contact_group_ids_shrink = m.get('contact_group_ids')
+        return self
+
+
+class DeleteAlertContactGroupResponseBody(TeaModel):
+    def __init__(self, status=None, msg=None, contact_group_id=None):
+        self.status = status  # type: bool
+        self.msg = msg  # type: str
+        self.contact_group_id = contact_group_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteAlertContactGroupResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.status is not None:
+            result['status'] = self.status
+        if self.msg is not None:
+            result['msg'] = self.msg
+        if self.contact_group_id is not None:
+            result['contact_group_id'] = self.contact_group_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('msg') is not None:
+            self.msg = m.get('msg')
+        if m.get('contact_group_id') is not None:
+            self.contact_group_id = m.get('contact_group_id')
         return self
 
 
 class DeleteAlertContactGroupResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
         self.status_code = status_code  # type: int
+        self.body = body  # type: list[DeleteAlertContactGroupResponseBody]
 
     def validate(self):
-        pass
+        if self.body:
+            for k in self.body:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(DeleteAlertContactGroupResponse, self).to_map()
@@ -5018,6 +5225,10 @@ class DeleteAlertContactGroupResponse(TeaModel):
             result['headers'] = self.headers
         if self.status_code is not None:
             result['statusCode'] = self.status_code
+        result['body'] = []
+        if self.body is not None:
+            for k in self.body:
+                result['body'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
@@ -5026,6 +5237,11 @@ class DeleteAlertContactGroupResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('statusCode') is not None:
             self.status_code = m.get('statusCode')
+        self.body = []
+        if m.get('body') is not None:
+            for k in m.get('body'):
+                temp_model = DeleteAlertContactGroupResponseBody()
+                self.body.append(temp_model.from_map(k))
         return self
 
 
@@ -10218,6 +10434,30 @@ class DescribeClusterNodesResponse(TeaModel):
         return self
 
 
+class DescribeClusterResourcesRequest(TeaModel):
+    def __init__(self, with_addon_resources=None):
+        self.with_addon_resources = with_addon_resources  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeClusterResourcesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.with_addon_resources is not None:
+            result['with_addon_resources'] = self.with_addon_resources
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('with_addon_resources') is not None:
+            self.with_addon_resources = m.get('with_addon_resources')
+        return self
+
+
 class DescribeClusterResourcesResponseBodyDependencies(TeaModel):
     def __init__(self, cluster_id=None, resource_type=None, instance_id=None):
         self.cluster_id = cluster_id  # type: str
@@ -10252,9 +10492,73 @@ class DescribeClusterResourcesResponseBodyDependencies(TeaModel):
         return self
 
 
+class DescribeClusterResourcesResponseBodyAssociatedObject(TeaModel):
+    def __init__(self, kind=None, namespace=None, name=None):
+        self.kind = kind  # type: str
+        self.namespace = namespace  # type: str
+        self.name = name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeClusterResourcesResponseBodyAssociatedObject, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.kind is not None:
+            result['kind'] = self.kind
+        if self.namespace is not None:
+            result['namespace'] = self.namespace
+        if self.name is not None:
+            result['name'] = self.name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('kind') is not None:
+            self.kind = m.get('kind')
+        if m.get('namespace') is not None:
+            self.namespace = m.get('namespace')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        return self
+
+
+class DescribeClusterResourcesResponseBodyDeleteBehavior(TeaModel):
+    def __init__(self, delete_by_default=None, changeable=None):
+        self.delete_by_default = delete_by_default  # type: bool
+        self.changeable = changeable  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeClusterResourcesResponseBodyDeleteBehavior, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.delete_by_default is not None:
+            result['delete_by_default'] = self.delete_by_default
+        if self.changeable is not None:
+            result['changeable'] = self.changeable
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('delete_by_default') is not None:
+            self.delete_by_default = m.get('delete_by_default')
+        if m.get('changeable') is not None:
+            self.changeable = m.get('changeable')
+        return self
+
+
 class DescribeClusterResourcesResponseBody(TeaModel):
     def __init__(self, cluster_id=None, created=None, instance_id=None, resource_info=None, resource_type=None,
-                 state=None, auto_create=None, dependencies=None):
+                 state=None, auto_create=None, dependencies=None, associated_object=None, delete_behavior=None,
+                 creator_type=None, extra_info=None):
         # The cluster ID.
         self.cluster_id = cluster_id  # type: str
         # The time when the resource was created.
@@ -10282,12 +10586,20 @@ class DescribeClusterResourcesResponseBody(TeaModel):
         # *   0: The resource is an existing resource.
         self.auto_create = auto_create  # type: long
         self.dependencies = dependencies  # type: list[DescribeClusterResourcesResponseBodyDependencies]
+        self.associated_object = associated_object  # type: DescribeClusterResourcesResponseBodyAssociatedObject
+        self.delete_behavior = delete_behavior  # type: DescribeClusterResourcesResponseBodyDeleteBehavior
+        self.creator_type = creator_type  # type: str
+        self.extra_info = extra_info  # type: dict[str, any]
 
     def validate(self):
         if self.dependencies:
             for k in self.dependencies:
                 if k:
                     k.validate()
+        if self.associated_object:
+            self.associated_object.validate()
+        if self.delete_behavior:
+            self.delete_behavior.validate()
 
     def to_map(self):
         _map = super(DescribeClusterResourcesResponseBody, self).to_map()
@@ -10313,6 +10625,14 @@ class DescribeClusterResourcesResponseBody(TeaModel):
         if self.dependencies is not None:
             for k in self.dependencies:
                 result['dependencies'].append(k.to_map() if k else None)
+        if self.associated_object is not None:
+            result['associated_object'] = self.associated_object.to_map()
+        if self.delete_behavior is not None:
+            result['delete_behavior'] = self.delete_behavior.to_map()
+        if self.creator_type is not None:
+            result['creator_type'] = self.creator_type
+        if self.extra_info is not None:
+            result['extra_info'] = self.extra_info
         return result
 
     def from_map(self, m=None):
@@ -10336,6 +10656,16 @@ class DescribeClusterResourcesResponseBody(TeaModel):
             for k in m.get('dependencies'):
                 temp_model = DescribeClusterResourcesResponseBodyDependencies()
                 self.dependencies.append(temp_model.from_map(k))
+        if m.get('associated_object') is not None:
+            temp_model = DescribeClusterResourcesResponseBodyAssociatedObject()
+            self.associated_object = temp_model.from_map(m['associated_object'])
+        if m.get('delete_behavior') is not None:
+            temp_model = DescribeClusterResourcesResponseBodyDeleteBehavior()
+            self.delete_behavior = temp_model.from_map(m['delete_behavior'])
+        if m.get('creator_type') is not None:
+            self.creator_type = m.get('creator_type')
+        if m.get('extra_info') is not None:
+            self.extra_info = m.get('extra_info')
         return self
 
 
@@ -16912,7 +17242,8 @@ class ListClusterAddonInstancesResponse(TeaModel):
 
 
 class ListClusterChecksRequest(TeaModel):
-    def __init__(self, type=None):
+    def __init__(self, target=None, type=None):
+        self.target = target  # type: str
         # The check method.
         self.type = type  # type: str
 
@@ -16925,12 +17256,16 @@ class ListClusterChecksRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.target is not None:
+            result['target'] = self.target
         if self.type is not None:
             result['type'] = self.type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('target') is not None:
+            self.target = m.get('target')
         if m.get('type') is not None:
             self.type = m.get('type')
         return self
@@ -20048,9 +20383,10 @@ class ResumeUpgradeClusterResponse(TeaModel):
 
 
 class RunClusterCheckRequest(TeaModel):
-    def __init__(self, options=None, type=None):
+    def __init__(self, options=None, target=None, type=None):
         # The cluster check items.
         self.options = options  # type: dict[str, str]
+        self.target = target  # type: str
         # The check method.
         self.type = type  # type: str
 
@@ -20065,6 +20401,8 @@ class RunClusterCheckRequest(TeaModel):
         result = dict()
         if self.options is not None:
             result['options'] = self.options
+        if self.target is not None:
+            result['target'] = self.target
         if self.type is not None:
             result['type'] = self.type
         return result
@@ -20073,6 +20411,8 @@ class RunClusterCheckRequest(TeaModel):
         m = m or dict()
         if m.get('options') is not None:
             self.options = m.get('options')
+        if m.get('target') is not None:
+            self.target = m.get('target')
         if m.get('type') is not None:
             self.type = m.get('type')
         return self
@@ -20948,6 +21288,35 @@ class ScanClusterVulsResponse(TeaModel):
         return self
 
 
+class StartAlertRequest(TeaModel):
+    def __init__(self, alert_rule_group_name=None, alert_rule_name=None):
+        self.alert_rule_group_name = alert_rule_group_name  # type: str
+        self.alert_rule_name = alert_rule_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(StartAlertRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alert_rule_group_name is not None:
+            result['alert_rule_group_name'] = self.alert_rule_group_name
+        if self.alert_rule_name is not None:
+            result['alert_rule_name'] = self.alert_rule_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('alert_rule_group_name') is not None:
+            self.alert_rule_group_name = m.get('alert_rule_group_name')
+        if m.get('alert_rule_name') is not None:
+            self.alert_rule_name = m.get('alert_rule_name')
+        return self
+
+
 class StartAlertResponseBody(TeaModel):
     def __init__(self, msg=None, status=None):
         # The message returned.
@@ -21214,6 +21583,35 @@ class StartWorkflowResponse(TeaModel):
         if m.get('body') is not None:
             temp_model = StartWorkflowResponseBody()
             self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class StopAlertRequest(TeaModel):
+    def __init__(self, alert_rule_group_name=None, alert_rule_name=None):
+        self.alert_rule_group_name = alert_rule_group_name  # type: str
+        self.alert_rule_name = alert_rule_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(StopAlertRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alert_rule_group_name is not None:
+            result['alert_rule_group_name'] = self.alert_rule_group_name
+        if self.alert_rule_name is not None:
+            result['alert_rule_name'] = self.alert_rule_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('alert_rule_group_name') is not None:
+            self.alert_rule_group_name = m.get('alert_rule_group_name')
+        if m.get('alert_rule_name') is not None:
+            self.alert_rule_name = m.get('alert_rule_name')
         return self
 
 
@@ -22011,6 +22409,122 @@ class UpdateTemplateResponse(TeaModel):
         return self
 
 
+class UpdateUserPermissionsRequestBody(TeaModel):
+    def __init__(self, cluster=None, is_custom=None, is_ram_role=None, namespace=None, role_name=None,
+                 role_type=None):
+        self.cluster = cluster  # type: str
+        self.is_custom = is_custom  # type: bool
+        self.is_ram_role = is_ram_role  # type: bool
+        self.namespace = namespace  # type: str
+        self.role_name = role_name  # type: str
+        self.role_type = role_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateUserPermissionsRequestBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cluster is not None:
+            result['cluster'] = self.cluster
+        if self.is_custom is not None:
+            result['is_custom'] = self.is_custom
+        if self.is_ram_role is not None:
+            result['is_ram_role'] = self.is_ram_role
+        if self.namespace is not None:
+            result['namespace'] = self.namespace
+        if self.role_name is not None:
+            result['role_name'] = self.role_name
+        if self.role_type is not None:
+            result['role_type'] = self.role_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('cluster') is not None:
+            self.cluster = m.get('cluster')
+        if m.get('is_custom') is not None:
+            self.is_custom = m.get('is_custom')
+        if m.get('is_ram_role') is not None:
+            self.is_ram_role = m.get('is_ram_role')
+        if m.get('namespace') is not None:
+            self.namespace = m.get('namespace')
+        if m.get('role_name') is not None:
+            self.role_name = m.get('role_name')
+        if m.get('role_type') is not None:
+            self.role_type = m.get('role_type')
+        return self
+
+
+class UpdateUserPermissionsRequest(TeaModel):
+    def __init__(self, body=None, mode=None):
+        self.body = body  # type: list[UpdateUserPermissionsRequestBody]
+        self.mode = mode  # type: str
+
+    def validate(self):
+        if self.body:
+            for k in self.body:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(UpdateUserPermissionsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['body'] = []
+        if self.body is not None:
+            for k in self.body:
+                result['body'].append(k.to_map() if k else None)
+        if self.mode is not None:
+            result['mode'] = self.mode
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.body = []
+        if m.get('body') is not None:
+            for k in m.get('body'):
+                temp_model = UpdateUserPermissionsRequestBody()
+                self.body.append(temp_model.from_map(k))
+        if m.get('mode') is not None:
+            self.mode = m.get('mode')
+        return self
+
+
+class UpdateUserPermissionsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateUserPermissionsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        return self
+
+
 class UpgradeClusterRequest(TeaModel):
     def __init__(self, component_name=None, master_only=None, next_version=None, version=None):
         # The name of the component. Set the value to `k8s`.
@@ -22241,13 +22755,49 @@ class UpgradeClusterAddonsResponse(TeaModel):
         return self
 
 
+class UpgradeClusterNodepoolRequestRollingPolicy(TeaModel):
+    def __init__(self, batch_interval=None, max_parallelism=None, pause_policy=None):
+        self.batch_interval = batch_interval  # type: int
+        self.max_parallelism = max_parallelism  # type: int
+        self.pause_policy = pause_policy  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpgradeClusterNodepoolRequestRollingPolicy, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.batch_interval is not None:
+            result['batch_interval'] = self.batch_interval
+        if self.max_parallelism is not None:
+            result['max_parallelism'] = self.max_parallelism
+        if self.pause_policy is not None:
+            result['pause_policy'] = self.pause_policy
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('batch_interval') is not None:
+            self.batch_interval = m.get('batch_interval')
+        if m.get('max_parallelism') is not None:
+            self.max_parallelism = m.get('max_parallelism')
+        if m.get('pause_policy') is not None:
+            self.pause_policy = m.get('pause_policy')
+        return self
+
+
 class UpgradeClusterNodepoolRequest(TeaModel):
-    def __init__(self, image_id=None, kubernetes_version=None, runtime_type=None, runtime_version=None,
-                 use_replace=None):
+    def __init__(self, image_id=None, kubernetes_version=None, node_names=None, rolling_policy=None,
+                 runtime_type=None, runtime_version=None, use_replace=None):
         # The ID of the OS image that is used by the nodes.
         self.image_id = image_id  # type: str
         # The Kubernetes version that is used by the nodes.
         self.kubernetes_version = kubernetes_version  # type: str
+        self.node_names = node_names  # type: list[str]
+        self.rolling_policy = rolling_policy  # type: UpgradeClusterNodepoolRequestRollingPolicy
         # The runtime type. Valid values: containerd and docker.
         self.runtime_type = runtime_type  # type: str
         # The version of the container runtime that is used by the nodes.
@@ -22255,7 +22805,8 @@ class UpgradeClusterNodepoolRequest(TeaModel):
         self.use_replace = use_replace  # type: bool
 
     def validate(self):
-        pass
+        if self.rolling_policy:
+            self.rolling_policy.validate()
 
     def to_map(self):
         _map = super(UpgradeClusterNodepoolRequest, self).to_map()
@@ -22267,6 +22818,10 @@ class UpgradeClusterNodepoolRequest(TeaModel):
             result['image_id'] = self.image_id
         if self.kubernetes_version is not None:
             result['kubernetes_version'] = self.kubernetes_version
+        if self.node_names is not None:
+            result['node_names'] = self.node_names
+        if self.rolling_policy is not None:
+            result['rolling_policy'] = self.rolling_policy.to_map()
         if self.runtime_type is not None:
             result['runtime_type'] = self.runtime_type
         if self.runtime_version is not None:
@@ -22281,6 +22836,11 @@ class UpgradeClusterNodepoolRequest(TeaModel):
             self.image_id = m.get('image_id')
         if m.get('kubernetes_version') is not None:
             self.kubernetes_version = m.get('kubernetes_version')
+        if m.get('node_names') is not None:
+            self.node_names = m.get('node_names')
+        if m.get('rolling_policy') is not None:
+            temp_model = UpgradeClusterNodepoolRequestRollingPolicy()
+            self.rolling_policy = temp_model.from_map(m['rolling_policy'])
         if m.get('runtime_type') is not None:
             self.runtime_type = m.get('runtime_type')
         if m.get('runtime_version') is not None:
