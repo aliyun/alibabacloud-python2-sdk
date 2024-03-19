@@ -4697,6 +4697,347 @@ class ListFavoriteReportsResponse(TeaModel):
         return self
 
 
+class ListOrganizationRoleUsersRequest(TeaModel):
+    def __init__(self, keyword=None, page_num=None, page_size=None, role_id=None):
+        self.keyword = keyword  # type: str
+        self.page_num = page_num  # type: int
+        self.page_size = page_size  # type: int
+        self.role_id = role_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListOrganizationRoleUsersRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.keyword is not None:
+            result['Keyword'] = self.keyword
+        if self.page_num is not None:
+            result['PageNum'] = self.page_num
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.role_id is not None:
+            result['RoleId'] = self.role_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Keyword') is not None:
+            self.keyword = m.get('Keyword')
+        if m.get('PageNum') is not None:
+            self.page_num = m.get('PageNum')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RoleId') is not None:
+            self.role_id = m.get('RoleId')
+        return self
+
+
+class ListOrganizationRoleUsersResponseBodyResultData(TeaModel):
+    def __init__(self, nick_name=None, user_id=None):
+        self.nick_name = nick_name  # type: str
+        self.user_id = user_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListOrganizationRoleUsersResponseBodyResultData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.nick_name is not None:
+            result['NickName'] = self.nick_name
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('NickName') is not None:
+            self.nick_name = m.get('NickName')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        return self
+
+
+class ListOrganizationRoleUsersResponseBodyResult(TeaModel):
+    def __init__(self, data=None, page_num=None, page_size=None, total_num=None, total_pages=None):
+        self.data = data  # type: list[ListOrganizationRoleUsersResponseBodyResultData]
+        self.page_num = page_num  # type: int
+        self.page_size = page_size  # type: int
+        self.total_num = total_num  # type: int
+        self.total_pages = total_pages  # type: int
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListOrganizationRoleUsersResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.page_num is not None:
+            result['PageNum'] = self.page_num
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.total_num is not None:
+            result['TotalNum'] = self.total_num
+        if self.total_pages is not None:
+            result['TotalPages'] = self.total_pages
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = ListOrganizationRoleUsersResponseBodyResultData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('PageNum') is not None:
+            self.page_num = m.get('PageNum')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('TotalNum') is not None:
+            self.total_num = m.get('TotalNum')
+        if m.get('TotalPages') is not None:
+            self.total_pages = m.get('TotalPages')
+        return self
+
+
+class ListOrganizationRoleUsersResponseBody(TeaModel):
+    def __init__(self, request_id=None, result=None, success=None):
+        self.request_id = request_id  # type: str
+        self.result = result  # type: ListOrganizationRoleUsersResponseBodyResult
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super(ListOrganizationRoleUsersResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.result is not None:
+            result['Result'] = self.result.to_map()
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Result') is not None:
+            temp_model = ListOrganizationRoleUsersResponseBodyResult()
+            self.result = temp_model.from_map(m['Result'])
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ListOrganizationRoleUsersResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListOrganizationRoleUsersResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListOrganizationRoleUsersResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListOrganizationRoleUsersResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListOrganizationRolesResponseBodyResultAuthConfigList(TeaModel):
+    def __init__(self, auth_key=None):
+        self.auth_key = auth_key  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListOrganizationRolesResponseBodyResultAuthConfigList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_key is not None:
+            result['AuthKey'] = self.auth_key
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AuthKey') is not None:
+            self.auth_key = m.get('AuthKey')
+        return self
+
+
+class ListOrganizationRolesResponseBodyResult(TeaModel):
+    def __init__(self, auth_config_list=None, is_system_role=None, role_id=None, role_name=None):
+        self.auth_config_list = auth_config_list  # type: list[ListOrganizationRolesResponseBodyResultAuthConfigList]
+        self.is_system_role = is_system_role  # type: bool
+        self.role_id = role_id  # type: long
+        self.role_name = role_name  # type: str
+
+    def validate(self):
+        if self.auth_config_list:
+            for k in self.auth_config_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListOrganizationRolesResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['AuthConfigList'] = []
+        if self.auth_config_list is not None:
+            for k in self.auth_config_list:
+                result['AuthConfigList'].append(k.to_map() if k else None)
+        if self.is_system_role is not None:
+            result['IsSystemRole'] = self.is_system_role
+        if self.role_id is not None:
+            result['RoleId'] = self.role_id
+        if self.role_name is not None:
+            result['RoleName'] = self.role_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.auth_config_list = []
+        if m.get('AuthConfigList') is not None:
+            for k in m.get('AuthConfigList'):
+                temp_model = ListOrganizationRolesResponseBodyResultAuthConfigList()
+                self.auth_config_list.append(temp_model.from_map(k))
+        if m.get('IsSystemRole') is not None:
+            self.is_system_role = m.get('IsSystemRole')
+        if m.get('RoleId') is not None:
+            self.role_id = m.get('RoleId')
+        if m.get('RoleName') is not None:
+            self.role_name = m.get('RoleName')
+        return self
+
+
+class ListOrganizationRolesResponseBody(TeaModel):
+    def __init__(self, request_id=None, result=None, success=None):
+        self.request_id = request_id  # type: str
+        self.result = result  # type: list[ListOrganizationRolesResponseBodyResult]
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.result:
+            for k in self.result:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListOrganizationRolesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        result['Result'] = []
+        if self.result is not None:
+            for k in self.result:
+                result['Result'].append(k.to_map() if k else None)
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        self.result = []
+        if m.get('Result') is not None:
+            for k in m.get('Result'):
+                temp_model = ListOrganizationRolesResponseBodyResult()
+                self.result.append(temp_model.from_map(k))
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ListOrganizationRolesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListOrganizationRolesResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListOrganizationRolesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListOrganizationRolesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListPortalMenuAuthorizationRequest(TeaModel):
     def __init__(self, data_portal_id=None):
         # The ID of the BI portal.
@@ -5704,6 +6045,391 @@ class ListUserGroupsByUserIdResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListUserGroupsByUserIdResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListWorkspaceRoleUsersRequest(TeaModel):
+    def __init__(self, keyword=None, page_num=None, page_size=None, role_id=None, workspace_id=None):
+        self.keyword = keyword  # type: str
+        self.page_num = page_num  # type: int
+        self.page_size = page_size  # type: int
+        self.role_id = role_id  # type: long
+        self.workspace_id = workspace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListWorkspaceRoleUsersRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.keyword is not None:
+            result['Keyword'] = self.keyword
+        if self.page_num is not None:
+            result['PageNum'] = self.page_num
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.role_id is not None:
+            result['RoleId'] = self.role_id
+        if self.workspace_id is not None:
+            result['WorkspaceId'] = self.workspace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Keyword') is not None:
+            self.keyword = m.get('Keyword')
+        if m.get('PageNum') is not None:
+            self.page_num = m.get('PageNum')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RoleId') is not None:
+            self.role_id = m.get('RoleId')
+        if m.get('WorkspaceId') is not None:
+            self.workspace_id = m.get('WorkspaceId')
+        return self
+
+
+class ListWorkspaceRoleUsersResponseBodyResultData(TeaModel):
+    def __init__(self, nick_name=None, user_id=None, workspace_id=None, workspace_name=None):
+        self.nick_name = nick_name  # type: str
+        self.user_id = user_id  # type: str
+        self.workspace_id = workspace_id  # type: str
+        self.workspace_name = workspace_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListWorkspaceRoleUsersResponseBodyResultData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.nick_name is not None:
+            result['NickName'] = self.nick_name
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        if self.workspace_id is not None:
+            result['WorkspaceId'] = self.workspace_id
+        if self.workspace_name is not None:
+            result['WorkspaceName'] = self.workspace_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('NickName') is not None:
+            self.nick_name = m.get('NickName')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        if m.get('WorkspaceId') is not None:
+            self.workspace_id = m.get('WorkspaceId')
+        if m.get('WorkspaceName') is not None:
+            self.workspace_name = m.get('WorkspaceName')
+        return self
+
+
+class ListWorkspaceRoleUsersResponseBodyResult(TeaModel):
+    def __init__(self, data=None, page_num=None, page_size=None, total_num=None, total_pages=None):
+        self.data = data  # type: list[ListWorkspaceRoleUsersResponseBodyResultData]
+        self.page_num = page_num  # type: int
+        self.page_size = page_size  # type: int
+        self.total_num = total_num  # type: int
+        self.total_pages = total_pages  # type: int
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListWorkspaceRoleUsersResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.page_num is not None:
+            result['PageNum'] = self.page_num
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.total_num is not None:
+            result['TotalNum'] = self.total_num
+        if self.total_pages is not None:
+            result['TotalPages'] = self.total_pages
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = ListWorkspaceRoleUsersResponseBodyResultData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('PageNum') is not None:
+            self.page_num = m.get('PageNum')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('TotalNum') is not None:
+            self.total_num = m.get('TotalNum')
+        if m.get('TotalPages') is not None:
+            self.total_pages = m.get('TotalPages')
+        return self
+
+
+class ListWorkspaceRoleUsersResponseBody(TeaModel):
+    def __init__(self, request_id=None, result=None, success=None):
+        self.request_id = request_id  # type: str
+        self.result = result  # type: ListWorkspaceRoleUsersResponseBodyResult
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super(ListWorkspaceRoleUsersResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.result is not None:
+            result['Result'] = self.result.to_map()
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Result') is not None:
+            temp_model = ListWorkspaceRoleUsersResponseBodyResult()
+            self.result = temp_model.from_map(m['Result'])
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ListWorkspaceRoleUsersResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListWorkspaceRoleUsersResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListWorkspaceRoleUsersResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListWorkspaceRoleUsersResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListWorkspaceRolesRequest(TeaModel):
+    def __init__(self, workspace_id=None):
+        self.workspace_id = workspace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListWorkspaceRolesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.workspace_id is not None:
+            result['WorkspaceId'] = self.workspace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('WorkspaceId') is not None:
+            self.workspace_id = m.get('WorkspaceId')
+        return self
+
+
+class ListWorkspaceRolesResponseBodyResultAuthConfigList(TeaModel):
+    def __init__(self, action_auth_keys=None, auth_key=None):
+        self.action_auth_keys = action_auth_keys  # type: list[str]
+        self.auth_key = auth_key  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListWorkspaceRolesResponseBodyResultAuthConfigList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.action_auth_keys is not None:
+            result['ActionAuthKeys'] = self.action_auth_keys
+        if self.auth_key is not None:
+            result['AuthKey'] = self.auth_key
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ActionAuthKeys') is not None:
+            self.action_auth_keys = m.get('ActionAuthKeys')
+        if m.get('AuthKey') is not None:
+            self.auth_key = m.get('AuthKey')
+        return self
+
+
+class ListWorkspaceRolesResponseBodyResult(TeaModel):
+    def __init__(self, auth_config_list=None, is_system_role=None, role_id=None, role_name=None):
+        self.auth_config_list = auth_config_list  # type: list[ListWorkspaceRolesResponseBodyResultAuthConfigList]
+        self.is_system_role = is_system_role  # type: bool
+        self.role_id = role_id  # type: long
+        self.role_name = role_name  # type: str
+
+    def validate(self):
+        if self.auth_config_list:
+            for k in self.auth_config_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListWorkspaceRolesResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['AuthConfigList'] = []
+        if self.auth_config_list is not None:
+            for k in self.auth_config_list:
+                result['AuthConfigList'].append(k.to_map() if k else None)
+        if self.is_system_role is not None:
+            result['IsSystemRole'] = self.is_system_role
+        if self.role_id is not None:
+            result['RoleId'] = self.role_id
+        if self.role_name is not None:
+            result['RoleName'] = self.role_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.auth_config_list = []
+        if m.get('AuthConfigList') is not None:
+            for k in m.get('AuthConfigList'):
+                temp_model = ListWorkspaceRolesResponseBodyResultAuthConfigList()
+                self.auth_config_list.append(temp_model.from_map(k))
+        if m.get('IsSystemRole') is not None:
+            self.is_system_role = m.get('IsSystemRole')
+        if m.get('RoleId') is not None:
+            self.role_id = m.get('RoleId')
+        if m.get('RoleName') is not None:
+            self.role_name = m.get('RoleName')
+        return self
+
+
+class ListWorkspaceRolesResponseBody(TeaModel):
+    def __init__(self, request_id=None, result=None, success=None):
+        self.request_id = request_id  # type: str
+        self.result = result  # type: list[ListWorkspaceRolesResponseBodyResult]
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.result:
+            for k in self.result:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListWorkspaceRolesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        result['Result'] = []
+        if self.result is not None:
+            for k in self.result:
+                result['Result'].append(k.to_map() if k else None)
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        self.result = []
+        if m.get('Result') is not None:
+            for k in m.get('Result'):
+                temp_model = ListWorkspaceRolesResponseBodyResult()
+                self.result.append(temp_model.from_map(k))
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ListWorkspaceRolesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListWorkspaceRolesResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListWorkspaceRolesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListWorkspaceRolesResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -8248,6 +8974,173 @@ class QueryEmbeddedStatusResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = QueryEmbeddedStatusResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class QueryOrganizationRoleConfigRequest(TeaModel):
+    def __init__(self, role_id=None):
+        self.role_id = role_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryOrganizationRoleConfigRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.role_id is not None:
+            result['RoleId'] = self.role_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RoleId') is not None:
+            self.role_id = m.get('RoleId')
+        return self
+
+
+class QueryOrganizationRoleConfigResponseBodyResultAuthConfigList(TeaModel):
+    def __init__(self, auth_key=None):
+        self.auth_key = auth_key  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryOrganizationRoleConfigResponseBodyResultAuthConfigList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_key is not None:
+            result['AuthKey'] = self.auth_key
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AuthKey') is not None:
+            self.auth_key = m.get('AuthKey')
+        return self
+
+
+class QueryOrganizationRoleConfigResponseBodyResult(TeaModel):
+    def __init__(self, auth_config_list=None, is_system_role=None, role_id=None, role_name=None):
+        self.auth_config_list = auth_config_list  # type: list[QueryOrganizationRoleConfigResponseBodyResultAuthConfigList]
+        self.is_system_role = is_system_role  # type: bool
+        self.role_id = role_id  # type: long
+        self.role_name = role_name  # type: str
+
+    def validate(self):
+        if self.auth_config_list:
+            for k in self.auth_config_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(QueryOrganizationRoleConfigResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['AuthConfigList'] = []
+        if self.auth_config_list is not None:
+            for k in self.auth_config_list:
+                result['AuthConfigList'].append(k.to_map() if k else None)
+        if self.is_system_role is not None:
+            result['IsSystemRole'] = self.is_system_role
+        if self.role_id is not None:
+            result['RoleId'] = self.role_id
+        if self.role_name is not None:
+            result['RoleName'] = self.role_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.auth_config_list = []
+        if m.get('AuthConfigList') is not None:
+            for k in m.get('AuthConfigList'):
+                temp_model = QueryOrganizationRoleConfigResponseBodyResultAuthConfigList()
+                self.auth_config_list.append(temp_model.from_map(k))
+        if m.get('IsSystemRole') is not None:
+            self.is_system_role = m.get('IsSystemRole')
+        if m.get('RoleId') is not None:
+            self.role_id = m.get('RoleId')
+        if m.get('RoleName') is not None:
+            self.role_name = m.get('RoleName')
+        return self
+
+
+class QueryOrganizationRoleConfigResponseBody(TeaModel):
+    def __init__(self, request_id=None, result=None, success=None):
+        self.request_id = request_id  # type: str
+        self.result = result  # type: QueryOrganizationRoleConfigResponseBodyResult
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super(QueryOrganizationRoleConfigResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.result is not None:
+            result['Result'] = self.result.to_map()
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Result') is not None:
+            temp_model = QueryOrganizationRoleConfigResponseBodyResult()
+            self.result = temp_model.from_map(m['Result'])
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class QueryOrganizationRoleConfigResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: QueryOrganizationRoleConfigResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryOrganizationRoleConfigResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = QueryOrganizationRoleConfigResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -12258,6 +13151,178 @@ class QueryWorksByWorkspaceResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = QueryWorksByWorkspaceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class QueryWorkspaceRoleConfigRequest(TeaModel):
+    def __init__(self, role_id=None):
+        self.role_id = role_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryWorkspaceRoleConfigRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.role_id is not None:
+            result['RoleId'] = self.role_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RoleId') is not None:
+            self.role_id = m.get('RoleId')
+        return self
+
+
+class QueryWorkspaceRoleConfigResponseBodyResultAuthConfigList(TeaModel):
+    def __init__(self, action_auth_keys=None, auth_key=None):
+        self.action_auth_keys = action_auth_keys  # type: list[str]
+        self.auth_key = auth_key  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryWorkspaceRoleConfigResponseBodyResultAuthConfigList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.action_auth_keys is not None:
+            result['ActionAuthKeys'] = self.action_auth_keys
+        if self.auth_key is not None:
+            result['AuthKey'] = self.auth_key
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ActionAuthKeys') is not None:
+            self.action_auth_keys = m.get('ActionAuthKeys')
+        if m.get('AuthKey') is not None:
+            self.auth_key = m.get('AuthKey')
+        return self
+
+
+class QueryWorkspaceRoleConfigResponseBodyResult(TeaModel):
+    def __init__(self, auth_config_list=None, is_system_role=None, role_id=None, role_name=None):
+        self.auth_config_list = auth_config_list  # type: list[QueryWorkspaceRoleConfigResponseBodyResultAuthConfigList]
+        self.is_system_role = is_system_role  # type: bool
+        self.role_id = role_id  # type: long
+        self.role_name = role_name  # type: str
+
+    def validate(self):
+        if self.auth_config_list:
+            for k in self.auth_config_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(QueryWorkspaceRoleConfigResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['AuthConfigList'] = []
+        if self.auth_config_list is not None:
+            for k in self.auth_config_list:
+                result['AuthConfigList'].append(k.to_map() if k else None)
+        if self.is_system_role is not None:
+            result['IsSystemRole'] = self.is_system_role
+        if self.role_id is not None:
+            result['RoleId'] = self.role_id
+        if self.role_name is not None:
+            result['RoleName'] = self.role_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.auth_config_list = []
+        if m.get('AuthConfigList') is not None:
+            for k in m.get('AuthConfigList'):
+                temp_model = QueryWorkspaceRoleConfigResponseBodyResultAuthConfigList()
+                self.auth_config_list.append(temp_model.from_map(k))
+        if m.get('IsSystemRole') is not None:
+            self.is_system_role = m.get('IsSystemRole')
+        if m.get('RoleId') is not None:
+            self.role_id = m.get('RoleId')
+        if m.get('RoleName') is not None:
+            self.role_name = m.get('RoleName')
+        return self
+
+
+class QueryWorkspaceRoleConfigResponseBody(TeaModel):
+    def __init__(self, request_id=None, result=None, success=None):
+        self.request_id = request_id  # type: str
+        self.result = result  # type: QueryWorkspaceRoleConfigResponseBodyResult
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super(QueryWorkspaceRoleConfigResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.result is not None:
+            result['Result'] = self.result.to_map()
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Result') is not None:
+            temp_model = QueryWorkspaceRoleConfigResponseBodyResult()
+            self.result = temp_model.from_map(m['Result'])
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class QueryWorkspaceRoleConfigResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: QueryWorkspaceRoleConfigResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryWorkspaceRoleConfigResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = QueryWorkspaceRoleConfigResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
