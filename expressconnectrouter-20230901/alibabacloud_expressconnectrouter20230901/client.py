@@ -764,38 +764,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.force_delete_express_connect_router_with_options(request, runtime)
 
-    def get_express_connect_router_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        body = {}
-        if not UtilClient.is_unset(request.client_token):
-            body['ClientToken'] = request.client_token
-        if not UtilClient.is_unset(request.dry_run):
-            body['DryRun'] = request.dry_run
-        if not UtilClient.is_unset(request.ecr_id):
-            body['EcrId'] = request.ecr_id
-        req = open_api_models.OpenApiRequest(
-            body=OpenApiUtilClient.parse_to_map(body)
-        )
-        params = open_api_models.Params(
-            action='GetExpressConnectRouter',
-            version='2023-09-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            express_connect_router_20230901_models.GetExpressConnectRouterResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def get_express_connect_router(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_express_connect_router_with_options(request, runtime)
-
     def grant_instance_to_express_connect_router_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
