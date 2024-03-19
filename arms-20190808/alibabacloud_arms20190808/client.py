@@ -1085,6 +1085,8 @@ class Client(OpenApiClient):
             query['EnvironmentSubType'] = request.environment_sub_type
         if not UtilClient.is_unset(request.environment_type):
             query['EnvironmentType'] = request.environment_type
+        if not UtilClient.is_unset(request.fee_package):
+            query['FeePackage'] = request.fee_package
         if not UtilClient.is_unset(request.managed_type):
             query['ManagedType'] = request.managed_type
         if not UtilClient.is_unset(request.prometheus_instance_id):
@@ -8163,6 +8165,8 @@ class Client(OpenApiClient):
             query['EnvironmentId'] = request.environment_id
         if not UtilClient.is_unset(request.environment_name):
             query['EnvironmentName'] = request.environment_name
+        if not UtilClient.is_unset(request.fee_package):
+            query['FeePackage'] = request.fee_package
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(

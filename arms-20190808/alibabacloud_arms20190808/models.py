@@ -5534,8 +5534,8 @@ class CreateEnvironmentRequestTags(TeaModel):
 
 class CreateEnvironmentRequest(TeaModel):
     def __init__(self, aliyun_lang=None, bind_resource_id=None, environment_name=None, environment_sub_type=None,
-                 environment_type=None, managed_type=None, prometheus_instance_id=None, region_id=None, resource_group_id=None,
-                 tags=None):
+                 environment_type=None, fee_package=None, managed_type=None, prometheus_instance_id=None, region_id=None,
+                 resource_group_id=None, tags=None):
         # The language. Valid values: zh and en. Default value: zh.
         self.aliyun_lang = aliyun_lang  # type: str
         # The ID of the resource bound to the environment, such as the container ID or VPC ID. For a Cloud environment, specify the region ID.
@@ -5554,6 +5554,7 @@ class CreateEnvironmentRequest(TeaModel):
         # *   ECS: Elastic Compute Service
         # *   Cloud: cloud service
         self.environment_type = environment_type  # type: str
+        self.fee_package = fee_package  # type: str
         # type of managed: 
         # - none: not managed. default value of prometheus for ACK.
         # - agent: managed agent. default value of  promehtues for ASK/ACS/AckOne.
@@ -5590,6 +5591,8 @@ class CreateEnvironmentRequest(TeaModel):
             result['EnvironmentSubType'] = self.environment_sub_type
         if self.environment_type is not None:
             result['EnvironmentType'] = self.environment_type
+        if self.fee_package is not None:
+            result['FeePackage'] = self.fee_package
         if self.managed_type is not None:
             result['ManagedType'] = self.managed_type
         if self.prometheus_instance_id is not None:
@@ -5616,6 +5619,8 @@ class CreateEnvironmentRequest(TeaModel):
             self.environment_sub_type = m.get('EnvironmentSubType')
         if m.get('EnvironmentType') is not None:
             self.environment_type = m.get('EnvironmentType')
+        if m.get('FeePackage') is not None:
+            self.fee_package = m.get('FeePackage')
         if m.get('ManagedType') is not None:
             self.managed_type = m.get('ManagedType')
         if m.get('PrometheusInstanceId') is not None:
@@ -11472,11 +11477,12 @@ class CreateTimingSyntheticTaskRequestMonitorConfApiHTTPRequestBody(TeaModel):
 
 
 class CreateTimingSyntheticTaskRequestMonitorConfApiHTTP(TeaModel):
-    def __init__(self, check_cert=None, connect_timeout=None, method=None, request_body=None, request_headers=None,
-                 target_url=None, timeout=None):
+    def __init__(self, check_cert=None, connect_timeout=None, method=None, protocol_alpn_protocol=None,
+                 request_body=None, request_headers=None, target_url=None, timeout=None):
         self.check_cert = check_cert  # type: bool
         self.connect_timeout = connect_timeout  # type: long
         self.method = method  # type: str
+        self.protocol_alpn_protocol = protocol_alpn_protocol  # type: int
         self.request_body = request_body  # type: CreateTimingSyntheticTaskRequestMonitorConfApiHTTPRequestBody
         self.request_headers = request_headers  # type: dict[str, str]
         self.target_url = target_url  # type: str
@@ -11498,6 +11504,8 @@ class CreateTimingSyntheticTaskRequestMonitorConfApiHTTP(TeaModel):
             result['ConnectTimeout'] = self.connect_timeout
         if self.method is not None:
             result['Method'] = self.method
+        if self.protocol_alpn_protocol is not None:
+            result['ProtocolAlpnProtocol'] = self.protocol_alpn_protocol
         if self.request_body is not None:
             result['RequestBody'] = self.request_body.to_map()
         if self.request_headers is not None:
@@ -11516,6 +11524,8 @@ class CreateTimingSyntheticTaskRequestMonitorConfApiHTTP(TeaModel):
             self.connect_timeout = m.get('ConnectTimeout')
         if m.get('Method') is not None:
             self.method = m.get('Method')
+        if m.get('ProtocolAlpnProtocol') is not None:
+            self.protocol_alpn_protocol = m.get('ProtocolAlpnProtocol')
         if m.get('RequestBody') is not None:
             temp_model = CreateTimingSyntheticTaskRequestMonitorConfApiHTTPRequestBody()
             self.request_body = temp_model.from_map(m['RequestBody'])
@@ -18547,10 +18557,10 @@ class DescribeEnvironmentResponseBodyDataTags(TeaModel):
 class DescribeEnvironmentResponseBodyData(TeaModel):
     def __init__(self, bind_resource_id=None, bind_resource_profile=None, bind_resource_status=None,
                  bind_resource_store_duration=None, bind_resource_type=None, bind_vpc_cidr=None, db_instance_status=None, environment_id=None,
-                 environment_name=None, environment_sub_type=None, environment_type=None, grafa_data_source_name=None,
-                 grafana_datasource_uid=None, grafana_folder_title=None, grafana_folder_uid=None, grafana_folder_url=None,
-                 managed_type=None, prometheus_instance_id=None, prometheus_instance_name=None, region_id=None,
-                 resource_group_id=None, tags=None, user_id=None, vpc_id=None):
+                 environment_name=None, environment_sub_type=None, environment_type=None, fee_package=None,
+                 grafa_data_source_name=None, grafana_datasource_uid=None, grafana_folder_title=None, grafana_folder_uid=None,
+                 grafana_folder_url=None, managed_type=None, prometheus_instance_id=None, prometheus_instance_name=None,
+                 region_id=None, resource_group_id=None, tags=None, user_id=None, vpc_id=None):
         # The ID of the resource associated with the environment, such as the ACK cluster ID or VPC ID.
         self.bind_resource_id = bind_resource_id  # type: str
         # The profile of the resource.
@@ -18579,6 +18589,7 @@ class DescribeEnvironmentResponseBodyData(TeaModel):
         # *   ECS: Elastic Compute Service
         # *   Cloud: cloud service
         self.environment_type = environment_type  # type: str
+        self.fee_package = fee_package  # type: str
         # The name of the Grafana data source.
         self.grafa_data_source_name = grafa_data_source_name  # type: str
         # The unique ID of the Grafana data source.
@@ -18643,6 +18654,8 @@ class DescribeEnvironmentResponseBodyData(TeaModel):
             result['EnvironmentSubType'] = self.environment_sub_type
         if self.environment_type is not None:
             result['EnvironmentType'] = self.environment_type
+        if self.fee_package is not None:
+            result['FeePackage'] = self.fee_package
         if self.grafa_data_source_name is not None:
             result['GrafaDataSourceName'] = self.grafa_data_source_name
         if self.grafana_datasource_uid is not None:
@@ -18697,6 +18710,8 @@ class DescribeEnvironmentResponseBodyData(TeaModel):
             self.environment_sub_type = m.get('EnvironmentSubType')
         if m.get('EnvironmentType') is not None:
             self.environment_type = m.get('EnvironmentType')
+        if m.get('FeePackage') is not None:
+            self.fee_package = m.get('FeePackage')
         if m.get('GrafaDataSourceName') is not None:
             self.grafa_data_source_name = m.get('GrafaDataSourceName')
         if m.get('GrafanaDatasourceUid') is not None:
@@ -22679,9 +22694,13 @@ class GetManagedPrometheusStatusResponse(TeaModel):
 
 class GetMultipleTraceRequest(TeaModel):
     def __init__(self, end_time=None, region_id=None, start_time=None, trace_ids=None):
+        # The time when the trace ends. The value is a timestamp. Unit: milliseconds.
         self.end_time = end_time  # type: long
+        # The region ID.
         self.region_id = region_id  # type: str
+        # The start time of the trace. The value is a timestamp. Unit: milliseconds.
         self.start_time = start_time  # type: long
+        # The trace IDs.
         self.trace_ids = trace_ids  # type: list[str]
 
     def validate(self):
@@ -22718,7 +22737,9 @@ class GetMultipleTraceRequest(TeaModel):
 
 class GetMultipleTraceResponseBodyMultiCallChainInfosSpansLogEventListTagEntryList(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag.
         self.key = key  # type: str
+        # The value of the tag.
         self.value = value  # type: str
 
     def validate(self):
@@ -22747,7 +22768,9 @@ class GetMultipleTraceResponseBodyMultiCallChainInfosSpansLogEventListTagEntryLi
 
 class GetMultipleTraceResponseBodyMultiCallChainInfosSpansLogEventList(TeaModel):
     def __init__(self, tag_entry_list=None, timestamp=None):
+        # The tags of the trace.
         self.tag_entry_list = tag_entry_list  # type: list[GetMultipleTraceResponseBodyMultiCallChainInfosSpansLogEventListTagEntryList]
+        # The time when the log was generated. The value is a timestamp.
         self.timestamp = timestamp  # type: long
 
     def validate(self):
@@ -22784,7 +22807,9 @@ class GetMultipleTraceResponseBodyMultiCallChainInfosSpansLogEventList(TeaModel)
 
 class GetMultipleTraceResponseBodyMultiCallChainInfosSpansTagEntryList(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag.
         self.key = key  # type: str
+        # The value of the tag.
         self.value = value  # type: str
 
     def validate(self):
@@ -22815,19 +22840,59 @@ class GetMultipleTraceResponseBodyMultiCallChainInfosSpans(TeaModel):
     def __init__(self, duration=None, have_stack=None, log_event_list=None, operation_name=None,
                  parent_span_id=None, result_code=None, rpc_id=None, rpc_type=None, service_ip=None, service_name=None,
                  span_id=None, tag_entry_list=None, timestamp=None, trace_id=None):
+        # The amount of time consumed by the trace. Unit: milliseconds.
         self.duration = duration  # type: long
+        # Indicates whether a method stack was provided.
+        # 
+        # *   `true`: A method stack was provided.
+        # *   `false`: No method stack was provided.
         self.have_stack = have_stack  # type: bool
+        # The log events in the trace.
         self.log_event_list = log_event_list  # type: list[GetMultipleTraceResponseBodyMultiCallChainInfosSpansLogEventList]
+        # The name of the traced span.
         self.operation_name = operation_name  # type: str
+        # The ID of the parent span.
         self.parent_span_id = parent_span_id  # type: str
+        # The status code returned.
         self.result_code = result_code  # type: str
+        # RPC ID
         self.rpc_id = rpc_id  # type: str
+        # The type of the remote procedure call (RPC) mode.
+        # 
+        # *   0: HTTP entry
+        # *   25: HTTP call
+        # *   1: High-speed Service Framework (HSF) call
+        # *   2: HSF provision
+        # *   40: on-premises API call
+        # *   60: MySQL call
+        # *   62: Oracle call
+        # *   63: PostgreSQL call
+        # *   70: Redis call
+        # *   4: Taobao Distributed Data Layer (TDDL) call
+        # *   5: Tair call
+        # *   13: MetaQ message sending
+        # *   252: MetaQ message receiving
+        # *   3: notification sending
+        # *   254: notification receiving
+        # *   7: Apache Dubbo call
+        # *   8: Apache Dubbo provision
+        # *   19: SOFARPC call
+        # *   18: SOFARPC provision
+        # *   11: Distributed Service Framework (DSF) call
+        # *   12: DSF provision
+        # *   \-1: unknown call
         self.rpc_type = rpc_type  # type: int
+        # The IP address of the host where the application resides.
         self.service_ip = service_ip  # type: str
+        # The name of the application.
         self.service_name = service_name  # type: str
+        # The span ID.
         self.span_id = span_id  # type: str
+        # The tags of the trace.
         self.tag_entry_list = tag_entry_list  # type: list[GetMultipleTraceResponseBodyMultiCallChainInfosSpansTagEntryList]
+        # The timestamp.
         self.timestamp = timestamp  # type: long
+        # The trace ID.
         self.trace_id = trace_id  # type: str
 
     def validate(self):
@@ -22921,7 +22986,9 @@ class GetMultipleTraceResponseBodyMultiCallChainInfosSpans(TeaModel):
 
 class GetMultipleTraceResponseBodyMultiCallChainInfos(TeaModel):
     def __init__(self, spans=None, trace_id=None):
+        # The details of the trace.
         self.spans = spans  # type: list[GetMultipleTraceResponseBodyMultiCallChainInfosSpans]
+        # The trace ID.
         self.trace_id = trace_id  # type: str
 
     def validate(self):
@@ -22958,7 +23025,9 @@ class GetMultipleTraceResponseBodyMultiCallChainInfos(TeaModel):
 
 class GetMultipleTraceResponseBody(TeaModel):
     def __init__(self, multi_call_chain_infos=None, request_id=None):
+        # The details of traces.
         self.multi_call_chain_infos = multi_call_chain_infos  # type: list[GetMultipleTraceResponseBodyMultiCallChainInfos]
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -27910,8 +27979,8 @@ class GetTimingSyntheticTaskResponseBodyDataMonitorConfApiHTTPRequestBody(TeaMod
 
 
 class GetTimingSyntheticTaskResponseBodyDataMonitorConfApiHTTP(TeaModel):
-    def __init__(self, check_cert=None, connect_timeout=None, method=None, request_body=None, request_headers=None,
-                 target_url=None, timeout=None):
+    def __init__(self, check_cert=None, connect_timeout=None, method=None, protocol_alpn_protocol=None,
+                 request_body=None, request_headers=None, target_url=None, timeout=None):
         self.check_cert = check_cert  # type: bool
         # The connection timeout period. Unit: milliseconds. Default value: 5000. Minimum value: 1000. Maximum value: 300000.
         self.connect_timeout = connect_timeout  # type: long
@@ -27920,6 +27989,7 @@ class GetTimingSyntheticTaskResponseBodyDataMonitorConfApiHTTP(TeaModel):
         # *   POST
         # *   GET
         self.method = method  # type: str
+        self.protocol_alpn_protocol = protocol_alpn_protocol  # type: int
         # The HTTP request body.
         self.request_body = request_body  # type: GetTimingSyntheticTaskResponseBodyDataMonitorConfApiHTTPRequestBody
         # The HTTP request header.
@@ -27945,6 +28015,8 @@ class GetTimingSyntheticTaskResponseBodyDataMonitorConfApiHTTP(TeaModel):
             result['ConnectTimeout'] = self.connect_timeout
         if self.method is not None:
             result['Method'] = self.method
+        if self.protocol_alpn_protocol is not None:
+            result['ProtocolAlpnProtocol'] = self.protocol_alpn_protocol
         if self.request_body is not None:
             result['RequestBody'] = self.request_body.to_map()
         if self.request_headers is not None:
@@ -27963,6 +28035,8 @@ class GetTimingSyntheticTaskResponseBodyDataMonitorConfApiHTTP(TeaModel):
             self.connect_timeout = m.get('ConnectTimeout')
         if m.get('Method') is not None:
             self.method = m.get('Method')
+        if m.get('ProtocolAlpnProtocol') is not None:
+            self.protocol_alpn_protocol = m.get('ProtocolAlpnProtocol')
         if m.get('RequestBody') is not None:
             temp_model = GetTimingSyntheticTaskResponseBodyDataMonitorConfApiHTTPRequestBody()
             self.request_body = temp_model.from_map(m['RequestBody'])
@@ -50034,13 +50108,15 @@ class UpdateEnvServiceMonitorResponse(TeaModel):
 
 
 class UpdateEnvironmentRequest(TeaModel):
-    def __init__(self, aliyun_lang=None, environment_id=None, environment_name=None, region_id=None):
+    def __init__(self, aliyun_lang=None, environment_id=None, environment_name=None, fee_package=None,
+                 region_id=None):
         # Locale, the default is Chinese zh | en.
         self.aliyun_lang = aliyun_lang  # type: str
         # Environment ID.
         self.environment_id = environment_id  # type: str
         # Environment name.
         self.environment_name = environment_name  # type: str
+        self.fee_package = fee_package  # type: str
         # The region ID.
         self.region_id = region_id  # type: str
 
@@ -50059,6 +50135,8 @@ class UpdateEnvironmentRequest(TeaModel):
             result['EnvironmentId'] = self.environment_id
         if self.environment_name is not None:
             result['EnvironmentName'] = self.environment_name
+        if self.fee_package is not None:
+            result['FeePackage'] = self.fee_package
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         return result
@@ -50071,6 +50149,8 @@ class UpdateEnvironmentRequest(TeaModel):
             self.environment_id = m.get('EnvironmentId')
         if m.get('EnvironmentName') is not None:
             self.environment_name = m.get('EnvironmentName')
+        if m.get('FeePackage') is not None:
+            self.fee_package = m.get('FeePackage')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         return self
@@ -52289,8 +52369,8 @@ class UpdateTimingSyntheticTaskRequestMonitorConfApiHTTPRequestBody(TeaModel):
 
 
 class UpdateTimingSyntheticTaskRequestMonitorConfApiHTTP(TeaModel):
-    def __init__(self, check_cert=None, connect_timeout=None, method=None, request_body=None, request_headers=None,
-                 target_url=None, timeout=None):
+    def __init__(self, check_cert=None, connect_timeout=None, method=None, protocol_alpn_protocol=None,
+                 request_body=None, request_headers=None, target_url=None, timeout=None):
         self.check_cert = check_cert  # type: bool
         # The connection timeout period. Unit: milliseconds. Default value: 5000. Minimum value: 1000. Maximum value: 300000.
         self.connect_timeout = connect_timeout  # type: long
@@ -52299,6 +52379,7 @@ class UpdateTimingSyntheticTaskRequestMonitorConfApiHTTP(TeaModel):
         # *   POST
         # *   GET
         self.method = method  # type: str
+        self.protocol_alpn_protocol = protocol_alpn_protocol  # type: int
         # The HTTP request body.
         self.request_body = request_body  # type: UpdateTimingSyntheticTaskRequestMonitorConfApiHTTPRequestBody
         # The custom header field.
@@ -52324,6 +52405,8 @@ class UpdateTimingSyntheticTaskRequestMonitorConfApiHTTP(TeaModel):
             result['ConnectTimeout'] = self.connect_timeout
         if self.method is not None:
             result['Method'] = self.method
+        if self.protocol_alpn_protocol is not None:
+            result['ProtocolAlpnProtocol'] = self.protocol_alpn_protocol
         if self.request_body is not None:
             result['RequestBody'] = self.request_body.to_map()
         if self.request_headers is not None:
@@ -52342,6 +52425,8 @@ class UpdateTimingSyntheticTaskRequestMonitorConfApiHTTP(TeaModel):
             self.connect_timeout = m.get('ConnectTimeout')
         if m.get('Method') is not None:
             self.method = m.get('Method')
+        if m.get('ProtocolAlpnProtocol') is not None:
+            self.protocol_alpn_protocol = m.get('ProtocolAlpnProtocol')
         if m.get('RequestBody') is not None:
             temp_model = UpdateTimingSyntheticTaskRequestMonitorConfApiHTTPRequestBody()
             self.request_body = temp_model.from_map(m['RequestBody'])
