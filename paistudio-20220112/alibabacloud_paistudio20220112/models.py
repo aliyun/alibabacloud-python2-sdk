@@ -1585,20 +1585,32 @@ class Permission(TeaModel):
 
 
 class QueueInfo(TeaModel):
-    def __init__(self, gmt_enqueued_time=None, gmt_position_modified_time=None, position=None, priority=None,
-                 queue_strategy=None, quota_id=None, workload_id=None, workload_type=None, workspace_id=None):
+    def __init__(self, code=None, code_type=None, gmt_dequeued_time=None, gmt_enqueued_time=None,
+                 gmt_position_modified_time=None, name=None, position=None, priority=None, queue_strategy=None, quota_id=None, reason=None,
+                 resource=None, status=None, sub_status=None, user_id=None, workload_id=None, workload_type=None,
+                 workspace_id=None):
+        self.code = code  # type: str
+        self.code_type = code_type  # type: str
+        self.gmt_dequeued_time = gmt_dequeued_time  # type: str
         self.gmt_enqueued_time = gmt_enqueued_time  # type: str
         self.gmt_position_modified_time = gmt_position_modified_time  # type: str
+        self.name = name  # type: str
         self.position = position  # type: long
         self.priority = priority  # type: long
         self.queue_strategy = queue_strategy  # type: str
         self.quota_id = quota_id  # type: str
+        self.reason = reason  # type: str
+        self.resource = resource  # type: ResourceAmount
+        self.status = status  # type: str
+        self.sub_status = sub_status  # type: str
+        self.user_id = user_id  # type: str
         self.workload_id = workload_id  # type: str
         self.workload_type = workload_type  # type: str
         self.workspace_id = workspace_id  # type: str
 
     def validate(self):
-        pass
+        if self.resource:
+            self.resource.validate()
 
     def to_map(self):
         _map = super(QueueInfo, self).to_map()
@@ -1606,10 +1618,18 @@ class QueueInfo(TeaModel):
             return _map
 
         result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.code_type is not None:
+            result['CodeType'] = self.code_type
+        if self.gmt_dequeued_time is not None:
+            result['GmtDequeuedTime'] = self.gmt_dequeued_time
         if self.gmt_enqueued_time is not None:
             result['GmtEnqueuedTime'] = self.gmt_enqueued_time
         if self.gmt_position_modified_time is not None:
             result['GmtPositionModifiedTime'] = self.gmt_position_modified_time
+        if self.name is not None:
+            result['Name'] = self.name
         if self.position is not None:
             result['Position'] = self.position
         if self.priority is not None:
@@ -1618,6 +1638,16 @@ class QueueInfo(TeaModel):
             result['QueueStrategy'] = self.queue_strategy
         if self.quota_id is not None:
             result['QuotaId'] = self.quota_id
+        if self.reason is not None:
+            result['Reason'] = self.reason
+        if self.resource is not None:
+            result['Resource'] = self.resource.to_map()
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.sub_status is not None:
+            result['SubStatus'] = self.sub_status
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
         if self.workload_id is not None:
             result['WorkloadId'] = self.workload_id
         if self.workload_type is not None:
@@ -1628,10 +1658,18 @@ class QueueInfo(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('CodeType') is not None:
+            self.code_type = m.get('CodeType')
+        if m.get('GmtDequeuedTime') is not None:
+            self.gmt_dequeued_time = m.get('GmtDequeuedTime')
         if m.get('GmtEnqueuedTime') is not None:
             self.gmt_enqueued_time = m.get('GmtEnqueuedTime')
         if m.get('GmtPositionModifiedTime') is not None:
             self.gmt_position_modified_time = m.get('GmtPositionModifiedTime')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
         if m.get('Position') is not None:
             self.position = m.get('Position')
         if m.get('Priority') is not None:
@@ -1640,6 +1678,17 @@ class QueueInfo(TeaModel):
             self.queue_strategy = m.get('QueueStrategy')
         if m.get('QuotaId') is not None:
             self.quota_id = m.get('QuotaId')
+        if m.get('Reason') is not None:
+            self.reason = m.get('Reason')
+        if m.get('Resource') is not None:
+            temp_model = ResourceAmount()
+            self.resource = temp_model.from_map(m['Resource'])
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('SubStatus') is not None:
+            self.sub_status = m.get('SubStatus')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
         if m.get('WorkloadId') is not None:
             self.workload_id = m.get('WorkloadId')
         if m.get('WorkloadType') is not None:
@@ -1812,11 +1861,12 @@ class Quota(TeaModel):
 
 
 class QuotaConfig(TeaModel):
-    def __init__(self, acs=None, cluster_id=None, default_gpudriver=None, support_gpudrivers=None,
-                 support_rdma=None, user_vpc=None):
+    def __init__(self, acs=None, cluster_id=None, default_gpudriver=None, resource_specs=None,
+                 support_gpudrivers=None, support_rdma=None, user_vpc=None):
         self.acs = acs  # type: ACS
         self.cluster_id = cluster_id  # type: str
         self.default_gpudriver = default_gpudriver  # type: str
+        self.resource_specs = resource_specs  # type: list[WorkspaceSpecs]
         self.support_gpudrivers = support_gpudrivers  # type: list[str]
         self.support_rdma = support_rdma  # type: bool
         self.user_vpc = user_vpc  # type: UserVpc
@@ -1824,6 +1874,10 @@ class QuotaConfig(TeaModel):
     def validate(self):
         if self.acs:
             self.acs.validate()
+        if self.resource_specs:
+            for k in self.resource_specs:
+                if k:
+                    k.validate()
         if self.user_vpc:
             self.user_vpc.validate()
 
@@ -1839,6 +1893,10 @@ class QuotaConfig(TeaModel):
             result['ClusterId'] = self.cluster_id
         if self.default_gpudriver is not None:
             result['DefaultGPUDriver'] = self.default_gpudriver
+        result['ResourceSpecs'] = []
+        if self.resource_specs is not None:
+            for k in self.resource_specs:
+                result['ResourceSpecs'].append(k.to_map() if k else None)
         if self.support_gpudrivers is not None:
             result['SupportGPUDrivers'] = self.support_gpudrivers
         if self.support_rdma is not None:
@@ -1856,6 +1914,11 @@ class QuotaConfig(TeaModel):
             self.cluster_id = m.get('ClusterId')
         if m.get('DefaultGPUDriver') is not None:
             self.default_gpudriver = m.get('DefaultGPUDriver')
+        self.resource_specs = []
+        if m.get('ResourceSpecs') is not None:
+            for k in m.get('ResourceSpecs'):
+                temp_model = WorkspaceSpecs()
+                self.resource_specs.append(temp_model.from_map(k))
         if m.get('SupportGPUDrivers') is not None:
             self.support_gpudrivers = m.get('SupportGPUDrivers')
         if m.get('SupportRDMA') is not None:
@@ -2828,6 +2891,105 @@ class WorkspaceIdName(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('WorkspaceId') is not None:
+            self.workspace_id = m.get('WorkspaceId')
+        return self
+
+
+class WorkspaceSpec(TeaModel):
+    def __init__(self, code=None, code_type=None, is_guaranteed_valid=None, is_over_sold_valid=None, reason=None,
+                 spec=None, spec_name=None):
+        self.code = code  # type: str
+        self.code_type = code_type  # type: str
+        self.is_guaranteed_valid = is_guaranteed_valid  # type: bool
+        self.is_over_sold_valid = is_over_sold_valid  # type: bool
+        self.reason = reason  # type: str
+        self.spec = spec  # type: ResourceAmount
+        self.spec_name = spec_name  # type: str
+
+    def validate(self):
+        if self.spec:
+            self.spec.validate()
+
+    def to_map(self):
+        _map = super(WorkspaceSpec, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.code_type is not None:
+            result['CodeType'] = self.code_type
+        if self.is_guaranteed_valid is not None:
+            result['IsGuaranteedValid'] = self.is_guaranteed_valid
+        if self.is_over_sold_valid is not None:
+            result['IsOverSoldValid'] = self.is_over_sold_valid
+        if self.reason is not None:
+            result['Reason'] = self.reason
+        if self.spec is not None:
+            result['Spec'] = self.spec.to_map()
+        if self.spec_name is not None:
+            result['SpecName'] = self.spec_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('CodeType') is not None:
+            self.code_type = m.get('CodeType')
+        if m.get('IsGuaranteedValid') is not None:
+            self.is_guaranteed_valid = m.get('IsGuaranteedValid')
+        if m.get('IsOverSoldValid') is not None:
+            self.is_over_sold_valid = m.get('IsOverSoldValid')
+        if m.get('Reason') is not None:
+            self.reason = m.get('Reason')
+        if m.get('Spec') is not None:
+            temp_model = ResourceAmount()
+            self.spec = temp_model.from_map(m['Spec'])
+        if m.get('SpecName') is not None:
+            self.spec_name = m.get('SpecName')
+        return self
+
+
+class WorkspaceSpecs(TeaModel):
+    def __init__(self, product=None, specs=None, workspace_id=None):
+        self.product = product  # type: str
+        self.specs = specs  # type: list[WorkspaceSpec]
+        self.workspace_id = workspace_id  # type: str
+
+    def validate(self):
+        if self.specs:
+            for k in self.specs:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(WorkspaceSpecs, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.product is not None:
+            result['Product'] = self.product
+        result['Specs'] = []
+        if self.specs is not None:
+            for k in self.specs:
+                result['Specs'].append(k.to_map() if k else None)
+        if self.workspace_id is not None:
+            result['WorkspaceId'] = self.workspace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Product') is not None:
+            self.product = m.get('Product')
+        self.specs = []
+        if m.get('Specs') is not None:
+            for k in m.get('Specs'):
+                temp_model = WorkspaceSpec()
+                self.specs.append(temp_model.from_map(k))
         if m.get('WorkspaceId') is not None:
             self.workspace_id = m.get('WorkspaceId')
         return self
@@ -7130,9 +7292,10 @@ class ListQuotasRequest(TeaModel):
 
 
 class ListQuotasResponseBody(TeaModel):
-    def __init__(self, quotas=None, request_id=None):
+    def __init__(self, quotas=None, request_id=None, total_count=None):
         self.quotas = quotas  # type: list[Quota]
         self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
 
     def validate(self):
         if self.quotas:
@@ -7152,6 +7315,8 @@ class ListQuotasResponseBody(TeaModel):
                 result['Quotas'].append(k.to_map() if k else None)
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
         return result
 
     def from_map(self, m=None):
@@ -7163,6 +7328,8 @@ class ListQuotasResponseBody(TeaModel):
                 self.quotas.append(temp_model.from_map(k))
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
         return self
 
 
