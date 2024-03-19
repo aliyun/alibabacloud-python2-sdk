@@ -4875,6 +4875,128 @@ class Client(OpenApiClient):
         headers = btrip_open_20220520_models.InsureRefundDetailHeaders()
         return self.insure_refund_detail_with_options(request, headers, runtime)
 
+    def intl_flight_create_order_with_options(self, tmp_req, headers, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = btrip_open_20220520_models.IntlFlightCreateOrderShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.contact_info):
+            request.contact_info_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.contact_info, 'contact_info', 'json')
+        if not UtilClient.is_unset(tmp_req.cost_center):
+            request.cost_center_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.cost_center, 'cost_center', 'json')
+        if not UtilClient.is_unset(tmp_req.extra_info):
+            request.extra_info_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.extra_info, 'extra_info', 'json')
+        if not UtilClient.is_unset(tmp_req.passenger_list):
+            request.passenger_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.passenger_list, 'passenger_list', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.async_create_order_key):
+            query['async_create_order_key'] = request.async_create_order_key
+        if not UtilClient.is_unset(request.async_create_order_mode):
+            query['async_create_order_mode'] = request.async_create_order_mode
+        if not UtilClient.is_unset(request.contact_info_shrink):
+            query['contact_info'] = request.contact_info_shrink
+        if not UtilClient.is_unset(request.cost_center_shrink):
+            query['cost_center'] = request.cost_center_shrink
+        if not UtilClient.is_unset(request.extra_info_shrink):
+            query['extra_info'] = request.extra_info_shrink
+        if not UtilClient.is_unset(request.isv_name):
+            query['isv_name'] = request.isv_name
+        if not UtilClient.is_unset(request.language):
+            query['language'] = request.language
+        if not UtilClient.is_unset(request.ota_item_id):
+            query['ota_item_id'] = request.ota_item_id
+        if not UtilClient.is_unset(request.out_order_id):
+            query['out_order_id'] = request.out_order_id
+        if not UtilClient.is_unset(request.passenger_list_shrink):
+            query['passenger_list'] = request.passenger_list_shrink
+        if not UtilClient.is_unset(request.render_key):
+            query['render_key'] = request.render_key
+        if not UtilClient.is_unset(request.total_price_cent):
+            query['total_price_cent'] = request.total_price_cent
+        if not UtilClient.is_unset(request.user_id):
+            query['user_id'] = request.user_id
+        if not UtilClient.is_unset(request.user_name):
+            query['user_name'] = request.user_name
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_acs_btrip_corp_token):
+            real_headers['x-acs-btrip-corp-token'] = UtilClient.to_jsonstring(headers.x_acs_btrip_corp_token)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='IntlFlightCreateOrder',
+            version='2022-05-20',
+            protocol='HTTPS',
+            pathname='/intl-flight/v1/order/action/create',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            btrip_open_20220520_models.IntlFlightCreateOrderResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def intl_flight_create_order(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = btrip_open_20220520_models.IntlFlightCreateOrderHeaders()
+        return self.intl_flight_create_order_with_options(request, headers, runtime)
+
+    def intl_flight_inventory_price_check_with_options(self, tmp_req, headers, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = btrip_open_20220520_models.IntlFlightInventoryPriceCheckShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.passenger_list):
+            request.passenger_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.passenger_list, 'passenger_list', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.isv_name):
+            query['isv_name'] = request.isv_name
+        if not UtilClient.is_unset(request.language):
+            query['language'] = request.language
+        if not UtilClient.is_unset(request.order_price):
+            query['order_price'] = request.order_price
+        if not UtilClient.is_unset(request.ota_item_id):
+            query['ota_item_id'] = request.ota_item_id
+        if not UtilClient.is_unset(request.passenger_list_shrink):
+            query['passenger_list'] = request.passenger_list_shrink
+        if not UtilClient.is_unset(request.user_id):
+            query['user_id'] = request.user_id
+        if not UtilClient.is_unset(request.user_name):
+            query['user_name'] = request.user_name
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_acs_btrip_corp_token):
+            real_headers['x-acs-btrip-corp-token'] = UtilClient.to_jsonstring(headers.x_acs_btrip_corp_token)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='IntlFlightInventoryPriceCheck',
+            version='2022-05-20',
+            protocol='HTTPS',
+            pathname='/intl-flight/v1/flights/action/inventory-price-check',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            btrip_open_20220520_models.IntlFlightInventoryPriceCheckResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def intl_flight_inventory_price_check(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = btrip_open_20220520_models.IntlFlightInventoryPriceCheckHeaders()
+        return self.intl_flight_inventory_price_check_with_options(request, headers, runtime)
+
     def intl_flight_listing_search_with_options(self, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
         request = btrip_open_20220520_models.IntlFlightListingSearchShrinkRequest()
@@ -4943,6 +5065,172 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = btrip_open_20220520_models.IntlFlightListingSearchHeaders()
         return self.intl_flight_listing_search_with_options(request, headers, runtime)
+
+    def intl_flight_order_cancel_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.isv_name):
+            query['isv_name'] = request.isv_name
+        if not UtilClient.is_unset(request.memo):
+            query['memo'] = request.memo
+        if not UtilClient.is_unset(request.order_id):
+            query['order_id'] = request.order_id
+        if not UtilClient.is_unset(request.out_order_id):
+            query['out_order_id'] = request.out_order_id
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_acs_btrip_corp_token):
+            real_headers['x-acs-btrip-corp-token'] = UtilClient.to_jsonstring(headers.x_acs_btrip_corp_token)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='IntlFlightOrderCancel',
+            version='2022-05-20',
+            protocol='HTTPS',
+            pathname='/intl-flight/v1/order/action/cancel',
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            btrip_open_20220520_models.IntlFlightOrderCancelResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def intl_flight_order_cancel(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = btrip_open_20220520_models.IntlFlightOrderCancelHeaders()
+        return self.intl_flight_order_cancel_with_options(request, headers, runtime)
+
+    def intl_flight_order_detail_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.isv_name):
+            query['isv_name'] = request.isv_name
+        if not UtilClient.is_unset(request.order_id):
+            query['order_id'] = request.order_id
+        if not UtilClient.is_unset(request.out_order_id):
+            query['out_order_id'] = request.out_order_id
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_acs_btrip_corp_token):
+            real_headers['x-acs-btrip-corp-token'] = UtilClient.to_jsonstring(headers.x_acs_btrip_corp_token)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='IntlFlightOrderDetail',
+            version='2022-05-20',
+            protocol='HTTPS',
+            pathname='/intl-flight/v1/order/action/detail',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            btrip_open_20220520_models.IntlFlightOrderDetailResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def intl_flight_order_detail(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = btrip_open_20220520_models.IntlFlightOrderDetailHeaders()
+        return self.intl_flight_order_detail_with_options(request, headers, runtime)
+
+    def intl_flight_order_pay_with_options(self, tmp_req, headers, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = btrip_open_20220520_models.IntlFlightOrderPayShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.ext_params):
+            request.ext_params_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ext_params, 'ext_params', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.ext_params_shrink):
+            query['ext_params'] = request.ext_params_shrink
+        if not UtilClient.is_unset(request.isv_name):
+            query['isv_name'] = request.isv_name
+        if not UtilClient.is_unset(request.order_id):
+            query['order_id'] = request.order_id
+        if not UtilClient.is_unset(request.out_order_id):
+            query['out_order_id'] = request.out_order_id
+        if not UtilClient.is_unset(request.total_price):
+            query['total_price'] = request.total_price
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_acs_btrip_corp_token):
+            real_headers['x-acs-btrip-corp-token'] = UtilClient.to_jsonstring(headers.x_acs_btrip_corp_token)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='IntlFlightOrderPay',
+            version='2022-05-20',
+            protocol='HTTPS',
+            pathname='/intl-flight/v1/order/action/pay',
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            btrip_open_20220520_models.IntlFlightOrderPayResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def intl_flight_order_pay(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = btrip_open_20220520_models.IntlFlightOrderPayHeaders()
+        return self.intl_flight_order_pay_with_options(request, headers, runtime)
+
+    def intl_flight_order_pay_check_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.isv_name):
+            query['isv_name'] = request.isv_name
+        if not UtilClient.is_unset(request.order_id):
+            query['order_id'] = request.order_id
+        if not UtilClient.is_unset(request.out_order_id):
+            query['out_order_id'] = request.out_order_id
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_acs_btrip_corp_token):
+            real_headers['x-acs-btrip-corp-token'] = UtilClient.to_jsonstring(headers.x_acs_btrip_corp_token)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='IntlFlightOrderPayCheck',
+            version='2022-05-20',
+            protocol='HTTPS',
+            pathname='/intl-flight/v1/order/action/pay-check',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            btrip_open_20220520_models.IntlFlightOrderPayCheckResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def intl_flight_order_pay_check(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = btrip_open_20220520_models.IntlFlightOrderPayCheckHeaders()
+        return self.intl_flight_order_pay_check_with_options(request, headers, runtime)
 
     def intl_flight_ota_item_detail_with_options(self, ota_item_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -5047,6 +5335,47 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = btrip_open_20220520_models.IntlFlightOtaSearchHeaders()
         return self.intl_flight_ota_search_with_options(request, headers, runtime)
+
+    def intl_flight_segment_available_cert_with_options(self, ota_item_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.isv_name):
+            query['isv_name'] = request.isv_name
+        if not UtilClient.is_unset(request.language):
+            query['language'] = request.language
+        if not UtilClient.is_unset(request.user_id):
+            query['user_id'] = request.user_id
+        if not UtilClient.is_unset(request.user_name):
+            query['user_name'] = request.user_name
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_acs_btrip_corp_token):
+            real_headers['x-acs-btrip-corp-token'] = UtilClient.to_jsonstring(headers.x_acs_btrip_corp_token)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='IntlFlightSegmentAvailableCert',
+            version='2022-05-20',
+            protocol='HTTPS',
+            pathname='/intl-flight/v1/items/%s/action/segment-available-cert' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(ota_item_id)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            btrip_open_20220520_models.IntlFlightSegmentAvailableCertResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def intl_flight_segment_available_cert(self, ota_item_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = btrip_open_20220520_models.IntlFlightSegmentAvailableCertHeaders()
+        return self.intl_flight_segment_available_cert_with_options(ota_item_id, request, headers, runtime)
 
     def invoice_add_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -5438,6 +5767,47 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = btrip_open_20220520_models.IsvUserSaveHeaders()
         return self.isv_user_save_with_options(request, headers, runtime)
+
+    def meal_bill_settlement_query_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.page_no):
+            query['page_no'] = request.page_no
+        if not UtilClient.is_unset(request.page_size):
+            query['page_size'] = request.page_size
+        if not UtilClient.is_unset(request.period_end):
+            query['period_end'] = request.period_end
+        if not UtilClient.is_unset(request.period_start):
+            query['period_start'] = request.period_start
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_acs_btrip_so_corp_token):
+            real_headers['x-acs-btrip-so-corp-token'] = UtilClient.to_jsonstring(headers.x_acs_btrip_so_corp_token)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='MealBillSettlementQuery',
+            version='2022-05-20',
+            protocol='HTTPS',
+            pathname='/meal/v1/bill-settlement',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            btrip_open_20220520_models.MealBillSettlementQueryResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def meal_bill_settlement_query(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = btrip_open_20220520_models.MealBillSettlementQueryHeaders()
+        return self.meal_bill_settlement_query_with_options(request, headers, runtime)
 
     def month_bill_confirm_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
