@@ -273,6 +273,8 @@ class Client(OpenApiClient):
     def recognize_basic_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.need_rotate):
+            query['NeedRotate'] = request.need_rotate
         if not UtilClient.is_unset(request.url):
             query['Url'] = request.url
         req = open_api_models.OpenApiRequest(

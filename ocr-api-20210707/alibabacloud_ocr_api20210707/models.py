@@ -3136,7 +3136,8 @@ class RecognizeBankCardResponse(TeaModel):
 
 
 class RecognizeBasicRequest(TeaModel):
-    def __init__(self, url=None, body=None):
+    def __init__(self, need_rotate=None, url=None, body=None):
+        self.need_rotate = need_rotate  # type: bool
         self.url = url  # type: str
         self.body = body  # type: READABLE
 
@@ -3149,6 +3150,8 @@ class RecognizeBasicRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.need_rotate is not None:
+            result['NeedRotate'] = self.need_rotate
         if self.url is not None:
             result['Url'] = self.url
         if self.body is not None:
@@ -3157,6 +3160,8 @@ class RecognizeBasicRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('NeedRotate') is not None:
+            self.need_rotate = m.get('NeedRotate')
         if m.get('Url') is not None:
             self.url = m.get('Url')
         if m.get('body') is not None:
