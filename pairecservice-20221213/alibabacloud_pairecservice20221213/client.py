@@ -3268,3 +3268,39 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_table_meta_with_options(table_meta_id, request, headers, runtime)
+
+    def upload_recommendation_data_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        body = {}
+        if not UtilClient.is_unset(request.content):
+            body['Content'] = request.content
+        if not UtilClient.is_unset(request.data_type):
+            body['DataType'] = request.data_type
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UploadRecommendationData',
+            version='2022-12-13',
+            protocol='HTTPS',
+            pathname='/api/v1/recommendationdata/action/upload',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_rec_service_20221213_models.UploadRecommendationDataResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def upload_recommendation_data(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_recommendation_data_with_options(request, headers, runtime)

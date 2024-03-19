@@ -12457,3 +12457,139 @@ class UpdateTableMetaResponse(TeaModel):
         return self
 
 
+class UploadRecommendationDataRequestContent(TeaModel):
+    def __init__(self, fields=None, operation_type=None):
+        self.fields = fields  # type: str
+        self.operation_type = operation_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UploadRecommendationDataRequestContent, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.fields is not None:
+            result['Fields'] = self.fields
+        if self.operation_type is not None:
+            result['OperationType'] = self.operation_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Fields') is not None:
+            self.fields = m.get('Fields')
+        if m.get('OperationType') is not None:
+            self.operation_type = m.get('OperationType')
+        return self
+
+
+class UploadRecommendationDataRequest(TeaModel):
+    def __init__(self, region_id=None, content=None, data_type=None):
+        self.region_id = region_id  # type: str
+        self.content = content  # type: list[UploadRecommendationDataRequestContent]
+        self.data_type = data_type  # type: str
+
+    def validate(self):
+        if self.content:
+            for k in self.content:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(UploadRecommendationDataRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        result['Content'] = []
+        if self.content is not None:
+            for k in self.content:
+                result['Content'].append(k.to_map() if k else None)
+        if self.data_type is not None:
+            result['DataType'] = self.data_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        self.content = []
+        if m.get('Content') is not None:
+            for k in m.get('Content'):
+                temp_model = UploadRecommendationDataRequestContent()
+                self.content.append(temp_model.from_map(k))
+        if m.get('DataType') is not None:
+            self.data_type = m.get('DataType')
+        return self
+
+
+class UploadRecommendationDataResponseBody(TeaModel):
+    def __init__(self, message=None, request_id=None):
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UploadRecommendationDataResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UploadRecommendationDataResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UploadRecommendationDataResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UploadRecommendationDataResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UploadRecommendationDataResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
