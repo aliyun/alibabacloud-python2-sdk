@@ -166,19 +166,6 @@ class Client(OpenApiClient):
         return self.create_cluster_with_options(instance_id, request, headers, runtime)
 
     def create_data_source_with_options(self, instance_id, request, headers, runtime):
-        """
-        The result returned
-        
-
-        @param request: CreateDataSourceRequest
-
-        @type headers: dict
-        @param headers: map
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: CreateDataSourceResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dry_run):
@@ -218,14 +205,6 @@ class Client(OpenApiClient):
         )
 
     def create_data_source(self, instance_id, request):
-        """
-        The result returned
-        
-
-        @param request: CreateDataSourceRequest
-
-        @return: CreateDataSourceResponse
-        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.create_data_source_with_options(instance_id, request, headers, runtime)
@@ -470,7 +449,10 @@ class Client(OpenApiClient):
 
     def delete_index_with_options(self, instance_id, index_name, request, headers, runtime):
         """
-        The information about the index
+        ## Method
+        DELETE
+        ## URI
+        /openapi/ha3/instances/{instanceId}/indexes/{indexName}?dataSource=xxx
         
 
         @param request: DeleteIndexRequest
@@ -510,7 +492,10 @@ class Client(OpenApiClient):
 
     def delete_index(self, instance_id, index_name, request):
         """
-        The information about the index
+        ## Method
+        DELETE
+        ## URI
+        /openapi/ha3/instances/{instanceId}/indexes/{indexName}?dataSource=xxx
         
 
         @param request: DeleteIndexRequest
@@ -523,7 +508,10 @@ class Client(OpenApiClient):
 
     def delete_index_version_with_options(self, instance_id, index_name, version_name, headers, runtime):
         """
-        The result
+        ## Method
+        DELETE
+        ## URI
+        /openapi/ha3/instances/{instanceId}/indexes/{indexName}/versions/{versionName}
         
 
         @type headers: dict
@@ -554,7 +542,10 @@ class Client(OpenApiClient):
 
     def delete_index_version(self, instance_id, index_name, version_name):
         """
-        The result
+        ## Method
+        DELETE
+        ## URI
+        /openapi/ha3/instances/{instanceId}/indexes/{indexName}/versions/{versionName}
         
 
         @return: DeleteIndexVersionResponse
@@ -565,7 +556,10 @@ class Client(OpenApiClient):
 
     def delete_instance_with_options(self, instance_id, headers, runtime):
         """
-        The result returned
+        ### Method
+        `DELETE`
+        ### URI
+        `/openapi/ha3/instances/{instanceId}`
         
 
         @type headers: dict
@@ -596,7 +590,10 @@ class Client(OpenApiClient):
 
     def delete_instance(self, instance_id):
         """
-        The result returned
+        ### Method
+        `DELETE`
+        ### URI
+        `/openapi/ha3/instances/{instanceId}`
         
 
         @return: DeleteInstanceResponse
@@ -719,6 +716,22 @@ class Client(OpenApiClient):
         return self.get_advance_config_with_options(instance_id, config_name, request, headers, runtime)
 
     def get_advance_config_file_with_options(self, instance_id, config_name, request, headers, runtime):
+        """
+        ## Method
+        GET
+        ## URI
+        /openapi/ha3/instances/{instanceId}/advanced-configs/{configName}/file?fileName={fileName}
+        
+
+        @param request: GetAdvanceConfigFileRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetAdvanceConfigFileResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.file_name):
@@ -744,6 +757,17 @@ class Client(OpenApiClient):
         )
 
     def get_advance_config_file(self, instance_id, config_name, request):
+        """
+        ## Method
+        GET
+        ## URI
+        /openapi/ha3/instances/{instanceId}/advanced-configs/{configName}/file?fileName={fileName}
+        
+
+        @param request: GetAdvanceConfigFileRequest
+
+        @return: GetAdvanceConfigFileResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_advance_config_file_with_options(instance_id, config_name, request, headers, runtime)
@@ -797,6 +821,20 @@ class Client(OpenApiClient):
         return self.get_cluster_with_options(instance_id, cluster_name, headers, runtime)
 
     def get_cluster_run_time_info_with_options(self, instance_id, headers, runtime):
+        """
+        ### Method
+        GET
+        ### URI
+        /openapi/ha3/instances/{instanceId}/cluster-run-time-info
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetClusterRunTimeInfoResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -817,11 +855,34 @@ class Client(OpenApiClient):
         )
 
     def get_cluster_run_time_info(self, instance_id):
+        """
+        ### Method
+        GET
+        ### URI
+        /openapi/ha3/instances/{instanceId}/cluster-run-time-info
+        
+
+        @return: GetClusterRunTimeInfoResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_cluster_run_time_info_with_options(instance_id, headers, runtime)
 
     def get_data_source_with_options(self, instance_id, data_source_name, headers, runtime):
+        """
+        ### Method
+        `GET`
+        ### URI
+        `/openapi/ha3/instances/{instanceId}/data-sources/{dataSourceName}`
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetDataSourceResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -842,6 +903,15 @@ class Client(OpenApiClient):
         )
 
     def get_data_source(self, instance_id, data_source_name):
+        """
+        ### Method
+        `GET`
+        ### URI
+        `/openapi/ha3/instances/{instanceId}/data-sources/{dataSourceName}`
+        
+
+        @return: GetDataSourceResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_data_source_with_options(instance_id, data_source_name, headers, runtime)
@@ -873,9 +943,11 @@ class Client(OpenApiClient):
 
     def get_deploy_graph_with_options(self, instance_id, headers, runtime):
         """
-        ### Sample requests
+        ## Method
+        GET
+        ## URI
         ```java
-        GET /openapi/ha3/instances/{instanceId}/deploy-graph
+        /openapi/ha3/instances/{instanceId}/deploy-graph
         ```
         
 
@@ -907,9 +979,11 @@ class Client(OpenApiClient):
 
     def get_deploy_graph(self, instance_id):
         """
-        ### Sample requests
+        ## Method
+        GET
+        ## URI
         ```java
-        GET /openapi/ha3/instances/{instanceId}/deploy-graph
+        /openapi/ha3/instances/{instanceId}/deploy-graph
         ```
         
 
@@ -920,6 +994,22 @@ class Client(OpenApiClient):
         return self.get_deploy_graph_with_options(instance_id, headers, runtime)
 
     def get_file_with_options(self, instance_id, index_name, version_name, request, headers, runtime):
+        """
+        ## Method
+        GET
+        ## URI
+        /openapi/ha3/instances/{instanceId}/indexes/{indexName}/versions/{versionName}/file?fileName=/root/test.txt
+        
+
+        @param request: GetFileRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetFileResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.file_name):
@@ -945,6 +1035,17 @@ class Client(OpenApiClient):
         )
 
     def get_file(self, instance_id, index_name, version_name, request):
+        """
+        ## Method
+        GET
+        ## URI
+        /openapi/ha3/instances/{instanceId}/indexes/{indexName}/versions/{versionName}/file?fileName=/root/test.txt
+        
+
+        @param request: GetFileRequest
+
+        @return: GetFileResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_file_with_options(instance_id, index_name, version_name, request, headers, runtime)
@@ -976,9 +1077,10 @@ class Client(OpenApiClient):
 
     def get_index_version_with_options(self, instance_id, cluster_name, headers, runtime):
         """
-        ## Examples
-        Sample requests
-        GET  /openapi/ha3/instances/ha3_instance_id_1/clusters/cluster1/index-version
+        ## Method
+        GET
+        ## URI
+        /openapi/ha3/instances/{instanceId}/clusters/{clusterName}/index-version
         
 
         @type headers: dict
@@ -1009,9 +1111,10 @@ class Client(OpenApiClient):
 
     def get_index_version(self, instance_id, cluster_name):
         """
-        ## Examples
-        Sample requests
-        GET  /openapi/ha3/instances/ha3_instance_id_1/clusters/cluster1/index-version
+        ## Method
+        GET
+        ## URI
+        /openapi/ha3/instances/{instanceId}/clusters/{clusterName}/index-version
         
 
         @return: GetIndexVersionResponse
@@ -1022,7 +1125,10 @@ class Client(OpenApiClient):
 
     def get_instance_with_options(self, instance_id, headers, runtime):
         """
-        The billing method.
+        ### Method
+        `GET`
+        ### URI
+        `/openapi/ha3/instances/{instanceId}`
         
 
         @type headers: dict
@@ -1053,7 +1159,10 @@ class Client(OpenApiClient):
 
     def get_instance(self, instance_id):
         """
-        The billing method.
+        ### Method
+        `GET`
+        ### URI
+        `/openapi/ha3/instances/{instanceId}`
         
 
         @return: GetInstanceResponse
@@ -1098,8 +1207,10 @@ class Client(OpenApiClient):
 
     def list_advance_config_dir_with_options(self, instance_id, config_name, request, headers, runtime):
         """
-        ## Sample requests
-        `GET /openapi/ha3/instances/ose-test1/advanced-configs`
+        ## Method
+        `GET`
+        ## URI
+        `/openapi/ha3/instances/{instanceId}/advanced-configs/{configName}/dir?dirName={dirName}`
         
 
         @param request: ListAdvanceConfigDirRequest
@@ -1137,8 +1248,10 @@ class Client(OpenApiClient):
 
     def list_advance_config_dir(self, instance_id, config_name, request):
         """
-        ## Sample requests
-        `GET /openapi/ha3/instances/ose-test1/advanced-configs`
+        ## Method
+        `GET`
+        ## URI
+        `/openapi/ha3/instances/{instanceId}/advanced-configs/{configName}/dir?dirName={dirName}`
         
 
         @param request: ListAdvanceConfigDirRequest
@@ -1151,7 +1264,8 @@ class Client(OpenApiClient):
 
     def list_advance_configs_with_options(self, instance_id, request, headers, runtime):
         """
-        http
+        ## Sample requests
+        `GET /openapi/ha3/instances/ose-test1/advanced-configs`
         
 
         @param request: ListAdvanceConfigsRequest
@@ -1193,7 +1307,8 @@ class Client(OpenApiClient):
 
     def list_advance_configs(self, instance_id, request):
         """
-        http
+        ## Sample requests
+        `GET /openapi/ha3/instances/ose-test1/advanced-configs`
         
 
         @param request: ListAdvanceConfigsRequest
@@ -1206,10 +1321,10 @@ class Client(OpenApiClient):
 
     def list_cluster_names_with_options(self, headers, runtime):
         """
-        ### Sample requests
-        ```java
-        GET /openapi/ha3/instances/ha3_instance_name/cluster-names
-        ```
+        ### Method
+        GET
+        ### URI
+        /openapi/ha3/instances/{instanceId}/cluster-names
         
 
         @type headers: dict
@@ -1240,10 +1355,10 @@ class Client(OpenApiClient):
 
     def list_cluster_names(self):
         """
-        ### Sample requests
-        ```java
-        GET /openapi/ha3/instances/ha3_instance_name/cluster-names
-        ```
+        ### Method
+        GET
+        ### URI
+        /openapi/ha3/instances/{instanceId}/cluster-names
         
 
         @return: ListClusterNamesResponse
@@ -1253,6 +1368,24 @@ class Client(OpenApiClient):
         return self.list_cluster_names_with_options(headers, runtime)
 
     def list_cluster_tasks_with_options(self, instance_id, headers, runtime):
+        """
+        ### Method
+        ```java
+        GET
+        ```
+        ### URI
+        ```java
+        /openapi/ha3/instances/{instanceId}/cluster-tasks
+        ```
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListClusterTasksResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1273,13 +1406,33 @@ class Client(OpenApiClient):
         )
 
     def list_cluster_tasks(self, instance_id):
+        """
+        ### Method
+        ```java
+        GET
+        ```
+        ### URI
+        ```java
+        /openapi/ha3/instances/{instanceId}/cluster-tasks
+        ```
+        
+
+        @return: ListClusterTasksResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_cluster_tasks_with_options(instance_id, headers, runtime)
 
     def list_clusters_with_options(self, instance_id, headers, runtime):
         """
-        http
+        ### Method
+        ```java
+        GET
+        ```
+        ### URI
+        ```java
+        /openapi/ha3/instances/{instanceId}/clusters
+        ```
         
 
         @type headers: dict
@@ -1310,7 +1463,14 @@ class Client(OpenApiClient):
 
     def list_clusters(self, instance_id):
         """
-        http
+        ### Method
+        ```java
+        GET
+        ```
+        ### URI
+        ```java
+        /openapi/ha3/instances/{instanceId}/clusters
+        ```
         
 
         @return: ListClustersResponse
@@ -1321,7 +1481,10 @@ class Client(OpenApiClient):
 
     def list_data_source_schemas_with_options(self, instance_id, data_source_name, headers, runtime):
         """
-        Obtains the schema information of a specified data source.
+        ## Method
+        `GET`
+        ## URI
+        `/openapi/ha3/instances/{instanceId}/data-sources/{dataSourceName}/schemas`
         
 
         @type headers: dict
@@ -1352,7 +1515,10 @@ class Client(OpenApiClient):
 
     def list_data_source_schemas(self, instance_id, data_source_name):
         """
-        Obtains the schema information of a specified data source.
+        ## Method
+        `GET`
+        ## URI
+        `/openapi/ha3/instances/{instanceId}/data-sources/{dataSourceName}/schemas`
         
 
         @return: ListDataSourceSchemasResponse
@@ -1362,6 +1528,24 @@ class Client(OpenApiClient):
         return self.list_data_source_schemas_with_options(instance_id, data_source_name, headers, runtime)
 
     def list_data_source_tasks_with_options(self, instance_id, headers, runtime):
+        """
+        ### Method
+        ```java
+        GET
+        ```
+        ### URI
+        ```java
+        /openapi/ha3/instances/{instanceId}/data-source-tasks
+        ```
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListDataSourceTasksResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1382,11 +1566,38 @@ class Client(OpenApiClient):
         )
 
     def list_data_source_tasks(self, instance_id):
+        """
+        ### Method
+        ```java
+        GET
+        ```
+        ### URI
+        ```java
+        /openapi/ha3/instances/{instanceId}/data-source-tasks
+        ```
+        
+
+        @return: ListDataSourceTasksResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_data_source_tasks_with_options(instance_id, headers, runtime)
 
     def list_data_sources_with_options(self, instance_id, headers, runtime):
+        """
+        ## Method
+        `GET`
+        ## URI
+        `/openapi/ha3/instances/{instanceId}/data-sources`
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListDataSourcesResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1407,6 +1618,15 @@ class Client(OpenApiClient):
         )
 
     def list_data_sources(self, instance_id):
+        """
+        ## Method
+        `GET`
+        ## URI
+        `/openapi/ha3/instances/{instanceId}/data-sources`
+        
+
+        @return: ListDataSourcesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_data_sources_with_options(instance_id, headers, runtime)
@@ -1471,6 +1691,22 @@ class Client(OpenApiClient):
         return self.list_date_source_generations_with_options(instance_id, data_source_name, request, headers, runtime)
 
     def list_indexes_with_options(self, instance_id, request, headers, runtime):
+        """
+        ## Method
+        GET
+        ## URI
+        /openapi/ha3/instances/{instanceId}/indexes
+        
+
+        @param request: ListIndexesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListIndexesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.new_mode):
@@ -1496,6 +1732,17 @@ class Client(OpenApiClient):
         )
 
     def list_indexes(self, instance_id, request):
+        """
+        ## Method
+        GET
+        ## URI
+        /openapi/ha3/instances/{instanceId}/indexes
+        
+
+        @param request: ListIndexesRequest
+
+        @return: ListIndexesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_indexes_with_options(instance_id, request, headers, runtime)
@@ -1559,7 +1806,10 @@ class Client(OpenApiClient):
 
     def list_instances_with_options(self, tmp_req, headers, runtime):
         """
-        Indicates whether an overdue payment is involved
+        ### Method
+        `GET`
+        ### URI
+        `/openapi/[code]/instances`
         
 
         @param tmp_req: ListInstancesRequest
@@ -1613,7 +1863,10 @@ class Client(OpenApiClient):
 
     def list_instances(self, request):
         """
-        Indicates whether an overdue payment is involved
+        ### Method
+        `GET`
+        ### URI
+        `/openapi/[code]/instances`
         
 
         @param request: ListInstancesRequest
@@ -1626,9 +1879,13 @@ class Client(OpenApiClient):
 
     def list_online_configs_with_options(self, instance_id, node_name, request, headers, runtime):
         """
-        \\### Sample requests
+        ### Method
         ```java
-        GET  /openapi/ha3/instances/ha-test1/node/ihome_searcher/online-configs?domain=pre_ea120
+        GET
+        ```
+        ### URI
+        ```java
+        /openapi/ha3/instances/{instanceId}/node/{nodeName}/online-configs?domain={domain}
         ```
         
 
@@ -1667,9 +1924,13 @@ class Client(OpenApiClient):
 
     def list_online_configs(self, instance_id, node_name, request):
         """
-        \\### Sample requests
+        ### Method
         ```java
-        GET  /openapi/ha3/instances/ha-test1/node/ihome_searcher/online-configs?domain=pre_ea120
+        GET
+        ```
+        ### URI
+        ```java
+        /openapi/ha3/instances/{instanceId}/node/{nodeName}/online-configs?domain={domain}
         ```
         
 
@@ -1683,7 +1944,10 @@ class Client(OpenApiClient):
 
     def list_query_result_with_options(self, instance_id, request, headers, runtime):
         """
-        The ID of the instance
+        ### Method
+        `GET`
+        ### URI
+        `/openapi/ha3/instances/{instanceId}/query?query=xxxx`
         
 
         @param request: ListQueryResultRequest
@@ -1723,7 +1987,10 @@ class Client(OpenApiClient):
 
     def list_query_result(self, instance_id, request):
         """
-        The ID of the instance
+        ### Method
+        `GET`
+        ### URI
+        `/openapi/ha3/instances/{instanceId}/query?query=xxxx`
         
 
         @param request: ListQueryResultRequest
@@ -1858,7 +2125,6 @@ class Client(OpenApiClient):
         """
         ## Request syntax
         PUT /openapi/ha3/instances/{instanceId}/cluster-offline-config
-        ...
         
 
         @param request: ModifyClusterOfflineConfigRequest
@@ -1914,7 +2180,6 @@ class Client(OpenApiClient):
         """
         ## Request syntax
         PUT /openapi/ha3/instances/{instanceId}/cluster-offline-config
-        ...
         
 
         @param request: ModifyClusterOfflineConfigRequest
@@ -1986,7 +2251,10 @@ class Client(OpenApiClient):
 
     def modify_data_source_with_options(self, instance_id, data_source_name, request, headers, runtime):
         """
-        The result returned
+        ## Method
+        `PUT`
+        ## URI
+        `/openapi/ha3/instances/{instanceId}/data-sources/{dataSourceName}`
         
 
         @param request: ModifyDataSourceRequest
@@ -2028,7 +2296,10 @@ class Client(OpenApiClient):
 
     def modify_data_source(self, instance_id, data_source_name, request):
         """
-        The result returned
+        ## Method
+        `PUT`
+        ## URI
+        `/openapi/ha3/instances/{instanceId}/data-sources/{dataSourceName}`
         
 
         @param request: ModifyDataSourceRequest
@@ -2041,14 +2312,10 @@ class Client(OpenApiClient):
 
     def modify_file_with_options(self, instance_id, index_name, version_name, request, headers, runtime):
         """
-        ### Method
-        ~~~
+        ## Method
         PUT
-        ~~~
-        ### URI
-        ~~~
+        ## URI
         /openapi/ha3/instances/{instanceId}/indexes/{indexName}/versions/{versionName}/file?fileName=/root/test.txt
-        ~~~
         
 
         @param request: ModifyFileRequest
@@ -2092,14 +2359,10 @@ class Client(OpenApiClient):
 
     def modify_file(self, instance_id, index_name, version_name, request):
         """
-        ### Method
-        ~~~
+        ## Method
         PUT
-        ~~~
-        ### URI
-        ~~~
+        ## URI
         /openapi/ha3/instances/{instanceId}/indexes/{indexName}/versions/{versionName}/file?fileName=/root/test.txt
-        ~~~
         
 
         @param request: ModifyFileRequest
@@ -2112,7 +2375,10 @@ class Client(OpenApiClient):
 
     def modify_index_partition_with_options(self, instance_id, request, headers, runtime):
         """
-        The information about each index.
+        ### Method
+        `PUT`
+        ### URI
+        `/openapi/ha3/instances/{instanceId}/index-partition`
         
 
         @param request: ModifyIndexPartitionRequest
@@ -2156,7 +2422,10 @@ class Client(OpenApiClient):
 
     def modify_index_partition(self, instance_id, request):
         """
-        The information about each index.
+        ### Method
+        `PUT`
+        ### URI
+        `/openapi/ha3/instances/{instanceId}/index-partition`
         
 
         @param request: ModifyIndexPartitionRequest
@@ -2224,13 +2493,13 @@ class Client(OpenApiClient):
     def modify_node_config_with_options(self, instance_id, request, headers, runtime):
         """
         ### Method
-        ~~~
+        ```java
         PUT
-        ~~~
+        ```
         ### URI
-        ~~~
+        ```java
         /openapi/ha3/instances/{instanceId}/node-config?type=qrs&name=test
-        ~~~
+        ```
         
 
         @param request: ModifyNodeConfigRequest
@@ -2259,6 +2528,8 @@ class Client(OpenApiClient):
             body['dataDuplicateNumber'] = request.data_duplicate_number
         if not UtilClient.is_unset(request.data_fragment_number):
             body['dataFragmentNumber'] = request.data_fragment_number
+        if not UtilClient.is_unset(request.flow_ratio):
+            body['flowRatio'] = request.flow_ratio
         if not UtilClient.is_unset(request.min_service_percent):
             body['minServicePercent'] = request.min_service_percent
         if not UtilClient.is_unset(request.published):
@@ -2287,13 +2558,13 @@ class Client(OpenApiClient):
     def modify_node_config(self, instance_id, request):
         """
         ### Method
-        ~~~
+        ```java
         PUT
-        ~~~
+        ```
         ### URI
-        ~~~
+        ```java
         /openapi/ha3/instances/{instanceId}/node-config?type=qrs&name=test
-        ~~~
+        ```
         
 
         @param request: ModifyNodeConfigRequest
@@ -2495,7 +2766,10 @@ class Client(OpenApiClient):
 
     def publish_index_version_with_options(self, instance_id, index_name, request, headers, runtime):
         """
-        The information about the index
+        ## Method
+        POST
+        ## URI
+        /openapi/ha3/instances/{instanceId}/indexes/{indexName}/actions/publish
         
 
         @param request: PublishIndexVersionRequest
@@ -2533,7 +2807,10 @@ class Client(OpenApiClient):
 
     def publish_index_version(self, instance_id, index_name, request):
         """
-        The information about the index
+        ## Method
+        POST
+        ## URI
+        /openapi/ha3/instances/{instanceId}/indexes/{indexName}/actions/publish
         
 
         @param request: PublishIndexVersionRequest
@@ -2609,7 +2886,14 @@ class Client(OpenApiClient):
 
     def remove_cluster_with_options(self, instance_id, cluster_name, headers, runtime):
         """
-        The result
+        ### Method
+        ```java
+        DELETE
+        ```
+        ### URI
+        ```java
+        /openapi/ha3/instances/{instanceId}/clusters/{clusterName}
+        ```
         
 
         @type headers: dict
@@ -2640,7 +2924,14 @@ class Client(OpenApiClient):
 
     def remove_cluster(self, instance_id, cluster_name):
         """
-        The result
+        ### Method
+        ```java
+        DELETE
+        ```
+        ### URI
+        ```java
+        /openapi/ha3/instances/{instanceId}/clusters/{clusterName}
+        ```
         
 
         @return: RemoveClusterResponse
@@ -2651,7 +2942,14 @@ class Client(OpenApiClient):
 
     def stop_task_with_options(self, instance_id, fsm_id, headers, runtime):
         """
-        The information about the index
+        ### Method
+        ```java
+        PUT
+        ```
+        ### URI
+        ```java
+        /openapi/ha3/instances/{instanceId}/stop-task/{fsmId}
+        ```
         
 
         @type headers: dict
@@ -2682,7 +2980,14 @@ class Client(OpenApiClient):
 
     def stop_task(self, instance_id, fsm_id):
         """
-        The information about the index
+        ### Method
+        ```java
+        PUT
+        ```
+        ### URI
+        ```java
+        /openapi/ha3/instances/{instanceId}/stop-task/{fsmId}
+        ```
         
 
         @return: StopTaskResponse
