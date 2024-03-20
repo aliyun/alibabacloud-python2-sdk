@@ -18871,8 +18871,9 @@ class ListTagResourcesResponse(TeaModel):
 
 
 class MigrateAvailableZoneRequest(TeaModel):
-    def __init__(self, dbinstance_id=None, effective_time=None, owner_account=None, owner_id=None,
+    def __init__(self, category=None, dbinstance_id=None, effective_time=None, owner_account=None, owner_id=None,
                  resource_owner_account=None, resource_owner_id=None, vswitch=None, zone_id=None):
+        self.category = category  # type: str
         # The ID of the instance.
         # 
         # > If the instance is deployed in a VPC, you must specify the **Vswitch** parameter.
@@ -18910,6 +18911,8 @@ class MigrateAvailableZoneRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.category is not None:
+            result['Category'] = self.category
         if self.dbinstance_id is not None:
             result['DBInstanceId'] = self.dbinstance_id
         if self.effective_time is not None:
@@ -18930,6 +18933,8 @@ class MigrateAvailableZoneRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Category') is not None:
+            self.category = m.get('Category')
         if m.get('DBInstanceId') is not None:
             self.dbinstance_id = m.get('DBInstanceId')
         if m.get('EffectiveTime') is not None:
@@ -19265,6 +19270,126 @@ class ModifyAccountDescriptionResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ModifyAccountDescriptionResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ModifyActiveOperationTasksRequest(TeaModel):
+    def __init__(self, ids=None, immediate_start=None, owner_account=None, owner_id=None,
+                 resource_owner_account=None, resource_owner_id=None, switch_time=None):
+        self.ids = ids  # type: str
+        self.immediate_start = immediate_start  # type: int
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        self.switch_time = switch_time  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyActiveOperationTasksRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ids is not None:
+            result['Ids'] = self.ids
+        if self.immediate_start is not None:
+            result['ImmediateStart'] = self.immediate_start
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        if self.switch_time is not None:
+            result['SwitchTime'] = self.switch_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Ids') is not None:
+            self.ids = m.get('Ids')
+        if m.get('ImmediateStart') is not None:
+            self.immediate_start = m.get('ImmediateStart')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('SwitchTime') is not None:
+            self.switch_time = m.get('SwitchTime')
+        return self
+
+
+class ModifyActiveOperationTasksResponseBody(TeaModel):
+    def __init__(self, ids=None, request_id=None):
+        self.ids = ids  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyActiveOperationTasksResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ids is not None:
+            result['Ids'] = self.ids
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Ids') is not None:
+            self.ids = m.get('Ids')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ModifyActiveOperationTasksResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ModifyActiveOperationTasksResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyActiveOperationTasksResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ModifyActiveOperationTasksResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -22722,8 +22847,9 @@ class ModifyTaskInfoResponse(TeaModel):
 
 
 class ReleaseNodePrivateNetworkAddressRequest(TeaModel):
-    def __init__(self, dbinstance_id=None, network_type=None, node_id=None, owner_account=None, owner_id=None,
-                 resource_owner_account=None, resource_owner_id=None):
+    def __init__(self, connection_type=None, dbinstance_id=None, network_type=None, node_id=None,
+                 owner_account=None, owner_id=None, resource_owner_account=None, resource_owner_id=None):
+        self.connection_type = connection_type  # type: str
         # The ID of the sharded cluster instance.
         self.dbinstance_id = dbinstance_id  # type: str
         # The network type of the internal endpoint. Valid values:
@@ -22751,6 +22877,8 @@ class ReleaseNodePrivateNetworkAddressRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.connection_type is not None:
+            result['ConnectionType'] = self.connection_type
         if self.dbinstance_id is not None:
             result['DBInstanceId'] = self.dbinstance_id
         if self.network_type is not None:
@@ -22769,6 +22897,8 @@ class ReleaseNodePrivateNetworkAddressRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ConnectionType') is not None:
+            self.connection_type = m.get('ConnectionType')
         if m.get('DBInstanceId') is not None:
             self.dbinstance_id = m.get('DBInstanceId')
         if m.get('NetworkType') is not None:
@@ -22848,8 +22978,9 @@ class ReleaseNodePrivateNetworkAddressResponse(TeaModel):
 
 
 class ReleasePublicNetworkAddressRequest(TeaModel):
-    def __init__(self, dbinstance_id=None, node_id=None, owner_account=None, owner_id=None,
+    def __init__(self, connection_type=None, dbinstance_id=None, node_id=None, owner_account=None, owner_id=None,
                  resource_owner_account=None, resource_owner_id=None):
+        self.connection_type = connection_type  # type: str
         # The instance ID.
         # 
         # >  If you set this parameter to the ID of a sharded cluster instance, you must also specify the **NodeId** parameter.
@@ -22873,6 +23004,8 @@ class ReleasePublicNetworkAddressRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.connection_type is not None:
+            result['ConnectionType'] = self.connection_type
         if self.dbinstance_id is not None:
             result['DBInstanceId'] = self.dbinstance_id
         if self.node_id is not None:
@@ -22889,6 +23022,8 @@ class ReleasePublicNetworkAddressRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ConnectionType') is not None:
+            self.connection_type = m.get('ConnectionType')
         if m.get('DBInstanceId') is not None:
             self.dbinstance_id = m.get('DBInstanceId')
         if m.get('NodeId') is not None:
@@ -22969,25 +23104,34 @@ class RenewDBInstanceRequest(TeaModel):
     def __init__(self, auto_pay=None, auto_renew=None, business_info=None, client_token=None, coupon_no=None,
                  dbinstance_id=None, owner_account=None, owner_id=None, period=None, resource_owner_account=None,
                  resource_owner_id=None):
-        # Specifies whether to enable automatic payment for the instance. Valid values:
+        # Specifies whether to enable automatic payment. Valid values:
         # 
         # *   **true**: enables automatic payment. Make sure that you have sufficient balance within your account.
-        # *   **false**: disables automatic payment. You must perform the following operations to pay for the instance: Payment instructions: Log on to the console. In the upper-right corner, click **Billing Management** and select **Billing Management** from the drop-down list. The Billing Management page appears. In the left-side navigation pane, click **Bills**. On the Unpaid tab, click Make a Payment in the Actions column corresponding to the bill you want to pay.
+        # *   **false**: disables automatic payment. You must perform the following operations to pay for the instance: Log on to the ApsaraDB for MongoDB console. In the upper-right corner, click **Expenses** and select **User Center** from the drop-down list. The User Center page appears. In the left-side navigation pane, choose **Order Management** > Renew. On the Renewal tab, find the bill that you want to pay and then click Renew in the Actions column.
         # 
         # Default value: **true**.
         self.auto_pay = auto_pay  # type: bool
+        # Specifies whether to enable auto-renewal. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        # 
+        # Default value: **false**.
         self.auto_renew = auto_renew  # type: bool
         # The business information.
         self.business_info = business_info  # type: str
-        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must make sure that it is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.
+        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.
         self.client_token = client_token  # type: str
-        # The coupon code. Default value: **youhuiquan_promotion_option_id_for_blank**.
+        # Specifies whether to use coupons. Default value: null. Valid values:
+        # 
+        # *   **default** or **null**: uses coupons.
+        # *   **youhuiquan_promotion_option_id_for_blank**: does not use coupons.
         self.coupon_no = coupon_no  # type: str
-        # The ID of the instance.
+        # The instance ID.
         self.dbinstance_id = dbinstance_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The period you set for the instance to implement payment renewal. Unit: months. Valid values: **1-9, 12, 24, and 36**.
+        # The subscription period of the instance. Unit: month. Valid values: **1, 2, 3, 4, 5, 6, 7, 8, 9, 12, 24, and 36**.
         self.period = period  # type: int
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -23056,7 +23200,7 @@ class RenewDBInstanceResponseBody(TeaModel):
     def __init__(self, order_id=None, request_id=None):
         # The ID of the order.
         self.order_id = order_id  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
