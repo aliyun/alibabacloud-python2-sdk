@@ -25,7 +25,7 @@ from setuptools import setup, find_packages
 """
 setup module for alibabacloud_paifeaturestore20230621_py2.
 
-Created on 02/02/2024
+Created on 20/03/2024
 
 @author: Alibaba Cloud SDK
 """
