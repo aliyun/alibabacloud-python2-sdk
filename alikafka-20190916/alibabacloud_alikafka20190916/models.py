@@ -1001,9 +1001,9 @@ class CreatePrePayOrderRequestTag(TeaModel):
 
 
 class CreatePrePayOrderRequest(TeaModel):
-    def __init__(self, confluent_config=None, deploy_type=None, disk_size=None, disk_type=None, eip_max=None,
-                 io_max=None, io_max_spec=None, partition_num=None, region_id=None, resource_group_id=None, spec_type=None,
-                 tag=None, topic_quota=None):
+    def __init__(self, confluent_config=None, deploy_type=None, disk_size=None, disk_type=None, duration=None,
+                 eip_max=None, io_max=None, io_max_spec=None, paid_type=None, partition_num=None, region_id=None,
+                 resource_group_id=None, spec_type=None, tag=None, topic_quota=None):
         self.confluent_config = confluent_config  # type: CreatePrePayOrderRequestConfluentConfig
         # The deployment mode of the instance. Valid values:
         # 
@@ -1019,6 +1019,7 @@ class CreatePrePayOrderRequest(TeaModel):
         # *   **0**: ultra disk
         # *   **1**: standard SSD
         self.disk_type = disk_type  # type: str
+        self.duration = duration  # type: int
         # The Internet traffic for the instance.
         # 
         # *   This parameter is required if the **DeployType** parameter is set to **4**.
@@ -1034,6 +1035,7 @@ class CreatePrePayOrderRequest(TeaModel):
         # *   You must configure at least one of the **IoMax** and **IoMaxSpec** parameters. If both parameters are configured, the value of the **IoMaxSpec** parameter takes effect. We recommend that you configure only the **IoMaxSpec** parameter.
         # *   For more information about the valid values, see [Billing](~~84737~~).
         self.io_max_spec = io_max_spec  # type: str
+        self.paid_type = paid_type  # type: int
         # The number of partitions. We recommend that you configure this parameter.
         # 
         # *   You must specify at least one of the PartitionNum and TopicQuota parameters. We recommend that you configure only the PartitionNum parameter.
@@ -1086,12 +1088,16 @@ class CreatePrePayOrderRequest(TeaModel):
             result['DiskSize'] = self.disk_size
         if self.disk_type is not None:
             result['DiskType'] = self.disk_type
+        if self.duration is not None:
+            result['Duration'] = self.duration
         if self.eip_max is not None:
             result['EipMax'] = self.eip_max
         if self.io_max is not None:
             result['IoMax'] = self.io_max
         if self.io_max_spec is not None:
             result['IoMaxSpec'] = self.io_max_spec
+        if self.paid_type is not None:
+            result['PaidType'] = self.paid_type
         if self.partition_num is not None:
             result['PartitionNum'] = self.partition_num
         if self.region_id is not None:
@@ -1119,12 +1125,16 @@ class CreatePrePayOrderRequest(TeaModel):
             self.disk_size = m.get('DiskSize')
         if m.get('DiskType') is not None:
             self.disk_type = m.get('DiskType')
+        if m.get('Duration') is not None:
+            self.duration = m.get('Duration')
         if m.get('EipMax') is not None:
             self.eip_max = m.get('EipMax')
         if m.get('IoMax') is not None:
             self.io_max = m.get('IoMax')
         if m.get('IoMaxSpec') is not None:
             self.io_max_spec = m.get('IoMaxSpec')
+        if m.get('PaidType') is not None:
+            self.paid_type = m.get('PaidType')
         if m.get('PartitionNum') is not None:
             self.partition_num = m.get('PartitionNum')
         if m.get('RegionId') is not None:
@@ -1183,9 +1193,9 @@ class CreatePrePayOrderShrinkRequestTag(TeaModel):
 
 
 class CreatePrePayOrderShrinkRequest(TeaModel):
-    def __init__(self, confluent_config_shrink=None, deploy_type=None, disk_size=None, disk_type=None, eip_max=None,
-                 io_max=None, io_max_spec=None, partition_num=None, region_id=None, resource_group_id=None, spec_type=None,
-                 tag=None, topic_quota=None):
+    def __init__(self, confluent_config_shrink=None, deploy_type=None, disk_size=None, disk_type=None,
+                 duration=None, eip_max=None, io_max=None, io_max_spec=None, paid_type=None, partition_num=None,
+                 region_id=None, resource_group_id=None, spec_type=None, tag=None, topic_quota=None):
         self.confluent_config_shrink = confluent_config_shrink  # type: str
         # The deployment mode of the instance. Valid values:
         # 
@@ -1201,6 +1211,7 @@ class CreatePrePayOrderShrinkRequest(TeaModel):
         # *   **0**: ultra disk
         # *   **1**: standard SSD
         self.disk_type = disk_type  # type: str
+        self.duration = duration  # type: int
         # The Internet traffic for the instance.
         # 
         # *   This parameter is required if the **DeployType** parameter is set to **4**.
@@ -1216,6 +1227,7 @@ class CreatePrePayOrderShrinkRequest(TeaModel):
         # *   You must configure at least one of the **IoMax** and **IoMaxSpec** parameters. If both parameters are configured, the value of the **IoMaxSpec** parameter takes effect. We recommend that you configure only the **IoMaxSpec** parameter.
         # *   For more information about the valid values, see [Billing](~~84737~~).
         self.io_max_spec = io_max_spec  # type: str
+        self.paid_type = paid_type  # type: int
         # The number of partitions. We recommend that you configure this parameter.
         # 
         # *   You must specify at least one of the PartitionNum and TopicQuota parameters. We recommend that you configure only the PartitionNum parameter.
@@ -1266,12 +1278,16 @@ class CreatePrePayOrderShrinkRequest(TeaModel):
             result['DiskSize'] = self.disk_size
         if self.disk_type is not None:
             result['DiskType'] = self.disk_type
+        if self.duration is not None:
+            result['Duration'] = self.duration
         if self.eip_max is not None:
             result['EipMax'] = self.eip_max
         if self.io_max is not None:
             result['IoMax'] = self.io_max
         if self.io_max_spec is not None:
             result['IoMaxSpec'] = self.io_max_spec
+        if self.paid_type is not None:
+            result['PaidType'] = self.paid_type
         if self.partition_num is not None:
             result['PartitionNum'] = self.partition_num
         if self.region_id is not None:
@@ -1298,12 +1314,16 @@ class CreatePrePayOrderShrinkRequest(TeaModel):
             self.disk_size = m.get('DiskSize')
         if m.get('DiskType') is not None:
             self.disk_type = m.get('DiskType')
+        if m.get('Duration') is not None:
+            self.duration = m.get('Duration')
         if m.get('EipMax') is not None:
             self.eip_max = m.get('EipMax')
         if m.get('IoMax') is not None:
             self.io_max = m.get('IoMax')
         if m.get('IoMaxSpec') is not None:
             self.io_max_spec = m.get('IoMaxSpec')
+        if m.get('PaidType') is not None:
+            self.paid_type = m.get('PaidType')
         if m.get('PartitionNum') is not None:
             self.partition_num = m.get('PartitionNum')
         if m.get('RegionId') is not None:
@@ -2850,8 +2870,16 @@ class DescribeSaslUsersResponse(TeaModel):
 
 class EnableAutoGroupCreationRequest(TeaModel):
     def __init__(self, enable=None, instance_id=None, region_id=None):
+        # Specify whether to enable the flexible group creation feature. Valid values:
+        # 
+        # *   **true**: enables the flexible group creation feature.
+        # *   **false**: disabled the flexible group creation feature.
         self.enable = enable  # type: bool
+        # The instance ID.
+        # 
+        # You can call the [GetInstanceList](~~437663~~) operation to query instances.
         self.instance_id = instance_id  # type: str
+        # The region ID.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -2884,9 +2912,15 @@ class EnableAutoGroupCreationRequest(TeaModel):
 
 class EnableAutoGroupCreationResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
+        # The returned HTTP status code.
+        # 
+        # If the value **200** is returned, the request is successful.
         self.code = code  # type: int
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -2959,9 +2993,19 @@ class EnableAutoGroupCreationResponse(TeaModel):
 
 class EnableAutoTopicCreationRequest(TeaModel):
     def __init__(self, instance_id=None, operate=None, partition_num=None, region_id=None):
+        # The instance ID.
         self.instance_id = instance_id  # type: str
+        # The operation that you want to perform. Valid values:
+        # 
+        # *   enable: enables the automatic topic creation feature.
+        # *   disable: disables the automatic topic creation feature.
+        # *   updatePartition: changes the number of partitions in topics that are automatically created.
         self.operate = operate  # type: str
+        # The changed number of partitions in topics that are automatically created.
+        # 
+        # This parameter takes effect only if you set Operate to updatePartition.
         self.partition_num = partition_num  # type: long
+        # The region ID.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -2998,9 +3042,13 @@ class EnableAutoTopicCreationRequest(TeaModel):
 
 class EnableAutoTopicCreationResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
+        # The returned status code. If the request is successful, 200 is returned.
         self.code = code  # type: int
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -3437,11 +3485,13 @@ class GetAllowedIpListResponse(TeaModel):
 
 
 class GetConsumerListRequest(TeaModel):
-    def __init__(self, consumer_id=None, instance_id=None, region_id=None):
+    def __init__(self, consumer_id=None, current_page=None, instance_id=None, page_size=None, region_id=None):
         # The name of the consumer group. If you do not configure this parameter, all consumer groups are queried.
         self.consumer_id = consumer_id  # type: str
+        self.current_page = current_page  # type: int
         # The ID of the instance to which the consumer group belongs.
         self.instance_id = instance_id  # type: str
+        self.page_size = page_size  # type: int
         # The region ID of the instance to which the consumer group belongs.
         self.region_id = region_id  # type: str
 
@@ -3456,8 +3506,12 @@ class GetConsumerListRequest(TeaModel):
         result = dict()
         if self.consumer_id is not None:
             result['ConsumerId'] = self.consumer_id
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         return result
@@ -3466,8 +3520,12 @@ class GetConsumerListRequest(TeaModel):
         m = m or dict()
         if m.get('ConsumerId') is not None:
             self.consumer_id = m.get('ConsumerId')
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         return self
@@ -3627,17 +3685,21 @@ class GetConsumerListResponseBodyConsumerList(TeaModel):
 
 
 class GetConsumerListResponseBody(TeaModel):
-    def __init__(self, code=None, consumer_list=None, message=None, request_id=None, success=None):
+    def __init__(self, code=None, consumer_list=None, current_page=None, message=None, page_size=None,
+                 request_id=None, success=None, total=None):
         # The HTTP status code returned. The HTTP status code 200 indicates that the request is successful.
         self.code = code  # type: int
         # The consumer groups.
         self.consumer_list = consumer_list  # type: GetConsumerListResponseBodyConsumerList
+        self.current_page = current_page  # type: int
         # The returned message.
         self.message = message  # type: str
+        self.page_size = page_size  # type: int
         # The ID of the request.
         self.request_id = request_id  # type: str
         # Indicates whether the request is successful.
         self.success = success  # type: bool
+        self.total = total  # type: long
 
     def validate(self):
         if self.consumer_list:
@@ -3653,12 +3715,18 @@ class GetConsumerListResponseBody(TeaModel):
             result['Code'] = self.code
         if self.consumer_list is not None:
             result['ConsumerList'] = self.consumer_list.to_map()
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
         if self.message is not None:
             result['Message'] = self.message
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.success is not None:
             result['Success'] = self.success
+        if self.total is not None:
+            result['Total'] = self.total
         return result
 
     def from_map(self, m=None):
@@ -3668,12 +3736,18 @@ class GetConsumerListResponseBody(TeaModel):
         if m.get('ConsumerList') is not None:
             temp_model = GetConsumerListResponseBodyConsumerList()
             self.consumer_list = temp_model.from_map(m['ConsumerList'])
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
         if m.get('Message') is not None:
             self.message = m.get('Message')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Total') is not None:
+            self.total = m.get('Total')
         return self
 
 
@@ -4030,15 +4104,15 @@ class GetConsumerProgressResponse(TeaModel):
 
 class GetInstanceListRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # The key of the resource tag.
+        # The tag key.
         # 
-        # *   If this parameter is left empty, all tag keys are matched.
-        # *   The tag key can be up to 128 characters in length and cannot start with acs: or aliyun. It cannot contain `http://` or `https://`.
+        # *   If you leave this parameter empty, the keys of all tags are matched.
+        # *   The tag key can be up to 128 characters in length. It cannot start with aliyun or acs: and cannot contain `http://` or `https://`.
         self.key = key  # type: str
-        # The value of the resource tag.
+        # The tag value.
         # 
-        # *   This parameter must be left empty if the Key parameter is left empty. If this parameter is left empty, the values of all tags are matched.
-        # *   The tag value can be up to 128 characters in length and cannot start with acs: or aliyun. It cannot contain `http://` or `https://`.
+        # *   If you leave Key empty, you must also leave this parameter empty. If you leave this parameter empty, the values of all tags are matched.
+        # *   The tag value can be up to 128 characters in length. It cannot start with aliyun or acs: and cannot contain `http://` or `https://`.
         self.value = value  # type: str
 
     def validate(self):
@@ -4337,10 +4411,10 @@ class GetInstanceListResponseBodyInstanceListInstanceVO(TeaModel):
         self.create_time = create_time  # type: long
         # The type of the network in which the instance is deployed. Valid values:
         # 
-        # *   **4**: the Internet and VPCs
-        # *   **5**: VPCs
+        # *   **4**: Internet and VPC
+        # *   **5**: VPC
         self.deploy_type = deploy_type  # type: int
-        # The disk size of the instance. Unit: GB
+        # The disk size. Unit: GB.
         self.disk_size = disk_size  # type: int
         # The disk type. Valid values:
         # 
@@ -4367,16 +4441,16 @@ class GetInstanceListResponseBodyInstanceListInstanceVO(TeaModel):
         self.io_max = io_max  # type: int
         # The traffic specification.
         self.io_max_spec = io_max_spec  # type: str
-        # The ID of the key that is used for disk encryption in the region where the instance resides.
+        # The ID of the key that is used for disk encryption in the region where the instance is deployed.
         self.kms_key_id = kms_key_id  # type: str
-        # The retention period of messages on the instance. Unit: hours.
+        # The retention period of messages in the instance. Unit: hours.
         self.msg_retain = msg_retain  # type: int
         # The instance name.
         self.name = name  # type: str
         # The billing method of the instance. Valid values:
         # 
-        # *   **0**: the subscription billing method
-        # *   **1**: the pay-as-you-go billing method
+        # *   **0**: subscription
+        # *   **1**: pay-as-you-go
         self.paid_type = paid_type  # type: int
         # The ID of the region where the instance resides.
         self.region_id = region_id  # type: str
@@ -4389,12 +4463,12 @@ class GetInstanceListResponseBodyInstanceListInstanceVO(TeaModel):
         # *   Endpoints in domain name mode: An endpoint in this mode consists of the domain name of the instance and a port number. The format of an endpoint in this mode is `{Instance domain name}:{Port number}`.
         # *   Endpoints in IP address mode: An endpoint in this mode consists of the IP address of the broker and a port number. The format of an endpoint in this mode is `{Broker IP address}:{Port number}`.
         self.sasl_domain_endpoint = sasl_domain_endpoint  # type: str
-        # The security group to which the instance belongs.
+        # The security group of the instance.
         # 
         # *   If the instance is deployed by using the ApsaraMQ for Kafka console or calling the [StartInstance](~~157786~~) operation without a security group configured, no value is returned.
-        # *   If the instance is deployed by calling the [StartInstance](~~157786~~) operation with a security group configured, the return value is the configured security group.
+        # *   If the instance is deployed by calling the [StartInstance](~~157786~~) operation with a security group configured, the returned value is the configured security group.
         self.security_group = security_group  # type: str
-        # The status of the instance. Valid values:
+        # The instance status. Valid values:
         # 
         # *   **0**: pending
         # *   **1**: preparing hardware resources
@@ -4429,11 +4503,11 @@ class GetInstanceListResponseBodyInstanceListInstanceVO(TeaModel):
         self.standard_zone_id = standard_zone_id  # type: str
         # The tags.
         self.tags = tags  # type: GetInstanceListResponseBodyInstanceListInstanceVOTags
-        # The maximum number of topics that can be created on the instance.
+        # The maximum number of topics on the instance.
         self.topic_num_limit = topic_num_limit  # type: int
         # The upgrade information of the instance.
         self.upgrade_service_detail_info = upgrade_service_detail_info  # type: GetInstanceListResponseBodyInstanceListInstanceVOUpgradeServiceDetailInfo
-        # The number of used consumer groups.
+        # The number of used groups.
         self.used_group_count = used_group_count  # type: int
         # The number of used partitions.
         self.used_partition_count = used_partition_count  # type: int
@@ -4441,7 +4515,7 @@ class GetInstanceListResponseBodyInstanceListInstanceVO(TeaModel):
         self.used_topic_count = used_topic_count  # type: int
         # The vSwitch ID of the instance.
         self.v_switch_id = v_switch_id  # type: str
-        # The ID of the virtual private cloud (VPC) in which the instance is deployed.
+        # The virtual private cloud (VPC) ID.
         self.vpc_id = vpc_id  # type: str
         # The zone ID.
         self.zone_id = zone_id  # type: str
@@ -4654,7 +4728,7 @@ class GetInstanceListResponseBody(TeaModel):
     def __init__(self, code=None, instance_list=None, message=None, request_id=None, success=None):
         # The HTTP status code returned. The HTTP status code 200 indicates that the call is successful.
         self.code = code  # type: int
-        # The information about the instance.
+        # The instances.
         self.instance_list = instance_list  # type: GetInstanceListResponseBodyInstanceList
         # The message returned.
         self.message = message  # type: str
@@ -5554,8 +5628,15 @@ class GetTopicStatusResponse(TeaModel):
 
 class GetTopicSubscribeStatusRequest(TeaModel):
     def __init__(self, instance_id=None, region_id=None, topic=None):
+        # The instance ID.
+        # 
+        # You can call the [GetInstanceList](~~437663~~) operation to query instances.
         self.instance_id = instance_id  # type: str
+        # The region ID.
         self.region_id = region_id  # type: str
+        # The topic name.
+        # 
+        # You can call the [GetTopicList](~~437677~~) operation to query topics.
         self.topic = topic  # type: str
 
     def validate(self):
@@ -5588,7 +5669,9 @@ class GetTopicSubscribeStatusRequest(TeaModel):
 
 class GetTopicSubscribeStatusResponseBodyTopicSubscribeStatus(TeaModel):
     def __init__(self, consumer_groups=None, topic=None):
+        # The groups that subscribe to the topic.
         self.consumer_groups = consumer_groups  # type: list[str]
+        # The topic name.
         self.topic = topic  # type: str
 
     def validate(self):
@@ -5617,11 +5700,15 @@ class GetTopicSubscribeStatusResponseBodyTopicSubscribeStatus(TeaModel):
 
 class GetTopicSubscribeStatusResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None, topic_subscribe_status=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The returned message.
         self.message = message  # type: str
-        # Id of the request
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
+        # The subscription details.
         self.topic_subscribe_status = topic_subscribe_status  # type: GetTopicSubscribeStatusResponseBodyTopicSubscribeStatus
 
     def validate(self):
