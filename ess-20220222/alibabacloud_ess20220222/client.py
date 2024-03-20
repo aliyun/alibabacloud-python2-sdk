@@ -1077,6 +1077,8 @@ class Client(OpenApiClient):
             query['LoadBalancerWeight'] = request.load_balancer_weight
         if not UtilClient.is_unset(request.memory):
             query['Memory'] = request.memory
+        if not UtilClient.is_unset(request.network_interfaces):
+            query['NetworkInterfaces'] = request.network_interfaces
         if not UtilClient.is_unset(request.owner_account):
             query['OwnerAccount'] = request.owner_account
         if not UtilClient.is_unset(request.owner_id):
@@ -3899,6 +3901,8 @@ class Client(OpenApiClient):
             query['LoadBalancerWeight'] = request.load_balancer_weight
         if not UtilClient.is_unset(request.memory):
             query['Memory'] = request.memory
+        if not UtilClient.is_unset(request.network_interfaces):
+            query['NetworkInterfaces'] = request.network_interfaces
         if not UtilClient.is_unset(request.override):
             query['Override'] = request.override
         if not UtilClient.is_unset(request.owner_account):

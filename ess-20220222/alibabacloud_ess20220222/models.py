@@ -4696,6 +4696,46 @@ class CreateScalingConfigurationRequestInstanceTypeOverrides(TeaModel):
         return self
 
 
+class CreateScalingConfigurationRequestNetworkInterfaces(TeaModel):
+    def __init__(self, instance_type=None, ipv_6address_count=None, network_interface_traffic_mode=None,
+                 security_group_ids=None):
+        self.instance_type = instance_type  # type: str
+        self.ipv_6address_count = ipv_6address_count  # type: int
+        self.network_interface_traffic_mode = network_interface_traffic_mode  # type: str
+        self.security_group_ids = security_group_ids  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateScalingConfigurationRequestNetworkInterfaces, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_type is not None:
+            result['InstanceType'] = self.instance_type
+        if self.ipv_6address_count is not None:
+            result['Ipv6AddressCount'] = self.ipv_6address_count
+        if self.network_interface_traffic_mode is not None:
+            result['NetworkInterfaceTrafficMode'] = self.network_interface_traffic_mode
+        if self.security_group_ids is not None:
+            result['SecurityGroupIds'] = self.security_group_ids
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceType') is not None:
+            self.instance_type = m.get('InstanceType')
+        if m.get('Ipv6AddressCount') is not None:
+            self.ipv_6address_count = m.get('Ipv6AddressCount')
+        if m.get('NetworkInterfaceTrafficMode') is not None:
+            self.network_interface_traffic_mode = m.get('NetworkInterfaceTrafficMode')
+        if m.get('SecurityGroupIds') is not None:
+            self.security_group_ids = m.get('SecurityGroupIds')
+        return self
+
+
 class CreateScalingConfigurationRequestSpotPriceLimits(TeaModel):
     def __init__(self, instance_type=None, price_limit=None):
         # The instance type of the preemptible instance. This parameter takes effect only if you set SpotStrategy to SpotWithPriceLimit.
@@ -4734,12 +4774,13 @@ class CreateScalingConfigurationRequest(TeaModel):
                  image_family=None, image_id=None, image_name=None, instance_description=None, instance_name=None,
                  instance_pattern_infos=None, instance_type=None, instance_type_overrides=None, instance_types=None,
                  internet_charge_type=None, internet_max_bandwidth_in=None, internet_max_bandwidth_out=None, io_optimized=None,
-                 ipv_6address_count=None, key_pair_name=None, load_balancer_weight=None, memory=None, owner_account=None,
-                 owner_id=None, password=None, password_inherit=None, ram_role_name=None, resource_group_id=None,
-                 resource_owner_account=None, scaling_configuration_name=None, scaling_group_id=None, scheduler_options=None,
-                 security_enhancement_strategy=None, security_group_id=None, security_group_ids=None, spot_duration=None,
-                 spot_interruption_behavior=None, spot_price_limits=None, spot_strategy=None, storage_set_id=None,
-                 storage_set_partition_number=None, system_disk_categories=None, tags=None, tenancy=None, user_data=None, zone_id=None):
+                 ipv_6address_count=None, key_pair_name=None, load_balancer_weight=None, memory=None, network_interfaces=None,
+                 owner_account=None, owner_id=None, password=None, password_inherit=None, ram_role_name=None,
+                 resource_group_id=None, resource_owner_account=None, scaling_configuration_name=None, scaling_group_id=None,
+                 scheduler_options=None, security_enhancement_strategy=None, security_group_id=None, security_group_ids=None,
+                 spot_duration=None, spot_interruption_behavior=None, spot_price_limits=None, spot_strategy=None,
+                 storage_set_id=None, storage_set_partition_number=None, system_disk_categories=None, tags=None, tenancy=None,
+                 user_data=None, zone_id=None):
         self.image_options = image_options  # type: CreateScalingConfigurationRequestImageOptions
         self.private_pool_options = private_pool_options  # type: CreateScalingConfigurationRequestPrivatePoolOptions
         self.system_disk = system_disk  # type: CreateScalingConfigurationRequestSystemDisk
@@ -4843,6 +4884,7 @@ class CreateScalingConfigurationRequest(TeaModel):
         # 
         # > You can specify Cpu and Memory to determine the range of instance types only if you set Scaling Policy to Cost Optimization Policy and you do not specify instance types in the scaling configuration.
         self.memory = memory  # type: int
+        self.network_interfaces = network_interfaces  # type: list[CreateScalingConfigurationRequestNetworkInterfaces]
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         # The password that you want to use to log on to an ECS instance. The password must be 8 to 30 characters in length and must contain at least three of the following character types: uppercase letters, lowercase letters, digits, and special characters. The following special characters are supported:
@@ -4952,6 +4994,10 @@ class CreateScalingConfigurationRequest(TeaModel):
             for k in self.instance_type_overrides:
                 if k:
                     k.validate()
+        if self.network_interfaces:
+            for k in self.network_interfaces:
+                if k:
+                    k.validate()
         if self.spot_price_limits:
             for k in self.spot_price_limits:
                 if k:
@@ -5033,6 +5079,10 @@ class CreateScalingConfigurationRequest(TeaModel):
             result['LoadBalancerWeight'] = self.load_balancer_weight
         if self.memory is not None:
             result['Memory'] = self.memory
+        result['NetworkInterfaces'] = []
+        if self.network_interfaces is not None:
+            for k in self.network_interfaces:
+                result['NetworkInterfaces'].append(k.to_map() if k else None)
         if self.owner_account is not None:
             result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
@@ -5164,6 +5214,11 @@ class CreateScalingConfigurationRequest(TeaModel):
             self.load_balancer_weight = m.get('LoadBalancerWeight')
         if m.get('Memory') is not None:
             self.memory = m.get('Memory')
+        self.network_interfaces = []
+        if m.get('NetworkInterfaces') is not None:
+            for k in m.get('NetworkInterfaces'):
+                temp_model = CreateScalingConfigurationRequestNetworkInterfaces()
+                self.network_interfaces.append(temp_model.from_map(k))
         if m.get('OwnerAccount') is not None:
             self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
@@ -5742,6 +5797,46 @@ class CreateScalingConfigurationShrinkRequestInstanceTypeOverrides(TeaModel):
         return self
 
 
+class CreateScalingConfigurationShrinkRequestNetworkInterfaces(TeaModel):
+    def __init__(self, instance_type=None, ipv_6address_count=None, network_interface_traffic_mode=None,
+                 security_group_ids=None):
+        self.instance_type = instance_type  # type: str
+        self.ipv_6address_count = ipv_6address_count  # type: int
+        self.network_interface_traffic_mode = network_interface_traffic_mode  # type: str
+        self.security_group_ids = security_group_ids  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateScalingConfigurationShrinkRequestNetworkInterfaces, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_type is not None:
+            result['InstanceType'] = self.instance_type
+        if self.ipv_6address_count is not None:
+            result['Ipv6AddressCount'] = self.ipv_6address_count
+        if self.network_interface_traffic_mode is not None:
+            result['NetworkInterfaceTrafficMode'] = self.network_interface_traffic_mode
+        if self.security_group_ids is not None:
+            result['SecurityGroupIds'] = self.security_group_ids
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceType') is not None:
+            self.instance_type = m.get('InstanceType')
+        if m.get('Ipv6AddressCount') is not None:
+            self.ipv_6address_count = m.get('Ipv6AddressCount')
+        if m.get('NetworkInterfaceTrafficMode') is not None:
+            self.network_interface_traffic_mode = m.get('NetworkInterfaceTrafficMode')
+        if m.get('SecurityGroupIds') is not None:
+            self.security_group_ids = m.get('SecurityGroupIds')
+        return self
+
+
 class CreateScalingConfigurationShrinkRequestSpotPriceLimits(TeaModel):
     def __init__(self, instance_type=None, price_limit=None):
         # The instance type of the preemptible instance. This parameter takes effect only if you set SpotStrategy to SpotWithPriceLimit.
@@ -5780,12 +5875,13 @@ class CreateScalingConfigurationShrinkRequest(TeaModel):
                  image_family=None, image_id=None, image_name=None, instance_description=None, instance_name=None,
                  instance_pattern_infos=None, instance_type=None, instance_type_overrides=None, instance_types=None,
                  internet_charge_type=None, internet_max_bandwidth_in=None, internet_max_bandwidth_out=None, io_optimized=None,
-                 ipv_6address_count=None, key_pair_name=None, load_balancer_weight=None, memory=None, owner_account=None,
-                 owner_id=None, password=None, password_inherit=None, ram_role_name=None, resource_group_id=None,
-                 resource_owner_account=None, scaling_configuration_name=None, scaling_group_id=None, scheduler_options_shrink=None,
-                 security_enhancement_strategy=None, security_group_id=None, security_group_ids=None, spot_duration=None,
-                 spot_interruption_behavior=None, spot_price_limits=None, spot_strategy=None, storage_set_id=None,
-                 storage_set_partition_number=None, system_disk_categories=None, tags=None, tenancy=None, user_data=None, zone_id=None):
+                 ipv_6address_count=None, key_pair_name=None, load_balancer_weight=None, memory=None, network_interfaces=None,
+                 owner_account=None, owner_id=None, password=None, password_inherit=None, ram_role_name=None,
+                 resource_group_id=None, resource_owner_account=None, scaling_configuration_name=None, scaling_group_id=None,
+                 scheduler_options_shrink=None, security_enhancement_strategy=None, security_group_id=None, security_group_ids=None,
+                 spot_duration=None, spot_interruption_behavior=None, spot_price_limits=None, spot_strategy=None,
+                 storage_set_id=None, storage_set_partition_number=None, system_disk_categories=None, tags=None, tenancy=None,
+                 user_data=None, zone_id=None):
         self.image_options = image_options  # type: CreateScalingConfigurationShrinkRequestImageOptions
         self.private_pool_options = private_pool_options  # type: CreateScalingConfigurationShrinkRequestPrivatePoolOptions
         self.system_disk = system_disk  # type: CreateScalingConfigurationShrinkRequestSystemDisk
@@ -5889,6 +5985,7 @@ class CreateScalingConfigurationShrinkRequest(TeaModel):
         # 
         # > You can specify Cpu and Memory to determine the range of instance types only if you set Scaling Policy to Cost Optimization Policy and you do not specify instance types in the scaling configuration.
         self.memory = memory  # type: int
+        self.network_interfaces = network_interfaces  # type: list[CreateScalingConfigurationShrinkRequestNetworkInterfaces]
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         # The password that you want to use to log on to an ECS instance. The password must be 8 to 30 characters in length and must contain at least three of the following character types: uppercase letters, lowercase letters, digits, and special characters. The following special characters are supported:
@@ -5998,6 +6095,10 @@ class CreateScalingConfigurationShrinkRequest(TeaModel):
             for k in self.instance_type_overrides:
                 if k:
                     k.validate()
+        if self.network_interfaces:
+            for k in self.network_interfaces:
+                if k:
+                    k.validate()
         if self.spot_price_limits:
             for k in self.spot_price_limits:
                 if k:
@@ -6079,6 +6180,10 @@ class CreateScalingConfigurationShrinkRequest(TeaModel):
             result['LoadBalancerWeight'] = self.load_balancer_weight
         if self.memory is not None:
             result['Memory'] = self.memory
+        result['NetworkInterfaces'] = []
+        if self.network_interfaces is not None:
+            for k in self.network_interfaces:
+                result['NetworkInterfaces'].append(k.to_map() if k else None)
         if self.owner_account is not None:
             result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
@@ -6210,6 +6315,11 @@ class CreateScalingConfigurationShrinkRequest(TeaModel):
             self.load_balancer_weight = m.get('LoadBalancerWeight')
         if m.get('Memory') is not None:
             self.memory = m.get('Memory')
+        self.network_interfaces = []
+        if m.get('NetworkInterfaces') is not None:
+            for k in m.get('NetworkInterfaces'):
+                temp_model = CreateScalingConfigurationShrinkRequestNetworkInterfaces()
+                self.network_interfaces.append(temp_model.from_map(k))
         if m.get('OwnerAccount') is not None:
             self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
@@ -14381,6 +14491,46 @@ class DescribeScalingConfigurationsResponseBodyScalingConfigurationsInstancePatt
         return self
 
 
+class DescribeScalingConfigurationsResponseBodyScalingConfigurationsNetworkInterfaces(TeaModel):
+    def __init__(self, instance_type=None, ipv_6address_count=None, network_interface_traffic_mode=None,
+                 security_group_ids=None):
+        self.instance_type = instance_type  # type: str
+        self.ipv_6address_count = ipv_6address_count  # type: int
+        self.network_interface_traffic_mode = network_interface_traffic_mode  # type: str
+        self.security_group_ids = security_group_ids  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeScalingConfigurationsResponseBodyScalingConfigurationsNetworkInterfaces, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_type is not None:
+            result['InstanceType'] = self.instance_type
+        if self.ipv_6address_count is not None:
+            result['Ipv6AddressCount'] = self.ipv_6address_count
+        if self.network_interface_traffic_mode is not None:
+            result['NetworkInterfaceTrafficMode'] = self.network_interface_traffic_mode
+        if self.security_group_ids is not None:
+            result['SecurityGroupIds'] = self.security_group_ids
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceType') is not None:
+            self.instance_type = m.get('InstanceType')
+        if m.get('Ipv6AddressCount') is not None:
+            self.ipv_6address_count = m.get('Ipv6AddressCount')
+        if m.get('NetworkInterfaceTrafficMode') is not None:
+            self.network_interface_traffic_mode = m.get('NetworkInterfaceTrafficMode')
+        if m.get('SecurityGroupIds') is not None:
+            self.security_group_ids = m.get('SecurityGroupIds')
+        return self
+
+
 class DescribeScalingConfigurationsResponseBodyScalingConfigurationsSchedulerOptions(TeaModel):
     def __init__(self, managed_private_space_id=None):
         # > This parameter is in invitational preview and is unavailable.
@@ -14480,15 +14630,15 @@ class DescribeScalingConfigurationsResponseBodyScalingConfigurations(TeaModel):
                  instance_name=None, instance_pattern_infos=None, instance_type=None, instance_types=None,
                  internet_charge_type=None, internet_max_bandwidth_in=None, internet_max_bandwidth_out=None, io_optimized=None,
                  ipv_6address_count=None, key_pair_name=None, lifecycle_state=None, load_balancer_weight=None, memory=None,
-                 password_inherit=None, private_pool_options_id=None, private_pool_options_match_criteria=None, ram_role_name=None,
-                 resource_group_id=None, scaling_configuration_id=None, scaling_configuration_name=None, scaling_group_id=None,
-                 scheduler_options=None, security_enhancement_strategy=None, security_group_id=None, security_group_ids=None,
-                 spot_duration=None, spot_interruption_behavior=None, spot_price_limits=None, spot_strategy=None,
-                 storage_set_id=None, storage_set_partition_number=None, system_disk_auto_snapshot_policy_id=None,
-                 system_disk_bursting_enabled=None, system_disk_categories=None, system_disk_category=None, system_disk_description=None,
-                 system_disk_encrypt_algorithm=None, system_disk_encrypted=None, system_disk_kmskey_id=None, system_disk_name=None,
-                 system_disk_performance_level=None, system_disk_provisioned_iops=None, system_disk_size=None, tags=None, tenancy=None,
-                 user_data=None, weighted_capacities=None, zone_id=None):
+                 network_interfaces=None, password_inherit=None, private_pool_options_id=None,
+                 private_pool_options_match_criteria=None, ram_role_name=None, resource_group_id=None, scaling_configuration_id=None,
+                 scaling_configuration_name=None, scaling_group_id=None, scheduler_options=None, security_enhancement_strategy=None,
+                 security_group_id=None, security_group_ids=None, spot_duration=None, spot_interruption_behavior=None,
+                 spot_price_limits=None, spot_strategy=None, storage_set_id=None, storage_set_partition_number=None,
+                 system_disk_auto_snapshot_policy_id=None, system_disk_bursting_enabled=None, system_disk_categories=None, system_disk_category=None,
+                 system_disk_description=None, system_disk_encrypt_algorithm=None, system_disk_encrypted=None, system_disk_kmskey_id=None,
+                 system_disk_name=None, system_disk_performance_level=None, system_disk_provisioned_iops=None,
+                 system_disk_size=None, tags=None, tenancy=None, user_data=None, weighted_capacities=None, zone_id=None):
         # Indicates whether the instance on the dedicated host is associated with the dedicated host. Valid values:
         # 
         # *   default: The instance is not associated with the dedicated host. If you start an instance that was stopped in Economical Mode and the original dedicated host has insufficient resources, the instance is automatically deployed to another dedicated host in the automatic deployment resource pool.
@@ -14585,6 +14735,7 @@ class DescribeScalingConfigurationsResponseBodyScalingConfigurations(TeaModel):
         # 
         # > You can specify CPU and memory specifications to determine the range of instance types only if the Scaling Policy parameter is set to Cost Optimization Policy and no instance type is specified in the scaling configuration.
         self.memory = memory  # type: int
+        self.network_interfaces = network_interfaces  # type: list[DescribeScalingConfigurationsResponseBodyScalingConfigurationsNetworkInterfaces]
         # Indicates whether the password preconfigured in the image is used.
         self.password_inherit = password_inherit  # type: bool
         self.private_pool_options_id = private_pool_options_id  # type: str
@@ -14702,6 +14853,10 @@ class DescribeScalingConfigurationsResponseBodyScalingConfigurations(TeaModel):
             for k in self.instance_pattern_infos:
                 if k:
                     k.validate()
+        if self.network_interfaces:
+            for k in self.network_interfaces:
+                if k:
+                    k.validate()
         if self.scheduler_options:
             self.scheduler_options.validate()
         if self.spot_price_limits:
@@ -14787,6 +14942,10 @@ class DescribeScalingConfigurationsResponseBodyScalingConfigurations(TeaModel):
             result['LoadBalancerWeight'] = self.load_balancer_weight
         if self.memory is not None:
             result['Memory'] = self.memory
+        result['NetworkInterfaces'] = []
+        if self.network_interfaces is not None:
+            for k in self.network_interfaces:
+                result['NetworkInterfaces'].append(k.to_map() if k else None)
         if self.password_inherit is not None:
             result['PasswordInherit'] = self.password_inherit
         if self.private_pool_options_id is not None:
@@ -14936,6 +15095,11 @@ class DescribeScalingConfigurationsResponseBodyScalingConfigurations(TeaModel):
             self.load_balancer_weight = m.get('LoadBalancerWeight')
         if m.get('Memory') is not None:
             self.memory = m.get('Memory')
+        self.network_interfaces = []
+        if m.get('NetworkInterfaces') is not None:
+            for k in m.get('NetworkInterfaces'):
+                temp_model = DescribeScalingConfigurationsResponseBodyScalingConfigurationsNetworkInterfaces()
+                self.network_interfaces.append(temp_model.from_map(k))
         if m.get('PasswordInherit') is not None:
             self.password_inherit = m.get('PasswordInherit')
         if m.get('PrivatePoolOptions.Id') is not None:
@@ -23728,6 +23892,46 @@ class ModifyScalingConfigurationRequestInstanceTypeOverrides(TeaModel):
         return self
 
 
+class ModifyScalingConfigurationRequestNetworkInterfaces(TeaModel):
+    def __init__(self, instance_type=None, ipv_6address_count=None, network_interface_traffic_mode=None,
+                 security_group_ids=None):
+        self.instance_type = instance_type  # type: str
+        self.ipv_6address_count = ipv_6address_count  # type: int
+        self.network_interface_traffic_mode = network_interface_traffic_mode  # type: str
+        self.security_group_ids = security_group_ids  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyScalingConfigurationRequestNetworkInterfaces, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_type is not None:
+            result['InstanceType'] = self.instance_type
+        if self.ipv_6address_count is not None:
+            result['Ipv6AddressCount'] = self.ipv_6address_count
+        if self.network_interface_traffic_mode is not None:
+            result['NetworkInterfaceTrafficMode'] = self.network_interface_traffic_mode
+        if self.security_group_ids is not None:
+            result['SecurityGroupIds'] = self.security_group_ids
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceType') is not None:
+            self.instance_type = m.get('InstanceType')
+        if m.get('Ipv6AddressCount') is not None:
+            self.ipv_6address_count = m.get('Ipv6AddressCount')
+        if m.get('NetworkInterfaceTrafficMode') is not None:
+            self.network_interface_traffic_mode = m.get('NetworkInterfaceTrafficMode')
+        if m.get('SecurityGroupIds') is not None:
+            self.security_group_ids = m.get('SecurityGroupIds')
+        return self
+
+
 class ModifyScalingConfigurationRequestSpotPriceLimits(TeaModel):
     def __init__(self, instance_type=None, price_limit=None):
         # The instance type of the preemptible instance. This parameter takes effect only if you set SpotStrategy to SpotWithPriceLimit.
@@ -23765,12 +23969,12 @@ class ModifyScalingConfigurationRequest(TeaModel):
                  deployment_set_id=None, host_name=None, hpc_cluster_id=None, image_family=None, image_id=None, image_name=None,
                  instance_description=None, instance_name=None, instance_pattern_infos=None, instance_type_overrides=None,
                  instance_types=None, internet_charge_type=None, internet_max_bandwidth_out=None, io_optimized=None,
-                 ipv_6address_count=None, key_pair_name=None, load_balancer_weight=None, memory=None, override=None,
-                 owner_account=None, owner_id=None, password_inherit=None, ram_role_name=None, resource_group_id=None,
-                 resource_owner_account=None, scaling_configuration_id=None, scaling_configuration_name=None, scheduler_options=None,
-                 security_group_id=None, security_group_ids=None, spot_duration=None, spot_interruption_behavior=None,
-                 spot_price_limits=None, spot_strategy=None, storage_set_id=None, storage_set_partition_number=None,
-                 system_disk_categories=None, tags=None, tenancy=None, user_data=None, zone_id=None):
+                 ipv_6address_count=None, key_pair_name=None, load_balancer_weight=None, memory=None, network_interfaces=None,
+                 override=None, owner_account=None, owner_id=None, password_inherit=None, ram_role_name=None,
+                 resource_group_id=None, resource_owner_account=None, scaling_configuration_id=None,
+                 scaling_configuration_name=None, scheduler_options=None, security_group_id=None, security_group_ids=None, spot_duration=None,
+                 spot_interruption_behavior=None, spot_price_limits=None, spot_strategy=None, storage_set_id=None,
+                 storage_set_partition_number=None, system_disk_categories=None, tags=None, tenancy=None, user_data=None, zone_id=None):
         self.image_options = image_options  # type: ModifyScalingConfigurationRequestImageOptions
         self.private_pool_options = private_pool_options  # type: ModifyScalingConfigurationRequestPrivatePoolOptions
         self.system_disk = system_disk  # type: ModifyScalingConfigurationRequestSystemDisk
@@ -23859,6 +24063,7 @@ class ModifyScalingConfigurationRequest(TeaModel):
         # 
         # > You can specify CPU and Memory to determine the range of instance types only if you set Scaling Policy to Cost Optimization Policy and you do not specify an instance type in the scaling configuration.
         self.memory = memory  # type: int
+        self.network_interfaces = network_interfaces  # type: list[ModifyScalingConfigurationRequestNetworkInterfaces]
         # Specifies whether to overwrite existing data. Valid values:
         # 
         # *   true
@@ -23949,6 +24154,10 @@ class ModifyScalingConfigurationRequest(TeaModel):
             for k in self.instance_type_overrides:
                 if k:
                     k.validate()
+        if self.network_interfaces:
+            for k in self.network_interfaces:
+                if k:
+                    k.validate()
         if self.spot_price_limits:
             for k in self.spot_price_limits:
                 if k:
@@ -24024,6 +24233,10 @@ class ModifyScalingConfigurationRequest(TeaModel):
             result['LoadBalancerWeight'] = self.load_balancer_weight
         if self.memory is not None:
             result['Memory'] = self.memory
+        result['NetworkInterfaces'] = []
+        if self.network_interfaces is not None:
+            for k in self.network_interfaces:
+                result['NetworkInterfaces'].append(k.to_map() if k else None)
         if self.override is not None:
             result['Override'] = self.override
         if self.owner_account is not None:
@@ -24147,6 +24360,11 @@ class ModifyScalingConfigurationRequest(TeaModel):
             self.load_balancer_weight = m.get('LoadBalancerWeight')
         if m.get('Memory') is not None:
             self.memory = m.get('Memory')
+        self.network_interfaces = []
+        if m.get('NetworkInterfaces') is not None:
+            for k in m.get('NetworkInterfaces'):
+                temp_model = ModifyScalingConfigurationRequestNetworkInterfaces()
+                self.network_interfaces.append(temp_model.from_map(k))
         if m.get('Override') is not None:
             self.override = m.get('Override')
         if m.get('OwnerAccount') is not None:
@@ -24713,6 +24931,46 @@ class ModifyScalingConfigurationShrinkRequestInstanceTypeOverrides(TeaModel):
         return self
 
 
+class ModifyScalingConfigurationShrinkRequestNetworkInterfaces(TeaModel):
+    def __init__(self, instance_type=None, ipv_6address_count=None, network_interface_traffic_mode=None,
+                 security_group_ids=None):
+        self.instance_type = instance_type  # type: str
+        self.ipv_6address_count = ipv_6address_count  # type: int
+        self.network_interface_traffic_mode = network_interface_traffic_mode  # type: str
+        self.security_group_ids = security_group_ids  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyScalingConfigurationShrinkRequestNetworkInterfaces, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_type is not None:
+            result['InstanceType'] = self.instance_type
+        if self.ipv_6address_count is not None:
+            result['Ipv6AddressCount'] = self.ipv_6address_count
+        if self.network_interface_traffic_mode is not None:
+            result['NetworkInterfaceTrafficMode'] = self.network_interface_traffic_mode
+        if self.security_group_ids is not None:
+            result['SecurityGroupIds'] = self.security_group_ids
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceType') is not None:
+            self.instance_type = m.get('InstanceType')
+        if m.get('Ipv6AddressCount') is not None:
+            self.ipv_6address_count = m.get('Ipv6AddressCount')
+        if m.get('NetworkInterfaceTrafficMode') is not None:
+            self.network_interface_traffic_mode = m.get('NetworkInterfaceTrafficMode')
+        if m.get('SecurityGroupIds') is not None:
+            self.security_group_ids = m.get('SecurityGroupIds')
+        return self
+
+
 class ModifyScalingConfigurationShrinkRequestSpotPriceLimits(TeaModel):
     def __init__(self, instance_type=None, price_limit=None):
         # The instance type of the preemptible instance. This parameter takes effect only if you set SpotStrategy to SpotWithPriceLimit.
@@ -24750,12 +25008,13 @@ class ModifyScalingConfigurationShrinkRequest(TeaModel):
                  deployment_set_id=None, host_name=None, hpc_cluster_id=None, image_family=None, image_id=None, image_name=None,
                  instance_description=None, instance_name=None, instance_pattern_infos=None, instance_type_overrides=None,
                  instance_types=None, internet_charge_type=None, internet_max_bandwidth_out=None, io_optimized=None,
-                 ipv_6address_count=None, key_pair_name=None, load_balancer_weight=None, memory=None, override=None,
-                 owner_account=None, owner_id=None, password_inherit=None, ram_role_name=None, resource_group_id=None,
-                 resource_owner_account=None, scaling_configuration_id=None, scaling_configuration_name=None,
-                 scheduler_options_shrink=None, security_group_id=None, security_group_ids=None, spot_duration=None,
-                 spot_interruption_behavior=None, spot_price_limits=None, spot_strategy=None, storage_set_id=None,
-                 storage_set_partition_number=None, system_disk_categories=None, tags=None, tenancy=None, user_data=None, zone_id=None):
+                 ipv_6address_count=None, key_pair_name=None, load_balancer_weight=None, memory=None, network_interfaces=None,
+                 override=None, owner_account=None, owner_id=None, password_inherit=None, ram_role_name=None,
+                 resource_group_id=None, resource_owner_account=None, scaling_configuration_id=None,
+                 scaling_configuration_name=None, scheduler_options_shrink=None, security_group_id=None, security_group_ids=None,
+                 spot_duration=None, spot_interruption_behavior=None, spot_price_limits=None, spot_strategy=None,
+                 storage_set_id=None, storage_set_partition_number=None, system_disk_categories=None, tags=None, tenancy=None,
+                 user_data=None, zone_id=None):
         self.image_options = image_options  # type: ModifyScalingConfigurationShrinkRequestImageOptions
         self.private_pool_options = private_pool_options  # type: ModifyScalingConfigurationShrinkRequestPrivatePoolOptions
         self.system_disk = system_disk  # type: ModifyScalingConfigurationShrinkRequestSystemDisk
@@ -24844,6 +25103,7 @@ class ModifyScalingConfigurationShrinkRequest(TeaModel):
         # 
         # > You can specify CPU and Memory to determine the range of instance types only if you set Scaling Policy to Cost Optimization Policy and you do not specify an instance type in the scaling configuration.
         self.memory = memory  # type: int
+        self.network_interfaces = network_interfaces  # type: list[ModifyScalingConfigurationShrinkRequestNetworkInterfaces]
         # Specifies whether to overwrite existing data. Valid values:
         # 
         # *   true
@@ -24934,6 +25194,10 @@ class ModifyScalingConfigurationShrinkRequest(TeaModel):
             for k in self.instance_type_overrides:
                 if k:
                     k.validate()
+        if self.network_interfaces:
+            for k in self.network_interfaces:
+                if k:
+                    k.validate()
         if self.spot_price_limits:
             for k in self.spot_price_limits:
                 if k:
@@ -25009,6 +25273,10 @@ class ModifyScalingConfigurationShrinkRequest(TeaModel):
             result['LoadBalancerWeight'] = self.load_balancer_weight
         if self.memory is not None:
             result['Memory'] = self.memory
+        result['NetworkInterfaces'] = []
+        if self.network_interfaces is not None:
+            for k in self.network_interfaces:
+                result['NetworkInterfaces'].append(k.to_map() if k else None)
         if self.override is not None:
             result['Override'] = self.override
         if self.owner_account is not None:
@@ -25132,6 +25400,11 @@ class ModifyScalingConfigurationShrinkRequest(TeaModel):
             self.load_balancer_weight = m.get('LoadBalancerWeight')
         if m.get('Memory') is not None:
             self.memory = m.get('Memory')
+        self.network_interfaces = []
+        if m.get('NetworkInterfaces') is not None:
+            for k in m.get('NetworkInterfaces'):
+                temp_model = ModifyScalingConfigurationShrinkRequestNetworkInterfaces()
+                self.network_interfaces.append(temp_model.from_map(k))
         if m.get('Override') is not None:
             self.override = m.get('Override')
         if m.get('OwnerAccount') is not None:
