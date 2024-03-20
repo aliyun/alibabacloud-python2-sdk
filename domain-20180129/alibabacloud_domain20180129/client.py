@@ -1297,6 +1297,8 @@ class Client(OpenApiClient):
     def query_domain_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.ccompany):
+            query['Ccompany'] = request.ccompany
         if not UtilClient.is_unset(request.domain_group_id):
             query['DomainGroupId'] = request.domain_group_id
         if not UtilClient.is_unset(request.domain_name):
@@ -4165,6 +4167,16 @@ class Client(OpenApiClient):
         return self.save_task_for_updating_registrant_info_by_registrant_profile_idwith_options(request, runtime)
 
     def scroll_domain_list_with_options(self, request, runtime):
+        """
+        If you have a large number of domain names, a slow response may occur when you call an API operation to query domain names. In this case, you can call this operation to query domain names more quickly. When you call this operation for the first time, specify the request parameters except ScrollId. A scroll ID is returned without other data. In the second request, use the scroll ID obtained from the previous response. In subsequent requests, the newly specified request parameters do not take effect, and the request parameters that are specified in the first request prevail.
+        
+
+        @param request: ScrollDomainListRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ScrollDomainListResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.domain_group_id):
@@ -4233,6 +4245,14 @@ class Client(OpenApiClient):
         )
 
     def scroll_domain_list(self, request):
+        """
+        If you have a large number of domain names, a slow response may occur when you call an API operation to query domain names. In this case, you can call this operation to query domain names more quickly. When you call this operation for the first time, specify the request parameters except ScrollId. A scroll ID is returned without other data. In the second request, use the scroll ID obtained from the previous response. In subsequent requests, the newly specified request parameters do not take effect, and the request parameters that are specified in the first request prevail.
+        
+
+        @param request: ScrollDomainListRequest
+
+        @return: ScrollDomainListResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.scroll_domain_list_with_options(request, runtime)
 

@@ -329,9 +329,21 @@ class BatchFuzzyMatchDomainSensitiveWordResponse(TeaModel):
 
 class CancelDomainVerificationRequest(TeaModel):
     def __init__(self, action_type=None, instance_id=None, lang=None, user_client_ip=None):
+        # The action type. Valid values:
+        # 
+        # *   **DOMAINAUDIT**: review a domain name review.
+        # *   **AUDITCONTACT**: review a contact.
         self.action_type = action_type  # type: str
+        # Thee instance ID of the domain name. You can call the [QueryDomainList](~~67712~~) operation to query the instance ID.
         self.instance_id = instance_id  # type: str
+        # The language of the error message to return if the request fails. Valid values:
+        # 
+        # *   **zh**: Chinese.
+        # *   **en**: English.
+        # 
+        # Default value: **en**.
         self.lang = lang  # type: str
+        # The IP address of the client. Set the value to **127.0.0.1**.
         self.user_client_ip = user_client_ip  # type: str
 
     def validate(self):
@@ -368,6 +380,7 @@ class CancelDomainVerificationRequest(TeaModel):
 
 class CancelDomainVerificationResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2014,7 +2027,9 @@ class DeleteRegistrantProfileResponse(TeaModel):
 
 class DomainSpecialBizCancelRequest(TeaModel):
     def __init__(self, biz_id=None, user_client_ip=None):
+        # The business ID.
         self.biz_id = biz_id  # type: long
+        # The IP address of the client.
         self.user_client_ip = user_client_ip  # type: str
 
     def validate(self):
@@ -2045,17 +2060,29 @@ class DomainSpecialBizCancelResponseBody(TeaModel):
     def __init__(self, allow_retry=None, app_name=None, dynamic_code=None, dynamic_message=None, error_args=None,
                  error_code=None, error_msg=None, http_status_code=None, module=None, request_id=None, success=None,
                  synchro=None):
+        # Indicates whether retries are allowed.
         self.allow_retry = allow_retry  # type: bool
+        # The name of the application for which the error code is returned.
         self.app_name = app_name  # type: str
+        # The dynamic error code.
         self.dynamic_code = dynamic_code  # type: str
+        # The dynamic error message.
         self.dynamic_message = dynamic_message  # type: str
+        # The array of error parameters that are returned.
         self.error_args = error_args  # type: list[any]
+        # The error code.
         self.error_code = error_code  # type: str
+        # The error message.
         self.error_msg = error_msg  # type: str
+        # The HTTP status code that is directly returned.
         self.http_status_code = http_status_code  # type: int
+        # The returned data.
         self.module = module  # type: any
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values: true and false.
         self.success = success  # type: bool
+        # Indicates whether to perform synchronous processing.
         self.synchro = synchro  # type: bool
 
     def validate(self):
@@ -5711,8 +5738,16 @@ class QueryDomainAdminDivisionResponse(TeaModel):
 
 class QueryDomainByDomainNameRequest(TeaModel):
     def __init__(self, domain_name=None, lang=None, user_client_ip=None):
+        # The domain name.
         self.domain_name = domain_name  # type: str
+        # The language of the error message to return if the request fails. Valid values:
+        # 
+        # *   **zh**: Chinese.
+        # *   **en**: English.
+        # 
+        # Default value: **en**.
         self.lang = lang  # type: str
+        # The IP address of the client.
         self.user_client_ip = user_client_ip  # type: str
 
     def validate(self):
@@ -5769,7 +5804,9 @@ class QueryDomainByDomainNameResponseBodyDnsList(TeaModel):
 
 class QueryDomainByDomainNameResponseBodyTagTag(TeaModel):
     def __init__(self, key=None, vaue=None):
+        # The tag key.
         self.key = key  # type: str
+        # The tag value.
         self.vaue = vaue  # type: str
 
     def validate(self):
@@ -5837,39 +5874,114 @@ class QueryDomainByDomainNameResponseBody(TeaModel):
                  registration_date=None, registration_date_long=None, remark=None, request_id=None, resource_group_id=None, tag=None,
                  transfer_out_status=None, transfer_prohibition_lock=None, update_prohibition_lock=None, user_id=None,
                  zh_registrant_name=None, zh_registrant_organization=None):
+        # The Domain Name System (DNS) servers of the domain name.
         self.dns_list = dns_list  # type: QueryDomainByDomainNameResponseBodyDnsList
+        # The ID of the domain name group. You can call the [QueryDomainGroupList](~~69362~~) operation to query the ID of the domain name group.
         self.domain_group_id = domain_group_id  # type: long
+        # The name of the domain name group.
         self.domain_group_name = domain_group_name  # type: str
+        # The domain name.
         self.domain_name = domain_name  # type: str
+        # Indicates whether privacy protection is enabled for the domain name.
         self.domain_name_proxy_service = domain_name_proxy_service  # type: bool
+        # The status of name auditing for the domain name. Valid values:
+        # 
+        # *   **NONAUDIT**: The name auditing for the domain name is not performed.
+        # *   **SUCCEED**: The name auditing for the domain name is successful.
+        # *   **FAILED**: The name auditing for the domain name fails.
+        # *   **AUDITING**: The name auditing for the domain name is in progress.
         self.domain_name_verification_status = domain_name_verification_status  # type: str
+        # The status of the domain name. Valid values:
+        # 
+        # *   1: The domain name needs to be renewed.
+        # *   2: The domain name needs to be redeemed.
+        # *   3: The domain name is normal.
         self.domain_status = domain_status  # type: str
+        # The type of the domain name. Valid values:
+        # 
+        # *   New gTLD
+        # *   gTLD
+        # *   ccTLD
         self.domain_type = domain_type  # type: str
+        # The email address of the domain name registrant.
         self.email = email  # type: str
+        # Indicates whether the domain name is in the ClientHold state.
         self.email_verification_client_hold = email_verification_client_hold  # type: bool
+        # Indicates whether the email address passes verification. Valid values:
+        # 
+        # *   **0**: The email address fails the verification.
+        # *   **1**: The email address passes the verification.
         self.email_verification_status = email_verification_status  # type: int
+        # The number of days from the expiration date of the domain name to the current date.
         self.expiration_curr_date_diff = expiration_curr_date_diff  # type: int
+        # The expiration date.
         self.expiration_date = expiration_date  # type: str
+        # The timestamp generated when the domain name expired.
         self.expiration_date_long = expiration_date_long  # type: long
+        # Indicates whether the domain name expires. Valid values:
+        # 
+        # *   **1**: The domain name does not expire.
+        # *   **2**: The domain name expires.
         self.expiration_date_status = expiration_date_status  # type: str
+        # The instance ID of the domain name.
         self.instance_id = instance_id  # type: str
+        # Indicates whether the domain name is a premium domain name.
         self.premium = premium  # type: bool
+        # The status of real-name verification for the domain name. Valid values:
+        # 
+        # *   **NONAUDIT**: The real-name verification is not performed.
+        # *   **SUCCEED**: The real-name verification is successful.
+        # *   **FAILED**: The real-name verification fails.
+        # *   **AUDITING**: The real-name verification is in progress.
         self.real_name_status = real_name_status  # type: str
+        # The name of the contact.
         self.registrant_name = registrant_name  # type: str
+        # The registrant of the domain name.
         self.registrant_organization = registrant_organization  # type: str
+        # The type of contact who registers the domain name. Valid values:
+        # 
+        # *   **1**: individual.
+        # *   **2**: enterprise.
         self.registrant_type = registrant_type  # type: str
+        # The status of the information about the domain name registrant. Valid values:
+        # 
+        # *   **PENDING**: The information about the domain name registrant is being modified.
+        # *   **NORMAL**: normal.
         self.registrant_updating_status = registrant_updating_status  # type: str
+        # The time when the domain name was registered.
         self.registration_date = registration_date  # type: str
+        # The timestamp generated when the domain name was registered.
         self.registration_date_long = registration_date_long  # type: long
+        # The remarks on the domain name.
         self.remark = remark  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
+        # The tags.
         self.tag = tag  # type: QueryDomainByDomainNameResponseBodyTag
+        # The transfer status of the domain name. Valid values:
+        # 
+        # *   **NORMAL**: The domain name is normal.
+        # *   **PENDING**: The domain name is being transferred out from Alibaba Cloud.
         self.transfer_out_status = transfer_out_status  # type: str
+        # The status of the transfer lock for the domain name. Valid values:
+        # 
+        # *   **NONE_SETTING**: No transfer lock is configured.
+        # *   **OPEN**: The transfer lock is enabled.
+        # *   **CLOSE**: The transfer lock is disabled.
         self.transfer_prohibition_lock = transfer_prohibition_lock  # type: str
+        # The status of the security lock for the domain name. Valid values:
+        # 
+        # *   **NONE_SETTING**: No security lock is configured.
+        # *   **OPEN**: The security lock is enabled.
+        # *   **CLOSE**: The security lock is disabled.
         self.update_prohibition_lock = update_prohibition_lock  # type: str
+        # The user ID.
         self.user_id = user_id  # type: str
+        # The Chinese name of the domain name contact.
         self.zh_registrant_name = zh_registrant_name  # type: str
+        # The Chinese name of the domain name registrant.
         self.zh_registrant_organization = zh_registrant_organization  # type: str
 
     def validate(self):
@@ -6644,10 +6756,11 @@ class QueryDomainListRequestTag(TeaModel):
 
 
 class QueryDomainListRequest(TeaModel):
-    def __init__(self, domain_group_id=None, domain_name=None, end_expiration_date=None,
+    def __init__(self, ccompany=None, domain_group_id=None, domain_name=None, end_expiration_date=None,
                  end_registration_date=None, lang=None, order_by_type=None, order_key_type=None, page_num=None, page_size=None,
                  product_domain_type=None, query_type=None, resource_group_id=None, start_expiration_date=None,
                  start_registration_date=None, tag=None, user_client_ip=None):
+        self.ccompany = ccompany  # type: str
         self.domain_group_id = domain_group_id  # type: str
         self.domain_name = domain_name  # type: str
         self.end_expiration_date = end_expiration_date  # type: long
@@ -6677,6 +6790,8 @@ class QueryDomainListRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.ccompany is not None:
+            result['Ccompany'] = self.ccompany
         if self.domain_group_id is not None:
             result['DomainGroupId'] = self.domain_group_id
         if self.domain_name is not None:
@@ -6715,6 +6830,8 @@ class QueryDomainListRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Ccompany') is not None:
+            self.ccompany = m.get('Ccompany')
         if m.get('DomainGroupId') is not None:
             self.domain_group_id = m.get('DomainGroupId')
         if m.get('DomainName') is not None:
@@ -6815,11 +6932,12 @@ class QueryDomainListResponseBodyDataDomainTag(TeaModel):
 
 
 class QueryDomainListResponseBodyDataDomain(TeaModel):
-    def __init__(self, domain_audit_status=None, domain_group_id=None, domain_group_name=None, domain_name=None,
-                 domain_status=None, domain_type=None, expiration_curr_date_diff=None, expiration_date=None,
+    def __init__(self, ccompany=None, domain_audit_status=None, domain_group_id=None, domain_group_name=None,
+                 domain_name=None, domain_status=None, domain_type=None, expiration_curr_date_diff=None, expiration_date=None,
                  expiration_date_long=None, expiration_date_status=None, instance_id=None, premium=None, product_id=None,
                  registrant_type=None, registration_date=None, registration_date_long=None, remark=None, resource_group_id=None,
                  tag=None):
+        self.ccompany = ccompany  # type: str
         self.domain_audit_status = domain_audit_status  # type: str
         self.domain_group_id = domain_group_id  # type: str
         self.domain_group_name = domain_group_name  # type: str
@@ -6850,6 +6968,8 @@ class QueryDomainListResponseBodyDataDomain(TeaModel):
             return _map
 
         result = dict()
+        if self.ccompany is not None:
+            result['Ccompany'] = self.ccompany
         if self.domain_audit_status is not None:
             result['DomainAuditStatus'] = self.domain_audit_status
         if self.domain_group_id is not None:
@@ -6892,6 +7012,8 @@ class QueryDomainListResponseBodyDataDomain(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Ccompany') is not None:
+            self.ccompany = m.get('Ccompany')
         if m.get('DomainAuditStatus') is not None:
             self.domain_audit_status = m.get('DomainAuditStatus')
         if m.get('DomainGroupId') is not None:
@@ -7201,7 +7323,9 @@ class QueryDomainRealNameVerificationInfoResponse(TeaModel):
 
 class QueryDomainSpecialBizDetailRequest(TeaModel):
     def __init__(self, biz_id=None, user_client_ip=None):
+        # The business ID.
         self.biz_id = biz_id  # type: long
+        # The IP address of the client.
         self.user_client_ip = user_client_ip  # type: str
 
     def validate(self):
@@ -7233,30 +7357,55 @@ class QueryDomainSpecialBizDetailResponseBodyModuleDomainSpecialBizContact(TeaMo
                  ecity=None, ecompany=None, ename=None, eprovince=None, evenu=None, email=None, extend=None, fax_area=None,
                  fax_ext=None, fax_main=None, mobile=None, postalcode=None, reg_type=None, registrant_id=None, tel_area=None,
                  tel_ext=None, tel_main=None, vsp_contact_id=None):
+        # The business ID.
         self.biz_id = biz_id  # type: long
+        # The city.
         self.ccity = ccity  # type: str
+        # The organization name.
         self.ccompany = ccompany  # type: str
+        # The country code.
         self.ccountry = ccountry  # type: str
+        # The contact name.
         self.cname = cname  # type: str
+        # The province.
         self.cprovince = cprovince  # type: str
+        # The address.
         self.cvenu = cvenu  # type: str
+        # The city in English.
         self.ecity = ecity  # type: str
+        # The organization name in English.
         self.ecompany = ecompany  # type: str
+        # The contact name in English.
         self.ename = ename  # type: str
+        # The province in English.
         self.eprovince = eprovince  # type: str
+        # The address in English.
         self.evenu = evenu  # type: str
+        # The email address.
         self.email = email  # type: str
+        # The extended information.
         self.extend = extend  # type: str
+        # The fax country code.
         self.fax_area = fax_area  # type: str
+        # The fax extension number.
         self.fax_ext = fax_ext  # type: str
+        # The fax number with an area code or mobile number.
         self.fax_main = fax_main  # type: str
+        # The mobile number.
         self.mobile = mobile  # type: str
+        # The zip code.
         self.postalcode = postalcode  # type: str
+        # The contact type. Valid values: 1: individual. 2: enterprise.
         self.reg_type = reg_type  # type: int
+        # The registrant ID.
         self.registrant_id = registrant_id  # type: str
+        # The calling code of the country or region where the domain name contact is located.
         self.tel_area = tel_area  # type: str
+        # The telephone extension number.
         self.tel_ext = tel_ext  # type: str
+        # The landline number with an area code or mobile number.
         self.tel_main = tel_main  # type: str
+        # The VSP contact ID.
         self.vsp_contact_id = vsp_contact_id  # type: str
 
     def validate(self):
@@ -7378,12 +7527,19 @@ class QueryDomainSpecialBizDetailResponseBodyModuleDomainSpecialBizContact(TeaMo
 class QueryDomainSpecialBizDetailResponseBodyModuleDomainSpecialBizCredentials(TeaModel):
     def __init__(self, biz_id=None, credential_no=None, credential_type=None, credential_url=None, domain_name=None,
                  holder_cert=None, sale_id=None):
+        # The ID of the associated workflow.
         self.biz_id = biz_id  # type: long
+        # The certificate number.
         self.credential_no = credential_no  # type: str
+        # The certificate type.
         self.credential_type = credential_type  # type: str
+        # The certificate URL.
         self.credential_url = credential_url  # type: str
+        # The domain name.
         self.domain_name = domain_name  # type: str
+        # Indicates whether the certificate belongs to the registrant.
         self.holder_cert = holder_cert  # type: int
+        # The instance ID.
         self.sale_id = sale_id  # type: str
 
     def validate(self):
@@ -7433,14 +7589,23 @@ class QueryDomainSpecialBizDetailResponseBodyModuleDomainSpecialBizCredentials(T
 class QueryDomainSpecialBizDetailResponseBodyModuleDomainSpecialOrderResult(TeaModel):
     def __init__(self, action_type=None, order_amount=None, order_currency=None, order_id=None, order_status=None,
                  order_time=None, order_year=None, sale_id=None, sub_order_id=None):
+        # The cost type.
         self.action_type = action_type  # type: str
+        # The amount of the order.
         self.order_amount = order_amount  # type: float
+        # The currency.
         self.order_currency = order_currency  # type: str
+        # The order ID.
         self.order_id = order_id  # type: str
+        # The order status.
         self.order_status = order_status  # type: str
+        # The time when the order was placed.
         self.order_time = order_time  # type: str
+        # The validity period.
         self.order_year = order_year  # type: int
+        # The instance ID.
         self.sale_id = sale_id  # type: str
+        # The suborder ID.
         self.sub_order_id = sub_order_id  # type: str
 
     def validate(self):
@@ -7500,25 +7665,45 @@ class QueryDomainSpecialBizDetailResponseBodyModule(TeaModel):
                  domain_name=None, domain_special_biz_contact=None, domain_special_biz_credentials=None,
                  domain_special_order_result=None, gmt_create=None, gmt_modified=None, id=None, order_id=None, product_id=None, sale_id=None,
                  status=None, status_desc=None, update_time=None, user_id=None):
+        # The review information.
         self.audit_msg = audit_msg  # type: str
+        # The business name.
         self.biz_name = biz_name  # type: str
+        # The business ID.
         self.biz_no = biz_no  # type: str
+        # The business status.
         self.biz_status = biz_status  # type: str
+        # The business type.
         self.biz_type = biz_type  # type: str
+        # The time when the business was created.
         self.create_time = create_time  # type: long
+        # The domain name.
         self.domain_name = domain_name  # type: str
+        # The contact information.
         self.domain_special_biz_contact = domain_special_biz_contact  # type: QueryDomainSpecialBizDetailResponseBodyModuleDomainSpecialBizContact
+        # The certificate information.
         self.domain_special_biz_credentials = domain_special_biz_credentials  # type: list[QueryDomainSpecialBizDetailResponseBodyModuleDomainSpecialBizCredentials]
+        # The information about the order.
         self.domain_special_order_result = domain_special_order_result  # type: QueryDomainSpecialBizDetailResponseBodyModuleDomainSpecialOrderResult
+        # The time when the business was created.
         self.gmt_create = gmt_create  # type: str
+        # The time when the business was modified.
         self.gmt_modified = gmt_modified  # type: str
+        # The primary key.
         self.id = id  # type: long
+        # The order ID.
         self.order_id = order_id  # type: str
+        # The service ID.
         self.product_id = product_id  # type: str
+        # The instance ID.
         self.sale_id = sale_id  # type: str
+        # The business status.
         self.status = status  # type: int
+        # The description of business status.
         self.status_desc = status_desc  # type: str
+        # The time when the business was updated.
         self.update_time = update_time  # type: long
+        # The user ID.
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -7635,17 +7820,32 @@ class QueryDomainSpecialBizDetailResponseBody(TeaModel):
     def __init__(self, allow_retry=None, app_name=None, dynamic_code=None, dynamic_message=None, error_args=None,
                  error_code=None, error_msg=None, http_status_code=None, module=None, request_id=None, success=None,
                  synchro=None):
+        # Indicates whether retries are allowed.
         self.allow_retry = allow_retry  # type: bool
+        # The name of the application for which the error code is returned.
         self.app_name = app_name  # type: str
+        # The dynamic error code.
         self.dynamic_code = dynamic_code  # type: str
+        # The dynamic error message.
         self.dynamic_message = dynamic_message  # type: str
+        # The array of error parameters that are returned.
         self.error_args = error_args  # type: list[any]
+        # The error code.
         self.error_code = error_code  # type: str
+        # The error message.
         self.error_msg = error_msg  # type: str
+        # The HTTP status code that is directly returned.
         self.http_status_code = http_status_code  # type: int
+        # The returned data.
         self.module = module  # type: QueryDomainSpecialBizDetailResponseBodyModule
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: bool
+        # Indicates whether to perform synchronous processing.
         self.synchro = synchro  # type: bool
 
     def validate(self):
@@ -7752,8 +7952,11 @@ class QueryDomainSpecialBizDetailResponse(TeaModel):
 
 class QueryDomainSpecialBizInfoByDomainRequest(TeaModel):
     def __init__(self, biz_type=None, domain_name=None, user_client_ip=None):
+        # The business type.
         self.biz_type = biz_type  # type: str
+        # The domain name.
         self.domain_name = domain_name  # type: str
+        # The IP address of the client.
         self.user_client_ip = user_client_ip  # type: str
 
     def validate(self):
@@ -7789,30 +7992,55 @@ class QueryDomainSpecialBizInfoByDomainResponseBodyModuleDomainSpecialBizContact
                  ecity=None, ecompany=None, ename=None, eprovince=None, evenu=None, email=None, extend=None, fax_area=None,
                  fax_ext=None, fax_main=None, mobile=None, postalcode=None, reg_type=None, registrant_id=None, tel_area=None,
                  tel_ext=None, tel_main=None, vsp_contact_id=None):
+        # The business ID.
         self.biz_id = biz_id  # type: long
+        # The city.
         self.ccity = ccity  # type: str
+        # The organization name.
         self.ccompany = ccompany  # type: str
+        # The country code.
         self.ccountry = ccountry  # type: str
+        # The contact name.
         self.cname = cname  # type: str
+        # The province.
         self.cprovince = cprovince  # type: str
+        # The address.
         self.cvenu = cvenu  # type: str
+        # The city in English.
         self.ecity = ecity  # type: str
+        # The organization name in English.
         self.ecompany = ecompany  # type: str
+        # The contact name in English.
         self.ename = ename  # type: str
+        # The province in English.
         self.eprovince = eprovince  # type: str
+        # The address in English.
         self.evenu = evenu  # type: str
+        # The email address.
         self.email = email  # type: str
+        # The extended information.
         self.extend = extend  # type: str
+        # The fax country code.
         self.fax_area = fax_area  # type: str
+        # The fax extension number.
         self.fax_ext = fax_ext  # type: str
+        # The fax number with an area code or mobile number.
         self.fax_main = fax_main  # type: str
+        # The mobile number.
         self.mobile = mobile  # type: str
+        # The zip code.
         self.postalcode = postalcode  # type: str
+        # The contact type. Valid values: 1: individual. 2: enterprise.
         self.reg_type = reg_type  # type: int
+        # The registrant ID.
         self.registrant_id = registrant_id  # type: str
+        # The calling code of the country or region where the domain name contact is located.
         self.tel_area = tel_area  # type: str
+        # The telephone extension number.
         self.tel_ext = tel_ext  # type: str
+        # The landline number with an area code or mobile number.
         self.tel_main = tel_main  # type: str
+        # The VSP contact ID.
         self.vsp_contact_id = vsp_contact_id  # type: str
 
     def validate(self):
@@ -7934,12 +8162,19 @@ class QueryDomainSpecialBizInfoByDomainResponseBodyModuleDomainSpecialBizContact
 class QueryDomainSpecialBizInfoByDomainResponseBodyModuleDomainSpecialBizCredentials(TeaModel):
     def __init__(self, biz_id=None, credential_no=None, credential_type=None, credential_url=None, domain_name=None,
                  holder_cert=None, sale_id=None):
+        # The ID of the associated workflow.
         self.biz_id = biz_id  # type: long
+        # The certificate number.
         self.credential_no = credential_no  # type: str
+        # The certificate type.
         self.credential_type = credential_type  # type: str
+        # The certificate URL.
         self.credential_url = credential_url  # type: str
+        # The domain name.
         self.domain_name = domain_name  # type: str
+        # Indicates whether the certificate belongs to the registrant.
         self.holder_cert = holder_cert  # type: int
+        # The instance ID.
         self.sale_id = sale_id  # type: str
 
     def validate(self):
@@ -7991,24 +8226,43 @@ class QueryDomainSpecialBizInfoByDomainResponseBodyModule(TeaModel):
                  domain_name=None, domain_special_biz_contact=None, domain_special_biz_credentials=None, gmt_create=None,
                  gmt_modified=None, id=None, order_id=None, product_id=None, sale_id=None, status=None, status_desc=None,
                  update_time=None, user_id=None):
+        # The review information.
         self.audit_msg = audit_msg  # type: str
+        # The business name.
         self.biz_name = biz_name  # type: str
+        # The business ID.
         self.biz_no = biz_no  # type: str
+        # The business status.
         self.biz_status = biz_status  # type: str
+        # The business type.
         self.biz_type = biz_type  # type: str
+        # The time when the business was created.
         self.create_time = create_time  # type: long
+        # The domain name.
         self.domain_name = domain_name  # type: str
+        # The contact information.
         self.domain_special_biz_contact = domain_special_biz_contact  # type: QueryDomainSpecialBizInfoByDomainResponseBodyModuleDomainSpecialBizContact
+        # The certificate information.
         self.domain_special_biz_credentials = domain_special_biz_credentials  # type: list[QueryDomainSpecialBizInfoByDomainResponseBodyModuleDomainSpecialBizCredentials]
+        # The time when the business was created.
         self.gmt_create = gmt_create  # type: str
+        # The time when the business was modified.
         self.gmt_modified = gmt_modified  # type: str
+        # The primary key.
         self.id = id  # type: long
+        # The order ID.
         self.order_id = order_id  # type: str
+        # The service ID.
         self.product_id = product_id  # type: str
+        # The instance ID.
         self.sale_id = sale_id  # type: str
+        # The business status.
         self.status = status  # type: int
+        # The description of business status.
         self.status_desc = status_desc  # type: str
+        # The time when the business was updated.
         self.update_time = update_time  # type: long
+        # The user ID.
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -8118,17 +8372,29 @@ class QueryDomainSpecialBizInfoByDomainResponseBody(TeaModel):
     def __init__(self, allow_retry=None, app_name=None, dynamic_code=None, dynamic_message=None, error_args=None,
                  error_code=None, error_msg=None, http_status_code=None, module=None, request_id=None, success=None,
                  synchro=None):
+        # Indicates whether retries are allowed.
         self.allow_retry = allow_retry  # type: bool
+        # The name of the application for which the error code is returned.
         self.app_name = app_name  # type: str
+        # The dynamic error code.
         self.dynamic_code = dynamic_code  # type: str
+        # The dynamic error message.
         self.dynamic_message = dynamic_message  # type: str
+        # The array of error parameters that are returned.
         self.error_args = error_args  # type: list[any]
+        # The error code.
         self.error_code = error_code  # type: str
+        # The error message.
         self.error_msg = error_msg  # type: str
+        # The HTTP status code that is directly returned.
         self.http_status_code = http_status_code  # type: int
+        # The returned data.
         self.module = module  # type: QueryDomainSpecialBizInfoByDomainResponseBodyModule
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values: true and false
         self.success = success  # type: bool
+        # Indicates whether to perform synchronous processing.
         self.synchro = synchro  # type: bool
 
     def validate(self):
@@ -18824,28 +19090,77 @@ class ScrollDomainListRequest(TeaModel):
                  key_word_prefix=None, key_word_suffix=None, lang=None, page_size=None, product_domain_type=None,
                  resource_group_id=None, scroll_id=None, start_expiration_date=None, start_length=None, start_registration_date=None,
                  suffixs=None, trade_type=None, user_client_ip=None):
+        # The ID of the domain name group. You can call the [QueryDomainGroupList](https://help.aliyun.com/document_detail/69362.html) operation to obtain the ID of the domain name group.
         self.domain_group_id = domain_group_id  # type: long
+        # The status of the domain name. Valid values:
+        # 
+        # *   **0**: All.
+        # *   **1**: The domain name needs to be renewed.
+        # *   **2**: The domain name needs to be redeemed.
+        # *   **3**: The domain name is normal.
+        # *   **4**: The domain name is being transferred from Alibaba Cloud.
+        # *   **5**: The information about the domain name registrant is being modified.
+        # *   **6**: Real-name verification is not performed on the domain name.
+        # *   **7**: Real-name verification for the domain name fails. Real-name reverification is required.
+        # *   **8**: The domain name is being reviewed.
         self.domain_status = domain_status  # type: int
+        # The end of the time range to query domain names based on expiration dates. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.end_expiration_date = end_expiration_date  # type: long
+        # The end of domain name length to query.
         self.end_length = end_length  # type: int
+        # The end of the time range to query domain names based on registration dates. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.end_registration_date = end_registration_date  # type: long
+        # The keyword that is used to exclude domain names.
         self.excluded = excluded  # type: str
+        # Specifies whether to exclude the prefix keyword.
         self.excluded_prefix = excluded_prefix  # type: bool
+        # Specifies whether to exclude the suffix keyword.
         self.excluded_suffix = excluded_suffix  # type: bool
+        # The composition of the domain name.
         self.form = form  # type: int
+        # The keyword.
         self.key_word = key_word  # type: str
+        # Specifies whether the keyword is the prefix.
         self.key_word_prefix = key_word_prefix  # type: bool
+        # Specifies whether the keyword is the suffix.
         self.key_word_suffix = key_word_suffix  # type: bool
+        # The language of the error message to return if the request fails. Valid values:
+        # 
+        # *   **zh**: Chinese.
+        # *   **en**: English.
+        # 
+        # Default value: **en**.
         self.lang = lang  # type: str
+        # The number of entries per page.
         self.page_size = page_size  # type: int
+        # The type of the domain name. Valid values:
+        # 
+        # *   **New gTLD**\
+        # *   **gTLD**\
+        # *   **ccTLD**\
+        # *   **other**\
         self.product_domain_type = product_domain_type  # type: str
+        # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
+        # The scroll ID. This parameter is a technical parameter.
         self.scroll_id = scroll_id  # type: str
+        # The beginning of the time range to query domain names based on expiration dates. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.start_expiration_date = start_expiration_date  # type: long
+        # The start of the domain name length to query.
         self.start_length = start_length  # type: int
+        # The beginning of the time range to query domain names based on registration dates. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.start_registration_date = start_registration_date  # type: long
+        # The suffixes of domain names to be queried. Separate multiple suffixes with commas (,).
         self.suffixs = suffixs  # type: str
+        # The publishing status of the domain name. Valid values:
+        # 
+        # *   **2**: The domain name is published at a fixed price.
+        # *   **3**: The domain name is published with the price negotiable.
+        # *   **4**: The domain name is published for bidding.
+        # *   **6**: The domain name is published with price push.
+        # *   **-1**: The domain name is not published.
         self.trade_type = trade_type  # type: int
+        # The IP address of the client. Set the value to **127.0.0.1**.
         self.user_client_ip = user_client_ip  # type: str
 
     def validate(self):
@@ -18982,7 +19297,9 @@ class ScrollDomainListResponseBodyDataDomainDnsList(TeaModel):
 
 class ScrollDomainListResponseBodyDataDomainTagTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The tag key.
         self.key = key  # type: str
+        # The tag value.
         self.value = value  # type: str
 
     def validate(self):
@@ -19047,28 +19364,75 @@ class ScrollDomainListResponseBodyDataDomain(TeaModel):
                  expiration_date=None, expiration_date_long=None, expiration_date_status=None, instance_id=None, premium=None,
                  product_id=None, registrant_organization=None, registrant_type=None, registration_date=None,
                  registration_date_long=None, remark=None, resource_group_id=None, tag=None, zh_registrant_organization=None):
+        # The Domain Name System (DNS) servers of the domain name.
         self.dns_list = dns_list  # type: ScrollDomainListResponseBodyDataDomainDnsList
+        # The status of real-name verification for the domain name. Valid values:
+        # 
+        # *   **FAILED**: Real-name verification for the domain name fails.
+        # *   **SUCCEED**: Real-name verification for the domain name is successful.
+        # *   **NONAUDIT**: Real-name verification for the domain name is not performed.
+        # *   **AUDITING**: Real-name verification for the domain name is in progress.
         self.domain_audit_status = domain_audit_status  # type: str
+        # The ID of the domain name group.
         self.domain_group_id = domain_group_id  # type: str
+        # The name of the domain name group.
         self.domain_group_name = domain_group_name  # type: str
+        # The domain name.
         self.domain_name = domain_name  # type: str
+        # The status of the domain name. Valid values:
+        # 
+        # *   **1**: The domain name needs to be renewed.
+        # *   **2**: The domain name needs to be redeemed.
+        # *   **3**: The domain name is normal.
+        # *   **4**: The domain name is being transferred out.
+        # *   **5**: The information about the domain name registrant is being modified.
+        # *   **6**: Real-name verification is not performed on the domain name.
+        # *   **7**: Real-name verification for the domain name fails.
+        # *   **8**: The real-name verification is being reviewed.
         self.domain_status = domain_status  # type: str
+        # The type of the domain name. Valid values:
+        # 
+        # *   **New gTLD**\
+        # *   **gTLD**\
+        # *   **ccTLD**\
         self.domain_type = domain_type  # type: str
+        # The email address.
         self.email = email  # type: str
+        # The number of days from the expiration date of the domain name to the current date.
         self.expiration_curr_date_diff = expiration_curr_date_diff  # type: int
+        # The time when the domain name expires.
         self.expiration_date = expiration_date  # type: str
+        # The time when the domain name expires. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.expiration_date_long = expiration_date_long  # type: long
+        # Indicates whether the domain name expires. Valid values:
+        # 
+        # *   **1**: The domain name does not expire.
+        # *   **2**: The domain name expires.
         self.expiration_date_status = expiration_date_status  # type: str
+        # The instance ID of the domain name.
         self.instance_id = instance_id  # type: str
+        # Indicates whether the domain name is a premium domain name.
         self.premium = premium  # type: bool
+        # The service ID.
         self.product_id = product_id  # type: str
+        # The registrant of the domain name.
         self.registrant_organization = registrant_organization  # type: str
+        # The registration type of the domain name. Valid values:
+        # 
+        # *   **1**: individual.
+        # *   **2**: enterprise.
         self.registrant_type = registrant_type  # type: str
+        # The time when the domain name was registered.
         self.registration_date = registration_date  # type: str
+        # The time when the domain name was registered. This value is a UNIX timestamp that indicates the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.registration_date_long = registration_date_long  # type: long
+        # The remarks on the domain name.
         self.remark = remark  # type: str
+        # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
+        # The resource tag.
         self.tag = tag  # type: ScrollDomainListResponseBodyDataDomainTag
+        # The Chinese name of the domain name registrant.
         self.zh_registrant_organization = zh_registrant_organization  # type: str
 
     def validate(self):
@@ -19218,10 +19582,15 @@ class ScrollDomainListResponseBodyData(TeaModel):
 
 class ScrollDomainListResponseBody(TeaModel):
     def __init__(self, data=None, page_size=None, request_id=None, scroll_id=None, total_item_num=None):
+        # The domain names.
         self.data = data  # type: ScrollDomainListResponseBodyData
+        # The number of entries per page.
         self.page_size = page_size  # type: int
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The scroll ID.
         self.scroll_id = scroll_id  # type: str
+        # The number of remaining domain names to be queried.
         self.total_item_num = total_item_num  # type: int
 
     def validate(self):
@@ -19483,9 +19852,13 @@ class SetupDomainAutoRenewResponse(TeaModel):
 
 class SubmitDomainSpecialBizCredentialsRequest(TeaModel):
     def __init__(self, biz_id=None, credentials=None, extend=None, user_client_ip=None):
+        # The business ID.
         self.biz_id = biz_id  # type: long
+        # The certificate information.
         self.credentials = credentials  # type: str
+        # The extended information.
         self.extend = extend  # type: str
+        # The IP address of the client.
         self.user_client_ip = user_client_ip  # type: str
 
     def validate(self):
@@ -19524,17 +19897,32 @@ class SubmitDomainSpecialBizCredentialsResponseBody(TeaModel):
     def __init__(self, allow_retry=None, app_name=None, dynamic_code=None, dynamic_message=None, error_args=None,
                  error_code=None, error_msg=None, http_status_code=None, module=None, request_id=None, success=None,
                  synchro=None):
+        # Indicates whether retries are allowed.
         self.allow_retry = allow_retry  # type: bool
+        # The name of the application for which the error code is returned.
         self.app_name = app_name  # type: str
+        # The dynamic error code.
         self.dynamic_code = dynamic_code  # type: str
+        # The dynamic error message.
         self.dynamic_message = dynamic_message  # type: str
+        # The array of error parameters that are returned.
         self.error_args = error_args  # type: list[any]
+        # The error code.
         self.error_code = error_code  # type: str
+        # The error message.
         self.error_msg = error_msg  # type: str
+        # The HTTP status code that is directly returned.
         self.http_status_code = http_status_code  # type: int
+        # The returned data.
         self.module = module  # type: any
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: bool
+        # Indicates whether to perform synchronous processing.
         self.synchro = synchro  # type: bool
 
     def validate(self):
