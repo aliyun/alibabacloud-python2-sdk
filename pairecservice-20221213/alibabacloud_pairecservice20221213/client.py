@@ -462,6 +462,8 @@ class Client(OpenApiClient):
             body['Config'] = request.config
         if not UtilClient.is_unset(request.crowd_id):
             body['CrowdId'] = request.crowd_id
+        if not UtilClient.is_unset(request.crowd_target_type):
+            body['CrowdTargetType'] = request.crowd_target_type
         if not UtilClient.is_unset(request.debug_crowd_id):
             body['DebugCrowdId'] = request.debug_crowd_id
         if not UtilClient.is_unset(request.debug_users):
@@ -482,6 +484,8 @@ class Client(OpenApiClient):
             body['Name'] = request.name
         if not UtilClient.is_unset(request.need_aa):
             body['NeedAA'] = request.need_aa
+        if not UtilClient.is_unset(request.random_flow):
+            body['RandomFlow'] = request.random_flow
         if not UtilClient.is_unset(request.reserved_buckets):
             body['ReservedBuckets'] = request.reserved_buckets
         req = open_api_models.OpenApiRequest(
@@ -1892,6 +1896,8 @@ class Client(OpenApiClient):
             query['InstanceId'] = request.instance_id
         if not UtilClient.is_unset(request.layer_id):
             query['LayerId'] = request.layer_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.status):
             query['Status'] = request.status
         req = open_api_models.OpenApiRequest(
@@ -2904,6 +2910,8 @@ class Client(OpenApiClient):
             body['Config'] = request.config
         if not UtilClient.is_unset(request.crowd_id):
             body['CrowdId'] = request.crowd_id
+        if not UtilClient.is_unset(request.crowd_target_type):
+            body['CrowdTargetType'] = request.crowd_target_type
         if not UtilClient.is_unset(request.debug_crowd_id):
             body['DebugCrowdId'] = request.debug_crowd_id
         if not UtilClient.is_unset(request.debug_users):
@@ -2924,6 +2932,8 @@ class Client(OpenApiClient):
             body['Name'] = request.name
         if not UtilClient.is_unset(request.need_aa):
             body['NeedAA'] = request.need_aa
+        if not UtilClient.is_unset(request.random_flow):
+            body['RandomFlow'] = request.random_flow
         if not UtilClient.is_unset(request.reservced_buckets):
             body['ReservcedBuckets'] = request.reservced_buckets
         req = open_api_models.OpenApiRequest(
