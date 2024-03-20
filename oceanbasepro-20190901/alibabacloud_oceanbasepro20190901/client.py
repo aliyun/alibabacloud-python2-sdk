@@ -390,64 +390,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_oms_mysql_data_source_with_options(request, runtime)
 
-    def create_oms_open_apiproject_with_options(self, tmp_req, runtime):
-        UtilClient.validate_model(tmp_req)
-        request = ocean_base_pro_20190901_models.CreateOmsOpenAPIProjectShrinkRequest()
-        OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.dest_config):
-            request.dest_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.dest_config, 'DestConfig', 'json')
-        if not UtilClient.is_unset(tmp_req.label_ids):
-            request.label_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.label_ids, 'LabelIds', 'json')
-        if not UtilClient.is_unset(tmp_req.source_config):
-            request.source_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.source_config, 'SourceConfig', 'json')
-        if not UtilClient.is_unset(tmp_req.transfer_mapping):
-            request.transfer_mapping_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.transfer_mapping, 'TransferMapping', 'json')
-        if not UtilClient.is_unset(tmp_req.transfer_step_config):
-            request.transfer_step_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.transfer_step_config, 'TransferStepConfig', 'json')
-        body = {}
-        if not UtilClient.is_unset(request.business_name):
-            body['BusinessName'] = request.business_name
-        if not UtilClient.is_unset(request.dest_config_shrink):
-            body['DestConfig'] = request.dest_config_shrink
-        if not UtilClient.is_unset(request.label_ids_shrink):
-            body['LabelIds'] = request.label_ids_shrink
-        if not UtilClient.is_unset(request.page_number):
-            body['PageNumber'] = request.page_number
-        if not UtilClient.is_unset(request.page_size):
-            body['PageSize'] = request.page_size
-        if not UtilClient.is_unset(request.project_name):
-            body['ProjectName'] = request.project_name
-        if not UtilClient.is_unset(request.source_config_shrink):
-            body['SourceConfig'] = request.source_config_shrink
-        if not UtilClient.is_unset(request.transfer_mapping_shrink):
-            body['TransferMapping'] = request.transfer_mapping_shrink
-        if not UtilClient.is_unset(request.transfer_step_config_shrink):
-            body['TransferStepConfig'] = request.transfer_step_config_shrink
-        if not UtilClient.is_unset(request.worker_grade_id):
-            body['WorkerGradeId'] = request.worker_grade_id
-        req = open_api_models.OpenApiRequest(
-            body=OpenApiUtilClient.parse_to_map(body)
-        )
-        params = open_api_models.Params(
-            action='CreateOmsOpenAPIProject',
-            version='2019-09-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            ocean_base_pro_20190901_models.CreateOmsOpenAPIProjectResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def create_oms_open_apiproject(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.create_oms_open_apiproject_with_options(request, runtime)
-
     def create_project_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
         request = ocean_base_pro_20190901_models.CreateProjectShrinkRequest()
@@ -479,6 +421,8 @@ class Client(OpenApiClient):
             body['EnableStructTransfer'] = request.enable_struct_transfer
         if not UtilClient.is_unset(request.full_transfer_config_shrink):
             body['FullTransferConfig'] = request.full_transfer_config_shrink
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
         if not UtilClient.is_unset(request.incr_transfer_config_shrink):
             body['IncrTransferConfig'] = request.incr_transfer_config_shrink
         if not UtilClient.is_unset(request.label_ids_shrink):
@@ -907,40 +851,6 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.delete_instances_with_options(request, runtime)
-
-    def delete_oms_open_apiproject_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        body = {}
-        if not UtilClient.is_unset(request.page_number):
-            body['PageNumber'] = request.page_number
-        if not UtilClient.is_unset(request.page_size):
-            body['PageSize'] = request.page_size
-        if not UtilClient.is_unset(request.project_id):
-            body['ProjectId'] = request.project_id
-        if not UtilClient.is_unset(request.worker_grade_id):
-            body['WorkerGradeId'] = request.worker_grade_id
-        req = open_api_models.OpenApiRequest(
-            body=OpenApiUtilClient.parse_to_map(body)
-        )
-        params = open_api_models.Params(
-            action='DeleteOmsOpenAPIProject',
-            version='2019-09-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            ocean_base_pro_20190901_models.DeleteOmsOpenAPIProjectResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def delete_oms_open_apiproject(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.delete_oms_open_apiproject_with_options(request, runtime)
 
     def delete_project_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2069,74 +1979,6 @@ class Client(OpenApiClient):
     def describe_oas_top_sqllist(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_oas_top_sqllist_with_options(request, runtime)
-
-    def describe_oms_open_apiproject_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        body = {}
-        if not UtilClient.is_unset(request.page_number):
-            body['PageNumber'] = request.page_number
-        if not UtilClient.is_unset(request.page_size):
-            body['PageSize'] = request.page_size
-        if not UtilClient.is_unset(request.project_id):
-            body['ProjectId'] = request.project_id
-        if not UtilClient.is_unset(request.worker_grade_id):
-            body['WorkerGradeId'] = request.worker_grade_id
-        req = open_api_models.OpenApiRequest(
-            body=OpenApiUtilClient.parse_to_map(body)
-        )
-        params = open_api_models.Params(
-            action='DescribeOmsOpenAPIProject',
-            version='2019-09-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            ocean_base_pro_20190901_models.DescribeOmsOpenAPIProjectResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_oms_open_apiproject(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_oms_open_apiproject_with_options(request, runtime)
-
-    def describe_oms_open_apiproject_steps_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        body = {}
-        if not UtilClient.is_unset(request.page_number):
-            body['PageNumber'] = request.page_number
-        if not UtilClient.is_unset(request.page_size):
-            body['PageSize'] = request.page_size
-        if not UtilClient.is_unset(request.project_id):
-            body['ProjectId'] = request.project_id
-        if not UtilClient.is_unset(request.worker_grade_id):
-            body['WorkerGradeId'] = request.worker_grade_id
-        req = open_api_models.OpenApiRequest(
-            body=OpenApiUtilClient.parse_to_map(body)
-        )
-        params = open_api_models.Params(
-            action='DescribeOmsOpenAPIProjectSteps',
-            version='2019-09-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            ocean_base_pro_20190901_models.DescribeOmsOpenAPIProjectStepsResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_oms_open_apiproject_steps(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_oms_open_apiproject_steps_with_options(request, runtime)
 
     def describe_outline_binding_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -3397,6 +3239,8 @@ class Client(OpenApiClient):
         body = {}
         if not UtilClient.is_unset(request.label_ids_shrink):
             body['LabelIds'] = request.label_ids_shrink
+        if not UtilClient.is_unset(request.need_related_info):
+            body['NeedRelatedInfo'] = request.need_related_info
         if not UtilClient.is_unset(request.order):
             body['Order'] = request.order
         if not UtilClient.is_unset(request.page_number):
@@ -4102,40 +3946,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_tenant_user_status_with_options(request, runtime)
 
-    def release_oms_open_apiproject_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        body = {}
-        if not UtilClient.is_unset(request.page_number):
-            body['PageNumber'] = request.page_number
-        if not UtilClient.is_unset(request.page_size):
-            body['PageSize'] = request.page_size
-        if not UtilClient.is_unset(request.project_id):
-            body['ProjectId'] = request.project_id
-        if not UtilClient.is_unset(request.worker_grade_id):
-            body['WorkerGradeId'] = request.worker_grade_id
-        req = open_api_models.OpenApiRequest(
-            body=OpenApiUtilClient.parse_to_map(body)
-        )
-        params = open_api_models.Params(
-            action='ReleaseOmsOpenAPIProject',
-            version='2019-09-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            ocean_base_pro_20190901_models.ReleaseOmsOpenAPIProjectResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def release_oms_open_apiproject(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.release_oms_open_apiproject_with_options(request, runtime)
-
     def release_project_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -4191,74 +4001,6 @@ class Client(OpenApiClient):
     def release_worker_instance(self, request):
         runtime = util_models.RuntimeOptions()
         return self.release_worker_instance_with_options(request, runtime)
-
-    def reset_oms_open_apiproject_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        body = {}
-        if not UtilClient.is_unset(request.page_number):
-            body['PageNumber'] = request.page_number
-        if not UtilClient.is_unset(request.page_size):
-            body['PageSize'] = request.page_size
-        if not UtilClient.is_unset(request.project_id):
-            body['ProjectId'] = request.project_id
-        if not UtilClient.is_unset(request.worker_grade_id):
-            body['WorkerGradeId'] = request.worker_grade_id
-        req = open_api_models.OpenApiRequest(
-            body=OpenApiUtilClient.parse_to_map(body)
-        )
-        params = open_api_models.Params(
-            action='ResetOmsOpenAPIProject',
-            version='2019-09-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            ocean_base_pro_20190901_models.ResetOmsOpenAPIProjectResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def reset_oms_open_apiproject(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.reset_oms_open_apiproject_with_options(request, runtime)
-
-    def resume_oms_open_apiproject_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        body = {}
-        if not UtilClient.is_unset(request.page_number):
-            body['PageNumber'] = request.page_number
-        if not UtilClient.is_unset(request.page_size):
-            body['PageSize'] = request.page_size
-        if not UtilClient.is_unset(request.project_id):
-            body['ProjectId'] = request.project_id
-        if not UtilClient.is_unset(request.worker_grade_id):
-            body['WorkerGradeId'] = request.worker_grade_id
-        req = open_api_models.OpenApiRequest(
-            body=OpenApiUtilClient.parse_to_map(body)
-        )
-        params = open_api_models.Params(
-            action='ResumeOmsOpenAPIProject',
-            version='2019-09-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            ocean_base_pro_20190901_models.ResumeOmsOpenAPIProjectResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def resume_oms_open_apiproject(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.resume_oms_open_apiproject_with_options(request, runtime)
 
     def resume_project_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -4316,134 +4058,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.retry_project_modify_records_with_options(request, runtime)
 
-    def search_oms_open_apimonitor_metric_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        body = {}
-        if not UtilClient.is_unset(request.begin_time):
-            body['BeginTime'] = request.begin_time
-        if not UtilClient.is_unset(request.end_time):
-            body['EndTime'] = request.end_time
-        if not UtilClient.is_unset(request.max_point_num):
-            body['MaxPointNum'] = request.max_point_num
-        if not UtilClient.is_unset(request.metric):
-            body['Metric'] = request.metric
-        if not UtilClient.is_unset(request.page_number):
-            body['PageNumber'] = request.page_number
-        if not UtilClient.is_unset(request.page_size):
-            body['PageSize'] = request.page_size
-        if not UtilClient.is_unset(request.project_id):
-            body['ProjectId'] = request.project_id
-        if not UtilClient.is_unset(request.worker_grade_id):
-            body['WorkerGradeId'] = request.worker_grade_id
-        req = open_api_models.OpenApiRequest(
-            body=OpenApiUtilClient.parse_to_map(body)
-        )
-        params = open_api_models.Params(
-            action='SearchOmsOpenAPIMonitorMetric',
-            version='2019-09-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            ocean_base_pro_20190901_models.SearchOmsOpenAPIMonitorMetricResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def search_oms_open_apimonitor_metric(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.search_oms_open_apimonitor_metric_with_options(request, runtime)
-
-    def search_oms_open_apiprojects_with_options(self, tmp_req, runtime):
-        UtilClient.validate_model(tmp_req)
-        request = ocean_base_pro_20190901_models.SearchOmsOpenAPIProjectsShrinkRequest()
-        OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.dest_db_types):
-            request.dest_db_types_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.dest_db_types, 'DestDbTypes', 'json')
-        if not UtilClient.is_unset(tmp_req.label_ids):
-            request.label_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.label_ids, 'LabelIds', 'json')
-        if not UtilClient.is_unset(tmp_req.source_db_types):
-            request.source_db_types_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.source_db_types, 'SourceDbTypes', 'json')
-        if not UtilClient.is_unset(tmp_req.status_list):
-            request.status_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.status_list, 'StatusList', 'json')
-        body = {}
-        if not UtilClient.is_unset(request.dest_db_types_shrink):
-            body['DestDbTypes'] = request.dest_db_types_shrink
-        if not UtilClient.is_unset(request.label_ids_shrink):
-            body['LabelIds'] = request.label_ids_shrink
-        if not UtilClient.is_unset(request.page_number):
-            body['PageNumber'] = request.page_number
-        if not UtilClient.is_unset(request.page_size):
-            body['PageSize'] = request.page_size
-        if not UtilClient.is_unset(request.search_key):
-            body['SearchKey'] = request.search_key
-        if not UtilClient.is_unset(request.source_db_types_shrink):
-            body['SourceDbTypes'] = request.source_db_types_shrink
-        if not UtilClient.is_unset(request.status_list_shrink):
-            body['StatusList'] = request.status_list_shrink
-        if not UtilClient.is_unset(request.worker_grade_id):
-            body['WorkerGradeId'] = request.worker_grade_id
-        req = open_api_models.OpenApiRequest(
-            body=OpenApiUtilClient.parse_to_map(body)
-        )
-        params = open_api_models.Params(
-            action='SearchOmsOpenAPIProjects',
-            version='2019-09-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            ocean_base_pro_20190901_models.SearchOmsOpenAPIProjectsResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def search_oms_open_apiprojects(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.search_oms_open_apiprojects_with_options(request, runtime)
-
-    def start_oms_open_apiproject_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        body = {}
-        if not UtilClient.is_unset(request.page_number):
-            body['PageNumber'] = request.page_number
-        if not UtilClient.is_unset(request.page_size):
-            body['PageSize'] = request.page_size
-        if not UtilClient.is_unset(request.project_id):
-            body['ProjectId'] = request.project_id
-        if not UtilClient.is_unset(request.worker_grade_id):
-            body['WorkerGradeId'] = request.worker_grade_id
-        req = open_api_models.OpenApiRequest(
-            body=OpenApiUtilClient.parse_to_map(body)
-        )
-        params = open_api_models.Params(
-            action='StartOmsOpenAPIProject',
-            version='2019-09-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            ocean_base_pro_20190901_models.StartOmsOpenAPIProjectResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def start_oms_open_apiproject(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.start_oms_open_apiproject_with_options(request, runtime)
-
     def start_project_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -4499,40 +4113,6 @@ class Client(OpenApiClient):
     def start_projects_by_label(self, request):
         runtime = util_models.RuntimeOptions()
         return self.start_projects_by_label_with_options(request, runtime)
-
-    def stop_oms_open_apiproject_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        body = {}
-        if not UtilClient.is_unset(request.page_number):
-            body['PageNumber'] = request.page_number
-        if not UtilClient.is_unset(request.page_size):
-            body['PageSize'] = request.page_size
-        if not UtilClient.is_unset(request.project_id):
-            body['ProjectId'] = request.project_id
-        if not UtilClient.is_unset(request.worker_grade_id):
-            body['WorkerGradeId'] = request.worker_grade_id
-        req = open_api_models.OpenApiRequest(
-            body=OpenApiUtilClient.parse_to_map(body)
-        )
-        params = open_api_models.Params(
-            action='StopOmsOpenAPIProject',
-            version='2019-09-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            ocean_base_pro_20190901_models.StopOmsOpenAPIProjectResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def stop_oms_open_apiproject(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.stop_oms_open_apiproject_with_options(request, runtime)
 
     def stop_project_with_options(self, request, runtime):
         UtilClient.validate_model(request)
