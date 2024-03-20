@@ -2045,7 +2045,7 @@ class CloneDBInstanceRequest(TeaModel):
         self.backup_type = backup_type  # type: str
         # A reserved parameter. You do not need to specify this parameter.
         self.bpe_enabled = bpe_enabled  # type: str
-        # This parameter is reserved. You do not need to specify this parameter.
+        # An invalid parameter. You do not need to specify this parameter.
         self.bursting_enabled = bursting_enabled  # type: bool
         # The RDS edition of the instance. Valid values:
         # 
@@ -2320,7 +2320,7 @@ class CloneDBInstanceShrinkRequest(TeaModel):
         self.backup_type = backup_type  # type: str
         # A reserved parameter. You do not need to specify this parameter.
         self.bpe_enabled = bpe_enabled  # type: str
-        # This parameter is reserved. You do not need to specify this parameter.
+        # An invalid parameter. You do not need to specify this parameter.
         self.bursting_enabled = bursting_enabled  # type: bool
         # The RDS edition of the instance. Valid values:
         # 
@@ -3185,10 +3185,11 @@ class CreateAccountRequest(TeaModel):
         self.account_password = account_password  # type: str
         # The account type. Valid values:
         # 
-        # *   **Normal**: standard account
-        # *   **Super**: privileged account
+        # *   **Normal**: standard account (default).
+        # *   **Super**: privileged account.
+        # *   **Sysadmin**: system admin account. The account type is available only for ApsaraDB RDS for SQL Server instances.
         # 
-        # Default value: **Normal**.
+        # Before you create a system admin account, check whether the RDS instance meets all prerequisites. For more information, see [Create a system admin account](~~170736~~).
         self.account_type = account_type  # type: str
         # The instance ID. You can call the DescribeDBInstances operation to query the instance ID.
         self.dbinstance_id = dbinstance_id  # type: str
@@ -3787,7 +3788,7 @@ class CreateDBInstanceRequestServerlessConfig(TeaModel):
         self.max_capacity = max_capacity  # type: float
         # The minimum value of RCUs. Valid values:
         # 
-        # *   Serverless ApsaraDB RDS for MySQL instances: **0.5 to 32**. Only integers are supported.
+        # *   Serverless ApsaraDB RDS for MySQL instances: **0.5 to 32**.
         # *   Serverless ApsaraDB RDS for SQL Server instances: **2 to 8**. Only integers are supported.
         # *   Serverless ApsaraDB RDS for PostgreSQL instances: **0.5 to 14**\
         # 
@@ -3798,11 +3799,8 @@ class CreateDBInstanceRequestServerlessConfig(TeaModel):
         # *   **true**\
         # *   **false** (default)
         # 
-        # > 
-        # 
-        # *   This parameter is required only for serverless instances that run MySQL and PostgreSQL. If you set this parameter to true, a service interruption that lasts approximately 30 to 120 seconds occurs during forced scaling. Process with caution.
-        # 
-        # *   The RCU scaling for a serverless instance immediately takes effect. In some cases, such as the execution of large transactions, the scaling does not immediately take effect. In this case, you can enable this feature to forcefully scale the RCUs of the instance.
+        # > *   This parameter is required only for serverless instances that run MySQL and PostgreSQL. If you set this parameter to true, a service interruption that lasts approximately 30 to 120 seconds occurs during forced scaling. Process with caution.
+        # > *   The RCU scaling for a serverless instance immediately takes effect. In some cases, such as the execution of large transactions, the scaling does not immediately take effect. In this case, you can enable this feature to forcefully scale the RCUs of the instance.
         self.switch_force = switch_force  # type: bool
 
     def validate(self):
@@ -3924,11 +3922,11 @@ class CreateDBInstanceRequest(TeaModel):
         # *   **masterUsername**: The username of the administrator account. The username can contain lowercase letters, digits, and underscores (\_). It must start with a letter and end with a letter or digit. It can be up to 63 characters in length and cannot start with pg.
         # *   **masterUserPassword**: The password of the administrator account. The password must contain at least three of the following character types: uppercase letters, lowercase letters, digits, and special characters. It must be 8 to 32 characters in length. The password can contain any of the following characters: `! @ # $ % ^ & * ( ) _ + - =`.
         # 
-        # > : This parameter applies only to ApsaraDB RDS for PostgreSQL instances. For more information about Babelfish for ApsaraDB RDS for PostgreSQL, see [Introduction to Babelfish](~~428613~~).
+        # > This parameter applies only to ApsaraDB RDS for PostgreSQL instances. For more information about Babelfish for ApsaraDB RDS for PostgreSQL, see [Introduction to Babelfish](~~428613~~).
         self.babelfish_config = babelfish_config  # type: str
         # A deprecated parameter. You do not need to specify this parameter.
         self.bpe_enabled = bpe_enabled  # type: str
-        # A reserved parameter. You do not need to specify this parameter.
+        # An invalid parameter. You do not need to specify this parameter.
         self.bursting_enabled = bursting_enabled  # type: bool
         # The additional business information about the instance.
         self.business_info = business_info  # type: str
@@ -3970,7 +3968,7 @@ class CreateDBInstanceRequest(TeaModel):
         # *   **Atomicity** (default): atomicity. The instances are all created together. If one instance cannot be created, none of the instances are created.
         # *   **Partial**: non-atomicity. Each instance is independently created. The failure in creating an instance does not affect the creation of the other instances.
         self.create_strategy = create_strategy  # type: str
-        # The instance type of the instance. For more information, see [Primary ApsaraDB RDS instance types](~~26312~~).
+        # The instance type of the instance. You can specify a standard instance type or an economy instance type. For more information, see [Primary ApsaraDB RDS instance types](~~26312~~).
         # 
         # To create a serverless instance, set this parameter to one of the following values:
         # 
@@ -4057,14 +4055,14 @@ class CreateDBInstanceRequest(TeaModel):
         # *   **PostgreSQL**\
         # *   **MariaDB**\
         self.engine = engine  # type: str
-        # The database engine version of the instance.
+        # The database engine version of the instance. Valid values:
         # 
         # *   Regular instance
         # 
         #     *   Valid values when you set Engine to MySQL: **5.5**, **5.6**, **5.7**, and **8.0**\
-        #     *   Valid values if you set Engine to SQLServer: **08r2\_ent_ha** (cloud disks, discontinued), **2008r2** (local disks, discontinued), **2012** (SQL Server EE Basic), **2012\_ent_ha**, **2012\_std_ha**, **2012\_web**, **2014\_ent_ha**, **2014\_std_ha**, **2016\_ent_ha**, **2016\_std_ha**, **2016\_web**, **2017\_ent**, **2017\_std_ha**, **2017\_web**, **2019\_ent**, **2019\_std_ha**, **2019\_web**, **2022\_ent**, **2022\_std_ha**, and **2022\_web**\
+        #     *   Valid values when you set Engine to SQLServer: **08r2\_ent_ha** (cloud disks, discontinued), **2008r2** (local disks, discontinued), **2012** (SQL Server EE Basic), **2012\_ent_ha**, **2012\_std_ha**, **2012\_web**, **2014\_ent_ha**, **2014\_std_ha**, **2016\_ent_ha**, **2016\_std_ha**, **2016\_web**, **2017\_ent**, **2017\_std_ha**, **2017\_web**, **2019\_ent**, **2019\_std_ha**, **2019\_web**, **2022\_ent**, **2022\_std_ha**, and **2022\_web**\
         #     *   Valid values when you set Engine to PostgreSQL: **10.0**, **11.0**, **12.0**, **13.0**, **14.0**, **15.0**, and **16.0**\
-        #     *   Valid values when you set the Engine parameter to MariaDB: **10.3**\
+        #     *   Valid value if you set the Engine parameter to MariaDB: **10.3**\
         # 
         # *   Serverless instance
         # 
@@ -4076,7 +4074,7 @@ class CreateDBInstanceRequest(TeaModel):
         # 
         # *   ApsaraDB RDS for MariaDB does not support serverless instances.
         # 
-        # *   RDS instances that run SQL Server, `_ent` specifies SQL Server EE (Always On), `_ent_ha` specifies SQL Server EE, `_std_ha` specifies SQL Server SE, and `_web` specifies SQL Server Web.
+        # *   RDS instances that run SQL Server: `_ent` specifies SQL Server EE (Always On), `_ent_ha` specifies SQL Server EE, `_std_ha` specifies SQL Server SE, and `_web` specifies SQL Server Web.
         # 
         # *   RDS instances that run SQL Server 2014 are not available for purchase on the international site (alibabacloud.com).
         # 
@@ -4091,7 +4089,12 @@ class CreateDBInstanceRequest(TeaModel):
         # > *   If the instance runs PostgreSQL or MariaDB, you must set this parameter to **VPC**.
         # > *   RDS instances that run SQL Server Basic and SQL Server Web can reside in the classic network and virtual private clouds (VPCs). If the instance runs other database engines, you must set this parameter to **VPC**.
         self.instance_network_type = instance_network_type  # type: str
-        # A reserved parameter. You do not need to specify this parameter.
+        # Specifies whether to enable the I/O acceleration feature. Valid values:
+        # 
+        # *   1: The feature is enabled.
+        # *   0: The feature is disabled.
+        # 
+        # >  For more information about the I/O acceleration feature of general enhanced SSDs (ESSDs), see [Introduction](~~2527067~~).
         self.io_acceleration_enabled = io_acceleration_enabled  # type: str
         # The billing method of the instance. Valid values:
         # 
@@ -4570,11 +4573,11 @@ class CreateDBInstanceShrinkRequest(TeaModel):
         # *   **masterUsername**: The username of the administrator account. The username can contain lowercase letters, digits, and underscores (\_). It must start with a letter and end with a letter or digit. It can be up to 63 characters in length and cannot start with pg.
         # *   **masterUserPassword**: The password of the administrator account. The password must contain at least three of the following character types: uppercase letters, lowercase letters, digits, and special characters. It must be 8 to 32 characters in length. The password can contain any of the following characters: `! @ # $ % ^ & * ( ) _ + - =`.
         # 
-        # > : This parameter applies only to ApsaraDB RDS for PostgreSQL instances. For more information about Babelfish for ApsaraDB RDS for PostgreSQL, see [Introduction to Babelfish](~~428613~~).
+        # > This parameter applies only to ApsaraDB RDS for PostgreSQL instances. For more information about Babelfish for ApsaraDB RDS for PostgreSQL, see [Introduction to Babelfish](~~428613~~).
         self.babelfish_config = babelfish_config  # type: str
         # A deprecated parameter. You do not need to specify this parameter.
         self.bpe_enabled = bpe_enabled  # type: str
-        # A reserved parameter. You do not need to specify this parameter.
+        # An invalid parameter. You do not need to specify this parameter.
         self.bursting_enabled = bursting_enabled  # type: bool
         # The additional business information about the instance.
         self.business_info = business_info  # type: str
@@ -4616,7 +4619,7 @@ class CreateDBInstanceShrinkRequest(TeaModel):
         # *   **Atomicity** (default): atomicity. The instances are all created together. If one instance cannot be created, none of the instances are created.
         # *   **Partial**: non-atomicity. Each instance is independently created. The failure in creating an instance does not affect the creation of the other instances.
         self.create_strategy = create_strategy  # type: str
-        # The instance type of the instance. For more information, see [Primary ApsaraDB RDS instance types](~~26312~~).
+        # The instance type of the instance. You can specify a standard instance type or an economy instance type. For more information, see [Primary ApsaraDB RDS instance types](~~26312~~).
         # 
         # To create a serverless instance, set this parameter to one of the following values:
         # 
@@ -4703,14 +4706,14 @@ class CreateDBInstanceShrinkRequest(TeaModel):
         # *   **PostgreSQL**\
         # *   **MariaDB**\
         self.engine = engine  # type: str
-        # The database engine version of the instance.
+        # The database engine version of the instance. Valid values:
         # 
         # *   Regular instance
         # 
         #     *   Valid values when you set Engine to MySQL: **5.5**, **5.6**, **5.7**, and **8.0**\
-        #     *   Valid values if you set Engine to SQLServer: **08r2\_ent_ha** (cloud disks, discontinued), **2008r2** (local disks, discontinued), **2012** (SQL Server EE Basic), **2012\_ent_ha**, **2012\_std_ha**, **2012\_web**, **2014\_ent_ha**, **2014\_std_ha**, **2016\_ent_ha**, **2016\_std_ha**, **2016\_web**, **2017\_ent**, **2017\_std_ha**, **2017\_web**, **2019\_ent**, **2019\_std_ha**, **2019\_web**, **2022\_ent**, **2022\_std_ha**, and **2022\_web**\
+        #     *   Valid values when you set Engine to SQLServer: **08r2\_ent_ha** (cloud disks, discontinued), **2008r2** (local disks, discontinued), **2012** (SQL Server EE Basic), **2012\_ent_ha**, **2012\_std_ha**, **2012\_web**, **2014\_ent_ha**, **2014\_std_ha**, **2016\_ent_ha**, **2016\_std_ha**, **2016\_web**, **2017\_ent**, **2017\_std_ha**, **2017\_web**, **2019\_ent**, **2019\_std_ha**, **2019\_web**, **2022\_ent**, **2022\_std_ha**, and **2022\_web**\
         #     *   Valid values when you set Engine to PostgreSQL: **10.0**, **11.0**, **12.0**, **13.0**, **14.0**, **15.0**, and **16.0**\
-        #     *   Valid values when you set the Engine parameter to MariaDB: **10.3**\
+        #     *   Valid value if you set the Engine parameter to MariaDB: **10.3**\
         # 
         # *   Serverless instance
         # 
@@ -4722,7 +4725,7 @@ class CreateDBInstanceShrinkRequest(TeaModel):
         # 
         # *   ApsaraDB RDS for MariaDB does not support serverless instances.
         # 
-        # *   RDS instances that run SQL Server, `_ent` specifies SQL Server EE (Always On), `_ent_ha` specifies SQL Server EE, `_std_ha` specifies SQL Server SE, and `_web` specifies SQL Server Web.
+        # *   RDS instances that run SQL Server: `_ent` specifies SQL Server EE (Always On), `_ent_ha` specifies SQL Server EE, `_std_ha` specifies SQL Server SE, and `_web` specifies SQL Server Web.
         # 
         # *   RDS instances that run SQL Server 2014 are not available for purchase on the international site (alibabacloud.com).
         # 
@@ -4737,7 +4740,12 @@ class CreateDBInstanceShrinkRequest(TeaModel):
         # > *   If the instance runs PostgreSQL or MariaDB, you must set this parameter to **VPC**.
         # > *   RDS instances that run SQL Server Basic and SQL Server Web can reside in the classic network and virtual private clouds (VPCs). If the instance runs other database engines, you must set this parameter to **VPC**.
         self.instance_network_type = instance_network_type  # type: str
-        # A reserved parameter. You do not need to specify this parameter.
+        # Specifies whether to enable the I/O acceleration feature. Valid values:
+        # 
+        # *   1: The feature is enabled.
+        # *   0: The feature is disabled.
+        # 
+        # >  For more information about the I/O acceleration feature of general enhanced SSDs (ESSDs), see [Introduction](~~2527067~~).
         self.io_acceleration_enabled = io_acceleration_enabled  # type: str
         # The billing method of the instance. Valid values:
         # 
@@ -6322,7 +6330,7 @@ class CreateDBProxyEndpointAddressRequest(TeaModel):
     def __init__(self, connection_string_prefix=None, dbinstance_id=None, dbproxy_connect_string_net_type=None,
                  dbproxy_endpoint_id=None, dbproxy_engine_type=None, dbproxy_new_connect_string_port=None, region_id=None,
                  resource_group_id=None, vpcid=None, v_switch_id=None):
-        # The prefix of the proxy endpoint. Enter a custom prefix.
+        # The prefix of the proxy endpoint Enter a custom prefix.
         self.connection_string_prefix = connection_string_prefix  # type: str
         # The instance ID. You can call the DescribeDBInstances operation to query the instance ID.
         self.dbinstance_id = dbinstance_id  # type: str
@@ -6347,7 +6355,7 @@ class CreateDBProxyEndpointAddressRequest(TeaModel):
         self.region_id = region_id  # type: str
         # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
-        # The ID of the VPC to which the proxy endpoint belongs. You can call the DescribeDBInstanceAttribute operation to query the VPC ID.
+        # The ID of the VPC to which the proxy endpoint belongs. You can call the DescribeDBInstanceAttribute operation to query the information.
         # 
         # >  This parameter must be specified when **DBProxyConnectStringNetType** is set to **VPC**.
         self.vpcid = vpcid  # type: str
@@ -9277,7 +9285,7 @@ class CreateReadOnlyDBInstanceRequest(TeaModel):
         self.auto_renew = auto_renew  # type: str
         # A reserved parameter. You do not need to specify this parameter.
         self.bpe_enabled = bpe_enabled  # type: str
-        # This parameter is reserved. You do not need to specify this parameter.
+        # An invalid parameter. You do not need to specify this parameter.
         self.bursting_enabled = bursting_enabled  # type: bool
         # The RDS edition of the instance. Valid values:
         # 
@@ -12311,7 +12319,7 @@ class DescibeImportsFromDatabaseRequest(TeaModel):
                  resource_owner_account=None, resource_owner_id=None, start_time=None):
         # The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.
         self.client_token = client_token  # type: str
-        # The instance ID. You can call the [DescribeDBInstances](~~610396~~) operation to query the ID of the instance.
+        # The instance ID. You can call the DescribeDBInstances operation to query the IDs of instances.
         self.dbinstance_id = dbinstance_id  # type: str
         # The end of the time range to query. Specify the time in the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm*Z format. The time must be in UTC.
         self.end_time = end_time  # type: str
@@ -12333,7 +12341,7 @@ class DescibeImportsFromDatabaseRequest(TeaModel):
         # 
         # Default value: **30**.
         self.page_size = page_size  # type: int
-        # The ID of the resource group. You can call the [DescribeDBInstanceAttribute](~~610394~~) operation to obtain the ID of the resource group.
+        # The ID of the resource group. You can call the DescribeDBInstanceAttribute operation to obtain the ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -23968,7 +23976,7 @@ class DescribeDBInstancePerformanceRequest(TeaModel):
         self.end_time = end_time  # type: str
         # The performance metrics that you want to query. Separate multiple values with commas (,). You can specify up to 30 values. For more information, see [Performance parameters](~~26316~~).
         # 
-        # >  If you set **Key** to **MySQL_SpaceUsage** or **SQLServer_SpaceUsage**, you can only query the monitoring data within one day.
+        # >  If you set **Key** to **MySQL_SpaceUsage** or **SQLServer_SpaceUsage**, you can query the monitoring data within only one day.
         self.key = key  # type: str
         # The ID of the instance.
         self.node_id = node_id  # type: str
@@ -24169,7 +24177,7 @@ class DescribeDBInstancePerformanceResponseBody(TeaModel):
         self.end_time = end_time  # type: str
         # The database engine of the instance.
         self.engine = engine  # type: str
-        # An array that consists of performance metrics.
+        # Details of the performance metrics.
         self.performance_keys = performance_keys  # type: DescribeDBInstancePerformanceResponseBodyPerformanceKeys
         # The request ID.
         self.request_id = request_id  # type: str
@@ -34508,13 +34516,56 @@ class DescribeKmsAssociateResourcesRequest(TeaModel):
         return self
 
 
+class DescribeKmsAssociateResourcesResponseBodyAssociateDBInstances(TeaModel):
+    def __init__(self, dbinstance_name=None, engine=None, key_used_by=None, status=None):
+        self.dbinstance_name = dbinstance_name  # type: str
+        self.engine = engine  # type: str
+        self.key_used_by = key_used_by  # type: str
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeKmsAssociateResourcesResponseBodyAssociateDBInstances, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_name is not None:
+            result['DBInstanceName'] = self.dbinstance_name
+        if self.engine is not None:
+            result['Engine'] = self.engine
+        if self.key_used_by is not None:
+            result['KeyUsedBy'] = self.key_used_by
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceName') is not None:
+            self.dbinstance_name = m.get('DBInstanceName')
+        if m.get('Engine') is not None:
+            self.engine = m.get('Engine')
+        if m.get('KeyUsedBy') is not None:
+            self.key_used_by = m.get('KeyUsedBy')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
 class DescribeKmsAssociateResourcesResponseBody(TeaModel):
-    def __init__(self, associate_status=None, request_id=None):
+    def __init__(self, associate_dbinstances=None, associate_status=None, request_id=None):
+        self.associate_dbinstances = associate_dbinstances  # type: list[DescribeKmsAssociateResourcesResponseBodyAssociateDBInstances]
         self.associate_status = associate_status  # type: bool
         self.request_id = request_id  # type: str
 
     def validate(self):
-        pass
+        if self.associate_dbinstances:
+            for k in self.associate_dbinstances:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(DescribeKmsAssociateResourcesResponseBody, self).to_map()
@@ -34522,6 +34573,10 @@ class DescribeKmsAssociateResourcesResponseBody(TeaModel):
             return _map
 
         result = dict()
+        result['AssociateDBInstances'] = []
+        if self.associate_dbinstances is not None:
+            for k in self.associate_dbinstances:
+                result['AssociateDBInstances'].append(k.to_map() if k else None)
         if self.associate_status is not None:
             result['AssociateStatus'] = self.associate_status
         if self.request_id is not None:
@@ -34530,6 +34585,11 @@ class DescribeKmsAssociateResourcesResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        self.associate_dbinstances = []
+        if m.get('AssociateDBInstances') is not None:
+            for k in m.get('AssociateDBInstances'):
+                temp_model = DescribeKmsAssociateResourcesResponseBodyAssociateDBInstances()
+                self.associate_dbinstances.append(temp_model.from_map(k))
         if m.get('AssociateStatus') is not None:
             self.associate_status = m.get('AssociateStatus')
         if m.get('RequestId') is not None:
@@ -37785,6 +37845,10 @@ class DescribeParameterGroupResponse(TeaModel):
 class DescribeParameterGroupsRequest(TeaModel):
     def __init__(self, enable_detail=None, owner_id=None, region_id=None, resource_group_id=None,
                  resource_owner_account=None, resource_owner_id=None):
+        # Specifies whether to return the parameter overview.
+        # 
+        # *   **false** (default): The parameter overview is returned.
+        # *   **true**: The parameter overview is not returned.
         self.enable_detail = enable_detail  # type: bool
         self.owner_id = owner_id  # type: long
         # The region ID. You can call the DescribeRegions operation to query the most recent region list.
