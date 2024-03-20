@@ -1986,6 +1986,40 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_disk_replica_pair_with_options(request, runtime)
 
+    def query_dedicated_block_storage_cluster_disk_throughput_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        body = {}
+        if not UtilClient.is_unset(request.qos_request_id):
+            body['QosRequestId'] = request.qos_request_id
+        if not UtilClient.is_unset(request.region_id):
+            body['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='QueryDedicatedBlockStorageClusterDiskThroughputStatus',
+            version='2021-07-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ebs_20210730_models.QueryDedicatedBlockStorageClusterDiskThroughputStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_dedicated_block_storage_cluster_disk_throughput_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_dedicated_block_storage_cluster_disk_throughput_status_with_options(request, runtime)
+
     def query_dedicated_block_storage_cluster_inventory_data_with_options(self, request, runtime):
         """
         Period is the time interval between data retrieval points. When set to 60 (minute interval), a maximum of 1440 data points can be returned; when set to 3600 (hour interval), a maximum of 744 data points can be returned; and when set to 86400 (day interval), a maximum of 366 data points can be returned.
@@ -2223,6 +2257,42 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.reprotect_disk_replica_pair_with_options(request, runtime)
+
+    def set_dedicated_block_storage_cluster_disk_throughput_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        body = {}
+        if not UtilClient.is_unset(request.bps):
+            body['Bps'] = request.bps
+        if not UtilClient.is_unset(request.disk_id):
+            body['DiskId'] = request.disk_id
+        if not UtilClient.is_unset(request.region_id):
+            body['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='SetDedicatedBlockStorageClusterDiskThroughput',
+            version='2021-07-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ebs_20210730_models.SetDedicatedBlockStorageClusterDiskThroughputResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def set_dedicated_block_storage_cluster_disk_throughput(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.set_dedicated_block_storage_cluster_disk_throughput_with_options(request, runtime)
 
     def start_disk_replica_group_with_options(self, request, runtime):
         """
