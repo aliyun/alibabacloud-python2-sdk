@@ -112,11 +112,22 @@ class AddDcdnDomainRequest(TeaModel):
         # 
         # Wildcard domain names are supported. A wildcard domain name must start with a period (.), such as .example.com.
         self.domain_name = domain_name  # type: str
+        # Computing service type. Valid values:
+        # 
+        # *   **routine**\
+        # *   **image**\
+        # *   **cloudFunction**\
         self.function_type = function_type  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         # The ID of the resource group. If you do not specify a value for this parameter, the system automatically assigns the ID of the default resource group.
         self.resource_group_id = resource_group_id  # type: str
+        # The Acceleration scen. Supported:
+        # 
+        # * apiscene:API acceleration.
+        # * webservicescene: accelerate website business.
+        # * staticscene: video and graphic acceleration.
+        # * (Empty): no scene.
         self.scene = scene  # type: str
         # The acceleration region. Valid values:
         # 
@@ -238,9 +249,6 @@ class AddDcdnDomainResponse(TeaModel):
         self.body = body  # type: AddDcdnDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -392,9 +400,6 @@ class AddDcdnIpaDomainResponse(TeaModel):
         self.body = body  # type: AddDcdnIpaDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -531,9 +536,6 @@ class BatchAddDcdnDomainResponse(TeaModel):
         self.body = body  # type: BatchAddDcdnDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -658,9 +660,6 @@ class BatchCreateDcdnWafRulesResponse(TeaModel):
         self.body = body  # type: BatchCreateDcdnWafRulesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -769,9 +768,6 @@ class BatchDeleteDcdnDomainConfigsResponse(TeaModel):
         self.body = body  # type: BatchDeleteDcdnDomainConfigsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -858,9 +854,6 @@ class BatchDeleteDcdnWafRulesResponse(TeaModel):
         self.body = body  # type: BatchDeleteDcdnWafRulesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -953,9 +946,6 @@ class BatchModifyDcdnWafRulesResponse(TeaModel):
         self.body = body  # type: BatchModifyDcdnWafRulesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -987,9 +977,13 @@ class BatchModifyDcdnWafRulesResponse(TeaModel):
 
 class BatchPutDcdnKvRequestKvList(TeaModel):
     def __init__(self, expiration=None, expiration_ttl=None, key=None, value=None):
+        # The expiration time. The value is a timestamp in seconds. The expiration time cannot be earlier than the current time. If you specify Expiration and ExpirationTtl, only ExpirationTtl takes effect.
         self.expiration = expiration  # type: long
+        # The relative expiration time. Unit: seconds. If you specify Expiration and ExpirationTtl, only ExpirationTtl takes effect.
         self.expiration_ttl = expiration_ttl  # type: long
+        # The key. The key can be up to 512 characters in length and cannot contain spaces.
         self.key = key  # type: str
+        # The value.
         self.value = value  # type: str
 
     def validate(self):
@@ -1026,7 +1020,9 @@ class BatchPutDcdnKvRequestKvList(TeaModel):
 
 class BatchPutDcdnKvRequest(TeaModel):
     def __init__(self, kv_list=None, namespace=None):
+        # The key-value pairs. The key-value pairs can be up to 2 MB in size.
         self.kv_list = kv_list  # type: list[BatchPutDcdnKvRequestKvList]
+        # The name of the namespace.
         self.namespace = namespace  # type: str
 
     def validate(self):
@@ -1063,7 +1059,9 @@ class BatchPutDcdnKvRequest(TeaModel):
 
 class BatchPutDcdnKvShrinkRequest(TeaModel):
     def __init__(self, kv_list_shrink=None, namespace=None):
+        # The key-value pairs. The key-value pairs can be up to 2 MB in size.
         self.kv_list_shrink = kv_list_shrink  # type: str
+        # The name of the namespace.
         self.namespace = namespace  # type: str
 
     def validate(self):
@@ -1092,8 +1090,11 @@ class BatchPutDcdnKvShrinkRequest(TeaModel):
 
 class BatchPutDcdnKvResponseBody(TeaModel):
     def __init__(self, fail_keys=None, request_id=None, success_keys=None):
+        # The keys that failed to be written.
         self.fail_keys = fail_keys  # type: list[str]
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The keys that were written.
         self.success_keys = success_keys  # type: list[str]
 
     def validate(self):
@@ -1131,9 +1132,6 @@ class BatchPutDcdnKvResponse(TeaModel):
         self.body = body  # type: BatchPutDcdnKvResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1277,9 +1275,6 @@ class BatchSetDcdnDomainCertificateResponse(TeaModel):
         self.body = body  # type: BatchSetDcdnDomainCertificateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1486,9 +1481,6 @@ class BatchSetDcdnDomainConfigsResponse(TeaModel):
         self.body = body  # type: BatchSetDcdnDomainConfigsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1596,9 +1588,6 @@ class BatchSetDcdnIpaDomainConfigsResponse(TeaModel):
         self.body = body  # type: BatchSetDcdnIpaDomainConfigsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1701,9 +1690,6 @@ class BatchSetDcdnWafDomainConfigsResponse(TeaModel):
         self.body = body  # type: BatchSetDcdnWafDomainConfigsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1800,9 +1786,6 @@ class BatchStartDcdnDomainResponse(TeaModel):
         self.body = body  # type: BatchStartDcdnDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1899,9 +1882,6 @@ class BatchStopDcdnDomainResponse(TeaModel):
         self.body = body  # type: BatchStopDcdnDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2024,9 +2004,6 @@ class CheckDcdnProjectExistResponse(TeaModel):
         self.body = body  # type: CheckDcdnProjectExistResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2125,9 +2102,6 @@ class CommitStagingRoutineCodeResponse(TeaModel):
         self.body = body  # type: CommitStagingRoutineCodeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2153,6 +2127,153 @@ class CommitStagingRoutineCodeResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CommitStagingRoutineCodeResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateDcdnCertificateSigningRequestRequest(TeaModel):
+    def __init__(self, city=None, common_name=None, country=None, email=None, organization=None,
+                 organization_unit=None, sans=None, state=None):
+        # The city. Default value: Hangzhou.
+        self.city = city  # type: str
+        # The Common Name of the certificate.
+        self.common_name = common_name  # type: str
+        # The country or region in which the organization is located. Default value: CN.
+        self.country = country  # type: str
+        # The email address.
+        self.email = email  # type: str
+        # The name of the organization. Default value: Alibaba Inc.
+        self.organization = organization  # type: str
+        # The name of the department. Default value: Aliyun CDN.
+        self.organization_unit = organization_unit  # type: str
+        # The Subject Alternative Name (SAN) extension that allows multiple domain names to be associated with the certificate. Separate multiple domain names with commas (,).
+        self.sans = sans  # type: str
+        # The provincial district. Default value: Zhejiang.
+        self.state = state  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDcdnCertificateSigningRequestRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.city is not None:
+            result['City'] = self.city
+        if self.common_name is not None:
+            result['CommonName'] = self.common_name
+        if self.country is not None:
+            result['Country'] = self.country
+        if self.email is not None:
+            result['Email'] = self.email
+        if self.organization is not None:
+            result['Organization'] = self.organization
+        if self.organization_unit is not None:
+            result['OrganizationUnit'] = self.organization_unit
+        if self.sans is not None:
+            result['SANs'] = self.sans
+        if self.state is not None:
+            result['State'] = self.state
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('City') is not None:
+            self.city = m.get('City')
+        if m.get('CommonName') is not None:
+            self.common_name = m.get('CommonName')
+        if m.get('Country') is not None:
+            self.country = m.get('Country')
+        if m.get('Email') is not None:
+            self.email = m.get('Email')
+        if m.get('Organization') is not None:
+            self.organization = m.get('Organization')
+        if m.get('OrganizationUnit') is not None:
+            self.organization_unit = m.get('OrganizationUnit')
+        if m.get('SANs') is not None:
+            self.sans = m.get('SANs')
+        if m.get('State') is not None:
+            self.state = m.get('State')
+        return self
+
+
+class CreateDcdnCertificateSigningRequestResponseBody(TeaModel):
+    def __init__(self, common_name=None, csr=None, pub_md_5=None, request_id=None):
+        # The Common Name of the certificate.
+        self.common_name = common_name  # type: str
+        # The content of the CSR file.
+        self.csr = csr  # type: str
+        # The MD5 hash value of the certificate public key.
+        self.pub_md_5 = pub_md_5  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDcdnCertificateSigningRequestResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_name is not None:
+            result['CommonName'] = self.common_name
+        if self.csr is not None:
+            result['Csr'] = self.csr
+        if self.pub_md_5 is not None:
+            result['PubMd5'] = self.pub_md_5
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CommonName') is not None:
+            self.common_name = m.get('CommonName')
+        if m.get('Csr') is not None:
+            self.csr = m.get('Csr')
+        if m.get('PubMd5') is not None:
+            self.pub_md_5 = m.get('PubMd5')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CreateDcdnCertificateSigningRequestResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateDcdnCertificateSigningRequestResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateDcdnCertificateSigningRequestResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateDcdnCertificateSigningRequestResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -2246,9 +2367,6 @@ class CreateDcdnDeliverTaskResponse(TeaModel):
         self.body = body  # type: CreateDcdnDeliverTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2471,9 +2589,6 @@ class CreateDcdnSLSRealTimeLogDeliveryResponse(TeaModel):
         self.body = body  # type: CreateDcdnSLSRealTimeLogDeliveryResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2580,9 +2695,6 @@ class CreateDcdnSubTaskResponse(TeaModel):
         self.body = body  # type: CreateDcdnSubTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2614,8 +2726,16 @@ class CreateDcdnSubTaskResponse(TeaModel):
 
 class CreateDcdnWafGroupRequest(TeaModel):
     def __init__(self, name=None, subscribe=None, template_id=None):
+        # The name of the WAF rule group. The name can be up to 128 characters in length. This parameter is required when you create a custom WAF rule group.
         self.name = name  # type: str
+        # Specifies whether to enable subscription. Valid values:
+        # 
+        # *   **on**\
+        # *   **off**\
+        # 
+        # When you replicate a custom rule group, do not specify this parameter.
         self.subscribe = subscribe  # type: str
+        # The ID of the rule group to be replicated. This parameter is required when you replicate a custom WAF rule group. You can call the [DescribeDcdnWafGroups](~~DescribeDcdnWafGroups~~) operation to query the ID of the rule group. If no template is used, set the value to 0 or do not specify this parameter.
         self.template_id = template_id  # type: long
 
     def validate(self):
@@ -2648,7 +2768,9 @@ class CreateDcdnWafGroupRequest(TeaModel):
 
 class CreateDcdnWafGroupResponseBody(TeaModel):
     def __init__(self, id=None, request_id=None):
+        # The ID of the created WAF rule group.
         self.id = id  # type: long
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2682,9 +2804,6 @@ class CreateDcdnWafGroupResponse(TeaModel):
         self.body = body  # type: CreateDcdnWafGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2808,9 +2927,6 @@ class CreateDcdnWafPolicyResponse(TeaModel):
         self.body = body  # type: CreateDcdnWafPolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2952,9 +3068,6 @@ class CreateRoutineResponse(TeaModel):
         self.body = body  # type: CreateRoutineResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3113,9 +3226,6 @@ class CreateSlrAndSlsProjectResponse(TeaModel):
         self.body = body  # type: CreateSlrAndSlsProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3202,9 +3312,6 @@ class DeleteDcdnDeliverTaskResponse(TeaModel):
         self.body = body  # type: DeleteDcdnDeliverTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3306,9 +3413,6 @@ class DeleteDcdnDomainResponse(TeaModel):
         self.body = body  # type: DeleteDcdnDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3410,9 +3514,6 @@ class DeleteDcdnIpaDomainResponse(TeaModel):
         self.body = body  # type: DeleteDcdnIpaDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3515,9 +3616,6 @@ class DeleteDcdnIpaSpecificConfigResponse(TeaModel):
         self.body = body  # type: DeleteDcdnIpaSpecificConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3610,9 +3708,6 @@ class DeleteDcdnKvResponse(TeaModel):
         self.body = body  # type: DeleteDcdnKvResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3699,9 +3794,6 @@ class DeleteDcdnKvNamespaceResponse(TeaModel):
         self.body = body  # type: DeleteDcdnKvNamespaceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3788,9 +3880,6 @@ class DeleteDcdnRealTimeLogProjectResponse(TeaModel):
         self.body = body  # type: DeleteDcdnRealTimeLogProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3893,9 +3982,6 @@ class DeleteDcdnSpecificConfigResponse(TeaModel):
         self.body = body  # type: DeleteDcdnSpecificConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4000,9 +4086,6 @@ class DeleteDcdnSpecificStagingConfigResponse(TeaModel):
         self.body = body  # type: DeleteDcdnSpecificStagingConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4064,9 +4147,6 @@ class DeleteDcdnSubTaskResponse(TeaModel):
         self.body = body  # type: DeleteDcdnSubTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4098,6 +4178,7 @@ class DeleteDcdnSubTaskResponse(TeaModel):
 
 class DeleteDcdnUserConfigRequest(TeaModel):
     def __init__(self, function_name=None):
+        # The name of the user feature that you want to delete. Currently, only DCDN Web Application Firewall (WAF) can be deleted. Default value: waf.
         self.function_name = function_name  # type: str
 
     def validate(self):
@@ -4122,6 +4203,7 @@ class DeleteDcdnUserConfigRequest(TeaModel):
 
 class DeleteDcdnUserConfigResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4151,9 +4233,6 @@ class DeleteDcdnUserConfigResponse(TeaModel):
         self.body = body  # type: DeleteDcdnUserConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4185,6 +4264,7 @@ class DeleteDcdnUserConfigResponse(TeaModel):
 
 class DeleteDcdnWafGroupRequest(TeaModel):
     def __init__(self, id=None):
+        # The ID of the custom WAF rule group.
         self.id = id  # type: long
 
     def validate(self):
@@ -4209,6 +4289,7 @@ class DeleteDcdnWafGroupRequest(TeaModel):
 
 class DeleteDcdnWafGroupResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4238,9 +4319,6 @@ class DeleteDcdnWafGroupResponse(TeaModel):
         self.body = body  # type: DeleteDcdnWafGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4327,9 +4405,6 @@ class DeleteDcdnWafPolicyResponse(TeaModel):
         self.body = body  # type: DeleteDcdnWafPolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4422,9 +4497,6 @@ class DeleteRoutineResponse(TeaModel):
         self.body = body  # type: DeleteRoutineResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4523,9 +4595,6 @@ class DeleteRoutineCodeRevisionResponse(TeaModel):
         self.body = body  # type: DeleteRoutineCodeRevisionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4655,9 +4724,6 @@ class DeleteRoutineConfEnvsResponse(TeaModel):
         self.body = body  # type: DeleteRoutineConfEnvsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4786,9 +4852,6 @@ class DescribeDcdnAclFieldsResponse(TeaModel):
         self.body = body  # type: DescribeDcdnAclFieldsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4978,9 +5041,6 @@ class DescribeDcdnBgpBpsDataResponse(TeaModel):
         self.body = body  # type: DescribeDcdnBgpBpsDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5158,9 +5218,6 @@ class DescribeDcdnBgpTrafficDataResponse(TeaModel):
         self.body = body  # type: DescribeDcdnBgpTrafficDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5324,9 +5381,6 @@ class DescribeDcdnBlockedRegionsResponse(TeaModel):
         self.body = body  # type: DescribeDcdnBlockedRegionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5447,9 +5501,6 @@ class DescribeDcdnCertificateDetailResponse(TeaModel):
         self.body = body  # type: DescribeDcdnCertificateDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5676,9 +5727,6 @@ class DescribeDcdnCertificateListResponse(TeaModel):
         self.body = body  # type: DescribeDcdnCertificateListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5741,20 +5789,61 @@ class DescribeDcdnDdosServiceResponseBody(TeaModel):
     def __init__(self, changing_affect_time=None, changing_charge_type=None, changing_domian_num=None,
                  changing_edition=None, changing_protect_num=None, charge_type=None, domian_num=None, edition=None, enabled=None,
                  ending_time=None, instance_id=None, opening_time=None, protect_num=None, request_id=None, status=None):
+        # The time when the renewed service takes effect. The time is displayed in UTC.
         self.changing_affect_time = changing_affect_time  # type: str
+        # The metering method after the configuration changes Valid values:
+        # 
+        # *   **PayByBandwidth**\
+        # *   **PayByTraffic**\
+        # *   **PayByBandwidth95**\
         self.changing_charge_type = changing_charge_type  # type: str
+        # The number of protected domain names.
         self.changing_domian_num = changing_domian_num  # type: int
+        # The protection edition for which the configuration changes take effect. Valid values:
+        # 
+        # *   **poc**: POC Edition
+        # *   **basic**: Basic Edition
+        # *   **insurance**: Insurance Edition
+        # *   **unlimited**: Unlimited Edition
         self.changing_edition = changing_edition  # type: str
+        # The number of mitigation sessions with configuration changes.
         self.changing_protect_num = changing_protect_num  # type: int
+        # The billing method. Valid values:
+        # 
+        # *   **PayByBandwidth**\
+        # *   **PayByTraffic**\
+        # *   **PayByBandwidth95**\
         self.charge_type = charge_type  # type: str
+        # The number of protected domain names.
         self.domian_num = domian_num  # type: int
+        # The protection edition. Valid values:
+        # 
+        # *   **poc**: POC Edition
+        # *   **basic**: Basic Edition
+        # *   **insurance**: Insurance Edition
+        # *   **unlimited**: Unlimited Edition
         self.edition = edition  # type: str
+        # The activation status of the service. Valid values:
+        # 
+        # *   **on**\
+        # *   **off**\
         self.enabled = enabled  # type: str
+        # The service expiration time.
         self.ending_time = ending_time  # type: str
+        # The instance ID.
         self.instance_id = instance_id  # type: str
+        # The time when the service was enabled.
         self.opening_time = opening_time  # type: str
+        # The number of mitigation sessions.
         self.protect_num = protect_num  # type: int
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The status of the service. Valid values:
+        # 
+        # *   **Normal**\
+        # *   **WaitForExpire**\
+        # *   **expired**\
+        # *   **Released**\
         self.status = status  # type: str
 
     def validate(self):
@@ -5840,9 +5929,6 @@ class DescribeDcdnDdosServiceResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDdosServiceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5874,8 +5960,18 @@ class DescribeDcdnDdosServiceResponse(TeaModel):
 
 class DescribeDcdnDdosSpecInfoResponseBodySpecInfosConfigs(TeaModel):
     def __init__(self, config=None, expr=None, value=None):
+        # The configuration code of the version rule. Valid values:
+        # 
+        # *   **total_defense_num**: the total number of mitigation sessions of the version.
+        # *   **consume_defense_num**: the number of used mitigation sessions of the version.
+        # *   **max_domain_num**: the limit on the number of added domain names.
+        # *   **emain_domain_num**: the number of added domain names.
+        # *   **defence_package_num**: the total number of purchased additional mitigation sessions.
+        # *   **consume_defence_package_num**: the number of used additional mitigation sessions.
         self.config = config  # type: str
+        # The configuration expression of the version rule.
         self.expr = expr  # type: str
+        # The value of the configuration expression of the version rule.
         self.value = value  # type: str
 
     def validate(self):
@@ -5908,7 +6004,13 @@ class DescribeDcdnDdosSpecInfoResponseBodySpecInfosConfigs(TeaModel):
 
 class DescribeDcdnDdosSpecInfoResponseBodySpecInfos(TeaModel):
     def __init__(self, configs=None, rule=None):
+        # The configurations of the version rule.
         self.configs = configs  # type: list[DescribeDcdnDdosSpecInfoResponseBodySpecInfosConfigs]
+        # The version rule. Valid values:
+        # 
+        # *   **version_defense_num**: the rule for the number of version mitigation sessions
+        # *   **domain_num**: the rule for the limit on the number of domain names
+        # *   **defence_package_num**: the rule for extra mitigation session plans
         self.rule = rule  # type: str
 
     def validate(self):
@@ -5946,13 +6048,37 @@ class DescribeDcdnDdosSpecInfoResponseBodySpecInfos(TeaModel):
 class DescribeDcdnDdosSpecInfoResponseBody(TeaModel):
     def __init__(self, bandwidth_limit=None, edition=None, enable=None, is_special_port=None, protected_area=None,
                  qps_limit=None, request_id=None, spec_infos=None):
+        # The bandwidth limit of a single instance.
         self.bandwidth_limit = bandwidth_limit  # type: str
+        # The version. Valid values:
+        # 
+        # * **poc**: POC Edition
+        # * **basic**: Basic Edition
+        # * **insurance**: Insurance Edition
+        # * **unlimited**: Unlimited Edition
+        # * **port_enhancement**: Special Port Enhanced Edition
         self.edition = edition  # type: str
+        # Specifies whether to enable DDoS mitigation. Valid values:
+        # 
+        # *   **on:**\
+        # *   **off**.
         self.enable = enable  # type: str
+        # Specifies whether custom ports are supported. Valid values:
+        # 
+        # *   **yes**\
+        # *   **no**\
         self.is_special_port = is_special_port  # type: str
+        # Protected region. Valid values:
+        # 
+        # * **global**: global
+        # * **chinese_mainland**: Chinese mainland
+        # * **global_excluding_the_chinese_mainland**: outside the Chinese mainland
         self.protected_area = protected_area  # type: str
+        # The QPS limit.
         self.qps_limit = qps_limit  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The code and configurations of the security rules.
         self.spec_infos = spec_infos  # type: list[DescribeDcdnDdosSpecInfoResponseBodySpecInfos]
 
     def validate(self):
@@ -6018,9 +6144,6 @@ class DescribeDcdnDdosSpecInfoResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDdosSpecInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6202,9 +6325,6 @@ class DescribeDcdnDeletedDomainsResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDeletedDomainsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6297,9 +6417,6 @@ class DescribeDcdnDeliverListResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDeliverListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6552,9 +6669,6 @@ class DescribeDcdnDomainBpsDataResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainBpsDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6798,9 +6912,6 @@ class DescribeDcdnDomainBpsDataByLayerResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainBpsDataByLayerResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7029,9 +7140,6 @@ class DescribeDcdnDomainByCertificateResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainByCertificateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7273,9 +7381,6 @@ class DescribeDcdnDomainCcActivityLogResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainCcActivityLogResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7512,9 +7617,6 @@ class DescribeDcdnDomainCertificateInfoResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainCertificateInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7678,9 +7780,6 @@ class DescribeDcdnDomainCnameResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainCnameResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7948,9 +8047,6 @@ class DescribeDcdnDomainConfigsResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainConfigsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8027,11 +8123,11 @@ class DescribeDcdnDomainDetailResponseBodyDomainDetailSourcesSource(TeaModel):
         self.priority = priority  # type: str
         # The type of the origin server. Valid values:
         # 
-        # *   **ipaddr**: an origin IP address
+        # *   **ipaddr**: an IP address
         # *   **domain**: an origin domain name
         # *   **oss**: the domain name of an Object Storage Service (OSS) bucket
         self.type = type  # type: str
-        # The weight of the origin server if multiple origin servers have been specified.
+        # The weight of the origin server if multiple origin servers are specified.
         self.weight = weight  # type: str
 
     def validate(self):
@@ -8125,6 +8221,11 @@ class DescribeDcdnDomainDetailResponseBodyDomainDetail(TeaModel):
         # *   **checking**\
         # *   **check_failed**\
         self.domain_status = domain_status  # type: str
+        # Computing service type. Valid values:
+        # 
+        # *   **routine**\
+        # *   **image**\
+        # *   **cloudFunction**\
         self.function_type = function_type  # type: str
         # The time when the domain name was added.
         self.gmt_created = gmt_created  # type: str
@@ -8139,6 +8240,12 @@ class DescribeDcdnDomainDetailResponseBodyDomainDetail(TeaModel):
         self.sslprotocol = sslprotocol  # type: str
         # The public key of the certificate if HTTPS is enabled.
         self.sslpub = sslpub  # type: str
+        # Acceleration scenario. Valid values:
+        # 
+        # *   **apiscene**: API acceleration.
+        # *   **webservicescene**: website acceleration.
+        # *   **staticscene**: video, image, and text acceleration.
+        # *   **an empty string**: no acceleration scenario is used.
         self.scene = scene  # type: str
         # The acceleration region. Default value: domestic. Valid values:
         # 
@@ -8259,9 +8366,6 @@ class DescribeDcdnDomainDetailResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8474,9 +8578,6 @@ class DescribeDcdnDomainHitRateDataResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainHitRateDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8773,9 +8874,6 @@ class DescribeDcdnDomainHttpCodeDataResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainHttpCodeDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8986,9 +9084,6 @@ class DescribeDcdnDomainHttpCodeDataByLayerResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainHttpCodeDataByLayerResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9235,9 +9330,6 @@ class DescribeDcdnDomainIpaBpsDataResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainIpaBpsDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9442,9 +9534,6 @@ class DescribeDcdnDomainIpaConnDataResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainIpaConnDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9691,9 +9780,6 @@ class DescribeDcdnDomainIpaTrafficDataResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainIpaTrafficDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9947,9 +10033,6 @@ class DescribeDcdnDomainIspDataResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainIspDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10278,9 +10361,6 @@ class DescribeDcdnDomainLogResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainLogResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10578,9 +10658,6 @@ class DescribeDcdnDomainLogExTtlResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainLogExTtlResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10877,9 +10954,6 @@ class DescribeDcdnDomainMultiUsageDataResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainMultiUsageDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11109,9 +11183,6 @@ class DescribeDcdnDomainOriginBpsDataResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainOriginBpsDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11341,9 +11412,6 @@ class DescribeDcdnDomainOriginTrafficDataResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainOriginTrafficDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11445,9 +11513,6 @@ class DescribeDcdnDomainPropertyResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainPropertyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11642,9 +11707,6 @@ class DescribeDcdnDomainPvDataResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainPvDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11928,9 +11990,6 @@ class DescribeDcdnDomainQpsDataResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainQpsDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12191,9 +12250,6 @@ class DescribeDcdnDomainQpsDataByLayerResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainQpsDataByLayerResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12385,9 +12441,6 @@ class DescribeDcdnDomainRealTimeBpsDataResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainRealTimeBpsDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12559,9 +12612,6 @@ class DescribeDcdnDomainRealTimeByteHitRateDataResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainRealTimeByteHitRateDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12719,9 +12769,6 @@ class DescribeDcdnDomainRealTimeDetailDataResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainRealTimeDetailDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13009,9 +13056,6 @@ class DescribeDcdnDomainRealTimeHttpCodeDataResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainRealTimeHttpCodeDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13203,9 +13247,6 @@ class DescribeDcdnDomainRealTimeQpsDataResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainRealTimeQpsDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13377,9 +13418,6 @@ class DescribeDcdnDomainRealTimeReqHitRateDataResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainRealTimeReqHitRateDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13578,9 +13616,6 @@ class DescribeDcdnDomainRealTimeSrcBpsDataResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainRealTimeSrcBpsDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13870,9 +13905,6 @@ class DescribeDcdnDomainRealTimeSrcHttpCodeDataResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainRealTimeSrcHttpCodeDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14071,9 +14103,6 @@ class DescribeDcdnDomainRealTimeSrcTrafficDataResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainRealTimeSrcTrafficDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14276,9 +14305,6 @@ class DescribeDcdnDomainRealTimeTrafficDataResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainRealTimeTrafficDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14534,9 +14560,6 @@ class DescribeDcdnDomainRegionDataResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainRegionDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14729,9 +14752,6 @@ class DescribeDcdnDomainStagingConfigResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainStagingConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14940,9 +14960,6 @@ class DescribeDcdnDomainTopReferVisitResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainTopReferVisitResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15514,9 +15531,6 @@ class DescribeDcdnDomainTopUrlVisitResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainTopUrlVisitResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15769,9 +15783,6 @@ class DescribeDcdnDomainTrafficDataResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainTrafficDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15819,22 +15830,22 @@ class DescribeDcdnDomainUsageDataRequest(TeaModel):
         # 
         # Default value: **CN**\
         self.area = area  # type: str
-        # The protocol by which the data is queried. Valid values:
+        # The protocol of the data to query. Valid values:
         # 
         # *   **quic**: Quick UDP Internet Connections (QUIC)
         # *   **https**: HTTPS
         # *   **http**: HTTP
-        # *   **all**: HTTP, HTTPS, and QUIC
+        # *   **all**: all the preceding protocols
         # 
         # Default value: **all**\
         self.data_protocol = data_protocol  # type: str
         # The accelerated domain name. You can specify up to 100 domain names in each request. Separate multiple domain names with commas (,).
         # 
-        # > If you do not specify this parameter, the usage data of all accelerated domain names that belong to your Alibaba Cloud account is returned.
+        # >  If you do not specify this parameter, the usage data of all accelerated domain names that belong to your Alibaba Cloud account is returned.
         self.domain_name = domain_name  # type: str
         # The end of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         # 
-        # > The end time must be later than the start time. The maximum time range that can be queried is 31 days.
+        # >  The end time must be later than the start time. The maximum time range that can be queried is 31 days.
         self.end_time = end_time  # type: str
         # The type of data that you want to query. Valid values:
         # 
@@ -15842,7 +15853,7 @@ class DescribeDcdnDomainUsageDataRequest(TeaModel):
         # *   **traf**: traffic
         # *   **acc**: requests
         # 
-        # > If the value is set to **acc**, the **Area** parameter is not supported.
+        # >  **acc** does not support the **Area** parameter.
         self.field = field  # type: str
         # The time interval between the data entries to return. Unit: seconds.
         # 
@@ -15850,15 +15861,15 @@ class DescribeDcdnDomainUsageDataRequest(TeaModel):
         self.interval = interval  # type: str
         # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         # 
-        # > The minimum time granularity at which the data is queried is 5 minutes.
+        # >  The minimum time granularity at which the data is queried is 5 minutes.
         self.start_time = start_time  # type: str
-        # 请求数类型，取值：
+        # The type of the requests. Valid values:
         # 
-        # - **static**：静态。
-        # - **dynamic**：动态。
-        # - **all**：全部。
+        # *   **static**: static requests
+        # *   **dynamic**: dynamic requests
+        # *   **all**: all requests
         # 
-        # 默认为**all**。
+        # Default value: **all**\
         self.type = type  # type: str
 
     def validate(self):
@@ -15915,11 +15926,11 @@ class DescribeDcdnDomainUsageDataResponseBodyUsageDataPerIntervalDataModule(TeaM
         self.peak_time = peak_time  # type: str
         # The data usage in a specific scenario.
         # 
-        # > SpecialValue indicates the data usage in a specific scenario. If no special billable item is specified, ignore this parameter.
+        # >  This parameter indicates the data usage in a specific scenario. If no special billable item is specified, ignore this parameter.
         self.special_value = special_value  # type: str
         # The timestamp of the returned data.
         self.time_stamp = time_stamp  # type: str
-        # The amount of resource usage.
+        # The usage.
         self.value = value  # type: str
 
     def validate(self):
@@ -15993,7 +16004,7 @@ class DescribeDcdnDomainUsageDataResponseBody(TeaModel):
         self.area = area  # type: str
         # The time interval between the data entries returned. Unit: seconds.
         self.data_interval = data_interval  # type: str
-        # The accelerated domain name.
+        # The accelerated domain name that was queried.
         self.domain_name = domain_name  # type: str
         # The end of the time range during which data was queried.
         self.end_time = end_time  # type: str
@@ -16001,9 +16012,9 @@ class DescribeDcdnDomainUsageDataResponseBody(TeaModel):
         self.request_id = request_id  # type: str
         # The beginning of the time range during which data was queried.
         self.start_time = start_time  # type: str
-        # The type of the content returned.
+        # The type of the returned data.
         self.type = type  # type: str
-        # The network traffic that was collected at each interval.
+        # The traffic that was collected at each interval.
         self.usage_data_per_interval = usage_data_per_interval  # type: DescribeDcdnDomainUsageDataResponseBodyUsageDataPerInterval
 
     def validate(self):
@@ -16063,9 +16074,6 @@ class DescribeDcdnDomainUsageDataResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainUsageDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16264,9 +16272,6 @@ class DescribeDcdnDomainUvDataResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainUvDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16494,9 +16499,6 @@ class DescribeDcdnDomainWebsocketBpsDataResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainWebsocketBpsDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16793,9 +16795,6 @@ class DescribeDcdnDomainWebsocketHttpCodeDataResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainWebsocketHttpCodeDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17023,9 +17022,6 @@ class DescribeDcdnDomainWebsocketTrafficDataResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainWebsocketTrafficDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17057,6 +17053,7 @@ class DescribeDcdnDomainWebsocketTrafficDataResponse(TeaModel):
 
 class DescribeDcdnDomainsBySourceRequest(TeaModel):
     def __init__(self, sources=None):
+        # The list of origin servers. Separate origin servers with commas (,). You can specify a maximum of 20 origin servers. Fuzzy match is not supported.
         self.sources = sources  # type: str
 
     def validate(self):
@@ -17082,12 +17079,27 @@ class DescribeDcdnDomainsBySourceRequest(TeaModel):
 class DescribeDcdnDomainsBySourceResponseBodyDomainInfoDomainList(TeaModel):
     def __init__(self, create_time=None, domain_cname=None, domain_name=None, domain_type=None, status=None,
                  update_time=None):
+        # The creation time.
         self.create_time = create_time  # type: str
-        # CNAME。
+        # The CNAME record assigned to the domain name.
         self.domain_cname = domain_cname  # type: str
+        # The accelerated domain name.
         self.domain_name = domain_name  # type: str
+        # The workload type of the accelerated domain name. Valid value:
+        # 
+        # *   **ipa**: layer 4 acceleration
+        # *   **dynamic**: layer 7 acceleration
         self.domain_type = domain_type  # type: str
+        # The status of the domain name. Valid value:
+        # 
+        # *   **applying**: The domain name is under review.
+        # *   **configuring**: The domain name is being configured.
+        # *   **online**: The domain name is working as expected.
+        # *   **stopping**: The domain name is being stopped.
+        # *   **offline**: The domain name is disabled.
+        # *   **disabling**: The domain name is being removed.
         self.status = status  # type: str
+        # The time when the domain name was updated.
         self.update_time = update_time  # type: str
 
     def validate(self):
@@ -17132,7 +17144,9 @@ class DescribeDcdnDomainsBySourceResponseBodyDomainInfoDomainList(TeaModel):
 
 class DescribeDcdnDomainsBySourceResponseBodyDomainInfo(TeaModel):
     def __init__(self, domain_list=None, source=None):
+        # The information about the domain names.
         self.domain_list = domain_list  # type: list[DescribeDcdnDomainsBySourceResponseBodyDomainInfoDomainList]
+        # The origin server.
         self.source = source  # type: str
 
     def validate(self):
@@ -17169,7 +17183,9 @@ class DescribeDcdnDomainsBySourceResponseBodyDomainInfo(TeaModel):
 
 class DescribeDcdnDomainsBySourceResponseBody(TeaModel):
     def __init__(self, domain_info=None, request_id=None):
+        # The information about each origin server and the corresponding domain names.
         self.domain_info = domain_info  # type: list[DescribeDcdnDomainsBySourceResponseBodyDomainInfo]
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -17211,9 +17227,6 @@ class DescribeDcdnDomainsBySourceResponse(TeaModel):
         self.body = body  # type: DescribeDcdnDomainsBySourceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17427,9 +17440,6 @@ class DescribeDcdnErUsageDataResponse(TeaModel):
         self.body = body  # type: DescribeDcdnErUsageDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17534,9 +17544,6 @@ class DescribeDcdnFullDomainsBlockIPConfigResponse(TeaModel):
         self.body = body  # type: DescribeDcdnFullDomainsBlockIPConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17707,9 +17714,6 @@ class DescribeDcdnFullDomainsBlockIPHistoryResponse(TeaModel):
         self.body = body  # type: DescribeDcdnFullDomainsBlockIPHistoryResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17931,9 +17935,6 @@ class DescribeDcdnHttpsDomainListResponse(TeaModel):
         self.body = body  # type: DescribeDcdnHttpsDomainListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -18053,9 +18054,6 @@ class DescribeDcdnIpInfoResponse(TeaModel):
         self.body = body  # type: DescribeDcdnIpInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -18087,6 +18085,7 @@ class DescribeDcdnIpInfoResponse(TeaModel):
 
 class DescribeDcdnIpaDomainCidrRequest(TeaModel):
     def __init__(self, domain_name=None):
+        # The accelerated domain name. You can specify only one domain name in each request.
         self.domain_name = domain_name  # type: str
 
     def validate(self):
@@ -18111,7 +18110,9 @@ class DescribeDcdnIpaDomainCidrRequest(TeaModel):
 
 class DescribeDcdnIpaDomainCidrResponseBody(TeaModel):
     def __init__(self, cidr=None, request_id=None):
+        # The back-to-origin IPv4 and IPv6 CIDR blocks.
         self.cidr = cidr  # type: list[str]
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -18145,9 +18146,6 @@ class DescribeDcdnIpaDomainCidrResponse(TeaModel):
         self.body = body  # type: DescribeDcdnIpaDomainCidrResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -18403,9 +18401,6 @@ class DescribeDcdnIpaDomainConfigsResponse(TeaModel):
         self.body = body  # type: DescribeDcdnIpaDomainConfigsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -18710,9 +18705,6 @@ class DescribeDcdnIpaDomainDetailResponse(TeaModel):
         self.body = body  # type: DescribeDcdnIpaDomainDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -18915,9 +18907,6 @@ class DescribeDcdnIpaServiceResponse(TeaModel):
         self.body = body  # type: DescribeDcdnIpaServiceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19353,9 +19342,6 @@ class DescribeDcdnIpaUserDomainsResponse(TeaModel):
         self.body = body  # type: DescribeDcdnIpaUserDomainsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19526,9 +19512,6 @@ class DescribeDcdnKvAccountResponse(TeaModel):
         self.body = body  # type: DescribeDcdnKvAccountResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19599,9 +19582,6 @@ class DescribeDcdnKvAccountStatusResponse(TeaModel):
         self.body = body  # type: DescribeDcdnKvAccountStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19657,7 +19637,7 @@ class DescribeDcdnKvNamespaceRequest(TeaModel):
 
 
 class DescribeDcdnKvNamespaceResponseBody(TeaModel):
-    def __init__(self, capacity_string=None, capacity_used_string=None, description=None, namespace=None,
+    def __init__(self, capacity_string=None, capacity_used_string=None, description=None, mode=None, namespace=None,
                  namespace_id=None, request_id=None, status=None):
         # The available capacity of all namespaces in your account.
         self.capacity_string = capacity_string  # type: str
@@ -19665,6 +19645,7 @@ class DescribeDcdnKvNamespaceResponseBody(TeaModel):
         self.capacity_used_string = capacity_used_string  # type: str
         # The description of the namespace.
         self.description = description  # type: str
+        self.mode = mode  # type: str
         # The name of the namespace.
         self.namespace = namespace  # type: str
         # The ID of the namespace.
@@ -19694,6 +19675,8 @@ class DescribeDcdnKvNamespaceResponseBody(TeaModel):
             result['CapacityUsedString'] = self.capacity_used_string
         if self.description is not None:
             result['Description'] = self.description
+        if self.mode is not None:
+            result['Mode'] = self.mode
         if self.namespace is not None:
             result['Namespace'] = self.namespace
         if self.namespace_id is not None:
@@ -19712,6 +19695,8 @@ class DescribeDcdnKvNamespaceResponseBody(TeaModel):
             self.capacity_used_string = m.get('CapacityUsedString')
         if m.get('Description') is not None:
             self.description = m.get('Description')
+        if m.get('Mode') is not None:
+            self.mode = m.get('Mode')
         if m.get('Namespace') is not None:
             self.namespace = m.get('Namespace')
         if m.get('NamespaceId') is not None:
@@ -19730,9 +19715,6 @@ class DescribeDcdnKvNamespaceResponse(TeaModel):
         self.body = body  # type: DescribeDcdnKvNamespaceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19800,9 +19782,6 @@ class DescribeDcdnL2IpsResponse(TeaModel):
         self.body = body  # type: DescribeDcdnL2IpsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19901,9 +19880,6 @@ class DescribeDcdnL2VipsResponse(TeaModel):
         self.body = body  # type: DescribeDcdnL2VipsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19935,6 +19911,7 @@ class DescribeDcdnL2VipsResponse(TeaModel):
 
 class DescribeDcdnOriginSiteHealthStatusRequest(TeaModel):
     def __init__(self, domain_name=None):
+        # The accelerated domain name. You can specify only one domain name in each request.
         self.domain_name = domain_name  # type: str
 
     def validate(self):
@@ -19959,7 +19936,14 @@ class DescribeDcdnOriginSiteHealthStatusRequest(TeaModel):
 
 class DescribeDcdnOriginSiteHealthStatusResponseBodyOriginSiteStatus(TeaModel):
     def __init__(self, health_status=None, host=None):
+        # The health status of the origin server. Each point of presence (POP) periodically initiates a probe request to the configured origin domain name. If the POP receives a response from the origin server in 5 seconds, the probe is considered successful. After the probe data for each POP is collected, the health status of the origin server is calculated based on the proportion of successful probes. Valid values:
+        # 
+        # *   unknown: The probe data of the origin server is not obtained because the configurations of the origin server have been changed recently. Try again later.
+        # *   healthy: The proportion of successful probes is higher than 80%.
+        # *   degraded: The proportion of successful probes is higher than 0% and lower than or equal to 80%.
+        # *   critical: All probing requests to the origin server failed.
         self.health_status = health_status  # type: str
+        # The origin domain name that you configured in the DCDN console, which can be an IPv4 address, IPv6 address, common domain name, or Object Storage Service (OSS) domain name.
         self.host = host  # type: str
 
     def validate(self):
@@ -19988,7 +19972,9 @@ class DescribeDcdnOriginSiteHealthStatusResponseBodyOriginSiteStatus(TeaModel):
 
 class DescribeDcdnOriginSiteHealthStatusResponseBody(TeaModel):
     def __init__(self, origin_site_status=None, request_id=None):
+        # The information about the origin server of the accelerated domain name.
         self.origin_site_status = origin_site_status  # type: list[DescribeDcdnOriginSiteHealthStatusResponseBodyOriginSiteStatus]
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -20030,9 +20016,6 @@ class DescribeDcdnOriginSiteHealthStatusResponse(TeaModel):
         self.body = body  # type: DescribeDcdnOriginSiteHealthStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -20194,9 +20177,6 @@ class DescribeDcdnRealTimeDeliveryFieldResponse(TeaModel):
         self.body = body  # type: DescribeDcdnRealTimeDeliveryFieldResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -20361,9 +20341,6 @@ class DescribeDcdnRefreshQuotaResponse(TeaModel):
         self.body = body  # type: DescribeDcdnRefreshQuotaResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -20550,9 +20527,6 @@ class DescribeDcdnRefreshTaskByIdResponse(TeaModel):
         self.body = body  # type: DescribeDcdnRefreshTaskByIdResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -20842,9 +20816,6 @@ class DescribeDcdnRefreshTasksResponse(TeaModel):
         self.body = body  # type: DescribeDcdnRefreshTasksResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -21078,9 +21049,6 @@ class DescribeDcdnRegionAndIspResponse(TeaModel):
         self.body = body  # type: DescribeDcdnRegionAndIspResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -21223,9 +21191,6 @@ class DescribeDcdnReportResponse(TeaModel):
         self.body = body  # type: DescribeDcdnReportResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -21318,9 +21283,6 @@ class DescribeDcdnReportListResponse(TeaModel):
         self.body = body  # type: DescribeDcdnReportListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -21352,7 +21314,13 @@ class DescribeDcdnReportListResponse(TeaModel):
 
 class DescribeDcdnSLSRealTimeLogTypeResponseBodyContentBusiness(TeaModel):
     def __init__(self, business_type=None, desc=None):
+        # The type of real-time logs. Valid values:
+        # 
+        # *   **dcdn_log_access_l1**: access logs.
+        # *   **dcdn_log_er**: EdgeRoutine logs
+        # *   **dcdn_log_waf**: WAF interception logs
         self.business_type = business_type  # type: str
+        # The description of the real-time log type.
         self.desc = desc  # type: str
 
     def validate(self):
@@ -21413,7 +21381,9 @@ class DescribeDcdnSLSRealTimeLogTypeResponseBodyContent(TeaModel):
 
 class DescribeDcdnSLSRealTimeLogTypeResponseBody(TeaModel):
     def __init__(self, content=None, request_id=None):
+        # The returned results.
         self.content = content  # type: DescribeDcdnSLSRealTimeLogTypeResponseBodyContent
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -21449,9 +21419,6 @@ class DescribeDcdnSLSRealTimeLogTypeResponse(TeaModel):
         self.body = body  # type: DescribeDcdnSLSRealTimeLogTypeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -21639,9 +21606,6 @@ class DescribeDcdnSLSRealtimeLogDeliveryResponse(TeaModel):
         self.body = body  # type: DescribeDcdnSLSRealtimeLogDeliveryResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -21787,9 +21751,6 @@ class DescribeDcdnSMCertificateDetailResponse(TeaModel):
         self.body = body  # type: DescribeDcdnSMCertificateDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -21976,9 +21937,6 @@ class DescribeDcdnSMCertificateListResponse(TeaModel):
         self.body = body  # type: DescribeDcdnSMCertificateListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -22011,10 +21969,14 @@ class DescribeDcdnSMCertificateListResponse(TeaModel):
 class DescribeDcdnSSLCertificateListRequest(TeaModel):
     def __init__(self, domain_name=None, owner_id=None, page_number=None, page_size=None, search_keyword=None,
                  security_token=None):
+        # The accelerated domain secured by the SSL certificate. HTTPS secure acceleration is enabled for the accelerated domain name.
         self.domain_name = domain_name  # type: str
         self.owner_id = owner_id  # type: long
+        # The number of the page. Default value: 1.
         self.page_number = page_number  # type: long
+        # The maximum number of entries to return on each page. Valid values: **1 to 1000**.
         self.page_size = page_size  # type: long
+        # The keyword that is used to query the certificate.
         self.search_keyword = search_keyword  # type: str
         self.security_token = security_token  # type: str
 
@@ -22061,12 +22023,19 @@ class DescribeDcdnSSLCertificateListRequest(TeaModel):
 class DescribeDcdnSSLCertificateListResponseBodyCertificateListModelCertListCert(TeaModel):
     def __init__(self, cert_id=None, cert_name=None, cert_region=None, common=None, fingerprint=None, issuer=None,
                  last_time=None):
+        # The ID of the certificate.
         self.cert_id = cert_id  # type: long
+        # The name of the certificate.
         self.cert_name = cert_name  # type: str
+        # The region ID of the certificate. Valid values: **cn-hangzhou** and **ap-southeast-1**. Default value: **cn-hangzhou**.
         self.cert_region = cert_region  # type: str
+        # The Common Name (CN) attribute of the certificate. In most cases, the CN is a domain name.
         self.common = common  # type: str
+        # The fingerprint of the certificate.
         self.fingerprint = fingerprint  # type: str
+        # The certificate authority (CA) that issued the certificate.
         self.issuer = issuer  # type: str
+        # The time when the certificate was last modified. Unit: milliseconds.
         self.last_time = last_time  # type: long
 
     def validate(self):
@@ -22147,9 +22116,13 @@ class DescribeDcdnSSLCertificateListResponseBodyCertificateListModelCertList(Tea
 
 class DescribeDcdnSSLCertificateListResponseBodyCertificateListModel(TeaModel):
     def __init__(self, cert_list=None, count=None, page_number=None, page_size=None):
+        # Details about each certificate.
         self.cert_list = cert_list  # type: DescribeDcdnSSLCertificateListResponseBodyCertificateListModelCertList
+        # The number of certificates.
         self.count = count  # type: int
+        # The page number. Pages start from page 1. Default value: 1.
         self.page_number = page_number  # type: long
+        # The number of entries per page. Valid values: an integer from 1 to 1000.
         self.page_size = page_size  # type: long
 
     def validate(self):
@@ -22188,7 +22161,9 @@ class DescribeDcdnSSLCertificateListResponseBodyCertificateListModel(TeaModel):
 
 class DescribeDcdnSSLCertificateListResponseBody(TeaModel):
     def __init__(self, certificate_list_model=None, request_id=None):
+        # The list of certificates.
         self.certificate_list_model = certificate_list_model  # type: DescribeDcdnSSLCertificateListResponseBodyCertificateListModel
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -22224,9 +22199,6 @@ class DescribeDcdnSSLCertificateListResponse(TeaModel):
         self.body = body  # type: DescribeDcdnSSLCertificateListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -22385,9 +22357,6 @@ class DescribeDcdnSecFuncInfoResponse(TeaModel):
         self.body = body  # type: DescribeDcdnSecFuncInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -22545,9 +22514,6 @@ class DescribeDcdnSecSpecInfoResponse(TeaModel):
         self.body = body  # type: DescribeDcdnSecSpecInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -22769,9 +22735,6 @@ class DescribeDcdnServiceResponse(TeaModel):
         self.body = body  # type: DescribeDcdnServiceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -22864,9 +22827,6 @@ class DescribeDcdnStagingIpResponse(TeaModel):
         self.body = body  # type: DescribeDcdnStagingIpResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -22934,9 +22894,6 @@ class DescribeDcdnSubListResponse(TeaModel):
         self.body = body  # type: DescribeDcdnSubListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -23158,9 +23115,6 @@ class DescribeDcdnTagResourcesResponse(TeaModel):
         self.body = body  # type: DescribeDcdnTagResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -23388,9 +23342,6 @@ class DescribeDcdnTopDomainsByFlowResponse(TeaModel):
         self.body = body  # type: DescribeDcdnTopDomainsByFlowResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -23653,9 +23604,6 @@ class DescribeDcdnUserBillHistoryResponse(TeaModel):
         self.body = body  # type: DescribeDcdnUserBillHistoryResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -23866,9 +23814,6 @@ class DescribeDcdnUserBillTypeResponse(TeaModel):
         self.body = body  # type: DescribeDcdnUserBillTypeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -23942,9 +23887,6 @@ class DescribeDcdnUserCertificateExpireCountResponse(TeaModel):
         self.body = body  # type: DescribeDcdnUserCertificateExpireCountResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24096,9 +24038,6 @@ class DescribeDcdnUserConfigsResponse(TeaModel):
         self.body = body  # type: DescribeDcdnUserConfigsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24408,11 +24347,6 @@ class DescribeDcdnUserDomainsResponseBodyDomainsPageData(TeaModel):
         self.sslprotocol = sslprotocol  # type: str
         # Indicates whether the accelerated domain name was in a sandbox.
         self.sandbox = sandbox  # type: str
-        # 场景。支持：
-        # - **apiscene**：API加速。
-        # - **webservicescene**：网站业务加速。
-        # - **staticscene**：视频、图文类加速。
-        # - **（空）**：没有场景。
         self.scene = scene  # type: str
         # The information about the origin server.
         self.sources = sources  # type: DescribeDcdnUserDomainsResponseBodyDomainsPageDataSources
@@ -24577,9 +24511,6 @@ class DescribeDcdnUserDomainsResponse(TeaModel):
         self.body = body  # type: DescribeDcdnUserDomainsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24940,9 +24871,6 @@ class DescribeDcdnUserDomainsByFuncResponse(TeaModel):
         self.body = body  # type: DescribeDcdnUserDomainsByFuncResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25101,9 +25029,6 @@ class DescribeDcdnUserQuotaResponse(TeaModel):
         self.body = body  # type: DescribeDcdnUserQuotaResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25274,9 +25199,6 @@ class DescribeDcdnUserRealTimeDeliveryFieldResponse(TeaModel):
         self.body = body  # type: DescribeDcdnUserRealTimeDeliveryFieldResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25500,9 +25422,6 @@ class DescribeDcdnUserResourcePackageResponse(TeaModel):
         self.body = body  # type: DescribeDcdnUserResourcePackageResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25633,9 +25552,6 @@ class DescribeDcdnUserSecDropResponse(TeaModel):
         self.body = body  # type: DescribeDcdnUserSecDropResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25873,9 +25789,6 @@ class DescribeDcdnUserSecDropByMinuteResponse(TeaModel):
         self.body = body  # type: DescribeDcdnUserSecDropByMinuteResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25982,9 +25895,6 @@ class DescribeDcdnUserTagsResponse(TeaModel):
         self.body = body  # type: DescribeDcdnUserTagsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26016,7 +25926,14 @@ class DescribeDcdnUserTagsResponse(TeaModel):
 
 class DescribeDcdnUserVipsByDomainRequest(TeaModel):
     def __init__(self, available=None, domain_name=None):
+        # Specifies whether to query the virtual IP addresses of only healthy POPs. Valid value:
+        # 
+        # *   **on**: queries healthy VIPs.
+        # *   **off**: queries all VIPs.
         self.available = available  # type: str
+        # The accelerated domain name. You can specify only one domain name.
+        # 
+        # Enumeration values: example.com
         self.domain_name = domain_name  # type: str
 
     def validate(self):
@@ -26069,8 +25986,11 @@ class DescribeDcdnUserVipsByDomainResponseBodyVips(TeaModel):
 
 class DescribeDcdnUserVipsByDomainResponseBody(TeaModel):
     def __init__(self, domain_name=None, request_id=None, vips=None):
+        # The domain name.
         self.domain_name = domain_name  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The list of VIPs.
         self.vips = vips  # type: DescribeDcdnUserVipsByDomainResponseBodyVips
 
     def validate(self):
@@ -26110,9 +26030,6 @@ class DescribeDcdnUserVipsByDomainResponse(TeaModel):
         self.body = body  # type: DescribeDcdnUserVipsByDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26205,9 +26122,6 @@ class DescribeDcdnVerifyContentResponse(TeaModel):
         self.body = body  # type: DescribeDcdnVerifyContentResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26239,7 +26153,9 @@ class DescribeDcdnVerifyContentResponse(TeaModel):
 
 class DescribeDcdnWafBotAppKeyResponseBody(TeaModel):
     def __init__(self, app_key=None, request_id=None):
+        # The SDK authentication key for the Alibaba Cloud account.
         self.app_key = app_key  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -26273,9 +26189,6 @@ class DescribeDcdnWafBotAppKeyResponse(TeaModel):
         self.body = body  # type: DescribeDcdnWafBotAppKeyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26307,6 +26220,7 @@ class DescribeDcdnWafBotAppKeyResponse(TeaModel):
 
 class DescribeDcdnWafDefaultRulesRequest(TeaModel):
     def __init__(self, query_args=None):
+        # The query conditions. The value is a string in the JSON format. Format: `QueryArgs={"DefenseScene":"anti_scan"}`
         self.query_args = query_args  # type: str
 
     def validate(self):
@@ -26331,10 +26245,27 @@ class DescribeDcdnWafDefaultRulesRequest(TeaModel):
 
 class DescribeDcdnWafDefaultRulesResponseBodyContentRules(TeaModel):
     def __init__(self, action=None, config=None, name=None, status=None, type=None):
+        # The default action of the rule. Valid values:
+        # 
+        # *   **monitor**: monitors requests.
+        # *   **deny**: denies requests.
+        # *   **block**: blocks requests.
         self.action = action  # type: str
+        # The default configuration of the rule.
         self.config = config  # type: str
+        # The default name of the rule.
         self.name = name  # type: str
+        # The default status of the rule. Valid values:
+        # 
+        # *   **on**\
+        # *   **off**\
         self.status = status  # type: str
+        # The rule type. Valid values:
+        # 
+        # *   **waf_group**: basic web protection
+        # *   **high_frequency**: high-frequency scanning blocking
+        # *   **directory_traversal**: directory traversal blocking
+        # *   **scan_tools**: scanner blocking
         self.type = type  # type: str
 
     def validate(self):
@@ -26375,7 +26306,12 @@ class DescribeDcdnWafDefaultRulesResponseBodyContentRules(TeaModel):
 
 class DescribeDcdnWafDefaultRulesResponseBodyContent(TeaModel):
     def __init__(self, defense_scene=None, rules=None):
+        # The protection scenario. Valid values:
+        # 
+        # *   **waf_group**: basic web protection
+        # *   **anti_scan**: scan protection
         self.defense_scene = defense_scene  # type: str
+        # The configurations of the rule.
         self.rules = rules  # type: list[DescribeDcdnWafDefaultRulesResponseBodyContentRules]
 
     def validate(self):
@@ -26412,7 +26348,9 @@ class DescribeDcdnWafDefaultRulesResponseBodyContent(TeaModel):
 
 class DescribeDcdnWafDefaultRulesResponseBody(TeaModel):
     def __init__(self, content=None, request_id=None):
+        # The configurations of the rule.
         self.content = content  # type: list[DescribeDcdnWafDefaultRulesResponseBodyContent]
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -26454,9 +26392,6 @@ class DescribeDcdnWafDefaultRulesResponse(TeaModel):
         self.body = body  # type: DescribeDcdnWafDefaultRulesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26637,9 +26572,6 @@ class DescribeDcdnWafDomainResponse(TeaModel):
         self.body = body  # type: DescribeDcdnWafDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26814,9 +26746,6 @@ class DescribeDcdnWafDomainDetailResponse(TeaModel):
         self.body = body  # type: DescribeDcdnWafDomainDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26986,9 +26915,6 @@ class DescribeDcdnWafDomainsResponse(TeaModel):
         self.body = body  # type: DescribeDcdnWafDomainsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -27060,7 +26986,7 @@ class DescribeDcdnWafFilterInfoRequest(TeaModel):
 
 class DescribeDcdnWafFilterInfoResponseBodyContentFieldsLogicalSymbolRegexp(TeaModel):
     def __init__(self, err_msg=None, pattern=None):
-        # The error message returned because no items match the regular expression.
+        # The error message returned when no items match the regular expression.
         self.err_msg = err_msg  # type: str
         # The regular expression.
         self.pattern = pattern  # type: str
@@ -27092,26 +27018,32 @@ class DescribeDcdnWafFilterInfoResponseBodyContentFieldsLogicalSymbolRegexp(TeaM
 class DescribeDcdnWafFilterInfoResponseBodyContentFieldsLogicalSymbol(TeaModel):
     def __init__(self, attributes=None, description=None, max_length=None, regexp=None, symbol=None, tip=None,
                  type=None):
+        # The configurable attributes, which are bit-field variables that are shown in the following list.\
+        # For example, 1(00000001) indicates that case sensitivity can be enabled and stream match cannot be enabled, and 3(00000011) indicates that case sensitivity and stream match can be enabled.
+        # 
+        # *   Bit (low to high) - Description
+        # *   1 - Case sensitivity
+        # *   2 - Stream match
         self.attributes = attributes  # type: int
         # The logical symbol that is displayed in the Dynamic Content Delivery Network (DCDN) console.
         self.description = description  # type: str
-        # The maximum number of match contents that can be returned. The value of this parameter varies based on the value of the Type parameter. Valid values:
+        # The maximum number of match items that can be returned. The value of this parameter varies based on the value of the Type parameter. Valid values:
         # 
-        # *   If **multi** is returned for the Type parameter, the value of this parameter indicates the maximum number of match contents.
+        # *   If **multi** is returned for the Type parameter, the value of this parameter indicates the maximum number of match items.
         # *   If **single** is returned for the Type parameter, the value of this parameter is 1.
         # *   If **none** is returned for the Type parameter, the value of this parameter is 0.
         self.max_length = max_length  # type: int
-        # The regular expression.
+        # The information about the regular expression.
         self.regexp = regexp  # type: DescribeDcdnWafFilterInfoResponseBodyContentFieldsLogicalSymbolRegexp
         # The logical symbol that is passed to the backend.
         self.symbol = symbol  # type: str
-        # The tips that are displayed in the match content.
+        # The tips that are displayed in the match item.
         self.tip = tip  # type: str
-        # The number of match contents. Valid values:
+        # The number of match items. Valid values:
         # 
-        # *   multi: multiple match contents
-        # *   single: one match content
-        # *   none: no match contents
+        # *   multi: You can specify multiple match items.
+        # *   single: You can specify only a match item.
+        # *   none: no match items.
         self.type = type  # type: str
 
     def validate(self):
@@ -27164,7 +27096,7 @@ class DescribeDcdnWafFilterInfoResponseBodyContentFields(TeaModel):
     def __init__(self, extend_field=None, logical_symbol=None, match_field=None):
         # The description of the match field. This parameter is not returned or is empty if no match fields are found.
         self.extend_field = extend_field  # type: str
-        # The logical operator.
+        # The information about the logical symbol.
         self.logical_symbol = logical_symbol  # type: list[DescribeDcdnWafFilterInfoResponseBodyContentFieldsLogicalSymbol]
         # The match field.
         self.match_field = match_field  # type: str
@@ -27290,9 +27222,6 @@ class DescribeDcdnWafFilterInfoResponse(TeaModel):
         self.body = body  # type: DescribeDcdnWafFilterInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -27508,9 +27437,6 @@ class DescribeDcdnWafGeoInfoResponse(TeaModel):
         self.body = body  # type: DescribeDcdnWafGeoInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -27542,11 +27468,27 @@ class DescribeDcdnWafGeoInfoResponse(TeaModel):
 
 class DescribeDcdnWafGroupRequest(TeaModel):
     def __init__(self, id=None, language=None, page_number=None, page_size=None, query_args=None, scope=None):
+        # The ID of the WAF rule group. You can query the ID by calling the [DescribeDcdnWafGroups](~~DescribeDcdnWafGroups~~) operation.
         self.id = id  # type: long
+        # The language of the response. Valid values:
+        # 
+        # *   **en**: English
+        # *    **zh**: Chinese
         self.language = language  # type: str
+        # The number of the page to return. Default value: **1**.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Default value: **20**.
         self.page_size = page_size  # type: int
+        # The query conditions. The value needs to be a JSON string in the following format: Format:
+        # 
+        # `QueryArgs={"PolicyIds":"IDs of protection policies","RuleIds":"IDs of protection rules","RuleNameLike":"Names of protection rules","DomainNames":"Protected domain names","DefenseScenes":"waf_group","RuleStatus":"on","OrderBy":"GmtModified","Desc":"false"}`
+        # 
+        # > If you do not specify this parameter, all protection rules are queried.
         self.query_args = query_args  # type: str
+        # The range of the rule group to be queried.
+        # 
+        # *   **in**: rules in the rule group are returned.
+        # *  **out**: rules that are in the full rule set but are not in the rule group are returned.
         self.scope = scope  # type: str
 
     def validate(self):
@@ -27592,15 +27534,64 @@ class DescribeDcdnWafGroupRequest(TeaModel):
 class DescribeDcdnWafGroupResponseBodyRules(TeaModel):
     def __init__(self, application_type=None, cve_id=None, cve_url=None, description=None, gmt_modified=None,
                  id=None, name=None, protection_type=None, risk_level=None):
+        # The type of the application. Valid values:
+        # 
+        # *   **0**: Common
+        # *   **1**: WordPress
+        # *   **2**: DedeCMS
+        # *   **3**: Discuz
+        # *   **4**: PHP CMS
+        # *   **5**: ECShop
+        # *   **6**: ShopEX
+        # *   **7**: Drupal
+        # *   **8**: Joomla
+        # *   **9**: MetInfo
+        # *   **10**: Struts2
+        # *   **11**: Spring Boot
+        # *   **12**: JBoss
+        # *   **13**: WebLogic
+        # *   **14**: WebSphere
+        # *   **15**: Tomcat
+        # *   **16**: Elastic Search
+        # *   **18**: ThinkPHP
+        # *   **19**: Fastjson
+        # *   **20**: ImageMagick
+        # *   **21**: PHPWind
+        # *   **22**: phpMyAdmin
+        # *   **23**: Resin
+        # *   **24**: IIS
+        # *   **99**: Others
         self.application_type = application_type  # type: int
-        # CVE ID。
+        # The Common Vulnerabilities and Exposures (CVE) ID of the related vulnerability.
         self.cve_id = cve_id  # type: str
+        # The CVE link.
         self.cve_url = cve_url  # type: str
+        # The description of the WAF rule.
         self.description = description  # type: str
+        # The time when the rule was modified.
         self.gmt_modified = gmt_modified  # type: str
+        # The ID of the custom WAF rule.
         self.id = id  # type: long
+        # The name of the WAF rule.
         self.name = name  # type: str
+        # Protection type Valid values:
+        # 
+        # *   **11**: SQL injection
+        # *   **12**: cross-site scripting (XSS)
+        # *   **13**: code execution
+        # *   **14**: carriage return line feeds (CRLF)
+        # *   **15**: local file inclusion
+        # *   **16**: remote file inclusion
+        # *   **17**: webshells
+        # *   **19**: cross-site request forgery
+        # *   **20**: others
+        # *   **21**: SEMA
         self.protection_type = protection_type  # type: int
+        # The risk level of the resources that do not comply with the managed rule. Valid values:
+        # 
+        # *   **1**: high risk
+        # *   **2**: medium risk
+        # *   **3**: low risk
         self.risk_level = risk_level  # type: int
 
     def validate(self):
@@ -27658,14 +27649,26 @@ class DescribeDcdnWafGroupResponseBodyRules(TeaModel):
 class DescribeDcdnWafGroupResponseBody(TeaModel):
     def __init__(self, id=None, name=None, page_number=None, page_size=None, request_id=None, rules=None,
                  subscribe=None, template_id=None, total_count=None):
+        # The ID of the custom WAF rule group.
         self.id = id  # type: long
+        # The name of the WAF rule group.
         self.name = name  # type: str
+        # The page number of the page returned.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Default value: **20**.
         self.page_size = page_size  # type: int
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The configurations of the rule.
         self.rules = rules  # type: list[DescribeDcdnWafGroupResponseBodyRules]
+        # Indicates whether to enable subscription. Valid values:
+        # 
+        # *   **on:**\
+        # *   **off**\
         self.subscribe = subscribe  # type: str
+        # The ID of the template.
         self.template_id = template_id  # type: long
+        # The total number of rules that are filtered out.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -27735,9 +27738,6 @@ class DescribeDcdnWafGroupResponse(TeaModel):
         self.body = body  # type: DescribeDcdnWafGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -27769,9 +27769,18 @@ class DescribeDcdnWafGroupResponse(TeaModel):
 
 class DescribeDcdnWafGroupsRequest(TeaModel):
     def __init__(self, language=None, page_number=None, page_size=None, query_args=None):
+        # The language of the response. Valid values:
+        # 
+        # *  **en**: English
+        # *   **zh**: Chinese
         self.language = language  # type: str
+        # The number of the page to return. Default value: **1**.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Default value: **20**.
         self.page_size = page_size  # type: int
+        # The query conditions. The value is a string in the JSON format. Format: `QueryArgs={"PolicyIds":"IDs of protection policies","RuleIds":"IDs of the protection rules","RuleNameLike":"Names of the protection rule","DomainNames":"Protected domain names","DefenseScenes":"waf_group","RuleStatus":"on","OrderBy":"GmtModified","Desc":"false"}`
+        # 
+        # > If you do not specify this parameter, all protection rules are queried.
         self.query_args = query_args  # type: str
 
     def validate(self):
@@ -27808,8 +27817,14 @@ class DescribeDcdnWafGroupsRequest(TeaModel):
 
 class DescribeDcdnWafGroupsResponseBodyWafGroupsPolicies(TeaModel):
     def __init__(self, id=None, name=None, type=None):
+        # The ID of the policy.
         self.id = id  # type: long
+        # The name of the policy.
         self.name = name  # type: str
+        # The type of the policy. Valid values:
+        # 
+        # *   **custom**: a custom policy
+        # *   **default**: the default policy
         self.type = type  # type: str
 
     def validate(self):
@@ -27843,12 +27858,22 @@ class DescribeDcdnWafGroupsResponseBodyWafGroupsPolicies(TeaModel):
 class DescribeDcdnWafGroupsResponseBodyWafGroups(TeaModel):
     def __init__(self, gmt_modified=None, id=None, name=None, policies=None, rule_count=None, subscribe=None,
                  template_id=None):
+        # The time when the WAF rule group was modified.
         self.gmt_modified = gmt_modified  # type: str
+        # The ID of the custom WAF rule group.
         self.id = id  # type: long
+        # The name of the WAF rule.
         self.name = name  # type: str
+        # The policy that is associated with the WAF rule group.
         self.policies = policies  # type: list[DescribeDcdnWafGroupsResponseBodyWafGroupsPolicies]
+        # The number of WAF rules.
         self.rule_count = rule_count  # type: int
+        # Indicates whether to enable subscription. Valid values:
+        # 
+        # *   **on**\
+        # *   **off**\
         self.subscribe = subscribe  # type: str
+        # The ID of the template.
         self.template_id = template_id  # type: long
 
     def validate(self):
@@ -27905,10 +27930,15 @@ class DescribeDcdnWafGroupsResponseBodyWafGroups(TeaModel):
 
 class DescribeDcdnWafGroupsResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, request_id=None, total_count=None, waf_groups=None):
+        # The page number of the returned page. Default value: 1.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Default value: **20**.
         self.page_size = page_size  # type: int
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The number of WAF rule groups.
         self.total_count = total_count  # type: int
+        # The list of WAF rule groups.
         self.waf_groups = waf_groups  # type: list[DescribeDcdnWafGroupsResponseBodyWafGroups]
 
     def validate(self):
@@ -27962,9 +27992,6 @@ class DescribeDcdnWafGroupsResponse(TeaModel):
         self.body = body  # type: DescribeDcdnWafGroupsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28233,9 +28260,6 @@ class DescribeDcdnWafLogsResponse(TeaModel):
         self.body = body  # type: DescribeDcdnWafLogsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28436,9 +28460,6 @@ class DescribeDcdnWafPoliciesResponse(TeaModel):
         self.body = body  # type: DescribeDcdnWafPoliciesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28617,9 +28638,6 @@ class DescribeDcdnWafPolicyResponse(TeaModel):
         self.body = body  # type: DescribeDcdnWafPolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28775,9 +28793,6 @@ class DescribeDcdnWafPolicyDomainsResponse(TeaModel):
         self.body = body  # type: DescribeDcdnWafPolicyDomainsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -29018,9 +29033,6 @@ class DescribeDcdnWafPolicyValidDomainsResponse(TeaModel):
         self.body = body  # type: DescribeDcdnWafPolicyValidDomainsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -29184,9 +29196,6 @@ class DescribeDcdnWafRuleResponse(TeaModel):
         self.body = body  # type: DescribeDcdnWafRuleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -29381,9 +29390,6 @@ class DescribeDcdnWafRulesResponse(TeaModel):
         self.body = body  # type: DescribeDcdnWafRulesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -29530,9 +29536,6 @@ class DescribeDcdnWafScenesResponse(TeaModel):
         self.body = body  # type: DescribeDcdnWafScenesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -29668,9 +29671,6 @@ class DescribeDcdnWafServiceResponse(TeaModel):
         self.body = body  # type: DescribeDcdnWafServiceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -29835,9 +29835,6 @@ class DescribeDcdnWafSpecInfoResponse(TeaModel):
         self.body = body  # type: DescribeDcdnWafSpecInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30062,9 +30059,6 @@ class DescribeDcdnWafUsageDataResponse(TeaModel):
         self.body = body  # type: DescribeDcdnWafUsageDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30298,9 +30292,6 @@ class DescribeDcdnsecServiceResponse(TeaModel):
         self.body = body  # type: DescribeDcdnsecServiceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30332,18 +30323,21 @@ class DescribeDcdnsecServiceResponse(TeaModel):
 
 class DescribeDdosAllEventListRequest(TeaModel):
     def __init__(self, end_time=None, event_type=None, page_number=None, page_size=None, start_time=None):
+        # The end of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC. The end time must be later than the start time. The maximum time range is 31 days.
         self.end_time = end_time  # type: str
-        # The type of the DDoS attack event that was queried. Valid values:
+        # The type of the DDoS attack event to be queried. Valid values:
         # 
-        # *   *   **web-cc**: web resource exhaustion attacks
-        # *   *   **cc**: connection flood attacks
-        # *   *   **traffic**: volumetric attacks
+        #  *   **web-cc**: resource exhaustion attacks
+        #  *   **cc**: connection flood attacks
+        #  *   **traffic**: volumetric attacks
         # 
         # If you do not configure this parameter, DDoS attack events of all types are queried.
         self.event_type = event_type  # type: str
+        # The page number. Default value: 1. Value range: 1 to 10,000.
         self.page_number = page_number  # type: int
         # The number of entries to return on each page. Default value: **10**. Valid values: 5, 10, and 20.
         self.page_size = page_size  # type: int
+        # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -30385,14 +30379,28 @@ class DescribeDdosAllEventListRequest(TeaModel):
 class DescribeDdosAllEventListResponseBodyDataList(TeaModel):
     def __init__(self, bps=None, cps=None, end_time=None, event_id=None, event_type=None, pps=None, qps=None,
                  start_time=None, target=None):
+        # The peak attack traffic of volumetric attacks. Unit: bit/s.
         self.bps = bps  # type: long
+        # The peak of connection flood attacks. Unit: connections per seconds (CPS).
         self.cps = cps  # type: long
+        # The end of the time range during which data was queried. The time follows the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time is displayed in UTC.
         self.end_time = end_time  # type: str
+        # The event ID.
         self.event_id = event_id  # type: str
+        # The type of the DDoS attack event that was queried. Valid values:
+        # 
+        # *   **web-cc**: web resource exhaustion attacks
+        # *   **cc**: connection flood attacks
+        # *   **traffic**: volumetric attacks
+        # *   If you do not configure this parameter, DDoS attack events of all types are queried.
         self.event_type = event_type  # type: str
+        # The peak attack traffic of volumetric attacks. Unit: packets per second (PPS).
         self.pps = pps  # type: long
+        # The peak of web resource exhaustion attacks. Unit: queries per second (QPS).
         self.qps = qps  # type: long
+        # The beginning of the time range during which data was queried. The time follows the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time is displayed in UTC.
         self.start_time = start_time  # type: str
+        # The attack target.
         self.target = target  # type: str
 
     def validate(self):
@@ -30449,10 +30457,15 @@ class DescribeDdosAllEventListResponseBodyDataList(TeaModel):
 
 class DescribeDdosAllEventListResponseBody(TeaModel):
     def __init__(self, data_list=None, page_number=None, page_size=None, request_id=None, total=None):
+        # The list of events.
         self.data_list = data_list  # type: list[DescribeDdosAllEventListResponseBodyDataList]
+        # The number of the page to return. Default value: **1**.
         self.page_number = page_number  # type: int
+        # The number of entries returned on each page. Default value: **10**. Valid values: 5, 10, and 20.
         self.page_size = page_size  # type: int
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The total number of entries returned.
         self.total = total  # type: long
 
     def validate(self):
@@ -30506,9 +30519,6 @@ class DescribeDdosAllEventListResponse(TeaModel):
         self.body = body  # type: DescribeDdosAllEventListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30540,7 +30550,9 @@ class DescribeDdosAllEventListResponse(TeaModel):
 
 class DescribeEncryptRoutineUidResponseBody(TeaModel):
     def __init__(self, content=None, request_id=None):
+        # The returned ciphertext, which contains the Alibaba Cloud account ID, timestamp, and time to live (TTL).
         self.content = content  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -30574,9 +30586,6 @@ class DescribeEncryptRoutineUidResponse(TeaModel):
         self.body = body  # type: DescribeEncryptRoutineUidResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30608,9 +30617,16 @@ class DescribeEncryptRoutineUidResponse(TeaModel):
 
 class DescribeHighlightInfoRequest(TeaModel):
     def __init__(self, end_time=None, lang=None, start_time=None, trace_id=None):
+        # The end of the time range to query. The time follows the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time is displayed in UTC.
         self.end_time = end_time  # type: str
+        # The access language. Valid values:
+        # 
+        # *   **en-US** (default): English
+        # *   **zh-CN**: Chinese
         self.lang = lang  # type: str
+        # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.start_time = start_time  # type: str
+        # The ID of the trace.
         self.trace_id = trace_id  # type: str
 
     def validate(self):
@@ -30647,8 +30663,11 @@ class DescribeHighlightInfoRequest(TeaModel):
 
 class DescribeHighlightInfoResponseBodyDataModule(TeaModel):
     def __init__(self, hit=None, key=None, raw=None):
+        # The highlighted data.
         self.hit = hit  # type: str
+        # The type of the highlight data.
         self.key = key  # type: str
+        # Complete data.
         self.raw = raw  # type: str
 
     def validate(self):
@@ -30681,7 +30700,9 @@ class DescribeHighlightInfoResponseBodyDataModule(TeaModel):
 
 class DescribeHighlightInfoResponseBody(TeaModel):
     def __init__(self, data_module=None, request_id=None):
+        # The model of the highlighted data.
         self.data_module = data_module  # type: list[DescribeHighlightInfoResponseBodyDataModule]
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -30723,9 +30744,6 @@ class DescribeHighlightInfoResponse(TeaModel):
         self.body = body  # type: DescribeHighlightInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30758,12 +30776,39 @@ class DescribeHighlightInfoResponse(TeaModel):
 class DescribeKvUsageDataRequest(TeaModel):
     def __init__(self, access_type=None, end_time=None, field=None, namespace_id=None, response_type=None,
                  split_by=None, start_time=None):
+        # The request method. If the parameter is empty, data about all methods is returned. Valid values:
+        # 
+        # *   **get**\
+        # *   **put**\
+        # *   **list**\
+        # *   **delete**\
         self.access_type = access_type  # type: str
+        # The end of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.end_time = end_time  # type: str
+        # The type of the request data. Set the value to **acc**.
         self.field = field  # type: str
+        # The namespace ID. If the parameter is empty, data about all namespaces is returned.
+        # 
+        # You can specify a maximum number of 30 namespace IDs and separate them with commas (,).
         self.namespace_id = namespace_id  # type: str
+        # The type of the response data. Valid values:
+        # 
+        # *   **detail**: detailed data
+        # *   **total**: summary data
+        # 
+        # Default value: **detail**.
         self.response_type = response_type  # type: str
+        # The key that is used to group data. Valid values: **type** and **namespace**.
+        # 
+        # *   **type**: Data is grouped by time. The data in the last 5 minutes is returned.
+        # *   **namespace**: Data is grouped by namespace and is not padded with zeros.
+        # *   Default value: **type**.
+        # 
+        # If **ResponseType** is set to **total**, data to return is not grouped by **namespace** but by **type**.
         self.split_by = split_by  # type: str
+        # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
+        # 
+        # The minimum data granularity is 1 hour. If you do not specify this parameter, the data in the last seven days is returned.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -30812,9 +30857,13 @@ class DescribeKvUsageDataRequest(TeaModel):
 
 class DescribeKvUsageDataResponseBodyKvUsageData(TeaModel):
     def __init__(self, acc=None, access_type=None, namespace_id=None, time_stamp=None):
+        # The number of visits.
         self.acc = acc  # type: long
+        # The request method. This parameter is returned only if **SplitBy** is set to **type**.
         self.access_type = access_type  # type: str
+        # The ID of the namespace. This parameter is returned only if **SplitBy** is set to **namespace**.
         self.namespace_id = namespace_id  # type: str
+        # The timestamp of the data returned.
         self.time_stamp = time_stamp  # type: str
 
     def validate(self):
@@ -30851,9 +30900,13 @@ class DescribeKvUsageDataResponseBodyKvUsageData(TeaModel):
 
 class DescribeKvUsageDataResponseBody(TeaModel):
     def __init__(self, end_time=None, kv_usage_data=None, request_id=None, start_time=None):
+        # The end of the time range during which data was queried.
         self.end_time = end_time  # type: str
+        # The detailed usage data.
         self.kv_usage_data = kv_usage_data  # type: list[DescribeKvUsageDataResponseBodyKvUsageData]
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The beginning of the time range during which data was queried.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -30903,9 +30956,6 @@ class DescribeKvUsageDataResponse(TeaModel):
         self.body = body  # type: DescribeKvUsageDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -31105,9 +31155,6 @@ class DescribeRDDomainConfigResponse(TeaModel):
         self.body = body  # type: DescribeRDDomainConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -31442,9 +31489,6 @@ class DescribeRDDomainsResponse(TeaModel):
         self.body = body  # type: DescribeRDDomainsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -31537,9 +31581,6 @@ class DescribeRoutineResponse(TeaModel):
         self.body = body  # type: DescribeRoutineResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -31607,9 +31648,6 @@ class DescribeRoutineCanaryEnvsResponse(TeaModel):
         self.body = body  # type: DescribeRoutineCanaryEnvsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -31708,9 +31746,6 @@ class DescribeRoutineCodeRevisionResponse(TeaModel):
         self.body = body  # type: DescribeRoutineCodeRevisionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -31742,6 +31777,7 @@ class DescribeRoutineCodeRevisionResponse(TeaModel):
 
 class DescribeRoutineRelatedDomainsRequest(TeaModel):
     def __init__(self, name=None):
+        # The name of the routine. The name is unique in the same account.
         self.name = name  # type: str
 
     def validate(self):
@@ -31766,7 +31802,9 @@ class DescribeRoutineRelatedDomainsRequest(TeaModel):
 
 class DescribeRoutineRelatedDomainsResponseBody(TeaModel):
     def __init__(self, content=None, request_id=None):
+        # The list of domain names associated with the routine.
         self.content = content  # type: dict[str, any]
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -31800,9 +31838,6 @@ class DescribeRoutineRelatedDomainsResponse(TeaModel):
         self.body = body  # type: DescribeRoutineRelatedDomainsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -31870,9 +31905,6 @@ class DescribeRoutineSpecResponse(TeaModel):
         self.body = body  # type: DescribeRoutineSpecResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -31940,9 +31972,6 @@ class DescribeRoutineUserInfoResponse(TeaModel):
         self.body = body  # type: DescribeRoutineUserInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -32057,9 +32086,6 @@ class DescribeUserDcdnIpaStatusResponse(TeaModel):
         self.body = body  # type: DescribeUserDcdnIpaStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -32169,9 +32195,6 @@ class DescribeUserDcdnStatusResponse(TeaModel):
         self.body = body  # type: DescribeUserDcdnStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -32293,9 +32316,6 @@ class DescribeUserErStatusResponse(TeaModel):
         self.body = body  # type: DescribeUserErStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -32422,9 +32442,6 @@ class DescribeUserLogserviceStatusResponse(TeaModel):
         self.body = body  # type: DescribeUserLogserviceStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -32566,9 +32583,6 @@ class EditRoutineConfResponse(TeaModel):
         self.body = body  # type: EditRoutineConfResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -32667,9 +32681,6 @@ class GetDcdnKvResponse(TeaModel):
         self.body = body  # type: GetDcdnKvResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -32701,7 +32712,9 @@ class GetDcdnKvResponse(TeaModel):
 
 class GetDcdnKvStatusRequest(TeaModel):
     def __init__(self, key=None, namespace=None):
+        # The name of the key that you want to query.
         self.key = key  # type: str
+        # The name of the namespace.
         self.namespace = namespace  # type: str
 
     def validate(self):
@@ -32730,8 +32743,14 @@ class GetDcdnKvStatusRequest(TeaModel):
 
 class GetDcdnKvStatusResponseBody(TeaModel):
     def __init__(self, complete=None, expire=None, request_id=None):
+        # Specifies whether the configured key has taken effect on all points of presence (POPs).
+        # 
+        # *   **true**\
+        # *   **false**\
         self.complete = complete  # type: bool
+        # The timeout period of the configured key. The value is an absolute timestamp, such as 2023-09-11T15:39:44+08:00. This parameter is not returned if the key is permanently stored.
         self.expire = expire  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -32769,9 +32788,6 @@ class GetDcdnKvStatusResponse(TeaModel):
         self.body = body  # type: GetDcdnKvStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -32939,9 +32955,6 @@ class ListDcdnKvResponse(TeaModel):
         self.body = body  # type: ListDcdnKvResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -33181,9 +33194,6 @@ class ListDcdnRealTimeDeliveryProjectResponse(TeaModel):
         self.body = body  # type: ListDcdnRealTimeDeliveryProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -33280,9 +33290,6 @@ class ModifyDCdnDomainSchdmByPropertyResponse(TeaModel):
         self.body = body  # type: ModifyDCdnDomainSchdmByPropertyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -33381,9 +33388,6 @@ class ModifyDcdnWafGroupResponse(TeaModel):
         self.body = body  # type: ModifyDcdnWafGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -33489,9 +33493,6 @@ class ModifyDcdnWafPolicyResponse(TeaModel):
         self.body = body  # type: ModifyDcdnWafPolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -33610,9 +33611,6 @@ class ModifyDcdnWafPolicyDomainsResponse(TeaModel):
         self.body = body  # type: ModifyDcdnWafPolicyDomainsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -33722,9 +33720,6 @@ class ModifyDcdnWafRuleResponse(TeaModel):
         self.body = body  # type: ModifyDcdnWafRuleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -33833,9 +33828,6 @@ class OpenDcdnServiceResponse(TeaModel):
         self.body = body  # type: OpenDcdnServiceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -33963,9 +33955,6 @@ class PreloadDcdnObjectCachesResponse(TeaModel):
         self.body = body  # type: PreloadDcdnObjectCachesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -34058,9 +34047,6 @@ class PublishDcdnStagingConfigToProductionResponse(TeaModel):
         self.body = body  # type: PublishDcdnStagingConfigToProductionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -34214,9 +34200,6 @@ class PublishRoutineCodeRevisionResponse(TeaModel):
         self.body = body  # type: PublishRoutineCodeRevisionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -34339,9 +34322,6 @@ class PutDcdnKvResponse(TeaModel):
         self.body = body  # type: PutDcdnKvResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -34463,9 +34443,6 @@ class PutDcdnKvNamespaceResponse(TeaModel):
         self.body = body  # type: PutDcdnKvNamespaceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -34497,6 +34474,10 @@ class PutDcdnKvNamespaceResponse(TeaModel):
 
 class RefreshDcdnObjectCachesRequest(TeaModel):
     def __init__(self, force=None, object_path=None, object_type=None, owner_id=None, security_token=None):
+        # Specifies whether to refresh resources in a directory if the resources are different from the resources in the same directory in the origin server. Default value: false.
+        # 
+        # *   **true**: refresh all resources in the directory.
+        # *   **false**: refresh the changed resources in the directory.
         self.force = force  # type: bool
         # The path of the objects that you want to refresh. Separate multiple URLs with line feed characters (\n) or a pair of carriage return and line feed characters (\r\n).
         self.object_path = object_path  # type: str
@@ -34587,9 +34568,6 @@ class RefreshDcdnObjectCachesResponse(TeaModel):
         self.body = body  # type: RefreshDcdnObjectCachesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -34621,9 +34599,29 @@ class RefreshDcdnObjectCachesResponse(TeaModel):
 
 class RefreshErObjectCachesRequest(TeaModel):
     def __init__(self, force=None, merge_domain_name=None, object_path=None, object_type=None, routine_id=None):
+        # Specifies whether to refresh resources in a directory if the resources requested are different from the resources on the origin server. Default value: false.
+        # 
+        # *   **true**: refreshes all resources in the directory.
+        # *   **false**: refreshes the changed resources in the directory.
         self.force = force  # type: bool
+        # Domain names that are merged for refreshing. POPs that provide services for the domain names are refreshed.
+        # 
+        # > Separate multiple domain names with commas (,).
         self.merge_domain_name = merge_domain_name  # type: str
+        # The URL that you want to refresh.
+        # 
+        # > *   Separate URLs with line feeds (\n or \r\n). Each object path can be up to 1,024 characters in length.
+        # >*   The URLs in a request must belong to the same domain name.
+        # >*   You can refresh up to 1,000 URLs in each request.
         self.object_path = object_path  # type: str
+        # The refresh type. Valid values:
+        # 
+        # *   **File** (default): refreshes resources based on URLs.
+        # *   **Directory**: refreshes resources based on directories.
+        # *   **Regex**: refreshes content based on regular expressions.
+        # *   **IgnoreParams**: removes the question mark (`?`) and parameters after `?` in a request URL and refreshes content. After you call this operation with the request URL submitted, the system compares the submitted URL with the URL of the cached resource that does not include the query string. If the URLs match, the DCDN POPs refresh the cached resource.
+        # 
+        # > *   If you set ObjectType to Directory, the resources in the directory that you want to refresh are marked as expired. You cannot delete the directory. If clients request resources after the resources on POPs are marked as expired, DCDN checks whether the resources on your origin server are updated with a later version. If a later version exists, DCDN retrieves the resources of the later version and returns the resources to the clients. Otherwise, DCDN retrieves the 304 status code from the origin server.
         self.object_type = object_type  # type: str
         self.routine_id = routine_id  # type: str
 
@@ -34665,7 +34663,9 @@ class RefreshErObjectCachesRequest(TeaModel):
 
 class RefreshErObjectCachesResponseBody(TeaModel):
     def __init__(self, refresh_task_id=None, request_id=None):
+        # The ID of the refresh task. Separate multiple IDs with commas (,).
         self.refresh_task_id = refresh_task_id  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -34699,9 +34699,6 @@ class RefreshErObjectCachesResponse(TeaModel):
         self.body = body  # type: RefreshErObjectCachesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -34788,9 +34785,6 @@ class RollbackDcdnStagingConfigResponse(TeaModel):
         self.body = body  # type: RollbackDcdnStagingConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -34816,6 +34810,98 @@ class RollbackDcdnStagingConfigResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = RollbackDcdnStagingConfigResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SetDcdnDomainCSRCertificateRequest(TeaModel):
+    def __init__(self, domain_name=None, server_certificate=None):
+        # The domain name that is secured by the certificate. The domain name uses HTTPS acceleration.
+        self.domain_name = domain_name  # type: str
+        # The content of the certificate. The certificate must match the certificate signing request (CSR) created by calling the [CreateDcdnCertificateSigningRequest](~~144478~~) operation. Make sure that the certificate is in PEM format and its content is Base64-encoded and then encoded by encodeURIComponent.
+        self.server_certificate = server_certificate  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SetDcdnDomainCSRCertificateRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.server_certificate is not None:
+            result['ServerCertificate'] = self.server_certificate
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('ServerCertificate') is not None:
+            self.server_certificate = m.get('ServerCertificate')
+        return self
+
+
+class SetDcdnDomainCSRCertificateResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        # The request ID.
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SetDcdnDomainCSRCertificateResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class SetDcdnDomainCSRCertificateResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: SetDcdnDomainCSRCertificateResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SetDcdnDomainCSRCertificateResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = SetDcdnDomainCSRCertificateResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -34940,9 +35026,6 @@ class SetDcdnDomainCertificateResponse(TeaModel):
         self.body = body  # type: SetDcdnDomainCertificateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -35056,9 +35139,6 @@ class SetDcdnDomainSMCertificateResponse(TeaModel):
         self.body = body  # type: SetDcdnDomainSMCertificateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -35104,6 +35184,7 @@ class SetDcdnDomainSSLCertificateRequest(TeaModel):
         self.cert_type = cert_type  # type: str
         # The domain name that is secured by the SSL certificate.
         self.domain_name = domain_name  # type: str
+        # Specifies whether the certificate is issued in canary releases. If you set this parameter to **staging**, the certificate is issued in canary releases. If you do not specify this parameter or set this parameter to other values, the certificate is officially issued.
         self.env = env  # type: str
         self.owner_id = owner_id  # type: long
         # The private key. Specify the private key only if you want to enable the SSL certificate.
@@ -35209,9 +35290,6 @@ class SetDcdnDomainSSLCertificateResponse(TeaModel):
         self.body = body  # type: SetDcdnDomainSSLCertificateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -35306,9 +35384,6 @@ class SetDcdnDomainStagingConfigResponse(TeaModel):
         self.body = body  # type: SetDcdnDomainStagingConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -35340,17 +35415,20 @@ class SetDcdnDomainStagingConfigResponse(TeaModel):
 
 class SetDcdnFullDomainsBlockIPRequest(TeaModel):
     def __init__(self, block_interval=None, iplist=None, operation_type=None, update_type=None):
-        # The blocking period. Unit: seconds.
-        # 
-        # > If you set the **OperationType** parameter to **unblock**, you do not need to set this parameter.
+        # The duration for which IP addresses or CIDR blocks are blocked. Unit: seconds. The value **0** specifies that IP addresses or CIDR blocks are permanently blocked. This parameter is available only if you set **OperationType** to **block**.
         self.block_interval = block_interval  # type: int
-        # The IP addresses that are blocked or unblocked. Separate multiple IP addresses with commas (,). You can specify up to 1,000 IP addresses.
+        # The IP addresses that you want to block or unblock. Separate multiple IP addresses with commas (,). You can specify up to 1,000 IP addresses.
         self.iplist = iplist  # type: str
-        # The action. Valid values:
+        # The action that you want to perform. Valid values:
         # 
         # *   **block**\
         # *   **unblock**\
         self.operation_type = operation_type  # type: str
+        # The type of the blocking duration. This parameter is available only if you set **OperationType** to **block**. Valid values:
+        # 
+        # *   **cover**: the blocking duration that is specified in the request takes effect.
+        # *   **uncover**: the longer one of the blocking duration that is specified in the request and the remaining blocking duration takes effect.
+        # *   Default value: cover.
         self.update_type = update_type  # type: str
 
     def validate(self):
@@ -35388,10 +35466,12 @@ class SetDcdnFullDomainsBlockIPRequest(TeaModel):
 class SetDcdnFullDomainsBlockIPResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None):
         # The response code.
+        # 
+        # If the value of Code is not 0, specific required parameters are missing or the parameter format is invalid.
         self.code = code  # type: int
-        # The status code that indicates the result.
+        # The response message.
         self.message = message  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -35429,9 +35509,6 @@ class SetDcdnFullDomainsBlockIPResponse(TeaModel):
         self.body = body  # type: SetDcdnFullDomainsBlockIPResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -35539,9 +35616,6 @@ class SetDcdnUserConfigResponse(TeaModel):
         self.body = body  # type: SetDcdnUserConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -35671,9 +35745,6 @@ class SetRoutineSubdomainResponse(TeaModel):
         self.body = body  # type: SetRoutineSubdomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -35770,9 +35841,6 @@ class StartDcdnDomainResponse(TeaModel):
         self.body = body  # type: StartDcdnDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -35869,9 +35937,6 @@ class StartDcdnIpaDomainResponse(TeaModel):
         self.body = body  # type: StartDcdnIpaDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -35968,9 +36033,6 @@ class StopDcdnDomainResponse(TeaModel):
         self.body = body  # type: StopDcdnDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -36067,9 +36129,6 @@ class StopDcdnIpaDomainResponse(TeaModel):
         self.body = body  # type: StopDcdnIpaDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -36207,9 +36266,6 @@ class TagDcdnResourcesResponse(TeaModel):
         self.body = body  # type: TagDcdnResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -36319,9 +36375,6 @@ class UntagDcdnResourcesResponse(TeaModel):
         self.body = body  # type: UntagDcdnResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -36438,9 +36491,6 @@ class UpdateDcdnDeliverTaskResponse(TeaModel):
         self.body = body  # type: UpdateDcdnDeliverTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -36556,9 +36606,6 @@ class UpdateDcdnDomainResponse(TeaModel):
         self.body = body  # type: UpdateDcdnDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -36674,9 +36721,6 @@ class UpdateDcdnIpaDomainResponse(TeaModel):
         self.body = body  # type: UpdateDcdnIpaDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -36892,9 +36936,6 @@ class UpdateDcdnSLSRealtimeLogDeliveryResponse(TeaModel):
         self.body = body  # type: UpdateDcdnSLSRealtimeLogDeliveryResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -36999,9 +37040,6 @@ class UpdateDcdnSubTaskResponse(TeaModel):
         self.body = body  # type: UpdateDcdnSubTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -37098,9 +37136,6 @@ class UpdateDcdnUserRealTimeDeliveryFieldResponse(TeaModel):
         self.body = body  # type: UpdateDcdnUserRealTimeDeliveryFieldResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -37199,9 +37234,6 @@ class UploadRoutineCodeResponse(TeaModel):
         self.body = body  # type: UploadRoutineCodeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -37300,9 +37332,6 @@ class UploadStagingRoutineCodeResponse(TeaModel):
         self.body = body  # type: UploadStagingRoutineCodeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -37404,9 +37433,6 @@ class VerifyDcdnDomainOwnerResponse(TeaModel):
         self.body = body  # type: VerifyDcdnDomainOwnerResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 

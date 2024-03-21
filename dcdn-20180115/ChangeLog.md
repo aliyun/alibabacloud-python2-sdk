@@ -1,3 +1,10 @@
+2024-03-21 Version: 2.2.0
+- Support API CreateDcdnCertificateSigningRequest.
+- Support API SetDcdnDomainCSRCertificate.
+- Update API DescribeDcdnKvNamespace: update response param.
+- Update API PutDcdnKvNamespace: update response param.
+
+
 2023-12-27 Version: 2.1.0
 - Generated python2 2018-01-15 for dcdn.
 

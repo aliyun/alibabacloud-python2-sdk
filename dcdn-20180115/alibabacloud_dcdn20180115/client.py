@@ -88,11 +88,10 @@ class Client(OpenApiClient):
 
     def add_dcdn_domain_with_options(self, request, runtime):
         """
-        >
-        *   Dynamic Content Delivery Network (DCDN) is activated.
-        *   Internet content provider (ICP) filing is complete for the accelerated domain name.
-        *   If the content of the origin server is not stored on Alibaba Cloud, the content must be reviewed. After you submit the request, the review is complete by the end of the following business day.
-        *   You can call this operation up to 30 times per second per account.
+        >    Dynamic Content Delivery Network (DCDN) is activated.
+        > *   Internet content provider (ICP) filing is complete for the accelerated domain name.
+        > *   If the content of the origin server is not stored on Alibaba Cloud, the content must be reviewed. After you submit the request, the review is complete by the end of the following business day.
+        > *   You can call this operation up to 30 times per second per account.
         
 
         @param request: AddDcdnDomainRequest
@@ -148,11 +147,10 @@ class Client(OpenApiClient):
 
     def add_dcdn_domain(self, request):
         """
-        >
-        *   Dynamic Content Delivery Network (DCDN) is activated.
-        *   Internet content provider (ICP) filing is complete for the accelerated domain name.
-        *   If the content of the origin server is not stored on Alibaba Cloud, the content must be reviewed. After you submit the request, the review is complete by the end of the following business day.
-        *   You can call this operation up to 30 times per second per account.
+        >    Dynamic Content Delivery Network (DCDN) is activated.
+        > *   Internet content provider (ICP) filing is complete for the accelerated domain name.
+        > *   If the content of the origin server is not stored on Alibaba Cloud, the content must be reviewed. After you submit the request, the review is complete by the end of the following business day.
+        > *   You can call this operation up to 30 times per second per account.
         
 
         @param request: AddDcdnDomainRequest
@@ -967,6 +965,48 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.commit_staging_routine_code_with_options(request, runtime)
+
+    def create_dcdn_certificate_signing_request_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.city):
+            query['City'] = request.city
+        if not UtilClient.is_unset(request.common_name):
+            query['CommonName'] = request.common_name
+        if not UtilClient.is_unset(request.country):
+            query['Country'] = request.country
+        if not UtilClient.is_unset(request.email):
+            query['Email'] = request.email
+        if not UtilClient.is_unset(request.organization):
+            query['Organization'] = request.organization
+        if not UtilClient.is_unset(request.organization_unit):
+            query['OrganizationUnit'] = request.organization_unit
+        if not UtilClient.is_unset(request.sans):
+            query['SANs'] = request.sans
+        if not UtilClient.is_unset(request.state):
+            query['State'] = request.state
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDcdnCertificateSigningRequest',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.CreateDcdnCertificateSigningRequestResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_dcdn_certificate_signing_request(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_dcdn_certificate_signing_request_with_options(request, runtime)
 
     def create_dcdn_deliver_task_with_options(self, request, runtime):
         """
@@ -4802,7 +4842,7 @@ class Client(OpenApiClient):
         """
         You can call this operation up to 10 times per second per account.
         * Usage data includes traffic (measured in bytes), bandwidth values (measured in bit/s), and the number of requests.
-        **Time granularity**:
+        **Time granularity**\
         The time granularity supported by the Interval parameter, the maximum time period within which historical data is available, and the data delay vary with the maximum time range per query, as described in the following table.
         |Time granularity|Maximum time range per query|Historical data available|Data delay|
         |---|---|---|---|
@@ -4858,7 +4898,7 @@ class Client(OpenApiClient):
         """
         You can call this operation up to 10 times per second per account.
         * Usage data includes traffic (measured in bytes), bandwidth values (measured in bit/s), and the number of requests.
-        **Time granularity**:
+        **Time granularity**\
         The time granularity supported by the Interval parameter, the maximum time period within which historical data is available, and the data delay vary with the maximum time range per query, as described in the following table.
         |Time granularity|Maximum time range per query|Historical data available|Data delay|
         |---|---|---|---|
@@ -5425,6 +5465,16 @@ class Client(OpenApiClient):
         return self.describe_dcdn_ip_info_with_options(request, runtime)
 
     def describe_dcdn_ipa_domain_cidr_with_options(self, request, runtime):
+        """
+        >  This operation can be called globally up to 50 times per second. This operation can be called up to 10 times per second per account.
+        
+
+        @param request: DescribeDcdnIpaDomainCidrRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDcdnIpaDomainCidrResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.domain_name):
@@ -5449,6 +5499,14 @@ class Client(OpenApiClient):
         )
 
     def describe_dcdn_ipa_domain_cidr(self, request):
+        """
+        >  This operation can be called globally up to 50 times per second. This operation can be called up to 10 times per second per account.
+        
+
+        @param request: DescribeDcdnIpaDomainCidrRequest
+
+        @return: DescribeDcdnIpaDomainCidrResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_dcdn_ipa_domain_cidr_with_options(request, runtime)
 
@@ -7299,6 +7357,16 @@ class Client(OpenApiClient):
         return self.describe_dcdn_user_tags_with_options(runtime)
 
     def describe_dcdn_user_vips_by_domain_with_options(self, request, runtime):
+        """
+        You can call this operation up to 30 times per second per account.
+        
+
+        @param request: DescribeDcdnUserVipsByDomainRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDcdnUserVipsByDomainResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.available):
@@ -7325,6 +7393,14 @@ class Client(OpenApiClient):
         )
 
     def describe_dcdn_user_vips_by_domain(self, request):
+        """
+        You can call this operation up to 30 times per second per account.
+        
+
+        @param request: DescribeDcdnUserVipsByDomainRequest
+
+        @return: DescribeDcdnUserVipsByDomainResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_dcdn_user_vips_by_domain_with_options(request, runtime)
 
@@ -8423,6 +8499,21 @@ class Client(OpenApiClient):
         return self.describe_highlight_info_with_options(request, runtime)
 
     def describe_kv_usage_data_with_options(self, request, runtime):
+        """
+        You can call this operation up to 5 times per second per account.
+        * The usage data indicates the number of requests.
+        **Time granularity:** This operation supports only the time granularity of 1 hour.
+        |Time granularity|Maximum time range per query|Historical data available|Data delay|
+        |---|---|---|---|
+        |1 hour|31 days|90 days|3 to 4 hours|
+        
+
+        @param request: DescribeKvUsageDataRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeKvUsageDataResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.access_type):
@@ -8459,6 +8550,19 @@ class Client(OpenApiClient):
         )
 
     def describe_kv_usage_data(self, request):
+        """
+        You can call this operation up to 5 times per second per account.
+        * The usage data indicates the number of requests.
+        **Time granularity:** This operation supports only the time granularity of 1 hour.
+        |Time granularity|Maximum time range per query|Historical data available|Data delay|
+        |---|---|---|---|
+        |1 hour|31 days|90 days|3 to 4 hours|
+        
+
+        @param request: DescribeKvUsageDataRequest
+
+        @return: DescribeKvUsageDataResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_kv_usage_data_with_options(request, runtime)
 
@@ -9797,6 +9901,21 @@ class Client(OpenApiClient):
         return self.refresh_dcdn_object_caches_with_options(request, runtime)
 
     def refresh_er_object_caches_with_options(self, request, runtime):
+        """
+        DCDN supports POST requests in which parameters are sent as a form.
+        *   Related operation: such as [RefreshDcdnObjectCaches](~~130620~~).
+        *   By default, each Alibaba Cloud account can refresh content from a maximum of 10,000 URLs and 100 directories including subdirectories per day.
+        *   You can specify up to 1,000 URLs or 100 directories that you want to refresh in each request.
+        *   You can refresh a maximum of 1,000 URLs per minute for each domain name.
+        *   You can call this operation up to 30 times per second per account.
+        
+
+        @param request: RefreshErObjectCachesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RefreshErObjectCachesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.force):
@@ -9829,6 +9948,19 @@ class Client(OpenApiClient):
         )
 
     def refresh_er_object_caches(self, request):
+        """
+        DCDN supports POST requests in which parameters are sent as a form.
+        *   Related operation: such as [RefreshDcdnObjectCaches](~~130620~~).
+        *   By default, each Alibaba Cloud account can refresh content from a maximum of 10,000 URLs and 100 directories including subdirectories per day.
+        *   You can specify up to 1,000 URLs or 100 directories that you want to refresh in each request.
+        *   You can refresh a maximum of 1,000 URLs per minute for each domain name.
+        *   You can call this operation up to 30 times per second per account.
+        
+
+        @param request: RefreshErObjectCachesRequest
+
+        @return: RefreshErObjectCachesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.refresh_er_object_caches_with_options(request, runtime)
 
@@ -9877,6 +10009,36 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.rollback_dcdn_staging_config_with_options(request, runtime)
+
+    def set_dcdn_domain_csrcertificate_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.server_certificate):
+            query['ServerCertificate'] = request.server_certificate
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SetDcdnDomainCSRCertificate',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.SetDcdnDomainCSRCertificateResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def set_dcdn_domain_csrcertificate(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.set_dcdn_domain_csrcertificate_with_options(request, runtime)
 
     def set_dcdn_domain_certificate_with_options(self, request, runtime):
         """
@@ -10098,7 +10260,7 @@ class Client(OpenApiClient):
 
     def set_dcdn_full_domains_block_ipwith_options(self, request, runtime):
         """
-        > You can call this operation up to 10 times per second per account.
+        >  You can call this operation to block or unblock a large number of IP addresses or CIDR blocks. You can block or unblock up to 1,000 IP addresses or CIDR blocks in a request.
         
 
         @param request: SetDcdnFullDomainsBlockIPRequest
@@ -10138,7 +10300,7 @@ class Client(OpenApiClient):
 
     def set_dcdn_full_domains_block_ip(self, request):
         """
-        > You can call this operation up to 10 times per second per account.
+        >  You can call this operation to block or unblock a large number of IP addresses or CIDR blocks. You can block or unblock up to 1,000 IP addresses or CIDR blocks in a request.
         
 
         @param request: SetDcdnFullDomainsBlockIPRequest
