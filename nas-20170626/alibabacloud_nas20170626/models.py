@@ -1381,6 +1381,188 @@ class CreateAccessGroupResponse(TeaModel):
         return self
 
 
+class CreateAccessPointRequest(TeaModel):
+    def __init__(self, access_group=None, access_point_name=None, enabled_ram=None, file_system_id=None,
+                 owner_group_id=None, owner_user_id=None, permission=None, posix_group_id=None, posix_secondary_group_ids=None,
+                 posix_user_id=None, root_directory=None, vpc_id=None, vsw_id=None):
+        self.access_group = access_group  # type: str
+        self.access_point_name = access_point_name  # type: str
+        self.enabled_ram = enabled_ram  # type: bool
+        self.file_system_id = file_system_id  # type: str
+        self.owner_group_id = owner_group_id  # type: int
+        self.owner_user_id = owner_user_id  # type: int
+        self.permission = permission  # type: str
+        self.posix_group_id = posix_group_id  # type: int
+        self.posix_secondary_group_ids = posix_secondary_group_ids  # type: str
+        self.posix_user_id = posix_user_id  # type: int
+        self.root_directory = root_directory  # type: str
+        self.vpc_id = vpc_id  # type: str
+        self.vsw_id = vsw_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateAccessPointRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_group is not None:
+            result['AccessGroup'] = self.access_group
+        if self.access_point_name is not None:
+            result['AccessPointName'] = self.access_point_name
+        if self.enabled_ram is not None:
+            result['EnabledRam'] = self.enabled_ram
+        if self.file_system_id is not None:
+            result['FileSystemId'] = self.file_system_id
+        if self.owner_group_id is not None:
+            result['OwnerGroupId'] = self.owner_group_id
+        if self.owner_user_id is not None:
+            result['OwnerUserId'] = self.owner_user_id
+        if self.permission is not None:
+            result['Permission'] = self.permission
+        if self.posix_group_id is not None:
+            result['PosixGroupId'] = self.posix_group_id
+        if self.posix_secondary_group_ids is not None:
+            result['PosixSecondaryGroupIds'] = self.posix_secondary_group_ids
+        if self.posix_user_id is not None:
+            result['PosixUserId'] = self.posix_user_id
+        if self.root_directory is not None:
+            result['RootDirectory'] = self.root_directory
+        if self.vpc_id is not None:
+            result['VpcId'] = self.vpc_id
+        if self.vsw_id is not None:
+            result['VswId'] = self.vsw_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccessGroup') is not None:
+            self.access_group = m.get('AccessGroup')
+        if m.get('AccessPointName') is not None:
+            self.access_point_name = m.get('AccessPointName')
+        if m.get('EnabledRam') is not None:
+            self.enabled_ram = m.get('EnabledRam')
+        if m.get('FileSystemId') is not None:
+            self.file_system_id = m.get('FileSystemId')
+        if m.get('OwnerGroupId') is not None:
+            self.owner_group_id = m.get('OwnerGroupId')
+        if m.get('OwnerUserId') is not None:
+            self.owner_user_id = m.get('OwnerUserId')
+        if m.get('Permission') is not None:
+            self.permission = m.get('Permission')
+        if m.get('PosixGroupId') is not None:
+            self.posix_group_id = m.get('PosixGroupId')
+        if m.get('PosixSecondaryGroupIds') is not None:
+            self.posix_secondary_group_ids = m.get('PosixSecondaryGroupIds')
+        if m.get('PosixUserId') is not None:
+            self.posix_user_id = m.get('PosixUserId')
+        if m.get('RootDirectory') is not None:
+            self.root_directory = m.get('RootDirectory')
+        if m.get('VpcId') is not None:
+            self.vpc_id = m.get('VpcId')
+        if m.get('VswId') is not None:
+            self.vsw_id = m.get('VswId')
+        return self
+
+
+class CreateAccessPointResponseBodyAccessPoint(TeaModel):
+    def __init__(self, access_point_domain=None, access_point_id=None):
+        self.access_point_domain = access_point_domain  # type: str
+        self.access_point_id = access_point_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateAccessPointResponseBodyAccessPoint, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_point_domain is not None:
+            result['AccessPointDomain'] = self.access_point_domain
+        if self.access_point_id is not None:
+            result['AccessPointId'] = self.access_point_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccessPointDomain') is not None:
+            self.access_point_domain = m.get('AccessPointDomain')
+        if m.get('AccessPointId') is not None:
+            self.access_point_id = m.get('AccessPointId')
+        return self
+
+
+class CreateAccessPointResponseBody(TeaModel):
+    def __init__(self, access_point=None, request_id=None):
+        self.access_point = access_point  # type: CreateAccessPointResponseBodyAccessPoint
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.access_point:
+            self.access_point.validate()
+
+    def to_map(self):
+        _map = super(CreateAccessPointResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_point is not None:
+            result['AccessPoint'] = self.access_point.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccessPoint') is not None:
+            temp_model = CreateAccessPointResponseBodyAccessPoint()
+            self.access_point = temp_model.from_map(m['AccessPoint'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CreateAccessPointResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateAccessPointResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateAccessPointResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateAccessPointResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateAccessRuleRequest(TeaModel):
     def __init__(self, access_group_name=None, file_system_type=None, ipv_6source_cidr_ip=None, priority=None,
                  rwaccess_type=None, source_cidr_ip=None, user_access_type=None):
@@ -2117,6 +2299,116 @@ class CreateDataFlowTaskResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateDataFlowTaskResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateDirRequest(TeaModel):
+    def __init__(self, file_system_id=None, owner_group_id=None, owner_user_id=None, permission=None,
+                 recursion=None, root_directory=None):
+        self.file_system_id = file_system_id  # type: str
+        self.owner_group_id = owner_group_id  # type: int
+        self.owner_user_id = owner_user_id  # type: int
+        self.permission = permission  # type: str
+        self.recursion = recursion  # type: bool
+        self.root_directory = root_directory  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDirRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.file_system_id is not None:
+            result['FileSystemId'] = self.file_system_id
+        if self.owner_group_id is not None:
+            result['OwnerGroupId'] = self.owner_group_id
+        if self.owner_user_id is not None:
+            result['OwnerUserId'] = self.owner_user_id
+        if self.permission is not None:
+            result['Permission'] = self.permission
+        if self.recursion is not None:
+            result['Recursion'] = self.recursion
+        if self.root_directory is not None:
+            result['RootDirectory'] = self.root_directory
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FileSystemId') is not None:
+            self.file_system_id = m.get('FileSystemId')
+        if m.get('OwnerGroupId') is not None:
+            self.owner_group_id = m.get('OwnerGroupId')
+        if m.get('OwnerUserId') is not None:
+            self.owner_user_id = m.get('OwnerUserId')
+        if m.get('Permission') is not None:
+            self.permission = m.get('Permission')
+        if m.get('Recursion') is not None:
+            self.recursion = m.get('Recursion')
+        if m.get('RootDirectory') is not None:
+            self.root_directory = m.get('RootDirectory')
+        return self
+
+
+class CreateDirResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDirResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CreateDirResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateDirResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateDirResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateDirResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -4077,6 +4369,95 @@ class DeleteAccessGroupResponse(TeaModel):
         return self
 
 
+class DeleteAccessPointRequest(TeaModel):
+    def __init__(self, access_point_id=None, file_system_id=None):
+        self.access_point_id = access_point_id  # type: str
+        self.file_system_id = file_system_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteAccessPointRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_point_id is not None:
+            result['AccessPointId'] = self.access_point_id
+        if self.file_system_id is not None:
+            result['FileSystemId'] = self.file_system_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccessPointId') is not None:
+            self.access_point_id = m.get('AccessPointId')
+        if m.get('FileSystemId') is not None:
+            self.file_system_id = m.get('FileSystemId')
+        return self
+
+
+class DeleteAccessPointResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteAccessPointResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteAccessPointResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteAccessPointResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteAccessPointResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteAccessPointResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DeleteAccessRuleRequest(TeaModel):
     def __init__(self, access_group_name=None, access_rule_id=None, file_system_type=None):
         # The name of the permission group.
@@ -5547,6 +5928,577 @@ class DescribeAccessGroupsResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeAccessGroupsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeAccessPointRequest(TeaModel):
+    def __init__(self, access_point_id=None, file_system_id=None):
+        self.access_point_id = access_point_id  # type: str
+        self.file_system_id = file_system_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeAccessPointRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_point_id is not None:
+            result['AccessPointId'] = self.access_point_id
+        if self.file_system_id is not None:
+            result['FileSystemId'] = self.file_system_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccessPointId') is not None:
+            self.access_point_id = m.get('AccessPointId')
+        if m.get('FileSystemId') is not None:
+            self.file_system_id = m.get('FileSystemId')
+        return self
+
+
+class DescribeAccessPointResponseBodyAccessPointPosixUser(TeaModel):
+    def __init__(self, posix_group_id=None, posix_secondary_group_ids=None, posix_user_id=None):
+        self.posix_group_id = posix_group_id  # type: int
+        self.posix_secondary_group_ids = posix_secondary_group_ids  # type: list[int]
+        self.posix_user_id = posix_user_id  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeAccessPointResponseBodyAccessPointPosixUser, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.posix_group_id is not None:
+            result['PosixGroupId'] = self.posix_group_id
+        if self.posix_secondary_group_ids is not None:
+            result['PosixSecondaryGroupIds'] = self.posix_secondary_group_ids
+        if self.posix_user_id is not None:
+            result['PosixUserId'] = self.posix_user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PosixGroupId') is not None:
+            self.posix_group_id = m.get('PosixGroupId')
+        if m.get('PosixSecondaryGroupIds') is not None:
+            self.posix_secondary_group_ids = m.get('PosixSecondaryGroupIds')
+        if m.get('PosixUserId') is not None:
+            self.posix_user_id = m.get('PosixUserId')
+        return self
+
+
+class DescribeAccessPointResponseBodyAccessPointRootPathPermission(TeaModel):
+    def __init__(self, owner_group_id=None, owner_user_id=None, permission=None):
+        self.owner_group_id = owner_group_id  # type: int
+        self.owner_user_id = owner_user_id  # type: int
+        self.permission = permission  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeAccessPointResponseBodyAccessPointRootPathPermission, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.owner_group_id is not None:
+            result['OwnerGroupId'] = self.owner_group_id
+        if self.owner_user_id is not None:
+            result['OwnerUserId'] = self.owner_user_id
+        if self.permission is not None:
+            result['Permission'] = self.permission
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('OwnerGroupId') is not None:
+            self.owner_group_id = m.get('OwnerGroupId')
+        if m.get('OwnerUserId') is not None:
+            self.owner_user_id = m.get('OwnerUserId')
+        if m.get('Permission') is not None:
+            self.permission = m.get('Permission')
+        return self
+
+
+class DescribeAccessPointResponseBodyAccessPoint(TeaModel):
+    def __init__(self, arn=None, access_group=None, access_point_id=None, access_point_name=None, create_time=None,
+                 domain_name=None, enabled_ram=None, file_system_id=None, modify_time=None, posix_user=None, region_id=None,
+                 root_path=None, root_path_permission=None, root_path_status=None, status=None, v_switch_id=None, vpc_id=None):
+        self.arn = arn  # type: str
+        self.access_group = access_group  # type: str
+        self.access_point_id = access_point_id  # type: str
+        self.access_point_name = access_point_name  # type: str
+        self.create_time = create_time  # type: str
+        self.domain_name = domain_name  # type: str
+        self.enabled_ram = enabled_ram  # type: bool
+        self.file_system_id = file_system_id  # type: str
+        self.modify_time = modify_time  # type: str
+        self.posix_user = posix_user  # type: DescribeAccessPointResponseBodyAccessPointPosixUser
+        self.region_id = region_id  # type: str
+        self.root_path = root_path  # type: str
+        self.root_path_permission = root_path_permission  # type: DescribeAccessPointResponseBodyAccessPointRootPathPermission
+        self.root_path_status = root_path_status  # type: str
+        self.status = status  # type: str
+        self.v_switch_id = v_switch_id  # type: str
+        self.vpc_id = vpc_id  # type: str
+
+    def validate(self):
+        if self.posix_user:
+            self.posix_user.validate()
+        if self.root_path_permission:
+            self.root_path_permission.validate()
+
+    def to_map(self):
+        _map = super(DescribeAccessPointResponseBodyAccessPoint, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.arn is not None:
+            result['ARN'] = self.arn
+        if self.access_group is not None:
+            result['AccessGroup'] = self.access_group
+        if self.access_point_id is not None:
+            result['AccessPointId'] = self.access_point_id
+        if self.access_point_name is not None:
+            result['AccessPointName'] = self.access_point_name
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.enabled_ram is not None:
+            result['EnabledRam'] = self.enabled_ram
+        if self.file_system_id is not None:
+            result['FileSystemId'] = self.file_system_id
+        if self.modify_time is not None:
+            result['ModifyTime'] = self.modify_time
+        if self.posix_user is not None:
+            result['PosixUser'] = self.posix_user.to_map()
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.root_path is not None:
+            result['RootPath'] = self.root_path
+        if self.root_path_permission is not None:
+            result['RootPathPermission'] = self.root_path_permission.to_map()
+        if self.root_path_status is not None:
+            result['RootPathStatus'] = self.root_path_status
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.v_switch_id is not None:
+            result['VSwitchId'] = self.v_switch_id
+        if self.vpc_id is not None:
+            result['VpcId'] = self.vpc_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ARN') is not None:
+            self.arn = m.get('ARN')
+        if m.get('AccessGroup') is not None:
+            self.access_group = m.get('AccessGroup')
+        if m.get('AccessPointId') is not None:
+            self.access_point_id = m.get('AccessPointId')
+        if m.get('AccessPointName') is not None:
+            self.access_point_name = m.get('AccessPointName')
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('EnabledRam') is not None:
+            self.enabled_ram = m.get('EnabledRam')
+        if m.get('FileSystemId') is not None:
+            self.file_system_id = m.get('FileSystemId')
+        if m.get('ModifyTime') is not None:
+            self.modify_time = m.get('ModifyTime')
+        if m.get('PosixUser') is not None:
+            temp_model = DescribeAccessPointResponseBodyAccessPointPosixUser()
+            self.posix_user = temp_model.from_map(m['PosixUser'])
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('RootPath') is not None:
+            self.root_path = m.get('RootPath')
+        if m.get('RootPathPermission') is not None:
+            temp_model = DescribeAccessPointResponseBodyAccessPointRootPathPermission()
+            self.root_path_permission = temp_model.from_map(m['RootPathPermission'])
+        if m.get('RootPathStatus') is not None:
+            self.root_path_status = m.get('RootPathStatus')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('VSwitchId') is not None:
+            self.v_switch_id = m.get('VSwitchId')
+        if m.get('VpcId') is not None:
+            self.vpc_id = m.get('VpcId')
+        return self
+
+
+class DescribeAccessPointResponseBody(TeaModel):
+    def __init__(self, access_point=None, request_id=None):
+        self.access_point = access_point  # type: DescribeAccessPointResponseBodyAccessPoint
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.access_point:
+            self.access_point.validate()
+
+    def to_map(self):
+        _map = super(DescribeAccessPointResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_point is not None:
+            result['AccessPoint'] = self.access_point.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccessPoint') is not None:
+            temp_model = DescribeAccessPointResponseBodyAccessPoint()
+            self.access_point = temp_model.from_map(m['AccessPoint'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeAccessPointResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeAccessPointResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeAccessPointResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeAccessPointResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeAccessPointsRequest(TeaModel):
+    def __init__(self, access_group=None, file_system_id=None, max_results=None, next_token=None):
+        self.access_group = access_group  # type: str
+        self.file_system_id = file_system_id  # type: str
+        self.max_results = max_results  # type: int
+        self.next_token = next_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeAccessPointsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_group is not None:
+            result['AccessGroup'] = self.access_group
+        if self.file_system_id is not None:
+            result['FileSystemId'] = self.file_system_id
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccessGroup') is not None:
+            self.access_group = m.get('AccessGroup')
+        if m.get('FileSystemId') is not None:
+            self.file_system_id = m.get('FileSystemId')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        return self
+
+
+class DescribeAccessPointsResponseBodyAccessPointsPosixUser(TeaModel):
+    def __init__(self, posix_group_id=None, posix_secondary_group_ids=None, posix_user_id=None):
+        self.posix_group_id = posix_group_id  # type: int
+        self.posix_secondary_group_ids = posix_secondary_group_ids  # type: list[int]
+        self.posix_user_id = posix_user_id  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeAccessPointsResponseBodyAccessPointsPosixUser, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.posix_group_id is not None:
+            result['PosixGroupId'] = self.posix_group_id
+        if self.posix_secondary_group_ids is not None:
+            result['PosixSecondaryGroupIds'] = self.posix_secondary_group_ids
+        if self.posix_user_id is not None:
+            result['PosixUserId'] = self.posix_user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PosixGroupId') is not None:
+            self.posix_group_id = m.get('PosixGroupId')
+        if m.get('PosixSecondaryGroupIds') is not None:
+            self.posix_secondary_group_ids = m.get('PosixSecondaryGroupIds')
+        if m.get('PosixUserId') is not None:
+            self.posix_user_id = m.get('PosixUserId')
+        return self
+
+
+class DescribeAccessPointsResponseBodyAccessPointsRootPathPermission(TeaModel):
+    def __init__(self, owner_group_id=None, owner_user_id=None, permission=None):
+        self.owner_group_id = owner_group_id  # type: long
+        self.owner_user_id = owner_user_id  # type: long
+        self.permission = permission  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeAccessPointsResponseBodyAccessPointsRootPathPermission, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.owner_group_id is not None:
+            result['OwnerGroupId'] = self.owner_group_id
+        if self.owner_user_id is not None:
+            result['OwnerUserId'] = self.owner_user_id
+        if self.permission is not None:
+            result['Permission'] = self.permission
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('OwnerGroupId') is not None:
+            self.owner_group_id = m.get('OwnerGroupId')
+        if m.get('OwnerUserId') is not None:
+            self.owner_user_id = m.get('OwnerUserId')
+        if m.get('Permission') is not None:
+            self.permission = m.get('Permission')
+        return self
+
+
+class DescribeAccessPointsResponseBodyAccessPoints(TeaModel):
+    def __init__(self, arn=None, access_group=None, access_point_id=None, access_point_name=None, create_time=None,
+                 domain_name=None, enabled_ram=None, file_system_id=None, modify_time=None, posix_user=None, root_path=None,
+                 root_path_permission=None, root_path_status=None, status=None, v_switch_id=None, vpc_id=None):
+        self.arn = arn  # type: str
+        self.access_group = access_group  # type: str
+        self.access_point_id = access_point_id  # type: str
+        self.access_point_name = access_point_name  # type: str
+        self.create_time = create_time  # type: str
+        self.domain_name = domain_name  # type: str
+        self.enabled_ram = enabled_ram  # type: bool
+        self.file_system_id = file_system_id  # type: str
+        self.modify_time = modify_time  # type: str
+        self.posix_user = posix_user  # type: DescribeAccessPointsResponseBodyAccessPointsPosixUser
+        self.root_path = root_path  # type: str
+        self.root_path_permission = root_path_permission  # type: DescribeAccessPointsResponseBodyAccessPointsRootPathPermission
+        self.root_path_status = root_path_status  # type: str
+        self.status = status  # type: str
+        self.v_switch_id = v_switch_id  # type: str
+        self.vpc_id = vpc_id  # type: str
+
+    def validate(self):
+        if self.posix_user:
+            self.posix_user.validate()
+        if self.root_path_permission:
+            self.root_path_permission.validate()
+
+    def to_map(self):
+        _map = super(DescribeAccessPointsResponseBodyAccessPoints, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.arn is not None:
+            result['ARN'] = self.arn
+        if self.access_group is not None:
+            result['AccessGroup'] = self.access_group
+        if self.access_point_id is not None:
+            result['AccessPointId'] = self.access_point_id
+        if self.access_point_name is not None:
+            result['AccessPointName'] = self.access_point_name
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.enabled_ram is not None:
+            result['EnabledRam'] = self.enabled_ram
+        if self.file_system_id is not None:
+            result['FileSystemId'] = self.file_system_id
+        if self.modify_time is not None:
+            result['ModifyTime'] = self.modify_time
+        if self.posix_user is not None:
+            result['PosixUser'] = self.posix_user.to_map()
+        if self.root_path is not None:
+            result['RootPath'] = self.root_path
+        if self.root_path_permission is not None:
+            result['RootPathPermission'] = self.root_path_permission.to_map()
+        if self.root_path_status is not None:
+            result['RootPathStatus'] = self.root_path_status
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.v_switch_id is not None:
+            result['VSwitchId'] = self.v_switch_id
+        if self.vpc_id is not None:
+            result['VpcId'] = self.vpc_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ARN') is not None:
+            self.arn = m.get('ARN')
+        if m.get('AccessGroup') is not None:
+            self.access_group = m.get('AccessGroup')
+        if m.get('AccessPointId') is not None:
+            self.access_point_id = m.get('AccessPointId')
+        if m.get('AccessPointName') is not None:
+            self.access_point_name = m.get('AccessPointName')
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('EnabledRam') is not None:
+            self.enabled_ram = m.get('EnabledRam')
+        if m.get('FileSystemId') is not None:
+            self.file_system_id = m.get('FileSystemId')
+        if m.get('ModifyTime') is not None:
+            self.modify_time = m.get('ModifyTime')
+        if m.get('PosixUser') is not None:
+            temp_model = DescribeAccessPointsResponseBodyAccessPointsPosixUser()
+            self.posix_user = temp_model.from_map(m['PosixUser'])
+        if m.get('RootPath') is not None:
+            self.root_path = m.get('RootPath')
+        if m.get('RootPathPermission') is not None:
+            temp_model = DescribeAccessPointsResponseBodyAccessPointsRootPathPermission()
+            self.root_path_permission = temp_model.from_map(m['RootPathPermission'])
+        if m.get('RootPathStatus') is not None:
+            self.root_path_status = m.get('RootPathStatus')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('VSwitchId') is not None:
+            self.v_switch_id = m.get('VSwitchId')
+        if m.get('VpcId') is not None:
+            self.vpc_id = m.get('VpcId')
+        return self
+
+
+class DescribeAccessPointsResponseBody(TeaModel):
+    def __init__(self, access_points=None, next_token=None, request_id=None, total_count=None):
+        self.access_points = access_points  # type: list[DescribeAccessPointsResponseBodyAccessPoints]
+        self.next_token = next_token  # type: str
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.access_points:
+            for k in self.access_points:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeAccessPointsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['AccessPoints'] = []
+        if self.access_points is not None:
+            for k in self.access_points:
+                result['AccessPoints'].append(k.to_map() if k else None)
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.access_points = []
+        if m.get('AccessPoints') is not None:
+            for k in m.get('AccessPoints'):
+                temp_model = DescribeAccessPointsResponseBodyAccessPoints()
+                self.access_points.append(temp_model.from_map(k))
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class DescribeAccessPointsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeAccessPointsResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeAccessPointsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeAccessPointsResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -14561,6 +15513,111 @@ class ModifyAccessGroupResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ModifyAccessGroupResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ModifyAccessPointRequest(TeaModel):
+    def __init__(self, access_group=None, access_point_id=None, access_point_name=None, enabled_ram=None,
+                 file_system_id=None):
+        self.access_group = access_group  # type: str
+        self.access_point_id = access_point_id  # type: str
+        self.access_point_name = access_point_name  # type: str
+        self.enabled_ram = enabled_ram  # type: bool
+        self.file_system_id = file_system_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyAccessPointRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_group is not None:
+            result['AccessGroup'] = self.access_group
+        if self.access_point_id is not None:
+            result['AccessPointId'] = self.access_point_id
+        if self.access_point_name is not None:
+            result['AccessPointName'] = self.access_point_name
+        if self.enabled_ram is not None:
+            result['EnabledRam'] = self.enabled_ram
+        if self.file_system_id is not None:
+            result['FileSystemId'] = self.file_system_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccessGroup') is not None:
+            self.access_group = m.get('AccessGroup')
+        if m.get('AccessPointId') is not None:
+            self.access_point_id = m.get('AccessPointId')
+        if m.get('AccessPointName') is not None:
+            self.access_point_name = m.get('AccessPointName')
+        if m.get('EnabledRam') is not None:
+            self.enabled_ram = m.get('EnabledRam')
+        if m.get('FileSystemId') is not None:
+            self.file_system_id = m.get('FileSystemId')
+        return self
+
+
+class ModifyAccessPointResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyAccessPointResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ModifyAccessPointResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ModifyAccessPointResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyAccessPointResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ModifyAccessPointResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
