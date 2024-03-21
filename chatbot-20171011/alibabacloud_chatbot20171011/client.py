@@ -97,7 +97,7 @@ class Client(OpenApiClient):
         request = chatbot_20171011_models.AppendEntityMemberShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.member):
-            request.member_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.member), 'Member', 'json')
+            request.member_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.member, 'Member', 'json')
         query = {}
         if not UtilClient.is_unset(request.agent_key):
             query['AgentKey'] = request.agent_key
@@ -259,10 +259,6 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.agent_key):
             query['AgentKey'] = request.agent_key
-        if not UtilClient.is_unset(request.biz_code):
-            query['BizCode'] = request.biz_code
-        if not UtilClient.is_unset(request.knowledge_type):
-            query['KnowledgeType'] = request.knowledge_type
         if not UtilClient.is_unset(request.name):
             query['Name'] = request.name
         if not UtilClient.is_unset(request.parent_category_id):
@@ -401,7 +397,7 @@ class Client(OpenApiClient):
         request = chatbot_20171011_models.CreateIntentShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.intent_definition):
-            request.intent_definition_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.intent_definition), 'IntentDefinition', 'json')
+            request.intent_definition_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.intent_definition, 'IntentDefinition', 'json')
         query = {}
         if not UtilClient.is_unset(request.agent_key):
             query['AgentKey'] = request.agent_key
@@ -437,7 +433,7 @@ class Client(OpenApiClient):
         request = chatbot_20171011_models.CreateKnowledgeShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.knowledge):
-            request.knowledge_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.knowledge), 'Knowledge', 'json')
+            request.knowledge_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.knowledge, 'Knowledge', 'json')
         query = {}
         if not UtilClient.is_unset(request.agent_key):
             query['AgentKey'] = request.agent_key
@@ -1825,6 +1821,16 @@ class Client(OpenApiClient):
         return self.query_core_words_with_options(request, runtime)
 
     def query_dialogs_with_options(self, request, runtime):
+        """
+        ***\
+        
+
+        @param request: QueryDialogsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: QueryDialogsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.agent_key):
@@ -1857,6 +1863,14 @@ class Client(OpenApiClient):
         )
 
     def query_dialogs(self, request):
+        """
+        ***\
+        
+
+        @param request: QueryDialogsRequest
+
+        @return: QueryDialogsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.query_dialogs_with_options(request, runtime)
 
@@ -2035,7 +2049,7 @@ class Client(OpenApiClient):
         request = chatbot_20171011_models.RemoveEntityMemberShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.member):
-            request.member_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.member), 'Member', 'json')
+            request.member_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.member, 'Member', 'json')
         query = {}
         if not UtilClient.is_unset(request.agent_key):
             query['AgentKey'] = request.agent_key
@@ -2233,7 +2247,7 @@ class Client(OpenApiClient):
         request = chatbot_20171011_models.UpdateDialogFlowShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.module_definition):
-            request.module_definition_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.module_definition), 'ModuleDefinition', 'json')
+            request.module_definition_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.module_definition, 'ModuleDefinition', 'json')
         query = {}
         if not UtilClient.is_unset(request.agent_key):
             query['AgentKey'] = request.agent_key
@@ -2315,7 +2329,7 @@ class Client(OpenApiClient):
         request = chatbot_20171011_models.UpdateIntentShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.intent_definition):
-            request.intent_definition_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.intent_definition), 'IntentDefinition', 'json')
+            request.intent_definition_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.intent_definition, 'IntentDefinition', 'json')
         query = {}
         if not UtilClient.is_unset(request.agent_key):
             query['AgentKey'] = request.agent_key
@@ -2351,7 +2365,7 @@ class Client(OpenApiClient):
         request = chatbot_20171011_models.UpdateKnowledgeShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.knowledge):
-            request.knowledge_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.knowledge), 'Knowledge', 'json')
+            request.knowledge_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.knowledge, 'Knowledge', 'json')
         query = {}
         if not UtilClient.is_unset(request.agent_key):
             query['AgentKey'] = request.agent_key
