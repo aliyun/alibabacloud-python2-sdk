@@ -13053,9 +13053,8 @@ class StartRecordTaskResponse(TeaModel):
 
 
 class StartStreamingOutRequestPanes(TeaModel):
-    def __init__(self, pane_id=None, source=None, source_type=None):
+    def __init__(self, pane_id=None, source_type=None):
         self.pane_id = pane_id  # type: str
-        self.source = source  # type: str
         self.source_type = source_type  # type: str
 
     def validate(self):
@@ -13069,8 +13068,6 @@ class StartStreamingOutRequestPanes(TeaModel):
         result = dict()
         if self.pane_id is not None:
             result['PaneId'] = self.pane_id
-        if self.source is not None:
-            result['Source'] = self.source
         if self.source_type is not None:
             result['SourceType'] = self.source_type
         return result
@@ -13079,8 +13076,6 @@ class StartStreamingOutRequestPanes(TeaModel):
         m = m or dict()
         if m.get('PaneId') is not None:
             self.pane_id = m.get('PaneId')
-        if m.get('Source') is not None:
-            self.source = m.get('Source')
         if m.get('SourceType') is not None:
             self.source_type = m.get('SourceType')
         return self
