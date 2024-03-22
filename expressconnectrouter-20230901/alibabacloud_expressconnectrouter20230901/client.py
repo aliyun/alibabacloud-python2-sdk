@@ -339,8 +339,8 @@ class Client(OpenApiClient):
     def describe_express_connect_router_allowed_prefix_history_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
-        if not UtilClient.is_unset(request.associaton_id):
-            body['AssociatonId'] = request.associaton_id
+        if not UtilClient.is_unset(request.association_id):
+            body['AssociationId'] = request.association_id
         if not UtilClient.is_unset(request.client_token):
             body['ClientToken'] = request.client_token
         if not UtilClient.is_unset(request.dry_run):
