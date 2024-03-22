@@ -971,11 +971,12 @@ class CreateChangeSetResponse(TeaModel):
 
 
 class CreateDiagnosticRequest(TeaModel):
-    def __init__(self, diagnostic_key=None, diagnostic_type=None, product=None):
+    def __init__(self, diagnostic_key=None, diagnostic_type=None, lang=None, product=None):
         # The keyword in the diagnosis.
         self.diagnostic_key = diagnostic_key  # type: str
         # The type of the item that is diagnosed. Set the value to Stack, which specifies that the stack is diagnosed.
         self.diagnostic_type = diagnostic_type  # type: str
+        self.lang = lang  # type: str
         # The name of the product that is diagonosed.
         self.product = product  # type: str
 
@@ -992,6 +993,8 @@ class CreateDiagnosticRequest(TeaModel):
             result['DiagnosticKey'] = self.diagnostic_key
         if self.diagnostic_type is not None:
             result['DiagnosticType'] = self.diagnostic_type
+        if self.lang is not None:
+            result['Lang'] = self.lang
         if self.product is not None:
             result['Product'] = self.product
         return result
@@ -1002,6 +1005,8 @@ class CreateDiagnosticRequest(TeaModel):
             self.diagnostic_key = m.get('DiagnosticKey')
         if m.get('DiagnosticType') is not None:
             self.diagnostic_type = m.get('DiagnosticType')
+        if m.get('Lang') is not None:
+            self.lang = m.get('Lang')
         if m.get('Product') is not None:
             self.product = m.get('Product')
         return self
@@ -7557,38 +7562,38 @@ class GetServiceProvisionsResponse(TeaModel):
 class GetStackRequest(TeaModel):
     def __init__(self, client_token=None, log_option=None, output_option=None, region_id=None,
                  show_resource_progress=None, stack_id=None):
-        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must ensure that it is unique among different requests.
-        # 
-        # The token can be up to 64 characters in length,
-        # 
+        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests.\
+        # The token can be up to 64 characters in length.\
         # For more information, see [Ensure idempotence](~~134212~~).
         self.client_token = client_token  # type: str
         # The option for returning logs. Valid values:
         # 
         # *   None: does not return logs.
-        # *   Stack: returns the logs of the stack. This is the default value.
+        # *   Stack (default): returns the logs of the stack.
         # *   Resource: returns the logs of resources in the stack.
-        # *   All: returns the logs of all resources.
+        # *   All: returns all logs.
         self.log_option = log_option  # type: str
-        # Specifies whether to return the output parameters of the stack. Valid values:
+        # Specifies whether to return Outputs. Valid values:
         # 
-        # *   Enabled: returns the output parameters. This is the default value.
+        # *   Enabled (default)
+        # *   Disabled
         # 
-        # *   Disabled: does not return the output parameters.
-        # 
-        # > The system takes a long period of time to calculate output parameters. If you do not want to query the output parameters, we recommend that you set the OutputOption parameter to Disabled to improve the response speed of the GetStack operation.
+        # >  The Outputs parameter requires a long period of time to calculate. If you do not require Outputs of the stack, we recommend that you set OutputOption to Disabled to improve the response speed of the GetStack operation.
         self.output_option = output_option  # type: str
-        # The ID of the region in which the stack resides. You can call the [DescribeRegions](~~131035~~) operation to query the most recent list of Alibaba Cloud regions.
+        # The region ID of the stack. You can call the [DescribeRegions](~~131035~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
-        # Specifies whether to return the ResourceProgress parameter. Valid values:
+        # Specifies whether to return information about ResourceProgress. Valid values:
         # 
-        # *   Disabled: does not return the ResourceProgress parameter. This is the default value.
+        # *   Disabled (default): does not return information about ResourceProgress.
+        # *   PercentageOnly: returns StackOperationProgress and StackActionProgress of ResourceProgress.
         # 
-        # *   EnabledIfCreateStack: returns the ResourceProgress parameter only if a stack is created.
+        # >  ROS and Terraform stacks are supported. Creation, resumed creation, update, deletion, import, and rollback operations on stacks are supported.
         # 
-        # > A stack is in one of the following states when it is created: CREATE_IN_PROGRESS, CREATE_COMPLETE, CREATE_FAILED, CREATE_ROLLBACK_IN_PROGRESS, CREATE_ROLLBACK_COMPLETE, or CREATE_ROLLBACK_FAILED.
+        # *   EnabledIfCreateStack (not recommend): returns \*Count and InProgressResourceDetails of ResourceProgress only during a stack creation operation.
+        # 
+        # >  During a creation operation, a stack is in one of the following states: CREATE_IN_PROGRESS, CREATE_COMPLETE, CREATE_FAILED, CREATE_ROLLBACK_IN_PROGRESS, CREATE_ROLLBACK_COMPLETE, and CREATE_ROLLBACK_FAILED.
         self.show_resource_progress = show_resource_progress  # type: str
-        # The ID of the stack.
+        # The stack ID.
         self.stack_id = stack_id  # type: str
 
     def validate(self):
@@ -7664,7 +7669,7 @@ class GetStackResponseBodyLogResourceLogsLogs(TeaModel):
 
 class GetStackResponseBodyLogResourceLogs(TeaModel):
     def __init__(self, logs=None, resource_name=None):
-        # The logs of all resources.
+        # All the logs that are associated with the resources.
         self.logs = logs  # type: list[GetStackResponseBodyLogResourceLogsLogs]
         # The name of the resource that is defined in the template.
         self.resource_name = resource_name  # type: str
@@ -7750,15 +7755,13 @@ class GetStackResponseBodyLogTerraformLogs(TeaModel):
 
 class GetStackResponseBodyLog(TeaModel):
     def __init__(self, resource_logs=None, terraform_logs=None):
-        # The logs of resources in the stack. This parameter is returned if the LogOption parameter is set to Resource or All.  
+        # The logs of resources in the stack. This parameter is returned if LogOption is set to Resource or All.
         # 
-        # >  The logs are returned for resources of specific types, such as `ALIYUN::ROS::ResourceCleaner`.
+        # >  The logs are returned only for resources of specific types, such as the `ALIYUN::ROS::ResourceCleaner` type.
         self.resource_logs = resource_logs  # type: list[GetStackResponseBodyLogResourceLogs]
-        # The logs of the Terraform stack. This parameter is returned only for a Terraform stack. 
+        # The logs generated when the Terraform stack is run. This parameter is returned only for a Terraform stack. This parameter is returned if LogOption is left empty or set to Stack or All.
         # 
-        # This parameter is returned if the LogOption parameter is left empty or set to Stack or All.  
-        # 
-        # >  This parameter is not returned for a running stack. The logs are generated from the last creation, re-creation, update, or deletion operation on the stack.
+        # >  This parameter is not returned for a running stack. The logs are generated from the most recent operation on the stack, such as the creation, resumed creation, update, or deletion operation.
         self.terraform_logs = terraform_logs  # type: list[GetStackResponseBodyLogTerraformLogs]
 
     def validate(self):
@@ -7805,17 +7808,17 @@ class GetStackResponseBodyLog(TeaModel):
 class GetStackResponseBodyOperationInfo(TeaModel):
     def __init__(self, action=None, code=None, logical_resource_id=None, message=None, request_id=None,
                  resource_type=None):
-        # The name of the API of another cloud service.
+        # The name of the API operation that belongs to another Alibaba Cloud service.
         self.action = action  # type: str
-        # The error code returned.
+        # The error code.
         self.code = code  # type: str
-        # The logical ID of the resource on which the operation error occurred.
+        # The logical ID of the resource on which the operation error occurs.
         self.logical_resource_id = logical_resource_id  # type: str
-        # The error message returned.
+        # The error message.
         self.message = message  # type: str
-        # The ID of the request to call the API of another cloud service.
+        # The ID of the request that is initiated to call the API operation of another Alibaba Cloud service.
         self.request_id = request_id  # type: str
-        # The type of the resource on which the operation error occurred.
+        # The type of the resource on which the operation error occurs.
         self.resource_type = resource_type  # type: str
 
     def validate(self):
@@ -7860,9 +7863,9 @@ class GetStackResponseBodyOperationInfo(TeaModel):
 
 class GetStackResponseBodyParameters(TeaModel):
     def __init__(self, parameter_key=None, parameter_value=None):
-        # The name of the parameter.
+        # The parameter name.
         self.parameter_key = parameter_key  # type: str
-        # The value of the parameter.
+        # The parameter value.
         self.parameter_value = parameter_value  # type: str
 
     def validate(self):
@@ -7936,19 +7939,41 @@ class GetStackResponseBodyResourceProgress(TeaModel):
     def __init__(self, failed_resource_count=None, in_progress_resource_count=None,
                  in_progress_resource_details=None, pending_resource_count=None, stack_action_progress=None, stack_operation_progress=None,
                  success_resource_count=None, total_resource_count=None):
-        # The number of resources that fail to be created.
+        # The number of resources that failed to be created.
+        # 
+        # >  This parameter is returned only if `ShowResourceProgress` is set to `EnabledIfCreateStack`.
         self.failed_resource_count = failed_resource_count  # type: int
         # The number of resources that are being created.
+        # 
+        # >  This parameter is returned only if `ShowResourceProgress` is set to `EnabledIfCreateStack`.
         self.in_progress_resource_count = in_progress_resource_count  # type: int
         # The progress details of resources that are being created.
+        # 
+        # >  This parameter is returned only if `ShowResourceProgress` is set to `EnabledIfCreateStack`.
         self.in_progress_resource_details = in_progress_resource_details  # type: list[GetStackResponseBodyResourceProgressInProgressResourceDetails]
         # The number of resources to be created.
+        # 
+        # >  This parameter is returned only if `ShowResourceProgress` is set to `EnabledIfCreateStack`.
         self.pending_resource_count = pending_resource_count  # type: int
+        # The creation or rollback progress of the stack, in percentage. Valid values: 0 to 100.
+        # 
+        # The value progressively increases from 0 to 100 during a stack creation operation. If the stack is created, the value reaches 100. If the stack fails to be created, a rollback is started for the stack resources, and the value progressively increases from the percentage of the remaining progress (100 - Progress value generated when the stack fails to be created). The value increases to 100 when the stack resources are rolled back. This parameter indicates the creation progress during a stack creation operation and indicates the rollback progress during a stack rollback operation.
+        # 
+        # >  This parameter is returned only if `ShowResourceProgress` is set to `PercentageOnly`.
         self.stack_action_progress = stack_action_progress  # type: float
+        # The overall creation progress of the stack, in percentage. Valid values: 0 to 100.
+        # 
+        # The value progressively increases from 0 to 100 during a stack creation operation. If the stack is created, the value reaches 100. If the stack fails to be created, a rollback is started for the stack resources, and the value progressively decreases. The value decreases to 0 when the stack resources are rolled back. This parameter indicates only the overall creation progress, regardless of whether during a stack creation or rollback operation.
+        # 
+        # >  This parameter is returned only if `ShowResourceProgress` is set to `PercentageOnly`.
         self.stack_operation_progress = stack_operation_progress  # type: float
         # The number of resources that are created.
+        # 
+        # >  This parameter is returned only if `ShowResourceProgress` is set to `EnabledIfCreateStack`.
         self.success_resource_count = success_resource_count  # type: int
         # The total number of resources.
+        # 
+        # >  This parameter is returned only if `ShowResourceProgress` is set to `EnabledIfCreateStack`.
         self.total_resource_count = total_resource_count  # type: int
 
     def validate(self):
@@ -8047,127 +8072,122 @@ class GetStackResponseBody(TeaModel):
                  service_name=None, stack_drift_status=None, stack_id=None, stack_name=None, stack_type=None, status=None,
                  status_reason=None, tags=None, template_description=None, template_id=None, template_scratch_id=None,
                  template_url=None, template_version=None, timeout_in_minutes=None, update_time=None):
-        # The number of resources on which drift detection is performed.
+        # The number of resources on which drift detection was performed.
         # 
-        # >  This parameter is returned only if the drift detection on the stack is successful.
+        # >  This parameter is returned only if the most recent drift detection on the stack was successful.
         self.checked_stack_resource_count = checked_stack_resource_count  # type: int
         # The time when the stack was created. The time follows the ISO 8601 standard in the YYYY-MM-DDThh:mm:ss format. The time is displayed in UTC.
         self.create_time = create_time  # type: str
         # Indicates whether deletion protection is enabled for the stack. Valid values:
         # 
         # *   Enabled: Deletion protection is enabled for the stack.
-        # *   Disabled: Deletion protection is disabled for the stack. You can delete the stack in the Resource Orchestration Service (ROS) console or by calling the DeleteStack operation.
+        # *   Disabled: Deletion protection is disabled for the stack. You can delete the stack by using the ROS console or by calling the DeleteStack operation.
         # 
-        # >  Deletion protection of a nested stack works in the same way as that of the root stack.
+        # >  Deletion protection of a nested stack is the same as deletion protection of its root stack.
         self.deletion_protection = deletion_protection  # type: str
         # The description of the stack.
         self.description = description  # type: str
         # Indicates whether rollback is disabled when the stack fails to be created. Valid values:
         # 
-        # *   true: Rollback is disabled when the stack fails to be created.
-        # *   false: Rollback is enabled when the stack fails to be created. This is the default value.
+        # *   true
+        # *   false (default)
         self.disable_rollback = disable_rollback  # type: bool
-        # The time when the last successful drift detection operation was performed.
+        # The time when the most recent successful drift detection was performed on the stack.
         self.drift_detection_time = drift_detection_time  # type: str
-        # The description of the web UI in the ROS console.
+        # The description of the console user interface (UI).
         self.interface = interface  # type: str
-        # The logs of the stack.
+        # The log of the stack.
         self.log = log  # type: GetStackResponseBodyLog
-        # The number of resources on which drift detection is not performed.
+        # The number of resources on which drift detection was not performed.
         # 
-        # >  This parameter is returned only if the drift detection on the stack is successful.
+        # >  This parameter is returned only if the most recent drift detection on the stack was successful.
         self.not_checked_stack_resource_count = not_checked_stack_resource_count  # type: int
-        # The callback URLs that are used to receive stack events.
+        # The callback URLs for receiving stack events.
         self.notification_urls = notification_urls  # type: list[str]
-        # The additional information that is displayed when an error occurs on a stack operation. 
+        # The supplementary information that is returned if an error occurs on a stack operation.
         # 
-        # >  This property is returned in specific conditions. At least one sub-property is returned. For example, an error is reported when you call the API of another cloud service.
+        # >  This parameter is returned together with at least one sub-parameter and only under specific conditions. For example, the supplementary information is returned when an API operation of another Alibaba Cloud service fails to be called.
         self.operation_info = operation_info  # type: GetStackResponseBodyOperationInfo
-        # The ID of the order. This parameter is returned only if you set the ChargeType parameter to PrePaid.
+        # The order IDs. This parameter is returned only if you configured manual payment when you created a subscription stack.
         self.order_ids = order_ids  # type: list[str]
-        # The output parameters of the stack.
-        # 
-        # >  This parameter is returned if the OutputOption parameter is set to Enabled.
+        # The outputs of the stack.
         self.outputs = outputs  # type: list[dict[str, any]]
         # The parameters of the stack.
         self.parameters = parameters  # type: list[GetStackResponseBodyParameters]
         # The ID of the parent stack.
         self.parent_stack_id = parent_stack_id  # type: str
-        # The name of the RAM role. ROS assumes the RAM role to create the stack and uses credentials of the role to call the APIs of Alibaba Cloud services.
-        # 
-        # ROS assumes the RAM role to perform operations on the stack. If you have permissions to perform operations on the stack but do not have permissions to use the RAM role, ROS still assumes the RAM role. You must make sure that the least privileges are granted to the role.
-        # 
-        # If you do not specify this parameter, ROS assumes an existing role that is associated with the stack. If no roles are available for ROS to assume, ROS uses a temporary credential that is generated from the credentials of your account.
-        # 
-        # The name of the RAM role can be up to 64 bytes in length.
+        # The name of the Resource Access Management (RAM) role. ROS assumes the RAM role to create the stack and uses the credentials of the role to call the APIs of Alibaba Cloud services.\
+        # ROS assumes the RAM role to perform operations on the stack. If you have permissions to perform operations on the stack, ROS assumes the RAM role even if you do not have permissions to use the RAM role. You must make sure that permissions are granted to the RAM role based on the principle of least privilege.\
+        # If this parameter is not specified, ROS uses the existing role that is associated with the stack. If no roles are available, ROS uses a temporary credential that is generated from the credentials of your account.\
+        # The RAM role name can be up to 64 characters in length.
         self.ram_role_name = ram_role_name  # type: str
-        # The ID of the region in which the stack is deployed. You can call the [DescribeRegions](~~131035~~) operation to query the most recent list of Alibaba Cloud regions.
+        # The region ID of the stack. You can call the [DescribeRegions](~~131035~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # The ID of the resource group to which the instances belong.
+        # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
-        # The creation progress of resources.
+        # The resource creation progress.
         self.resource_progress = resource_progress  # type: GetStackResponseBodyResourceProgress
+        # 当资源栈状态为回滚失败时，该字段展示导致回滚的前一阶段执行失败的原因。
         self.rollback_failed_root_reason = rollback_failed_root_reason  # type: str
         # The ID of the root stack. This parameter is returned if the specified stack is a nested stack.
         self.root_stack_id = root_stack_id  # type: str
-        # Indicates whether the stack is a managed stack. Valid values: 
+        # Indicates whether the stack is a managed stack. Valid values:
         # 
-        # - true
-        # - false
+        # *   true
+        # *   false
         self.service_managed = service_managed  # type: bool
         # The name of the service to which the managed stack belongs.
         self.service_name = service_name  # type: str
-        # The status of the stack in the last successful drift detection. Valid values:
+        # The state of the stack on which the most recent successful drift detection was performed. Valid values:
         # 
         # *   DRIFTED: The stack has drifted.
         # *   NOT_CHECKED: No successful drift detection is performed on the stack.
         # *   IN_SYNC: The stack is being synchronized.
         self.stack_drift_status = stack_drift_status  # type: str
-        # The ID of the stack.
+        # The stack ID.
         self.stack_id = stack_id  # type: str
-        # The name of the stack.
-        # 
-        # The name can be up to 255 characters in length, and can contain digits, letters, hyphens (-), and underscores (\_). It must start with a digit or letter.
+        # The stack name.\
+        # The name can be up to 255 characters in length, and can contain digits, letters, hyphens (-), and underscores (\_). The name must start with a digit or letter.
         self.stack_name = stack_name  # type: str
-        # The type of the stack. Valid values:
+        # The stack type. Valid values:
         # 
-        # *   ROS: The ROS stack, which is created by using an ROS template.
-        # *   Terraform: The Terraform stack, which is created by using a Terraform template.
+        # *   ROS: ROS stack. The stack is created by using a ROS template.
+        # *   Terraform: Terraform stack. The stack is created by using a Terraform template.
         self.stack_type = stack_type  # type: str
         # The state of the stack. Valid values:
         # 
         # *   CREATE_IN_PROGRESS: The stack is being created.
-        # *   CREATE_FAILED: The stack fails to be created.
+        # *   CREATE_FAILED: The stack failed to be created.
         # *   CREATE_COMPLETE: The stack is created.
         # *   UPDATE_IN_PROGRESS: The stack is being updated.
-        # *   UPDATE_FAILED: The stack fails to be updated.
+        # *   UPDATE_FAILED: The stack failed to be updated.
         # *   UPDATE_COMPLETE: The stack is updated.
         # *   DELETE_IN_PROGRESS: The stack is being deleted.
-        # *   DELETE_FAILED: The stack fails to be deleted.
-        # *   CREATE_ROLLBACK_IN_PROGRESS: The stack is being rolled back after the stack fails to be created.
-        # *   CREATE_ROLLBACK_FAILED: The stack fails to be rolled back after the stack fails to be created.
-        # *   CREATE_ROLLBACK_COMPLETE: The stack is rolled back after the stack fails to be created.
-        # *   ROLLBACK_IN_PROGRESS: The resources in the stack are being rolled back.
-        # *   ROLLBACK_FAILED: The resources in the stack fail to be rolled back.
-        # *   ROLLBACK_COMPLETE: The resources in the stack are rolled back.
+        # *   DELETE_FAILED: The stack failed to be deleted.
+        # *   CREATE_ROLLBACK_IN_PROGRESS: The resources are being rolled back after the stack failed to be created.
+        # *   CREATE_ROLLBACK_FAILED: The resources failed to be rolled back after the stack failed to be created.
+        # *   CREATE_ROLLBACK_COMPLETE: The resources are rolled back after the stack failed to be created.
+        # *   ROLLBACK_IN_PROGRESS: The resources of the stack are being rolled back.
+        # *   ROLLBACK_FAILED: The resources of the stack failed to be rolled back.
+        # *   ROLLBACK_COMPLETE: The resources of the stack are rolled back.
         # *   CHECK_IN_PROGRESS: The stack is being validated.
-        # *   CHECK_FAILED: The stack fails to be validated.
+        # *   CHECK_FAILED: The stack failed to be validated.
         # *   CHECK_COMPLETE: The stack is validated.
         # *   REVIEW_IN_PROGRESS: The stack is being reviewed.
         # *   IMPORT_CREATE_IN_PROGRESS: The stack is being created by using imported resources.
-        # *   IMPORT_CREATE_FAILED: The stack fails to be created by using imported resources.
+        # *   IMPORT_CREATE_FAILED: The stack failed to be created by using imported resources.
         # *   IMPORT_CREATE_COMPLETE: The stack is created by using imported resources.
-        # *   IMPORT_CREATE_ROLLBACK_IN_PROGRESS: The resources are being rolled back after the stack fails to be created by using imported resources.
-        # *   IMPORT_CREATE_ROLLBACK_FAILED: The resources fail to be rolled back after the stack fails to be created by using imported resources.
-        # *   IMPORT_CREATE_ROLLBACK_COMPLETE: The resources are rolled back after the stack fails to be created by using imported resources.
+        # *   IMPORT_CREATE_ROLLBACK_IN_PROGRESS: The resources are being rolled back after the stack failed to be created by using imported resources.
+        # *   IMPORT_CREATE_ROLLBACK_FAILED: The resources failed to be rolled back after the stack failed to be created by using imported resources.
+        # *   IMPORT_CREATE_ROLLBACK_COMPLETE: The resources are rolled back after the stack failed to be created by using imported resources.
         # *   IMPORT_UPDATE_IN_PROGRESS: The stack is being updated by using imported resources.
-        # *   IMPORT_UPDATE_FAILED: The stack fails to be updated by using imported resources.
+        # *   IMPORT_UPDATE_FAILED: The stack failed to be updated by using imported resources.
         # *   IMPORT_UPDATE_COMPLETE: The stack is updated by using imported resources.
-        # *   IMPORT_UPDATE_ROLLBACK_IN_PROGRESS: The resources are being rolled back after the stack fails to be updated by using imported resources.
-        # *   IMPORT_UPDATE_ROLLBACK_FAILED: The resources fail to be rolled back after the stack fails to be updated by using imported resources.
-        # *   IMPORT_UPDATE_ROLLBACK_COMPLETE: The resources are rolled back after the stack fails to be updated by using imported resources.
+        # *   IMPORT_UPDATE_ROLLBACK_IN_PROGRESS: The resources are being rolled back after the stack failed to be updated by using imported resources.
+        # *   IMPORT_UPDATE_ROLLBACK_FAILED: The resources failed to be rolled back after the stack failed to be updated by using imported resources.
+        # *   IMPORT_UPDATE_ROLLBACK_COMPLETE: The resources are rolled back after the stack failed to be updated by using imported resources.
         self.status = status  # type: str
         # The reason why the stack is in its current state.
         self.status_reason = status_reason  # type: str
@@ -8175,21 +8195,21 @@ class GetStackResponseBody(TeaModel):
         self.tags = tags  # type: list[GetStackResponseBodyTags]
         # The description of the template.
         self.template_description = template_description  # type: str
-        # The ID of the template. This parameter is returned only if the current template of the stack is a custom template or a shared template.  
+        # The template ID. This parameter is returned only if the current stack template is a custom template or shared template.
         # 
-        # If the template is a shared template, the value of this parameter is the same as the value of the TemplateARN parameter.
+        # If the template is a shared template, the value of this parameter is the same as the value of TemplateARN.
         self.template_id = template_id  # type: str
-        # The ID of the scenario. This parameter is returned only if the current template of the stack is generated from a scenario.
+        # The ID of the resource scenario. This parameter is returned only if the current template of the stack is generated from a resource scenario.
         self.template_scratch_id = template_scratch_id  # type: str
-        # The URL of the file that contains the template body. This parameter is returned only if the current template of the stack is from a URL. The URL can point to a template that is located on an HTTP or HTTPS web server or in an Alibaba Cloud Object Storage Service (OSS) bucket.
+        # The URL of the file that contains the template body. This parameter is returned only if the current template of the stack is from a URL. The URL can point to a template that is located on an HTTP or HTTPS web server or in an Object Storage Service (OSS) bucket.
         self.template_url = template_url  # type: str
-        # The version of the template. This parameter is returned only if the current template of the stack is a custom template or a shared template.  
+        # The version of the template. This parameter is returned only if the current stack template is a custom template or shared template.
         # 
-        # If the template is a shared template, this parameter is returned only when the VersionOption parameter is set to AllVersions.  
+        # If the template is a shared template, this parameter is returned only if VersionOption is set to AllVersions.
         # 
         # Valid values: v1 to v100.
         self.template_version = template_version  # type: str
-        # The timeout period within which the stack can be created. Unit: minutes.
+        # The timeout period for creating the stack. Unit: minutes.
         self.timeout_in_minutes = timeout_in_minutes  # type: int
         # The time when the stack was updated. The time follows the ISO 8601 standard in the YYYY-MM-DDThh:mm:ss format. The time is displayed in UTC.
         self.update_time = update_time  # type: str
