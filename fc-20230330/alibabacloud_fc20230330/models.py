@@ -5664,6 +5664,169 @@ class ListProvisionConfigsResponse(TeaModel):
         return self
 
 
+class ListTagResourcesRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        # 标签名
+        self.key = key  # type: str
+        # 标签值
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListTagResourcesRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class ListTagResourcesRequest(TeaModel):
+    def __init__(self, limit=None, next_token=None, resource_id=None, resource_type=None, tag=None):
+        self.limit = limit  # type: int
+        self.next_token = next_token  # type: str
+        self.resource_id = resource_id  # type: list[str]
+        self.resource_type = resource_type  # type: str
+        self.tag = tag  # type: list[ListTagResourcesRequestTag]
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListTagResourcesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.limit is not None:
+            result['Limit'] = self.limit
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.resource_id is not None:
+            result['ResourceId'] = self.resource_id
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Limit') is not None:
+            self.limit = m.get('Limit')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('ResourceId') is not None:
+            self.resource_id = m.get('ResourceId')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = ListTagResourcesRequestTag()
+                self.tag.append(temp_model.from_map(k))
+        return self
+
+
+class ListTagResourcesShrinkRequest(TeaModel):
+    def __init__(self, limit=None, next_token=None, resource_id_shrink=None, resource_type=None, tag_shrink=None):
+        self.limit = limit  # type: int
+        self.next_token = next_token  # type: str
+        self.resource_id_shrink = resource_id_shrink  # type: str
+        self.resource_type = resource_type  # type: str
+        self.tag_shrink = tag_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListTagResourcesShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.limit is not None:
+            result['Limit'] = self.limit
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.resource_id_shrink is not None:
+            result['ResourceId'] = self.resource_id_shrink
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        if self.tag_shrink is not None:
+            result['Tag'] = self.tag_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Limit') is not None:
+            self.limit = m.get('Limit')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('ResourceId') is not None:
+            self.resource_id_shrink = m.get('ResourceId')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        if m.get('Tag') is not None:
+            self.tag_shrink = m.get('Tag')
+        return self
+
+
+class ListTagResourcesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListTagResourcesOutput
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListTagResourcesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListTagResourcesOutput()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListTaggedResourcesRequest(TeaModel):
     def __init__(self, limit=None, next_token=None, resource_type=None):
         # The number of resources to return.
@@ -6212,6 +6375,61 @@ class TagResourceResponse(TeaModel):
         return self
 
 
+class TagResourcesRequest(TeaModel):
+    def __init__(self, body=None):
+        self.body = body  # type: TagResourcesInput
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(TagResourcesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('body') is not None:
+            temp_model = TagResourcesInput()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class TagResourcesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TagResourcesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        return self
+
+
 class UntagResourceRequest(TeaModel):
     def __init__(self, all=None, arn=None, tag_keys=None):
         # Specifies whether to delete all tags.
@@ -6259,6 +6477,113 @@ class UntagResourceResponse(TeaModel):
 
     def to_map(self):
         _map = super(UntagResourceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        return self
+
+
+class UntagResourcesRequest(TeaModel):
+    def __init__(self, all=None, resource_id=None, resource_type=None, tag_key=None):
+        self.all = all  # type: bool
+        self.resource_id = resource_id  # type: list[str]
+        self.resource_type = resource_type  # type: str
+        self.tag_key = tag_key  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UntagResourcesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.all is not None:
+            result['All'] = self.all
+        if self.resource_id is not None:
+            result['ResourceId'] = self.resource_id
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        if self.tag_key is not None:
+            result['TagKey'] = self.tag_key
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('All') is not None:
+            self.all = m.get('All')
+        if m.get('ResourceId') is not None:
+            self.resource_id = m.get('ResourceId')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        if m.get('TagKey') is not None:
+            self.tag_key = m.get('TagKey')
+        return self
+
+
+class UntagResourcesShrinkRequest(TeaModel):
+    def __init__(self, all=None, resource_id_shrink=None, resource_type=None, tag_key_shrink=None):
+        self.all = all  # type: bool
+        self.resource_id_shrink = resource_id_shrink  # type: str
+        self.resource_type = resource_type  # type: str
+        self.tag_key_shrink = tag_key_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UntagResourcesShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.all is not None:
+            result['All'] = self.all
+        if self.resource_id_shrink is not None:
+            result['ResourceId'] = self.resource_id_shrink
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        if self.tag_key_shrink is not None:
+            result['TagKey'] = self.tag_key_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('All') is not None:
+            self.all = m.get('All')
+        if m.get('ResourceId') is not None:
+            self.resource_id_shrink = m.get('ResourceId')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        if m.get('TagKey') is not None:
+            self.tag_key_shrink = m.get('TagKey')
+        return self
+
+
+class UntagResourcesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UntagResourcesResponse, self).to_map()
         if _map is not None:
             return _map
 
