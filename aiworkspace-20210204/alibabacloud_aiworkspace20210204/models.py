@@ -287,6 +287,120 @@ class DatasetLabel(TeaModel):
         return self
 
 
+class Experiment(TeaModel):
+    def __init__(self, artifact_uri=None, experiment_id=None, gmt_create_time=None, gmt_modified_time=None,
+                 labels=None, name=None, owner_id=None, tensorboard_log_uri=None, user_id=None, workspace_id=None):
+        self.artifact_uri = artifact_uri  # type: str
+        self.experiment_id = experiment_id  # type: str
+        self.gmt_create_time = gmt_create_time  # type: str
+        self.gmt_modified_time = gmt_modified_time  # type: str
+        self.labels = labels  # type: list[dict[str, any]]
+        self.name = name  # type: str
+        self.owner_id = owner_id  # type: str
+        self.tensorboard_log_uri = tensorboard_log_uri  # type: str
+        self.user_id = user_id  # type: str
+        self.workspace_id = workspace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(Experiment, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.artifact_uri is not None:
+            result['ArtifactUri'] = self.artifact_uri
+        if self.experiment_id is not None:
+            result['ExperimentId'] = self.experiment_id
+        if self.gmt_create_time is not None:
+            result['GmtCreateTime'] = self.gmt_create_time
+        if self.gmt_modified_time is not None:
+            result['GmtModifiedTime'] = self.gmt_modified_time
+        if self.labels is not None:
+            result['Labels'] = self.labels
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.tensorboard_log_uri is not None:
+            result['TensorboardLogUri'] = self.tensorboard_log_uri
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        if self.workspace_id is not None:
+            result['WorkspaceId'] = self.workspace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ArtifactUri') is not None:
+            self.artifact_uri = m.get('ArtifactUri')
+        if m.get('ExperimentId') is not None:
+            self.experiment_id = m.get('ExperimentId')
+        if m.get('GmtCreateTime') is not None:
+            self.gmt_create_time = m.get('GmtCreateTime')
+        if m.get('GmtModifiedTime') is not None:
+            self.gmt_modified_time = m.get('GmtModifiedTime')
+        if m.get('Labels') is not None:
+            self.labels = m.get('Labels')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('TensorboardLogUri') is not None:
+            self.tensorboard_log_uri = m.get('TensorboardLogUri')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        if m.get('WorkspaceId') is not None:
+            self.workspace_id = m.get('WorkspaceId')
+        return self
+
+
+class ExperimentLabel(TeaModel):
+    def __init__(self, experiment_id=None, gmt_create_time=None, gmt_modified_time=None, key=None, value=None):
+        self.experiment_id = experiment_id  # type: str
+        self.gmt_create_time = gmt_create_time  # type: str
+        self.gmt_modified_time = gmt_modified_time  # type: str
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ExperimentLabel, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.experiment_id is not None:
+            result['ExperimentId'] = self.experiment_id
+        if self.gmt_create_time is not None:
+            result['GmtCreateTime'] = self.gmt_create_time
+        if self.gmt_modified_time is not None:
+            result['GmtModifiedTime'] = self.gmt_modified_time
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ExperimentId') is not None:
+            self.experiment_id = m.get('ExperimentId')
+        if m.get('GmtCreateTime') is not None:
+            self.gmt_create_time = m.get('GmtCreateTime')
+        if m.get('GmtModifiedTime') is not None:
+            self.gmt_modified_time = m.get('GmtModifiedTime')
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class Label(TeaModel):
     def __init__(self, key=None, value=None):
         self.key = key  # type: str
@@ -297,6 +411,35 @@ class Label(TeaModel):
 
     def to_map(self):
         _map = super(Label, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class LabelInfo(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(LabelInfo, self).to_map()
         if _map is not None:
             return _map
 
@@ -658,6 +801,131 @@ class ServiceTemplate(TeaModel):
         return self
 
 
+class Trial(TeaModel):
+    def __init__(self, accessibility=None, experiment_id=None, gmt_create_time=None, gmt_modified_time=None,
+                 labels=None, name=None, owner_id=None, source_id=None, source_type=None, trial_id=None, user_id=None,
+                 workspace_id=None):
+        self.accessibility = accessibility  # type: str
+        self.experiment_id = experiment_id  # type: str
+        self.gmt_create_time = gmt_create_time  # type: str
+        self.gmt_modified_time = gmt_modified_time  # type: str
+        self.labels = labels  # type: list[dict[str, any]]
+        self.name = name  # type: str
+        self.owner_id = owner_id  # type: str
+        self.source_id = source_id  # type: str
+        self.source_type = source_type  # type: str
+        self.trial_id = trial_id  # type: str
+        self.user_id = user_id  # type: str
+        self.workspace_id = workspace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(Trial, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accessibility is not None:
+            result['Accessibility'] = self.accessibility
+        if self.experiment_id is not None:
+            result['ExperimentId'] = self.experiment_id
+        if self.gmt_create_time is not None:
+            result['GmtCreateTime'] = self.gmt_create_time
+        if self.gmt_modified_time is not None:
+            result['GmtModifiedTime'] = self.gmt_modified_time
+        if self.labels is not None:
+            result['Labels'] = self.labels
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.source_id is not None:
+            result['SourceId'] = self.source_id
+        if self.source_type is not None:
+            result['SourceType'] = self.source_type
+        if self.trial_id is not None:
+            result['TrialId'] = self.trial_id
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        if self.workspace_id is not None:
+            result['WorkspaceId'] = self.workspace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Accessibility') is not None:
+            self.accessibility = m.get('Accessibility')
+        if m.get('ExperimentId') is not None:
+            self.experiment_id = m.get('ExperimentId')
+        if m.get('GmtCreateTime') is not None:
+            self.gmt_create_time = m.get('GmtCreateTime')
+        if m.get('GmtModifiedTime') is not None:
+            self.gmt_modified_time = m.get('GmtModifiedTime')
+        if m.get('Labels') is not None:
+            self.labels = m.get('Labels')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('SourceId') is not None:
+            self.source_id = m.get('SourceId')
+        if m.get('SourceType') is not None:
+            self.source_type = m.get('SourceType')
+        if m.get('TrialId') is not None:
+            self.trial_id = m.get('TrialId')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        if m.get('WorkspaceId') is not None:
+            self.workspace_id = m.get('WorkspaceId')
+        return self
+
+
+class TrialLabel(TeaModel):
+    def __init__(self, gmt_create_time=None, gmt_modified_time=None, key=None, trial_id=None, value=None):
+        self.gmt_create_time = gmt_create_time  # type: str
+        self.gmt_modified_time = gmt_modified_time  # type: str
+        self.key = key  # type: str
+        self.trial_id = trial_id  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TrialLabel, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.gmt_create_time is not None:
+            result['GmtCreateTime'] = self.gmt_create_time
+        if self.gmt_modified_time is not None:
+            result['GmtModifiedTime'] = self.gmt_modified_time
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.trial_id is not None:
+            result['TrialId'] = self.trial_id
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('GmtCreateTime') is not None:
+            self.gmt_create_time = m.get('GmtCreateTime')
+        if m.get('GmtModifiedTime') is not None:
+            self.gmt_modified_time = m.get('GmtModifiedTime')
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('TrialId') is not None:
+            self.trial_id = m.get('TrialId')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class AddImageRequestLabels(TeaModel):
     def __init__(self, key=None, value=None):
         self.key = key  # type: str
@@ -791,9 +1059,6 @@ class AddImageResponse(TeaModel):
         self.body = body  # type: AddImageResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -915,9 +1180,6 @@ class AddImageLabelsResponse(TeaModel):
         self.body = body  # type: AddImageLabelsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -978,9 +1240,6 @@ class AddMemberRoleResponse(TeaModel):
         self.body = body  # type: AddMemberRoleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1111,9 +1370,6 @@ class CreateCodeSourceResponse(TeaModel):
         self.body = body  # type: CreateCodeSourceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1145,8 +1401,8 @@ class CreateCodeSourceResponse(TeaModel):
 
 class CreateDatasetRequest(TeaModel):
     def __init__(self, accessibility=None, data_source_type=None, data_type=None, description=None, labels=None,
-                 name=None, options=None, property=None, provider_type=None, source_id=None, source_type=None, uri=None,
-                 workspace_id=None):
+                 name=None, options=None, property=None, provider=None, provider_type=None, source_id=None,
+                 source_type=None, uri=None, workspace_id=None):
         self.accessibility = accessibility  # type: str
         self.data_source_type = data_source_type  # type: str
         self.data_type = data_type  # type: str
@@ -1155,6 +1411,7 @@ class CreateDatasetRequest(TeaModel):
         self.name = name  # type: str
         self.options = options  # type: str
         self.property = property  # type: str
+        self.provider = provider  # type: str
         self.provider_type = provider_type  # type: str
         self.source_id = source_id  # type: str
         self.source_type = source_type  # type: str
@@ -1191,6 +1448,8 @@ class CreateDatasetRequest(TeaModel):
             result['Options'] = self.options
         if self.property is not None:
             result['Property'] = self.property
+        if self.provider is not None:
+            result['Provider'] = self.provider
         if self.provider_type is not None:
             result['ProviderType'] = self.provider_type
         if self.source_id is not None:
@@ -1224,6 +1483,8 @@ class CreateDatasetRequest(TeaModel):
             self.options = m.get('Options')
         if m.get('Property') is not None:
             self.property = m.get('Property')
+        if m.get('Provider') is not None:
+            self.provider = m.get('Provider')
         if m.get('ProviderType') is not None:
             self.provider_type = m.get('ProviderType')
         if m.get('SourceId') is not None:
@@ -1273,9 +1534,6 @@ class CreateDatasetResponse(TeaModel):
         self.body = body  # type: CreateDatasetResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1368,9 +1626,6 @@ class CreateDatasetLabelsResponse(TeaModel):
         self.body = body  # type: CreateDatasetLabelsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1544,9 +1799,6 @@ class CreateMemberResponse(TeaModel):
         self.body = body  # type: CreateMemberResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1701,9 +1953,6 @@ class CreateModelResponse(TeaModel):
         self.body = body  # type: CreateModelResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1796,9 +2045,6 @@ class CreateModelLabelsResponse(TeaModel):
         self.body = body  # type: CreateModelLabelsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1968,9 +2214,6 @@ class CreateModelVersionResponse(TeaModel):
         self.body = body  # type: CreateModelVersionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2063,9 +2306,6 @@ class CreateModelVersionLabelsResponse(TeaModel):
         self.body = body  # type: CreateModelVersionLabelsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2275,9 +2515,6 @@ class CreateProductOrdersResponse(TeaModel):
         self.body = body  # type: CreateProductOrdersResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2382,9 +2619,6 @@ class CreateWorkspaceResponse(TeaModel):
         self.body = body  # type: CreateWorkspaceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2664,9 +2898,6 @@ class CreateWorkspaceResourceResponse(TeaModel):
         self.body = body  # type: CreateWorkspaceResourceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2732,9 +2963,6 @@ class DeleteCodeSourceResponse(TeaModel):
         self.body = body  # type: DeleteCodeSourceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2795,9 +3023,6 @@ class DeleteDatasetResponse(TeaModel):
         self.body = body  # type: DeleteDatasetResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2882,9 +3107,6 @@ class DeleteDatasetLabelsResponse(TeaModel):
         self.body = body  # type: DeleteDatasetLabelsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2979,9 +3201,6 @@ class DeleteMembersResponse(TeaModel):
         self.body = body  # type: DeleteMembersResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3042,9 +3261,6 @@ class DeleteModelResponse(TeaModel):
         self.body = body  # type: DeleteModelResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3129,9 +3345,6 @@ class DeleteModelLabelsResponse(TeaModel):
         self.body = body  # type: DeleteModelLabelsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3192,9 +3405,6 @@ class DeleteModelVersionResponse(TeaModel):
         self.body = body  # type: DeleteModelVersionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3279,9 +3489,6 @@ class DeleteModelVersionLabelsResponse(TeaModel):
         self.body = body  # type: DeleteModelVersionLabelsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3342,9 +3549,6 @@ class DeleteWorkspaceResponse(TeaModel):
         self.body = body  # type: DeleteWorkspaceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3460,9 +3664,6 @@ class DeleteWorkspaceResourceResponse(TeaModel):
         self.body = body  # type: DeleteWorkspaceResourceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3595,9 +3796,6 @@ class GetCodeSourceResponse(TeaModel):
         self.body = body  # type: GetCodeSourceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3758,9 +3956,6 @@ class GetDatasetResponse(TeaModel):
         self.body = body  # type: GetDatasetResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3981,9 +4176,6 @@ class GetDefaultWorkspaceResponse(TeaModel):
         self.body = body  # type: GetDefaultWorkspaceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4162,9 +4354,6 @@ class GetImageResponse(TeaModel):
         self.body = body  # type: GetImageResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4285,9 +4474,6 @@ class GetMemberResponse(TeaModel):
         self.body = body  # type: GetMemberResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4457,9 +4643,6 @@ class GetModelResponse(TeaModel):
         self.body = body  # type: GetModelResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4626,9 +4809,6 @@ class GetModelVersionResponse(TeaModel):
         self.body = body  # type: GetModelVersionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4659,9 +4839,10 @@ class GetModelVersionResponse(TeaModel):
 
 
 class GetPermissionRequest(TeaModel):
-    def __init__(self, accessibility=None, creator=None):
+    def __init__(self, accessibility=None, creator=None, resource=None):
         self.accessibility = accessibility  # type: str
         self.creator = creator  # type: str
+        self.resource = resource  # type: str
 
     def validate(self):
         pass
@@ -4676,6 +4857,8 @@ class GetPermissionRequest(TeaModel):
             result['Accessibility'] = self.accessibility
         if self.creator is not None:
             result['Creator'] = self.creator
+        if self.resource is not None:
+            result['Resource'] = self.resource
         return result
 
     def from_map(self, m=None):
@@ -4684,6 +4867,8 @@ class GetPermissionRequest(TeaModel):
             self.accessibility = m.get('Accessibility')
         if m.get('Creator') is not None:
             self.creator = m.get('Creator')
+        if m.get('Resource') is not None:
+            self.resource = m.get('Resource')
         return self
 
 
@@ -4765,9 +4950,6 @@ class GetPermissionResponse(TeaModel):
         self.body = body  # type: GetPermissionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4893,9 +5075,6 @@ class GetServiceTemplateResponse(TeaModel):
         self.body = body  # type: GetServiceTemplateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5088,9 +5267,6 @@ class GetWorkspaceResponse(TeaModel):
         self.body = body  # type: GetWorkspaceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5219,9 +5395,6 @@ class ListCodeSourcesResponse(TeaModel):
         self.body = body  # type: ListCodeSourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5253,7 +5426,7 @@ class ListCodeSourcesResponse(TeaModel):
 
 class ListDatasetsRequest(TeaModel):
     def __init__(self, data_source_types=None, data_types=None, label=None, name=None, order=None, page_number=None,
-                 page_size=None, properties=None, source_id=None, source_types=None, workspace_id=None):
+                 page_size=None, properties=None, provider=None, source_id=None, source_types=None, workspace_id=None):
         self.data_source_types = data_source_types  # type: str
         self.data_types = data_types  # type: str
         self.label = label  # type: str
@@ -5262,6 +5435,7 @@ class ListDatasetsRequest(TeaModel):
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
         self.properties = properties  # type: str
+        self.provider = provider  # type: str
         self.source_id = source_id  # type: str
         self.source_types = source_types  # type: str
         self.workspace_id = workspace_id  # type: str
@@ -5291,6 +5465,8 @@ class ListDatasetsRequest(TeaModel):
             result['PageSize'] = self.page_size
         if self.properties is not None:
             result['Properties'] = self.properties
+        if self.provider is not None:
+            result['Provider'] = self.provider
         if self.source_id is not None:
             result['SourceId'] = self.source_id
         if self.source_types is not None:
@@ -5317,6 +5493,8 @@ class ListDatasetsRequest(TeaModel):
             self.page_size = m.get('PageSize')
         if m.get('Properties') is not None:
             self.properties = m.get('Properties')
+        if m.get('Provider') is not None:
+            self.provider = m.get('Provider')
         if m.get('SourceId') is not None:
             self.source_id = m.get('SourceId')
         if m.get('SourceTypes') is not None:
@@ -5375,9 +5553,6 @@ class ListDatasetsResponse(TeaModel):
         self.body = body  # type: ListDatasetsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5529,9 +5704,6 @@ class ListImageLabelsResponse(TeaModel):
         self.body = body  # type: ListImageLabelsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5808,9 +5980,6 @@ class ListImagesResponse(TeaModel):
         self.body = body  # type: ListImagesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5978,9 +6147,6 @@ class ListMembersResponse(TeaModel):
         self.body = body  # type: ListMembersResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6134,9 +6300,6 @@ class ListModelVersionsResponse(TeaModel):
         self.body = body  # type: ListModelVersionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6306,9 +6469,6 @@ class ListModelsResponse(TeaModel):
         self.body = body  # type: ListModelsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6453,9 +6613,6 @@ class ListPermissionsResponse(TeaModel):
         self.body = body  # type: ListPermissionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6656,9 +6813,6 @@ class ListProductsResponse(TeaModel):
         self.body = body  # type: ListProductsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6858,9 +7012,6 @@ class ListQuotasResponse(TeaModel):
         self.body = body  # type: ListQuotasResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7318,9 +7469,6 @@ class ListResourcesResponse(TeaModel):
         self.body = body  # type: ListResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7459,9 +7607,6 @@ class ListServiceTemplatesResponse(TeaModel):
         self.body = body  # type: ListServiceTemplatesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7593,9 +7738,6 @@ class ListWorkspaceUsersResponse(TeaModel):
         self.body = body  # type: ListWorkspaceUsersResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7829,9 +7971,6 @@ class ListWorkspacesResponse(TeaModel):
         self.body = body  # type: ListWorkspacesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7897,9 +8036,6 @@ class PublishCodeSourceResponse(TeaModel):
         self.body = body  # type: PublishCodeSourceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7960,9 +8096,6 @@ class PublishDatasetResponse(TeaModel):
         self.body = body  # type: PublishDatasetResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8028,9 +8161,6 @@ class PublishImageResponse(TeaModel):
         self.body = body  # type: PublishImageResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8091,9 +8221,6 @@ class RemoveImageResponse(TeaModel):
         self.body = body  # type: RemoveImageResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8154,9 +8281,6 @@ class RemoveImageLabelsResponse(TeaModel):
         self.body = body  # type: RemoveImageLabelsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8217,9 +8341,6 @@ class RemoveMemberRoleResponse(TeaModel):
         self.body = body  # type: RemoveMemberRoleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8314,9 +8435,6 @@ class UpdateDatasetResponse(TeaModel):
         self.body = body  # type: UpdateDatasetResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8401,9 +8519,6 @@ class UpdateDefaultWorkspaceResponse(TeaModel):
         self.body = body  # type: UpdateDefaultWorkspaceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8534,9 +8649,6 @@ class UpdateModelResponse(TeaModel):
         self.body = body  # type: UpdateModelResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8667,9 +8779,6 @@ class UpdateModelVersionResponse(TeaModel):
         self.body = body  # type: UpdateModelVersionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8759,9 +8868,6 @@ class UpdateWorkspaceResponse(TeaModel):
         self.body = body  # type: UpdateWorkspaceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8919,9 +9025,6 @@ class UpdateWorkspaceResourceResponse(TeaModel):
         self.body = body  # type: UpdateWorkspaceResourceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
