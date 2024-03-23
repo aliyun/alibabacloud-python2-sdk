@@ -5980,6 +5980,342 @@ class OpenAlinlpServiceResponse(TeaModel):
         return self
 
 
+class PostISConvRewriterRequest(TeaModel):
+    def __init__(self, algorithm=None, debug=None, input=None, parameters=None, version=None):
+        self.algorithm = algorithm  # type: str
+        self.debug = debug  # type: bool
+        self.input = input  # type: dict[str, any]
+        self.parameters = parameters  # type: dict[str, any]
+        self.version = version  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PostISConvRewriterRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.algorithm is not None:
+            result['Algorithm'] = self.algorithm
+        if self.debug is not None:
+            result['Debug'] = self.debug
+        if self.input is not None:
+            result['Input'] = self.input
+        if self.parameters is not None:
+            result['Parameters'] = self.parameters
+        if self.version is not None:
+            result['Version'] = self.version
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Algorithm') is not None:
+            self.algorithm = m.get('Algorithm')
+        if m.get('Debug') is not None:
+            self.debug = m.get('Debug')
+        if m.get('Input') is not None:
+            self.input = m.get('Input')
+        if m.get('Parameters') is not None:
+            self.parameters = m.get('Parameters')
+        if m.get('Version') is not None:
+            self.version = m.get('Version')
+        return self
+
+
+class PostISConvRewriterShrinkRequest(TeaModel):
+    def __init__(self, algorithm=None, debug=None, input_shrink=None, parameters_shrink=None, version=None):
+        self.algorithm = algorithm  # type: str
+        self.debug = debug  # type: bool
+        self.input_shrink = input_shrink  # type: str
+        self.parameters_shrink = parameters_shrink  # type: str
+        self.version = version  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PostISConvRewriterShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.algorithm is not None:
+            result['Algorithm'] = self.algorithm
+        if self.debug is not None:
+            result['Debug'] = self.debug
+        if self.input_shrink is not None:
+            result['Input'] = self.input_shrink
+        if self.parameters_shrink is not None:
+            result['Parameters'] = self.parameters_shrink
+        if self.version is not None:
+            result['Version'] = self.version
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Algorithm') is not None:
+            self.algorithm = m.get('Algorithm')
+        if m.get('Debug') is not None:
+            self.debug = m.get('Debug')
+        if m.get('Input') is not None:
+            self.input_shrink = m.get('Input')
+        if m.get('Parameters') is not None:
+            self.parameters_shrink = m.get('Parameters')
+        if m.get('Version') is not None:
+            self.version = m.get('Version')
+        return self
+
+
+class PostISConvRewriterResponseBody(TeaModel):
+    def __init__(self, data=None, debug_info=None, message=None, request_id=None, status=None):
+        self.data = data  # type: dict[str, any]
+        self.debug_info = debug_info  # type: dict[str, any]
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.status = status  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PostISConvRewriterResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.debug_info is not None:
+            result['DebugInfo'] = self.debug_info
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('DebugInfo') is not None:
+            self.debug_info = m.get('DebugInfo')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class PostISConvRewriterResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: PostISConvRewriterResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(PostISConvRewriterResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = PostISConvRewriterResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class PostISRetrieveRouterRequest(TeaModel):
+    def __init__(self, algorithm=None, debug=None, input=None, parameters=None, version=None):
+        self.algorithm = algorithm  # type: str
+        self.debug = debug  # type: bool
+        self.input = input  # type: dict[str, any]
+        self.parameters = parameters  # type: dict[str, any]
+        self.version = version  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PostISRetrieveRouterRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.algorithm is not None:
+            result['Algorithm'] = self.algorithm
+        if self.debug is not None:
+            result['Debug'] = self.debug
+        if self.input is not None:
+            result['Input'] = self.input
+        if self.parameters is not None:
+            result['Parameters'] = self.parameters
+        if self.version is not None:
+            result['Version'] = self.version
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Algorithm') is not None:
+            self.algorithm = m.get('Algorithm')
+        if m.get('Debug') is not None:
+            self.debug = m.get('Debug')
+        if m.get('Input') is not None:
+            self.input = m.get('Input')
+        if m.get('Parameters') is not None:
+            self.parameters = m.get('Parameters')
+        if m.get('Version') is not None:
+            self.version = m.get('Version')
+        return self
+
+
+class PostISRetrieveRouterShrinkRequest(TeaModel):
+    def __init__(self, algorithm=None, debug=None, input_shrink=None, parameters_shrink=None, version=None):
+        self.algorithm = algorithm  # type: str
+        self.debug = debug  # type: bool
+        self.input_shrink = input_shrink  # type: str
+        self.parameters_shrink = parameters_shrink  # type: str
+        self.version = version  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PostISRetrieveRouterShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.algorithm is not None:
+            result['Algorithm'] = self.algorithm
+        if self.debug is not None:
+            result['Debug'] = self.debug
+        if self.input_shrink is not None:
+            result['Input'] = self.input_shrink
+        if self.parameters_shrink is not None:
+            result['Parameters'] = self.parameters_shrink
+        if self.version is not None:
+            result['Version'] = self.version
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Algorithm') is not None:
+            self.algorithm = m.get('Algorithm')
+        if m.get('Debug') is not None:
+            self.debug = m.get('Debug')
+        if m.get('Input') is not None:
+            self.input_shrink = m.get('Input')
+        if m.get('Parameters') is not None:
+            self.parameters_shrink = m.get('Parameters')
+        if m.get('Version') is not None:
+            self.version = m.get('Version')
+        return self
+
+
+class PostISRetrieveRouterResponseBody(TeaModel):
+    def __init__(self, data=None, debug_info=None, message=None, request_id=None, status=None):
+        self.data = data  # type: dict[str, any]
+        self.debug_info = debug_info  # type: dict[str, any]
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.status = status  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PostISRetrieveRouterResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.debug_info is not None:
+            result['DebugInfo'] = self.debug_info
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('DebugInfo') is not None:
+            self.debug_info = m.get('DebugInfo')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class PostISRetrieveRouterResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: PostISRetrieveRouterResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(PostISRetrieveRouterResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = PostISRetrieveRouterResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class PostMSConvSearchTokenGeneratedResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, msg=None, request_id=None, success=None):
         self.code = code  # type: int
