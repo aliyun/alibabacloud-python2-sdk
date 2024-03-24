@@ -7833,6 +7833,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.push_object_cache_with_options(request, runtime)
 
+    def refresh_object_cache_by_cache_tag_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cache_tag):
+            query['CacheTag'] = request.cache_tag
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.force):
+            query['Force'] = request.force
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RefreshObjectCacheByCacheTag',
+            version='2018-05-10',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cdn_20180510_models.RefreshObjectCacheByCacheTagResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def refresh_object_cache_by_cache_tag(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.refresh_object_cache_by_cache_tag_with_options(request, runtime)
+
     def refresh_object_caches_with_options(self, request, runtime):
         """
         Alibaba Cloud CDN supports POST requests in which parameters are sent as a form.
