@@ -2326,9 +2326,9 @@ class QueryBrokerDemandRequest(TeaModel):
 
 class QueryBrokerDemandResponseBodyData(TeaModel):
     def __init__(self, audit_status=None, bargain_seller_mobile=None, bargain_seller_price=None, biz_id=None,
-                 demand_domain=None, demand_price=None, description=None, mobile=None, order_type=None, partner_domain=None,
-                 pay_domain=None, pay_price=None, pay_time=None, produce_type=None, publish_time=None, purchase_status=None,
-                 service_pay_price=None, status=None):
+                 demand_domain=None, demand_price=None, description=None, email=None, mobile=None, order_type=None,
+                 partner_domain=None, pay_domain=None, pay_price=None, pay_time=None, produce_type=None, publish_time=None,
+                 purchase_status=None, service_pay_price=None, status=None):
         self.audit_status = audit_status  # type: int
         self.bargain_seller_mobile = bargain_seller_mobile  # type: str
         self.bargain_seller_price = bargain_seller_price  # type: float
@@ -2336,6 +2336,7 @@ class QueryBrokerDemandResponseBodyData(TeaModel):
         self.demand_domain = demand_domain  # type: str
         self.demand_price = demand_price  # type: float
         self.description = description  # type: str
+        self.email = email  # type: str
         self.mobile = mobile  # type: str
         self.order_type = order_type  # type: int
         self.partner_domain = partner_domain  # type: str
@@ -2371,6 +2372,8 @@ class QueryBrokerDemandResponseBodyData(TeaModel):
             result['DemandPrice'] = self.demand_price
         if self.description is not None:
             result['Description'] = self.description
+        if self.email is not None:
+            result['Email'] = self.email
         if self.mobile is not None:
             result['Mobile'] = self.mobile
         if self.order_type is not None:
@@ -2411,6 +2414,8 @@ class QueryBrokerDemandResponseBodyData(TeaModel):
             self.demand_price = m.get('DemandPrice')
         if m.get('Description') is not None:
             self.description = m.get('Description')
+        if m.get('Email') is not None:
+            self.email = m.get('Email')
         if m.get('Mobile') is not None:
             self.mobile = m.get('Mobile')
         if m.get('OrderType') is not None:
