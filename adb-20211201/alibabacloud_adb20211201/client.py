@@ -356,8 +356,12 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_dbcluster_with_options(request, runtime)
 
-    def create_dbresource_group_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
+    def create_dbresource_group_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = adb_20211201_models.CreateDBResourceGroupShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.rules):
+            request.rules_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.rules, 'Rules', 'json')
         query = {}
         if not UtilClient.is_unset(request.cluster_mode):
             query['ClusterMode'] = request.cluster_mode
@@ -381,6 +385,8 @@ class Client(OpenApiClient):
             query['MinComputeResource'] = request.min_compute_resource
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.rules_shrink):
+            query['Rules'] = request.rules_shrink
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3962,8 +3968,12 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_dbcluster_maintain_time_with_options(request, runtime)
 
-    def modify_dbresource_group_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
+    def modify_dbresource_group_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = adb_20211201_models.ModifyDBResourceGroupShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.rules):
+            request.rules_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.rules, 'Rules', 'json')
         query = {}
         if not UtilClient.is_unset(request.cluster_mode):
             query['ClusterMode'] = request.cluster_mode
@@ -3987,6 +3997,8 @@ class Client(OpenApiClient):
             query['MinComputeResource'] = request.min_compute_resource
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.rules_shrink):
+            query['Rules'] = request.rules_shrink
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )

@@ -2720,10 +2720,44 @@ class CreateDBClusterResponse(TeaModel):
         return self
 
 
+class CreateDBResourceGroupRequestRules(TeaModel):
+    def __init__(self, group_name=None, query_time=None, target_group_name=None):
+        self.group_name = group_name  # type: str
+        self.query_time = query_time  # type: str
+        self.target_group_name = target_group_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDBResourceGroupRequestRules, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.group_name is not None:
+            result['GroupName'] = self.group_name
+        if self.query_time is not None:
+            result['QueryTime'] = self.query_time
+        if self.target_group_name is not None:
+            result['TargetGroupName'] = self.target_group_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('GroupName') is not None:
+            self.group_name = m.get('GroupName')
+        if m.get('QueryTime') is not None:
+            self.query_time = m.get('QueryTime')
+        if m.get('TargetGroupName') is not None:
+            self.target_group_name = m.get('TargetGroupName')
+        return self
+
+
 class CreateDBResourceGroupRequest(TeaModel):
     def __init__(self, cluster_mode=None, cluster_size_resource=None, dbcluster_id=None, enable_spot=None,
                  group_name=None, group_type=None, max_cluster_count=None, max_compute_resource=None, min_cluster_count=None,
-                 min_compute_resource=None, region_id=None):
+                 min_compute_resource=None, region_id=None, rules=None):
         # A reserved parameter.
         self.cluster_mode = cluster_mode  # type: str
         # A reserved parameter.
@@ -2762,9 +2796,13 @@ class CreateDBResourceGroupRequest(TeaModel):
         # 
         # >  You can call the [DescribeRegions](~~612393~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        self.rules = rules  # type: list[CreateDBResourceGroupRequestRules]
 
     def validate(self):
-        pass
+        if self.rules:
+            for k in self.rules:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(CreateDBResourceGroupRequest, self).to_map()
@@ -2794,6 +2832,10 @@ class CreateDBResourceGroupRequest(TeaModel):
             result['MinComputeResource'] = self.min_compute_resource
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        result['Rules'] = []
+        if self.rules is not None:
+            for k in self.rules:
+                result['Rules'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
@@ -2820,6 +2862,119 @@ class CreateDBResourceGroupRequest(TeaModel):
             self.min_compute_resource = m.get('MinComputeResource')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        self.rules = []
+        if m.get('Rules') is not None:
+            for k in m.get('Rules'):
+                temp_model = CreateDBResourceGroupRequestRules()
+                self.rules.append(temp_model.from_map(k))
+        return self
+
+
+class CreateDBResourceGroupShrinkRequest(TeaModel):
+    def __init__(self, cluster_mode=None, cluster_size_resource=None, dbcluster_id=None, enable_spot=None,
+                 group_name=None, group_type=None, max_cluster_count=None, max_compute_resource=None, min_cluster_count=None,
+                 min_compute_resource=None, region_id=None, rules_shrink=None):
+        # A reserved parameter.
+        self.cluster_mode = cluster_mode  # type: str
+        # A reserved parameter.
+        self.cluster_size_resource = cluster_size_resource  # type: str
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
+        self.dbcluster_id = dbcluster_id  # type: str
+        self.enable_spot = enable_spot  # type: bool
+        # The name of the resource group.
+        # 
+        # *   The name can be up to 255 characters in length.
+        # *   The name must start with a letter or a digit.
+        # *   The name can contain letters, digits, hyphens (\_), and underscores (\_).
+        self.group_name = group_name  # type: str
+        # The type of the resource group. Valid values:
+        # 
+        # *   **Interactive**\
+        # *   **Job**\
+        # 
+        # > For information about resource groups of Data Lakehouse Edition, see [Resource groups](~~428610~~).
+        self.group_type = group_type  # type: str
+        # A reserved parameter.
+        self.max_cluster_count = max_cluster_count  # type: int
+        # The maximum reserved computing resources. Unit: ACU.
+        # 
+        # *   If GroupType is set to Interactive, the maximum amount of reserved computing resources refers to the amount of resources that are not allocated in the cluster. Set this parameter to a value in increments of 16 ACUs.
+        # *   If GroupType is set to Job, the maximum amount of reserved computing resources refers to the amount of resources that are not allocated in the cluster. Set this parameter to a value in increments of 8 ACUs.
+        self.max_compute_resource = max_compute_resource  # type: str
+        # A reserved parameter.
+        self.min_cluster_count = min_cluster_count  # type: int
+        # The minimum reserved computing resources. Unit: AnalyticDB Compute Units (ACUs).
+        # 
+        # *   When GroupType is set to Interactive, set this parameter to 16 ACUs.
+        # *   When GroupType is set to Job, set this parameter to 0 ACUs.
+        self.min_compute_resource = min_compute_resource  # type: str
+        # The region ID of the cluster.
+        # 
+        # >  You can call the [DescribeRegions](~~612393~~) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        self.rules_shrink = rules_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDBResourceGroupShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cluster_mode is not None:
+            result['ClusterMode'] = self.cluster_mode
+        if self.cluster_size_resource is not None:
+            result['ClusterSizeResource'] = self.cluster_size_resource
+        if self.dbcluster_id is not None:
+            result['DBClusterId'] = self.dbcluster_id
+        if self.enable_spot is not None:
+            result['EnableSpot'] = self.enable_spot
+        if self.group_name is not None:
+            result['GroupName'] = self.group_name
+        if self.group_type is not None:
+            result['GroupType'] = self.group_type
+        if self.max_cluster_count is not None:
+            result['MaxClusterCount'] = self.max_cluster_count
+        if self.max_compute_resource is not None:
+            result['MaxComputeResource'] = self.max_compute_resource
+        if self.min_cluster_count is not None:
+            result['MinClusterCount'] = self.min_cluster_count
+        if self.min_compute_resource is not None:
+            result['MinComputeResource'] = self.min_compute_resource
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.rules_shrink is not None:
+            result['Rules'] = self.rules_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClusterMode') is not None:
+            self.cluster_mode = m.get('ClusterMode')
+        if m.get('ClusterSizeResource') is not None:
+            self.cluster_size_resource = m.get('ClusterSizeResource')
+        if m.get('DBClusterId') is not None:
+            self.dbcluster_id = m.get('DBClusterId')
+        if m.get('EnableSpot') is not None:
+            self.enable_spot = m.get('EnableSpot')
+        if m.get('GroupName') is not None:
+            self.group_name = m.get('GroupName')
+        if m.get('GroupType') is not None:
+            self.group_type = m.get('GroupType')
+        if m.get('MaxClusterCount') is not None:
+            self.max_cluster_count = m.get('MaxClusterCount')
+        if m.get('MaxComputeResource') is not None:
+            self.max_compute_resource = m.get('MaxComputeResource')
+        if m.get('MinClusterCount') is not None:
+            self.min_cluster_count = m.get('MinClusterCount')
+        if m.get('MinComputeResource') is not None:
+            self.min_compute_resource = m.get('MinComputeResource')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Rules') is not None:
+            self.rules_shrink = m.get('Rules')
         return self
 
 
@@ -10433,11 +10588,45 @@ class DescribeDBResourceGroupRequest(TeaModel):
         return self
 
 
+class DescribeDBResourceGroupResponseBodyGroupsInfoRules(TeaModel):
+    def __init__(self, group_name=None, query_time=None, target_group_name=None):
+        self.group_name = group_name  # type: str
+        self.query_time = query_time  # type: str
+        self.target_group_name = target_group_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDBResourceGroupResponseBodyGroupsInfoRules, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.group_name is not None:
+            result['GroupName'] = self.group_name
+        if self.query_time is not None:
+            result['QueryTime'] = self.query_time
+        if self.target_group_name is not None:
+            result['TargetGroupName'] = self.target_group_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('GroupName') is not None:
+            self.group_name = m.get('GroupName')
+        if m.get('QueryTime') is not None:
+            self.query_time = m.get('QueryTime')
+        if m.get('TargetGroupName') is not None:
+            self.target_group_name = m.get('TargetGroupName')
+        return self
+
+
 class DescribeDBResourceGroupResponseBodyGroupsInfo(TeaModel):
     def __init__(self, cluster_mode=None, cluster_size_resource=None, create_time=None,
                  elastic_min_compute_resource=None, enable_spot=None, group_name=None, group_type=None, group_users=None, max_cluster_count=None,
-                 max_compute_resource=None, min_cluster_count=None, min_compute_resource=None, running_cluster_count=None, status=None,
-                 update_time=None):
+                 max_compute_resource=None, min_cluster_count=None, min_compute_resource=None, rules=None, running_cluster_count=None,
+                 status=None, update_time=None):
         # A reserved parameter.
         self.cluster_mode = cluster_mode  # type: str
         # A reserved parameter.
@@ -10466,6 +10655,7 @@ class DescribeDBResourceGroupResponseBodyGroupsInfo(TeaModel):
         self.min_cluster_count = min_cluster_count  # type: int
         # The minimum amount of reserved computing resources. Unit: AnalyticDB compute units (ACUs).
         self.min_compute_resource = min_compute_resource  # type: str
+        self.rules = rules  # type: list[DescribeDBResourceGroupResponseBodyGroupsInfoRules]
         # A reserved parameter.
         self.running_cluster_count = running_cluster_count  # type: int
         # The state of the resource group. Valid values:
@@ -10478,7 +10668,10 @@ class DescribeDBResourceGroupResponseBodyGroupsInfo(TeaModel):
         self.update_time = update_time  # type: str
 
     def validate(self):
-        pass
+        if self.rules:
+            for k in self.rules:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(DescribeDBResourceGroupResponseBodyGroupsInfo, self).to_map()
@@ -10510,6 +10703,10 @@ class DescribeDBResourceGroupResponseBodyGroupsInfo(TeaModel):
             result['MinClusterCount'] = self.min_cluster_count
         if self.min_compute_resource is not None:
             result['MinComputeResource'] = self.min_compute_resource
+        result['Rules'] = []
+        if self.rules is not None:
+            for k in self.rules:
+                result['Rules'].append(k.to_map() if k else None)
         if self.running_cluster_count is not None:
             result['RunningClusterCount'] = self.running_cluster_count
         if self.status is not None:
@@ -10544,6 +10741,11 @@ class DescribeDBResourceGroupResponseBodyGroupsInfo(TeaModel):
             self.min_cluster_count = m.get('MinClusterCount')
         if m.get('MinComputeResource') is not None:
             self.min_compute_resource = m.get('MinComputeResource')
+        self.rules = []
+        if m.get('Rules') is not None:
+            for k in m.get('Rules'):
+                temp_model = DescribeDBResourceGroupResponseBodyGroupsInfoRules()
+                self.rules.append(temp_model.from_map(k))
         if m.get('RunningClusterCount') is not None:
             self.running_cluster_count = m.get('RunningClusterCount')
         if m.get('Status') is not None:
@@ -21421,10 +21623,44 @@ class ModifyDBClusterMaintainTimeResponse(TeaModel):
         return self
 
 
+class ModifyDBResourceGroupRequestRules(TeaModel):
+    def __init__(self, group_name=None, query_time=None, target_group_name=None):
+        self.group_name = group_name  # type: str
+        self.query_time = query_time  # type: str
+        self.target_group_name = target_group_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyDBResourceGroupRequestRules, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.group_name is not None:
+            result['GroupName'] = self.group_name
+        if self.query_time is not None:
+            result['QueryTime'] = self.query_time
+        if self.target_group_name is not None:
+            result['TargetGroupName'] = self.target_group_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('GroupName') is not None:
+            self.group_name = m.get('GroupName')
+        if m.get('QueryTime') is not None:
+            self.query_time = m.get('QueryTime')
+        if m.get('TargetGroupName') is not None:
+            self.target_group_name = m.get('TargetGroupName')
+        return self
+
+
 class ModifyDBResourceGroupRequest(TeaModel):
     def __init__(self, cluster_mode=None, cluster_size_resource=None, dbcluster_id=None, enable_spot=None,
                  group_name=None, group_type=None, max_cluster_count=None, max_compute_resource=None, min_cluster_count=None,
-                 min_compute_resource=None, region_id=None):
+                 min_compute_resource=None, region_id=None, rules=None):
         # A reserved parameter.
         self.cluster_mode = cluster_mode  # type: str
         # A reserved parameter.
@@ -21465,9 +21701,13 @@ class ModifyDBResourceGroupRequest(TeaModel):
         # 
         # >  You can call the [DescribeRegions](~~454314~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        self.rules = rules  # type: list[ModifyDBResourceGroupRequestRules]
 
     def validate(self):
-        pass
+        if self.rules:
+            for k in self.rules:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(ModifyDBResourceGroupRequest, self).to_map()
@@ -21497,6 +21737,10 @@ class ModifyDBResourceGroupRequest(TeaModel):
             result['MinComputeResource'] = self.min_compute_resource
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        result['Rules'] = []
+        if self.rules is not None:
+            for k in self.rules:
+                result['Rules'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
@@ -21523,6 +21767,121 @@ class ModifyDBResourceGroupRequest(TeaModel):
             self.min_compute_resource = m.get('MinComputeResource')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        self.rules = []
+        if m.get('Rules') is not None:
+            for k in m.get('Rules'):
+                temp_model = ModifyDBResourceGroupRequestRules()
+                self.rules.append(temp_model.from_map(k))
+        return self
+
+
+class ModifyDBResourceGroupShrinkRequest(TeaModel):
+    def __init__(self, cluster_mode=None, cluster_size_resource=None, dbcluster_id=None, enable_spot=None,
+                 group_name=None, group_type=None, max_cluster_count=None, max_compute_resource=None, min_cluster_count=None,
+                 min_compute_resource=None, region_id=None, rules_shrink=None):
+        # A reserved parameter.
+        self.cluster_mode = cluster_mode  # type: str
+        # A reserved parameter.
+        self.cluster_size_resource = cluster_size_resource  # type: str
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
+        self.dbcluster_id = dbcluster_id  # type: str
+        # Specifies whether to enable the preemptible instance feature for the resource group. This feature can be enabled only for job resource groups. Valid values:
+        # 
+        # *   **True**\
+        # *   **False**\
+        self.enable_spot = enable_spot  # type: bool
+        # The name of the resource group.
+        # 
+        # > You can call the [DescribeDBResourceGroup](~~459446~~) operation to query the name of a resource group in a cluster.
+        self.group_name = group_name  # type: str
+        # The type of the resource group. Valid values:
+        # 
+        # *   **Interactive**\
+        # *   **Job**\
+        # 
+        # > For information about resource groups of Data Lakehouse Edition, see [Resource groups](~~428610~~).
+        self.group_type = group_type  # type: str
+        # A reserved parameter.
+        self.max_cluster_count = max_cluster_count  # type: int
+        # The maximum amount of reserved computing resources. Unit: ACU.
+        # 
+        # *   If GroupType is set to Interactive, the maximum amount of reserved computing resources refers to the amount of resources that are not allocated in the cluster. Set this parameter to a value in increments of 16 ACUs.
+        # *   If GroupType is set to Job, the maximum amount of reserved computing resources refers to the amount of resources that are not allocated in the cluster. Set this parameter to a value in increments of 8 ACUs.
+        self.max_compute_resource = max_compute_resource  # type: str
+        # A reserved parameter.
+        self.min_cluster_count = min_cluster_count  # type: int
+        # The minimum amount of reserved computing resources. Unit: AnalyticDB compute units (ACUs).
+        # 
+        # *   If the GroupType parameter is set to Interactive, set the value to 16ACU.
+        # *   If GroupType is set to Job, set the value to 0ACU.
+        self.min_compute_resource = min_compute_resource  # type: str
+        # The region ID of the cluster.
+        # 
+        # >  You can call the [DescribeRegions](~~454314~~) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        self.rules_shrink = rules_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyDBResourceGroupShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cluster_mode is not None:
+            result['ClusterMode'] = self.cluster_mode
+        if self.cluster_size_resource is not None:
+            result['ClusterSizeResource'] = self.cluster_size_resource
+        if self.dbcluster_id is not None:
+            result['DBClusterId'] = self.dbcluster_id
+        if self.enable_spot is not None:
+            result['EnableSpot'] = self.enable_spot
+        if self.group_name is not None:
+            result['GroupName'] = self.group_name
+        if self.group_type is not None:
+            result['GroupType'] = self.group_type
+        if self.max_cluster_count is not None:
+            result['MaxClusterCount'] = self.max_cluster_count
+        if self.max_compute_resource is not None:
+            result['MaxComputeResource'] = self.max_compute_resource
+        if self.min_cluster_count is not None:
+            result['MinClusterCount'] = self.min_cluster_count
+        if self.min_compute_resource is not None:
+            result['MinComputeResource'] = self.min_compute_resource
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.rules_shrink is not None:
+            result['Rules'] = self.rules_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClusterMode') is not None:
+            self.cluster_mode = m.get('ClusterMode')
+        if m.get('ClusterSizeResource') is not None:
+            self.cluster_size_resource = m.get('ClusterSizeResource')
+        if m.get('DBClusterId') is not None:
+            self.dbcluster_id = m.get('DBClusterId')
+        if m.get('EnableSpot') is not None:
+            self.enable_spot = m.get('EnableSpot')
+        if m.get('GroupName') is not None:
+            self.group_name = m.get('GroupName')
+        if m.get('GroupType') is not None:
+            self.group_type = m.get('GroupType')
+        if m.get('MaxClusterCount') is not None:
+            self.max_cluster_count = m.get('MaxClusterCount')
+        if m.get('MaxComputeResource') is not None:
+            self.max_compute_resource = m.get('MaxComputeResource')
+        if m.get('MinClusterCount') is not None:
+            self.min_cluster_count = m.get('MinClusterCount')
+        if m.get('MinComputeResource') is not None:
+            self.min_compute_resource = m.get('MinComputeResource')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Rules') is not None:
+            self.rules_shrink = m.get('Rules')
         return self
 
 
