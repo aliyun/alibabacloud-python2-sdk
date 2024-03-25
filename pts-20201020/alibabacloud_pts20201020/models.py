@@ -7264,10 +7264,11 @@ class ListPtsSceneRequest(TeaModel):
 
 
 class ListPtsSceneResponseBodySceneViewList(TeaModel):
-    def __init__(self, create_time=None, scene_id=None, scene_name=None):
+    def __init__(self, create_time=None, scene_id=None, scene_name=None, status=None):
         self.create_time = create_time  # type: str
         self.scene_id = scene_id  # type: str
         self.scene_name = scene_name  # type: str
+        self.status = status  # type: str
 
     def validate(self):
         pass
@@ -7284,6 +7285,8 @@ class ListPtsSceneResponseBodySceneViewList(TeaModel):
             result['SceneId'] = self.scene_id
         if self.scene_name is not None:
             result['SceneName'] = self.scene_name
+        if self.status is not None:
+            result['Status'] = self.status
         return result
 
     def from_map(self, m=None):
@@ -7294,6 +7297,8 @@ class ListPtsSceneResponseBodySceneViewList(TeaModel):
             self.scene_id = m.get('SceneId')
         if m.get('SceneName') is not None:
             self.scene_name = m.get('SceneName')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
         return self
 
 
