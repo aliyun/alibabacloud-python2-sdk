@@ -105,9 +105,6 @@ class CreateConfigResponse(TeaModel):
         self.body = body  # type: CreateConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -354,9 +351,6 @@ class CreateDataLimitResponse(TeaModel):
         self.body = body  # type: CreateDataLimitResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -579,9 +573,6 @@ class CreateRuleResponse(TeaModel):
         self.body = body  # type: CreateRuleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -754,9 +745,6 @@ class CreateScanTaskResponse(TeaModel):
         self.body = body  # type: CreateScanTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -865,9 +853,6 @@ class CreateSlrRoleResponse(TeaModel):
         self.body = body  # type: CreateSlrRoleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -975,9 +960,6 @@ class DeleteDataLimitResponse(TeaModel):
         self.body = body  # type: DeleteDataLimitResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1080,9 +1062,6 @@ class DeleteRuleResponse(TeaModel):
         self.body = body  # type: DeleteRuleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1290,9 +1269,6 @@ class DescribeCategoryTemplateListResponse(TeaModel):
         self.body = body  # type: DescribeCategoryTemplateListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1548,9 +1524,6 @@ class DescribeCategoryTemplateRuleListResponse(TeaModel):
         self.body = body  # type: DescribeCategoryTemplateRuleListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1991,9 +1964,6 @@ class DescribeColumnsResponse(TeaModel):
         self.body = body  # type: DescribeColumnsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2327,9 +2297,6 @@ class DescribeColumnsV2Response(TeaModel):
         self.body = body  # type: DescribeColumnsV2ResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2482,9 +2449,6 @@ class DescribeConfigsResponse(TeaModel):
         self.body = body  # type: DescribeConfigsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2846,9 +2810,6 @@ class DescribeDataAssetsResponse(TeaModel):
         self.body = body  # type: DescribeDataAssetsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3074,9 +3035,6 @@ class DescribeDataLimitDetailResponse(TeaModel):
         self.body = body  # type: DescribeDataLimitDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3457,9 +3415,6 @@ class DescribeDataLimitSetResponse(TeaModel):
         self.body = body  # type: DescribeDataLimitSetResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4001,9 +3956,6 @@ class DescribeDataLimitsResponse(TeaModel):
         self.body = body  # type: DescribeDataLimitsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4344,9 +4296,6 @@ class DescribeDataMaskingRunHistoryResponse(TeaModel):
         self.body = body  # type: DescribeDataMaskingRunHistoryResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4629,9 +4578,6 @@ class DescribeDataMaskingTasksResponse(TeaModel):
         self.body = body  # type: DescribeDataMaskingTasksResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4887,9 +4833,6 @@ class DescribeDataObjectColumnDetailResponse(TeaModel):
         self.body = body  # type: DescribeDataObjectColumnDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5145,9 +5088,6 @@ class DescribeDataObjectColumnDetailV2Response(TeaModel):
         self.body = body  # type: DescribeDataObjectColumnDetailV2ResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5529,9 +5469,6 @@ class DescribeDataObjectsResponse(TeaModel):
         self.body = body  # type: DescribeDataObjectsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5663,9 +5600,6 @@ class DescribeDocTypesResponse(TeaModel):
         self.body = body  # type: DescribeDocTypesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6239,9 +6173,6 @@ class DescribeEventDetailResponse(TeaModel):
         self.body = body  # type: DescribeEventDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6526,9 +6457,6 @@ class DescribeEventTypesResponse(TeaModel):
         self.body = body  # type: DescribeEventTypesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6605,6 +6533,11 @@ class DescribeEventsRequest(TeaModel):
         self.user_id = user_id  # type: long
         # The username of the RAM user.
         self.user_name = user_name  # type: str
+        # The risk level of the alert that is triggered. Valid values:
+        # 
+        # *   **1**: low
+        # *   **2**: medium
+        # *   **3**: high
         self.warn_level = warn_level  # type: int
 
     def validate(self):
@@ -6904,9 +6837,6 @@ class DescribeEventsResponse(TeaModel):
         self.body = body  # type: DescribeEventsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7308,9 +7238,6 @@ class DescribeInstanceSourcesResponse(TeaModel):
         self.body = body  # type: DescribeInstanceSourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7709,9 +7636,6 @@ class DescribeInstancesResponse(TeaModel):
         self.body = body  # type: DescribeInstancesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7990,9 +7914,6 @@ class DescribeOssObjectDetailResponse(TeaModel):
         self.body = body  # type: DescribeOssObjectDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8234,9 +8155,6 @@ class DescribeOssObjectDetailV2Response(TeaModel):
         self.body = body  # type: DescribeOssObjectDetailV2ResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8610,9 +8528,6 @@ class DescribeOssObjectsResponse(TeaModel):
         self.body = body  # type: DescribeOssObjectsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8878,9 +8793,6 @@ class DescribePackagesResponse(TeaModel):
         self.body = body  # type: DescribePackagesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8906,6 +8818,276 @@ class DescribePackagesResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribePackagesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeParentInstanceRequest(TeaModel):
+    def __init__(self, auth_status=None, check_status=None, cluster_status=None, current_page=None, db_name=None,
+                 engine_type=None, instance_id=None, lang=None, page_size=None, resource_type=None, service_region_id=None):
+        self.auth_status = auth_status  # type: int
+        self.check_status = check_status  # type: int
+        self.cluster_status = cluster_status  # type: str
+        self.current_page = current_page  # type: int
+        self.db_name = db_name  # type: str
+        self.engine_type = engine_type  # type: str
+        self.instance_id = instance_id  # type: str
+        self.lang = lang  # type: str
+        self.page_size = page_size  # type: int
+        self.resource_type = resource_type  # type: long
+        self.service_region_id = service_region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeParentInstanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_status is not None:
+            result['AuthStatus'] = self.auth_status
+        if self.check_status is not None:
+            result['CheckStatus'] = self.check_status
+        if self.cluster_status is not None:
+            result['ClusterStatus'] = self.cluster_status
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        if self.db_name is not None:
+            result['DbName'] = self.db_name
+        if self.engine_type is not None:
+            result['EngineType'] = self.engine_type
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.lang is not None:
+            result['Lang'] = self.lang
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        if self.service_region_id is not None:
+            result['ServiceRegionId'] = self.service_region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AuthStatus') is not None:
+            self.auth_status = m.get('AuthStatus')
+        if m.get('CheckStatus') is not None:
+            self.check_status = m.get('CheckStatus')
+        if m.get('ClusterStatus') is not None:
+            self.cluster_status = m.get('ClusterStatus')
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        if m.get('DbName') is not None:
+            self.db_name = m.get('DbName')
+        if m.get('EngineType') is not None:
+            self.engine_type = m.get('EngineType')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('Lang') is not None:
+            self.lang = m.get('Lang')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        if m.get('ServiceRegionId') is not None:
+            self.service_region_id = m.get('ServiceRegionId')
+        return self
+
+
+class DescribeParentInstanceResponseBodyItems(TeaModel):
+    def __init__(self, audit_status=None, auth_status=None, cluster_status=None, connect_node=None, db_num=None,
+                 engine_type=None, instance_description=None, instance_id=None, instance_size=None, local_name=None,
+                 parent_id=None, resource_type=None, support_connect_nodes=None, tenant_id=None, tenant_name=None,
+                 un_connect_db_count=None, un_support_one_click_auth_reason=None):
+        self.audit_status = audit_status  # type: int
+        self.auth_status = auth_status  # type: int
+        self.cluster_status = cluster_status  # type: str
+        self.connect_node = connect_node  # type: str
+        self.db_num = db_num  # type: str
+        self.engine_type = engine_type  # type: str
+        self.instance_description = instance_description  # type: str
+        self.instance_id = instance_id  # type: str
+        self.instance_size = instance_size  # type: long
+        self.local_name = local_name  # type: str
+        self.parent_id = parent_id  # type: str
+        self.resource_type = resource_type  # type: str
+        self.support_connect_nodes = support_connect_nodes  # type: str
+        self.tenant_id = tenant_id  # type: str
+        self.tenant_name = tenant_name  # type: str
+        self.un_connect_db_count = un_connect_db_count  # type: str
+        self.un_support_one_click_auth_reason = un_support_one_click_auth_reason  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeParentInstanceResponseBodyItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.audit_status is not None:
+            result['AuditStatus'] = self.audit_status
+        if self.auth_status is not None:
+            result['AuthStatus'] = self.auth_status
+        if self.cluster_status is not None:
+            result['ClusterStatus'] = self.cluster_status
+        if self.connect_node is not None:
+            result['ConnectNode'] = self.connect_node
+        if self.db_num is not None:
+            result['DbNum'] = self.db_num
+        if self.engine_type is not None:
+            result['EngineType'] = self.engine_type
+        if self.instance_description is not None:
+            result['InstanceDescription'] = self.instance_description
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.instance_size is not None:
+            result['InstanceSize'] = self.instance_size
+        if self.local_name is not None:
+            result['LocalName'] = self.local_name
+        if self.parent_id is not None:
+            result['ParentId'] = self.parent_id
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        if self.support_connect_nodes is not None:
+            result['SupportConnectNodes'] = self.support_connect_nodes
+        if self.tenant_id is not None:
+            result['TenantId'] = self.tenant_id
+        if self.tenant_name is not None:
+            result['TenantName'] = self.tenant_name
+        if self.un_connect_db_count is not None:
+            result['UnConnectDbCount'] = self.un_connect_db_count
+        if self.un_support_one_click_auth_reason is not None:
+            result['UnSupportOneClickAuthReason'] = self.un_support_one_click_auth_reason
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AuditStatus') is not None:
+            self.audit_status = m.get('AuditStatus')
+        if m.get('AuthStatus') is not None:
+            self.auth_status = m.get('AuthStatus')
+        if m.get('ClusterStatus') is not None:
+            self.cluster_status = m.get('ClusterStatus')
+        if m.get('ConnectNode') is not None:
+            self.connect_node = m.get('ConnectNode')
+        if m.get('DbNum') is not None:
+            self.db_num = m.get('DbNum')
+        if m.get('EngineType') is not None:
+            self.engine_type = m.get('EngineType')
+        if m.get('InstanceDescription') is not None:
+            self.instance_description = m.get('InstanceDescription')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('InstanceSize') is not None:
+            self.instance_size = m.get('InstanceSize')
+        if m.get('LocalName') is not None:
+            self.local_name = m.get('LocalName')
+        if m.get('ParentId') is not None:
+            self.parent_id = m.get('ParentId')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        if m.get('SupportConnectNodes') is not None:
+            self.support_connect_nodes = m.get('SupportConnectNodes')
+        if m.get('TenantId') is not None:
+            self.tenant_id = m.get('TenantId')
+        if m.get('TenantName') is not None:
+            self.tenant_name = m.get('TenantName')
+        if m.get('UnConnectDbCount') is not None:
+            self.un_connect_db_count = m.get('UnConnectDbCount')
+        if m.get('UnSupportOneClickAuthReason') is not None:
+            self.un_support_one_click_auth_reason = m.get('UnSupportOneClickAuthReason')
+        return self
+
+
+class DescribeParentInstanceResponseBody(TeaModel):
+    def __init__(self, current_page=None, items=None, page_size=None, request_id=None, total_count=None):
+        self.current_page = current_page  # type: int
+        self.items = items  # type: list[DescribeParentInstanceResponseBodyItems]
+        self.page_size = page_size  # type: int
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.items:
+            for k in self.items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeParentInstanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        result['Items'] = []
+        if self.items is not None:
+            for k in self.items:
+                result['Items'].append(k.to_map() if k else None)
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        self.items = []
+        if m.get('Items') is not None:
+            for k in m.get('Items'):
+                temp_model = DescribeParentInstanceResponseBodyItems()
+                self.items.append(temp_model.from_map(k))
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class DescribeParentInstanceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeParentInstanceResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeParentInstanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeParentInstanceResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -9066,9 +9248,6 @@ class DescribeRiskLevelsResponse(TeaModel):
         self.body = body  # type: DescribeRiskLevelsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9546,9 +9725,6 @@ class DescribeRulesResponse(TeaModel):
         self.body = body  # type: DescribeRulesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9933,9 +10109,6 @@ class DescribeTablesResponse(TeaModel):
         self.body = body  # type: DescribeTablesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10072,9 +10245,6 @@ class DescribeTemplateAllRulesResponse(TeaModel):
         self.body = body  # type: DescribeTemplateAllRulesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10347,9 +10517,6 @@ class DescribeUserStatusResponse(TeaModel):
         self.body = body  # type: DescribeUserStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10450,9 +10617,6 @@ class DisableUserConfigResponse(TeaModel):
         self.body = body  # type: DisableUserConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10576,9 +10740,6 @@ class ExecDatamaskResponse(TeaModel):
         self.body = body  # type: ExecDatamaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10614,10 +10775,10 @@ class ManualTriggerMaskingProcessRequest(TeaModel):
         # 
         # The ID of the de-identification task is a string. You can call the DescribeDataMaskingTasks operation to query the ID.
         self.id = id  # type: long
-        # The language of the content within the request and response. Valid values:
+        # The language of the content within the request and response, default value zh_cn. Valid values:
         # 
-        # *   **zh**: Chinese
-        # *   **en**: English
+        # *   **zh_cn**: Chinese
+        # *   **en_us**: English
         self.lang = lang  # type: str
 
     def validate(self):
@@ -10676,9 +10837,6 @@ class ManualTriggerMaskingProcessResponse(TeaModel):
         self.body = body  # type: ManualTriggerMaskingProcessResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10904,9 +11062,6 @@ class ModifyDataLimitResponse(TeaModel):
         self.body = body  # type: ModifyDataLimitResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11020,9 +11175,6 @@ class ModifyDefaultLevelResponse(TeaModel):
         self.body = body  # type: ModifyDefaultLevelResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11144,9 +11296,6 @@ class ModifyEventStatusResponse(TeaModel):
         self.body = body  # type: ModifyEventStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11246,9 +11395,6 @@ class ModifyEventTypeStatusResponse(TeaModel):
         self.body = body  # type: ModifyEventTypeStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11355,9 +11501,6 @@ class ModifyReportTaskStatusResponse(TeaModel):
         self.body = body  # type: ModifyReportTaskStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11543,9 +11686,6 @@ class ModifyRuleResponse(TeaModel):
         self.body = body  # type: ModifyRuleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11666,9 +11806,6 @@ class ModifyRuleStatusResponse(TeaModel):
         self.body = body  # type: ModifyRuleStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11764,9 +11901,6 @@ class StopMaskingProcessResponse(TeaModel):
         self.body = body  # type: StopMaskingProcessResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
