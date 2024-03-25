@@ -3182,11 +3182,12 @@ class CreateLifecyclePolicyResponse(TeaModel):
 
 
 class CreateLifecycleRetrieveJobRequest(TeaModel):
-    def __init__(self, file_system_id=None, paths=None):
+    def __init__(self, file_system_id=None, paths=None, storage_type=None):
         # The ID of the file system.
         self.file_system_id = file_system_id  # type: str
         # The directories or files that you want to retrieve. You can specify a maximum of 10 paths.
         self.paths = paths  # type: list[str]
+        self.storage_type = storage_type  # type: str
 
     def validate(self):
         pass
@@ -3201,6 +3202,8 @@ class CreateLifecycleRetrieveJobRequest(TeaModel):
             result['FileSystemId'] = self.file_system_id
         if self.paths is not None:
             result['Paths'] = self.paths
+        if self.storage_type is not None:
+            result['StorageType'] = self.storage_type
         return result
 
     def from_map(self, m=None):
@@ -3209,6 +3212,8 @@ class CreateLifecycleRetrieveJobRequest(TeaModel):
             self.file_system_id = m.get('FileSystemId')
         if m.get('Paths') is not None:
             self.paths = m.get('Paths')
+        if m.get('StorageType') is not None:
+            self.storage_type = m.get('StorageType')
         return self
 
 
@@ -9522,9 +9527,9 @@ class DescribeFileSystemsResponseBodyFileSystemsFileSystemTags(TeaModel):
 class DescribeFileSystemsResponseBodyFileSystemsFileSystem(TeaModel):
     def __init__(self, access_point_count=None, bandwidth=None, capacity=None, charge_type=None, create_time=None,
                  description=None, encrypt_type=None, expired_time=None, file_system_id=None, file_system_type=None,
-                 kmskey_id=None, ldap=None, metered_iasize=None, metered_size=None, mount_targets=None, packages=None,
-                 protocol_type=None, region_id=None, resource_group_id=None, status=None, storage_type=None,
-                 supported_features=None, tags=None, version=None, zone_id=None):
+                 kmskey_id=None, ldap=None, metered_archive_size=None, metered_iasize=None, metered_size=None,
+                 mount_targets=None, packages=None, protocol_type=None, region_id=None, resource_group_id=None, status=None,
+                 storage_type=None, supported_features=None, tags=None, version=None, zone_id=None):
         self.access_point_count = access_point_count  # type: str
         # The bandwidth of the file system.
         # 
@@ -9574,6 +9579,7 @@ class DescribeFileSystemsResponseBodyFileSystemsFileSystem(TeaModel):
         # 
         # This parameter is available only for CPFS file systems.
         self.ldap = ldap  # type: DescribeFileSystemsResponseBodyFileSystemsFileSystemLdap
+        self.metered_archive_size = metered_archive_size  # type: long
         # The storage usage of the Infrequent Access (IA) storage medium.
         # 
         # Unit: bytes.
@@ -9671,6 +9677,8 @@ class DescribeFileSystemsResponseBodyFileSystemsFileSystem(TeaModel):
             result['KMSKeyId'] = self.kmskey_id
         if self.ldap is not None:
             result['Ldap'] = self.ldap.to_map()
+        if self.metered_archive_size is not None:
+            result['MeteredArchiveSize'] = self.metered_archive_size
         if self.metered_iasize is not None:
             result['MeteredIASize'] = self.metered_iasize
         if self.metered_size is not None:
@@ -9726,6 +9734,8 @@ class DescribeFileSystemsResponseBodyFileSystemsFileSystem(TeaModel):
         if m.get('Ldap') is not None:
             temp_model = DescribeFileSystemsResponseBodyFileSystemsFileSystemLdap()
             self.ldap = temp_model.from_map(m['Ldap'])
+        if m.get('MeteredArchiveSize') is not None:
+            self.metered_archive_size = m.get('MeteredArchiveSize')
         if m.get('MeteredIASize') is not None:
             self.metered_iasize = m.get('MeteredIASize')
         if m.get('MeteredSize') is not None:
@@ -10149,7 +10159,8 @@ class DescribeFilesetsResponse(TeaModel):
 
 
 class DescribeLifecyclePoliciesRequest(TeaModel):
-    def __init__(self, file_system_id=None, lifecycle_policy_name=None, page_number=None, page_size=None):
+    def __init__(self, file_system_id=None, lifecycle_policy_name=None, page_number=None, page_size=None,
+                 storage_type=None):
         # The ID of the file system.
         self.file_system_id = file_system_id  # type: str
         # The name of the lifecycle policy. The name must meet the following conventions:
@@ -10166,6 +10177,7 @@ class DescribeLifecyclePoliciesRequest(TeaModel):
         # 
         # Default value: 10.
         self.page_size = page_size  # type: int
+        self.storage_type = storage_type  # type: str
 
     def validate(self):
         pass
@@ -10184,6 +10196,8 @@ class DescribeLifecyclePoliciesRequest(TeaModel):
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.storage_type is not None:
+            result['StorageType'] = self.storage_type
         return result
 
     def from_map(self, m=None):
@@ -10196,6 +10210,8 @@ class DescribeLifecyclePoliciesRequest(TeaModel):
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('StorageType') is not None:
+            self.storage_type = m.get('StorageType')
         return self
 
 
@@ -13687,8 +13703,8 @@ class GetDirectoryOrFilePropertiesRequest(TeaModel):
 
 
 class GetDirectoryOrFilePropertiesResponseBodyEntry(TeaModel):
-    def __init__(self, atime=None, ctime=None, has_infrequent_access_file=None, inode=None, mtime=None, name=None,
-                 retrieve_time=None, size=None, storage_type=None, type=None):
+    def __init__(self, atime=None, ctime=None, has_archive_file=None, has_infrequent_access_file=None, inode=None,
+                 mtime=None, name=None, retrieve_time=None, size=None, storage_type=None, type=None):
         # The time when the file was queried.
         # 
         # The time follows the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format.
@@ -13701,6 +13717,7 @@ class GetDirectoryOrFilePropertiesResponseBodyEntry(TeaModel):
         # 
         # This parameter is returned only if the value of the Type parameter is File.
         self.ctime = ctime  # type: str
+        self.has_archive_file = has_archive_file  # type: bool
         # Indicates whether the directory contains files stored in the IA storage medium.
         # 
         # This parameter is returned only if the value of the Type parameter is Directory.
@@ -13762,6 +13779,8 @@ class GetDirectoryOrFilePropertiesResponseBodyEntry(TeaModel):
             result['ATime'] = self.atime
         if self.ctime is not None:
             result['CTime'] = self.ctime
+        if self.has_archive_file is not None:
+            result['HasArchiveFile'] = self.has_archive_file
         if self.has_infrequent_access_file is not None:
             result['HasInfrequentAccessFile'] = self.has_infrequent_access_file
         if self.inode is not None:
@@ -13786,6 +13805,8 @@ class GetDirectoryOrFilePropertiesResponseBodyEntry(TeaModel):
             self.atime = m.get('ATime')
         if m.get('CTime') is not None:
             self.ctime = m.get('CTime')
+        if m.get('HasArchiveFile') is not None:
+            self.has_archive_file = m.get('HasArchiveFile')
         if m.get('HasInfrequentAccessFile') is not None:
             self.has_infrequent_access_file = m.get('HasInfrequentAccessFile')
         if m.get('Inode') is not None:
@@ -14094,8 +14115,8 @@ class ListDirectoriesAndFilesRequest(TeaModel):
 
 
 class ListDirectoriesAndFilesResponseBodyEntries(TeaModel):
-    def __init__(self, atime=None, ctime=None, file_id=None, has_infrequent_access_file=None, inode=None, mtime=None,
-                 name=None, owner=None, retrieve_time=None, size=None, storage_type=None, type=None):
+    def __init__(self, atime=None, ctime=None, file_id=None, has_archive_file=None, has_infrequent_access_file=None,
+                 inode=None, mtime=None, name=None, owner=None, retrieve_time=None, size=None, storage_type=None, type=None):
         # The time when the file was queried.
         # 
         # The time follows the ISO 8601 standard in the `yyyy-MM-ddTHH:mm:ssZ` format.
@@ -14110,6 +14131,7 @@ class ListDirectoriesAndFilesResponseBodyEntries(TeaModel):
         self.ctime = ctime  # type: str
         # The ID of the directory or file.
         self.file_id = file_id  # type: str
+        self.has_archive_file = has_archive_file  # type: str
         # Indicates whether the directory contains files stored in the IA storage medium.
         # 
         # This parameter is returned and valid only if the value of the Type parameter is Directory.
@@ -14174,6 +14196,8 @@ class ListDirectoriesAndFilesResponseBodyEntries(TeaModel):
             result['Ctime'] = self.ctime
         if self.file_id is not None:
             result['FileId'] = self.file_id
+        if self.has_archive_file is not None:
+            result['HasArchiveFile'] = self.has_archive_file
         if self.has_infrequent_access_file is not None:
             result['HasInfrequentAccessFile'] = self.has_infrequent_access_file
         if self.inode is not None:
@@ -14202,6 +14226,8 @@ class ListDirectoriesAndFilesResponseBodyEntries(TeaModel):
             self.ctime = m.get('Ctime')
         if m.get('FileId') is not None:
             self.file_id = m.get('FileId')
+        if m.get('HasArchiveFile') is not None:
+            self.has_archive_file = m.get('HasArchiveFile')
         if m.get('HasInfrequentAccessFile') is not None:
             self.has_infrequent_access_file = m.get('HasInfrequentAccessFile')
         if m.get('Inode') is not None:
@@ -14305,7 +14331,7 @@ class ListDirectoriesAndFilesResponse(TeaModel):
 
 
 class ListLifecycleRetrieveJobsRequest(TeaModel):
-    def __init__(self, file_system_id=None, page_number=None, page_size=None, status=None):
+    def __init__(self, file_system_id=None, page_number=None, page_size=None, status=None, storage_type=None):
         # The ID of the file system.
         self.file_system_id = file_system_id  # type: str
         # The number of the page to return.
@@ -14325,6 +14351,7 @@ class ListLifecycleRetrieveJobsRequest(TeaModel):
         # *   completed: The task is completed.
         # *   failed: The task has failed.
         self.status = status  # type: str
+        self.storage_type = storage_type  # type: str
 
     def validate(self):
         pass
@@ -14343,6 +14370,8 @@ class ListLifecycleRetrieveJobsRequest(TeaModel):
             result['PageSize'] = self.page_size
         if self.status is not None:
             result['Status'] = self.status
+        if self.storage_type is not None:
+            result['StorageType'] = self.storage_type
         return result
 
     def from_map(self, m=None):
@@ -14355,12 +14384,14 @@ class ListLifecycleRetrieveJobsRequest(TeaModel):
             self.page_size = m.get('PageSize')
         if m.get('Status') is not None:
             self.status = m.get('Status')
+        if m.get('StorageType') is not None:
+            self.storage_type = m.get('StorageType')
         return self
 
 
 class ListLifecycleRetrieveJobsResponseBodyLifecycleRetrieveJobs(TeaModel):
     def __init__(self, create_time=None, discovered_file_count=None, file_system_id=None, job_id=None, paths=None,
-                 retrieved_file_count=None, status=None, update_time=None):
+                 retrieved_file_count=None, status=None, storage_type=None, update_time=None):
         # The time when the task was created.
         # 
         # The time follows the ISO 8601 standard in the `yyyy-MM-ddTHH:mm:ssZ` format.
@@ -14381,6 +14412,7 @@ class ListLifecycleRetrieveJobsResponseBodyLifecycleRetrieveJobs(TeaModel):
         # *   completed: The task is completed.
         # *   failed: The task has failed.
         self.status = status  # type: str
+        self.storage_type = storage_type  # type: str
         # The time when the task was updated.
         # 
         # The time follows the ISO 8601 standard in the `yyyy-MM-ddTHH:mm:ssZ` format.
@@ -14409,6 +14441,8 @@ class ListLifecycleRetrieveJobsResponseBodyLifecycleRetrieveJobs(TeaModel):
             result['RetrievedFileCount'] = self.retrieved_file_count
         if self.status is not None:
             result['Status'] = self.status
+        if self.storage_type is not None:
+            result['StorageType'] = self.storage_type
         if self.update_time is not None:
             result['UpdateTime'] = self.update_time
         return result
@@ -14429,6 +14463,8 @@ class ListLifecycleRetrieveJobsResponseBodyLifecycleRetrieveJobs(TeaModel):
             self.retrieved_file_count = m.get('RetrievedFileCount')
         if m.get('Status') is not None:
             self.status = m.get('Status')
+        if m.get('StorageType') is not None:
+            self.storage_type = m.get('StorageType')
         if m.get('UpdateTime') is not None:
             self.update_time = m.get('UpdateTime')
         return self
