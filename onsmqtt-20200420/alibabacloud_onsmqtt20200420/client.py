@@ -92,6 +92,112 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.active_device_certificate_with_options(request, runtime)
 
+    def add_custom_auth_connect_black_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.client_id):
+            body['ClientId'] = request.client_id
+        if not UtilClient.is_unset(request.instance_id):
+            body['InstanceId'] = request.instance_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='AddCustomAuthConnectBlack',
+            version='2020-04-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ons_mqtt_20200420_models.AddCustomAuthConnectBlackResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def add_custom_auth_connect_black(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.add_custom_auth_connect_black_with_options(request, runtime)
+
+    def add_custom_auth_identity_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.client_id):
+            body['ClientId'] = request.client_id
+        if not UtilClient.is_unset(request.identity_type):
+            body['IdentityType'] = request.identity_type
+        if not UtilClient.is_unset(request.instance_id):
+            body['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.secret):
+            body['Secret'] = request.secret
+        if not UtilClient.is_unset(request.sign_mode):
+            body['SignMode'] = request.sign_mode
+        if not UtilClient.is_unset(request.username):
+            body['Username'] = request.username
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='AddCustomAuthIdentity',
+            version='2020-04-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ons_mqtt_20200420_models.AddCustomAuthIdentityResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def add_custom_auth_identity(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.add_custom_auth_identity_with_options(request, runtime)
+
+    def add_custom_auth_permission_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.effect):
+            body['Effect'] = request.effect
+        if not UtilClient.is_unset(request.identity):
+            body['Identity'] = request.identity
+        if not UtilClient.is_unset(request.identity_type):
+            body['IdentityType'] = request.identity_type
+        if not UtilClient.is_unset(request.instance_id):
+            body['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.permit_action):
+            body['PermitAction'] = request.permit_action
+        if not UtilClient.is_unset(request.topic):
+            body['Topic'] = request.topic
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='AddCustomAuthPermission',
+            version='2020-04-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ons_mqtt_20200420_models.AddCustomAuthPermissionResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def add_custom_auth_permission(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.add_custom_auth_permission_with_options(request, runtime)
+
     def apply_token_with_options(self, request, runtime):
         """
         You can call this operation up to 100 times per second per account. If you want to increase the limit, join the DingTalk group 35228338 to contact ApsaraMQ for MQTT technical support.
@@ -275,6 +381,104 @@ class Client(OpenApiClient):
     def delete_ca_certificate(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_ca_certificate_with_options(request, runtime)
+
+    def delete_custom_auth_connect_black_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.client_id):
+            body['ClientId'] = request.client_id
+        if not UtilClient.is_unset(request.instance_id):
+            body['InstanceId'] = request.instance_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteCustomAuthConnectBlack',
+            version='2020-04-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ons_mqtt_20200420_models.DeleteCustomAuthConnectBlackResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_custom_auth_connect_black(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_custom_auth_connect_black_with_options(request, runtime)
+
+    def delete_custom_auth_identity_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.client_id):
+            body['ClientId'] = request.client_id
+        if not UtilClient.is_unset(request.identity_type):
+            body['IdentityType'] = request.identity_type
+        if not UtilClient.is_unset(request.instance_id):
+            body['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.username):
+            body['Username'] = request.username
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteCustomAuthIdentity',
+            version='2020-04-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ons_mqtt_20200420_models.DeleteCustomAuthIdentityResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_custom_auth_identity(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_custom_auth_identity_with_options(request, runtime)
+
+    def delete_custom_auth_permission_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.identity):
+            body['Identity'] = request.identity
+        if not UtilClient.is_unset(request.identity_type):
+            body['IdentityType'] = request.identity_type
+        if not UtilClient.is_unset(request.instance_id):
+            body['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.topic):
+            body['Topic'] = request.topic
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteCustomAuthPermission',
+            version='2020-04-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ons_mqtt_20200420_models.DeleteCustomAuthPermissionResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_custom_auth_permission(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_custom_auth_permission_with_options(request, runtime)
 
     def delete_device_certificate_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -705,6 +909,84 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.list_group_id_with_options(request, runtime)
+
+    def query_custom_auth_connect_black_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryCustomAuthConnectBlack',
+            version='2020-04-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ons_mqtt_20200420_models.QueryCustomAuthConnectBlackResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_custom_auth_connect_black(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_custom_auth_connect_black_with_options(request, runtime)
+
+    def query_custom_auth_identity_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryCustomAuthIdentity',
+            version='2020-04-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ons_mqtt_20200420_models.QueryCustomAuthIdentityResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_custom_auth_identity(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_custom_auth_identity_with_options(request, runtime)
+
+    def query_custom_auth_permission_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryCustomAuthPermission',
+            version='2020-04-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ons_mqtt_20200420_models.QueryCustomAuthPermissionResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_custom_auth_permission(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_custom_auth_permission_with_options(request, runtime)
 
     def query_mqtt_trace_device_with_options(self, request, runtime):
         """
@@ -1341,3 +1623,79 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.un_register_device_credential_with_options(request, runtime)
+
+    def update_custom_auth_identity_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.client_id):
+            body['ClientId'] = request.client_id
+        if not UtilClient.is_unset(request.identity_type):
+            body['IdentityType'] = request.identity_type
+        if not UtilClient.is_unset(request.instance_id):
+            body['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.secret):
+            body['Secret'] = request.secret
+        if not UtilClient.is_unset(request.sign_mode):
+            body['SignMode'] = request.sign_mode
+        if not UtilClient.is_unset(request.username):
+            body['Username'] = request.username
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateCustomAuthIdentity',
+            version='2020-04-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ons_mqtt_20200420_models.UpdateCustomAuthIdentityResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_custom_auth_identity(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_custom_auth_identity_with_options(request, runtime)
+
+    def update_custom_auth_permission_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.effect):
+            body['Effect'] = request.effect
+        if not UtilClient.is_unset(request.identity):
+            body['Identity'] = request.identity
+        if not UtilClient.is_unset(request.identity_type):
+            body['IdentityType'] = request.identity_type
+        if not UtilClient.is_unset(request.instance_id):
+            body['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.permit_action):
+            body['PermitAction'] = request.permit_action
+        if not UtilClient.is_unset(request.topic):
+            body['Topic'] = request.topic
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateCustomAuthPermission',
+            version='2020-04-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ons_mqtt_20200420_models.UpdateCustomAuthPermissionResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_custom_auth_permission(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_custom_auth_permission_with_options(request, runtime)
