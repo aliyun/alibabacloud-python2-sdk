@@ -512,7 +512,7 @@ class CreateFeatureViewRequestFields(TeaModel):
 class CreateFeatureViewRequest(TeaModel):
     def __init__(self, config=None, feature_entity_id=None, fields=None, name=None, project_id=None,
                  register_datasource_id=None, register_table=None, sync_online_table=None, ttl=None, tags=None, type=None,
-                 write_method=None):
+                 write_method=None, write_to_feature_db=None):
         self.config = config  # type: str
         self.feature_entity_id = feature_entity_id  # type: str
         self.fields = fields  # type: list[CreateFeatureViewRequestFields]
@@ -525,6 +525,7 @@ class CreateFeatureViewRequest(TeaModel):
         self.tags = tags  # type: list[str]
         self.type = type  # type: str
         self.write_method = write_method  # type: str
+        self.write_to_feature_db = write_to_feature_db  # type: bool
 
     def validate(self):
         if self.fields:
@@ -564,6 +565,8 @@ class CreateFeatureViewRequest(TeaModel):
             result['Type'] = self.type
         if self.write_method is not None:
             result['WriteMethod'] = self.write_method
+        if self.write_to_feature_db is not None:
+            result['WriteToFeatureDB'] = self.write_to_feature_db
         return result
 
     def from_map(self, m=None):
@@ -595,6 +598,8 @@ class CreateFeatureViewRequest(TeaModel):
             self.type = m.get('Type')
         if m.get('WriteMethod') is not None:
             self.write_method = m.get('WriteMethod')
+        if m.get('WriteToFeatureDB') is not None:
+            self.write_to_feature_db = m.get('WriteToFeatureDB')
         return self
 
 
@@ -2328,7 +2333,7 @@ class GetFeatureViewResponseBody(TeaModel):
                  gmt_create_time=None, gmt_modified_time=None, gmt_sync_time=None, join_id=None, last_sync_config=None, name=None,
                  owner=None, project_id=None, project_name=None, publish_table_script=None, register_datasource_id=None,
                  register_datasource_name=None, register_table=None, request_id=None, sync_online_table=None, ttl=None, tags=None, type=None,
-                 write_method=None):
+                 write_method=None, write_to_feature_db=None):
         self.config = config  # type: str
         self.feature_entity_id = feature_entity_id  # type: str
         self.feature_entity_name = feature_entity_name  # type: str
@@ -2352,6 +2357,7 @@ class GetFeatureViewResponseBody(TeaModel):
         self.tags = tags  # type: list[str]
         self.type = type  # type: str
         self.write_method = write_method  # type: str
+        self.write_to_feature_db = write_to_feature_db  # type: bool
 
     def validate(self):
         if self.fields:
@@ -2413,6 +2419,8 @@ class GetFeatureViewResponseBody(TeaModel):
             result['Type'] = self.type
         if self.write_method is not None:
             result['WriteMethod'] = self.write_method
+        if self.write_to_feature_db is not None:
+            result['WriteToFeatureDB'] = self.write_to_feature_db
         return result
 
     def from_map(self, m=None):
@@ -2466,6 +2474,8 @@ class GetFeatureViewResponseBody(TeaModel):
             self.type = m.get('Type')
         if m.get('WriteMethod') is not None:
             self.write_method = m.get('WriteMethod')
+        if m.get('WriteToFeatureDB') is not None:
+            self.write_to_feature_db = m.get('WriteToFeatureDB')
         return self
 
 
@@ -5293,7 +5303,7 @@ class ListFeatureViewsShrinkRequest(TeaModel):
 class ListFeatureViewsResponseBodyFeatureViews(TeaModel):
     def __init__(self, feature_entity_name=None, feature_view_id=None, gmt_create_time=None,
                  gmt_modified_time=None, name=None, owner=None, project_id=None, project_name=None, register_datasource_id=None,
-                 register_datasource_name=None, register_table=None, ttl=None, type=None):
+                 register_datasource_name=None, register_table=None, ttl=None, type=None, write_to_feature_db=None):
         self.feature_entity_name = feature_entity_name  # type: str
         self.feature_view_id = feature_view_id  # type: str
         self.gmt_create_time = gmt_create_time  # type: str
@@ -5307,6 +5317,7 @@ class ListFeatureViewsResponseBodyFeatureViews(TeaModel):
         self.register_table = register_table  # type: str
         self.ttl = ttl  # type: int
         self.type = type  # type: str
+        self.write_to_feature_db = write_to_feature_db  # type: bool
 
     def validate(self):
         pass
@@ -5343,6 +5354,8 @@ class ListFeatureViewsResponseBodyFeatureViews(TeaModel):
             result['TTL'] = self.ttl
         if self.type is not None:
             result['Type'] = self.type
+        if self.write_to_feature_db is not None:
+            result['WriteToFeatureDB'] = self.write_to_feature_db
         return result
 
     def from_map(self, m=None):
@@ -5373,6 +5386,8 @@ class ListFeatureViewsResponseBodyFeatureViews(TeaModel):
             self.ttl = m.get('TTL')
         if m.get('Type') is not None:
             self.type = m.get('Type')
+        if m.get('WriteToFeatureDB') is not None:
+            self.write_to_feature_db = m.get('WriteToFeatureDB')
         return self
 
 
