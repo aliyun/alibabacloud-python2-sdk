@@ -6166,7 +6166,7 @@ class DescribeBackupsResponseBodyBackupsBackup(TeaModel):
         # The end of the backup time range. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
         self.backup_end_time = backup_end_time  # type: str
         # The ID of the backup set.
-        self.backup_id = backup_id  # type: int
+        self.backup_id = backup_id  # type: long
         # The internal download URL of the backup set.
         # 
         # > You can use this URL to download the backup set from on the Elastic Compute Service (ECS) instance which is on the same network as the ApsaraDB for MongoDB instance.
