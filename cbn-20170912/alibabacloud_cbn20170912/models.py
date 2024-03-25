@@ -148,49 +148,64 @@ class AddTrafficMatchRuleToTrafficMarkingPolicyRequestTrafficMatchRules(TeaModel
                  src_port_range=None, traffic_match_rule_description=None, traffic_match_rule_name=None):
         # The destination CIDR block that is used to match packets.
         # 
-        # The traffic classification rule matches the packets whose destination IP addresses fall within the specified destination CIDR block. If you do not specify this parameter, packets are considered a match regardless of the destination IP address.
+        # Packets whose destination IP addresses fall into the specified destination CIDR block are considered a match. If you do not specify a destination CIDR block, packets are considered a match regardless of the destination IP address.
         self.dst_cidr = dst_cidr  # type: str
         # The destination port range that is used to match packets. Valid values: **-1** and **1** to **65535**.
         # 
-        # The traffic classification rule matches the packets whose destination ports fall within the destination port range. If you do not specify this parameter, packets are considered a match regardless of the destination port.
+        # Packets whose destination ports fall into the specified destination port range are considered a match. If you do not specify destination port range, packets are considered a match regardless of the destination port.
         # 
-        # You can specify up to two ports. Take note of the following rules:
+        # You can specify at most two port numbers for this parameter. Take note of the following rules:
         # 
-        # *   If you enter only one port number such as 1, the system matches the packets whose destination port is port 1.
-        # *   If you enter two port numbers such as 1 and 200, the system matches the packets whose destination ports fall between 1 and 200.
-        # *   If you enter two port numbers and one of them is -1, the other port number must also be -1. In this case, packets are considered a match regardless of the destination port.
+        # *   If you enter only one port number, such as 1, packets whose destination port is 1 are considered a match.
+        # *   If you enter two port numbers, such as 1 and 200, packets whose destination ports fall into 1 and 200 are considered a match.
+        # *   If you enter two port numbers and one of them is -1, the other port must also be -1. In this case, packets are considered a match regardless of the destination port.
         self.dst_port_range = dst_port_range  # type: list[int]
-        # The differentiated services code point (DSCP) value that is used to match packets. Valid values: **0** to **63**.
+        # The Differentiated Services Code Point (DSCP) value that is used to match packets. Valid values: **0** to **63**.
         # 
-        # The traffic classification rule matches the packets that contain the specified DSCP value. If you do not specify this parameter, packets are considered a match regardless of the DSCP value.
+        # Packets that carry the specified DSCP value are considered a match. If you do not specify a DSCP value, packets are considered a match regardless of the DSCP value.
         # 
         # >  The DSCP value that you specify for this parameter is the DSCP value that packets carry before they are transmitted over the inter-region connection.
         self.match_dscp = match_dscp  # type: int
         # The protocol that is used to match packets.
         # 
-        # Valid values: **HTTP**, **HTTPS**, **TCP**, **UDP**, **SSH**, and **Telnet**. For more information, log on to the [Cloud Enterprise Network (CEN) console](https://cen.console.aliyun.com/cen/list).
+        # Traffic classification rules support the following protocols: **HTTP**, **HTTPS**, **TCP**, **UDP**, **SSH**, and **Telnet**. For more information, log on to the [Cloud Enterprise Network (CEN) console](https://cen.console.aliyun.com/cen/list).
+        # 
+        # **Some protocols use a specific port. Click to view protocols and ports.**\
+        # 
+        # *   If the protocol is **ICMP**, set the destination port to **-1**.
+        # *   If the protocol is **GRE**, set the destination port to **-1**.
+        # *   If the protocol is **SSH**, set the destination port to **22**.
+        # *   If the protocol is **Telnet**, set the destination port to **23**.
+        # *   If the protocol is **HTTP**, set the destination port to **80**.
+        # *   If the protocol is **HTTPS**, set the destination port to **443**.
+        # *   If the protocol is **MS SQL**, set the destination port to **1443**.
+        # *   If the protocol is **Oracle**, set the destination port to **1521**.
+        # *   If the protocol is **Mysql**, set the destination port to **3306**.
+        # *   If the protocol is **RDP**, set the destination port to **3389**.
+        # *   If the protocol is **Postgre SQL**, set the destination port to **5432**.
+        # *   If the protocol is **Redis**, set the destination port to **6379**.
         self.protocol = protocol  # type: str
         # The source CIDR block that is used to match packets.
         # 
-        # The traffic classification rule matches the packets whose source IP addresses fall within the specified source CIDR block. If you do not specify this parameter, packets are considered a match regardless of the source IP address.
+        # Packets whose source IP addresses fall into the specified source CIDR block are considered a match. If you do not specify a source CIDR block, packets are considered a match regardless of the source IP address.
         self.src_cidr = src_cidr  # type: str
         # The source port range that is used to match packets. Valid values: **-1** and **1** to **65535**.
         # 
-        # The traffic classification rule matches the packets whose source ports fall within the source port range. If you do not specify this parameter, packets are considered a match regardless of the source port.
+        # Packets whose source ports fall into the specified source port range are considered a match. If you do not specify a source port range, packets are considered a match regardless of the source port.
         # 
-        # You can enter up to two port numbers. Take note of the following rules:
+        # You can enter at most two port numbers. Take note of the following rules:
         # 
-        # *   If you enter only one port number such as 1, the system matches the packets whose source port is 1.
-        # *   If you enter two port numbers such as 1 and 200, the system matches the packets whose source ports fall within 1 to 200.
+        # *   If you enter only one port number, such as 1, packets whose source port is 1 are considered a match.
+        # *   If you enter two port numbers, such as 1 and 200, packets whose source ports fall into 1 and 200 are considered a match.
         # *   If you enter two port numbers and one of them is -1, the other port number must also be -1. In this case, packets are considered a match regardless of the source port.
         self.src_port_range = src_port_range  # type: list[int]
         # The description of the traffic classification rule.
         # 
-        # This parameter is optional. If you enter a description, it must be 1 to 256 characters in length and cannot start with http:// or https://.
+        # This parameter is optional. If you enter a description, it must be 1 to 256 characters in length, and cannot start with http:// or https://.
         self.traffic_match_rule_description = traffic_match_rule_description  # type: str
         # The name of the traffic classification rule.
         # 
-        # The name can be empty or 1 to 128 characters in length and cannot start with http:// or https://.
+        # The name can be empty or 1 to 128 characters in length, and cannot start with http:// or https://.
         self.traffic_match_rule_name = traffic_match_rule_name  # type: str
 
     def validate(self):
@@ -263,7 +278,7 @@ class AddTrafficMatchRuleToTrafficMarkingPolicyRequest(TeaModel):
         self.traffic_marking_policy_id = traffic_marking_policy_id  # type: str
         # The traffic classification rules.
         # 
-        # You can specify up to 50 traffic classification rules at a time.
+        # You can add at most 50 traffic classification rules in each call.
         self.traffic_match_rules = traffic_match_rules  # type: list[AddTrafficMatchRuleToTrafficMarkingPolicyRequestTrafficMatchRules]
 
     def validate(self):
@@ -1203,17 +1218,17 @@ class CheckTransitRouterServiceResponse(TeaModel):
 
 class CreateCenRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # The tag keys of the resources.
+        # The tag key.
         # 
-        # The tag keys cannot be an empty string. The tag keys can be up to 64 characters in length and cannot start with `acs:` or `aliyun`. It cannot contain `http://` or `https://`.
+        # The tag key cannot be an empty string. The tag key can be up to 64 characters in length and cannot start with `acs:` or `aliyun`. It cannot contain `http://` or `https://`.
         # 
-        # You can specify at most 20 tag keys.
+        # You can specify up to 20 tag keys.
         self.key = key  # type: str
-        # The tag values of the resources.
+        # The tag value.
         # 
-        # The tag values can be 0 to 128 characters in length, and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.
+        # The tag value can be 0 to 128 characters in length, and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.
         # 
-        # Each tag key has a unique tag value. You can specify at most 20 tag values in each call.
+        # Each tag key must have a unique tag value. You can specify up to 20 tag values in each call.
         self.value = value  # type: str
 
     def validate(self):
@@ -1245,17 +1260,17 @@ class CreateCenRequest(TeaModel):
                  protection_level=None, resource_owner_account=None, resource_owner_id=None, tag=None):
         # The client token that is used to ensure the idempotence of the request.
         # 
-        # You can use the client to generate the value, but you must make sure that it is unique among different requests. ClientToken can contain only ASCII characters.
+        # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.
         # 
-        # >  If you do not set this parameter, **ClientToken** is set to the value of **RequestId**. The value of **RequestId** for each API request may be different.
+        # >  If you do not specify this parameter, the system automatically uses the **request ID** as the **client token**. The **request ID** may be different for each request.
         self.client_token = client_token  # type: str
         # The description of the CEN instance.
         # 
-        # The description must be 2 to 256 characters in length. It must start with a letter and cannot start with `http://` or `https://`.
+        # The description can be empty or 1 to 256 characters in length and cannot start with http:// or https://.
         self.description = description  # type: str
         # The name of the CEN instance.
         # 
-        # The name must be 2 to 128 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). The name must start with a letter and cannot start with `http://` or `https://`.
+        # The name can be empty or 1 to 128 characters in length and cannot start with http:// or https://.
         self.name = name  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -1266,6 +1281,8 @@ class CreateCenRequest(TeaModel):
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         # The tags.
+        # 
+        # You can specify up to 20 tags in each call.
         self.tag = tag  # type: list[CreateCenRequestTag]
 
     def validate(self):
@@ -1330,9 +1347,9 @@ class CreateCenRequest(TeaModel):
 
 class CreateCenResponseBody(TeaModel):
     def __init__(self, cen_id=None, request_id=None):
-        # The ID of the CEN instance.
+        # The CEN instance ID.
         self.cen_id = cen_id  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3027,25 +3044,25 @@ class CreateTrafficMarkingPolicyRequestTrafficMatchRules(TeaModel):
                  src_port_range=None, traffic_match_rule_description=None, traffic_match_rule_name=None):
         # The destination CIDR block that is used to match packets.
         # 
-        # The traffic classification rule matches the packets whose destination IP addresses fall within the specified destination CIDR block. If you do not set this parameter, packets with all destination IP addresses are matched.
+        # Packets whose destination IP addresses fall into the specified destination CIDR block meet the traffic classification rule. If you do not specify a destination CIDR block, all packets meet the traffic classification rule.
         # 
-        # You can create up to 50 traffic classification rules in each call. You can specify a destination CIDR block for each traffic classification rule.
+        # You can create up to 50 traffic classification rules in each call You can specify a destination CIDR block for each traffic classification rule.
         self.dst_cidr = dst_cidr  # type: str
         # The destination port range that is used to match packets. Valid values: **-1** and **1** to **65535**.
         # 
-        # The traffic classification rule matches the packets whose destination ports fall within the destination port range. If you do not set this parameter, packets with all destination ports are matched.
+        # Packets whose destination ports fall within the destination port range meet the traffic classification rule. If you do not specify destination port range, all packets meet the traffic classification rule.
         # 
-        # You can specify at most two ports. Take note of the following rules:
+        # You can enter up to two port numbers. Take note of the following rules:
         # 
-        # *   If you enter only one port number such as 1, the system matches the packets whose destination port is port 1.
-        # *   If you enter two port numbers such as 1 and 200, the system matches the packets whose destination ports fall between 1 and 200.
-        # *   If you enter two port numbers and one of them is -1, the other port number must also be -1. In this case, packets with all destination ports are matched.
+        # *   If you enter only one port number, such as 1, packets whose destination port is 1 meet the traffic classification rule.
+        # *   If you enter two port numbers, such as 1 and 200, packets whose destination ports fall into 1 and 200 meet the traffic classification rule.
+        # *   If you enter two port numbers and one of them is -1, the other port number must also be -1. In this case, all packets meet the traffic classification rule.
         # 
         # You can create up to 50 traffic classification rules in each call. You can specify a destination port range for each traffic classification rule.
         self.dst_port_range = dst_port_range  # type: list[int]
         # The DSCP value that is used to match packets. Valid values: **0** to **63**.
         # 
-        # The traffic classification rule matches the packets that contain the specified DSCP value. If you do not set this parameter, packets are considered a match regardless of the DSCP value.
+        # Packets that carry the specified DSCP value meet the traffic classification rule. If you do not specify a DSCP value, all packets meet the traffic classification rule.
         # 
         # >  The DSCP value that you specify for this parameter is the DSCP value that packets carry before they are transmitted over the inter-region connection.
         # 
@@ -3053,25 +3070,40 @@ class CreateTrafficMarkingPolicyRequestTrafficMatchRules(TeaModel):
         self.match_dscp = match_dscp  # type: int
         # The protocol that is used to match packets.
         # 
-        # Valid values: **HTTP**, **HTTPS**, **TCP**, **UDP**, **SSH**, and **Telnet**. For more information, log on to the [Cloud Enterprise Network (CEN) console](https://cen.console.aliyun.com/cen/list).
+        # Traffic classification rules support the following protocols: **HTTP**, **HTTPS**, **TCP**, **UDP**, **SSH**, and **Telnet**. For more information, log on to the [CEN console](https://cen.console.aliyun.com/cen/list).
+        # 
+        # **Some protocols use a fixed port. Click to view protocols and ports.**\
+        # 
+        # *   If the protocol is **ICMP**, the destination port must be **-1**.
+        # *   If the protocol is **GRE**, the destination port must be **1**.
+        # *   If the protocol is **SSH**, the destination port must be **22**.
+        # *   If the protocol is **Telnet**, the destination port must be **23**.
+        # *   If the protocol is **HTTP**, the destination port must be **80**.
+        # *   If the protocol is **HTTPS**, the destination port must be **443**.
+        # *   If the protocol is **MS SQL**, the destination port must be **1443**.
+        # *   If the protocol is **Oracle**, the destination port must be **1521**.
+        # *   If the protocol is **Mysql**, the destination port must be **3306**.
+        # *   If the protocol is **RDP**, the destination port must be **3389**.
+        # *   If the protocol is **Postgre SQL**, the destination port must be **5432**.
+        # *   If the protocol is **Redis**, the destination port must be **6379**.
         # 
         # You can create up to 50 traffic classification rules in each call. You can specify a protocol for each traffic classification rule.
         self.protocol = protocol  # type: str
         # The source CIDR block that is used to match packets.
         # 
-        # The traffic classification rule matches the packets whose source IP addresses fall within the specified source CIDR block. If you do not set this parameter, packets with all source IP addresses are matched.
+        # Packets whose source IP addresses fall into the specified source CIDR block meet the traffic classification rule. If you do not specify a source CIDR block, all packets meet the traffic classification rule.
         # 
         # You can create up to 50 traffic classification rules in each call. You can specify a source CIDR block for each traffic classification rule.
         self.src_cidr = src_cidr  # type: str
         # The source port range that is used to match packets. Valid values: **-1** and **1** to **65535**.
         # 
-        # The traffic classification rule matches the packets whose source ports fall within the source port range. If you do not set this parameter, packets with all source ports are matched.
+        # Packets whose source ports fall into the source port range meet the traffic classification rule. If you do not specify a source port range, all packets meet the traffic classification rule.
         # 
-        # You can specify at most two ports. Take note of the following rules:
+        # You can enter up to two port numbers. Take note of the following rules:
         # 
-        # *   If you enter only one port number such as 1, the system matches the packets whose source port is 1.
-        # *   If you enter two port numbers such as 1 and 200, the system matches the packets whose source ports fall between 1 and 200.
-        # *   If you enter two port numbers and one of them is -1, the other port number must also be -1. In this case, packets with all source ports are matched.
+        # *   If you enter only one port number, such as 1, packets whose source port is 1 meet the traffic classification rule.
+        # *   If you enter two port numbers, such as 1 and 200, packets whose source ports fall into 1 and 200 meet the traffic classification rule.
+        # *   If you enter two port numbers and one of them is -1, the other port number must also be -1. In this case, all packets meet the traffic classification rule.
         # 
         # You can create up to 50 traffic classification rules in each call. You can specify a source port range for each traffic classification rule.
         self.src_port_range = src_port_range  # type: list[int]
@@ -3079,13 +3111,13 @@ class CreateTrafficMarkingPolicyRequestTrafficMatchRules(TeaModel):
         # 
         # You can create up to 50 traffic classification rules in each call. You can specify a description for each traffic classification rule.
         # 
-        # The description must be 2 to 128 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). The description must start with a letter.
+        # This parameter is optional. If you enter a description, it must be 1 to 256 characters in length, and cannot start with http:// or https://.
         self.traffic_match_rule_description = traffic_match_rule_description  # type: str
         # The name of the traffic classification rule.
         # 
         # You can create up to 50 traffic classification rules in each call. You can specify a name for each traffic classification rule.
         # 
-        # The name must be 2 to 128 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). It must start with a letter.
+        # The name can be empty or 1 to 128 characters in length, and cannot start with http:// or https://.
         self.traffic_match_rule_name = traffic_match_rule_name  # type: str
 
     def validate(self):
@@ -3165,17 +3197,17 @@ class CreateTrafficMarkingPolicyRequest(TeaModel):
         self.resource_owner_id = resource_owner_id  # type: long
         # The description of the traffic marking policy.
         # 
-        # The description must be 2 to 128 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). The description must start with a letter.
+        # This parameter is optional. If you enter a description, it must be 1 to 256 characters in length, and cannot start with http:// or https://.
         self.traffic_marking_policy_description = traffic_marking_policy_description  # type: str
         # The name of the traffic marking policy.
         # 
-        # The name must be 2 to 128 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). The name must start with a letter.
+        # The name can be empty or 1 to 128 characters in length, and cannot start with http:// or https://.
         self.traffic_marking_policy_name = traffic_marking_policy_name  # type: str
         # The traffic classification rules in the traffic marking policy.
         # 
-        # Packets that match the traffic classification rules are assigned the DSCP value of the traffic marking policy.
+        # Data packets that meet the traffic classification rule is assigned the DSCP value of quality of service (QoS) policy.
         # 
-        # You can specify at most 50 traffic classification rules.
+        # You can create up to 50 traffic classification rules.
         self.traffic_match_rules = traffic_match_rules  # type: list[CreateTrafficMarkingPolicyRequestTrafficMatchRules]
         # The ID of the transit router.
         self.transit_router_id = transit_router_id  # type: str
@@ -4119,6 +4151,199 @@ class CreateTransitRouterCidrResponse(TeaModel):
         return self
 
 
+class CreateTransitRouterEcrAttachmentRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateTransitRouterEcrAttachmentRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class CreateTransitRouterEcrAttachmentRequest(TeaModel):
+    def __init__(self, cen_id=None, client_token=None, dry_run=None, ecr_id=None, ecr_owner_id=None,
+                 owner_account=None, owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None, tag=None,
+                 transit_router_attachment_description=None, transit_router_attachment_name=None, transit_router_id=None):
+        self.cen_id = cen_id  # type: str
+        self.client_token = client_token  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.ecr_id = ecr_id  # type: str
+        self.ecr_owner_id = ecr_owner_id  # type: long
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.region_id = region_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        self.tag = tag  # type: list[CreateTransitRouterEcrAttachmentRequestTag]
+        self.transit_router_attachment_description = transit_router_attachment_description  # type: str
+        self.transit_router_attachment_name = transit_router_attachment_name  # type: str
+        self.transit_router_id = transit_router_id  # type: str
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(CreateTransitRouterEcrAttachmentRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cen_id is not None:
+            result['CenId'] = self.cen_id
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.ecr_id is not None:
+            result['EcrId'] = self.ecr_id
+        if self.ecr_owner_id is not None:
+            result['EcrOwnerId'] = self.ecr_owner_id
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
+        if self.transit_router_attachment_description is not None:
+            result['TransitRouterAttachmentDescription'] = self.transit_router_attachment_description
+        if self.transit_router_attachment_name is not None:
+            result['TransitRouterAttachmentName'] = self.transit_router_attachment_name
+        if self.transit_router_id is not None:
+            result['TransitRouterId'] = self.transit_router_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CenId') is not None:
+            self.cen_id = m.get('CenId')
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('EcrId') is not None:
+            self.ecr_id = m.get('EcrId')
+        if m.get('EcrOwnerId') is not None:
+            self.ecr_owner_id = m.get('EcrOwnerId')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = CreateTransitRouterEcrAttachmentRequestTag()
+                self.tag.append(temp_model.from_map(k))
+        if m.get('TransitRouterAttachmentDescription') is not None:
+            self.transit_router_attachment_description = m.get('TransitRouterAttachmentDescription')
+        if m.get('TransitRouterAttachmentName') is not None:
+            self.transit_router_attachment_name = m.get('TransitRouterAttachmentName')
+        if m.get('TransitRouterId') is not None:
+            self.transit_router_id = m.get('TransitRouterId')
+        return self
+
+
+class CreateTransitRouterEcrAttachmentResponseBody(TeaModel):
+    def __init__(self, request_id=None, transit_router_attachment_id=None):
+        self.request_id = request_id  # type: str
+        self.transit_router_attachment_id = transit_router_attachment_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateTransitRouterEcrAttachmentResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.transit_router_attachment_id is not None:
+            result['TransitRouterAttachmentId'] = self.transit_router_attachment_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TransitRouterAttachmentId') is not None:
+            self.transit_router_attachment_id = m.get('TransitRouterAttachmentId')
+        return self
+
+
+class CreateTransitRouterEcrAttachmentResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateTransitRouterEcrAttachmentResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateTransitRouterEcrAttachmentResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateTransitRouterEcrAttachmentResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateTransitRouterMulticastDomainRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
         # The tag key.
@@ -4436,11 +4661,11 @@ class CreateTransitRouterPeerAttachmentRequest(TeaModel):
         self.tag = tag  # type: list[CreateTransitRouterPeerAttachmentRequestTag]
         # The description of the inter-region connection.
         # 
-        # The description must be 2 to 256 characters in length. The description must start with a letter but cannot start with `http://` or `https://`.
+        # This parameter is optional. If you enter a description, it must be 1 to 256 characters in length, and cannot start with http:// or https://.
         self.transit_router_attachment_description = transit_router_attachment_description  # type: str
         # The name of the inter-region connection.
         # 
-        # The name must be 2 to 128 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). The name must start with a letter.
+        # The name can be empty or 1 to 128 characters in length, and cannot start with http:// or https://.
         self.transit_router_attachment_name = transit_router_attachment_name  # type: str
         # The ID of the local Enterprise Edition transit router.
         self.transit_router_id = transit_router_id  # type: str
@@ -7863,6 +8088,126 @@ class DeleteTransitRouterCidrResponse(TeaModel):
         return self
 
 
+class DeleteTransitRouterEcrAttachmentRequest(TeaModel):
+    def __init__(self, client_token=None, dry_run=None, force=None, owner_account=None, owner_id=None,
+                 resource_owner_account=None, resource_owner_id=None, transit_router_attachment_id=None):
+        self.client_token = client_token  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.force = force  # type: bool
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        self.transit_router_attachment_id = transit_router_attachment_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteTransitRouterEcrAttachmentRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.force is not None:
+            result['Force'] = self.force
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        if self.transit_router_attachment_id is not None:
+            result['TransitRouterAttachmentId'] = self.transit_router_attachment_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('Force') is not None:
+            self.force = m.get('Force')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('TransitRouterAttachmentId') is not None:
+            self.transit_router_attachment_id = m.get('TransitRouterAttachmentId')
+        return self
+
+
+class DeleteTransitRouterEcrAttachmentResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteTransitRouterEcrAttachmentResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteTransitRouterEcrAttachmentResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteTransitRouterEcrAttachmentResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteTransitRouterEcrAttachmentResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteTransitRouterEcrAttachmentResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DeleteTransitRouterMulticastDomainRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, owner_account=None, owner_id=None,
                  resource_owner_account=None, resource_owner_id=None, transit_router_multicast_domain_id=None):
@@ -8585,8 +8930,8 @@ class DeleteTransitRouterVbrAttachmentRequest(TeaModel):
         self.dry_run = dry_run  # type: bool
         # Specifies whether to forcibly delete the VBR connection. Valid values:
         # 
-        # *   **false** (default): checks for resources related to the VBR connection, such as associated forwarding and route learning policies. If such resources exist, the VBR connection is not deleted and an error message is returned.
-        # *   **true**: deletes the VBR connection and related resources.
+        # *   **false** (default): checks for dependency resources, such as associated forwarding correlations and route learning policies before the VBR connection is deleted. If such resources exist, the VBR connection is not deleted and an error message is returned.
+        # *   **true**: deletes all dependency resources along with the VBR connection.
         self.force = force  # type: bool
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -9125,14 +9470,14 @@ class DeregisterTransitRouterMulticastGroupSourcesRequest(TeaModel):
         # 
         # You can use the client to generate the value, but you must make sure that it is unique among all requests. The token can contain only ASCII characters.
         self.client_token = client_token  # type: str
-        # Specifies whether to perform a dry run. Valid values:
+        # Specifies whether to perform a dry run, without sending the actual request. Valid values:
         # 
-        # *   **true**: performs a dry run. The system checks the required parameters, request syntax, and limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.
-        # *   **false** (default): performs a dry run and sends the request.
+        # *   **true**: performs only a dry run. The system checks the request for potential issues, including missing parameter values, incorrect request syntax, and service limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.
+        # *   **false** (default): performs a dry run and performs the actual request.
         self.dry_run = dry_run  # type: bool
         # The IP address of the multicast group to which the multicast source belongs.
         self.group_ip_address = group_ip_address  # type: str
-        # The IDs of the multicast sources that you want to delete.
+        # A list of multicast source IDs.
         self.network_interface_ids = network_interface_ids  # type: list[str]
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -12421,34 +12766,33 @@ class DescribeCenRouteMapsRequest(TeaModel):
     def __init__(self, cen_id=None, cen_region_id=None, owner_account=None, owner_id=None, page_number=None,
                  page_size=None, resource_owner_account=None, resource_owner_id=None, route_map_id=None,
                  transit_router_route_table_id=None, transmit_direction=None):
-        # The number of the page to return. Default value: **1**.
+        # The ID of the Cloud Enterprise Network (CEN) instance.
         self.cen_id = cen_id  # type: str
-        # The match method that is used to match routes based on the AS path.
+        # The region ID of the routing policy.
         # 
-        # *   **Include**: fuzzy match. A route is a match if the AS path of the route overlaps with the AS path specified in the match condition.
-        # *   **Complete**: exact match. A route is a match only if the AS path of the route is the same as the AS path specified in the match condition.
+        # You can call the [DescribeChildInstanceRegions](~~132080~~) operation to query the most recent region list.
         self.cen_region_id = cen_region_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The route table ID of the transit router with which the routing policy is associated.
+        # The number of the page to return. Default value: **1**.
         self.page_number = page_number  # type: int
-        # The IDs of the destination network instances to which the routes belong.
-        # 
-        # >  The destination network instance IDs are valid only when the routing policy is applied to scenarios where routes are advertised from the gateway in the current region to network instances in the current region.
+        # The number of entries to return on each page. Default value: **10**.
         self.page_size = page_size  # type: int
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # Indicates whether the destination network instance IDs are excluded.
-        # 
-        # *   **false** (default): A route is a match if its destination network instance ID is in the list specified by **DestinationInstanceIds.N**.
-        # *   **true**: A route is a match if its destination network instance ID is not in the list specified by **DestinationInstanceIds.N**.
+        # The routing policy ID.
         self.route_map_id = route_map_id  # type: str
-        # The priority of the routing policy that you want to associate with the current one.
+        # The route table ID of the transit router with which the routing policy is associated.
         self.transit_router_route_table_id = transit_router_route_table_id  # type: str
-        # The match method that is used to match routes based on the community.
+        # The direction in which the routing policy is applied. Valid values:
         # 
-        # *   **Include**: fuzzy match. A route is a match if the community of the route overlaps with the community specified in the match condition.
-        # *   **Complete**: exact match. A route is a match only if the community of the route is the same as the community specified in the match condition.
+        # *   **RegionIn**: Routes are advertised to the gateways in the regions that are connected by the CEN instance.
+        # 
+        # For example, routes are advertised from network instances deployed in the current region or other regions to the gateway deployed in the current region.
+        # 
+        # *   **RegionOut**: Routes are advertised from the gateways in the regions that are connected by the CEN instance.
+        # 
+        # For example, routes are advertised from the gateway deployed in the current region to network instances deployed in the current region, or to gateways deployed in other regions.
         self.transmit_direction = transmit_direction  # type: str
 
     def validate(self):
@@ -12832,103 +13176,129 @@ class DescribeCenRouteMapsResponseBodyRouteMapsRouteMap(TeaModel):
                  route_map_id=None, route_types=None, source_child_instance_types=None, source_instance_ids=None,
                  source_instance_ids_reverse_match=None, source_region_ids=None, source_route_table_ids=None, status=None,
                  transit_router_route_table_id=None, transmit_direction=None):
-        # The IDs of the source route tables to which the routes belong.
+        # The match method that is used to match routes based on the AS path.
+        # 
+        # *   **Include**: fuzzy match. A route is a match if the AS path of the route overlaps with the AS path specified in the match condition.
+        # *   **Complete**: exact match. A route is a match only if the AS path of the route is the same as an AS path specified in the match condition.
         self.as_path_match_mode = as_path_match_mode  # type: str
-        # The number of entries returned.
+        # The CEN instance ID.
         self.cen_id = cen_id  # type: str
-        # The number of entries returned per page.
+        # The region ID of the routing policy.
         self.cen_region_id = cen_region_id  # type: str
-        # The action performed on a route that meets the match conditions.
-        # 
-        # *   **Permit**: the route is permitted.
-        # *   **Deny**: the route is denied.
-        self.cidr_match_mode = cidr_match_mode  # type: str
-        # The direction in which the routing policy is applied. Valid values:
-        # 
-        # *   **RegionIn**: Routes are advertised to the gateways in the regions that are connected by the CEN instance.
-        # 
-        #     For example, routes are advertised from network instances deployed in the current region or other regions to the gateway deployed in the current region.
-        # 
-        # *   **RegionOut**: Routes are advertised from the gateways in the regions that are connected by the CEN instance.
-        # 
-        #     For example, routes are advertised from the gateway deployed in the current region to network instances deployed in the current region, or to gateways deployed in other regions.
-        self.community_match_mode = community_match_mode  # type: str
-        # The information about the routing policy.
-        self.community_operate_mode = community_operate_mode  # type: str
-        # The AS paths based on which the routes are compared.
-        self.description = description  # type: str
-        self.destination_child_instance_types = destination_child_instance_types  # type: DescribeCenRouteMapsResponseBodyRouteMapsRouteMapDestinationChildInstanceTypes
-        # The number of the returned page.
-        self.destination_cidr_blocks = destination_cidr_blocks  # type: DescribeCenRouteMapsResponseBodyRouteMapsRouteMapDestinationCidrBlocks
-        self.destination_instance_ids = destination_instance_ids  # type: DescribeCenRouteMapsResponseBodyRouteMapsRouteMapDestinationInstanceIds
-        # The description of the routing policy.
-        self.destination_instance_ids_reverse_match = destination_instance_ids_reverse_match  # type: bool
-        # The types of source network instance to which the routes belong.
-        # 
-        # *   **VPC**: virtual private cloud (VPC)
-        # *   **VBR**: virtual border router (VBR)
-        # *   **CCN**: Cloud Connect Network (CCN) instance
-        # *   **VPN**: IPsec-VPN connection
-        self.destination_route_table_ids = destination_route_table_ids  # type: DescribeCenRouteMapsResponseBodyRouteMapsRouteMapDestinationRouteTableIds
-        # The ID of the region where the routing policy is applied.
-        # 
-        # You can call the [DescribeChildInstanceRegions](~~132080~~) operation to query the most recent region list.
-        self.map_result = map_result  # type: str
-        # The IDs of the source network instances to which the routes belong.
-        self.match_address_type = match_address_type  # type: str
-        self.match_asns = match_asns  # type: DescribeCenRouteMapsResponseBodyRouteMapsRouteMapMatchAsns
-        self.match_community_set = match_community_set  # type: DescribeCenRouteMapsResponseBodyRouteMapsRouteMapMatchCommunitySet
-        # The match method that is used to match routes based on the prefix. Valid values:
+        # The match method that is used to evaluate routes based on the prefix. Valid values:
         # 
         # *   **Include**: fuzzy match. A route is a match if the route prefix is included in the match conditions.
         # 
-        #     For example, if you set the match condition to 10.10.0.0/16 and fuzzy match is enabled, the route whose prefix is 10.10.1.0/24 is a match.
+        # For example, if you set the match condition to 10.10.0.0/16 and fuzzy match is applied, the route whose prefix is 10.10.1.0/24 meets the match condition.
         # 
         # *   **Complete**: exact match. A route is a match only if the route prefix is the same as the prefix specified in the match condition.
         # 
-        #     For example, if you set the match condition to 10.10.0.0/16 and exact match is enabled, a route is a match only if the prefix is 10.10.0.0/16.
-        self.next_priority = next_priority  # type: int
-        self.operate_community_set = operate_community_set  # type: DescribeCenRouteMapsResponseBodyRouteMapsRouteMapOperateCommunitySet
-        # The prefixes of the routes.
-        self.preference = preference  # type: int
-        self.prepend_as_path = prepend_as_path  # type: DescribeCenRouteMapsResponseBodyRouteMapsRouteMapPrependAsPath
-        # The ID of the region where the routing policy is applied.
-        self.priority = priority  # type: int
-        # The type of IP address to be matched against the match condition. Valid values:
+        # For example, if you set the match condition to 10.10.0.0/16 and exact match is enabled, a route is a match only if the prefix is 10.10.0.0/16.
+        self.cidr_match_mode = cidr_match_mode  # type: str
+        # The match method that is used to match routes against the community.
         # 
-        # *   **IPv4**: IPv4 addresses
-        # *   **IPv6**: IPv6 addresses
-        # *   If no value is returned, both IPv4 and IPv6 addresses are matched against the match condition.
-        self.route_map_id = route_map_id  # type: str
-        self.route_types = route_types  # type: DescribeCenRouteMapsResponseBodyRouteMapsRouteMapRouteTypes
-        # The community set based on which the routes are compared.
-        self.source_child_instance_types = source_child_instance_types  # type: DescribeCenRouteMapsResponseBodyRouteMapsRouteMapSourceChildInstanceTypes
-        # The direction in which the routing policy is applied.
-        self.source_instance_ids = source_instance_ids  # type: DescribeCenRouteMapsResponseBodyRouteMapsRouteMapSourceInstanceIds
-        # The ID of the routing policy.
-        self.source_instance_ids_reverse_match = source_instance_ids_reverse_match  # type: bool
-        # The status of the routing policy. Valid values:
-        # 
-        # *   **Creating**: The routing policy is being created.
-        # *   **Active**: The routing policy is available.
-        # *   **Deleting**: The routing policy is being deleted.
-        self.source_region_ids = source_region_ids  # type: DescribeCenRouteMapsResponseBodyRouteMapsRouteMapSourceRegionIds
-        # Queries the routing policies of a Cloud Enterprise Network (CEN) instance.
-        self.source_route_table_ids = source_route_table_ids  # type: DescribeCenRouteMapsResponseBodyRouteMapsRouteMapSourceRouteTableIds
-        # The new priority of the route.
-        # 
-        # A smaller value indicates a higher priority.
-        # 
-        # This parameter indicates the action to be performed when a route meets the match condition.
-        self.status = status  # type: str
+        # *   **Include**: fuzzy match. A route is a match if the community of the route overlaps with the community specified in the match condition.
+        # *   **Complete**: exact match. A route meets the match condition only if the community of the route is the same as the community specified in the match condition.
+        self.community_match_mode = community_match_mode  # type: str
         # The action that is performed on the community of the route.
         # 
         # *   **Additive**: adds the community to the route.
         # *   **Replace**: replaces the original community of the route.
         # 
+        # This parameter specifies the action to be performed when a route meets the match condition.
+        self.community_operate_mode = community_operate_mode  # type: str
+        # The description of the routing policy.
+        self.description = description  # type: str
+        # The types of destination network instances to which the routes belong.
+        # 
+        # *   **VPC**\
+        # *   **VBR**\
+        # *   **CCN**\
+        # *   **VPN**\
+        # 
+        # >  The destination route tables take effect only if the routing policy is applied to the egress gateway direction, and the type of the destination route tables is the same as that of the network instance in the current region.
+        self.destination_child_instance_types = destination_child_instance_types  # type: DescribeCenRouteMapsResponseBodyRouteMapsRouteMapDestinationChildInstanceTypes
+        # The prefixes of the routes.
+        self.destination_cidr_blocks = destination_cidr_blocks  # type: DescribeCenRouteMapsResponseBodyRouteMapsRouteMapDestinationCidrBlocks
+        # The IDs of the destination network instances to which the routes point.
+        # 
+        # >  The destination route tables take effect only if the routing policy is applied to the egress gateway direction, and the ID the destination instance is the same as that of the network instance in the current region.
+        self.destination_instance_ids = destination_instance_ids  # type: DescribeCenRouteMapsResponseBodyRouteMapsRouteMapDestinationInstanceIds
+        # Indicates whether the destination network instance IDs are excluded.
+        # 
+        # *   **false** (default): A route is a match if its destination network instance ID is in the list specified by **DestinationInstanceIds.N**.
+        # *   **true**: A route is a match if its destination network instance ID is not in the list specified by **DestinationInstanceIds.N**.
+        self.destination_instance_ids_reverse_match = destination_instance_ids_reverse_match  # type: bool
+        # The IDs of the destination route tables to which the routes belong. You can enter at most 32 route table IDs.
+        # 
+        # >  The destination route tables take effect only if the routing policy is applied to the egress gateway direction, and the destination route table IDs are in the current region.
+        self.destination_route_table_ids = destination_route_table_ids  # type: DescribeCenRouteMapsResponseBodyRouteMapsRouteMapDestinationRouteTableIds
+        # The action performed on a route that meets the match conditions.
+        # 
+        # *   **Permit**: the route is permitted.
+        # *   **Deny**: the route is denied.
+        self.map_result = map_result  # type: str
+        # The type of IP address to be matched against the match condition. Valid values:
+        # 
+        # *   **IPv4**: IPv4 addresses
+        # *   **IPv6**: IPv6 addresses
+        # *   If no value is returned, both IPv4 and IPv6 addresses are matched against the match condition.
+        self.match_address_type = match_address_type  # type: str
+        # The AS paths against which routes are matched.
+        self.match_asns = match_asns  # type: DescribeCenRouteMapsResponseBodyRouteMapsRouteMapMatchAsns
+        # The community set against which routes are matched.
+        self.match_community_set = match_community_set  # type: DescribeCenRouteMapsResponseBodyRouteMapsRouteMapMatchCommunitySet
+        # The priority of the routing policy that you want to associate with the current one.
+        self.next_priority = next_priority  # type: int
+        # The community set on which actions are performed.
+        self.operate_community_set = operate_community_set  # type: DescribeCenRouteMapsResponseBodyRouteMapsRouteMapOperateCommunitySet
+        # The new priority of the route.
+        # 
+        # A smaller value indicates a higher priority.
+        # 
         # This parameter indicates the action to be performed when a route meets the match condition.
+        self.preference = preference  # type: int
+        # The AS paths that are prepended by using an action statement when regional gateways receive or advertise routes.
+        # 
+        # This parameter indicates the action to be performed when a route meets the match condition.
+        self.prepend_as_path = prepend_as_path  # type: DescribeCenRouteMapsResponseBodyRouteMapsRouteMapPrependAsPath
+        # The priority of the routing policy. A smaller value indicates a higher priority.
+        self.priority = priority  # type: int
+        # The routing policy ID.
+        self.route_map_id = route_map_id  # type: str
+        # The type of route that is compared. Valid values:
+        # 
+        # *   **System**: system routes that are automatically generated by the system.
+        # *   **Custom**: custom routes that are manually added.
+        # *   **BGP**: routes that are advertised over BGP.
+        self.route_types = route_types  # type: DescribeCenRouteMapsResponseBodyRouteMapsRouteMapRouteTypes
+        # The types of source network instances to which the routes belong.
+        # 
+        # *   **VPC**\
+        # *   **VBR**\
+        # *   **CCN**\
+        # *   **VPN**\
+        self.source_child_instance_types = source_child_instance_types  # type: DescribeCenRouteMapsResponseBodyRouteMapsRouteMapSourceChildInstanceTypes
+        # The IDs of the source network instances to which the routes belong.
+        self.source_instance_ids = source_instance_ids  # type: DescribeCenRouteMapsResponseBodyRouteMapsRouteMapSourceInstanceIds
+        # Indicates whether the source network instance IDs are excluded.
+        # 
+        # *   **false** (default): A route is a match if its source network instance ID is in the list specified by **SourceInstanceIds.N**.
+        # *   **true**: A route is match if its source network instance ID is not in the list specified by **SourceInstanceIds.N**.
+        self.source_instance_ids_reverse_match = source_instance_ids_reverse_match  # type: bool
+        # The IDs of the source regions to which the routes belong.
+        self.source_region_ids = source_region_ids  # type: DescribeCenRouteMapsResponseBodyRouteMapsRouteMapSourceRegionIds
+        # The IDs of the source route tables to which the routes belong.
+        self.source_route_table_ids = source_route_table_ids  # type: DescribeCenRouteMapsResponseBodyRouteMapsRouteMapSourceRouteTableIds
+        # The status of the routing policy. Valid values:
+        # 
+        # *   **Creating**\
+        # *   **Active**\
+        # *   **Deleting**\
+        self.status = status  # type: str
+        # The route table ID of the transit router with which the routing policy is associated.
         self.transit_router_route_table_id = transit_router_route_table_id  # type: str
-        # The ID of the routing policy.
+        # The direction in which the routing policy is applied.
         self.transmit_direction = transmit_direction  # type: str
 
     def validate(self):
@@ -13143,20 +13513,15 @@ class DescribeCenRouteMapsResponseBodyRouteMaps(TeaModel):
 
 class DescribeCenRouteMapsResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, request_id=None, route_maps=None, total_count=None):
-        # The community set on which actions are performed.
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
-        # The IDs of the destination route tables to which the routes belong. You can enter at most 32 route table IDs.
-        # 
-        # >  The destination route table IDs are valid only when the routing policy is applied to scenarios where routes are advertised from the gateway in the current region to route tables in the current region.
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
-        # The number of entries to return on each page. Default value: **10**.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # The ID of the CEN instance.
+        # The information about the routing policy.
         self.route_maps = route_maps  # type: DescribeCenRouteMapsResponseBodyRouteMaps
-        # Indicates whether the source network instance IDs are excluded.
-        # 
-        # *   **false** (default): A route is a match if its source network instance ID is in the list specified by **SourceInstanceIds.N**.
-        # *   **true**: A route is match if its source network instance ID is not in the list specified by **SourceInstanceIds.N**.
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -14944,11 +15309,11 @@ class DescribeGrantRulesToCenRequest(TeaModel):
 class DescribeGrantRulesToCenResponseBodyGrantRulesGrantRule(TeaModel):
     def __init__(self, cen_id=None, cen_owner_id=None, child_instance_id=None, child_instance_owner_id=None,
                  child_instance_region_id=None, child_instance_type=None, create_time=None, order_type=None):
-        # The CEN instance ID.
+        # The ID of the CEN instance.
         self.cen_id = cen_id  # type: str
         # The ID of the Alibaba Cloud account to which the CEN instance belongs.
         self.cen_owner_id = cen_owner_id  # type: long
-        # The network instance ID.
+        # The ID of the network instance.
         self.child_instance_id = child_instance_id  # type: str
         # The ID of the Alibaba Cloud account to which the network instance belongs.
         self.child_instance_owner_id = child_instance_owner_id  # type: long
@@ -14956,11 +15321,14 @@ class DescribeGrantRulesToCenResponseBodyGrantRulesGrantRule(TeaModel):
         self.child_instance_region_id = child_instance_region_id  # type: str
         # The type of the network instance. Valid values:
         # 
-        # *   **VPC**\
-        # *   **VBR**\
-        # *   **CCN**\
-        # *   **VPN**\
+        # *   **VPC**: VPC
+        # *   **VBR**: VBR
+        # *   **CCN**: CCN instance
+        # *   **VPN**: IPsec-VPN connection
         self.child_instance_type = child_instance_type  # type: str
+        # The time when the permissions were granted to the CEN instance.
+        # 
+        # The time follows the ISO 8601 standard in the YYYY-MM-DDThh:mm:ssZ format. The time is displayed in UTC.
         self.create_time = create_time  # type: long
         # The entity that pays the fees of the network instance. Valid values:
         # 
@@ -15221,10 +15589,11 @@ class DescribeGrantRulesToResourceRequest(TeaModel):
 
 class DescribeGrantRulesToResourceResponseBodyGrantRules(TeaModel):
     def __init__(self, cen_id=None, cen_owner_id=None, create_time=None, order_type=None):
-        # The CEN instance ID.
+        # The ID of the CEN instance.
         self.cen_id = cen_id  # type: str
         # The ID of the Alibaba Cloud account to which the CEN instance belongs.
         self.cen_owner_id = cen_owner_id  # type: long
+        # The timestamp when the permissions were granted. The time follows the ISO 8601 standard in the YYYY-MM-DDThh:mm:ssZ format. The time is displayed in UTC.
         self.create_time = create_time  # type: str
         # The entity that pays the fees of the network instance. Valid values: Valid values:
         # 
@@ -15562,8 +15931,8 @@ class DescribePublishedRouteEntriesResponseBodyPublishedRouteEntriesPublishedRou
         # *   **VPC**: VPC
         # *   **local**: system route. No next hop is specified.
         # *   **TR**: transit router
-        # *   \*\*BlackHole\*\*: blackhole route. No next hop is specified.
-        # *   \*\*EcRouterInterface\*\*: router interface for Express Connect
+        # *   **BlackHole**: blackhole route. No next hop is specified.
+        # *   **EcRouterInterface**: router interface for Express Connect
         # *   **HealthCheck**: health check
         # *   **AS**: access gateway for CCN
         # *   **classicLink**: classic network-type instance
@@ -17437,6 +17806,9 @@ class EnableCenVbrHealthCheckRequest(TeaModel):
                  vbr_instance_region_id=None):
         # The ID of the Cloud Enterprise Network (CEN) instance.
         self.cen_id = cen_id  # type: str
+        # The description of the health check.
+        # 
+        # The description must be 1 to 256 characters in length, and cannot start with `http://` or `https://`.
         self.description = description  # type: str
         # The time interval at which probe packets are sent during a health check. Unit: seconds. Default value: **2**. Valid values: **2 to 3**.
         self.health_check_interval = health_check_interval  # type: int
@@ -17931,7 +18303,7 @@ class ListCenChildInstanceRouteEntriesToAttachmentRequest(TeaModel):
         self.cen_id = cen_id  # type: str
         # The ID of the route table configured on the network instance.
         self.child_instance_route_table_id = child_instance_route_table_id  # type: str
-        # The number of entries returned per page. Default value: **20**.
+        # The number of entries to return on each page. Default value: **20**.
         self.max_results = max_results  # type: int
         # The token that determines the start point of the query. Valid values:
         # 
@@ -19505,15 +19877,28 @@ class ListTrafficMarkingPoliciesRequest(TeaModel):
     def __init__(self, max_results=None, next_token=None, owner_account=None, owner_id=None,
                  resource_owner_account=None, resource_owner_id=None, traffic_marking_policy_description=None,
                  traffic_marking_policy_id=None, traffic_marking_policy_name=None, transit_router_id=None):
+        # The number of entries to return on each page. Valid values: **1** to **100**. Default value: **20**.
         self.max_results = max_results  # type: int
+        # The token that determines the start point of the query. Valid values:
+        # 
+        # *   If this is your first query or no subsequent query is to be sent, ignore this parameter.
+        # *   If a next query is to be sent, set the value to the value of **NextToken** that is returned from the last call.
         self.next_token = next_token  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The description of the traffic marking policy.
+        # 
+        # The description must be 2 to 128 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). The description must start with a letter.
         self.traffic_marking_policy_description = traffic_marking_policy_description  # type: str
+        # The ID of the traffic marking policy.
         self.traffic_marking_policy_id = traffic_marking_policy_id  # type: str
+        # The name of the traffic marking policy.
+        # 
+        # The name must be 2 to 128 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). The name must start with a letter.
         self.traffic_marking_policy_name = traffic_marking_policy_name  # type: str
+        # The ID of the transit router.
         self.transit_router_id = transit_router_id  # type: str
 
     def validate(self):
@@ -19576,15 +19961,32 @@ class ListTrafficMarkingPoliciesResponseBodyTrafficMarkingPoliciesTrafficMatchRu
     def __init__(self, dst_cidr=None, dst_port_range=None, match_dscp=None, protocol=None, src_cidr=None,
                  src_port_range=None, traffic_match_rule_description=None, traffic_match_rule_id=None,
                  traffic_match_rule_name=None, traffic_match_rule_status=None):
+        # The destination CIDR block used to match data packets.
         self.dst_cidr = dst_cidr  # type: str
+        # The destination port range used to match data packets.
         self.dst_port_range = dst_port_range  # type: list[int]
+        # The DSCP value used to match data packets.
         self.match_dscp = match_dscp  # type: int
+        # The protocol used to match data packets.
+        # 
+        # > Traffic marking policies support multiple protocols. For more information, see the documentation of CEN.
         self.protocol = protocol  # type: str
+        # The source CIDR block used to match data packets.
         self.src_cidr = src_cidr  # type: str
+        # The source port range used to match data packets.
         self.src_port_range = src_port_range  # type: list[int]
+        # The description of the traffic classification rule.
         self.traffic_match_rule_description = traffic_match_rule_description  # type: str
+        # The ID of the traffic classification rule.
         self.traffic_match_rule_id = traffic_match_rule_id  # type: str
+        # The name of the traffic classification rule.
         self.traffic_match_rule_name = traffic_match_rule_name  # type: str
+        # The status of the traffic classification rule. Valid values:
+        # 
+        # *   **Creating**: The rule is being created.
+        # *   **Active**: The rule is available.
+        # *   **Deleting**: The rule is being deleted.
+        # *   **Deleted**: The rule is deleted.
         self.traffic_match_rule_status = traffic_match_rule_status  # type: str
 
     def validate(self):
@@ -19647,13 +20049,29 @@ class ListTrafficMarkingPoliciesResponseBodyTrafficMarkingPolicies(TeaModel):
     def __init__(self, marking_dscp=None, priority=None, traffic_marking_policy_description=None,
                  traffic_marking_policy_id=None, traffic_marking_policy_name=None, traffic_marking_policy_status=None,
                  traffic_match_rules=None, transit_router_id=None):
+        # The differentiated services code point (DSCP) value of the traffic marking policy.
         self.marking_dscp = marking_dscp  # type: int
+        # The priority of the traffic marking policy.
+        # 
+        # A smaller value indicates a higher priority.
         self.priority = priority  # type: int
+        # The description of the traffic marking policy.
         self.traffic_marking_policy_description = traffic_marking_policy_description  # type: str
+        # The ID of the traffic marking policy.
         self.traffic_marking_policy_id = traffic_marking_policy_id  # type: str
+        # The name of the traffic marking policy.
         self.traffic_marking_policy_name = traffic_marking_policy_name  # type: str
+        # The status of the traffic marking policy. Valid values:
+        # 
+        # *   **Creating**: The policy is being created.
+        # *   **Active**: The policy is available.
+        # *   **Modifying**: The policy is being modified
+        # *   **Deleting**: The policy is being deleted.
+        # *   **Deleted**: The policy is deleted.
         self.traffic_marking_policy_status = traffic_marking_policy_status  # type: str
+        # The list of traffic classification rules.
         self.traffic_match_rules = traffic_match_rules  # type: list[ListTrafficMarkingPoliciesResponseBodyTrafficMarkingPoliciesTrafficMatchRules]
+        # The ID of the transit router.
         self.transit_router_id = transit_router_id  # type: str
 
     def validate(self):
@@ -19715,10 +20133,18 @@ class ListTrafficMarkingPoliciesResponseBodyTrafficMarkingPolicies(TeaModel):
 class ListTrafficMarkingPoliciesResponseBody(TeaModel):
     def __init__(self, max_results=None, next_token=None, request_id=None, total_count=None,
                  traffic_marking_policies=None):
+        # The number of entries returned on each page.
         self.max_results = max_results  # type: int
+        # The token that determines the start point of the query.
+        # 
+        # *   If **NextToken** was not returned in the previous query, it indicates that no additional results exist.
+        # *   If **NextToken** was returned in the previous query, specify the value to obtain the next set of results.
         self.next_token = next_token  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The number of entries returned.
         self.total_count = total_count  # type: int
+        # The list of traffic marking policies.
         self.traffic_marking_policies = traffic_marking_policies  # type: list[ListTrafficMarkingPoliciesResponseBodyTrafficMarkingPolicies]
 
     def validate(self):
@@ -20461,6 +20887,337 @@ class ListTransitRouterCidrAllocationResponse(TeaModel):
         return self
 
 
+class ListTransitRouterEcrAttachmentsRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListTransitRouterEcrAttachmentsRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class ListTransitRouterEcrAttachmentsRequest(TeaModel):
+    def __init__(self, cen_id=None, max_results=None, next_token=None, owner_account=None, owner_id=None,
+                 region_id=None, resource_owner_account=None, resource_owner_id=None, tag=None,
+                 transit_router_attachment_id=None, transit_router_id=None):
+        self.cen_id = cen_id  # type: str
+        self.max_results = max_results  # type: int
+        self.next_token = next_token  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.region_id = region_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        self.tag = tag  # type: list[ListTransitRouterEcrAttachmentsRequestTag]
+        self.transit_router_attachment_id = transit_router_attachment_id  # type: str
+        self.transit_router_id = transit_router_id  # type: str
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListTransitRouterEcrAttachmentsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cen_id is not None:
+            result['CenId'] = self.cen_id
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
+        if self.transit_router_attachment_id is not None:
+            result['TransitRouterAttachmentId'] = self.transit_router_attachment_id
+        if self.transit_router_id is not None:
+            result['TransitRouterId'] = self.transit_router_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CenId') is not None:
+            self.cen_id = m.get('CenId')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = ListTransitRouterEcrAttachmentsRequestTag()
+                self.tag.append(temp_model.from_map(k))
+        if m.get('TransitRouterAttachmentId') is not None:
+            self.transit_router_attachment_id = m.get('TransitRouterAttachmentId')
+        if m.get('TransitRouterId') is not None:
+            self.transit_router_id = m.get('TransitRouterId')
+        return self
+
+
+class ListTransitRouterEcrAttachmentsResponseBodyTransitRouterAttachmentsTags(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListTransitRouterEcrAttachmentsResponseBodyTransitRouterAttachmentsTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class ListTransitRouterEcrAttachmentsResponseBodyTransitRouterAttachments(TeaModel):
+    def __init__(self, auto_publish_route_enabled=None, cen_id=None, creation_time=None, ecr_id=None,
+                 ecr_owner_id=None, order_type=None, resource_type=None, status=None, tags=None,
+                 transit_router_attachment_description=None, transit_router_attachment_id=None, transit_router_attachment_name=None,
+                 transit_router_id=None, transit_router_region_id=None):
+        self.auto_publish_route_enabled = auto_publish_route_enabled  # type: bool
+        self.cen_id = cen_id  # type: str
+        self.creation_time = creation_time  # type: str
+        self.ecr_id = ecr_id  # type: str
+        self.ecr_owner_id = ecr_owner_id  # type: long
+        self.order_type = order_type  # type: str
+        self.resource_type = resource_type  # type: str
+        self.status = status  # type: str
+        self.tags = tags  # type: list[ListTransitRouterEcrAttachmentsResponseBodyTransitRouterAttachmentsTags]
+        self.transit_router_attachment_description = transit_router_attachment_description  # type: str
+        self.transit_router_attachment_id = transit_router_attachment_id  # type: str
+        self.transit_router_attachment_name = transit_router_attachment_name  # type: str
+        self.transit_router_id = transit_router_id  # type: str
+        self.transit_router_region_id = transit_router_region_id  # type: str
+
+    def validate(self):
+        if self.tags:
+            for k in self.tags:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListTransitRouterEcrAttachmentsResponseBodyTransitRouterAttachments, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auto_publish_route_enabled is not None:
+            result['AutoPublishRouteEnabled'] = self.auto_publish_route_enabled
+        if self.cen_id is not None:
+            result['CenId'] = self.cen_id
+        if self.creation_time is not None:
+            result['CreationTime'] = self.creation_time
+        if self.ecr_id is not None:
+            result['EcrId'] = self.ecr_id
+        if self.ecr_owner_id is not None:
+            result['EcrOwnerId'] = self.ecr_owner_id
+        if self.order_type is not None:
+            result['OrderType'] = self.order_type
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        if self.status is not None:
+            result['Status'] = self.status
+        result['Tags'] = []
+        if self.tags is not None:
+            for k in self.tags:
+                result['Tags'].append(k.to_map() if k else None)
+        if self.transit_router_attachment_description is not None:
+            result['TransitRouterAttachmentDescription'] = self.transit_router_attachment_description
+        if self.transit_router_attachment_id is not None:
+            result['TransitRouterAttachmentId'] = self.transit_router_attachment_id
+        if self.transit_router_attachment_name is not None:
+            result['TransitRouterAttachmentName'] = self.transit_router_attachment_name
+        if self.transit_router_id is not None:
+            result['TransitRouterId'] = self.transit_router_id
+        if self.transit_router_region_id is not None:
+            result['TransitRouterRegionId'] = self.transit_router_region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AutoPublishRouteEnabled') is not None:
+            self.auto_publish_route_enabled = m.get('AutoPublishRouteEnabled')
+        if m.get('CenId') is not None:
+            self.cen_id = m.get('CenId')
+        if m.get('CreationTime') is not None:
+            self.creation_time = m.get('CreationTime')
+        if m.get('EcrId') is not None:
+            self.ecr_id = m.get('EcrId')
+        if m.get('EcrOwnerId') is not None:
+            self.ecr_owner_id = m.get('EcrOwnerId')
+        if m.get('OrderType') is not None:
+            self.order_type = m.get('OrderType')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        self.tags = []
+        if m.get('Tags') is not None:
+            for k in m.get('Tags'):
+                temp_model = ListTransitRouterEcrAttachmentsResponseBodyTransitRouterAttachmentsTags()
+                self.tags.append(temp_model.from_map(k))
+        if m.get('TransitRouterAttachmentDescription') is not None:
+            self.transit_router_attachment_description = m.get('TransitRouterAttachmentDescription')
+        if m.get('TransitRouterAttachmentId') is not None:
+            self.transit_router_attachment_id = m.get('TransitRouterAttachmentId')
+        if m.get('TransitRouterAttachmentName') is not None:
+            self.transit_router_attachment_name = m.get('TransitRouterAttachmentName')
+        if m.get('TransitRouterId') is not None:
+            self.transit_router_id = m.get('TransitRouterId')
+        if m.get('TransitRouterRegionId') is not None:
+            self.transit_router_region_id = m.get('TransitRouterRegionId')
+        return self
+
+
+class ListTransitRouterEcrAttachmentsResponseBody(TeaModel):
+    def __init__(self, max_results=None, next_token=None, request_id=None, total_count=None,
+                 transit_router_attachments=None):
+        self.max_results = max_results  # type: int
+        self.next_token = next_token  # type: str
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
+        self.transit_router_attachments = transit_router_attachments  # type: list[ListTransitRouterEcrAttachmentsResponseBodyTransitRouterAttachments]
+
+    def validate(self):
+        if self.transit_router_attachments:
+            for k in self.transit_router_attachments:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListTransitRouterEcrAttachmentsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        result['TransitRouterAttachments'] = []
+        if self.transit_router_attachments is not None:
+            for k in self.transit_router_attachments:
+                result['TransitRouterAttachments'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        self.transit_router_attachments = []
+        if m.get('TransitRouterAttachments') is not None:
+            for k in m.get('TransitRouterAttachments'):
+                temp_model = ListTransitRouterEcrAttachmentsResponseBodyTransitRouterAttachments()
+                self.transit_router_attachments.append(temp_model.from_map(k))
+        return self
+
+
+class ListTransitRouterEcrAttachmentsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListTransitRouterEcrAttachmentsResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListTransitRouterEcrAttachmentsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListTransitRouterEcrAttachmentsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListTransitRouterMulticastDomainAssociationsRequest(TeaModel):
     def __init__(self, client_token=None, max_results=None, next_token=None, owner_account=None, owner_id=None,
                  resource_id=None, resource_owner_account=None, resource_owner_id=None, resource_type=None,
@@ -20490,9 +21247,7 @@ class ListTransitRouterMulticastDomainAssociationsRequest(TeaModel):
         self.transit_router_attachment_id = transit_router_attachment_id  # type: str
         # The ID of the multicast domain.
         self.transit_router_multicast_domain_id = transit_router_multicast_domain_id  # type: str
-        # The vSwitch IDs.
-        # 
-        # You can specify at most 20 IDs.
+        # The IDs of vSwitches.
         self.v_switch_ids = v_switch_ids  # type: list[str]
 
     def validate(self):
@@ -22377,11 +23132,11 @@ class ListTransitRouterRouteEntriesRequest(TeaModel):
         # 
         # >  You can use this parameter to query only static routes in the specified route table. This parameter is incompatible with query conditions other than TransitRouterRouteEntryNames.
         self.transit_router_route_entry_ids = transit_router_route_entry_ids  # type: list[str]
-        # The route name.
+        # The name of the route.
         # 
-        # The name must be 0 to 128 characters in length, and can contain letters, digits, and the following special characters: , . ; / @ \_ -.
+        # The name can be empty or 1 to 128 characters in length, and cannot start with http:// or https://.
         # 
-        # >  You can use this parameter to query only static routes in the specified route table. This parameter is incompatible with query conditions other than TransitRouterRouteEntryIds.
+        # >  You can use this parameter to query only static routes in the specified route table. This parameter conflicts with other query conditions except for TransitRouterRouteEntryIds.
         self.transit_router_route_entry_names = transit_router_route_entry_names  # type: list[str]
         # The ID of the network instance connection that you want to specify as the next hop.
         self.transit_router_route_entry_next_hop_id = transit_router_route_entry_next_hop_id  # type: str
@@ -23983,33 +24738,37 @@ class ListTransitRouterVbrAttachmentsResponseBodyTransitRouterAttachments(TeaMod
                  resource_type=None, status=None, tags=None, transit_router_attachment_description=None,
                  transit_router_attachment_id=None, transit_router_attachment_name=None, transit_router_id=None, vbr_id=None, vbr_owner_id=None,
                  vbr_region_id=None):
-        # Indicates whether the Enterprise Edition transit router automatically advertises routes to the VBR. Valid values:
+        # Indicates whether the Enterprise Edition transit router is allowed to automatically advertise routes to the VBR. Valid values:
         # 
-        # *   **false** (default): no
-        # *   **true**: yes
+        # *   **false** (default)
+        # *   **true**\
         self.auto_publish_route_enabled = auto_publish_route_enabled  # type: bool
         # The ID of the CEN instance.
         self.cen_id = cen_id  # type: str
-        # The time when the VBR connection was established.
+        # The time when the VBR connection was created.
         # 
-        # The time follows the ISO8601 standard in the YYYY-MM-DDThh:mmZ format. The time is displayed in UTC.
+        # The time follows the ISO 8601 standard in the YYYY-MM-DDThh:mm:ssZ format. The time is displayed in UTC.
         self.creation_time = creation_time  # type: str
+        # The entity that pays the fees of the network instance. Valid values:
+        # 
+        # *   **PayByCenOwner**: the Alibaba Cloud account that owns the CEN instance.
+        # *   **PayByResourceOwner**: the Alibaba Cloud account that owns the network instance.
         self.order_type = order_type  # type: str
         # The type of resource to which the transit router is connected. Valid values:
         # 
-        # *   **VPC**: VPC
-        # *   **CCN**: Cloud Connect Network (CCN) instance
-        # *   **VBR**: VBR
-        # *   **TR**: transit router
+        # *   **VPC**\
+        # *   **CCN**\
+        # *   **VBR**\
+        # *   **TR**\
         self.resource_type = resource_type  # type: str
         # The status of the VBR connection. Valid values:
         # 
-        # *   **Attached**: The VBR connection is created on the transit router.
-        # *   **Attaching**: The VBR connection is being created on the transit router.
-        # *   **Detaching**: The VBR connection is being deleted from the transit router.
-        # *   **Detached**: The VBR connection is deleted from the transit router.
+        # *   **Attached**\
+        # *   **Attaching**\
+        # *   **Detaching**\
+        # *   **Detached**\
         self.status = status  # type: str
-        # The tags.
+        # A list of tags.
         self.tags = tags  # type: list[ListTransitRouterVbrAttachmentsResponseBodyTransitRouterAttachmentsTags]
         # The description of the VBR connection.
         self.transit_router_attachment_description = transit_router_attachment_description  # type: str
@@ -24017,11 +24776,11 @@ class ListTransitRouterVbrAttachmentsResponseBodyTransitRouterAttachments(TeaMod
         self.transit_router_attachment_id = transit_router_attachment_id  # type: str
         # The name of the VBR connection.
         self.transit_router_attachment_name = transit_router_attachment_name  # type: str
-        # The ID of the Enterprise Edition transit router.
+        # The description of the Enterprise Edition transit router.
         self.transit_router_id = transit_router_id  # type: str
         # The VBR ID.
         self.vbr_id = vbr_id  # type: str
-        # The ID of the account to which the VBR belongs.
+        # The ID of the Alibaba Cloud account to which the VBR belongs.
         self.vbr_owner_id = vbr_owner_id  # type: long
         # The region ID of the VBR.
         self.vbr_region_id = vbr_region_id  # type: str
@@ -24117,7 +24876,7 @@ class ListTransitRouterVbrAttachmentsResponseBody(TeaModel):
         self.request_id = request_id  # type: str
         # The total number of entries returned.
         self.total_count = total_count  # type: int
-        # The queried VBR connections.
+        # A list of VBR connections.
         self.transit_router_attachments = transit_router_attachments  # type: list[ListTransitRouterVbrAttachmentsResponseBodyTransitRouterAttachments]
 
     def validate(self):
@@ -24466,7 +25225,7 @@ class ListTransitRouterVpcAttachmentsResponseBodyTransitRouterAttachments(TeaMod
         # *   **Detaching**\
         # *   **Detached**\
         self.status = status  # type: str
-        # The tag key.
+        # The information about the tags.
         self.tags = tags  # type: list[ListTransitRouterVpcAttachmentsResponseBodyTransitRouterAttachmentsTags]
         # The description of the VPC connection.
         self.transit_router_attachment_description = transit_router_attachment_description  # type: str
@@ -26880,7 +27639,7 @@ class MoveResourceGroupRequest(TeaModel):
         # Specifies whether to perform a dry run. Valid values:
         # 
         # *   **true**: performs a dry run. The system checks the required parameters, request syntax, and limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.
-        # *   **false:**: performs a dry run and sends the request.
+        # *   **false:** performs a dry run and sends the request.
         self.dry_run = dry_run  # type: bool
         # The ID of the resource group to which you want to move the CEN instance or bandwidth plan.
         self.new_resource_group_id = new_resource_group_id  # type: str
@@ -27376,16 +28135,35 @@ class RegisterTransitRouterMulticastGroupMembersRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, group_ip_address=None, network_interface_ids=None,
                  owner_account=None, owner_id=None, peer_transit_router_multicast_domains=None, resource_owner_account=None,
                  resource_owner_id=None, transit_router_multicast_domain_id=None, vpc_id=None):
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the token, but you must make sure that the token is unique among all requests. The token can contain only ASCII characters.
+        # 
+        # >  If you do not set this parameter, ClientToken is set to the value of RequestId. The value of RequestId may be different for each request.
         self.client_token = client_token  # type: str
+        # Specifies whether to perform a dry run. Valid values:
+        # 
+        # *   **true**: performs a dry run. The system checks the required parameters, request syntax, and limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.
+        # *   **false** (default): performs a dry run and sends the request.
         self.dry_run = dry_run  # type: bool
+        # The IP address of the multicast group to which the multicast members belong. Valid values: **224.0.0.1** to **239.255.255.254**.
+        # 
+        # If the multicast group does not exist in the specified multicast domain, the system automatically creates the multicast group in the multicast domain.
         self.group_ip_address = group_ip_address  # type: str
+        # The IDs of ENIs.
         self.network_interface_ids = network_interface_ids  # type: list[str]
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The IDs of the multicast domains that are in different regions.
         self.peer_transit_router_multicast_domains = peer_transit_router_multicast_domains  # type: list[str]
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The ID of the multicast domain to which the multicast members belong.
         self.transit_router_multicast_domain_id = transit_router_multicast_domain_id  # type: str
+        # The ID of the VPC to which the ENI belongs.
+        # 
+        # *   If the ENI belongs to the current Alibaba Cloud account, ignore this parameter.
+        # *   If the ENI belongs to a different Alibaba Cloud account, you must set this parameter.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -27450,6 +28228,7 @@ class RegisterTransitRouterMulticastGroupMembersRequest(TeaModel):
 
 class RegisterTransitRouterMulticastGroupMembersResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -27527,9 +28306,7 @@ class RegisterTransitRouterMulticastGroupSourcesRequest(TeaModel):
         # 
         # If the multicast group does not exist in the multicast domain, the system automatically creates the multicast group in the multicast domain.
         self.group_ip_address = group_ip_address  # type: str
-        # The IDs of ENIs.
-        # 
-        # >  This parameter is required.
+        # The IDs of the ENIs.
         self.network_interface_ids = network_interface_ids  # type: list[str]
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -27813,8 +28590,6 @@ class RemoveTraficMatchRuleFromTrafficMarkingPolicyRequest(TeaModel):
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         # The ID of the traffic classification rule.
-        # 
-        # You can specify at most 20 traffic classification rules.
         self.traffic_mark_rule_ids = traffic_mark_rule_ids  # type: list[str]
         # The ID of the traffic marking policy.
         self.traffic_marking_policy_id = traffic_marking_policy_id  # type: str
@@ -27932,13 +28707,24 @@ class ReplaceTransitRouterRouteTableAssociationRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, owner_account=None, owner_id=None,
                  resource_owner_account=None, resource_owner_id=None, transit_router_attachment_id=None,
                  transit_router_route_table_id=None):
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the value, but you must make sure that it is unique among all requests. The client token can contain only ASCII characters.
+        # 
+        # >  If you do not set this parameter, **ClientToken** is set to the value of **RequestId**. The value of **RequestId** for each API request may be different.
         self.client_token = client_token  # type: str
+        # Specifies whether only to precheck the API request. Valid values:
+        # 
+        # *   **true**: prechecks the request but does not associate the network instance connection with another route table. The system checks whether the required parameters are set, whether the formats of the values are valid, and the service limits. If the request fails to pass the precheck, the corresponding error message is returned. If the request passes the precheck, the `DryRunOperation` error code is returned.
+        # *   **false**: sends the request. After the request passes the authentication, the network instance connection is associated with the specified route table. This is the default value.
         self.dry_run = dry_run  # type: bool
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The ID of the network instance connection.
         self.transit_router_attachment_id = transit_router_attachment_id  # type: str
+        # The ID of the route table with which you want to associate the network instance connection.
         self.transit_router_route_table_id = transit_router_route_table_id  # type: str
 
     def validate(self):
@@ -27991,6 +28777,7 @@ class ReplaceTransitRouterRouteTableAssociationRequest(TeaModel):
 
 class ReplaceTransitRouterRouteTableAssociationResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -29523,65 +30310,80 @@ class UpdateTrafficMarkingPolicyAttributeRequestAddTrafficMatchRules(TeaModel):
                  src_port_range=None, traffic_match_rule_description=None, traffic_match_rule_name=None):
         # The destination CIDR block that is used to match packets.
         # 
-        # The traffic classification rule matches the packets whose destination IP addresses fall within the specified destination CIDR block. If you do not set this parameter, packets are considered a match regardless of the destination IP address.
+        # Packets whose destination IP addresses fall into the specified destination CIDR block are considered a match. If you do not specify a destination CIDR block, packets are considered a match regardless of the destination IP address.
         # 
-        # You can create up to 50 traffic classification rules at a time. You can specify a destination CIDR block for each traffic classification rule.
+        # You can create up to 50 traffic classification rules in each call. You can specify a destination CIDR block for each traffic classification rule.
         self.dst_cidr = dst_cidr  # type: str
         # The destination port range that is used to match packets. Valid values: **-1** and **1** to **65535**.
         # 
-        # The traffic classification rule matches the packets whose destination ports fall within the destination port range. If you do not set this parameter, packets are considered a match regardless of the destination port.
+        # Packets whose destination ports fall into the specified destination port range are considered a match. If you do not specify a destination port range, packets are considered a match regardless of the destination port.
         # 
-        # You can specify at most two ports. Take note of the following rules:
+        # You can enter up to two port numbers. Take note of the following rules:
         # 
-        # *   If you enter only one port number such as 1, the system matches the packets whose destination port is port 1.
-        # *   If you enter two port numbers such as 1 and 200, the system matches the packets whose destination ports fall between 1 and 200.
+        # *   If you enter only one port number, such as 1, packets whose destination port is 1 match the traffic classification rule.
+        # *   If you enter two port numbers, such as 1 and 200, packets whose destination ports fall into 1 and 200 are considered a match.
         # *   If you enter two port numbers and one of them is -1, the other port number must also be -1. In this case, packets are considered a match regardless of the destination port.
         # 
-        # You can create up to 50 traffic classification rules at a time. You can specify a destination port range for each traffic classification rule.
+        # You can create up to 50 traffic classification rules in each call. You can specify a destination port range for each traffic classification rule.
         self.dst_port_range = dst_port_range  # type: list[int]
-        # The differentiated services code point (DSCP) value that is used to match packets. Valid values: **0** to **63**.
+        # The Differentiated Service Code Point (DSCP) value that is used to match packets. Valid values: **0** to **63**.
         # 
-        # The traffic classification rule matches the packets that contain the specified DSCP value. If you do not set this parameter, packets are considered a match regardless of the DSCP value.
+        # Requests that carry the specified DSCP value are considered a match. If you do not specify a DSCP value, packets are considered a match regardless of the DSCP value.
         # 
         # >  The DSCP value that you specify for this parameter is the DSCP value that packets carry before they are transmitted over the inter-region connection.
         # 
-        # You can create up to 50 traffic classification rules at a time. You can specify a DSCP value for each traffic classification rule.
+        # You can create up to 50 traffic classification rules in each call. You can specify a DSCP value for each traffic classification rule.
         self.match_dscp = match_dscp  # type: int
         # The protocol that is used to match packets.
         # 
-        # Valid values: **HTTP**, **HTTPS**, **TCP**, **UDP**, **SSH**, and **Telnet**. For more information, log on to the [Cloud Enterprise Network (CEN) console](https://cen.console.aliyun.com/cen/list).
+        # Traffic classification rules support the following protocols: **HTTP**, **HTTPS**, **TCP**, **UDP**, **SSH**, and **Telnet**. For more information, log on to the [CEN console](https://cen.console.aliyun.com/cen/list).
         # 
-        # You can create up to 50 traffic classification rules at a time. You can specify a protocol for each traffic classification rule.
+        # **Some protocols use a fixed port. Click to view the protocols and ports.**\
+        # 
+        # *   If the protocol is **ICMP**, set the destination port to **-1**.
+        # *   If the protocol is **GRE**, set the destination port to **-1**.
+        # *   If the protocol is **SSH**, set the destination port to **22**.
+        # *   If the protocol is **Telnet**, set the destination port to **23**.
+        # *   If the protocol is **HTTP**, set the destination port to **80**.
+        # *   If the protocol is **HTTPS**, set the destination port to **443**.
+        # *   If the protocol is **MS SQL**, set the destination port to **1443**.
+        # *   If the protocol is **Oracle**, set the destination port to **1521**.
+        # *   If the protocol is **Mysql**, set the destination port to **3306**.
+        # *   If the protocol is **RDP**, set the destination port to **3389**.
+        # *   If the protocol is **Postgre SQL**, set the destination port to **5432**.
+        # *   If the protocol is **Redis**, set the destination port to **6379**.
+        # 
+        # You can create up to 50 traffic classification rules in each call. You can specify a protocol for each traffic classification rule.
         self.protocol = protocol  # type: str
         # The source CIDR block that is used to match packets.
         # 
-        # The traffic classification rule matches the packets whose source IP addresses fall within the specified source CIDR block. If you do not set this parameter, packets are considered a match regardless of the source IP address.
+        # Packets whose source IP addresses fall into the specified source CIDR block are considered a match. If you do not specify a source CIDR block, packets are considered a match regardless of the source IP address.
         # 
-        # You can create up to 50 traffic classification rules at a time. You can specify a source CIDR block for each traffic classification rule.
+        # You can create up to 50 traffic classification rules in each call. You can specify a source CIDR block for each traffic classification rule.
         self.src_cidr = src_cidr  # type: str
         # The source port range that is used to match packets. Valid values: **-1** and **1** to **65535**.
         # 
-        # The traffic classification rule matches the packets whose source ports fall within the source port range. If you do not set this parameter, packets are considered a match regardless of the source port.
+        # Packets whose source ports fall into the specified source port range are considered a match. If you do not specify a source port range, packets are considered a match regardless of the source port.
         # 
-        # You can specify at most two ports. Take note of the following rules:
+        # You can enter up to two port numbers. Take note of the following rules:
         # 
-        # *   If you enter only one port number such as 1, the system matches the packets whose source port is 1.
-        # *   If you enter two port numbers such as 1 and 200, the system matches the packets whose source ports fall between 1 and 200.
+        # *   If you enter only one port number, such as 1, packets whose source port is 1 are considered a match.
+        # *   If you enter two port numbers, such as 1 and 200, packets whose source ports fall into 1 and 200 are considered a match.
         # *   If you enter two port numbers and one of them is -1, the other port number must also be -1. In this case, packets are considered a match regardless of the source port.
         # 
-        # You can create up to 50 traffic classification rules at a time. You can specify a source port range for each traffic classification rule.
+        # You can create up to 50 traffic classification rules in each call. You can specify a source port range for each traffic classification rule.
         self.src_port_range = src_port_range  # type: list[int]
         # The description of the traffic classification rule.
         # 
-        # You can create up to 50 traffic classification rules at a time. You can specify a description for each traffic classification rule.
+        # You can create up to 50 traffic classification rules in each call. You can specify a description for each traffic classification rule.
         # 
-        # The description must be 2 to 128 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). The description must start with a letter.
+        # This parameter is optional. If you enter a description, it must be 1 to 256 characters in length, and cannot start with http:// or https://.
         self.traffic_match_rule_description = traffic_match_rule_description  # type: str
         # The name of the traffic classification rule.
         # 
-        # You can create up to 50 traffic classification rules at a time. You can specify a name for each traffic classification rule.
+        # You can create up to 50 traffic classification rules in each call. You can specify a name for each traffic classification rule.
         # 
-        # The name must be 2 to 128 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). It must start with a letter.
+        # The name can be empty or 1 to 128 characters in length, and cannot start with http:// or https://.
         self.traffic_match_rule_name = traffic_match_rule_name  # type: str
 
     def validate(self):
@@ -29635,23 +30437,27 @@ class UpdateTrafficMarkingPolicyAttributeRequestAddTrafficMatchRules(TeaModel):
 class UpdateTrafficMarkingPolicyAttributeRequestDeleteTrafficMatchRules(TeaModel):
     def __init__(self, dst_cidr=None, dst_port_range=None, match_dscp=None, protocol=None, src_cidr=None,
                  src_port_range=None, traffic_match_rule_description=None, traffic_match_rule_name=None):
-        # The destination CIDR block that is used to match data packets.
+        # The destination CIDR block that is used to match packets.
         self.dst_cidr = dst_cidr  # type: str
-        # The destination port range that is used to match packets. Valid values: **-1** and **1** to **65535**.
+        # The destination port range that is used to match packets.
         self.dst_port_range = dst_port_range  # type: list[int]
         # The DSCP value that is used to match packets.
         self.match_dscp = match_dscp  # type: int
         # The protocol that is used to match packets.
         # 
-        # Valid values: **HTTP**, **HTTPS**, **TCP**, **UDP**, **SSH**, and **Telnet**. For more information, log on to the [Cloud Enterprise Network (CEN) console](https://cen.console.aliyun.com/cen/list).
+        # You can call the [ListTrafficMarkingPolicies](~~468322~~) operation to query the details about a traffic classification rule.
         self.protocol = protocol  # type: str
         # The source CIDR block that is used to match packets.
         self.src_cidr = src_cidr  # type: str
-        # The source port range that is used to match packets. Valid values: **-1** and **1** to **65535**.
+        # The source port range that is used to match packets.
         self.src_port_range = src_port_range  # type: list[int]
         # The description of the traffic classification rule.
+        # 
+        # This parameter is optional. If you enter a description, it must be 1 to 256 characters in length, and cannot start with http:// or https://.
         self.traffic_match_rule_description = traffic_match_rule_description  # type: str
         # The name of the traffic classification rule.
+        # 
+        # The name can be empty or 1 to 128 characters in length, and cannot start with http:// or https://.
         self.traffic_match_rule_name = traffic_match_rule_name  # type: str
 
     def validate(self):
@@ -29713,6 +30519,8 @@ class UpdateTrafficMarkingPolicyAttributeRequest(TeaModel):
         # You can use the client to generate the value, but you must make sure that it is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.
         self.client_token = client_token  # type: str
         # The traffic classification rules to be deleted from the traffic marking policy.
+        # 
+        # >  Specify detailed information about the traffic classification rule, such as the source CIDR block, destination CIDR block, source port, destination port, and DSCP value. If you do not specify sufficient information, the system may fail to match the traffic classification rule that you want to delete.
         self.delete_traffic_match_rules = delete_traffic_match_rules  # type: list[UpdateTrafficMarkingPolicyAttributeRequestDeleteTrafficMatchRules]
         # Specifies whether to perform a dry run. Valid values:
         # 
@@ -30023,6 +30831,132 @@ class UpdateTransitRouterResponse(TeaModel):
         return self
 
 
+class UpdateTransitRouterEcrAttachmentAttributeRequest(TeaModel):
+    def __init__(self, client_token=None, dry_run=None, owner_account=None, owner_id=None,
+                 resource_owner_account=None, resource_owner_id=None, transit_router_attachment_description=None,
+                 transit_router_attachment_id=None, transit_router_attachment_name=None):
+        self.client_token = client_token  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        self.transit_router_attachment_description = transit_router_attachment_description  # type: str
+        self.transit_router_attachment_id = transit_router_attachment_id  # type: str
+        self.transit_router_attachment_name = transit_router_attachment_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateTransitRouterEcrAttachmentAttributeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        if self.transit_router_attachment_description is not None:
+            result['TransitRouterAttachmentDescription'] = self.transit_router_attachment_description
+        if self.transit_router_attachment_id is not None:
+            result['TransitRouterAttachmentId'] = self.transit_router_attachment_id
+        if self.transit_router_attachment_name is not None:
+            result['TransitRouterAttachmentName'] = self.transit_router_attachment_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('TransitRouterAttachmentDescription') is not None:
+            self.transit_router_attachment_description = m.get('TransitRouterAttachmentDescription')
+        if m.get('TransitRouterAttachmentId') is not None:
+            self.transit_router_attachment_id = m.get('TransitRouterAttachmentId')
+        if m.get('TransitRouterAttachmentName') is not None:
+            self.transit_router_attachment_name = m.get('TransitRouterAttachmentName')
+        return self
+
+
+class UpdateTransitRouterEcrAttachmentAttributeResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateTransitRouterEcrAttachmentAttributeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UpdateTransitRouterEcrAttachmentAttributeResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateTransitRouterEcrAttachmentAttributeResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateTransitRouterEcrAttachmentAttributeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateTransitRouterEcrAttachmentAttributeResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class UpdateTransitRouterPeerAttachmentAttributeRequest(TeaModel):
     def __init__(self, auto_publish_route_enabled=None, bandwidth=None, bandwidth_type=None,
                  cen_bandwidth_package_id=None, client_token=None, default_link_type=None, dry_run=None, owner_account=None, owner_id=None,
@@ -30070,13 +31004,13 @@ class UpdateTransitRouterPeerAttachmentAttributeRequest(TeaModel):
         self.resource_owner_id = resource_owner_id  # type: long
         # The new description of the inter-region connection.
         # 
-        # The description must be 2 to 256 characters in length. The description must start with a letter but cannot start with `http://` or `https://`.
+        # This parameter is optional. If you enter a description, it must be 1 to 256 characters in length, and cannot start with http:// or https://.
         self.transit_router_attachment_description = transit_router_attachment_description  # type: str
         # The ID of the inter-region connection.
         self.transit_router_attachment_id = transit_router_attachment_id  # type: str
         # The new name of the inter-region connection.
         # 
-        # The name must be 2 to 128 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). The name must start with a letter.
+        # The name can be empty or 1 to 128 characters in length, and cannot start with http:// or https://.
         self.transit_router_attachment_name = transit_router_attachment_name  # type: str
 
     def validate(self):
@@ -30883,8 +31817,6 @@ class UpdateTransitRouterVpcAttachmentZonesRequestRemoveZoneMappings(TeaModel):
         # You can remove at most 10 vSwitches from a VPC in each call.
         self.v_switch_id = v_switch_id  # type: str
         # The ID of the zone where the vSwitch that you want to remove from the VPC connection is deployed.
-        # 
-        # You can remove at most 10 vSwitches from a VPC in each call.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
