@@ -4403,7 +4403,8 @@ class GetInstanceListResponseBodyInstanceListInstanceVO(TeaModel):
                  reserved_publish_capacity=None, reserved_subscribe_capacity=None, resource_group_id=None, sasl_domain_endpoint=None,
                  security_group=None, service_status=None, spec_type=None, ssl_domain_endpoint=None, ssl_end_point=None,
                  standard_zone_id=None, tags=None, topic_num_limit=None, upgrade_service_detail_info=None, used_group_count=None,
-                 used_partition_count=None, used_topic_count=None, v_switch_id=None, vpc_id=None, zone_id=None):
+                 used_partition_count=None, used_topic_count=None, v_switch_id=None, view_instance_status_code=None, vpc_id=None,
+                 zone_id=None):
         # The configurations of the deployed ApsaraMQ for Kafka instance.
         self.all_config = all_config  # type: str
         self.confluent_config = confluent_config  # type: GetInstanceListResponseBodyInstanceListInstanceVOConfluentConfig
@@ -4515,6 +4516,7 @@ class GetInstanceListResponseBodyInstanceListInstanceVO(TeaModel):
         self.used_topic_count = used_topic_count  # type: int
         # The vSwitch ID of the instance.
         self.v_switch_id = v_switch_id  # type: str
+        self.view_instance_status_code = view_instance_status_code  # type: int
         # The virtual private cloud (VPC) ID.
         self.vpc_id = vpc_id  # type: str
         # The zone ID.
@@ -4604,6 +4606,8 @@ class GetInstanceListResponseBodyInstanceListInstanceVO(TeaModel):
             result['UsedTopicCount'] = self.used_topic_count
         if self.v_switch_id is not None:
             result['VSwitchId'] = self.v_switch_id
+        if self.view_instance_status_code is not None:
+            result['ViewInstanceStatusCode'] = self.view_instance_status_code
         if self.vpc_id is not None:
             result['VpcId'] = self.vpc_id
         if self.zone_id is not None:
@@ -4685,6 +4689,8 @@ class GetInstanceListResponseBodyInstanceListInstanceVO(TeaModel):
             self.used_topic_count = m.get('UsedTopicCount')
         if m.get('VSwitchId') is not None:
             self.v_switch_id = m.get('VSwitchId')
+        if m.get('ViewInstanceStatusCode') is not None:
+            self.view_instance_status_code = m.get('ViewInstanceStatusCode')
         if m.get('VpcId') is not None:
             self.vpc_id = m.get('VpcId')
         if m.get('ZoneId') is not None:
