@@ -81,9 +81,6 @@ class AddAITemplateResponse(TeaModel):
         self.body = body  # type: AddAITemplateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -253,9 +250,6 @@ class AddCategoryResponse(TeaModel):
         self.body = body  # type: AddCategoryResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -458,9 +452,6 @@ class AddEditingProjectResponse(TeaModel):
         self.body = body  # type: AddEditingProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -695,9 +686,6 @@ class AddEditingProjectMaterialsResponse(TeaModel):
         self.body = body  # type: AddEditingProjectMaterialsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -818,9 +806,6 @@ class AddTranscodeTemplateGroupResponse(TeaModel):
         self.body = body  # type: AddTranscodeTemplateGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -951,9 +936,6 @@ class AddVodDomainResponse(TeaModel):
         self.body = body  # type: AddVodDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -985,11 +967,11 @@ class AddVodDomainResponse(TeaModel):
 
 class AddVodStorageForAppRequest(TeaModel):
     def __init__(self, app_id=None, storage_location=None, storage_type=None):
-        # The ID of the application. You can obtain the application ID from the response to the [CreateAppInfo](https://help.aliyun.com/zh/vod/developer-reference/api-vod-2017-03-21-createappinfo) or [ListAppInfo](https://help.aliyun.com/zh/vod/developer-reference/api-vod-2017-03-21-listappinfo) operation.
+        # The IDs of applications. You can obtain the application ID from the `AppId` parameter in the response to the [CreateAppInfo](~~CreateAppInfo~~) or [ListAppInfo](~~ListAppInfo~~) operation.
         self.app_id = app_id  # type: str
         # The address of an Object Storage Service (OSS) bucket. This parameter does not take effect. You can call this operation to add only VOD buckets.
         self.storage_location = storage_location  # type: str
-        # The storage type. Default value: vod_oss_bucket.
+        # The storage class. Default value: **vod_oss_bucket**.
         self.storage_type = storage_type  # type: str
 
     def validate(self):
@@ -1058,9 +1040,6 @@ class AddVodStorageForAppResponse(TeaModel):
         self.body = body  # type: AddVodStorageForAppResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1092,14 +1071,14 @@ class AddVodStorageForAppResponse(TeaModel):
 
 class AddVodTemplateRequest(TeaModel):
     def __init__(self, app_id=None, name=None, template_config=None, template_type=None):
-        # The ID of the application. Default value: **app-1000000**. For more information, see [Overview](~~113600~~).
+        # The ID of the application. Default value: **app-1000000**. For more information, see [Multi-application service](~~113600~~).
         self.app_id = app_id  # type: str
         # The name of the template.
         # 
-        # *   The name can be up to 128 bytes in length.
+        # *   The name cannot exceed 128 bytes.
         # *   The value must be encoded in UTF-8.
         self.name = name  # type: str
-        # The configurations of the snapshot template. The value is a JSON-formatted string. For more information about the data structure, see the "SnapshotTemplateConfig" section of the [Media processing parameters](~~98618~~) topic.
+        # The configurations of the snapshot template. The value must be a JSON string. For more information about the data structure, see [SnapshotTemplateConfig](~~98618~~).
         self.template_config = template_config  # type: str
         # The type of the template. Set the value to **Snapshot**.
         self.template_type = template_type  # type: str
@@ -1140,7 +1119,7 @@ class AddVodTemplateResponseBody(TeaModel):
     def __init__(self, request_id=None, vod_template_id=None):
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # The ID of the snapshot template. You can call the [SubmitSnapshotJob](~~72213~~) operation to take snapshots.
+        # The ID of the snapshot template. You can call the [SubmitSnapshotJob](~~72213~~) operation to submit snapshot jobs.
         self.vod_template_id = vod_template_id  # type: str
 
     def validate(self):
@@ -1174,9 +1153,6 @@ class AddVodTemplateResponse(TeaModel):
         self.body = body  # type: AddVodTemplateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1373,9 +1349,6 @@ class AddWatermarkResponse(TeaModel):
         self.body = body  # type: AddWatermarkResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1504,9 +1477,6 @@ class AttachAppPolicyToIdentityResponse(TeaModel):
         self.body = body  # type: AttachAppPolicyToIdentityResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1618,9 +1588,6 @@ class BatchSetVodDomainConfigsResponse(TeaModel):
         self.body = body  # type: BatchSetVodDomainConfigsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1717,9 +1684,6 @@ class BatchStartVodDomainResponse(TeaModel):
         self.body = body  # type: BatchStartVodDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1816,9 +1780,6 @@ class BatchStopVodDomainResponse(TeaModel):
         self.body = body  # type: BatchStopVodDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1931,9 +1892,6 @@ class CancelUrlUploadJobsResponse(TeaModel):
         self.body = body  # type: CancelUrlUploadJobsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2038,9 +1996,6 @@ class CreateAppInfoResponse(TeaModel):
         self.body = body  # type: CreateAppInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2128,9 +2083,6 @@ class CreateAuditResponse(TeaModel):
         self.body = body  # type: CreateAuditResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2345,9 +2297,6 @@ class CreateUploadAttachedMediaResponse(TeaModel):
         self.body = body  # type: CreateUploadAttachedMediaResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2558,9 +2507,6 @@ class CreateUploadImageResponse(TeaModel):
         self.body = body  # type: CreateUploadImageResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2767,9 +2713,6 @@ class CreateUploadVideoResponse(TeaModel):
         self.body = body  # type: CreateUploadVideoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2885,9 +2828,6 @@ class DecryptKMSDataKeyResponse(TeaModel):
         self.body = body  # type: DecryptKMSDataKeyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2977,9 +2917,6 @@ class DeleteAIImageInfosResponse(TeaModel):
         self.body = body  # type: DeleteAIImageInfosResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3075,9 +3012,6 @@ class DeleteAITemplateResponse(TeaModel):
         self.body = body  # type: DeleteAITemplateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3164,9 +3098,6 @@ class DeleteAppInfoResponse(TeaModel):
         self.body = body  # type: DeleteAppInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3262,9 +3193,6 @@ class DeleteAttachedMediaResponse(TeaModel):
         self.body = body  # type: DeleteAttachedMediaResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3351,9 +3279,6 @@ class DeleteCategoryResponse(TeaModel):
         self.body = body  # type: DeleteCategoryResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3449,9 +3374,6 @@ class DeleteDynamicImageResponse(TeaModel):
         self.body = body  # type: DeleteDynamicImageResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3559,9 +3481,6 @@ class DeleteEditingProjectResponse(TeaModel):
         self.body = body  # type: DeleteEditingProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3677,9 +3596,6 @@ class DeleteEditingProjectMaterialsResponse(TeaModel):
         self.body = body  # type: DeleteEditingProjectMaterialsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3814,9 +3730,6 @@ class DeleteImageResponse(TeaModel):
         self.body = body  # type: DeleteImageResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3908,9 +3821,6 @@ class DeleteMessageCallbackResponse(TeaModel):
         self.body = body  # type: DeleteMessageCallbackResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3942,11 +3852,18 @@ class DeleteMessageCallbackResponse(TeaModel):
 
 class DeleteMezzaninesRequest(TeaModel):
     def __init__(self, force=None, video_ids=None):
-        # Specifies whether to forcibly delete the mezzanine file. Default value: **false**.
+        # Specifies whether to forcibly delete the source file. Valid values:
         # 
-        # > If a video is delivered without transcoding or is asynchronously transcoded, the mezzanine file of the video is used for original-quality playback. By default, the mezzanine file of the video cannot be deleted. To forcibly delete the mezzanine file, set this parameter to **true**.
+        # *   **false** (default)
+        # *   **true**\
+        # 
+        # >  If a video is uploaded without transcoding or is asynchronously transcoded, the source file of the video is used for original-quality playback. By default, the source file of the video cannot be deleted. To forcibly delete the mezzanine file, set this parameter to **true**.
         self.force = force  # type: bool
-        # The list of video IDs. A maximum of 20 video IDs can be specified at a time. Separate multiple IDs with commas (,).
+        # The IDs of audio or video files whose source files that you want to delete. You can specify up to 20 IDs. Separate multiple IDs with commas (,). You can use one of the following methods to obtain the ID:
+        # 
+        # *   After you upload a video in the [ApsaraVideo VOD console](https://vod.console.aliyun.com), you can log on to the ApsaraVideo VOD console and choose **Media Files** > **Audio/Video** to view the ID of the video.
+        # *   Obtain the value of VideoId from the response to the [CreateUploadVideo](~~55407~~) operation that you called to obtain the upload URL and credential.
+        # *   Obtain the value of VideoId from the response to the [SearchMedia](~~86044~~) operation that you called to query media information after the audio or video file is uploaded.
         self.video_ids = video_ids  # type: str
 
     def validate(self):
@@ -3975,12 +3892,13 @@ class DeleteMezzaninesRequest(TeaModel):
 
 class DeleteMezzaninesResponseBody(TeaModel):
     def __init__(self, non_exist_video_ids=None, request_id=None, un_removeable_video_ids=None):
-        # The IDs of the videos that do not exist.
+        # The IDs of the audio or video files that do not exist.
         self.non_exist_video_ids = non_exist_video_ids  # type: list[str]
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # The IDs of the videos whose mezzanine files cannot be deleted.
-        # > Generally, mezzanine files cannot be deleted if they are used for original-quality playback or you do not have required [permissions](~~113600~~) to delete them.
+        # The IDs of the audio or video files whose source files cannot be deleted.
+        # 
+        # >  In most cases, source files cannot be deleted if they are used for original-quality playback or you do not have required permissions to delete them. For more information, see [Overview](~~113600~~).
         self.un_removeable_video_ids = un_removeable_video_ids  # type: list[str]
 
     def validate(self):
@@ -4018,9 +3936,6 @@ class DeleteMezzaninesResponse(TeaModel):
         self.body = body  # type: DeleteMezzaninesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4052,12 +3967,13 @@ class DeleteMezzaninesResponse(TeaModel):
 
 class DeleteMultipartUploadRequest(TeaModel):
     def __init__(self, media_id=None, media_type=None, owner_account=None):
-        # The ID of the media file, namely, the audio or video ID. You can use one of the following methods to obtain the audio or video ID:
-        # * Log on to the [ApsaraVideo VOD](https://vod.console.aliyun.com) console. In the left-side navigation pane, choose **Media Files** > **Audio/Video**. On the Video and Audio page, you can view the audio or video ID. Use this method if the audio or video file is uploaded by using the ApsaraVideo VOD console.
-        # * View the value of the VideoId parameter returned by the [CreateUploadVideo](~~55407~~) operation that you called to obtain an upload URL and credential.
-        # * View the value of the VideoId parameter returned by the [SearchMedia](~~86044~~) operation that you called to query an audio or video ID after the audio or video file is uploaded.
+        # The ID of the media file (VideoId). You can use one of the following methods to obtain the ID:
+        # 
+        # *   After you upload a video in the [ApsaraVideo VOD console](https://vod.console.aliyun.com), you can log on to the ApsaraVideo VOD console and choose **Media Files** > **Audio/Video** to view the ID of the video.
+        # *   Obtain the value of VideoId from the response to the [CreateUploadVideo](~~55407~~) operation that you called to obtain the upload URL and credential.
+        # *   Obtain the value of VideoId from the response to the [SearchMedia](~~86044~~) operation that you called to query media information after the audio or video file is uploaded.
         self.media_id = media_id  # type: str
-        # The type of the media file. Set the value to **video**, which indicates audio and video files.
+        # The type of the media file. Set the value to **video**. video indicates audio and video files.
         self.media_type = media_type  # type: str
         self.owner_account = owner_account  # type: str
 
@@ -4121,9 +4037,6 @@ class DeleteMultipartUploadResponse(TeaModel):
         self.body = body  # type: DeleteMultipartUploadResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4219,9 +4132,6 @@ class DeleteStreamResponse(TeaModel):
         self.body = body  # type: DeleteStreamResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4333,9 +4243,6 @@ class DeleteTranscodeTemplateGroupResponse(TeaModel):
         self.body = body  # type: DeleteTranscodeTemplateGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4440,9 +4347,6 @@ class DeleteVideoResponse(TeaModel):
         self.body = body  # type: DeleteVideoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4544,9 +4448,6 @@ class DeleteVodDomainResponse(TeaModel):
         self.body = body  # type: DeleteVodDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4582,6 +4483,13 @@ class DeleteVodSpecificConfigRequest(TeaModel):
         self.config_id = config_id  # type: str
         # The domain name for CDN.
         self.domain_name = domain_name  # type: str
+        # The environment of configuration. 
+        # 
+        # Value:
+        # 
+        # online: production environment
+        # 
+        # gray: simulation environment
         self.env = env  # type: str
         self.owner_id = owner_id  # type: long
         self.security_token = security_token  # type: str
@@ -4654,9 +4562,6 @@ class DeleteVodSpecificConfigResponse(TeaModel):
         self.body = body  # type: DeleteVodSpecificConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4749,9 +4654,6 @@ class DeleteVodTemplateResponse(TeaModel):
         self.body = body  # type: DeleteVodTemplateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4838,9 +4740,6 @@ class DeleteWatermarkResponse(TeaModel):
         self.body = body  # type: DeleteWatermarkResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5051,9 +4950,6 @@ class DescribePlayTopVideosResponse(TeaModel):
         self.body = body  # type: DescribePlayTopVideosResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5228,9 +5124,6 @@ class DescribePlayUserAvgResponse(TeaModel):
         self.body = body  # type: DescribePlayUserAvgResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5508,9 +5401,6 @@ class DescribePlayUserTotalResponse(TeaModel):
         self.body = body  # type: DescribePlayUserTotalResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5709,9 +5599,6 @@ class DescribePlayVideoStatisResponse(TeaModel):
         self.body = body  # type: DescribePlayVideoStatisResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5979,9 +5866,6 @@ class DescribeVodAIDataResponse(TeaModel):
         self.body = body  # type: DescribeVodAIDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6206,9 +6090,6 @@ class DescribeVodCertificateListResponse(TeaModel):
         self.body = body  # type: DescribeVodCertificateListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6476,9 +6357,6 @@ class DescribeVodDomainBpsDataResponse(TeaModel):
         self.body = body  # type: DescribeVodDomainBpsDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6701,9 +6579,6 @@ class DescribeVodDomainCertificateInfoResponse(TeaModel):
         self.body = body  # type: DescribeVodDomainCertificateInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6959,9 +6834,6 @@ class DescribeVodDomainConfigsResponse(TeaModel):
         self.body = body  # type: DescribeVodDomainConfigsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7257,9 +7129,6 @@ class DescribeVodDomainDetailResponse(TeaModel):
         self.body = body  # type: DescribeVodDomainDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7587,9 +7456,6 @@ class DescribeVodDomainLogResponse(TeaModel):
         self.body = body  # type: DescribeVodDomainLogResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7811,9 +7677,6 @@ class DescribeVodDomainSrcBpsDataResponse(TeaModel):
         self.body = body  # type: DescribeVodDomainSrcBpsDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8041,9 +7904,6 @@ class DescribeVodDomainSrcTrafficDataResponse(TeaModel):
         self.body = body  # type: DescribeVodDomainSrcTrafficDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8305,9 +8165,6 @@ class DescribeVodDomainTrafficDataResponse(TeaModel):
         self.body = body  # type: DescribeVodDomainTrafficDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8340,10 +8197,10 @@ class DescribeVodDomainTrafficDataResponse(TeaModel):
 class DescribeVodDomainUsageDataRequest(TeaModel):
     def __init__(self, area=None, domain_name=None, end_time=None, field=None, interval=None, owner_id=None,
                  start_time=None, type=None):
-        # The region in which you want to query data. Default value: CN. Valid values:
+        # The region in which you want to query data. Valid values:
         # 
-        # *   **CN**: the Chinese mainland.
-        # *   **OverSeas**: outside the Chinese mainland.
+        # *   **CN**: Chinese mainland
+        # *   **OverSeas**: outside the Chinese mainland
         self.area = area  # type: str
         # The accelerated domain name. If you leave this parameter empty, the merged data of all your accelerated domain names is returned. Separate multiple accelerated domain names with commas (,).
         self.domain_name = domain_name  # type: str
@@ -8420,7 +8277,7 @@ class DescribeVodDomainUsageDataRequest(TeaModel):
 
 class DescribeVodDomainUsageDataResponseBodyUsageDataPerIntervalDataModule(TeaModel):
     def __init__(self, time_stamp=None, value=None):
-        # The timestamp of the data returned. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
+        # The timestamp of the returned data. The time is in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
         self.time_stamp = time_stamp  # type: str
         # The traffic or bandwidth data. Unit: bit/s.
         self.value = value  # type: str
@@ -8496,11 +8353,10 @@ class DescribeVodDomainUsageDataResponseBody(TeaModel):
         self.request_id = request_id  # type: str
         # The start of the time range during which data was queried. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
         self.start_time = start_time  # type: str
-        # The type of content returned. Valid values:
+        # The type of the data. Valid values:
         # 
-        # *   **static**: static content
-        # *   **dynamic**: dynamic requests
-        # *   **all**: all content
+        # *   **bps**: bandwidth
+        # *   **traf**: traffic
         self.type = type  # type: str
         # The traffic or bandwidth data returned at each interval.
         self.usage_data_per_interval = usage_data_per_interval  # type: DescribeVodDomainUsageDataResponseBodyUsageDataPerInterval
@@ -8562,9 +8418,6 @@ class DescribeVodDomainUsageDataResponse(TeaModel):
         self.body = body  # type: DescribeVodDomainUsageDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8704,9 +8557,6 @@ class DescribeVodRefreshQuotaResponse(TeaModel):
         self.body = body  # type: DescribeVodRefreshQuotaResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8997,9 +8847,6 @@ class DescribeVodRefreshTasksResponse(TeaModel):
         self.body = body  # type: DescribeVodRefreshTasksResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9206,9 +9053,6 @@ class DescribeVodStorageDataResponse(TeaModel):
         self.body = body  # type: DescribeVodStorageDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9239,8 +9083,9 @@ class DescribeVodStorageDataResponse(TeaModel):
 
 
 class DescribeVodTranscodeDataRequest(TeaModel):
-    def __init__(self, end_time=None, interval=None, owner_id=None, region=None, specification=None, start_time=None,
-                 storage=None):
+    def __init__(self, app_id=None, end_time=None, interval=None, owner_id=None, region=None, specification=None,
+                 start_time=None, storage=None):
+        self.app_id = app_id  # type: str
         # The end of the time range to query. The end time must be later than the start time. Specify the time in the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time must be in UTC.
         self.end_time = end_time  # type: str
         # The interval at which you want to query data. Valid values:
@@ -9276,6 +9121,8 @@ class DescribeVodTranscodeDataRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.app_id is not None:
+            result['AppId'] = self.app_id
         if self.end_time is not None:
             result['EndTime'] = self.end_time
         if self.interval is not None:
@@ -9294,6 +9141,8 @@ class DescribeVodTranscodeDataRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AppId') is not None:
+            self.app_id = m.get('AppId')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
         if m.get('Interval') is not None:
@@ -9492,9 +9341,6 @@ class DescribeVodTranscodeDataResponse(TeaModel):
         self.body = body  # type: DescribeVodTranscodeDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9898,9 +9744,6 @@ class DescribeVodUserDomainsResponse(TeaModel):
         self.body = body  # type: DescribeVodUserDomainsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9998,9 +9841,6 @@ class DescribeVodVerifyContentResponse(TeaModel):
         self.body = body  # type: DescribeVodVerifyContentResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10126,9 +9966,6 @@ class DetachAppPolicyFromIdentityResponse(TeaModel):
         self.body = body  # type: DetachAppPolicyFromIdentityResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10161,7 +9998,15 @@ class DetachAppPolicyFromIdentityResponse(TeaModel):
 class GenerateDownloadSecretKeyRequest(TeaModel):
     def __init__(self, app_decrypt_key=None, app_identification=None, owner_id=None, resource_owner_account=None,
                  resource_owner_id=None):
+        # A custom string of 16 to 32 characters in length. The string must contain uppercase letters, lowercase letters, and digits.
         self.app_decrypt_key = app_decrypt_key  # type: str
+        # The unique identifier of the app.
+        # 
+        # *   Android: the SHA-1 fingerprint of the keystore. The value is a string that contains a colon (:).
+        # *   iOS: the bundle ID of the app.
+        # *   Windows: the serial number in the digital signature certificate.
+        # 
+        # For more information about how to obtain the unique identifier of an app, see [Obtain the unique app identifier](~~86107#section-wtj-9d7-lg2~~).
         self.app_identification = app_identification  # type: str
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
@@ -10205,7 +10050,9 @@ class GenerateDownloadSecretKeyRequest(TeaModel):
 
 class GenerateDownloadSecretKeyResponseBody(TeaModel):
     def __init__(self, app_encrypt_key=None, request_id=None):
+        # The key file for secure download.
         self.app_encrypt_key = app_encrypt_key  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -10239,9 +10086,6 @@ class GenerateDownloadSecretKeyResponse(TeaModel):
         self.body = body  # type: GenerateDownloadSecretKeyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10356,9 +10200,6 @@ class GenerateKMSDataKeyResponse(TeaModel):
         self.body = body  # type: GenerateKMSDataKeyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10573,9 +10414,6 @@ class GetAIImageJobsResponse(TeaModel):
         self.body = body  # type: GetAIImageJobsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12071,9 +11909,6 @@ class GetAIMediaAuditJobResponse(TeaModel):
         self.body = body  # type: GetAIMediaAuditJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12248,9 +12083,6 @@ class GetAITemplateResponse(TeaModel):
         self.body = body  # type: GetAITemplateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12620,9 +12452,6 @@ class GetAIVideoTagResultResponse(TeaModel):
         self.body = body  # type: GetAIVideoTagResultResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12747,6 +12576,7 @@ class GetAppInfosResponseBody(TeaModel):
     def __init__(self, app_info_list=None, code=None, non_exist_app_ids=None, request_id=None):
         # The details of each application.
         self.app_info_list = app_info_list  # type: list[GetAppInfosResponseBodyAppInfoList]
+        # The HTTP status code that is returned.
         self.code = code  # type: str
         # The ID of the application that was not found.
         self.non_exist_app_ids = non_exist_app_ids  # type: list[str]
@@ -12800,9 +12630,6 @@ class GetAppInfosResponse(TeaModel):
         self.body = body  # type: GetAppInfosResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13085,9 +12912,6 @@ class GetAttachedMediaInfoResponse(TeaModel):
         self.body = body  # type: GetAttachedMediaInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13273,9 +13097,6 @@ class GetAuditHistoryResponse(TeaModel):
         self.body = body  # type: GetAuditHistoryResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13560,9 +13381,6 @@ class GetCategoriesResponse(TeaModel):
         self.body = body  # type: GetCategoriesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13731,9 +13549,6 @@ class GetDefaultAITemplateResponse(TeaModel):
         self.body = body  # type: GetDefaultAITemplateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13930,9 +13745,6 @@ class GetDigitalWatermarkExtractResultResponse(TeaModel):
         self.body = body  # type: GetDigitalWatermarkExtractResultResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14135,9 +13947,6 @@ class GetEditingProjectResponse(TeaModel):
         self.body = body  # type: GetEditingProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14492,9 +14301,6 @@ class GetEditingProjectMaterialsResponse(TeaModel):
         self.body = body  # type: GetEditingProjectMaterialsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14775,9 +14581,6 @@ class GetImageInfoResponse(TeaModel):
         self.body = body  # type: GetImageInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15077,9 +14880,6 @@ class GetImageInfosResponse(TeaModel):
         self.body = body  # type: GetImageInfosResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15296,9 +15096,6 @@ class GetMediaAuditAudioResultDetailResponse(TeaModel):
         self.body = body  # type: GetMediaAuditAudioResultDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16678,9 +16475,6 @@ class GetMediaAuditResultResponse(TeaModel):
         self.body = body  # type: GetMediaAuditResultResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16934,9 +16728,6 @@ class GetMediaAuditResultDetailResponse(TeaModel):
         self.body = body  # type: GetMediaAuditResultDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17330,9 +17121,6 @@ class GetMediaAuditResultTimelineResponse(TeaModel):
         self.body = body  # type: GetMediaAuditResultTimelineResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17624,9 +17412,6 @@ class GetMediaDNAResultResponse(TeaModel):
         self.body = body  # type: GetMediaDNAResultResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17834,9 +17619,6 @@ class GetMediaRefreshJobsResponse(TeaModel):
         self.body = body  # type: GetMediaRefreshJobsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -18010,9 +17792,6 @@ class GetMessageCallbackResponse(TeaModel):
         self.body = body  # type: GetMessageCallbackResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -18599,9 +18378,6 @@ class GetMezzanineInfoResponse(TeaModel):
         self.body = body  # type: GetMezzanineInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -18789,11 +18565,11 @@ class GetPlayInfoResponseBodyPlayInfoListPlayInfo(TeaModel):
                  encrypt=None, encrypt_type=None, format=None, fps=None, hdrtype=None, height=None, job_ext=None, job_id=None,
                  job_type=None, modification_time=None, narrow_band_type=None, play_url=None, size=None, specification=None,
                  status=None, stream_type=None, watermark_id=None, width=None):
-        # The color depth. This value must be an integer.
+        # The color depth. This value is an integer.
         self.bit_depth = bit_depth  # type: int
         # The bitrate of the media stream. Unit: Kbit/s.
         self.bitrate = bitrate  # type: str
-        # The time when the audio or video stream was created. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
+        # The time when the audio or video stream was created. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*hh:mm:ss*Z format. The time is displayed in UTC.
         self.creation_time = creation_time  # type: str
         # The quality of the media stream. Valid values:
         # 
@@ -18808,7 +18584,7 @@ class GetPlayInfoResponseBodyPlayInfoListPlayInfo(TeaModel):
         # *   **HQ**: high sound quality
         # *   **AUTO**: adaptive bitrate
         self.definition = definition  # type: str
-        # The duration of the media stream. Unit: seconds.
+        # The duration of the media stream. Unit: seconds. 86,400 seconds is equivalent to 24 hours.
         self.duration = duration  # type: str
         # Indicates whether the media stream is encrypted. Valid values:
         # 
@@ -18849,7 +18625,7 @@ class GetPlayInfoResponseBodyPlayInfoListPlayInfo(TeaModel):
         # *   **1**: tracing watermark
         # *   **2**: copyright watermark
         self.job_type = job_type  # type: int
-        # The update time. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
+        # The time when the audio or video file was updated. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*hh:mm:ss*Z format. The time is displayed in UTC.
         self.modification_time = modification_time  # type: str
         # The type of Narrowband HD transcoding. Valid values:
         # 
@@ -19035,6 +18811,17 @@ class GetPlayInfoResponseBodyVideoBase(TeaModel):
         self.media_type = media_type  # type: str
         # The status of the audio or video file. For more information about the value range and description, see the [Status](~~52839~~) table.
         self.status = status  # type: str
+        # The storage class of the audio or video file. Valid values:
+        # 
+        # *   **Standard**: All media resources are stored as Standard objects.
+        # *   **IA**: All media resources are stored as IA objects.
+        # *   **Archive**: All media resources are stored as Archive objects.
+        # *   **ColdArchive**: All media resources are stored as Cold Archive objects.
+        # *   **SourceIA**: Only the source files are IA objects.
+        # *   **SourceArchive**: Only the source files are Archive objects.
+        # *   **SourceColdArchive**: Only the source files are Cold Archive objects.
+        # *   **Changing**: The storage class of the audio or video file is being changed.
+        # *   **SourceChanging**: The storage class of the source file is being changed.
         self.storage_class = storage_class  # type: str
         # The title of the audio or video file.
         self.title = title  # type: str
@@ -19142,9 +18929,6 @@ class GetPlayInfoResponse(TeaModel):
         self.body = body  # type: GetPlayInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19438,9 +19222,6 @@ class GetTranscodeSummaryResponse(TeaModel):
         self.body = body  # type: GetTranscodeSummaryResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19837,9 +19618,6 @@ class GetTranscodeTaskResponse(TeaModel):
         self.body = body  # type: GetTranscodeTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -20173,9 +19951,6 @@ class GetTranscodeTemplateGroupResponse(TeaModel):
         self.body = body  # type: GetTranscodeTemplateGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -20379,9 +20154,6 @@ class GetURLUploadInfosResponse(TeaModel):
         self.body = body  # type: GetURLUploadInfosResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -20602,9 +20374,6 @@ class GetUploadDetailsResponse(TeaModel):
         self.body = body  # type: GetUploadDetailsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -20907,9 +20676,6 @@ class GetVideoInfoResponse(TeaModel):
         self.body = body  # type: GetVideoInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -21174,9 +20940,6 @@ class GetVideoInfosResponse(TeaModel):
         self.body = body  # type: GetVideoInfosResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -21553,9 +21316,6 @@ class GetVideoListResponse(TeaModel):
         self.body = body  # type: GetVideoListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -21724,9 +21484,6 @@ class GetVideoPlayAuthResponse(TeaModel):
         self.body = body  # type: GetVideoPlayAuthResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -21889,9 +21646,6 @@ class GetVodTemplateResponse(TeaModel):
         self.body = body  # type: GetVodTemplateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -22060,9 +21814,6 @@ class GetWatermarkResponse(TeaModel):
         self.body = body  # type: GetWatermarkResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -22235,9 +21986,6 @@ class ListAIImageInfoResponse(TeaModel):
         self.body = body  # type: ListAIImageInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -22502,9 +22250,6 @@ class ListAIJobResponse(TeaModel):
         self.body = body  # type: ListAIJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -22685,9 +22430,6 @@ class ListAITemplateResponse(TeaModel):
         self.body = body  # type: ListAITemplateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -22877,9 +22619,6 @@ class ListAppInfoResponse(TeaModel):
         self.body = body  # type: ListAppInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -23065,9 +22804,6 @@ class ListAppPoliciesForIdentityResponse(TeaModel):
         self.body = body  # type: ListAppPoliciesForIdentityResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -23211,9 +22947,6 @@ class ListAuditSecurityIpResponse(TeaModel):
         self.body = body  # type: ListAuditSecurityIpResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -23400,9 +23133,6 @@ class ListDynamicImageResponse(TeaModel):
         self.body = body  # type: ListDynamicImageResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -23782,9 +23512,6 @@ class ListLiveRecordVideoResponse(TeaModel):
         self.body = body  # type: ListLiveRecordVideoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24027,9 +23754,6 @@ class ListSnapshotsResponse(TeaModel):
         self.body = body  # type: ListSnapshotsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24226,9 +23950,6 @@ class ListTranscodeTaskResponse(TeaModel):
         self.body = body  # type: ListTranscodeTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24397,9 +24118,6 @@ class ListTranscodeTemplateGroupResponse(TeaModel):
         self.body = body  # type: ListTranscodeTemplateGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24580,9 +24298,6 @@ class ListVodTemplateResponse(TeaModel):
         self.body = body  # type: ListVodTemplateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24740,9 +24455,6 @@ class ListWatermarkResponse(TeaModel):
         self.body = body  # type: ListWatermarkResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24857,9 +24569,6 @@ class MoveAppResourceResponse(TeaModel):
         self.body = body  # type: MoveAppResourceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24962,9 +24671,6 @@ class PreloadVodObjectCachesResponse(TeaModel):
         self.body = body  # type: PreloadVodObjectCachesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25007,9 +24713,9 @@ class ProduceEditingProjectVideoRequest(TeaModel):
         # The video metadata. The value must be in JSON format. For more information about the parameter structure, see [MediaMetadata](~~52839#title_rtf_ry5\_gjp~~).
         self.media_metadata = media_metadata  # type: str
         self.owner_id = owner_id  # type: long
-        # The configuration of video production. The value must be in JSON format. For more information about the parameter structure, see [ProduceConfig](~~52839#title_ybl\_7cs_y7d~~).
+        # The configuration of video production. The value must be in the JSON format. For more information about the parameter structure, see [ProduceConfig](~~52839#title-ybl-7cs-y7d~~).
         # 
-        # > The StorageLocation field is required if you create an online editing project in a region other than the China (Shanghai) region.
+        # >  StorageLocation is required if you produce videos in a region other than China (Shanghai).
         self.produce_config = produce_config  # type: str
         # The ID of the online editing project. You can use one of the following methods to obtain the ID of the online editing project:
         # 
@@ -25138,9 +24844,6 @@ class ProduceEditingProjectVideoResponse(TeaModel):
         self.body = body  # type: ProduceEditingProjectVideoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25323,9 +25026,6 @@ class RefreshMediaPlayUrlsResponse(TeaModel):
         self.body = body  # type: RefreshMediaPlayUrlsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25362,9 +25062,9 @@ class RefreshUploadVideoRequest(TeaModel):
         self.resource_owner_id = resource_owner_id  # type: long
         # The ID of the audio or video file. You can use one of the following methods to obtain the ID:
         # 
-        # * Log on to the [ApsaraVideo VOD](https://vod.console.aliyun.com) console. In the left-side navigation pane, choose **Media Files** > **Audio/Video**. On the Video and Audio page, you can view the ID of the audio or video file.
-        # * View the value of the VideoId parameter returned by the [CreateUploadVideo](~~55407~~) operation that you called to upload the audio or video file.
-        # * View the value of the VideoId parameter returned by the [SearchMedia](~~86044~~) operation that you called to query the ID of the audio or video file after you upload the file.
+        # *   Log on to the [ApsaraVideo VOD console](https://vod.console.aliyun.com) and choose **Media Files** > **Audio/Video** in the left-side navigation pane to view the ID.
+        # *   View the value of the VideoId parameter returned by the [CreateUploadVideo](~~55407~~) operation that you called to upload the audio or video file.
+        # *   After an audio or video file is uploaded, obtain the value of VideoId from the response to the [SearchMedia](~~86044~~) operation that you call to query the audio or video ID.
         self.video_id = video_id  # type: str
 
     def validate(self):
@@ -25405,11 +25105,11 @@ class RefreshUploadVideoResponseBody(TeaModel):
         self.request_id = request_id  # type: str
         # The upload URL.
         # 
-        # > The upload URL returned by this operation is Base64-encoded. Before you can use an SDK or an API operation to upload a media asset based on the upload URL, you must decode the upload URL by using the Base64 algorithm. You must parse the upload URL only if you use native Object Storage Service (OSS) SDKs or OSS API for uploads.
+        # >  The returned upload URL is a Base64-encoded URL. You must decode the Base64-encoded upload URL before you use an SDK or call an API operation to upload media files. You need to parse UploadAddress only if you use the OSS SDK or call an OSS API operation to upload media files.
         self.upload_address = upload_address  # type: str
         # The upload credential.
         # 
-        # > The upload credential returned by this operation is Base64-encoded. Before you can use an SDK or an API operation to upload a media asset based on the upload credential, you must decode the upload credential by using the Base64 algorithm. You must parse the upload credential only if you use native OSS SDKs or OSS API for uploads.
+        # >  The returned upload credential is a Base64-encoded value. You must decode the Base64-encoded upload URL before you use an SDK or call an API operation to upload media files. You need to parse UploadAuth only if you use the OSS SDK or call an OSS API operation to upload media files.
         self.upload_auth = upload_auth  # type: str
         # The ID of the audio or video file.
         self.video_id = video_id  # type: str
@@ -25453,9 +25153,6 @@ class RefreshUploadVideoResponse(TeaModel):
         self.body = body  # type: RefreshUploadVideoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25567,9 +25264,6 @@ class RefreshVodObjectCachesResponse(TeaModel):
         self.body = body  # type: RefreshVodObjectCachesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25601,19 +25295,27 @@ class RefreshVodObjectCachesResponse(TeaModel):
 
 class RegisterMediaRequest(TeaModel):
     def __init__(self, register_metadatas=None, template_group_id=None, user_data=None, workflow_id=None):
-        # The metadata of the media file that you want to register. The value is a JSON string. You can specify the metadata for a maximum of 10 media files at a time. For more information about the metadata of media files, see the **RegisterMetadata** section of this topic.
+        # The metadata of the media files. The value must be a JSON string. You can specify the metadata for up to 10 media files at a time. For more information about the metadata of media files, see the **RegisterMetadata** section of this topic.
         self.register_metadatas = register_metadatas  # type: str
-        # The ID of the transcoding template group. You can use one of the following methods to obtain the ID of the transcoding template group:
+        # The ID of the transcoding template group. You can use one of the following methods to obtain the ID:
+        # 
         # *   Log on to the [ApsaraVideo VOD console](https://vod.console.aliyun.com). In the left-side navigation pane, choose **Configuration Management** > **Media Processing** > **Transcoding Template Groups**. On the Transcoding Template Groups page, you can view the ID of the transcoding template group.
-        # *   View the value of the TranscodeTemplateGroupId parameter returned by the [AddTranscodeTemplateGroup](~~102665~~) operation that you called to create a transcoding template group.
-        # *   View the value of the TranscodeTemplateGroupId parameter returned by the [ListTranscodeTemplateGroup](~~102669~~) operation that you called to query a transcoding template group.
-        # > *   If you do not need to transcode the media file, set the TemplateGroupId parameter to VOD_NO_TRANSCODE. Otherwise, an exception occurs during video playback. If you need to transcode the media file, specify the ID of the transcoding template group.
-        # > *   If both the WorkflowId and TemplateGroupId parameters are set, the value of the WorkflowId parameter takes effect. For more information, see [Workflows](~~115347~~).
+        # *   Obtain the value of the TranscodeTemplateGroupId parameter from the response to the [AddTranscodeTemplateGroup](~~102665~~) operation that you called to create a transcoding template group.
+        # *   Obtain the value of the TranscodeTemplateGroupId parameter from the response to the [ListTranscodeTemplateGroup](~~102669~~) operation that you called to query transcoding template groups.
+        # 
+        # > 
+        # 
+        # *   If you do not need to transcode media files, set the TemplateGroupId parameter to VOD_NO_TRANSCODE. If you do not specify this configuration, errors occur on your files. If you need to transcode media files, specify the ID of the transcoding template group.
+        # 
+        # *   If you specify both WorkflowId and TemplateGroupId, the value of the WorkflowId parameter takes effect. For more information, see [Workflows](~~115347~~).
         self.template_group_id = template_group_id  # type: str
-        # The custom configurations such as callback configurations. The value is a JSON string. For more information, see the "UserData: specifies the custom configurations for media upload" section of the [Request parameters](~~86952#section\_6fg_qll_v3w~~) topic.
+        # The custom settings. The value must be a JSON string. You can configure settings such as message callbacks. For more information, see [UserData](~~86952#section\_6fg_qll_v3w~~).
+        # 
+        # >  You cannot configure callbacks for this operation. No callback message is returned after the media files are registered even if you configure callback settings for this parameter. If you configure callback settings for the UserData parameter when you create media processing jobs such as transcoding and snapshot capture jobs for the media file, the callback URL that you specified is used. If you do not configure callback settings when you create media processing jobs, the callback URL that you specified for the UserData parameter when you register the media file is used.
         self.user_data = user_data  # type: str
-        # The ID of the workflow. To view the ID of the workflow, log on to the [ApsaraVideo VOD console](https://vod.console.aliyun.com). In the left-side navigation pane, choose **Configuration Management** > **Media Processing** > **Workflows**.
-        # > If both the WorkflowId and TemplateGroupId parameters are set, the value of the WorkflowId parameter takes effect. For more information, see [Workflows](~~115347~~).
+        # The ID of the workflow. To view the workflow ID, perform the following steps: Log on to the [ApsaraVideo VOD console](https://vod.console.aliyun.com). In the left-side navigation pane, choose **Configuration Management** > **Media Processing** > **Workflows**.
+        # 
+        # >  If you specify both WorkflowId and TemplateGroupId, the value of WorkflowId parameter takes effect. For more information, see [Workflows](~~115347~~).
         self.workflow_id = workflow_id  # type: str
 
     def validate(self):
@@ -25650,13 +25352,14 @@ class RegisterMediaRequest(TeaModel):
 
 class RegisterMediaResponseBodyRegisteredMediaList(TeaModel):
     def __init__(self, file_url=None, media_id=None, new_register=None):
-        # The OSS URL of the media file.
+        # The URL of the media file.
         self.file_url = file_url  # type: str
-        # The ID of the media file that is registered with ApsaraVideo VOD. If the registered media file is an audio or video file, the value of the VideoId parameter returned by ApsaraVideo VOD takes effect.
+        # The ID of the media file that is registered with ApsaraVideo VOD. If the registered media file is an audio or video file, the value of this parameter is the same as that of the VideoId parameter.
         self.media_id = media_id  # type: str
-        # Indicates whether the media file is newly registered or repeatedly registered. Valid values:  
-        # - **true**: The media file is newly registered.
-        # - **false**: The media file is repeatedly registered.
+        # Indicates whether the media file is newly registered or repeatedly registered. Valid values:
+        # 
+        # *   **true**: The media file is newly registered.
+        # *   **false**: The media file is repeatedly registered.
         self.new_register = new_register  # type: bool
 
     def validate(self):
@@ -25739,9 +25442,6 @@ class RegisterMediaResponse(TeaModel):
         self.body = body  # type: RegisterMediaResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25967,9 +25667,6 @@ class RestoreMediaResponse(TeaModel):
         self.body = body  # type: RestoreMediaResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26251,9 +25948,6 @@ class SearchEditingProjectResponse(TeaModel):
         self.body = body  # type: SearchEditingProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26456,7 +26150,7 @@ class SearchMediaResponseBodyMediaListAiDataAiLabelInfo(TeaModel):
 
 class SearchMediaResponseBodyMediaListAiDataOcrInfo(TeaModel):
     def __init__(self, content=None, from_=None, to=None):
-        # The text.
+        # The text content.
         self.content = content  # type: str
         # The start time of the subtitle.
         self.from_ = from_  # type: float
@@ -26541,13 +26235,13 @@ class SearchMediaResponseBodyMediaListAiData(TeaModel):
 
 class SearchMediaResponseBodyMediaListAiRoughData(TeaModel):
     def __init__(self, ai_category=None, ai_job_id=None, save_type=None, status=None):
-        # The AI type.
+        # The AI category.
         self.ai_category = ai_category  # type: str
         # The ID of the AI task.
         self.ai_job_id = ai_job_id  # type: str
         # The save type.
         self.save_type = save_type  # type: str
-        # The status of the data.
+        # The data status.
         self.status = status  # type: str
 
     def validate(self):
@@ -26590,7 +26284,7 @@ class SearchMediaResponseBodyMediaListAttachedMediaCategories(TeaModel):
         self.cate_name = cate_name  # type: str
         # The level of the category.
         self.level = level  # type: long
-        # The ID of the parent category.
+        # The ID of the parent node.
         self.parent_id = parent_id  # type: long
 
     def validate(self):
@@ -26638,21 +26332,21 @@ class SearchMediaResponseBodyMediaListAttachedMedia(TeaModel):
         self.business_type = business_type  # type: str
         # The list of category IDs.
         self.categories = categories  # type: list[SearchMediaResponseBodyMediaListAttachedMediaCategories]
-        # The time when the auxiliary media asset was created. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
+        # The time when the auxiliary media asset was created. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*hh:mm:ss*Z format. The time is displayed in UTC.
         self.creation_time = creation_time  # type: str
         # The description of the auxiliary media asset.
         self.description = description  # type: str
         # The ID of the auxiliary media asset.
         self.media_id = media_id  # type: str
-        # The time when the auxiliary media asset was updated. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
+        # The time when the auxiliary media asset was updated. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*hh:mm:ss*Z format. The time is displayed in UTC.
         self.modification_time = modification_time  # type: str
         # The status of the auxiliary media asset. Valid values:
         # 
-        # *   **Uploading**: The auxiliary media asset is being uploaded. This is the initial status.
-        # *   **Normal**: The auxiliary media asset is uploaded.
-        # *   **UploadFail**: The auxiliary media asset fails to be uploaded.
+        # *   **Uploading**\
+        # *   **Normal**\
+        # *   **UploadFail**\
         self.status = status  # type: str
-        # The endpoint of the OSS bucket in which the auxiliary media asset is stored.
+        # The region in which the auxiliary media asset is stored.
         self.storage_location = storage_location  # type: str
         # The tags of the auxiliary media asset.
         self.tags = tags  # type: str
@@ -26743,13 +26437,13 @@ class SearchMediaResponseBodyMediaListAudio(TeaModel):
         self.app_id = app_id  # type: str
         # The ID of the audio file.
         self.audio_id = audio_id  # type: str
-        # The category ID of the audio file.
+        # The ID of the category.
         self.cate_id = cate_id  # type: long
         # The name of the category.
         self.cate_name = cate_name  # type: str
         # The URL of the thumbnail.
         self.cover_url = cover_url  # type: str
-        # The time when the audio file was created. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
+        # The time when the audio stream was created. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*hh:mm:ss*Z format. The time is displayed in UTC.
         self.creation_time = creation_time  # type: str
         # The description of the audio file.
         self.description = description  # type: str
@@ -26760,14 +26454,14 @@ class SearchMediaResponseBodyMediaListAudio(TeaModel):
         self.download_switch = download_switch  # type: str
         # The duration of the audio file.
         self.duration = duration  # type: float
-        # The source. Valid values:
+        # The source of the audio file. Valid values:
         # 
         # *   **general**: The audio file is uploaded by using ApsaraVideo VOD.
         # *   **short_video**: The audio file is uploaded to ApsaraVideo VOD by using the short video SDK. For more information, see [Introduction](~~53407~~).
         # *   **editing**: The audio file is uploaded to ApsaraVideo VOD after online editing and production. For more information, see [ProduceEditingProjectVideo](~~68536~~).
-        # *   **live**: The audio stream is recorded and uploaded as a file to ApsaraVideo VOD.
+        # *   **live**: The audio file is recorded and uploaded as a file to ApsaraVideo VOD.
         self.media_source = media_source  # type: str
-        # The time when the audio file was updated. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
+        # The time when the audio file was updated. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*hh:mm:ss*Z format. The time is displayed in UTC.
         self.modification_time = modification_time  # type: str
         # The preprocessing status. Only preprocessed videos can be used for live streaming in the production studio. Valid values:
         # 
@@ -26786,9 +26480,9 @@ class SearchMediaResponseBodyMediaListAudio(TeaModel):
         self.restore_status = restore_status  # type: str
         # The size of the audio file.
         self.size = size  # type: long
-        # The list of automatic snapshots.
+        # The automatic snapshots.
         self.snapshots = snapshots  # type: list[str]
-        # The list of sprite snapshots.
+        # The sprite snapshots.
         self.sprite_snapshots = sprite_snapshots  # type: list[str]
         # The status of the audio file. Valid values:
         # 
@@ -26803,18 +26497,18 @@ class SearchMediaResponseBodyMediaListAudio(TeaModel):
         # *   **IA**: All media resources are stored as IA objects.
         # *   **Archive**: All media resources are stored as Archive objects.
         # *   **ColdArchive**: All media resources are stored as Cold Archive objects.
-        # *   **SourceIA**: Only the source files are IA objects.
-        # *   **SourceArchive**: Only the source files are Archive objects.
-        # *   **SourceColdArchive**: Only the source files are Cold Archive objects.
+        # *   **SourceIA**: Only the source file is stored as an IA object.
+        # *   **SourceArchive**: Only the source file is stored as an Archive object.
+        # *   **SourceColdArchive**: Only the source file is stored as a Cold Archive object.
         # *   **Changing**: The storage class is being modified.
         self.storage_class = storage_class  # type: str
-        # The endpoint of the OSS bucket in which the audio file is stored.
+        # The region in which the audio is stored.
         self.storage_location = storage_location  # type: str
         # The tags of the audio file.
         self.tags = tags  # type: str
-        # The title of the audio file.
+        # The title of the audio file
         self.title = title  # type: str
-        # The transcoding mode. Default value: FastTranscode. Valid values:
+        # The transcoding mode. Valid values:
         # 
         # *   **FastTranscode**: The audio file is immediately transcoded after it is uploaded. You cannot play the file before it is transcoded.
         # *   **NoTranscode**: The audio file can be played without being transcoded. You can immediately play the file after it is uploaded.
@@ -26934,25 +26628,25 @@ class SearchMediaResponseBodyMediaListImage(TeaModel):
                  image_id=None, modification_time=None, status=None, storage_location=None, tags=None, title=None, url=None):
         # The ID of the application.
         self.app_id = app_id  # type: str
-        # The category ID of the image file.
+        # The ID of the category.
         self.cate_id = cate_id  # type: long
         # The name of the category.
         self.cate_name = cate_name  # type: str
-        # The time when the image file was created. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
+        # The time when the image was created. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*hh:mm:ss*Z format. The time is displayed in UTC.
         self.creation_time = creation_time  # type: str
         # The description of the image file.
         self.description = description  # type: str
         # The ID of the image file.
         self.image_id = image_id  # type: str
-        # The time when the image file was updated. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
+        # The time when the image file was updated. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*hh:mm:ss*Z format. The time is displayed in UTC.
         self.modification_time = modification_time  # type: str
         # The status of the image file.
         # 
-        # *   **Uploading**: The image file is being uploaded. This is the initial status.
-        # *   **Normal**: The image file is uploaded.
-        # *   **UploadFail**: The image file fails to be uploaded.
+        # *   **Uploading**\
+        # *   **Normal**\
+        # *   **UploadFail**\
         self.status = status  # type: str
-        # The endpoint of the OSS bucket in which the image file is stored.
+        # The region in which the image is stored.
         self.storage_location = storage_location  # type: str
         # The tags of the image file.
         self.tags = tags  # type: str
@@ -27033,13 +26727,13 @@ class SearchMediaResponseBodyMediaListVideo(TeaModel):
                  transcode_mode=None, video_id=None):
         # The ID of the application.
         self.app_id = app_id  # type: str
-        # The category ID of the video file.
+        # The ID of the category.
         self.cate_id = cate_id  # type: long
         # The name of the category.
         self.cate_name = cate_name  # type: str
         # The URL of the thumbnail.
         self.cover_url = cover_url  # type: str
-        # The time when the video file was created. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
+        # The time when the video file was created. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*hh:mm:ss*Z format. The time is displayed in UTC.
         self.creation_time = creation_time  # type: str
         # The description of the video file.
         self.description = description  # type: str
@@ -27050,14 +26744,14 @@ class SearchMediaResponseBodyMediaListVideo(TeaModel):
         self.download_switch = download_switch  # type: str
         # The duration of the video file. Unit: seconds.
         self.duration = duration  # type: float
-        # The source. Valid values:
+        # The source of the video file. Valid values:
         # 
         # *   **general**: The video file is uploaded by using ApsaraVideo VOD.
         # *   **short_video**: The video file is uploaded by using the short video SDK.
         # *   **editing**: The video file is produced after online editing.
         # *   **live**: The video stream is recorded and uploaded as a file.
         self.media_source = media_source  # type: str
-        # The time when the video file was updated. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
+        # The time when the video file was updated. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*hh:mm:ss*Z format. The time is displayed in UTC.
         self.modification_time = modification_time  # type: str
         # The preprocessing status. Valid values:
         # 
@@ -27076,11 +26770,11 @@ class SearchMediaResponseBodyMediaListVideo(TeaModel):
         self.restore_status = restore_status  # type: str
         # The size of the video file.
         self.size = size  # type: long
-        # The list of automatic snapshots.
+        # The automatic snapshots.
         self.snapshots = snapshots  # type: list[str]
-        # The list of sprite snapshots.
+        # The sprite snapshots.
         self.sprite_snapshots = sprite_snapshots  # type: list[str]
-        # The status of the video file. Valid values:
+        # The status of the file. Valid values:
         # 
         # *   **Uploading**\
         # *   **UploadFail**\
@@ -27096,18 +26790,19 @@ class SearchMediaResponseBodyMediaListVideo(TeaModel):
         # *   **IA**: All media resources are stored as IA objects.
         # *   **Archive**: All media resources are stored as Archive objects.
         # *   **ColdArchive**: All media resources are stored as Cold Archive objects.
-        # *   **SourceIA**: Only the source files are IA objects.
-        # *   **SourceArchive**: Only the source files are Archive objects.
-        # *   **SourceColdArchive**: Only the source files are Cold Archive objects.
-        # *   **Changing**: The storage class is being modified.
+        # *   **SourceIA**: Only the source file is stored as an IA object.
+        # *   **SourceArchive**: Only the source file is stored as an Archive object.
+        # *   **SourceColdArchive**: Only the source file is stored as a Cold Archive object.
+        # *   **Changing**: The storage class of the video file is being changed.
+        # *   **SourceChanging**: The storage class of the source file is being changed.
         self.storage_class = storage_class  # type: str
-        # The endpoint of the OSS bucket in which the video file is stored.
+        # The region in which the video is stored.
         self.storage_location = storage_location  # type: str
         # The tags of the video file.
         self.tags = tags  # type: str
-        # The title of the video file.
+        # The title of the video.
         self.title = title  # type: str
-        # The transcoding mode. Default value: FastTranscode. Valid values:
+        # The transcoding mode. Valid values:
         # 
         # *   **FastTranscode**: The video file is immediately transcoded after it is uploaded. You cannot play the file before it is transcoded.
         # *   **NoTranscode**: The video file can be played without being transcoded. You can immediately play the file after it is uploaded.
@@ -27231,15 +26926,15 @@ class SearchMediaResponseBodyMediaList(TeaModel):
         self.ai_data = ai_data  # type: SearchMediaResponseBodyMediaListAiData
         # The basic information about AI data.
         self.ai_rough_data = ai_rough_data  # type: SearchMediaResponseBodyMediaListAiRoughData
-        # [Details about auxiliary media assets](~~86991~~).
+        # [The information about the auxiliary media asset](~~86991~~).
         self.attached_media = attached_media  # type: SearchMediaResponseBodyMediaListAttachedMedia
-        # [Details about audio files](~~86991~~).
+        # [The information about the audio](~~86991~~).
         self.audio = audio  # type: SearchMediaResponseBodyMediaListAudio
-        # The time when the media asset was created. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
+        # The time when the media asset was created. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*hh:mm:ss*Z format. The time is displayed in UTC.
         self.creation_time = creation_time  # type: str
-        # [Details about image files](~~86991~~).
+        # [The information about the image](~~86991~~).
         self.image = image  # type: SearchMediaResponseBodyMediaListImage
-        # The ID of the media asset.
+        # The ID of the file.
         self.media_id = media_id  # type: str
         # The type of the media asset. Valid values:
         # 
@@ -27248,7 +26943,7 @@ class SearchMediaResponseBodyMediaList(TeaModel):
         # *   **image**\
         # *   **attached**\
         self.media_type = media_type  # type: str
-        # [Details about video files](~~86991~~).
+        # [The information about the video](~~86991~~).
         self.video = video  # type: SearchMediaResponseBodyMediaListVideo
 
     def validate(self):
@@ -27322,7 +27017,7 @@ class SearchMediaResponseBodyMediaList(TeaModel):
 
 class SearchMediaResponseBody(TeaModel):
     def __init__(self, media_list=None, request_id=None, scroll_token=None, total=None):
-        # The AI type.
+        # The information about the media assets.
         self.media_list = media_list  # type: list[SearchMediaResponseBodyMediaList]
         # The ID of the request.
         self.request_id = request_id  # type: str
@@ -27378,9 +27073,6 @@ class SearchMediaResponse(TeaModel):
         self.body = body  # type: SearchMediaResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -27412,14 +27104,14 @@ class SearchMediaResponse(TeaModel):
 
 class SetAuditSecurityIpRequest(TeaModel):
     def __init__(self, ips=None, operate_mode=None, security_group_name=None):
-        # The IP addresses to be added to a review security group. You can add a maximum of 100 IP addresses to each review security group. Separate multiple IP addresses with commas (,). You can enter individual IP addresses or a CIDR block.
+        # The IP addresses that you want to add to the review security group. You can add a maximum of 100 IP addresses to a review security group. Separate multiple IP addresses with commas (,). You can add IP addresses in the following formats to review security groups:
         # 
-        # *   Individual IP address: for example, 10.23.12.24
-        # *   CIDR block: for example, 10.23.12.24/24, where /24 indicates that the prefix of the CIDR block is 24 bits in length. You can replace 24 with a value that ranges from `1 to 32`.
+        # *   IP address: 192.168.0.1
+        # *   CIDR block: 192.168.0.1/24. /24 indicates that the prefix of the CIDR block is 24 bits in length. You can replace 24 with a value that ranges `from 1 to 32`.
         self.ips = ips  # type: str
         # The operation type. Valid values:
         # 
-        # *   **Append**: adds the IP addresses to the original whitelist. This is the default value.
+        # *   **Append** (default): adds the IP addresses to the original whitelist.
         # *   **Cover**: overwrites the original whitelist.
         # *   **Delete**: removes the IP addresses from the original whitelist.
         self.operate_mode = operate_mode  # type: str
@@ -27486,9 +27178,6 @@ class SetAuditSecurityIpResponse(TeaModel):
         self.body = body  # type: SetAuditSecurityIpResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -27608,9 +27297,6 @@ class SetCrossdomainContentResponse(TeaModel):
         self.body = body  # type: SetCrossdomainContentResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -27706,9 +27392,6 @@ class SetDefaultAITemplateResponse(TeaModel):
         self.body = body  # type: SetDefaultAITemplateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -27795,9 +27478,6 @@ class SetDefaultTranscodeTemplateGroupResponse(TeaModel):
         self.body = body  # type: SetDefaultTranscodeTemplateGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -27884,9 +27564,6 @@ class SetDefaultWatermarkResponse(TeaModel):
         self.body = body  # type: SetDefaultWatermarkResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28000,9 +27677,6 @@ class SetEditingProjectMaterialsResponse(TeaModel):
         self.body = body  # type: SetEditingProjectMaterialsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28143,9 +27817,6 @@ class SetMessageCallbackResponse(TeaModel):
         self.body = body  # type: SetMessageCallbackResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28270,9 +27941,6 @@ class SetVodDomainCertificateResponse(TeaModel):
         self.body = body  # type: SetVodDomainCertificateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28415,9 +28083,6 @@ class SubmitAIImageAuditJobResponse(TeaModel):
         self.body = body  # type: SubmitAIImageAuditJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28564,9 +28229,6 @@ class SubmitAIImageJobResponse(TeaModel):
         self.body = body  # type: SubmitAIImageJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28786,9 +28448,6 @@ class SubmitAIJobResponse(TeaModel):
         self.body = body  # type: SubmitAIJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28923,9 +28582,6 @@ class SubmitAIMediaAuditJobResponse(TeaModel):
         self.body = body  # type: SubmitAIMediaAuditJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -29048,9 +28704,6 @@ class SubmitDigitalWatermarkExtractJobResponse(TeaModel):
         self.body = body  # type: SubmitDigitalWatermarkExtractJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -29186,9 +28839,6 @@ class SubmitDynamicImageJobResponse(TeaModel):
         self.body = body  # type: SubmitDynamicImageJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -29302,9 +28952,6 @@ class SubmitMediaDNADeleteJobResponse(TeaModel):
         self.body = body  # type: SubmitMediaDNADeleteJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -29462,9 +29109,6 @@ class SubmitPreprocessJobsResponse(TeaModel):
         self.body = body  # type: SubmitPreprocessJobsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -29500,33 +29144,39 @@ class SubmitSnapshotJobRequest(TeaModel):
                  width=None):
         # The maximum number of snapshots. Default value: **1**.
         self.count = count  # type: long
-        # The height of each snapshot. Valid values: `[8,4096]`. By default, the height of the video mezzanine file is used. Unit: pixel.
+        # The height of each snapshot. Valid values: `[8,4096]`. By default, the height of the video source is used. Unit: pixels.
         self.height = height  # type: str
-        # The snapshot interval. The value must be **greater than or equal to 0**. Unit: seconds. If you set this parameter to **0**, snapshots are taken at even intervals based on the video duration divided by the value of the Count parameter. Default value: **1**.
+        # The snapshot interval. The value must be **greater than or equal to 0**.
+        # 
+        # *   Unit: seconds.
+        # *   Default value: **1**.
+        # *   If you set this parameter to **0**, snapshots are captured at even intervals based on the video duration divided by the value of the Count parameter.
         self.interval = interval  # type: long
         # The ID of the snapshot template.
         # 
-        # *   We recommend that you create a snapshot template before you specify the ID of the snapshot template.
+        # *   We recommend that you create a snapshot template before you specify the template ID. For more information about how to create a snapshot template, see [AddVodTemplate](~~99406~~).
         # *   If you set the SnapshotTemplateId parameter, all the other request parameters except the Action and VideoId parameters are ignored.
-        # *   For more information about how to create a snapshot template, see [AddVodTemplate](~~99406~~).
         self.snapshot_template_id = snapshot_template_id  # type: str
-        # The start time of the specified snapshot time period.
+        # The point in time when the first snapshot is captured.
         # 
         # *   Unit: milliseconds.
         # *   Default value: **0**.
         self.specified_offset_time = specified_offset_time  # type: long
+        # The playback positions at which you want to capture snapshots. Unit: milliseconds. You can specify up to 30 playback positions in a request.
         self.specified_offset_times = specified_offset_times  # type: list[long]
         # The sprite snapshot configuration. If you set this parameter, sprite snapshots are generated. For more information, see [SpriteSnapshotConfig](~~86952~~).
         self.sprite_snapshot_config = sprite_snapshot_config  # type: str
-        # The custom configurations, including the configuration of transparent data transmission and callback configurations. The value is a JSON-formatted string. For more information, see [UserData](~~86952~~).
+        # The custom configurations including the configuration of transparent data transmission and callback configurations. The value must be a JSON string. For more information, see [UserData](~~86952~~).
         # 
-        # **\
-        # 
-        # **Note** The callback configurations take effect only when you specify the HTTP callback URL and select the specific callback events in the ApsaraVideo VOD console.
+        # >  To use the message callback feature, you must specify an HTTP callback URL and the callback events in the ApsaraVideo VOD console. Otherwise, the callback settings do not take effect.
         self.user_data = user_data  # type: str
-        # The ID of the video.
+        # The ID of the video. You can use one of the following methods to obtain the ID:
+        # 
+        # *   After you upload a video in the ApsaraVideo VOD console, you can log on to the [ApsaraVideo VOD console](https://vod.console.aliyun.com) and choose **Media Files** > **Audio/Video** to view the ID of the video.
+        # *   Obtain the video ID from the response to the [CreateUploadVideo](~~55407~~) operation that you called to obtain the upload URL and credential.
+        # *   Obtain the video ID from the response to the [SearchMedia](~~86044~~) operation that you called to query media information after the audio or video file is uploaded.
         self.video_id = video_id  # type: str
-        # The width of each snapshot. Valid values: `[8,4096]`. By default, the width of the video mezzanine file is used. Unit: pixel.
+        # The width of each snapshot. Valid values: `[8,4096]`. By default, the width of the video source is used. Unit: pixels.
         self.width = width  # type: str
 
     def validate(self):
@@ -29591,33 +29241,39 @@ class SubmitSnapshotJobShrinkRequest(TeaModel):
                  video_id=None, width=None):
         # The maximum number of snapshots. Default value: **1**.
         self.count = count  # type: long
-        # The height of each snapshot. Valid values: `[8,4096]`. By default, the height of the video mezzanine file is used. Unit: pixel.
+        # The height of each snapshot. Valid values: `[8,4096]`. By default, the height of the video source is used. Unit: pixels.
         self.height = height  # type: str
-        # The snapshot interval. The value must be **greater than or equal to 0**. Unit: seconds. If you set this parameter to **0**, snapshots are taken at even intervals based on the video duration divided by the value of the Count parameter. Default value: **1**.
+        # The snapshot interval. The value must be **greater than or equal to 0**.
+        # 
+        # *   Unit: seconds.
+        # *   Default value: **1**.
+        # *   If you set this parameter to **0**, snapshots are captured at even intervals based on the video duration divided by the value of the Count parameter.
         self.interval = interval  # type: long
         # The ID of the snapshot template.
         # 
-        # *   We recommend that you create a snapshot template before you specify the ID of the snapshot template.
+        # *   We recommend that you create a snapshot template before you specify the template ID. For more information about how to create a snapshot template, see [AddVodTemplate](~~99406~~).
         # *   If you set the SnapshotTemplateId parameter, all the other request parameters except the Action and VideoId parameters are ignored.
-        # *   For more information about how to create a snapshot template, see [AddVodTemplate](~~99406~~).
         self.snapshot_template_id = snapshot_template_id  # type: str
-        # The start time of the specified snapshot time period.
+        # The point in time when the first snapshot is captured.
         # 
         # *   Unit: milliseconds.
         # *   Default value: **0**.
         self.specified_offset_time = specified_offset_time  # type: long
+        # The playback positions at which you want to capture snapshots. Unit: milliseconds. You can specify up to 30 playback positions in a request.
         self.specified_offset_times_shrink = specified_offset_times_shrink  # type: str
         # The sprite snapshot configuration. If you set this parameter, sprite snapshots are generated. For more information, see [SpriteSnapshotConfig](~~86952~~).
         self.sprite_snapshot_config = sprite_snapshot_config  # type: str
-        # The custom configurations, including the configuration of transparent data transmission and callback configurations. The value is a JSON-formatted string. For more information, see [UserData](~~86952~~).
+        # The custom configurations including the configuration of transparent data transmission and callback configurations. The value must be a JSON string. For more information, see [UserData](~~86952~~).
         # 
-        # **\
-        # 
-        # **Note** The callback configurations take effect only when you specify the HTTP callback URL and select the specific callback events in the ApsaraVideo VOD console.
+        # >  To use the message callback feature, you must specify an HTTP callback URL and the callback events in the ApsaraVideo VOD console. Otherwise, the callback settings do not take effect.
         self.user_data = user_data  # type: str
-        # The ID of the video.
+        # The ID of the video. You can use one of the following methods to obtain the ID:
+        # 
+        # *   After you upload a video in the ApsaraVideo VOD console, you can log on to the [ApsaraVideo VOD console](https://vod.console.aliyun.com) and choose **Media Files** > **Audio/Video** to view the ID of the video.
+        # *   Obtain the video ID from the response to the [CreateUploadVideo](~~55407~~) operation that you called to obtain the upload URL and credential.
+        # *   Obtain the video ID from the response to the [SearchMedia](~~86044~~) operation that you called to query media information after the audio or video file is uploaded.
         self.video_id = video_id  # type: str
-        # The width of each snapshot. Valid values: `[8,4096]`. By default, the width of the video mezzanine file is used. Unit: pixel.
+        # The width of each snapshot. Valid values: `[8,4096]`. By default, the width of the video source is used. Unit: pixels.
         self.width = width  # type: str
 
     def validate(self):
@@ -29741,9 +29397,6 @@ class SubmitSnapshotJobResponse(TeaModel):
         self.body = body  # type: SubmitSnapshotJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -29960,9 +29613,6 @@ class SubmitTranscodeJobsResponse(TeaModel):
         self.body = body  # type: SubmitTranscodeJobsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30059,9 +29709,6 @@ class SubmitWorkflowJobResponse(TeaModel):
         self.body = body  # type: SubmitWorkflowJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30169,9 +29816,6 @@ class UpdateAITemplateResponse(TeaModel):
         self.body = body  # type: UpdateAITemplateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30288,9 +29932,6 @@ class UpdateAppInfoResponse(TeaModel):
         self.body = body  # type: UpdateAppInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30383,9 +30024,6 @@ class UpdateAttachedMediaInfosResponse(TeaModel):
         self.body = body  # type: UpdateAttachedMediaInfosResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30481,9 +30119,6 @@ class UpdateCategoryResponse(TeaModel):
         self.body = body  # type: UpdateCategoryResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30615,9 +30250,6 @@ class UpdateEditingProjectResponse(TeaModel):
         self.body = body  # type: UpdateEditingProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30738,9 +30370,6 @@ class UpdateImageInfosResponse(TeaModel):
         self.body = body  # type: UpdateImageInfosResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30773,6 +30402,12 @@ class UpdateImageInfosResponse(TeaModel):
 class UpdateMediaStorageClassRequest(TeaModel):
     def __init__(self, allow_update_without_time_limit=None, media_ids=None, restore_tier=None, scope=None,
                  storage_class=None):
+        # Specifies whether to change the storage class of a media asset that is stored for less than the minimum storage duration. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        # 
+        # >  If you forcibly change the storage class of a media asset that is stored for less than the minimum storage duration, additional data retrieval fees are incurred.
         self.allow_update_without_time_limit = allow_update_without_time_limit  # type: bool
         # The media asset ID. You can specify a maximum of 20 IDs. Separate multiple IDs with commas (,). You can use one of the following methods to obtain the ID:
         # 
@@ -30791,7 +30426,7 @@ class UpdateMediaStorageClassRequest(TeaModel):
         # *   **All**: modifies the storage classes of all resources including the source files and transcoded streams.
         # *   **SourceFile**: modifies the storage classes of only the source files. The storage class of other resources is Standard.
         self.scope = scope  # type: str
-        # The storage class to which you want to modify. Valid values:
+        # The storage class. Valid values:
         # 
         # *   **Standard**\
         # *   **IA**\
@@ -30980,9 +30615,6 @@ class UpdateMediaStorageClassResponse(TeaModel):
         self.body = body  # type: UpdateMediaStorageClassResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -31014,19 +30646,19 @@ class UpdateMediaStorageClassResponse(TeaModel):
 
 class UpdateTranscodeTemplateGroupRequest(TeaModel):
     def __init__(self, locked=None, name=None, transcode_template_group_id=None, transcode_template_list=None):
-        # The lock status of the template group. Valid values:
+        # The lock status of the transcoding template group. Valid values:
         # 
-        # *   **Enabled**: The template group is locked.
-        # *   **Disabled**: The template group is not locked.
+        # *   **Enabled**: The transcoding template group is locked and cannot be modified.
+        # *   **Disabled** (default): The transcoding template group is not locked.
         self.locked = locked  # type: str
         # The name of the transcoding template group.
         # 
-        # *   The name can be up to 128 bytes in length.
+        # *   The name cannot exceed 128 bytes.
         # *   The value must be encoded in UTF-8.
         self.name = name  # type: str
         # The ID of the transcoding template group.
         self.transcode_template_group_id = transcode_template_group_id  # type: str
-        # The configurations of the transcoding template. The value is a JSON-formatted string. For more information about the data structure, see the "TranscodeTemplate" section of the [Basic data types](~~52839~~) topic.
+        # The configurations of the transcoding template. The value must be a JSON string. For more information about the data structure, see [TranscodeTemplate](~~52839~~).
         self.transcode_template_list = transcode_template_list  # type: str
 
     def validate(self):
@@ -31099,9 +30731,6 @@ class UpdateTranscodeTemplateGroupResponse(TeaModel):
         self.body = body  # type: UpdateTranscodeTemplateGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -31228,9 +30857,6 @@ class UpdateVideoInfoResponse(TeaModel):
         self.body = body  # type: UpdateVideoInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -31331,9 +30957,6 @@ class UpdateVideoInfosResponse(TeaModel):
         self.body = body  # type: UpdateVideoInfosResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -31442,9 +31065,6 @@ class UpdateVodDomainResponse(TeaModel):
         self.body = body  # type: UpdateVodDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -31552,9 +31172,6 @@ class UpdateVodTemplateResponse(TeaModel):
         self.body = body  # type: UpdateVodTemplateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -31731,9 +31348,6 @@ class UpdateWatermarkResponse(TeaModel):
         self.body = body  # type: UpdateWatermarkResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -31936,9 +31550,6 @@ class UploadMediaByURLResponse(TeaModel):
         self.body = body  # type: UploadMediaByURLResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -32101,9 +31712,6 @@ class UploadStreamByURLResponse(TeaModel):
         self.body = body  # type: UploadStreamByURLResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -32207,9 +31815,6 @@ class VerifyVodDomainOwnerResponse(TeaModel):
         self.body = body  # type: VerifyVodDomainOwnerResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
