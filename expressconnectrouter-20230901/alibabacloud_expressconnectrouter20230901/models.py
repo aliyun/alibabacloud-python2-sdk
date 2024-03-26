@@ -2045,13 +2045,14 @@ class DescribeExpressConnectRouterChildInstanceRequest(TeaModel):
 
 class DescribeExpressConnectRouterChildInstanceResponseBodyChildInstanceList(TeaModel):
     def __init__(self, association_id=None, child_instance_id=None, child_instance_owner_id=None,
-                 child_instance_region_id=None, child_instance_type=None, gmt_create=None, gmt_modified=None, owner_id=None, region_id=None,
-                 status=None):
+                 child_instance_region_id=None, child_instance_type=None, ecr_id=None, gmt_create=None, gmt_modified=None, owner_id=None,
+                 region_id=None, status=None):
         self.association_id = association_id  # type: str
         self.child_instance_id = child_instance_id  # type: str
         self.child_instance_owner_id = child_instance_owner_id  # type: long
         self.child_instance_region_id = child_instance_region_id  # type: str
         self.child_instance_type = child_instance_type  # type: str
+        self.ecr_id = ecr_id  # type: str
         self.gmt_create = gmt_create  # type: str
         self.gmt_modified = gmt_modified  # type: str
         self.owner_id = owner_id  # type: long
@@ -2077,6 +2078,8 @@ class DescribeExpressConnectRouterChildInstanceResponseBodyChildInstanceList(Tea
             result['ChildInstanceRegionId'] = self.child_instance_region_id
         if self.child_instance_type is not None:
             result['ChildInstanceType'] = self.child_instance_type
+        if self.ecr_id is not None:
+            result['EcrId'] = self.ecr_id
         if self.gmt_create is not None:
             result['GmtCreate'] = self.gmt_create
         if self.gmt_modified is not None:
@@ -2101,6 +2104,8 @@ class DescribeExpressConnectRouterChildInstanceResponseBodyChildInstanceList(Tea
             self.child_instance_region_id = m.get('ChildInstanceRegionId')
         if m.get('ChildInstanceType') is not None:
             self.child_instance_type = m.get('ChildInstanceType')
+        if m.get('EcrId') is not None:
+            self.ecr_id = m.get('EcrId')
         if m.get('GmtCreate') is not None:
             self.gmt_create = m.get('GmtCreate')
         if m.get('GmtModified') is not None:
