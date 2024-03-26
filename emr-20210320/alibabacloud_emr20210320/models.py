@@ -767,6 +767,75 @@ class AutoScalingConstraints(TeaModel):
         return self
 
 
+class AutoScalingPolicyConstraints(TeaModel):
+    def __init__(self, max_capacity=None, min_capacity=None):
+        self.max_capacity = max_capacity  # type: int
+        self.min_capacity = min_capacity  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AutoScalingPolicyConstraints, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.max_capacity is not None:
+            result['maxCapacity'] = self.max_capacity
+        if self.min_capacity is not None:
+            result['minCapacity'] = self.min_capacity
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('maxCapacity') is not None:
+            self.max_capacity = m.get('maxCapacity')
+        if m.get('minCapacity') is not None:
+            self.min_capacity = m.get('minCapacity')
+        return self
+
+
+class AutoScalingPolicy(TeaModel):
+    def __init__(self, constraints=None, scaling_rules=None):
+        self.constraints = constraints  # type: AutoScalingPolicyConstraints
+        self.scaling_rules = scaling_rules  # type: list[ScalingRule]
+
+    def validate(self):
+        if self.constraints:
+            self.constraints.validate()
+        if self.scaling_rules:
+            for k in self.scaling_rules:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(AutoScalingPolicy, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.constraints is not None:
+            result['constraints'] = self.constraints.to_map()
+        result['scalingRules'] = []
+        if self.scaling_rules is not None:
+            for k in self.scaling_rules:
+                result['scalingRules'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('constraints') is not None:
+            temp_model = AutoScalingPolicyConstraints()
+            self.constraints = temp_model.from_map(m['constraints'])
+        self.scaling_rules = []
+        if m.get('scalingRules') is not None:
+            for k in m.get('scalingRules'):
+                temp_model = ScalingRule()
+                self.scaling_rules.append(temp_model.from_map(k))
+        return self
+
+
 class ByLoadScalingRule(TeaModel):
     def __init__(self, comparison_operator=None, cool_down_interval=None, evaluation_count=None, metric_name=None,
                  statistics=None, threshold=None, time_window=None):
@@ -3222,13 +3291,14 @@ class NodeGroup(TeaModel):
 
 
 class NodeGroupConfig(TeaModel):
-    def __init__(self, additional_security_group_ids=None, cost_optimized_config=None, data_disks=None,
-                 deployment_set_strategy=None, graceful_shutdown=None, instance_types=None, node_count=None, node_group_name=None,
-                 node_group_type=None, node_resize_strategy=None, payment_type=None, spot_bid_prices=None,
+    def __init__(self, additional_security_group_ids=None, component_tags=None, cost_optimized_config=None,
+                 data_disks=None, deployment_set_strategy=None, graceful_shutdown=None, instance_types=None, node_count=None,
+                 node_group_name=None, node_group_type=None, node_resize_strategy=None, payment_type=None, spot_bid_prices=None,
                  spot_instance_remedy=None, spot_strategy=None, subscription_config=None, system_disk=None, v_switch_ids=None,
                  with_public_ip=None):
         # 附加安全组。除集群设置的安全组外，为节点组单独设置的附加安全组。数组元数个数N的取值范围：0~2。
         self.additional_security_group_ids = additional_security_group_ids  # type: list[str]
+        self.component_tags = component_tags  # type: list[str]
         # 成本优化模式配置。
         self.cost_optimized_config = cost_optimized_config  # type: CostOptimizedConfig
         # 数据盘。当前数据盘只支持一种磁盘类型，即数组元数个数N的取值范围：1~1。
@@ -3321,6 +3391,8 @@ class NodeGroupConfig(TeaModel):
         result = dict()
         if self.additional_security_group_ids is not None:
             result['AdditionalSecurityGroupIds'] = self.additional_security_group_ids
+        if self.component_tags is not None:
+            result['ComponentTags'] = self.component_tags
         if self.cost_optimized_config is not None:
             result['CostOptimizedConfig'] = self.cost_optimized_config.to_map()
         result['DataDisks'] = []
@@ -3365,6 +3437,8 @@ class NodeGroupConfig(TeaModel):
         m = m or dict()
         if m.get('AdditionalSecurityGroupIds') is not None:
             self.additional_security_group_ids = m.get('AdditionalSecurityGroupIds')
+        if m.get('ComponentTags') is not None:
+            self.component_tags = m.get('ComponentTags')
         if m.get('CostOptimizedConfig') is not None:
             temp_model = CostOptimizedConfig()
             self.cost_optimized_config = temp_model.from_map(m['CostOptimizedConfig'])
