@@ -235,8 +235,6 @@ class Client(OpenApiClient):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.resource_manager_resource_group_id):
             query['ResourceManagerResourceGroupId'] = request.resource_manager_resource_group_id
-        if not UtilClient.is_unset(request.source_ip):
-            query['SourceIp'] = request.source_ip
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -319,6 +317,42 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.create_major_protection_black_ip_with_options(request, runtime)
+
+    def create_member_accounts_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.member_account_ids):
+            query['MemberAccountIds'] = request.member_account_ids
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_manager_resource_group_id):
+            query['ResourceManagerResourceGroupId'] = request.resource_manager_resource_group_id
+        if not UtilClient.is_unset(request.source_ip):
+            query['SourceIp'] = request.source_ip
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateMemberAccounts',
+            version='2021-10-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            waf_openapi_20211001_models.CreateMemberAccountsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_member_accounts(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_member_accounts_with_options(request, runtime)
 
     def delete_defense_resource_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -437,8 +471,6 @@ class Client(OpenApiClient):
             query['InstanceId'] = request.instance_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
-        if not UtilClient.is_unset(request.source_ip):
-            query['SourceIp'] = request.source_ip
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -500,6 +532,74 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_major_protection_black_ip_with_options(request, runtime)
 
+    def delete_member_account_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.member_account_id):
+            query['MemberAccountId'] = request.member_account_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_manager_resource_group_id):
+            query['ResourceManagerResourceGroupId'] = request.resource_manager_resource_group_id
+        if not UtilClient.is_unset(request.source_ip):
+            query['SourceIp'] = request.source_ip
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteMemberAccount',
+            version='2021-10-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            waf_openapi_20211001_models.DeleteMemberAccountResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_member_account(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_member_account_with_options(request, runtime)
+
+    def describe_account_delegated_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_manager_resource_group_id):
+            query['ResourceManagerResourceGroupId'] = request.resource_manager_resource_group_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeAccountDelegatedStatus',
+            version='2021-10-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            waf_openapi_20211001_models.DescribeAccountDelegatedStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_account_delegated_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_account_delegated_status_with_options(request, runtime)
+
     def describe_defense_resource_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -534,6 +634,46 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_defense_resource_group_with_options(request, runtime)
 
+    def describe_defense_resource_templates_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource):
+            query['Resource'] = request.resource
+        if not UtilClient.is_unset(request.resource_manager_resource_group_id):
+            query['ResourceManagerResourceGroupId'] = request.resource_manager_resource_group_id
+        if not UtilClient.is_unset(request.resource_type):
+            query['ResourceType'] = request.resource_type
+        if not UtilClient.is_unset(request.rule_id):
+            query['RuleId'] = request.rule_id
+        if not UtilClient.is_unset(request.rule_type):
+            query['RuleType'] = request.rule_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDefenseResourceTemplates',
+            version='2021-10-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            waf_openapi_20211001_models.DescribeDefenseResourceTemplatesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_defense_resource_templates(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_defense_resource_templates_with_options(request, runtime)
+
     def describe_defense_resources_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -549,8 +689,6 @@ class Client(OpenApiClient):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.resource_manager_resource_group_id):
             query['ResourceManagerResourceGroupId'] = request.resource_manager_resource_group_id
-        if not UtilClient.is_unset(request.source_ip):
-            query['SourceIp'] = request.source_ip
         if not UtilClient.is_unset(request.tag):
             query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
@@ -686,6 +824,54 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_defense_template_with_options(request, runtime)
 
+    def describe_defense_templates_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.defense_scene):
+            query['DefenseScene'] = request.defense_scene
+        if not UtilClient.is_unset(request.defense_sub_scene):
+            query['DefenseSubScene'] = request.defense_sub_scene
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource):
+            query['Resource'] = request.resource
+        if not UtilClient.is_unset(request.resource_manager_resource_group_id):
+            query['ResourceManagerResourceGroupId'] = request.resource_manager_resource_group_id
+        if not UtilClient.is_unset(request.resource_type):
+            query['ResourceType'] = request.resource_type
+        if not UtilClient.is_unset(request.template_id):
+            query['TemplateId'] = request.template_id
+        if not UtilClient.is_unset(request.template_type):
+            query['TemplateType'] = request.template_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDefenseTemplates',
+            version='2021-10-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            waf_openapi_20211001_models.DescribeDefenseTemplatesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_defense_templates(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_defense_templates_with_options(request, runtime)
+
     def describe_domain_detail_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -695,8 +881,6 @@ class Client(OpenApiClient):
             query['InstanceId'] = request.instance_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
-        if not UtilClient.is_unset(request.source_ip):
-            query['SourceIp'] = request.source_ip
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -737,8 +921,6 @@ class Client(OpenApiClient):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.resource_manager_resource_group_id):
             query['ResourceManagerResourceGroupId'] = request.resource_manager_resource_group_id
-        if not UtilClient.is_unset(request.source_ip):
-            query['SourceIp'] = request.source_ip
         if not UtilClient.is_unset(request.tag):
             query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
@@ -941,8 +1123,6 @@ class Client(OpenApiClient):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.resource_manager_resource_group_id):
             query['ResourceManagerResourceGroupId'] = request.resource_manager_resource_group_id
-        if not UtilClient.is_unset(request.source_ip):
-            query['SourceIp'] = request.source_ip
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1072,6 +1252,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_major_protection_black_ips_with_options(request, runtime)
 
+    def describe_member_accounts_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.account_status):
+            query['AccountStatus'] = request.account_status
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_manager_resource_group_id):
+            query['ResourceManagerResourceGroupId'] = request.resource_manager_resource_group_id
+        if not UtilClient.is_unset(request.source_ip):
+            query['SourceIp'] = request.source_ip
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeMemberAccounts',
+            version='2021-10-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            waf_openapi_20211001_models.DescribeMemberAccountsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_member_accounts(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_member_accounts_with_options(request, runtime)
+
     def describe_peak_trend_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1111,6 +1327,44 @@ class Client(OpenApiClient):
     def describe_peak_trend(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_peak_trend_with_options(request, runtime)
+
+    def describe_resource_instance_certs_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_instance_id):
+            query['ResourceInstanceId'] = request.resource_instance_id
+        if not UtilClient.is_unset(request.resource_manager_resource_group_id):
+            query['ResourceManagerResourceGroupId'] = request.resource_manager_resource_group_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeResourceInstanceCerts',
+            version='2021-10-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            waf_openapi_20211001_models.DescribeResourceInstanceCertsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_resource_instance_certs(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_resource_instance_certs_with_options(request, runtime)
 
     def describe_resource_log_status_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1496,6 +1750,102 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_rule_hits_top_url_with_options(request, runtime)
 
+    def describe_sls_auth_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_manager_resource_group_id):
+            query['ResourceManagerResourceGroupId'] = request.resource_manager_resource_group_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeSlsAuthStatus',
+            version='2021-10-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            waf_openapi_20211001_models.DescribeSlsAuthStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_sls_auth_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_sls_auth_status_with_options(request, runtime)
+
+    def describe_sls_log_store_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_manager_resource_group_id):
+            query['ResourceManagerResourceGroupId'] = request.resource_manager_resource_group_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeSlsLogStore',
+            version='2021-10-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            waf_openapi_20211001_models.DescribeSlsLogStoreResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_sls_log_store(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_sls_log_store_with_options(request, runtime)
+
+    def describe_sls_log_store_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_manager_resource_group_id):
+            query['ResourceManagerResourceGroupId'] = request.resource_manager_resource_group_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeSlsLogStoreStatus',
+            version='2021-10-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            waf_openapi_20211001_models.DescribeSlsLogStoreStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_sls_log_store_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_sls_log_store_status_with_options(request, runtime)
+
     def describe_template_resources_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1531,6 +1881,70 @@ class Client(OpenApiClient):
     def describe_template_resources(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_template_resources_with_options(request, runtime)
+
+    def describe_user_sls_log_regions_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_manager_resource_group_id):
+            query['ResourceManagerResourceGroupId'] = request.resource_manager_resource_group_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeUserSlsLogRegions',
+            version='2021-10-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            waf_openapi_20211001_models.DescribeUserSlsLogRegionsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_user_sls_log_regions(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_user_sls_log_regions_with_options(request, runtime)
+
+    def describe_user_waf_log_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_manager_resource_group_id):
+            query['ResourceManagerResourceGroupId'] = request.resource_manager_resource_group_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeUserWafLogStatus',
+            version='2021-10-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            waf_openapi_20211001_models.DescribeUserWafLogStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_user_waf_log_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_user_waf_log_status_with_options(request, runtime)
 
     def describe_visit_top_ip_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1849,8 +2263,6 @@ class Client(OpenApiClient):
             query['Redirect'] = request.redirect_shrink
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
-        if not UtilClient.is_unset(request.source_ip):
-            query['SourceIp'] = request.source_ip
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1947,6 +2359,44 @@ class Client(OpenApiClient):
     def modify_major_protection_black_ip(self, request):
         runtime = util_models.RuntimeOptions()
         return self.modify_major_protection_black_ip_with_options(request, runtime)
+
+    def modify_member_account_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.member_account_id):
+            query['MemberAccountId'] = request.member_account_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_manager_resource_group_id):
+            query['ResourceManagerResourceGroupId'] = request.resource_manager_resource_group_id
+        if not UtilClient.is_unset(request.source_ip):
+            query['SourceIp'] = request.source_ip
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyMemberAccount',
+            version='2021-10-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            waf_openapi_20211001_models.ModifyMemberAccountResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_member_account(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_member_account_with_options(request, runtime)
 
     def modify_resource_log_status_with_options(self, request, runtime):
         UtilClient.validate_model(request)
