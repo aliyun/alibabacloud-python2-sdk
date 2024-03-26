@@ -731,12 +731,13 @@ class CreateDigitalHumanProjectResponse(TeaModel):
 
 
 class CreateLivePortraitProjectRequest(TeaModel):
-    def __init__(self, audio_id=None, audio_url=None, content=None, image_id=None, image_url=None, intro=None,
-                 jwt_token=None, light_model=None, mode=None, output_config=None, title=None, tts_voice_id=None,
-                 watermark_image_url=None, watermark_style=None):
+    def __init__(self, audio_id=None, audio_url=None, content=None, custom_params=None, image_id=None,
+                 image_url=None, intro=None, jwt_token=None, light_model=None, mode=None, output_config=None, title=None,
+                 tts_voice_id=None, watermark_image_url=None, watermark_style=None):
         self.audio_id = audio_id  # type: str
         self.audio_url = audio_url  # type: str
         self.content = content  # type: str
+        self.custom_params = custom_params  # type: str
         self.image_id = image_id  # type: str
         self.image_url = image_url  # type: str
         self.intro = intro  # type: str
@@ -764,6 +765,8 @@ class CreateLivePortraitProjectRequest(TeaModel):
             result['AudioUrl'] = self.audio_url
         if self.content is not None:
             result['Content'] = self.content
+        if self.custom_params is not None:
+            result['CustomParams'] = self.custom_params
         if self.image_id is not None:
             result['ImageId'] = self.image_id
         if self.image_url is not None:
@@ -796,6 +799,8 @@ class CreateLivePortraitProjectRequest(TeaModel):
             self.audio_url = m.get('AudioUrl')
         if m.get('Content') is not None:
             self.content = m.get('Content')
+        if m.get('CustomParams') is not None:
+            self.custom_params = m.get('CustomParams')
         if m.get('ImageId') is not None:
             self.image_id = m.get('ImageId')
         if m.get('ImageUrl') is not None:
