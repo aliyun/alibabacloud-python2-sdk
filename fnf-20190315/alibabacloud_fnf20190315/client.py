@@ -51,9 +51,6 @@ class Client(OpenApiClient):
         @return: CreateFlowResponse
         """
         UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.request_id):
-            query['RequestId'] = request.request_id
         body = {}
         if not UtilClient.is_unset(request.definition):
             body['Definition'] = request.definition
@@ -70,7 +67,6 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(request.type):
             body['Type'] = request.type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
             body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
@@ -106,8 +102,8 @@ class Client(OpenApiClient):
     def create_schedule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        if not UtilClient.is_unset(request.request_id):
-            query['RequestId'] = request.request_id
+        if not UtilClient.is_unset(request.signature_version):
+            query['SignatureVersion'] = request.signature_version
         body = {}
         if not UtilClient.is_unset(request.cron_expression):
             body['CronExpression'] = request.cron_expression
@@ -158,7 +154,9 @@ class Client(OpenApiClient):
         @return: DeleteFlowResponse
         """
         UtilClient.validate_model(request)
-        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        query = {}
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -167,7 +165,7 @@ class Client(OpenApiClient):
             version='2019-03-15',
             protocol='HTTPS',
             pathname='/',
-            method='GET',
+            method='POST',
             auth_type='AK',
             style='RPC',
             req_body_type='formData',
@@ -193,7 +191,11 @@ class Client(OpenApiClient):
 
     def delete_schedule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
-        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        query = {}
+        if not UtilClient.is_unset(request.flow_name):
+            query['FlowName'] = request.flow_name
+        if not UtilClient.is_unset(request.schedule_name):
+            query['ScheduleName'] = request.schedule_name
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -202,7 +204,7 @@ class Client(OpenApiClient):
             version='2019-03-15',
             protocol='HTTPS',
             pathname='/',
-            method='GET',
+            method='POST',
             auth_type='AK',
             style='RPC',
             req_body_type='formData',
@@ -422,7 +424,8 @@ class Client(OpenApiClient):
     def report_task_failed_with_options(self, request, runtime):
         """
         ## [](#)Usage notes
-        You can use this operation to call back the task step of `pattern: waitForCallback`, which indicates that the current task fails to be executed.
+        In the old version of CloudFlow, the task step that ReportTaskFailed is used to call back `pattern: waitForCallback` indicates that the current task fails to be executed.
+        In the new version of CloudFlow, the task step that ReportTaskFailed is used to call back `TaskMode: WaitForCustomCallback` indicates that the current task fails to be executed.
         
 
         @param request: ReportTaskFailedRequest
@@ -433,8 +436,6 @@ class Client(OpenApiClient):
         """
         UtilClient.validate_model(request)
         query = {}
-        if not UtilClient.is_unset(request.request_id):
-            query['RequestId'] = request.request_id
         if not UtilClient.is_unset(request.task_token):
             query['TaskToken'] = request.task_token
         body = {}
@@ -465,7 +466,8 @@ class Client(OpenApiClient):
     def report_task_failed(self, request):
         """
         ## [](#)Usage notes
-        You can use this operation to call back the task step of `pattern: waitForCallback`, which indicates that the current task fails to be executed.
+        In the old version of CloudFlow, the task step that ReportTaskFailed is used to call back `pattern: waitForCallback` indicates that the current task fails to be executed.
+        In the new version of CloudFlow, the task step that ReportTaskFailed is used to call back `TaskMode: WaitForCustomCallback` indicates that the current task fails to be executed.
         
 
         @param request: ReportTaskFailedRequest
@@ -478,7 +480,8 @@ class Client(OpenApiClient):
     def report_task_succeeded_with_options(self, request, runtime):
         """
         ## [](#)Usage notes
-        You can use this operation to call back the task step of `pattern: waitForCallback`, which indicates that the current task is successfully executed.
+        In the old version of CloudFlow, the task step that ReportTaskSucceeded is used to call back pattern: waitForCallback indicates that the current task is successfully executed.
+        In the new version of CloudFlow, the task step that ReportTaskSucceeded is used to call back TaskMode: WaitForCustomCallback indicates that the current task is successfully executed.
         
 
         @param request: ReportTaskSucceededRequest
@@ -489,8 +492,6 @@ class Client(OpenApiClient):
         """
         UtilClient.validate_model(request)
         query = {}
-        if not UtilClient.is_unset(request.request_id):
-            query['RequestId'] = request.request_id
         if not UtilClient.is_unset(request.task_token):
             query['TaskToken'] = request.task_token
         body = {}
@@ -519,7 +520,8 @@ class Client(OpenApiClient):
     def report_task_succeeded(self, request):
         """
         ## [](#)Usage notes
-        You can use this operation to call back the task step of `pattern: waitForCallback`, which indicates that the current task is successfully executed.
+        In the old version of CloudFlow, the task step that ReportTaskSucceeded is used to call back pattern: waitForCallback indicates that the current task is successfully executed.
+        In the new version of CloudFlow, the task step that ReportTaskSucceeded is used to call back TaskMode: WaitForCustomCallback indicates that the current task is successfully executed.
         
 
         @param request: ReportTaskSucceededRequest
@@ -532,10 +534,10 @@ class Client(OpenApiClient):
     def start_execution_with_options(self, request, runtime):
         """
         ## [](#)Usage notes
-        *   The flow is created.
+        *   The flow is created. A flow only in standard mode is supported.
         *   If you do not specify an execution, the system automatically generates an execution and starts the execution.
         *   If an ongoing execution has the same name as that of the execution to be started, the system directly returns the ongoing execution.
-        *   If the ongoing execution with the same name has ended (succeeded or failed), the `ExecutionAlreadyExists` error is returned.
+        *   If the ongoing execution with the same name has ended (succeeded or failed), `ExecutionAlreadyExists` is returned.
         *   If no execution with the same name exists, the system starts a new execution.
         
 
@@ -546,9 +548,6 @@ class Client(OpenApiClient):
         @return: StartExecutionResponse
         """
         UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.request_id):
-            query['RequestId'] = request.request_id
         body = {}
         if not UtilClient.is_unset(request.callback_fn_ftask_token):
             body['CallbackFnFTaskToken'] = request.callback_fn_ftask_token
@@ -559,7 +558,6 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(request.input):
             body['Input'] = request.input
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
             body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
@@ -581,10 +579,10 @@ class Client(OpenApiClient):
     def start_execution(self, request):
         """
         ## [](#)Usage notes
-        *   The flow is created.
+        *   The flow is created. A flow only in standard mode is supported.
         *   If you do not specify an execution, the system automatically generates an execution and starts the execution.
         *   If an ongoing execution has the same name as that of the execution to be started, the system directly returns the ongoing execution.
-        *   If the ongoing execution with the same name has ended (succeeded or failed), the `ExecutionAlreadyExists` error is returned.
+        *   If the ongoing execution with the same name has ended (succeeded or failed), `ExecutionAlreadyExists` is returned.
         *   If no execution with the same name exists, the system starts a new execution.
         
 
@@ -596,10 +594,17 @@ class Client(OpenApiClient):
         return self.start_execution_with_options(request, runtime)
 
     def start_sync_execution_with_options(self, request, runtime):
+        """
+        Only flows of the express execution mode are supported.
+        
+
+        @param request: StartSyncExecutionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: StartSyncExecutionResponse
+        """
         UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.request_id):
-            query['RequestId'] = request.request_id
         body = {}
         if not UtilClient.is_unset(request.execution_name):
             body['ExecutionName'] = request.execution_name
@@ -608,7 +613,6 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(request.input):
             body['Input'] = request.input
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
             body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
@@ -628,6 +632,14 @@ class Client(OpenApiClient):
         )
 
     def start_sync_execution(self, request):
+        """
+        Only flows of the express execution mode are supported.
+        
+
+        @param request: StartSyncExecutionRequest
+
+        @return: StartSyncExecutionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.start_sync_execution_with_options(request, runtime)
 
@@ -644,9 +656,6 @@ class Client(OpenApiClient):
         @return: StopExecutionResponse
         """
         UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.request_id):
-            query['RequestId'] = request.request_id
         body = {}
         if not UtilClient.is_unset(request.cause):
             body['Cause'] = request.cause
@@ -657,7 +666,6 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(request.flow_name):
             body['FlowName'] = request.flow_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
             body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
@@ -691,9 +699,6 @@ class Client(OpenApiClient):
 
     def update_flow_with_options(self, request, runtime):
         UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.request_id):
-            query['RequestId'] = request.request_id
         body = {}
         if not UtilClient.is_unset(request.definition):
             body['Definition'] = request.definition
@@ -706,7 +711,6 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(request.type):
             body['Type'] = request.type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
             body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
@@ -731,9 +735,6 @@ class Client(OpenApiClient):
 
     def update_schedule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.request_id):
-            query['RequestId'] = request.request_id
         body = {}
         if not UtilClient.is_unset(request.cron_expression):
             body['CronExpression'] = request.cron_expression
@@ -748,7 +749,6 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(request.schedule_name):
             body['ScheduleName'] = request.schedule_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
             body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
