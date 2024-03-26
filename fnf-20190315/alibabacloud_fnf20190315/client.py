@@ -154,11 +154,11 @@ class Client(OpenApiClient):
         @return: DeleteFlowResponse
         """
         UtilClient.validate_model(request)
-        query = {}
+        body = {}
         if not UtilClient.is_unset(request.name):
-            query['Name'] = request.name
+            body['Name'] = request.name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='DeleteFlow',
@@ -191,13 +191,13 @@ class Client(OpenApiClient):
 
     def delete_schedule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
-        query = {}
+        body = {}
         if not UtilClient.is_unset(request.flow_name):
-            query['FlowName'] = request.flow_name
+            body['FlowName'] = request.flow_name
         if not UtilClient.is_unset(request.schedule_name):
-            query['ScheduleName'] = request.schedule_name
+            body['ScheduleName'] = request.schedule_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='DeleteSchedule',
