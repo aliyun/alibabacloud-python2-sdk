@@ -212,6 +212,45 @@ class DigitalHumanLiveBroadcastQAResult(TeaModel):
         return self
 
 
+class DigitalVideoCommonResult(TeaModel):
+    def __init__(self, error_code=None, error_message=None, request_id=None, success=None):
+        self.error_code = error_code  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DigitalVideoCommonResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['errorCode'] = self.error_code
+        if self.error_message is not None:
+            result['errorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('errorCode') is not None:
+            self.error_code = m.get('errorCode')
+        if m.get('errorMessage') is not None:
+            self.error_message = m.get('errorMessage')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
 class DirectDeductResourceCmd(TeaModel):
     def __init__(self, account_id=None, cost=None, deduct_scene=None, extra_info=None, idempotent_id=None,
                  resource_type=None, sub_account_id=None, token=None):
@@ -532,6 +571,71 @@ class SubmitBulletQuestionsQAResult(TeaModel):
             self.error_message = m.get('errorMessage')
         if m.get('success') is not None:
             self.success = m.get('success')
+        return self
+
+
+class SyncDigitalHumanVideoCmd(TeaModel):
+    def __init__(self, account_id=None, action_type=None, idempotent_id=None, image_scale=None, image_url=None,
+                 video_duration=None, video_id=None, video_title=None, video_url=None):
+        self.account_id = account_id  # type: str
+        self.action_type = action_type  # type: str
+        self.idempotent_id = idempotent_id  # type: str
+        self.image_scale = image_scale  # type: str
+        self.image_url = image_url  # type: str
+        self.video_duration = video_duration  # type: int
+        self.video_id = video_id  # type: str
+        self.video_title = video_title  # type: str
+        self.video_url = video_url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SyncDigitalHumanVideoCmd, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_id is not None:
+            result['accountId'] = self.account_id
+        if self.action_type is not None:
+            result['actionType'] = self.action_type
+        if self.idempotent_id is not None:
+            result['idempotentId'] = self.idempotent_id
+        if self.image_scale is not None:
+            result['imageScale'] = self.image_scale
+        if self.image_url is not None:
+            result['imageUrl'] = self.image_url
+        if self.video_duration is not None:
+            result['videoDuration'] = self.video_duration
+        if self.video_id is not None:
+            result['videoId'] = self.video_id
+        if self.video_title is not None:
+            result['videoTitle'] = self.video_title
+        if self.video_url is not None:
+            result['videoUrl'] = self.video_url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('accountId') is not None:
+            self.account_id = m.get('accountId')
+        if m.get('actionType') is not None:
+            self.action_type = m.get('actionType')
+        if m.get('idempotentId') is not None:
+            self.idempotent_id = m.get('idempotentId')
+        if m.get('imageScale') is not None:
+            self.image_scale = m.get('imageScale')
+        if m.get('imageUrl') is not None:
+            self.image_url = m.get('imageUrl')
+        if m.get('videoDuration') is not None:
+            self.video_duration = m.get('videoDuration')
+        if m.get('videoId') is not None:
+            self.video_id = m.get('videoId')
+        if m.get('videoTitle') is not None:
+            self.video_title = m.get('videoTitle')
+        if m.get('videoUrl') is not None:
+            self.video_url = m.get('videoUrl')
         return self
 
 
@@ -1703,6 +1807,68 @@ class SubmitBulletQuestionsV1Response(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SubmitBulletQuestionsQAResult()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SyncDigitalVideoRequest(TeaModel):
+    def __init__(self, body=None):
+        self.body = body  # type: SyncDigitalHumanVideoCmd
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SyncDigitalVideoRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('body') is not None:
+            temp_model = SyncDigitalHumanVideoCmd()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SyncDigitalVideoResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DigitalVideoCommonResult
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SyncDigitalVideoResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DigitalVideoCommonResult()
             self.body = temp_model.from_map(m['body'])
         return self
 
