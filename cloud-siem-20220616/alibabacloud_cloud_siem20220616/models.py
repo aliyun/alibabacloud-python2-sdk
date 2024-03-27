@@ -6211,11 +6211,11 @@ class DescribeAutomateResponseConfigFeatureResponseBodyDataSupportOperators(TeaM
         self.operator_desc_cn = operator_desc_cn  # type: str
         # The description of the operator in English.
         self.operator_desc_en = operator_desc_en  # type: str
-        # The display name of the operator.
+        # The name of the operator.
         self.operator_name = operator_name  # type: str
-        # The data types that are supported by the current operator. The data types are separated by commas (,).
+        # The data types that are supported by the operator. The data types are separated by commas (,).
         self.support_data_type = support_data_type  # type: str
-        # The scenarios that are supported by the operator. Multiple scenarios are separated by commas (,), such as aggregation scenarios. This parameter is empty by default.
+        # The scenarios that are supported by the operator. Multiple scenarios are separated by commas (,), such as aggregation scenarios. By default, this parameter is empty.
         self.support_tag = support_tag  # type: list[str]
 
     def validate(self):
@@ -8959,9 +8959,9 @@ class DescribeDataSourceParametersRequest(TeaModel):
         self.cloud_code = cloud_code  # type: str
         # The type of the data source. Valid values:
         # 
-        # *   ckafka: Tencent Cloud Kafka (CKafka)
-        # *   obs: Huawei Cloud Object Storage Service (OBS)
-        # *   wafApi: download API of Tencent Cloud Web Application Firewall (WAF)
+        # *   **ckafka**: Tencent Cloud TDMQ for CKafka
+        # *   **obs**: Huawei Cloud Object Storage Service (OBS)
+        # *   **wafApi**: download API of Tencent Cloud Web Application Firewall (WAF)
         self.data_source_type = data_source_type  # type: str
         # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
         # 
@@ -9034,27 +9034,27 @@ class DescribeDataSourceParametersResponseBodyData(TeaModel):
                  required=None, title=None):
         # Indicates whether the edit operation is supported. Valid values:
         # 
-        # *   0: no
-        # *   1: yes
+        # *   **0**\
+        # *   **1**\
         self.can_editted = can_editted  # type: int
         # The code of the cloud service provider. Valid values:
         # 
-        # *   qcloud: Tencent Cloud
-        # *   aliyun: Alibaba Cloud
-        # *   hcloud: Huawei Cloud
+        # *   **qcloud**: Tencent Cloud
+        # *   **aliyun**: Alibaba Cloud
+        # *   **hcloud**: Huawei Cloud
         self.cloud_code = cloud_code  # type: str
         # The type of the data source. Valid values:
         # 
-        # *   obs: Huawei Cloud OBS
-        # *   wafApi: download API of Tencent Cloud WAF
-        # *   ckafka: Tencent Cloud CKafka
+        # *   **obs**: Huawei Cloud Object Storage Service (OBS)
+        # *   **wafApi**: download API of Tencent Cloud Web Application Firewall (WAF)
+        # *   **ckafka**: Tencent Cloud TDMQ for CKafka
         self.data_source_type = data_source_type  # type: str
         # The default value of the parameter.
         self.default_value = default_value  # type: str
         # Indicates whether the modification operation is forbidden. Valid values:
         # 
-        # *   true
-        # *   false
+        # *   **true**\
+        # *   **false**\
         self.disabled = disabled  # type: bool
         # The method that is used to check the parameter format.
         self.format_check = format_check  # type: str
@@ -9064,8 +9064,8 @@ class DescribeDataSourceParametersResponseBodyData(TeaModel):
         self.para_code = para_code  # type: str
         # The parameter level. Valid values:
         # 
-        # *   1: data source
-        # *   2: log
+        # *   **1**: the parameters of the data source
+        # *   **2**: the parameters of the log
         self.para_level = para_level  # type: int
         # The name of the parameter.
         self.para_name = para_name  # type: str
@@ -9075,10 +9075,10 @@ class DescribeDataSourceParametersResponseBodyData(TeaModel):
         self.param_value = param_value  # type: list[DescribeDataSourceParametersResponseBodyDataParamValue]
         # Indicates whether the parameter is required. Valid values:
         # 
-        # *   1: yes
-        # *   0: no
+        # *   **1**: required
+        # *   **0**: optional
         self.required = required  # type: int
-        # The note on the parameter value.
+        # The note for the parameter value.
         self.title = title  # type: str
 
     def validate(self):
@@ -9242,9 +9242,9 @@ class DescribeDisposeAndPlaybookRequest(TeaModel):
         self.current_page = current_page  # type: int
         # The entity type. Valid values:
         # 
-        # *   ip: IP address
-        # *   process: process
-        # *   file: file
+        # *   ip
+        # *   process
+        # *   file
         self.entity_type = entity_type  # type: str
         # The UUID of the event.
         self.incident_uuid = incident_uuid  # type: str
@@ -9345,6 +9345,7 @@ class DescribeDisposeAndPlaybookResponseBodyDataResponseDataPlaybookList(TeaMode
         # *   2: Quick event handling is selected.
         # *   1: Quick event handling is displayed but not selected.
         self.op_level = op_level  # type: str
+        # The playbook parameters and the corresponding properties.
         self.param_config = param_config  # type: list[any]
         # The opcode configuration.
         self.task_config = task_config  # type: str
@@ -9415,11 +9416,11 @@ class DescribeDisposeAndPlaybookResponseBodyDataResponseData(TeaModel):
         self.entity_info = entity_info  # type: dict[str, any]
         # The key-value pairs each of which consists of opcode and oplevel.
         self.opcode_map = opcode_map  # type: dict[str, str]
-        # An array consisting of the codes of playbooks that are recommended for entity handling.
+        # The codes of the playbooks that are recommended for entity handling.
         self.opcode_set = opcode_set  # type: list[str]
         # The playbooks that can handle the entity.
         self.playbook_list = playbook_list  # type: list[DescribeDisposeAndPlaybookResponseBodyDataResponseDataPlaybookList]
-        # An array consisting of the IDs of the users who can handle objects.
+        # The IDs of the users who can handle objects.
         self.scope = scope  # type: list[any]
 
     def validate(self):
@@ -9482,7 +9483,7 @@ class DescribeDisposeAndPlaybookResponseBodyData(TeaModel):
     def __init__(self, page_info=None, response_data=None):
         # The pagination information.
         self.page_info = page_info  # type: DescribeDisposeAndPlaybookResponseBodyDataPageInfo
-        # The detailed data
+        # The detailed data.
         self.response_data = response_data  # type: list[DescribeDisposeAndPlaybookResponseBodyDataResponseData]
 
     def validate(self):
@@ -10144,7 +10145,7 @@ class DescribeEventDisposeRequest(TeaModel):
         self.current_page = current_page  # type: int
         # The UUID of the event.
         self.incident_uuid = incident_uuid  # type: str
-        # The number of entries to return on each page. Maximum value: 100.
+        # The number of entries to return on each page. Maximum value: 500.
         self.page_size = page_size  # type: int
         # The data management center of the threat analysis feature. Specify this parameter based on the region in which your assets reside. Valid values:
         # 
@@ -11586,11 +11587,11 @@ class DescribeOperatorsResponseBodyData(TeaModel):
         self.operator_desc_cn = operator_desc_cn  # type: str
         # The description of the operator in English.
         self.operator_desc_en = operator_desc_en  # type: str
-        # The display name of the operator.
+        # The name of the operator.
         self.operator_name = operator_name  # type: str
-        # The data types that are supported by the current operator. The data types are separated by commas (,).
+        # The data types that are supported by the operator. The data types are separated by commas (,).
         self.support_data_type = support_data_type  # type: str
-        # The scenarios that are supported by the operator. Multiple scenarios are separated by commas (,), such as AGGREGATE scenarios. This parameter is empty by default.
+        # The scenarios that are supported by the operator. Multiple scenarios are separated by commas (,), such as AGGREGATE scenarios. By default, this parameter is empty.
         self.support_tag = support_tag  # type: list[str]
 
     def validate(self):
@@ -14404,10 +14405,10 @@ class GetQuickQueryResponse(TeaModel):
 
 class GetStorageRequest(TeaModel):
     def __init__(self, region_id=None):
-        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the region where your assets reside. Valid values:
+        # The data management center of the threat analysis feature. Specify this parameter based on the region where your assets reside. Valid values:
         # 
-        # *   cn-hangzhou: Your assets reside in regions inside the Chinese mainland or in the China (Hong Kong) region.
-        # *   ap-southeast-1: Your assets reside in regions outside the Chinese mainland, excluding the China (Hong Kong) region.
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -14442,7 +14443,9 @@ class GetStorageResponseBodyData(TeaModel):
         # *   true
         # *   false
         self.display_region = display_region  # type: bool
-        # The region in which the logs are stored. Default value: cn-shanghai. Valid values: cn-shanghai for the China site and ap-southeast-1 for the international site.
+        # The region where the data is stored.
+        # 
+        # If the data management center is **cn-hangzhou**, the default value of **Region** is cn-shanghai, which specifies the China (Shanghai) region. If the data management center is **ap-southeast-1**, the default value of **Region** is ap-southeast-1, which specifies the Singapore region.
         self.region = region  # type: str
         # The storage period of logs. Unit: day. Default value: 180. Valid values: 30 to 3000.
         self.ttl = ttl  # type: int
@@ -15898,33 +15901,33 @@ class ListCloudSiemCustomizeRulesRequest(TeaModel):
         self.id = id  # type: str
         # The number of entries per page. The value can be up to 100.
         self.page_size = page_size  # type: int
-        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # The data management center of the threat analysis feature. Specify this parameter based on the regions in which your assets reside. Valid values:
         # 
-        # *   cn-hangzhou: Your assets reside in regions in China.
-        # *   ap-southeast-1: Your assets reside in regions outside China.
+        # *   **cn-hangzhou**: Your assets reside in regions in China.
+        # *   **ap-southeast-1**: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
         # The name of the rule. The name can contain letters, digits, underscores (\_), and periods (.).
         self.rule_name = rule_name  # type: str
         # The type of the rule. Valid values:
         # 
-        # *   predefine
-        # *   customize
+        # *   **predefine**\
+        # *   **customize**\
         self.rule_type = rule_type  # type: str
         # The beginning of the time range to query. Unit: milliseconds.
         self.start_time = start_time  # type: long
         # The status of the rule. Valid values:
         # 
-        # *   0: The rule is in the initial state.
-        # *   10: The simulation data is tested.
-        # *   15: The business data is being tested.
-        # *   20: The business data test ends.
-        # *   100: The rule takes effect.
+        # *   **0**: The rule is in the initial state.
+        # *   **10**: The simulation data is tested.
+        # *   **15**: The business data is being tested.
+        # *   **20**: The business data test is complete.
+        # *   **100**: The rule is in effect.
         self.status = status  # type: int
-        # The risk level. The value is a JSON array. Valid values:
+        # The threat level. The value must be a JSON array. Valid values:
         # 
-        # *   serious: high
-        # *   suspicious: medium
-        # *   remind: low
+        # *   **serious**: high-risk.
+        # *   **suspicious**: medium-risk.
+        # *   **remind**: low-risk.
         self.threat_level = threat_level  # type: list[str]
 
     def validate(self):
@@ -16029,24 +16032,24 @@ class ListCloudSiemCustomizeRulesResponseBodyDataResponseData(TeaModel):
                  event_transfer_switch=None, event_transfer_type=None, gmt_create=None, gmt_modified=None, id=None, log_source=None,
                  log_source_mds=None, log_type=None, log_type_mds=None, query_cycle=None, rule_condition=None, rule_desc=None,
                  rule_group=None, rule_name=None, rule_threshold=None, rule_type=None, status=None, threat_level=None):
-        # The type of the risk.
+        # The threat type.
         self.alert_type = alert_type  # type: str
-        # The internal code of the risk type.
+        # The internal code of the threat type.
         self.alert_type_mds = alert_type_mds  # type: str
         # The ID of the Alibaba Cloud account in SIEM.
         self.aliuid = aliuid  # type: long
-        # The extended information about event generation. If the value of eventTransferType is allToSingle, the value of this parameter indicates the length and unit of the alert aggregation window. The HTML escape characters are reversed.
+        # The extended information about event generation. If the value of **eventTransferType** is **allToSingle**, the value of this parameter indicates the length and unit of the alert aggregation window. The HTML escape characters are reversed.
         self.event_transfer_ext = event_transfer_ext  # type: str
         # Indicates whether the system generates an event for the alert. Valid values:
         # 
-        # *   0: no.
-        # *   1: yes.
+        # *   **0**: no.
+        # *   **1**: yes.
         self.event_transfer_switch = event_transfer_switch  # type: int
-        # The event generation method. Valid values:
+        # The method that is used to generate an event. Valid values:
         # 
-        # *   default: The default method is used.
-        # *   singleToSingle: The system generates an event for each alert.
-        # *   allToSingle: The system generates an event for alerts within a period of time.
+        # *   **default**: The default method is used.
+        # *   **singleToSingle**: The system generates an event for each alert.
+        # *   **allToSingle**: The system generates an event for alerts within a period of time.
         self.event_transfer_type = event_transfer_type  # type: str
         # The time when the custom rule was created.
         self.gmt_create = gmt_create  # type: str
@@ -16064,11 +16067,11 @@ class ListCloudSiemCustomizeRulesResponseBodyDataResponseData(TeaModel):
         self.log_type_mds = log_type_mds  # type: str
         # The window length of the rule. The HTML escape characters are reversed.
         self.query_cycle = query_cycle  # type: str
-        # The query condition of the rule in the JSON format. The HTML escape characters are reversed.
+        # The query condition of the rule. The value is in the JSON format. The HTML escape characters are reversed.
         self.rule_condition = rule_condition  # type: str
         # The description of the rule.
         self.rule_desc = rule_desc  # type: str
-        # The log aggregation field of the rule. The value is a JSON string. The HTML escape characters are reversed.
+        # The log aggregation field. The value is in the JSON format. The HTML escape characters are reversed.
         self.rule_group = rule_group  # type: str
         # The name of the rule.
         self.rule_name = rule_name  # type: str
@@ -16076,22 +16079,22 @@ class ListCloudSiemCustomizeRulesResponseBodyDataResponseData(TeaModel):
         self.rule_threshold = rule_threshold  # type: str
         # The type of the rule. Valid values:
         # 
-        # *   predefine
-        # *   customize
+        # *   **predefine**\
+        # *   **customize**\
         self.rule_type = rule_type  # type: str
-        # The rule status. Valid values:
+        # The status of the rule. Valid values:
         # 
-        # *   0: The rule is in the initial state.
-        # *   10: The simulation data is tested.
-        # *   15: The business data is being tested.
-        # *   20: The business data test ends.
-        # *   100: The rule takes effect.
+        # *   **0**: The rule is in the initial state.
+        # *   **10**: The simulation data is tested.
+        # *   **15**: The business data is being tested.
+        # *   **20**: The business data test is complete.
+        # *   **100**: The rule is in effect.
         self.status = status  # type: int
         # The threat level. Valid values:
         # 
-        # *   serious: high
-        # *   suspicious: medium
-        # *   remind: low
+        # *   **serious**: high-risk.
+        # *   **suspicious**: medium-risk.
+        # *   **remind**: low-risk.
         self.threat_level = threat_level  # type: str
 
     def validate(self):
@@ -16244,7 +16247,7 @@ class ListCloudSiemCustomizeRulesResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
         # The HTTP status code.
         self.code = code  # type: int
-        # The data returned.
+        # The returned data.
         self.data = data  # type: ListCloudSiemCustomizeRulesResponseBodyData
         # The returned message.
         self.message = message  # type: str
@@ -16252,8 +16255,8 @@ class ListCloudSiemCustomizeRulesResponseBody(TeaModel):
         self.request_id = request_id  # type: str
         # Indicates whether the request was successful. Valid values:
         # 
-        # *   true
-        # *   false
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: bool
 
     def validate(self):
@@ -16694,7 +16697,7 @@ class ListCustomizeRuleTestResultRequest(TeaModel):
         self.current_page = current_page  # type: int
         # The ID of the rule.
         self.id = id  # type: long
-        # The number of entries per page. Maximum value: 100.
+        # The number of entries per page. Valid values: 1 to 100.
         self.page_size = page_size  # type: int
         # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
         # 
@@ -16787,13 +16790,13 @@ class ListCustomizeRuleTestResultResponseBodyDataResponseData(TeaModel):
         self.att_ck = att_ck  # type: str
         # The name of the alert, which corresponds to the name of the custom rule.
         self.event_name = event_name  # type: str
-        # The risk type, which indicates the alert type.
+        # The threat type, which indicates the alert type.
         self.event_type = event_type  # type: str
-        # The risk level. Valid values:
+        # The threat level. Valid values:
         # 
-        # *   serious: high
-        # *   suspicious: medium
-        # *   remind: low
+        # *   serious: high.
+        # *   suspicious: medium.
+        # *   remind: low.
         self.level = level  # type: str
         # The log source of the rule.
         self.log_source = log_source  # type: str
@@ -16805,8 +16808,8 @@ class ListCustomizeRuleTestResultResponseBodyDataResponseData(TeaModel):
         self.main_user_id = main_user_id  # type: str
         # The status of the alert data. Valid values:
         # 
-        # *   test: business test data
-        # *   online: online data
+        # *   test: business test data.
+        # *   online: online data.
         self.online_status = online_status  # type: str
         # The ID of the Alibaba Cloud account within which the alert is generated.
         self.sub_user_id = sub_user_id  # type: str
@@ -21672,12 +21675,16 @@ class SaveQuickQueryResponse(TeaModel):
 
 class SetStorageRequest(TeaModel):
     def __init__(self, region=None, region_id=None, ttl=None):
-        # The storage region of logs. By default, the region of the data management center is used and cannot be changed. cn-shanghai is used for the China data management center, and ap-southeast-1 is used for the Outside China data management center. To change the region, contact the technical support of threat analysis.
+        # The storage region of logs.
+        # 
+        # If the data management center is **cn-hangzhou**, the default value of **Region** is cn-shanghai, which specifies the China (Shanghai) region. If the data management center is **ap-southeast-1**, the default value of **Region** is ap-southeast-1, which specifies the Singapore region.
+        # 
+        # The region for log storage cannot be changed. To change the region, contact the technical support of threat analysis.
         self.region = region  # type: str
         # The data management center of the threat analysis feature. Specify this parameter based on the region where your assets reside. Valid values:
         # 
-        # *   cn-hangzhou: Your assets reside in regions in the Chinese mainland or in the China (Hong Kong) region.
-        # *   ap-southeast-1: Your assets reside in regions outside the Chinese mainland, excluding the China (Hong Kong) region.
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
         # The storage duration of logs. Default value: 180. Minimum value: 30. Maximum value: 3000. Unit: days.
         self.ttl = ttl  # type: int
@@ -21714,8 +21721,8 @@ class SetStorageResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
         # Indicates whether the settings are saved. Valid values:
         # 
-        # *   true
-        # *   false
+        # *   true:
+        # *   false:
         self.data = data  # type: bool
         # The request ID.
         self.request_id = request_id  # type: str
