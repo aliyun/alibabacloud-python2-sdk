@@ -4163,6 +4163,31 @@ class Client(OpenApiClient):
         headers = {}
         return self.list_host_groups_with_options(organization_id, request, headers, runtime)
 
+    def list_joined_organizations_with_options(self, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='ListJoinedOrganizations',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/users/joinedOrgs',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.ListJoinedOrganizationsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_joined_organizations(self):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_joined_organizations_with_options(headers, runtime)
+
     def list_merge_request_comments_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}

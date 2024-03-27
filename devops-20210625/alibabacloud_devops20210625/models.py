@@ -25102,6 +25102,123 @@ class ListHostGroupsResponse(TeaModel):
         return self
 
 
+class ListJoinedOrganizationsResponseBodyOrganizations(TeaModel):
+    def __init__(self, id=None, name=None):
+        self.id = id  # type: str
+        self.name = name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListJoinedOrganizationsResponseBodyOrganizations, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.name is not None:
+            result['name'] = self.name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        return self
+
+
+class ListJoinedOrganizationsResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_message=None, organizations=None, request_id=None, success=None):
+        self.error_code = error_code  # type: str
+        self.error_message = error_message  # type: str
+        self.organizations = organizations  # type: list[ListJoinedOrganizationsResponseBodyOrganizations]
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.organizations:
+            for k in self.organizations:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListJoinedOrganizationsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['errorCode'] = self.error_code
+        if self.error_message is not None:
+            result['errorMessage'] = self.error_message
+        result['organizations'] = []
+        if self.organizations is not None:
+            for k in self.organizations:
+                result['organizations'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('errorCode') is not None:
+            self.error_code = m.get('errorCode')
+        if m.get('errorMessage') is not None:
+            self.error_message = m.get('errorMessage')
+        self.organizations = []
+        if m.get('organizations') is not None:
+            for k in m.get('organizations'):
+                temp_model = ListJoinedOrganizationsResponseBodyOrganizations()
+                self.organizations.append(temp_model.from_map(k))
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class ListJoinedOrganizationsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListJoinedOrganizationsResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListJoinedOrganizationsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListJoinedOrganizationsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListMergeRequestCommentsRequest(TeaModel):
     def __init__(self, access_token=None, comment_type=None, file_path=None, patch_set_biz_ids=None, resolved=None,
                  state=None, local_id=None, organization_id=None, repository_identity=None):
