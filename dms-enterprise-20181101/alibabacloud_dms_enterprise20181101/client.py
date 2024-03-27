@@ -130,6 +130,8 @@ class Client(OpenApiClient):
             query['Tid'] = request.tid
         if not UtilClient.is_unset(request.use_dsql):
             query['UseDsql'] = request.use_dsql
+        if not UtilClient.is_unset(request.use_ssl):
+            query['UseSsl'] = request.use_ssl
         if not UtilClient.is_unset(request.vpc_id):
             query['VpcId'] = request.vpc_id
         req = open_api_models.OpenApiRequest(
@@ -1525,6 +1527,7 @@ class Client(OpenApiClient):
 
     def create_sqlreview_order_with_options(self, tmp_req, runtime):
         """
+        You can call this operation only for database instances that are managed in Security Collaboration mode.
         For more information about the SQL review feature, see [SQL review](~~60374~~).
         
 
@@ -1571,6 +1574,7 @@ class Client(OpenApiClient):
 
     def create_sqlreview_order(self, request):
         """
+        You can call this operation only for database instances that are managed in Security Collaboration mode.
         For more information about the SQL review feature, see [SQL review](~~60374~~).
         
 
@@ -6990,6 +6994,8 @@ class Client(OpenApiClient):
             query['Tid'] = request.tid
         if not UtilClient.is_unset(request.use_dsql):
             query['UseDsql'] = request.use_dsql
+        if not UtilClient.is_unset(request.use_ssl):
+            query['UseSsl'] = request.use_ssl
         if not UtilClient.is_unset(request.vpc_id):
             query['VpcId'] = request.vpc_id
         req = open_api_models.OpenApiRequest(
@@ -7078,6 +7084,16 @@ class Client(OpenApiClient):
         return self.offline_task_flow_with_options(request, runtime)
 
     def pause_data_correct_sqljob_with_options(self, request, runtime):
+        """
+        You can call this operation only for database instances that are managed in Security Collaboration mode.
+        
+
+        @param request: PauseDataCorrectSQLJobRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: PauseDataCorrectSQLJobResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.job_id):
@@ -7108,6 +7124,14 @@ class Client(OpenApiClient):
         )
 
     def pause_data_correct_sqljob(self, request):
+        """
+        You can call this operation only for database instances that are managed in Security Collaboration mode.
+        
+
+        @param request: PauseDataCorrectSQLJobRequest
+
+        @return: PauseDataCorrectSQLJobResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.pause_data_correct_sqljob_with_options(request, runtime)
 
