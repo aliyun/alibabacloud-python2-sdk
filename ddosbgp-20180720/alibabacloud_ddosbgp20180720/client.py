@@ -584,6 +584,40 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_ddos_event_with_options(request, runtime)
 
+    def describe_ddos_origin_instance_bill_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.is_show_list):
+            query['IsShowList'] = request.is_show_list
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDdosOriginInstanceBill',
+            version='2018-07-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ddosbgp_20180720_models.DescribeDdosOriginInstanceBillResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_ddos_origin_instance_bill(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_ddos_origin_instance_bill_with_options(request, runtime)
+
     def describe_excpetion_count_with_options(self, request, runtime):
         """
         ## Usage notes
@@ -1331,6 +1365,34 @@ class Client(OpenApiClient):
     def query_schedrule_on_demand(self, request):
         runtime = util_models.RuntimeOptions()
         return self.query_schedrule_on_demand_with_options(request, runtime)
+
+    def release_ddos_origin_instance_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ReleaseDdosOriginInstance',
+            version='2018-07-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ddosbgp_20180720_models.ReleaseDdosOriginInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def release_ddos_origin_instance(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.release_ddos_origin_instance_with_options(request, runtime)
 
     def set_instance_mode_on_demand_with_options(self, request, runtime):
         UtilClient.validate_model(request)

@@ -1808,6 +1808,326 @@ class DescribeDdosEventResponse(TeaModel):
         return self
 
 
+class DescribeDdosOriginInstanceBillRequest(TeaModel):
+    def __init__(self, end_time=None, is_show_list=None, start_time=None, type=None):
+        self.end_time = end_time  # type: long
+        self.is_show_list = is_show_list  # type: bool
+        self.start_time = start_time  # type: long
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDdosOriginInstanceBillRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.is_show_list is not None:
+            result['IsShowList'] = self.is_show_list
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('IsShowList') is not None:
+            self.is_show_list = m.get('IsShowList')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class DescribeDdosOriginInstanceBillResponseBodyFlowList(TeaModel):
+    def __init__(self, member_flow=None, region_flow=None, time=None, total_flow=None):
+        self.member_flow = member_flow  # type: str
+        self.region_flow = region_flow  # type: str
+        self.time = time  # type: long
+        self.total_flow = total_flow  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDdosOriginInstanceBillResponseBodyFlowList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.member_flow is not None:
+            result['MemberFlow'] = self.member_flow
+        if self.region_flow is not None:
+            result['RegionFlow'] = self.region_flow
+        if self.time is not None:
+            result['Time'] = self.time
+        if self.total_flow is not None:
+            result['TotalFlow'] = self.total_flow
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('MemberFlow') is not None:
+            self.member_flow = m.get('MemberFlow')
+        if m.get('RegionFlow') is not None:
+            self.region_flow = m.get('RegionFlow')
+        if m.get('Time') is not None:
+            self.time = m.get('Time')
+        if m.get('TotalFlow') is not None:
+            self.total_flow = m.get('TotalFlow')
+        return self
+
+
+class DescribeDdosOriginInstanceBillResponseBodyIpCountOrFunctionList(TeaModel):
+    def __init__(self, coverage=None, ip_cnt_cn=None, ip_cnt_ov=None, member_ip_cnt=None, time=None):
+        self.coverage = coverage  # type: str
+        self.ip_cnt_cn = ip_cnt_cn  # type: long
+        self.ip_cnt_ov = ip_cnt_ov  # type: long
+        self.member_ip_cnt = member_ip_cnt  # type: str
+        self.time = time  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDdosOriginInstanceBillResponseBodyIpCountOrFunctionList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.coverage is not None:
+            result['Coverage'] = self.coverage
+        if self.ip_cnt_cn is not None:
+            result['IpCntCn'] = self.ip_cnt_cn
+        if self.ip_cnt_ov is not None:
+            result['IpCntOv'] = self.ip_cnt_ov
+        if self.member_ip_cnt is not None:
+            result['MemberIpCnt'] = self.member_ip_cnt
+        if self.time is not None:
+            result['Time'] = self.time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Coverage') is not None:
+            self.coverage = m.get('Coverage')
+        if m.get('IpCntCn') is not None:
+            self.ip_cnt_cn = m.get('IpCntCn')
+        if m.get('IpCntOv') is not None:
+            self.ip_cnt_ov = m.get('IpCntOv')
+        if m.get('MemberIpCnt') is not None:
+            self.member_ip_cnt = m.get('MemberIpCnt')
+        if m.get('Time') is not None:
+            self.time = m.get('Time')
+        return self
+
+
+class DescribeDdosOriginInstanceBillResponseBodyStandardAssetsFlowList(TeaModel):
+    def __init__(self, member_flow=None, region_flow=None, time=None, total_flow=None):
+        self.member_flow = member_flow  # type: str
+        self.region_flow = region_flow  # type: str
+        self.time = time  # type: long
+        self.total_flow = total_flow  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDdosOriginInstanceBillResponseBodyStandardAssetsFlowList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.member_flow is not None:
+            result['MemberFlow'] = self.member_flow
+        if self.region_flow is not None:
+            result['RegionFlow'] = self.region_flow
+        if self.time is not None:
+            result['Time'] = self.time
+        if self.total_flow is not None:
+            result['TotalFlow'] = self.total_flow
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('MemberFlow') is not None:
+            self.member_flow = m.get('MemberFlow')
+        if m.get('RegionFlow') is not None:
+            self.region_flow = m.get('RegionFlow')
+        if m.get('Time') is not None:
+            self.time = m.get('Time')
+        if m.get('TotalFlow') is not None:
+            self.total_flow = m.get('TotalFlow')
+        return self
+
+
+class DescribeDdosOriginInstanceBillResponseBody(TeaModel):
+    def __init__(self, debt_status=None, flow_list=None, flow_region=None, instance_id=None, ip_count=None,
+                 ip_count_or_function_list=None, ip_info=None, request_id=None, standard_assets_flow_list=None,
+                 standard_assets_flow_region=None, standard_assets_total_flow_cn=None, standard_assets_total_flow_ov=None, status=None,
+                 total_flow_cn=None, total_flow_ov=None):
+        self.debt_status = debt_status  # type: long
+        self.flow_list = flow_list  # type: list[DescribeDdosOriginInstanceBillResponseBodyFlowList]
+        self.flow_region = flow_region  # type: dict[str, any]
+        self.instance_id = instance_id  # type: str
+        self.ip_count = ip_count  # type: long
+        self.ip_count_or_function_list = ip_count_or_function_list  # type: list[DescribeDdosOriginInstanceBillResponseBodyIpCountOrFunctionList]
+        self.ip_info = ip_info  # type: str
+        self.request_id = request_id  # type: str
+        self.standard_assets_flow_list = standard_assets_flow_list  # type: list[DescribeDdosOriginInstanceBillResponseBodyStandardAssetsFlowList]
+        self.standard_assets_flow_region = standard_assets_flow_region  # type: dict[str, any]
+        self.standard_assets_total_flow_cn = standard_assets_total_flow_cn  # type: long
+        self.standard_assets_total_flow_ov = standard_assets_total_flow_ov  # type: long
+        self.status = status  # type: long
+        self.total_flow_cn = total_flow_cn  # type: long
+        self.total_flow_ov = total_flow_ov  # type: long
+
+    def validate(self):
+        if self.flow_list:
+            for k in self.flow_list:
+                if k:
+                    k.validate()
+        if self.ip_count_or_function_list:
+            for k in self.ip_count_or_function_list:
+                if k:
+                    k.validate()
+        if self.standard_assets_flow_list:
+            for k in self.standard_assets_flow_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDdosOriginInstanceBillResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.debt_status is not None:
+            result['DebtStatus'] = self.debt_status
+        result['FlowList'] = []
+        if self.flow_list is not None:
+            for k in self.flow_list:
+                result['FlowList'].append(k.to_map() if k else None)
+        if self.flow_region is not None:
+            result['FlowRegion'] = self.flow_region
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.ip_count is not None:
+            result['IpCount'] = self.ip_count
+        result['IpCountOrFunctionList'] = []
+        if self.ip_count_or_function_list is not None:
+            for k in self.ip_count_or_function_list:
+                result['IpCountOrFunctionList'].append(k.to_map() if k else None)
+        if self.ip_info is not None:
+            result['IpInfo'] = self.ip_info
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        result['StandardAssetsFlowList'] = []
+        if self.standard_assets_flow_list is not None:
+            for k in self.standard_assets_flow_list:
+                result['StandardAssetsFlowList'].append(k.to_map() if k else None)
+        if self.standard_assets_flow_region is not None:
+            result['StandardAssetsFlowRegion'] = self.standard_assets_flow_region
+        if self.standard_assets_total_flow_cn is not None:
+            result['StandardAssetsTotalFlowCn'] = self.standard_assets_total_flow_cn
+        if self.standard_assets_total_flow_ov is not None:
+            result['StandardAssetsTotalFlowOv'] = self.standard_assets_total_flow_ov
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.total_flow_cn is not None:
+            result['TotalFlowCn'] = self.total_flow_cn
+        if self.total_flow_ov is not None:
+            result['TotalFlowOv'] = self.total_flow_ov
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DebtStatus') is not None:
+            self.debt_status = m.get('DebtStatus')
+        self.flow_list = []
+        if m.get('FlowList') is not None:
+            for k in m.get('FlowList'):
+                temp_model = DescribeDdosOriginInstanceBillResponseBodyFlowList()
+                self.flow_list.append(temp_model.from_map(k))
+        if m.get('FlowRegion') is not None:
+            self.flow_region = m.get('FlowRegion')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('IpCount') is not None:
+            self.ip_count = m.get('IpCount')
+        self.ip_count_or_function_list = []
+        if m.get('IpCountOrFunctionList') is not None:
+            for k in m.get('IpCountOrFunctionList'):
+                temp_model = DescribeDdosOriginInstanceBillResponseBodyIpCountOrFunctionList()
+                self.ip_count_or_function_list.append(temp_model.from_map(k))
+        if m.get('IpInfo') is not None:
+            self.ip_info = m.get('IpInfo')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        self.standard_assets_flow_list = []
+        if m.get('StandardAssetsFlowList') is not None:
+            for k in m.get('StandardAssetsFlowList'):
+                temp_model = DescribeDdosOriginInstanceBillResponseBodyStandardAssetsFlowList()
+                self.standard_assets_flow_list.append(temp_model.from_map(k))
+        if m.get('StandardAssetsFlowRegion') is not None:
+            self.standard_assets_flow_region = m.get('StandardAssetsFlowRegion')
+        if m.get('StandardAssetsTotalFlowCn') is not None:
+            self.standard_assets_total_flow_cn = m.get('StandardAssetsTotalFlowCn')
+        if m.get('StandardAssetsTotalFlowOv') is not None:
+            self.standard_assets_total_flow_ov = m.get('StandardAssetsTotalFlowOv')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('TotalFlowCn') is not None:
+            self.total_flow_cn = m.get('TotalFlowCn')
+        if m.get('TotalFlowOv') is not None:
+            self.total_flow_ov = m.get('TotalFlowOv')
+        return self
+
+
+class DescribeDdosOriginInstanceBillResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeDdosOriginInstanceBillResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDdosOriginInstanceBillResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeDdosOriginInstanceBillResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeExcpetionCountRequest(TeaModel):
     def __init__(self, region_id=None, resource_group_id=None):
         # The ID of the region where the Anti-DDoS Origin instance resides.
@@ -5094,6 +5414,90 @@ class QuerySchedruleOnDemandResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = QuerySchedruleOnDemandResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ReleaseDdosOriginInstanceRequest(TeaModel):
+    def __init__(self, instance_id=None):
+        self.instance_id = instance_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ReleaseDdosOriginInstanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        return self
+
+
+class ReleaseDdosOriginInstanceResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ReleaseDdosOriginInstanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ReleaseDdosOriginInstanceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ReleaseDdosOriginInstanceResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ReleaseDdosOriginInstanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ReleaseDdosOriginInstanceResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
