@@ -161,9 +161,6 @@ class BindProduceAuthorizationResponse(TeaModel):
         self.body = body  # type: BindProduceAuthorizationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -273,9 +270,6 @@ class CloseIntentionForPartnerResponse(TeaModel):
         self.body = body  # type: CloseIntentionForPartnerResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -385,9 +379,6 @@ class CloseUserIntentionResponse(TeaModel):
         self.body = body  # type: CloseUserIntentionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -507,9 +498,6 @@ class CreateBusinessOpportunityResponse(TeaModel):
         self.body = body  # type: CreateBusinessOpportunityResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -624,9 +612,6 @@ class CreateProduceForPartnerResponse(TeaModel):
         self.body = body  # type: CreateProduceForPartnerResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -731,9 +716,6 @@ class DescribePartnerConfigResponse(TeaModel):
         self.body = body  # type: DescribePartnerConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -866,9 +848,6 @@ class GenerateUploadFilePolicyResponse(TeaModel):
         self.body = body  # type: GenerateUploadFilePolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -973,9 +952,6 @@ class GetAlipayUrlResponse(TeaModel):
         self.body = body  # type: GetAlipayUrlResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1158,9 +1134,6 @@ class ListIntentionNoteResponse(TeaModel):
         self.body = body  # type: ListIntentionNoteResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1328,9 +1301,6 @@ class ListProduceAuthorizationResponse(TeaModel):
         self.body = body  # type: ListProduceAuthorizationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1545,9 +1515,6 @@ class ListUserDetailSolutionsResponse(TeaModel):
         self.body = body  # type: ListUserDetailSolutionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1715,9 +1682,6 @@ class ListUserIntentionNotesResponse(TeaModel):
         self.body = body  # type: ListUserIntentionNotesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1962,9 +1926,6 @@ class ListUserIntentionsResponse(TeaModel):
         self.body = body  # type: ListUserIntentionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2163,9 +2124,6 @@ class ListUserProduceOperateLogsResponse(TeaModel):
         self.body = body  # type: ListUserProduceOperateLogsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2414,9 +2372,6 @@ class ListUserSolutionsResponse(TeaModel):
         self.body = body  # type: ListUserSolutionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2531,9 +2486,6 @@ class OperateProduceForPartnerResponse(TeaModel):
         self.body = body  # type: OperateProduceForPartnerResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2643,9 +2595,6 @@ class PutMeasureDataResponse(TeaModel):
         self.body = body  # type: PutMeasureDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2755,9 +2704,6 @@ class PutMeasureReadyFlagResponse(TeaModel):
         self.body = body  # type: PutMeasureReadyFlagResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2862,9 +2808,6 @@ class QueryAvailableNumbersResponse(TeaModel):
         self.body = body  # type: QueryAvailableNumbersResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2954,9 +2897,6 @@ class QueryBagRemainingResponse(TeaModel):
         self.body = body  # type: QueryBagRemainingResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3191,9 +3131,6 @@ class QueryCommodityConfigResponse(TeaModel):
         self.body = body  # type: QueryCommodityConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3288,9 +3225,6 @@ class QueryInstanceResponse(TeaModel):
         self.body = body  # type: QueryInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3458,9 +3392,6 @@ class QueryPartnerIntentionListResponse(TeaModel):
         self.body = body  # type: QueryPartnerIntentionListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3628,9 +3559,6 @@ class QueryPartnerProduceListResponse(TeaModel):
         self.body = body  # type: QueryPartnerProduceListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3701,9 +3629,6 @@ class QueryUserNeedAuthResponse(TeaModel):
         self.body = body  # type: QueryUserNeedAuthResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3859,9 +3784,6 @@ class RecordPostBackResponse(TeaModel):
         self.body = body  # type: RecordPostBackResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3966,9 +3888,6 @@ class RejectSolutionResponse(TeaModel):
         self.body = body  # type: RejectSolutionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4078,9 +3997,6 @@ class RejectUserSolutionResponse(TeaModel):
         self.body = body  # type: RejectUserSolutionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4190,9 +4106,6 @@ class ReleaseProduceAuthorizationResponse(TeaModel):
         self.body = body  # type: ReleaseProduceAuthorizationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4323,9 +4236,6 @@ class StartBackToBackCallResponse(TeaModel):
         self.body = body  # type: StartBackToBackCallResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4430,9 +4340,6 @@ class SubmitIntentionNoteResponse(TeaModel):
         self.body = body  # type: SubmitIntentionNoteResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4563,9 +4470,6 @@ class SubmitSolutionResponse(TeaModel):
         self.body = body  # type: SubmitSolutionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4685,9 +4589,6 @@ class TransferIntentionOwnerResponse(TeaModel):
         self.body = body  # type: TransferIntentionOwnerResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4807,9 +4708,6 @@ class TransferProduceOwnerResponse(TeaModel):
         self.body = body  # type: TransferProduceOwnerResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
