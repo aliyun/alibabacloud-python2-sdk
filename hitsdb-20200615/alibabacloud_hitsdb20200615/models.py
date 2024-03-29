@@ -2879,14 +2879,18 @@ class GetLindormInstanceListResponseBodyInstanceListTags(TeaModel):
 
 class GetLindormInstanceListResponseBodyInstanceList(TeaModel):
     def __init__(self, ali_uid=None, create_milliseconds=None, create_time=None, enable_compute=None,
-                 enable_stream=None, engine_type=None, expire_time=None, expired_milliseconds=None, instance_alias=None,
-                 instance_id=None, instance_status=None, instance_storage=None, network_type=None, pay_type=None,
-                 region_id=None, resource_group_id=None, service_type=None, tags=None, vpc_id=None, zone_id=None):
+                 enable_lts=None, enable_message=None, enable_stream=None, enable_vector=None, engine_type=None,
+                 expire_time=None, expired_milliseconds=None, instance_alias=None, instance_id=None, instance_status=None,
+                 instance_storage=None, network_type=None, pay_type=None, region_id=None, resource_group_id=None, service_type=None,
+                 tags=None, vpc_id=None, zone_id=None):
         self.ali_uid = ali_uid  # type: long
         self.create_milliseconds = create_milliseconds  # type: long
         self.create_time = create_time  # type: str
         self.enable_compute = enable_compute  # type: bool
+        self.enable_lts = enable_lts  # type: bool
+        self.enable_message = enable_message  # type: bool
         self.enable_stream = enable_stream  # type: bool
+        self.enable_vector = enable_vector  # type: bool
         self.engine_type = engine_type  # type: str
         self.expire_time = expire_time  # type: str
         self.expired_milliseconds = expired_milliseconds  # type: long
@@ -2923,8 +2927,14 @@ class GetLindormInstanceListResponseBodyInstanceList(TeaModel):
             result['CreateTime'] = self.create_time
         if self.enable_compute is not None:
             result['EnableCompute'] = self.enable_compute
+        if self.enable_lts is not None:
+            result['EnableLts'] = self.enable_lts
+        if self.enable_message is not None:
+            result['EnableMessage'] = self.enable_message
         if self.enable_stream is not None:
             result['EnableStream'] = self.enable_stream
+        if self.enable_vector is not None:
+            result['EnableVector'] = self.enable_vector
         if self.engine_type is not None:
             result['EngineType'] = self.engine_type
         if self.expire_time is not None:
@@ -2969,8 +2979,14 @@ class GetLindormInstanceListResponseBodyInstanceList(TeaModel):
             self.create_time = m.get('CreateTime')
         if m.get('EnableCompute') is not None:
             self.enable_compute = m.get('EnableCompute')
+        if m.get('EnableLts') is not None:
+            self.enable_lts = m.get('EnableLts')
+        if m.get('EnableMessage') is not None:
+            self.enable_message = m.get('EnableMessage')
         if m.get('EnableStream') is not None:
             self.enable_stream = m.get('EnableStream')
+        if m.get('EnableVector') is not None:
+            self.enable_vector = m.get('EnableVector')
         if m.get('EngineType') is not None:
             self.engine_type = m.get('EngineType')
         if m.get('ExpireTime') is not None:
