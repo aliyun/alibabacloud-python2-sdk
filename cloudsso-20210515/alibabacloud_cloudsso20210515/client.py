@@ -1892,6 +1892,40 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_user_with_options(request, runtime)
 
+    def get_user_id_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = cloudsso_20210515_models.GetUserIdShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.external_id):
+            request.external_id_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.external_id, 'ExternalId', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.external_id_shrink):
+            query['ExternalId'] = request.external_id_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetUserId',
+            version='2021-05-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudsso_20210515_models.GetUserIdResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_user_id(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_user_id_with_options(request, runtime)
+
     def get_user_mfaauthentication_settings_with_options(self, request, runtime):
         """
         This topic provides an example on how to query the MFA setting of the user named `u-00q8wbq42wiltcrk***`. The returned result shows that MFA is enabled for the user.
