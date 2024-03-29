@@ -177,6 +177,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.source_endpoint_database_name):
             query['SourceEndpointDatabaseName'] = request.source_endpoint_database_name
         if not UtilClient.is_unset(request.source_endpoint_engine_name):
@@ -343,6 +345,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.destination_endpoint):
             query['DestinationEndpoint'] = request.destination_endpoint
         if not UtilClient.is_unset(request.migration_mode):
@@ -406,6 +410,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -464,6 +470,8 @@ class Client(OpenApiClient):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.reserve):
             query['Reserve'] = request.reserve
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.source_endpoint_database_name):
             query['SourceEndpointDatabaseName'] = request.source_endpoint_database_name
         if not UtilClient.is_unset(request.source_endpoint_engine_name):
@@ -540,6 +548,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.subscription_instance_id):
             query['SubscriptionInstanceId'] = request.subscription_instance_id
         if not UtilClient.is_unset(request.subscription_instance_name):
@@ -606,6 +616,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.subscription_instance_id):
             query['SubscriptionInstanceId'] = request.subscription_instance_id
         req = open_api_models.OpenApiRequest(
@@ -659,6 +671,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.structure_initialization):
             query['StructureInitialization'] = request.structure_initialization
         if not UtilClient.is_unset(request.synchronization_direction):
@@ -730,6 +744,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.synchronization_direction):
             query['SynchronizationDirection'] = request.synchronization_direction
         if not UtilClient.is_unset(request.synchronization_job_id):
@@ -779,6 +795,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.synchronization_direction):
             query['SynchronizationDirection'] = request.synchronization_direction
         if not UtilClient.is_unset(request.synchronization_job_id):
@@ -832,6 +850,8 @@ class Client(OpenApiClient):
             query['Region'] = request.region
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.src_db_type):
             query['SrcDbType'] = request.src_db_type
         if not UtilClient.is_unset(request.status):
@@ -876,6 +896,8 @@ class Client(OpenApiClient):
             query['DtsJobId'] = request.dts_job_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -914,6 +936,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.subscription_instance_id):
             query['SubscriptionInstanceId'] = request.subscription_instance_id
         req = open_api_models.OpenApiRequest(
@@ -962,6 +986,8 @@ class Client(OpenApiClient):
             query['Phones'] = request.phones
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1103,6 +1129,8 @@ class Client(OpenApiClient):
             query['Phone'] = request.phone
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.state):
             query['State'] = request.state
         if not UtilClient.is_unset(request.times):
@@ -1170,6 +1198,8 @@ class Client(OpenApiClient):
             query['Region'] = request.region
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1208,6 +1238,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.dts_job_id):
             query['DtsJobId'] = request.dts_job_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1258,6 +1290,8 @@ class Client(OpenApiClient):
             query['Region'] = request.region
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.used_time):
             query['UsedTime'] = request.used_time
         if not UtilClient.is_unset(request.source_endpoint):
@@ -1323,6 +1357,8 @@ class Client(OpenApiClient):
             query['Period'] = request.period
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.source_region):
             query['SourceRegion'] = request.source_region
         if not UtilClient.is_unset(request.synchronization_job_class):
@@ -1380,6 +1416,8 @@ class Client(OpenApiClient):
             query['DtsJobId'] = request.dts_job_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1414,6 +1452,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.subscription_instance_id):
             query['SubscriptionInstanceId'] = request.subscription_instance_id
         req = open_api_models.OpenApiRequest(
@@ -1450,8 +1490,12 @@ class Client(OpenApiClient):
             query['JobType'] = request.job_type
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.synchronization_direction):
             query['SynchronizationDirection'] = request.synchronization_direction
+        if not UtilClient.is_unset(request.zero_etl_job):
+            query['ZeroEtlJob'] = request.zero_etl_job
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1482,6 +1526,10 @@ class Client(OpenApiClient):
             query['DtsJobIds'] = request.dts_job_ids
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.zero_etl_job):
+            query['ZeroEtlJob'] = request.zero_etl_job
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1526,6 +1574,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1576,6 +1626,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.subscription_instance_id):
             query['SubscriptionInstanceId'] = request.subscription_instance_id
         req = open_api_models.OpenApiRequest(
@@ -1628,6 +1680,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.synchronization_job_id):
             query['SynchronizationJobId'] = request.synchronization_job_id
         req = open_api_models.OpenApiRequest(
@@ -1714,6 +1768,8 @@ class Client(OpenApiClient):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1739,6 +1795,9 @@ class Client(OpenApiClient):
 
     def describe_cluster_operate_logs_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         body = {}
         if not UtilClient.is_unset(request.account_id):
             body['AccountId'] = request.account_id
@@ -1759,6 +1818,7 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(request.start_time):
             body['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
@@ -1783,6 +1843,9 @@ class Client(OpenApiClient):
 
     def describe_cluster_used_utilization_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         body = {}
         if not UtilClient.is_unset(request.account_id):
             body['AccountId'] = request.account_id
@@ -1803,6 +1866,7 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(request.security_token):
             body['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
@@ -1852,6 +1916,8 @@ class Client(OpenApiClient):
             query['DestinationEndpointUserName'] = request.destination_endpoint_user_name
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.source_endpoint_architecture):
             query['SourceEndpointArchitecture'] = request.source_endpoint_architecture
         if not UtilClient.is_unset(request.source_endpoint_database_name):
@@ -1912,6 +1978,8 @@ class Client(OpenApiClient):
             query['ParentChannelId'] = request.parent_channel_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1948,6 +2016,8 @@ class Client(OpenApiClient):
             query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.subscription_instance_id):
             query['SubscriptionInstanceId'] = request.subscription_instance_id
         req = open_api_models.OpenApiRequest(
@@ -1991,6 +2061,8 @@ class Client(OpenApiClient):
             query['DestinationEndpointRegion'] = request.destination_endpoint_region
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.source_endpoint_region):
             query['SourceEndpointRegion'] = request.source_endpoint_region
         req = open_api_models.OpenApiRequest(
@@ -2034,6 +2106,8 @@ class Client(OpenApiClient):
             query['DbName'] = request.db_name
         if not UtilClient.is_unset(request.dts_job_id):
             query['DtsJobId'] = request.dts_job_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.tb_name):
             query['TbName'] = request.tb_name
         req = open_api_models.OpenApiRequest(
@@ -2070,6 +2144,8 @@ class Client(OpenApiClient):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.schema_name):
             query['SchemaName'] = request.schema_name
         if not UtilClient.is_unset(request.status):
@@ -2112,6 +2188,8 @@ class Client(OpenApiClient):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.tb_name):
             query['TbName'] = request.tb_name
         req = open_api_models.OpenApiRequest(
@@ -2146,6 +2224,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2178,6 +2258,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2214,6 +2296,8 @@ class Client(OpenApiClient):
             query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2246,10 +2330,14 @@ class Client(OpenApiClient):
             query['DtsJobId'] = request.dts_job_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.sync_sub_job_history):
             query['SyncSubJobHistory'] = request.sync_sub_job_history
         if not UtilClient.is_unset(request.synchronization_direction):
             query['SynchronizationDirection'] = request.synchronization_direction
+        if not UtilClient.is_unset(request.zero_etl_job):
+            query['ZeroEtlJob'] = request.zero_etl_job
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2297,6 +2385,10 @@ class Client(OpenApiClient):
             query['DtsJobId'] = request.dts_job_id
         if not UtilClient.is_unset(request.group_id):
             query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.instance_type):
+            query['InstanceType'] = request.instance_type
         if not UtilClient.is_unset(request.job_type):
             query['JobType'] = request.job_type
         if not UtilClient.is_unset(request.order_column):
@@ -2325,6 +2417,8 @@ class Client(OpenApiClient):
             query['Type'] = request.type
         if not UtilClient.is_unset(request.without_db_list):
             query['WithoutDbList'] = request.without_db_list
+        if not UtilClient.is_unset(request.zero_etl_job):
+            query['ZeroEtlJob'] = request.zero_etl_job
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2372,12 +2466,16 @@ class Client(OpenApiClient):
             query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.start_time):
             query['StartTime'] = request.start_time
         if not UtilClient.is_unset(request.status):
             query['Status'] = request.status
         if not UtilClient.is_unset(request.sub_job_type):
             query['SubJobType'] = request.sub_job_type
+        if not UtilClient.is_unset(request.zero_etl_job):
+            query['ZeroEtlJob'] = request.zero_etl_job
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2422,6 +2520,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.task_id):
             query['TaskId'] = request.task_id
         req = open_api_models.OpenApiRequest(
@@ -2462,6 +2562,8 @@ class Client(OpenApiClient):
             query['DtsJobId'] = request.dts_job_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2498,6 +2600,8 @@ class Client(OpenApiClient):
             query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.synchronization_job_id):
             query['SynchronizationJobId'] = request.synchronization_job_id
         req = open_api_models.OpenApiRequest(
@@ -2530,6 +2634,8 @@ class Client(OpenApiClient):
             query['DtsJobId'] = request.dts_job_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2555,6 +2661,9 @@ class Client(OpenApiClient):
 
     def describe_metric_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         body = {}
         if not UtilClient.is_unset(request.account_id):
             body['AccountId'] = request.account_id
@@ -2579,6 +2688,7 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(request.start_time):
             body['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
@@ -2614,6 +2724,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2664,6 +2776,8 @@ class Client(OpenApiClient):
             query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.migration_mode):
             query['MigrationMode'] = request.migration_mode
         req = open_api_models.OpenApiRequest(
@@ -2710,6 +2824,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2748,6 +2864,8 @@ class Client(OpenApiClient):
             query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.tag):
             query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
@@ -2788,10 +2906,14 @@ class Client(OpenApiClient):
             query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.struct_phase):
             query['StructPhase'] = request.struct_phase
         if not UtilClient.is_unset(request.struct_type):
             query['StructType'] = request.struct_type
+        if not UtilClient.is_unset(request.zero_etl_job):
+            query['ZeroEtlJob'] = request.zero_etl_job
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2826,6 +2948,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.subscription_instance_id):
             query['SubscriptionInstanceId'] = request.subscription_instance_id
         req = open_api_models.OpenApiRequest(
@@ -2860,6 +2984,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.subscription_instance_id):
             query['SubscriptionInstanceId'] = request.subscription_instance_id
         req = open_api_models.OpenApiRequest(
@@ -2900,6 +3026,8 @@ class Client(OpenApiClient):
             query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.subscription_instance_name):
             query['SubscriptionInstanceName'] = request.subscription_instance_name
         if not UtilClient.is_unset(request.tag):
@@ -2951,6 +3079,8 @@ class Client(OpenApiClient):
             query['DtsInstanceId'] = request.dts_instance_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.sid):
             query['Sid'] = request.sid
         if not UtilClient.is_unset(request.sub_migration_job_ids_shrink):
@@ -3000,6 +3130,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.synchronization_direction):
             query['SynchronizationDirection'] = request.synchronization_direction
         if not UtilClient.is_unset(request.synchronization_job_id):
@@ -3038,6 +3170,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.synchronization_direction):
             query['SynchronizationDirection'] = request.synchronization_direction
         if not UtilClient.is_unset(request.synchronization_job_id):
@@ -3076,6 +3210,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.synchronization_direction):
             query['SynchronizationDirection'] = request.synchronization_direction
         if not UtilClient.is_unset(request.synchronization_job_id):
@@ -3114,6 +3250,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.synchronization_job_id_list_json_str):
             query['SynchronizationJobIdListJsonStr'] = request.synchronization_job_id_list_json_str
         req = open_api_models.OpenApiRequest(
@@ -3154,6 +3292,8 @@ class Client(OpenApiClient):
             query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.synchronization_job_name):
             query['SynchronizationJobName'] = request.synchronization_job_name
         if not UtilClient.is_unset(request.tag):
@@ -3202,6 +3342,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.task_id):
             query['TaskId'] = request.task_id
         req = open_api_models.OpenApiRequest(
@@ -3246,6 +3388,8 @@ class Client(OpenApiClient):
             query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.resource_id):
             query['ResourceId'] = request.resource_id
         if not UtilClient.is_unset(request.resource_type):
@@ -3286,6 +3430,8 @@ class Client(OpenApiClient):
             query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.resource_id):
             query['ResourceId'] = request.resource_id
         if not UtilClient.is_unset(request.resource_type):
@@ -3339,6 +3485,8 @@ class Client(OpenApiClient):
             query['EndpointRegion'] = request.endpoint_region
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3388,6 +3536,8 @@ class Client(OpenApiClient):
             query['Params'] = request.params
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.state):
             query['State'] = request.state
         if not UtilClient.is_unset(request.type):
@@ -3432,6 +3582,8 @@ class Client(OpenApiClient):
             query['NextToken'] = request.next_token
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.resource_id):
             query['ResourceId'] = request.resource_id
         if not UtilClient.is_unset(request.resource_type):
@@ -3486,6 +3638,8 @@ class Client(OpenApiClient):
             query['DtsJobId'] = request.dts_job_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3538,6 +3692,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.subscription_instance_id):
             query['SubscriptionInstanceId'] = request.subscription_instance_id
         if not UtilClient.is_unset(request.consumer_group_new_password):
@@ -3599,6 +3755,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.subscription_instance_id):
             query['SubscriptionInstanceId'] = request.subscription_instance_id
         req = open_api_models.OpenApiRequest(
@@ -3660,6 +3818,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3722,10 +3882,14 @@ class Client(OpenApiClient):
             query['FileOssUrl'] = request.file_oss_url
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.structure_initialization):
             query['StructureInitialization'] = request.structure_initialization
         if not UtilClient.is_unset(request.synchronization_direction):
             query['SynchronizationDirection'] = request.synchronization_direction
+        if not UtilClient.is_unset(request.zero_etl_job):
+            query['ZeroEtlJob'] = request.zero_etl_job
         body = {}
         if not UtilClient.is_unset(request.db_list_shrink):
             body['DbList'] = request.db_list_shrink
@@ -3847,6 +4011,8 @@ class Client(OpenApiClient):
             query['Parameters'] = request.parameters
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3881,6 +4047,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3926,6 +4094,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3985,6 +4155,8 @@ class Client(OpenApiClient):
             query['Password'] = request.password
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.role_name):
             query['RoleName'] = request.role_name
         if not UtilClient.is_unset(request.shard_password):
@@ -4027,6 +4199,10 @@ class Client(OpenApiClient):
             query['DtsJobName'] = request.dts_job_name
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.zero_etl_job):
+            query['ZeroEtlJob'] = request.zero_etl_job
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -4061,8 +4237,12 @@ class Client(OpenApiClient):
             query['Password'] = request.password
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.user_name):
             query['UserName'] = request.user_name
+        if not UtilClient.is_unset(request.zero_etl_job):
+            query['ZeroEtlJob'] = request.zero_etl_job
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -4099,6 +4279,8 @@ class Client(OpenApiClient):
             query['JobCode'] = request.job_code
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -4133,6 +4315,8 @@ class Client(OpenApiClient):
             query['DtsJobId'] = request.dts_job_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.subscription_data_type_ddl):
             query['SubscriptionDataTypeDDL'] = request.subscription_data_type_ddl
         if not UtilClient.is_unset(request.subscription_data_type_dml):
@@ -4182,6 +4366,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.subscription_instance_id):
             query['SubscriptionInstanceId'] = request.subscription_instance_id
         if not UtilClient.is_unset(request.subscription_object):
@@ -4239,6 +4425,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.synchronization_direction):
             query['SynchronizationDirection'] = request.synchronization_direction
         if not UtilClient.is_unset(request.synchronization_job_id):
@@ -4291,6 +4479,8 @@ class Client(OpenApiClient):
             query['Period'] = request.period
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -4333,6 +4523,8 @@ class Client(OpenApiClient):
             query['DtsJobId'] = request.dts_job_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.synchronization_direction):
             query['SynchronizationDirection'] = request.synchronization_direction
         req = open_api_models.OpenApiRequest(
@@ -4385,6 +4577,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.synchronization_direction):
             query['SynchronizationDirection'] = request.synchronization_direction
         if not UtilClient.is_unset(request.synchronization_job_id):
@@ -4429,6 +4623,8 @@ class Client(OpenApiClient):
             query['IgnoreErrorSubJob'] = request.ignore_error_sub_job
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -4471,6 +4667,8 @@ class Client(OpenApiClient):
             query['PrecheckItems'] = request.precheck_items
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -4511,6 +4709,8 @@ class Client(OpenApiClient):
             query['JobId'] = request.job_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.skip):
             query['Skip'] = request.skip
         if not UtilClient.is_unset(request.skip_pre_check_items):
@@ -4549,8 +4749,12 @@ class Client(OpenApiClient):
             query['DtsJobId'] = request.dts_job_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.synchronization_direction):
             query['SynchronizationDirection'] = request.synchronization_direction
+        if not UtilClient.is_unset(request.zero_etl_job):
+            query['ZeroEtlJob'] = request.zero_etl_job
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -4581,6 +4785,10 @@ class Client(OpenApiClient):
             query['DtsJobIds'] = request.dts_job_ids
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.zero_etl_job):
+            query['ZeroEtlJob'] = request.zero_etl_job
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -4625,6 +4833,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -4673,6 +4883,8 @@ class Client(OpenApiClient):
             query['CheckPoint'] = request.check_point
         if not UtilClient.is_unset(request.dts_job_id):
             query['DtsJobId'] = request.dts_job_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -4723,6 +4935,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.subscription_instance_id):
             query['SubscriptionInstanceId'] = request.subscription_instance_id
         req = open_api_models.OpenApiRequest(
@@ -4757,18 +4971,6 @@ class Client(OpenApiClient):
         return self.start_subscription_instance_with_options(request, runtime)
 
     def start_synchronization_job_with_options(self, request, runtime):
-        """
-        >
-        *   Before you call this operation, make sure that you fully understand the billing methods and [pricing](https://www.alibabacloud.com/zh/product/data-transmission-service) of Data Transmission Service (DTS).
-        *   When you call this operation, the data synchronization task must be in the NotStarted, Failed, or Suspending state. If you call this operation to start a task that is in the NotStarted state, the task will be prechecked.
-        
-
-        @param request: StartSynchronizationJobRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: StartSynchronizationJobResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.account_id):
@@ -4777,6 +4979,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.synchronization_direction):
             query['SynchronizationDirection'] = request.synchronization_direction
         if not UtilClient.is_unset(request.synchronization_job_id):
@@ -4801,16 +5005,6 @@ class Client(OpenApiClient):
         )
 
     def start_synchronization_job(self, request):
-        """
-        >
-        *   Before you call this operation, make sure that you fully understand the billing methods and [pricing](https://www.alibabacloud.com/zh/product/data-transmission-service) of Data Transmission Service (DTS).
-        *   When you call this operation, the data synchronization task must be in the NotStarted, Failed, or Suspending state. If you call this operation to start a task that is in the NotStarted state, the task will be prechecked.
-        
-
-        @param request: StartSynchronizationJobRequest
-
-        @return: StartSynchronizationJobResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.start_synchronization_job_with_options(request, runtime)
 
@@ -4827,6 +5021,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -4859,8 +5055,12 @@ class Client(OpenApiClient):
             query['DtsJobId'] = request.dts_job_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.synchronization_direction):
             query['SynchronizationDirection'] = request.synchronization_direction
+        if not UtilClient.is_unset(request.zero_etl_job):
+            query['ZeroEtlJob'] = request.zero_etl_job
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -4891,6 +5091,10 @@ class Client(OpenApiClient):
             query['DtsJobIds'] = request.dts_job_ids
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.zero_etl_job):
+            query['ZeroEtlJob'] = request.zero_etl_job
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -4937,6 +5141,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -4979,10 +5185,14 @@ class Client(OpenApiClient):
             query['JobCode'] = request.job_code
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.struct_type):
             query['StructType'] = request.struct_type
         if not UtilClient.is_unset(request.synchronization_direction):
             query['SynchronizationDirection'] = request.synchronization_direction
+        if not UtilClient.is_unset(request.zero_etl_job):
+            query['ZeroEtlJob'] = request.zero_etl_job
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -5025,8 +5235,12 @@ class Client(OpenApiClient):
             query['DtsJobId'] = request.dts_job_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.synchronization_direction):
             query['SynchronizationDirection'] = request.synchronization_direction
+        if not UtilClient.is_unset(request.zero_etl_job):
+            query['ZeroEtlJob'] = request.zero_etl_job
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -5065,6 +5279,10 @@ class Client(OpenApiClient):
             query['DtsJobIds'] = request.dts_job_ids
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.zero_etl_job):
+            query['ZeroEtlJob'] = request.zero_etl_job
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -5113,6 +5331,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -5168,6 +5388,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.synchronization_direction):
             query['SynchronizationDirection'] = request.synchronization_direction
         if not UtilClient.is_unset(request.synchronization_job_id):
@@ -5215,6 +5437,8 @@ class Client(OpenApiClient):
             query['DtsJobId'] = request.dts_job_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.synchronization_direction):
             query['SynchronizationDirection'] = request.synchronization_direction
         req = open_api_models.OpenApiRequest(
@@ -5262,6 +5486,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.synchronization_direction):
             query['SynchronizationDirection'] = request.synchronization_direction
         if not UtilClient.is_unset(request.synchronization_job_id):
@@ -5324,6 +5550,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.resource_id):
             query['ResourceId'] = request.resource_id
         if not UtilClient.is_unset(request.resource_type):
@@ -5377,6 +5605,8 @@ class Client(OpenApiClient):
             query['OrderType'] = request.order_type
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -5426,6 +5656,8 @@ class Client(OpenApiClient):
             query['Period'] = request.period
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -5477,6 +5709,8 @@ class Client(OpenApiClient):
             query['All'] = request.all
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.resource_id):
             query['ResourceId'] = request.resource_id
         if not UtilClient.is_unset(request.resource_type):
@@ -5538,6 +5772,8 @@ class Client(OpenApiClient):
             query['InstanceId'] = request.instance_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -5593,8 +5829,12 @@ class Client(OpenApiClient):
             query['Region'] = request.region
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.type):
             query['Type'] = request.type
+        if not UtilClient.is_unset(request.zero_etl_job):
+            query['ZeroEtlJob'] = request.zero_etl_job
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
