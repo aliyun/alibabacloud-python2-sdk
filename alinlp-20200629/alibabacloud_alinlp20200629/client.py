@@ -2150,6 +2150,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.post_mssearch_enhance_with_options(request, runtime)
 
+    def post_msservice_data_import_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = alinlp_20200629_models.PostMSServiceDataImportShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.documents):
+            request.documents_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.documents, 'Documents', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.data_type):
+            body['DataType'] = request.data_type
+        if not UtilClient.is_unset(request.documents_shrink):
+            body['Documents'] = request.documents_shrink
+        if not UtilClient.is_unset(request.service_id):
+            body['ServiceId'] = request.service_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='PostMSServiceDataImport',
+            version='2020-06-29',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            alinlp_20200629_models.PostMSServiceDataImportResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def post_msservice_data_import(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.post_msservice_data_import_with_options(request, runtime)
+
     def request_table_qawith_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
