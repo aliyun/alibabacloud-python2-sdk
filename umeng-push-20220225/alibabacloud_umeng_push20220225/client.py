@@ -183,6 +183,8 @@ class Client(OpenApiClient):
             body['ReceiptType'] = request.receipt_type
         if not UtilClient.is_unset(request.receipt_url):
             body['ReceiptUrl'] = request.receipt_url
+        if not UtilClient.is_unset(request.third_party_id):
+            body['ThirdPartyId'] = request.third_party_id
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
@@ -237,6 +239,8 @@ class Client(OpenApiClient):
             body['ReceiptType'] = request.receipt_type
         if not UtilClient.is_unset(request.receipt_url):
             body['ReceiptUrl'] = request.receipt_url
+        if not UtilClient.is_unset(request.third_party_id):
+            body['ThirdPartyId'] = request.third_party_id
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
@@ -351,6 +355,8 @@ class Client(OpenApiClient):
             body['ReceiptType'] = request.receipt_type
         if not UtilClient.is_unset(request.receipt_url):
             body['ReceiptUrl'] = request.receipt_url
+        if not UtilClient.is_unset(request.third_party_id):
+            body['ThirdPartyId'] = request.third_party_id
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
@@ -407,6 +413,8 @@ class Client(OpenApiClient):
             body['ReceiptType'] = request.receipt_type
         if not UtilClient.is_unset(request.receipt_url):
             body['ReceiptUrl'] = request.receipt_url
+        if not UtilClient.is_unset(request.third_party_id):
+            body['ThirdPartyId'] = request.third_party_id
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
