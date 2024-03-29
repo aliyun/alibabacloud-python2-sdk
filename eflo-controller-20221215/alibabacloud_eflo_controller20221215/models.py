@@ -633,11 +633,12 @@ class CreateClusterRequestNetworksVpdInfo(TeaModel):
 
 
 class CreateClusterRequestNetworks(TeaModel):
-    def __init__(self, ip_allocation_policy=None, new_vpd_info=None, security_group_id=None, v_switch_id=None,
-                 v_switch_zone_id=None, vpc_id=None, vpd_info=None):
+    def __init__(self, ip_allocation_policy=None, new_vpd_info=None, security_group_id=None, tail_ip_version=None,
+                 v_switch_id=None, v_switch_zone_id=None, vpc_id=None, vpd_info=None):
         self.ip_allocation_policy = ip_allocation_policy  # type: list[CreateClusterRequestNetworksIpAllocationPolicy]
         self.new_vpd_info = new_vpd_info  # type: CreateClusterRequestNetworksNewVpdInfo
         self.security_group_id = security_group_id  # type: str
+        self.tail_ip_version = tail_ip_version  # type: str
         self.v_switch_id = v_switch_id  # type: str
         self.v_switch_zone_id = v_switch_zone_id  # type: str
         self.vpc_id = vpc_id  # type: str
@@ -668,6 +669,8 @@ class CreateClusterRequestNetworks(TeaModel):
             result['NewVpdInfo'] = self.new_vpd_info.to_map()
         if self.security_group_id is not None:
             result['SecurityGroupId'] = self.security_group_id
+        if self.tail_ip_version is not None:
+            result['TailIpVersion'] = self.tail_ip_version
         if self.v_switch_id is not None:
             result['VSwitchId'] = self.v_switch_id
         if self.v_switch_zone_id is not None:
@@ -690,6 +693,8 @@ class CreateClusterRequestNetworks(TeaModel):
             self.new_vpd_info = temp_model.from_map(m['NewVpdInfo'])
         if m.get('SecurityGroupId') is not None:
             self.security_group_id = m.get('SecurityGroupId')
+        if m.get('TailIpVersion') is not None:
+            self.tail_ip_version = m.get('TailIpVersion')
         if m.get('VSwitchId') is not None:
             self.v_switch_id = m.get('VSwitchId')
         if m.get('VSwitchZoneId') is not None:
