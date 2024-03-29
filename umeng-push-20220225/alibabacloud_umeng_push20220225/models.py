@@ -75,13 +75,14 @@ class AndroidPayload(TeaModel):
 
 class Aps(TeaModel):
     def __init__(self, alert=None, badge=None, category=None, content_available=None, interruption_level=None,
-                 sound=None):
+                 sound=None, thread_id=None):
         self.alert = alert  # type: Alert
-        self.badge = badge  # type: int
+        self.badge = badge  # type: str
         self.category = category  # type: str
         self.content_available = content_available  # type: int
         self.interruption_level = interruption_level  # type: str
         self.sound = sound  # type: str
+        self.thread_id = thread_id  # type: str
 
     def validate(self):
         if self.alert:
@@ -105,6 +106,8 @@ class Aps(TeaModel):
             result['interruptionLevel'] = self.interruption_level
         if self.sound is not None:
             result['sound'] = self.sound
+        if self.thread_id is not None:
+            result['threadID'] = self.thread_id
         return result
 
     def from_map(self, m=None):
@@ -122,6 +125,8 @@ class Aps(TeaModel):
             self.interruption_level = m.get('interruptionLevel')
         if m.get('sound') is not None:
             self.sound = m.get('sound')
+        if m.get('threadID') is not None:
+            self.thread_id = m.get('threadID')
         return self
 
 
@@ -294,7 +299,7 @@ class ChannelProperties(TeaModel):
 class IosPayload(TeaModel):
     def __init__(self, aps=None, extra=None):
         self.aps = aps  # type: Aps
-        self.extra = extra  # type: dict[str, str]
+        self.extra = extra  # type: dict[str, any]
 
     def validate(self):
         if self.aps:
@@ -467,9 +472,6 @@ class CancelByMsgIdResponse(TeaModel):
         self.body = body  # type: CancelByMsgIdResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -641,9 +643,6 @@ class QueryMsgStatResponse(TeaModel):
         self.body = body  # type: QueryMsgStatResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -675,7 +674,7 @@ class QueryMsgStatResponse(TeaModel):
 
 class SendByAliasRequest(TeaModel):
     def __init__(self, alias=None, alias_type=None, android_payload=None, channel_properties=None, description=None,
-                 ios_payload=None, policy=None, production_mode=None, receipt_type=None, receipt_url=None):
+                 ios_payload=None, policy=None, production_mode=None, receipt_type=None, receipt_url=None, third_party_id=None):
         self.alias = alias  # type: str
         self.alias_type = alias_type  # type: str
         self.android_payload = android_payload  # type: AndroidPayload
@@ -686,6 +685,7 @@ class SendByAliasRequest(TeaModel):
         self.production_mode = production_mode  # type: bool
         self.receipt_type = receipt_type  # type: int
         self.receipt_url = receipt_url  # type: str
+        self.third_party_id = third_party_id  # type: str
 
     def validate(self):
         if self.android_payload:
@@ -723,6 +723,8 @@ class SendByAliasRequest(TeaModel):
             result['ReceiptType'] = self.receipt_type
         if self.receipt_url is not None:
             result['ReceiptUrl'] = self.receipt_url
+        if self.third_party_id is not None:
+            result['ThirdPartyId'] = self.third_party_id
         return result
 
     def from_map(self, m=None):
@@ -751,13 +753,15 @@ class SendByAliasRequest(TeaModel):
             self.receipt_type = m.get('ReceiptType')
         if m.get('ReceiptUrl') is not None:
             self.receipt_url = m.get('ReceiptUrl')
+        if m.get('ThirdPartyId') is not None:
+            self.third_party_id = m.get('ThirdPartyId')
         return self
 
 
 class SendByAliasShrinkRequest(TeaModel):
     def __init__(self, alias=None, alias_type=None, android_payload_shrink=None, channel_properties_shrink=None,
                  description=None, ios_payload_shrink=None, policy_shrink=None, production_mode=None, receipt_type=None,
-                 receipt_url=None):
+                 receipt_url=None, third_party_id=None):
         self.alias = alias  # type: str
         self.alias_type = alias_type  # type: str
         self.android_payload_shrink = android_payload_shrink  # type: str
@@ -768,6 +772,7 @@ class SendByAliasShrinkRequest(TeaModel):
         self.production_mode = production_mode  # type: bool
         self.receipt_type = receipt_type  # type: int
         self.receipt_url = receipt_url  # type: str
+        self.third_party_id = third_party_id  # type: str
 
     def validate(self):
         pass
@@ -798,6 +803,8 @@ class SendByAliasShrinkRequest(TeaModel):
             result['ReceiptType'] = self.receipt_type
         if self.receipt_url is not None:
             result['ReceiptUrl'] = self.receipt_url
+        if self.third_party_id is not None:
+            result['ThirdPartyId'] = self.third_party_id
         return result
 
     def from_map(self, m=None):
@@ -822,6 +829,8 @@ class SendByAliasShrinkRequest(TeaModel):
             self.receipt_type = m.get('ReceiptType')
         if m.get('ReceiptUrl') is not None:
             self.receipt_url = m.get('ReceiptUrl')
+        if m.get('ThirdPartyId') is not None:
+            self.third_party_id = m.get('ThirdPartyId')
         return self
 
 
@@ -907,9 +916,6 @@ class SendByAliasResponse(TeaModel):
         self.body = body  # type: SendByAliasResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1173,9 +1179,6 @@ class SendByAliasFileIdResponse(TeaModel):
         self.body = body  # type: SendByAliasFileIdResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1418,9 +1421,6 @@ class SendByAppResponse(TeaModel):
         self.body = body  # type: SendByAppResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1452,7 +1452,7 @@ class SendByAppResponse(TeaModel):
 
 class SendByDeviceRequest(TeaModel):
     def __init__(self, android_payload=None, channel_properties=None, description=None, device_tokens=None,
-                 ios_payload=None, policy=None, production_mode=None, receipt_type=None, receipt_url=None):
+                 ios_payload=None, policy=None, production_mode=None, receipt_type=None, receipt_url=None, third_party_id=None):
         self.android_payload = android_payload  # type: AndroidPayload
         self.channel_properties = channel_properties  # type: ChannelProperties
         self.description = description  # type: str
@@ -1462,6 +1462,7 @@ class SendByDeviceRequest(TeaModel):
         self.production_mode = production_mode  # type: bool
         self.receipt_type = receipt_type  # type: int
         self.receipt_url = receipt_url  # type: str
+        self.third_party_id = third_party_id  # type: str
 
     def validate(self):
         if self.android_payload:
@@ -1497,6 +1498,8 @@ class SendByDeviceRequest(TeaModel):
             result['ReceiptType'] = self.receipt_type
         if self.receipt_url is not None:
             result['ReceiptUrl'] = self.receipt_url
+        if self.third_party_id is not None:
+            result['ThirdPartyId'] = self.third_party_id
         return result
 
     def from_map(self, m=None):
@@ -1523,13 +1526,15 @@ class SendByDeviceRequest(TeaModel):
             self.receipt_type = m.get('ReceiptType')
         if m.get('ReceiptUrl') is not None:
             self.receipt_url = m.get('ReceiptUrl')
+        if m.get('ThirdPartyId') is not None:
+            self.third_party_id = m.get('ThirdPartyId')
         return self
 
 
 class SendByDeviceShrinkRequest(TeaModel):
     def __init__(self, android_payload_shrink=None, channel_properties_shrink=None, description=None,
                  device_tokens=None, ios_payload_shrink=None, policy_shrink=None, production_mode=None, receipt_type=None,
-                 receipt_url=None):
+                 receipt_url=None, third_party_id=None):
         self.android_payload_shrink = android_payload_shrink  # type: str
         self.channel_properties_shrink = channel_properties_shrink  # type: str
         self.description = description  # type: str
@@ -1539,6 +1544,7 @@ class SendByDeviceShrinkRequest(TeaModel):
         self.production_mode = production_mode  # type: bool
         self.receipt_type = receipt_type  # type: int
         self.receipt_url = receipt_url  # type: str
+        self.third_party_id = third_party_id  # type: str
 
     def validate(self):
         pass
@@ -1567,6 +1573,8 @@ class SendByDeviceShrinkRequest(TeaModel):
             result['ReceiptType'] = self.receipt_type
         if self.receipt_url is not None:
             result['ReceiptUrl'] = self.receipt_url
+        if self.third_party_id is not None:
+            result['ThirdPartyId'] = self.third_party_id
         return result
 
     def from_map(self, m=None):
@@ -1589,6 +1597,8 @@ class SendByDeviceShrinkRequest(TeaModel):
             self.receipt_type = m.get('ReceiptType')
         if m.get('ReceiptUrl') is not None:
             self.receipt_url = m.get('ReceiptUrl')
+        if m.get('ThirdPartyId') is not None:
+            self.third_party_id = m.get('ThirdPartyId')
         return self
 
 
@@ -1674,9 +1684,6 @@ class SendByDeviceResponse(TeaModel):
         self.body = body  # type: SendByDeviceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1929,9 +1936,6 @@ class SendByDeviceFileIdResponse(TeaModel):
         self.body = body  # type: SendByDeviceFileIdResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2184,9 +2188,6 @@ class SendByFilterResponse(TeaModel):
         self.body = body  # type: SendByFilterResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2322,9 +2323,6 @@ class UploadDeviceResponse(TeaModel):
         self.body = body  # type: UploadDeviceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
