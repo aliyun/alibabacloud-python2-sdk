@@ -5977,6 +5977,250 @@ class CreatePermissionApplyOrderResponse(TeaModel):
         return self
 
 
+class CreateProjectRequestTags(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateProjectRequestTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class CreateProjectRequest(TeaModel):
+    def __init__(self, client_token=None, disable_development=None, is_allow_download=None,
+                 project_description=None, project_identifier=None, project_mode=None, project_name=None,
+                 resource_manager_resource_group_id=None, tags=None):
+        self.client_token = client_token  # type: str
+        self.disable_development = disable_development  # type: bool
+        self.is_allow_download = is_allow_download  # type: int
+        self.project_description = project_description  # type: str
+        self.project_identifier = project_identifier  # type: str
+        self.project_mode = project_mode  # type: int
+        self.project_name = project_name  # type: str
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        self.tags = tags  # type: list[CreateProjectRequestTags]
+
+    def validate(self):
+        if self.tags:
+            for k in self.tags:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(CreateProjectRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.disable_development is not None:
+            result['DisableDevelopment'] = self.disable_development
+        if self.is_allow_download is not None:
+            result['IsAllowDownload'] = self.is_allow_download
+        if self.project_description is not None:
+            result['ProjectDescription'] = self.project_description
+        if self.project_identifier is not None:
+            result['ProjectIdentifier'] = self.project_identifier
+        if self.project_mode is not None:
+            result['ProjectMode'] = self.project_mode
+        if self.project_name is not None:
+            result['ProjectName'] = self.project_name
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
+        result['Tags'] = []
+        if self.tags is not None:
+            for k in self.tags:
+                result['Tags'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DisableDevelopment') is not None:
+            self.disable_development = m.get('DisableDevelopment')
+        if m.get('IsAllowDownload') is not None:
+            self.is_allow_download = m.get('IsAllowDownload')
+        if m.get('ProjectDescription') is not None:
+            self.project_description = m.get('ProjectDescription')
+        if m.get('ProjectIdentifier') is not None:
+            self.project_identifier = m.get('ProjectIdentifier')
+        if m.get('ProjectMode') is not None:
+            self.project_mode = m.get('ProjectMode')
+        if m.get('ProjectName') is not None:
+            self.project_name = m.get('ProjectName')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
+        self.tags = []
+        if m.get('Tags') is not None:
+            for k in m.get('Tags'):
+                temp_model = CreateProjectRequestTags()
+                self.tags.append(temp_model.from_map(k))
+        return self
+
+
+class CreateProjectShrinkRequest(TeaModel):
+    def __init__(self, client_token=None, disable_development=None, is_allow_download=None,
+                 project_description=None, project_identifier=None, project_mode=None, project_name=None,
+                 resource_manager_resource_group_id=None, tags_shrink=None):
+        self.client_token = client_token  # type: str
+        self.disable_development = disable_development  # type: bool
+        self.is_allow_download = is_allow_download  # type: int
+        self.project_description = project_description  # type: str
+        self.project_identifier = project_identifier  # type: str
+        self.project_mode = project_mode  # type: int
+        self.project_name = project_name  # type: str
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        self.tags_shrink = tags_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateProjectShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.disable_development is not None:
+            result['DisableDevelopment'] = self.disable_development
+        if self.is_allow_download is not None:
+            result['IsAllowDownload'] = self.is_allow_download
+        if self.project_description is not None:
+            result['ProjectDescription'] = self.project_description
+        if self.project_identifier is not None:
+            result['ProjectIdentifier'] = self.project_identifier
+        if self.project_mode is not None:
+            result['ProjectMode'] = self.project_mode
+        if self.project_name is not None:
+            result['ProjectName'] = self.project_name
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
+        if self.tags_shrink is not None:
+            result['Tags'] = self.tags_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DisableDevelopment') is not None:
+            self.disable_development = m.get('DisableDevelopment')
+        if m.get('IsAllowDownload') is not None:
+            self.is_allow_download = m.get('IsAllowDownload')
+        if m.get('ProjectDescription') is not None:
+            self.project_description = m.get('ProjectDescription')
+        if m.get('ProjectIdentifier') is not None:
+            self.project_identifier = m.get('ProjectIdentifier')
+        if m.get('ProjectMode') is not None:
+            self.project_mode = m.get('ProjectMode')
+        if m.get('ProjectName') is not None:
+            self.project_name = m.get('ProjectName')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
+        if m.get('Tags') is not None:
+            self.tags_shrink = m.get('Tags')
+        return self
+
+
+class CreateProjectResponseBody(TeaModel):
+    def __init__(self, data=None, http_status_code=None, request_id=None, success=None):
+        self.data = data  # type: long
+        self.http_status_code = http_status_code  # type: int
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateProjectResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class CreateProjectResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateProjectResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateProjectResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateProjectResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateProjectMemberRequest(TeaModel):
     def __init__(self, client_token=None, project_id=None, role_code=None, user_id=None):
         # The ID of the request.
