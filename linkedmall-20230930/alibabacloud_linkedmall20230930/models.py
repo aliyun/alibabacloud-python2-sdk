@@ -3191,9 +3191,6 @@ class CancelRefundOrderResponse(TeaModel):
         self.body = body  # type: RefundOrderResult
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3256,9 +3253,6 @@ class ConfirmDisburseResponse(TeaModel):
         self.body = body  # type: ConfirmDisburseResult
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3321,9 +3315,6 @@ class CreateGoodsShippingNoticeResponse(TeaModel):
         self.body = body  # type: GoodsShippingNoticeCreateResult
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3386,9 +3377,6 @@ class CreatePurchaseOrderResponse(TeaModel):
         self.body = body  # type: PurchaseOrderCreateResult
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3451,9 +3439,6 @@ class CreateRefundOrderResponse(TeaModel):
         self.body = body  # type: RefundOrderResult
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3490,9 +3475,6 @@ class GetOrderResponse(TeaModel):
         self.body = body  # type: OrderResult
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3529,9 +3511,6 @@ class GetPurchaseOrderStatusResponse(TeaModel):
         self.body = body  # type: PurchaseOrderStatusResult
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3568,9 +3547,6 @@ class GetPurchaserShopResponse(TeaModel):
         self.body = body  # type: Shop
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3607,9 +3583,6 @@ class GetRefundOrderResponse(TeaModel):
         self.body = body  # type: RefundResult
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3675,9 +3648,6 @@ class GetSelectionProductResponse(TeaModel):
         self.body = body  # type: Product
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3743,9 +3713,6 @@ class GetSelectionProductSaleInfoResponse(TeaModel):
         self.body = body  # type: ProductSaleInfo
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3808,9 +3775,6 @@ class ListCategoriesResponse(TeaModel):
         self.body = body  # type: CategoryListResult
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3847,9 +3811,6 @@ class ListLogisticsOrdersResponse(TeaModel):
         self.body = body  # type: LogisticsOrderListResult
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3915,9 +3876,6 @@ class ListPurchaserShopsResponse(TeaModel):
         self.body = body  # type: ShopPageResult
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3980,9 +3938,6 @@ class ListSelectionProductSaleInfosResponse(TeaModel):
         self.body = body  # type: ProductSaleInfoListResult
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4053,9 +4008,6 @@ class ListSelectionProductsResponse(TeaModel):
         self.body = body  # type: ProductPageResult
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4118,9 +4070,6 @@ class ListSelectionSkuSaleInfosResponse(TeaModel):
         self.body = body  # type: SkuSaleInfoListResult
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4183,9 +4132,6 @@ class QueryChildDivisionCodeResponse(TeaModel):
         self.body = body  # type: DivisionPageResult
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4248,9 +4194,6 @@ class QueryOrdersResponse(TeaModel):
         self.body = body  # type: OrderListResult
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4313,9 +4256,6 @@ class RenderPurchaseOrderResponse(TeaModel):
         self.body = body  # type: PurchaseOrderRenderResult
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4378,9 +4318,6 @@ class RenderRefundOrderResponse(TeaModel):
         self.body = body  # type: RefundRenderResult
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
