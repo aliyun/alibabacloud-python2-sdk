@@ -969,8 +969,6 @@ class CreateGlobalDistributeCacheRequest(TeaModel):
         self.owner_id = owner_id  # type: long
         # The ID of the resource group.
         # 
-        # **\
-        # 
         # **Description** You can query resource group IDs by using the ApsaraDB for Redis console or by calling the [ListResourceGroups](~~158855~~) operation. For more information, see [View basic information of a resource group](~~151181~~).
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
@@ -1457,6 +1455,7 @@ class CreateInstanceRequest(TeaModel):
         # 
         # > If you specify this parameter, the master node and replica node of the instance can be deployed in different zones and disaster recovery is implemented across zones. The instance can withstand failures in data centers.
         self.secondary_zone_id = secondary_zone_id  # type: str
+        # 系统自动生成的安全 Token，无需传入
         self.security_token = security_token  # type: str
         # The number of data shards. This parameter is available only if you create a cluster instance that uses cloud disks.
         self.shard_count = shard_count  # type: int
@@ -2167,7 +2166,7 @@ class CreateTairInstanceRequest(TeaModel):
         self.charge_type = charge_type  # type: str
         # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must make sure that the token is unique among different requests. The token is case-sensitive. The token can contain only ASCII characters and cannot exceed 64 characters in length.
         self.client_token = client_token  # type: str
-        # 集群备份集ID。
+        # The backup set ID.
         self.cluster_backup_id = cluster_backup_id  # type: str
         # The coupon code.
         self.coupon_no = coupon_no  # type: str
@@ -5343,7 +5342,7 @@ class DescribeBackupTasksResponseBodyBackupJobs(TeaModel):
     def __init__(self, backup_job_id=None, backup_progress_status=None, job_mode=None, node_id=None, process=None,
                  start_time=None, task_action=None):
         # The ID of the backup task.
-        self.backup_job_id = backup_job_id  # type: int
+        self.backup_job_id = backup_job_id  # type: long
         # The state of the backup task. Valid values:
         # 
         # *   **NoStart**: The backup task is not started.
@@ -5516,8 +5515,8 @@ class DescribeBackupsRequest(TeaModel):
                  owner_account=None, owner_id=None, page_number=None, page_size=None, resource_owner_account=None,
                  resource_owner_id=None, security_token=None, start_time=None):
         # The ID of the backup file.
-        self.backup_id = backup_id  # type: int
-        self.backup_job_id = backup_job_id  # type: int
+        self.backup_id = backup_id  # type: long
+        self.backup_job_id = backup_job_id  # type: long
         # The end of the time range to query. Specify the time in the *yyyy-MM-dd*T*HH:mm*Z format. The time must be in UTC. The end time must be later than the start time.
         self.end_time = end_time  # type: str
         # The ID of the instance whose backup files you want to query.
@@ -6498,6 +6497,7 @@ class DescribeClusterBackupListRequest(TeaModel):
 
 class DescribeClusterBackupListResponseBodyClusterBackupsBackupsExtraInfo(TeaModel):
     def __init__(self, custins_db_version=None):
+        # The engine version.
         self.custins_db_version = custins_db_version  # type: str
 
     def validate(self):
@@ -6524,17 +6524,37 @@ class DescribeClusterBackupListResponseBodyClusterBackupsBackups(TeaModel):
     def __init__(self, backup_download_url=None, backup_end_time=None, backup_id=None,
                  backup_intranet_download_url=None, backup_name=None, backup_size=None, backup_start_time=None, backup_status=None, engine=None,
                  extra_info=None, instance_name=None, is_avail=None):
+        # The public download URL of the backup file.
         self.backup_download_url = backup_download_url  # type: str
+        # The end time of the backup. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
         self.backup_end_time = backup_end_time  # type: str
+        # The ID of the backup file.
         self.backup_id = backup_id  # type: str
+        # The internal download URL of the backup file.
+        # 
+        # >  You can use this URL to download the backup file from an Elastic Compute Service (ECS) instance that is connected to the ApsaraDB for Redis instance. The ECS instance must belong to the same classic network or reside in the same virtual private cloud (VPC) as the ApsaraDB for Redis instance.
         self.backup_intranet_download_url = backup_intranet_download_url  # type: str
+        # The backup name.
         self.backup_name = backup_name  # type: str
+        # The size of the backup file. Unit: bytes.
         self.backup_size = backup_size  # type: str
+        # The start time of the backup. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
         self.backup_start_time = backup_start_time  # type: str
+        # The status of the backup. Valid values:
+        # 
+        # *   **OK**\
+        # *   **ERROR**\
         self.backup_status = backup_status  # type: str
+        # The database engine. The return value is **redis**.
         self.engine = engine  # type: str
+        # The additional information.
         self.extra_info = extra_info  # type: DescribeClusterBackupListResponseBodyClusterBackupsBackupsExtraInfo
+        # The name of the instance.
         self.instance_name = instance_name  # type: str
+        # Indicates whether the backup set is available. Valid values:
+        # 
+        # *   **0**: unavailable
+        # *   **1**: available
         self.is_avail = is_avail  # type: str
 
     def validate(self):
@@ -6607,15 +6627,29 @@ class DescribeClusterBackupListResponseBodyClusterBackups(TeaModel):
     def __init__(self, backups=None, cluster_backup_end_time=None, cluster_backup_id=None,
                  cluster_backup_mode=None, cluster_backup_size=None, cluster_backup_start_time=None, cluster_backup_status=None,
                  is_avail=None, progress=None, shard_class_memory=None):
+        # The backup sets of all nodes in the instance.
         self.backups = backups  # type: list[DescribeClusterBackupListResponseBodyClusterBackupsBackups]
+        # The end time of the backup.
         self.cluster_backup_end_time = cluster_backup_end_time  # type: str
+        # The ID of the backup set.
         self.cluster_backup_id = cluster_backup_id  # type: str
+        # The backup mode.
         self.cluster_backup_mode = cluster_backup_mode  # type: str
+        # The size of the backup set.
         self.cluster_backup_size = cluster_backup_size  # type: str
+        # The start time of the backup.
         self.cluster_backup_start_time = cluster_backup_start_time  # type: str
+        # The status of the backup set.
+        # 
+        # *   OK
+        # *   RUNNING
+        # *   Failed
         self.cluster_backup_status = cluster_backup_status  # type: str
+        # Indicates whether the backup set is valid. A value of 0 indicates that node-level backups failed or have not been completed.
         self.is_avail = is_avail  # type: int
+        # The backup progress. The system displays only the progress of running backup tasks.
         self.progress = progress  # type: str
+        # The memory size of a single node during a full backup. Unit: MB.
         self.shard_class_memory = shard_class_memory  # type: int
 
     def validate(self):
@@ -6685,9 +6719,17 @@ class DescribeClusterBackupListResponseBodyClusterBackups(TeaModel):
 class DescribeClusterBackupListResponseBody(TeaModel):
     def __init__(self, cluster_backups=None, free_size=None, full_storage_size=None, log_storage_size=None,
                  max_results=None, page_number=None, page_size=None, request_id=None):
+        # The backup sets of the instance. An instance backup contains the backup sets of all nodes in the instance.
         self.cluster_backups = cluster_backups  # type: list[DescribeClusterBackupListResponseBodyClusterBackups]
+        # This parameter does not take effect. Ignore this parameter.
         self.free_size = free_size  # type: long
+        # The size of the full backup file of the instance. Unit: bytes. Full backups originate from scheduled backups, manual backups, and backups generated during cache analysis.
+        # 
+        # >  The value of this parameter is independent of the number and size of returned backup sets. Instead, it represents the size of all valid full backups of the instance.
         self.full_storage_size = full_storage_size  # type: long
+        # The size of the log backup file of the instance. Unit: bytes. This parameter is valid only when flashback is enabled.
+        # 
+        # >  The value of this parameter is independent of the number and size of returned backup sets. Instead, it represents the size of all valid log backups of the instance.
         self.log_storage_size = log_storage_size  # type: long
         self.max_results = max_results  # type: int
         self.page_number = page_number  # type: int
@@ -9720,9 +9762,9 @@ class DescribeHistoryTasksRequest(TeaModel):
                  security_token=None, status=None, task_id=None, task_type=None, to_exec_time=None, to_start_time=None):
         # The minimum execution duration of a task. This parameter is used to filter tasks whose execution duration is longer than the minimum execution duration. Unit: seconds. The default value is 0, which indicates that no limit is imposed.
         self.from_exec_time = from_exec_time  # type: int
-        # The beginning of the time range to query. Only tasks that have a start time later than or equal to the time specified by this parameter are queried. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC. The start time can be up to 30 days earlier than the current time. If you set this parameter to a time more than 30 days earlier than the current time, this time is automatically converted to a time that is exactly 30 days earlier than the current time.
+        # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC. The start time can be up to 30 days earlier than the current time.
         self.from_start_time = from_start_time  # type: str
-        # The instance ID. Separate multiple instance IDs with commas (,). You can specify up to 30 instance IDs. This parameter is empty by default, which indicates that you can specify an unlimited number of instance IDs.
+        # The instance ID. This parameter is empty by default, which indicates that you can specify an unlimited number of instance IDs. Separate multiple instance IDs with commas (,). You can specify up to 30 instance IDs.
         self.instance_id = instance_id  # type: str
         # Set the value to Instance.
         self.instance_type = instance_type  # type: str
@@ -9730,30 +9772,40 @@ class DescribeHistoryTasksRequest(TeaModel):
         self.page_number = page_number  # type: int
         # The number of entries per page. Valid values: 10 to 100. Default value: 10.
         self.page_size = page_size  # type: int
-        # The region ID of the pending task. You can call the [DescribeRegions](https://next.api.aliyun.com/document/R-kvstore/2015-01-01/DescribeRegions) operation to query the most recent region list.
+        # The region ID. You can call the [DescribeRegions](~~61012~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: long
         self.resource_owner_id = resource_owner_id  # type: long
         self.security_token = security_token  # type: str
         # The task status. Valid values:
         # 
-        # *   Scheduled
-        # *   Running
-        # *   Succeed
-        # *   Failed
-        # *   Cancelling
-        # *   Canceled
-        # *   Waiting
+        # *   **Scheduled**\
+        # *   **Running**\
+        # *   **Succeed**\
+        # *   **Failed**\
+        # *   **Cancelling**\
+        # *   **Canceled**\
+        # *   **Waiting**\
         # 
-        # Separate multiple states with commas (,). This parameter is empty by default, which indicates that tasks in all states are queried.
+        # >  This parameter is empty by default, which indicates that tasks in all states are queried. Separate multiple states with commas (,).
         self.status = status  # type: str
-        # The task ID. Separate multiple task IDs with commas (,). You can specify up to 30 task IDs. This parameter is empty by default, which indicates that you can specify an unlimited number of task IDs.
+        # The task ID. This parameter is empty by default, which indicates that you can specify an unlimited number of task IDs. Separate multiple task IDs with commas (,). You can specify up to 30 task IDs.
         self.task_id = task_id  # type: str
-        # The task type. Separate multiple task types with commas (,). You can specify up to 30 task types. This parameter is empty by default, which indicates that you can specify an unlimited number of task types.
+        # The task type. This parameter is empty by default, which indicates that you can specify an unlimited number of task types.
+        # 
+        # *   **ModifyInsSpec**\
+        # *   **DeleteInsNode**\
+        # *   **AddInsNode**\
+        # *   **HaSwitch**\
+        # *   **RestartIns**\
+        # *   **CreateIns**\
+        # *   **ModifyInsConfig**\
+        # 
+        # >  Separate multiple task types with commas (,).
         self.task_type = task_type  # type: str
         # The maximum execution duration of a task. This parameter is used to filter tasks whose execution duration is shorter than or equal to the maximum execution duration. Unit: seconds. The default value is 0, which indicates that no limit is imposed.
         self.to_exec_time = to_exec_time  # type: int
-        # The end of the time range to query. Only tasks that have a start time earlier than or equal to the time specified by this parameter are queried. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
+        # The end of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC. Only tasks that have a start time earlier than or equal to the time specified by this parameter are queried.
         self.to_start_time = to_start_time  # type: str
 
     def validate(self):
@@ -9837,25 +9889,91 @@ class DescribeHistoryTasksResponseBodyItems(TeaModel):
                  end_time=None, instance_id=None, instance_name=None, instance_type=None, product=None, progress=None,
                  reason_code=None, region_id=None, remain_time=None, start_time=None, status=None, task_detail=None,
                  task_id=None, task_type=None, uid=None):
+        # A set of allowed actions that can be taken on the task. The system matches the current step name and status of the task to the available actions specified by ActionInfo. If no matching action is found, the current status of the task does not support any action. Example:
+        # 
+        #     {"steps": [
+        #         {
+        #           "step_name": "exec_task", // The name of the step, which matches CurrentStepName.
+        #           "action_info": {    // The actions supported for this step.
+        #             "Waiting": [      // The status, which matches Status.
+        #               "modifySwitchTime" // The action. Multiple actions are supported.
+        #             ]
+        #           }
+        #         },
+        #         {
+        #           "step_name": "init_task", // The name of the step.
+        #           "action_info": {    // The actions supported for this step.
+        #             "Running": [      // The status.
+        #               "cancel",       // The action.
+        #               "pause"
+        #             ]
+        #           }
+        #         }
+        #       ]
+        #     }
+        # 
+        # The system may support the following actions:
+        # 
+        # *   **retry**\
+        # *   **cancel**\
+        # *   **modifySwitchTime**: changes the switching or restoration time.
         self.action_info = action_info  # type: str
+        # The ID of the user who made the request. If CallerSource is set to User, CallerUid indicates the unique ID (UID) of the user.
         self.caller_source = caller_source  # type: str
+        # The request source. Valid values:
+        # 
+        # *   **System**\
+        # *   **User**\
         self.caller_uid = caller_uid  # type: str
+        # The name of the current step. If this parameter is left empty, the task is not started.
         self.current_step_name = current_step_name  # type: str
+        # The database type. The return value is redis.
         self.db_type = db_type  # type: str
+        # The end time of the task. The time follows the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time is displayed in UTC.
         self.end_time = end_time  # type: str
+        # The instance ID.
         self.instance_id = instance_id  # type: str
+        # The instance name.
         self.instance_name = instance_name  # type: str
+        # The instance type. The return value is Instance.
         self.instance_type = instance_type  # type: str
+        # The product. The return value is kvstore.
         self.product = product  # type: str
+        # The task progress. Valid values: 0 to 100.
         self.progress = progress  # type: float
+        # The reason why the current task was initiated.
         self.reason_code = reason_code  # type: str
+        # The region ID.
         self.region_id = region_id  # type: str
+        # The estimated amount of time remaining to complete the task. Unit: seconds. A value of 0 indicates that the task is completed.
         self.remain_time = remain_time  # type: int
+        # The start time of the task. The time follows the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time is displayed in UTC.
         self.start_time = start_time  # type: str
+        # The task status.
+        # 
+        # *   **Scheduled**\
+        # *   **Running**\
+        # *   **Succeed**\
+        # *   **Failed**\
+        # *   **Cancelling**\
+        # *   **Canceled**\
+        # *   **Waiting**\
         self.status = status  # type: int
+        # The task details. The details vary based on the task type.
         self.task_detail = task_detail  # type: str
+        # The task ID.
         self.task_id = task_id  # type: str
+        # The task type.
+        # 
+        # *   **ModifyInsSpec**\
+        # *   **DeleteInsNode**\
+        # *   **AddInsNode**\
+        # *   **HaSwitch**\
+        # *   **RestartIns**\
+        # *   **CreateIns**\
+        # *   **ModifyInsConfig**\
         self.task_type = task_type  # type: str
+        # The ID of the user to which the resources belong.
         self.uid = uid  # type: str
 
     def validate(self):
@@ -9956,13 +10074,13 @@ class DescribeHistoryTasksResponseBodyItems(TeaModel):
 
 class DescribeHistoryTasksResponseBody(TeaModel):
     def __init__(self, items=None, page_number=None, page_size=None, request_id=None, total_count=None):
-        # The request source. Valid values: System and User.
+        # The queried task objects.
         self.items = items  # type: list[DescribeHistoryTasksResponseBodyItems]
-        # The page number. Pages start from page 1. Default value: 1.
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
-        # The number of entries per page. Valid values: 10 to 100. Default value: 10.
+        # The maximum number of entries returned per page.
         self.page_size = page_size  # type: int
-        # The unique ID of the request. If the request fails, provide this ID for technical support to troubleshoot the failure.
+        # The request ID.
         self.request_id = request_id  # type: str
         # The total number of tasks that meet these constraints without taking pagination into account.
         self.total_count = total_count  # type: int
@@ -13433,7 +13551,7 @@ class DescribeParameterTemplatesRequest(TeaModel):
         self.instance_id = instance_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The ID of the resource group to which the instance belongs. You can call the [ListResourceGroups](~~ListResourceGroups~~) operation to query the IDs of resource groups.
+        # The ID of the resource group to which the instance belongs. You can call the [ListResourceGroups](~~158855~~) operation to query the IDs of resource groups.
         # 
         # >  You can also query the ID of a resource group in the Resource Management console. For more information, see [View the basic information of a resource group](~~151181~~).
         self.resource_group_id = resource_group_id  # type: str
@@ -14045,7 +14163,7 @@ class DescribePriceRequest(TeaModel):
         # *   **false**: forcefully changes the configurations.
         # *   **true** (default): does not forcefully change the configurations.
         self.force_upgrade = force_upgrade  # type: bool
-        # The instance type.****\
+        # The instance type.
         # 
         # **To view the instance type, perform the following steps:**\
         # 
@@ -14266,11 +14384,94 @@ class DescribePriceResponseBodyOrderCoupons(TeaModel):
         return self
 
 
+class DescribePriceResponseBodyOrderDepreciateInfoContractActivityOptionIds(TeaModel):
+    def __init__(self, option_id=None):
+        self.option_id = option_id  # type: list[long]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribePriceResponseBodyOrderDepreciateInfoContractActivityOptionIds, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.option_id is not None:
+            result['OptionId'] = self.option_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('OptionId') is not None:
+            self.option_id = m.get('OptionId')
+        return self
+
+
+class DescribePriceResponseBodyOrderDepreciateInfoContractActivity(TeaModel):
+    def __init__(self, activity_id=None, activity_name=None, final_fee=None, final_prom_fee=None, option_code=None,
+                 option_ids=None, prod_fee=None):
+        self.activity_id = activity_id  # type: long
+        self.activity_name = activity_name  # type: str
+        self.final_fee = final_fee  # type: float
+        self.final_prom_fee = final_prom_fee  # type: float
+        self.option_code = option_code  # type: str
+        self.option_ids = option_ids  # type: DescribePriceResponseBodyOrderDepreciateInfoContractActivityOptionIds
+        self.prod_fee = prod_fee  # type: float
+
+    def validate(self):
+        if self.option_ids:
+            self.option_ids.validate()
+
+    def to_map(self):
+        _map = super(DescribePriceResponseBodyOrderDepreciateInfoContractActivity, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.activity_id is not None:
+            result['ActivityId'] = self.activity_id
+        if self.activity_name is not None:
+            result['ActivityName'] = self.activity_name
+        if self.final_fee is not None:
+            result['FinalFee'] = self.final_fee
+        if self.final_prom_fee is not None:
+            result['FinalPromFee'] = self.final_prom_fee
+        if self.option_code is not None:
+            result['OptionCode'] = self.option_code
+        if self.option_ids is not None:
+            result['OptionIds'] = self.option_ids.to_map()
+        if self.prod_fee is not None:
+            result['ProdFee'] = self.prod_fee
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ActivityId') is not None:
+            self.activity_id = m.get('ActivityId')
+        if m.get('ActivityName') is not None:
+            self.activity_name = m.get('ActivityName')
+        if m.get('FinalFee') is not None:
+            self.final_fee = m.get('FinalFee')
+        if m.get('FinalPromFee') is not None:
+            self.final_prom_fee = m.get('FinalPromFee')
+        if m.get('OptionCode') is not None:
+            self.option_code = m.get('OptionCode')
+        if m.get('OptionIds') is not None:
+            temp_model = DescribePriceResponseBodyOrderDepreciateInfoContractActivityOptionIds()
+            self.option_ids = temp_model.from_map(m['OptionIds'])
+        if m.get('ProdFee') is not None:
+            self.prod_fee = m.get('ProdFee')
+        return self
+
+
 class DescribePriceResponseBodyOrderDepreciateInfo(TeaModel):
-    def __init__(self, cheap_rate=None, cheap_stand_amount=None, differential=None, differential_name=None,
-                 is_contract_activity=None, is_show=None, list_price=None, month_price=None, original_stand_amount=None):
+    def __init__(self, cheap_rate=None, cheap_stand_amount=None, contract_activity=None, differential=None,
+                 differential_name=None, is_contract_activity=None, is_show=None, list_price=None, month_price=None,
+                 original_stand_amount=None):
         self.cheap_rate = cheap_rate  # type: long
         self.cheap_stand_amount = cheap_stand_amount  # type: long
+        self.contract_activity = contract_activity  # type: DescribePriceResponseBodyOrderDepreciateInfoContractActivity
         self.differential = differential  # type: long
         self.differential_name = differential_name  # type: str
         self.is_contract_activity = is_contract_activity  # type: bool
@@ -14280,7 +14481,8 @@ class DescribePriceResponseBodyOrderDepreciateInfo(TeaModel):
         self.original_stand_amount = original_stand_amount  # type: long
 
     def validate(self):
-        pass
+        if self.contract_activity:
+            self.contract_activity.validate()
 
     def to_map(self):
         _map = super(DescribePriceResponseBodyOrderDepreciateInfo, self).to_map()
@@ -14292,6 +14494,8 @@ class DescribePriceResponseBodyOrderDepreciateInfo(TeaModel):
             result['CheapRate'] = self.cheap_rate
         if self.cheap_stand_amount is not None:
             result['CheapStandAmount'] = self.cheap_stand_amount
+        if self.contract_activity is not None:
+            result['ContractActivity'] = self.contract_activity.to_map()
         if self.differential is not None:
             result['Differential'] = self.differential
         if self.differential_name is not None:
@@ -14314,6 +14518,9 @@ class DescribePriceResponseBodyOrderDepreciateInfo(TeaModel):
             self.cheap_rate = m.get('CheapRate')
         if m.get('CheapStandAmount') is not None:
             self.cheap_stand_amount = m.get('CheapStandAmount')
+        if m.get('ContractActivity') is not None:
+            temp_model = DescribePriceResponseBodyOrderDepreciateInfoContractActivity()
+            self.contract_activity = temp_model.from_map(m['ContractActivity'])
         if m.get('Differential') is not None:
             self.differential = m.get('Differential')
         if m.get('DifferentialName') is not None:
@@ -14531,11 +14738,93 @@ class DescribePriceResponseBodyRules(TeaModel):
         return self
 
 
+class DescribePriceResponseBodySubOrdersSubOrderDepreciateInfoContractActivityOptionIds(TeaModel):
+    def __init__(self, option_id=None):
+        self.option_id = option_id  # type: list[long]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribePriceResponseBodySubOrdersSubOrderDepreciateInfoContractActivityOptionIds, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.option_id is not None:
+            result['OptionId'] = self.option_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('OptionId') is not None:
+            self.option_id = m.get('OptionId')
+        return self
+
+
+class DescribePriceResponseBodySubOrdersSubOrderDepreciateInfoContractActivity(TeaModel):
+    def __init__(self, activity_id=None, activity_name=None, final_fee=None, final_prom_fee=None, option_code=None,
+                 option_ids=None, prod_fee=None):
+        self.activity_id = activity_id  # type: long
+        self.activity_name = activity_name  # type: str
+        self.final_fee = final_fee  # type: float
+        self.final_prom_fee = final_prom_fee  # type: float
+        self.option_code = option_code  # type: str
+        self.option_ids = option_ids  # type: DescribePriceResponseBodySubOrdersSubOrderDepreciateInfoContractActivityOptionIds
+        self.prod_fee = prod_fee  # type: float
+
+    def validate(self):
+        if self.option_ids:
+            self.option_ids.validate()
+
+    def to_map(self):
+        _map = super(DescribePriceResponseBodySubOrdersSubOrderDepreciateInfoContractActivity, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.activity_id is not None:
+            result['ActivityId'] = self.activity_id
+        if self.activity_name is not None:
+            result['ActivityName'] = self.activity_name
+        if self.final_fee is not None:
+            result['FinalFee'] = self.final_fee
+        if self.final_prom_fee is not None:
+            result['FinalPromFee'] = self.final_prom_fee
+        if self.option_code is not None:
+            result['OptionCode'] = self.option_code
+        if self.option_ids is not None:
+            result['OptionIds'] = self.option_ids.to_map()
+        if self.prod_fee is not None:
+            result['ProdFee'] = self.prod_fee
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ActivityId') is not None:
+            self.activity_id = m.get('ActivityId')
+        if m.get('ActivityName') is not None:
+            self.activity_name = m.get('ActivityName')
+        if m.get('FinalFee') is not None:
+            self.final_fee = m.get('FinalFee')
+        if m.get('FinalPromFee') is not None:
+            self.final_prom_fee = m.get('FinalPromFee')
+        if m.get('OptionCode') is not None:
+            self.option_code = m.get('OptionCode')
+        if m.get('OptionIds') is not None:
+            temp_model = DescribePriceResponseBodySubOrdersSubOrderDepreciateInfoContractActivityOptionIds()
+            self.option_ids = temp_model.from_map(m['OptionIds'])
+        if m.get('ProdFee') is not None:
+            self.prod_fee = m.get('ProdFee')
+        return self
+
+
 class DescribePriceResponseBodySubOrdersSubOrderDepreciateInfo(TeaModel):
-    def __init__(self, cheap_rate=None, cheap_stand_amount=None, differential=None, differential_name=None,
-                 is_contract_activity=None, list_price=None, month_price=None, original_stand_amount=None):
+    def __init__(self, cheap_rate=None, cheap_stand_amount=None, contract_activity=None, differential=None,
+                 differential_name=None, is_contract_activity=None, list_price=None, month_price=None, original_stand_amount=None):
         self.cheap_rate = cheap_rate  # type: long
         self.cheap_stand_amount = cheap_stand_amount  # type: long
+        self.contract_activity = contract_activity  # type: DescribePriceResponseBodySubOrdersSubOrderDepreciateInfoContractActivity
         self.differential = differential  # type: long
         self.differential_name = differential_name  # type: str
         self.is_contract_activity = is_contract_activity  # type: bool
@@ -14544,7 +14833,8 @@ class DescribePriceResponseBodySubOrdersSubOrderDepreciateInfo(TeaModel):
         self.original_stand_amount = original_stand_amount  # type: long
 
     def validate(self):
-        pass
+        if self.contract_activity:
+            self.contract_activity.validate()
 
     def to_map(self):
         _map = super(DescribePriceResponseBodySubOrdersSubOrderDepreciateInfo, self).to_map()
@@ -14556,6 +14846,8 @@ class DescribePriceResponseBodySubOrdersSubOrderDepreciateInfo(TeaModel):
             result['CheapRate'] = self.cheap_rate
         if self.cheap_stand_amount is not None:
             result['CheapStandAmount'] = self.cheap_stand_amount
+        if self.contract_activity is not None:
+            result['ContractActivity'] = self.contract_activity.to_map()
         if self.differential is not None:
             result['Differential'] = self.differential
         if self.differential_name is not None:
@@ -14576,6 +14868,9 @@ class DescribePriceResponseBodySubOrdersSubOrderDepreciateInfo(TeaModel):
             self.cheap_rate = m.get('CheapRate')
         if m.get('CheapStandAmount') is not None:
             self.cheap_stand_amount = m.get('CheapStandAmount')
+        if m.get('ContractActivity') is not None:
+            temp_model = DescribePriceResponseBodySubOrdersSubOrderDepreciateInfoContractActivity()
+            self.contract_activity = temp_model.from_map(m['ContractActivity'])
         if m.get('Differential') is not None:
             self.differential = m.get('Differential')
         if m.get('DifferentialName') is not None:
@@ -14663,8 +14958,10 @@ class DescribePriceResponseBodySubOrdersSubOrderModuleInstanceModuleInstanceModu
 
 
 class DescribePriceResponseBodySubOrdersSubOrderModuleInstanceModuleInstance(TeaModel):
-    def __init__(self, discount_fee=None, module_attrs=None, module_code=None, module_id=None, module_name=None,
-                 need_order_pay=None, pay_fee=None, pricing_module=None, stand_price=None, total_product_fee=None):
+    def __init__(self, contract_activity=None, discount_fee=None, module_attrs=None, module_code=None,
+                 module_id=None, module_name=None, need_order_pay=None, pay_fee=None, pricing_module=None, stand_price=None,
+                 total_product_fee=None):
+        self.contract_activity = contract_activity  # type: bool
         self.discount_fee = discount_fee  # type: float
         self.module_attrs = module_attrs  # type: DescribePriceResponseBodySubOrdersSubOrderModuleInstanceModuleInstanceModuleAttrs
         self.module_code = module_code  # type: str
@@ -14686,6 +14983,8 @@ class DescribePriceResponseBodySubOrdersSubOrderModuleInstanceModuleInstance(Tea
             return _map
 
         result = dict()
+        if self.contract_activity is not None:
+            result['ContractActivity'] = self.contract_activity
         if self.discount_fee is not None:
             result['DiscountFee'] = self.discount_fee
         if self.module_attrs is not None:
@@ -14710,6 +15009,8 @@ class DescribePriceResponseBodySubOrdersSubOrderModuleInstanceModuleInstance(Tea
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ContractActivity') is not None:
+            self.contract_activity = m.get('ContractActivity')
         if m.get('DiscountFee') is not None:
             self.discount_fee = m.get('DiscountFee')
         if m.get('ModuleAttrs') is not None:
@@ -14869,11 +15170,14 @@ class DescribePriceResponseBodySubOrdersSubOrderOptionalPromotions(TeaModel):
 
 
 class DescribePriceResponseBodySubOrdersSubOrderPromDetailListPromDetail(TeaModel):
-    def __init__(self, final_prom_fee=None, option_code=None, prom_type=None, promotion_id=None,
-                 promotion_name=None):
+    def __init__(self, activity_ext_info=None, derived_prom_type=None, final_prom_fee=None, option_code=None,
+                 prom_type=None, promotion_code=None, promotion_id=None, promotion_name=None):
+        self.activity_ext_info = activity_ext_info  # type: dict[str, any]
+        self.derived_prom_type = derived_prom_type  # type: str
         self.final_prom_fee = final_prom_fee  # type: float
         self.option_code = option_code  # type: str
         self.prom_type = prom_type  # type: str
+        self.promotion_code = promotion_code  # type: str
         self.promotion_id = promotion_id  # type: long
         self.promotion_name = promotion_name  # type: str
 
@@ -14886,12 +15190,18 @@ class DescribePriceResponseBodySubOrdersSubOrderPromDetailListPromDetail(TeaMode
             return _map
 
         result = dict()
+        if self.activity_ext_info is not None:
+            result['ActivityExtInfo'] = self.activity_ext_info
+        if self.derived_prom_type is not None:
+            result['DerivedPromType'] = self.derived_prom_type
         if self.final_prom_fee is not None:
             result['FinalPromFee'] = self.final_prom_fee
         if self.option_code is not None:
             result['OptionCode'] = self.option_code
         if self.prom_type is not None:
             result['PromType'] = self.prom_type
+        if self.promotion_code is not None:
+            result['PromotionCode'] = self.promotion_code
         if self.promotion_id is not None:
             result['PromotionId'] = self.promotion_id
         if self.promotion_name is not None:
@@ -14900,12 +15210,18 @@ class DescribePriceResponseBodySubOrdersSubOrderPromDetailListPromDetail(TeaMode
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ActivityExtInfo') is not None:
+            self.activity_ext_info = m.get('ActivityExtInfo')
+        if m.get('DerivedPromType') is not None:
+            self.derived_prom_type = m.get('DerivedPromType')
         if m.get('FinalPromFee') is not None:
             self.final_prom_fee = m.get('FinalPromFee')
         if m.get('OptionCode') is not None:
             self.option_code = m.get('OptionCode')
         if m.get('PromType') is not None:
             self.prom_type = m.get('PromType')
+        if m.get('PromotionCode') is not None:
+            self.promotion_code = m.get('PromotionCode')
         if m.get('PromotionId') is not None:
             self.promotion_id = m.get('PromotionId')
         if m.get('PromotionName') is not None:
@@ -14970,9 +15286,10 @@ class DescribePriceResponseBodySubOrdersSubOrderRuleIds(TeaModel):
 
 
 class DescribePriceResponseBodySubOrdersSubOrder(TeaModel):
-    def __init__(self, depreciate_info=None, discount_amount=None, instance_id=None, is_contract_activity=None,
-                 module_instance=None, optional_promotions=None, original_amount=None, prom_detail_list=None, rule_ids=None,
-                 stand_discount_price=None, stand_price=None, trade_amount=None):
+    def __init__(self, contract_activity=None, depreciate_info=None, discount_amount=None, instance_id=None,
+                 is_contract_activity=None, module_instance=None, optional_promotions=None, original_amount=None, prom_detail_list=None,
+                 rule_ids=None, stand_discount_price=None, stand_price=None, trade_amount=None):
+        self.contract_activity = contract_activity  # type: bool
         self.depreciate_info = depreciate_info  # type: DescribePriceResponseBodySubOrdersSubOrderDepreciateInfo
         # The discount amount of the order.
         self.discount_amount = discount_amount  # type: str
@@ -15009,6 +15326,8 @@ class DescribePriceResponseBodySubOrdersSubOrder(TeaModel):
             return _map
 
         result = dict()
+        if self.contract_activity is not None:
+            result['ContractActivity'] = self.contract_activity
         if self.depreciate_info is not None:
             result['DepreciateInfo'] = self.depreciate_info.to_map()
         if self.discount_amount is not None:
@@ -15037,6 +15356,8 @@ class DescribePriceResponseBodySubOrdersSubOrder(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ContractActivity') is not None:
+            self.contract_activity = m.get('ContractActivity')
         if m.get('DepreciateInfo') is not None:
             temp_model = DescribePriceResponseBodySubOrdersSubOrderDepreciateInfo()
             self.depreciate_info = temp_model.from_map(m['DepreciateInfo'])
@@ -16571,9 +16892,9 @@ class DescribeSlowLogRecordsResponseBodyItemsLogRecords(TeaModel):
         self.account_name = account_name  # type: str
         # The slow query statement.
         self.command = command  # type: str
-        # The name of the database.
+        # The database name.
         self.dbname = dbname  # type: str
-        # The name of the database, which serves the same purpose as the **DBName** parameter. We recommend that you use the value of the **DBName** parameter.
+        # The database name. This parameter serves the same purpose as the **DBName** parameter. We recommend that you use the **DBName** parameter.
         self.data_base_name = data_base_name  # type: str
         # The amount of time consumed to execute the slow query statement. Unit: microseconds.
         self.elapsed_time = elapsed_time  # type: long
@@ -16675,7 +16996,7 @@ class DescribeSlowLogRecordsResponseBody(TeaModel):
         self.engine = engine  # type: str
         # The ID of the instance.
         self.instance_id = instance_id  # type: str
-        # The slow log entries.
+        # The slow query log entries.
         self.items = items  # type: DescribeSlowLogRecordsResponseBodyItems
         # The page number of the returned page.
         self.page_number = page_number  # type: int
@@ -21100,7 +21421,7 @@ class ModifyInstanceSSLResponse(TeaModel):
 class ModifyInstanceSpecRequest(TeaModel):
     def __init__(self, auto_pay=None, business_info=None, client_token=None, coupon_no=None, effective_time=None,
                  force_trans=None, force_upgrade=None, instance_class=None, instance_id=None, major_version=None,
-                 order_type=None, owner_account=None, owner_id=None, read_only_count=None, region_id=None,
+                 node_type=None, order_type=None, owner_account=None, owner_id=None, read_only_count=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None, security_token=None, shard_count=None, slave_read_only_count=None,
                  source_biz=None):
         # Specifies whether to enable auto-renewal. Default value: true. Valid values:
@@ -21137,6 +21458,7 @@ class ModifyInstanceSpecRequest(TeaModel):
         self.instance_id = instance_id  # type: str
         # The major version to which you want to upgrade. When you change the configurations of an instance, you can upgrade the major version of the instance by setting this parameter. Valid values: **4.0** and **5.0**.
         self.major_version = major_version  # type: str
+        self.node_type = node_type  # type: str
         # The change type. This parameter is required when you change the configurations of a subscription instance. Default value: UPGRADE. Valid values:
         # 
         # *   **UPGRADE**: upgrades the configurations of a subscription instance.
@@ -21147,7 +21469,10 @@ class ModifyInstanceSpecRequest(TeaModel):
         self.order_type = order_type  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The number of read-only nodes. This parameter is available only for read/write splitting instances that use cloud disks. Valid values: 1 to 5.
+        # The number of read replicas. Valid values: 0 to 5. This parameter applies only to the following scenarios:
+        # 
+        # *   If the instance is a standard instance that uses cloud disks, you can set this parameter to a value greater than 0 to enable the read/write splitting architecture.
+        # *   If the instance is a read/write splitting instance that uses cloud disks, you can use this parameter to customize the number of read replicas. You can also set this parameter to 0 to disable the read/write splitting architecture and switch the instance to the standard architecture.
         self.read_only_count = read_only_count  # type: int
         # The region ID of the instance. You can call the [DescribeRegions](~~61012~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
@@ -21189,6 +21514,8 @@ class ModifyInstanceSpecRequest(TeaModel):
             result['InstanceId'] = self.instance_id
         if self.major_version is not None:
             result['MajorVersion'] = self.major_version
+        if self.node_type is not None:
+            result['NodeType'] = self.node_type
         if self.order_type is not None:
             result['OrderType'] = self.order_type
         if self.owner_account is not None:
@@ -21235,6 +21562,8 @@ class ModifyInstanceSpecRequest(TeaModel):
             self.instance_id = m.get('InstanceId')
         if m.get('MajorVersion') is not None:
             self.major_version = m.get('MajorVersion')
+        if m.get('NodeType') is not None:
+            self.node_type = m.get('NodeType')
         if m.get('OrderType') is not None:
             self.order_type = m.get('OrderType')
         if m.get('OwnerAccount') is not None:
@@ -22931,22 +23260,15 @@ class RestartInstanceRequest(TeaModel):
         # 
         # *   **Immediately**: immediately restarts the instance.
         # *   **MaintainTime**: restarts the instance during the maintenance window.
-        # 
-        # Enumeration values:
-        # 
-        # *   0
-        # *   1
-        # *   Immediately
-        # *   MaintainTime
         self.effective_time = effective_time  # type: str
-        # The operation that you want to perform. Set the value to **RestartInstance**.
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         self.security_token = security_token  # type: str
-        # Specifies whether to update the instance to the latest minor version when the instance is restarted. Valid values:
+        # Specifies whether to update to the latest minor version when the instance is restarted. Valid values:
         # 
         # *   **true**: updates the minor version.
         # *   **false**: does not update the minor version.
@@ -23493,35 +23815,41 @@ class SwitchNetworkRequest(TeaModel):
     def __init__(self, classic_expired_days=None, instance_id=None, owner_account=None, owner_id=None,
                  resource_owner_account=None, resource_owner_id=None, retain_classic=None, security_token=None, target_network_type=None,
                  v_switch_id=None, vpc_id=None):
-        # The retention period of the endpoint for the classic network. Valid values: **14**, **30**, **60**, and **120**. Unit: days.
+        # The retention period of the classic network endpoint. Valid values: **14**, **30**, **60**, and **120**. Unit: days.
         # 
-        # > *   This parameter is required when **RetainClassic** is set to **True**.
-        # > *   After you complete the switchover operation, you can also call the [ModifyInstanceNetExpireTime](~~ModifyInstanceNetExpireTime~~) operation to modify the retention period of the endpoint for the classic network.
+        # > 
+        # 
+        # *   This parameter is available and required only when the **RetainClassic** parameter is set to **True**.
+        # 
+        # *   After you complete the switchover operation, you can also call the [ModifyInstanceNetExpireTime](~~61010~~) operation to modify the retention period of the classic network endpoint.
         self.classic_expired_days = classic_expired_days  # type: str
-        # The ID of the instance. You can call the [DescribeInstances](~~DescribeInstances~~) operation to query instance IDs.
+        # The ID of the instance. You can call the [DescribeInstances](~~60933~~) operation to query the ID of the instance.
         self.instance_id = instance_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # Specifies whether to retain the original endpoint for the classic network after you switch the instance from classic network to VPC. Valid values:
+        # Specifies whether to retain the original classic network endpoint after you switch the instance from classic network to VPC. Default value: False. Valid values:
         # 
-        # *   **True**: retains the original endpoint.
-        # *   **False**: does not retain the original endpoint. This is the default value.
+        # *   **True**: retains the classic network endpoint.
+        # *   **False**: does not retain the classic network endpoint.
         # 
-        # >  This parameter can be used only when the network type of the instance is classic network.
+        # > This parameter is available only when the network type of the instance is classic network.
         self.retain_classic = retain_classic  # type: str
         self.security_token = security_token  # type: str
         # The network type to which you want to switch. Set the value to **VPC**.
         self.target_network_type = target_network_type  # type: str
-        # The ID of the vSwitch that belongs to the VPC to which you want to switch. You can call the [DescribeVpcs](~~35739~~) operation to query vSwitch IDs.
+        # The ID of the vSwitch that belongs to the VPC to which you want to switch. You can call the [DescribeVpcs](~~35739~~) operation to query the VPC ID.
         # 
-        # >  The vSwitch and the ApsaraDB for Redis instance must belong to the same zone.
+        # > The vSwitch and the ApsaraDB for Redis instance must be deployed in the same zone.
         self.v_switch_id = v_switch_id  # type: str
-        # The ID of the VPC to which you want to switch. You can call the [DescribeVpcs](~~35739~~) operation to query VPC IDs.
+        # The ID of the VPC to which you want to switch. You can call the [DescribeVpcs](~~35739~~) operation to query the VPC ID.
         # 
-        # > *   The VPC and the ApsaraDB for Redis instance must be deployed in the same region.
-        # > *   After you set this parameter, you must also set the **VSwitchId** parameter.
+        # > 
+        # 
+        # *   The VPC and the ApsaraDB for Redis instance must be deployed in the same region.
+        # 
+        # *   After you set this parameter, you must also set the **VSwitchId** parameter.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
