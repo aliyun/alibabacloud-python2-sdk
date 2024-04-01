@@ -1478,44 +1478,47 @@ class CreateNodeRequest(TeaModel):
                  shard_direct=None):
         # The username of the account. The username must meet the following requirements:
         # 
-        # * The username starts with a lowercase letter.
-        # * The username contains lowercase letters, digits, and underscores (\_).
-        # * The username is 4 to 16 characters in length.
+        # *   The username starts with a lowercase letter.
+        # *   The username can contain lowercase letters, digits, and underscores (\_).
+        # *   The username must be 4 to 16 characters in length.
         # 
-        # > * Keywords cannot be used as account usernames.
-        # > * The permissions of this account are fixed at read-only.
-        # > * The username and password are required to be set only when you apply for an endpoint for the shard node for the first time.
+        # > 
+        # 
+        # *   Keywords cannot be used as accounts.
+        # 
+        # *   This account is granted the read-only permissions.
+        # *   The username and password need to be set if you apply for an endpoint for the shard node for the first time.
         self.account_name = account_name  # type: str
         # The password of the account. The password must meet the following requirements:
         # 
-        # * The password contains at least three of the following character types: uppercase letters, lowercase letters, digits, and specific special characters.
-        # * These special characters include ! @ # $ % ^ & \* ( ) \_ + - =\
-        # * The password is 8 to 32 characters in length.
+        # *   The password contains at least three of the following character types: uppercase letters, lowercase letters, digits, and special characters.
+        # *   These special characters include ! @ # $ % ^ & \* ( ) \_ + - =\
+        # *   The password is 8 to 32 characters in length.
         # 
-        # >  The account password of the shard node cannot be reset.
+        # >  ApsaraDB for MongoDB does not allow you to reset the password of an account.
         self.account_password = account_password  # type: str
-        # Specifies whether to enable automatic payment. Default value: true. Valid values:
+        # Specifies whether to enable automatic payment. Valid values:
         # 
-        # *   **true**: enables automatic payment. Make sure that you have sufficient balance within your account.
-        # *   **false**: disables automatic payment. You can perform the following operations to pay for the instance: Log on to the ApsaraDB for MongoDB console. In the upper-right corner of the page, choose **Expenses** > **Orders**. On the **Orders** page, find the order and complete the payment.********\
+        # *   **true** (default): enables automatic payment. Make sure that you have sufficient balance within your account.
+        # *   **false**: disables automatic payment. You can perform the following operations to pay for the instance: Log on to the ApsaraDB for MongoDB console. In the upper-right corner of the page, choose **Expenses** > Orders. On the **Orders** page, find the order that you want to pay for and complete the payment.
         # 
-        # >  This parameter is required when the billing method of the instance is subscription.
+        # >  This parameter is required only when the billing method of the instance is subscription.
         self.auto_pay = auto_pay  # type: bool
         # The business information. This is an additional parameter.
         self.business_info = business_info  # type: str
-        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must make sure that it is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.
+        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the generated token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.
         self.client_token = client_token  # type: str
-        # The coupon code. Default value: **youhuiquan\_promotion\_option\_id\_for\_blank**.
+        # The coupon code. Default value: **youhuiquan_promotion_option_id_for_blank**.
         self.coupon_no = coupon_no  # type: str
         # The ID of the sharded cluster instance.
         self.dbinstance_id = dbinstance_id  # type: str
-        # The specifications of the shard or mongos node. For more information, see [Instance types](~~57141~~).
+        # The instance type of the shard or mongos node. For more information, see [Instance types](~~57141~~).
         self.node_class = node_class  # type: str
         # The disk capacity of the node. Unit: GB.
         # 
-        # Valid values: **10** to **2000**. The value must be a multiple of 10. Unit: GB.
+        # Valid values: **10** to **2000**. The value must be a multiple of 10.
         # 
-        # >  This parameter is required if the NodeType parameter is set to **shard**.
+        # >  This parameter is required only when the NodeType parameter is set to **shard**.
         self.node_storage = node_storage  # type: int
         # The type of the node. Valid values:
         # 
@@ -1526,16 +1529,16 @@ class CreateNodeRequest(TeaModel):
         self.owner_id = owner_id  # type: long
         # The number of read-only nodes in the shard node.
         # 
-        # Valid values: **0** to **5**. The value must be an integer. Default value: **0**.
+        # Valid values: **0**, 1, 2, 3, 4, and **5**. Default value: **0**.
         # 
         # >  This parameter is available only for ApsaraDB for MongoDB instances that are purchased on the China site (aliyun.com).
         self.readonly_replicas = readonly_replicas  # type: int
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # Specifies whether to apply for an endpoint for the shard node. Default value: false. Valid values:
+        # Specifies whether to apply for an endpoint for the shard node. Valid values:
         # 
         # *   **true**: applies for an endpoint for the shard node.
-        # *   **false** : does not apply for an endpoint for the shard node.
+        # *   **false** (default): does not apply for an endpoint for the shard node.
         self.shard_direct = shard_direct  # type: bool
 
     def validate(self):
@@ -1620,11 +1623,11 @@ class CreateNodeRequest(TeaModel):
 
 class CreateNodeResponseBody(TeaModel):
     def __init__(self, node_id=None, order_id=None, request_id=None):
-        # The ID of the node.
+        # The node ID.
         self.node_id = node_id  # type: str
-        # The ID of the order.
+        # The order ID.
         self.order_id = order_id  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3236,8 +3239,8 @@ class DescribeActiveOperationTaskTypeResponseBodyTypeList(TeaModel):
         self.count = count  # type: int
         # The type of the task. Valid values:
         # 
-        # *   \*\*rds_apsaradb_transfer\*\*: data migration
-        # *   \*\*rds_apsaradb_upgrade\*\*: minor version update
+        # *   **rds_apsaradb_transfer**: data migration
+        # *   **rds_apsaradb_upgrade**: minor version update
         self.task_type = task_type  # type: str
         # The task type in English.
         self.task_type_info_en = task_type_info_en  # type: str
@@ -15417,7 +15420,7 @@ class DescribeRegionsResponseBodyRegionsDdsRegionZonesZone(TeaModel):
         # 
         # The value of the ZoneName parameter is in the language that is specified by the **AcceptLanguage** parameter. For example, if the value of the ZoneId parameter in the response is **cn-hangzhou-h**, the following values are returned for the ZoneName parameter:
         # 
-        # *   If the value of the **AcceptLanguage** parameter is **zh**, the value ** H** is returned for the ZoneName parameter.
+        # *   If the value of the **AcceptLanguage** parameter is **zh**, the value **H** is returned for the ZoneName parameter.
         # *   If the value of the **AcceptLanguage** parameter is **en**, the value **Hangzhou Zone H** is returned for the ZoneName parameter.
         self.zone_name = zone_name  # type: str
 
@@ -15495,7 +15498,7 @@ class DescribeRegionsResponseBodyRegionsDdsRegion(TeaModel):
         # 
         # The value of the LocalName parameter is in the language that is specified by the **AcceptLanguage** parameter. For example, if the value of the RegionId parameter in the response is **cn-hangzhou**, the following values are returned for the LocalName parameter:
         # 
-        # *   If the value of the **AcceptLanguage** parameter is **zh**, the value **1** is returned for the LocalName parameter.
+        # *   If the value of the **AcceptLanguage** parameter is **zh**, the value **1（）** is returned for the LocalName parameter.
         # *   If the value of the **AcceptLanguage** parameter is **en**, the value **China (Hangzhou)** is returned for the LocalName parameter.
         self.region_name = region_name  # type: str
         # The zones.
@@ -18381,7 +18384,7 @@ class EvaluateResourceRequest(TeaModel):
     def __init__(self, dbinstance_class=None, dbinstance_id=None, engine=None, engine_version=None,
                  owner_account=None, owner_id=None, readonly_replicas=None, region_id=None, replication_factor=None,
                  resource_owner_account=None, resource_owner_id=None, shards_info=None, storage=None, zone_id=None):
-        # The stype of the instance.
+        # The type of the instance.
         # 
         # > This parameter is required when you check whether resources are sufficient for creating or upgrading a replica set instance. For more information about instance types, see [Instance types](~~57141~~).
         self.dbinstance_class = dbinstance_class  # type: str
@@ -18391,11 +18394,21 @@ class EvaluateResourceRequest(TeaModel):
         self.engine = engine  # type: str
         # The version of the database engine. Valid values:
         # 
+        # *   **7.0**\
+        # *   **6.0**\
         # *   **5.0**\
         # *   **4.4**\
         # *   **4.2**\
         # *   **4.0**\
-        # *   **3.4**\
+        # 
+        # <!---->
+        # 
+        # *   3.4
+        # *   4.0
+        # *   4.2
+        # *   4.4
+        # *   5.0
+        # *   6.0
         self.engine_version = engine_version  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -20122,6 +20135,141 @@ class ModifyDBInstanceDescriptionResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ModifyDBInstanceDescriptionResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ModifyDBInstanceDiskTypeRequest(TeaModel):
+    def __init__(self, auto_pay=None, auto_renew=None, business_info=None, coupon_no=None, dbinstance_id=None,
+                 db_instance_storage_type=None, extra_param=None, order_type=None, provisioned_iops=None, resource_owner_id=None):
+        self.auto_pay = auto_pay  # type: bool
+        self.auto_renew = auto_renew  # type: str
+        self.business_info = business_info  # type: str
+        self.coupon_no = coupon_no  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.db_instance_storage_type = db_instance_storage_type  # type: str
+        self.extra_param = extra_param  # type: str
+        self.order_type = order_type  # type: str
+        self.provisioned_iops = provisioned_iops  # type: long
+        self.resource_owner_id = resource_owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyDBInstanceDiskTypeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auto_pay is not None:
+            result['AutoPay'] = self.auto_pay
+        if self.auto_renew is not None:
+            result['AutoRenew'] = self.auto_renew
+        if self.business_info is not None:
+            result['BusinessInfo'] = self.business_info
+        if self.coupon_no is not None:
+            result['CouponNo'] = self.coupon_no
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.db_instance_storage_type is not None:
+            result['DbInstanceStorageType'] = self.db_instance_storage_type
+        if self.extra_param is not None:
+            result['ExtraParam'] = self.extra_param
+        if self.order_type is not None:
+            result['OrderType'] = self.order_type
+        if self.provisioned_iops is not None:
+            result['ProvisionedIops'] = self.provisioned_iops
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AutoPay') is not None:
+            self.auto_pay = m.get('AutoPay')
+        if m.get('AutoRenew') is not None:
+            self.auto_renew = m.get('AutoRenew')
+        if m.get('BusinessInfo') is not None:
+            self.business_info = m.get('BusinessInfo')
+        if m.get('CouponNo') is not None:
+            self.coupon_no = m.get('CouponNo')
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('DbInstanceStorageType') is not None:
+            self.db_instance_storage_type = m.get('DbInstanceStorageType')
+        if m.get('ExtraParam') is not None:
+            self.extra_param = m.get('ExtraParam')
+        if m.get('OrderType') is not None:
+            self.order_type = m.get('OrderType')
+        if m.get('ProvisionedIops') is not None:
+            self.provisioned_iops = m.get('ProvisionedIops')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        return self
+
+
+class ModifyDBInstanceDiskTypeResponseBody(TeaModel):
+    def __init__(self, order_id=None, request_id=None):
+        self.order_id = order_id  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyDBInstanceDiskTypeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.order_id is not None:
+            result['OrderId'] = self.order_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('OrderId') is not None:
+            self.order_id = m.get('OrderId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ModifyDBInstanceDiskTypeResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ModifyDBInstanceDiskTypeResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyDBInstanceDiskTypeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ModifyDBInstanceDiskTypeResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
