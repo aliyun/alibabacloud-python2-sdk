@@ -2207,15 +2207,20 @@ class BargeInCallResponse(TeaModel):
 
 class BlindTransferRequest(TeaModel):
     def __init__(self, call_priority=None, contact_flow_variables=None, device_id=None, instance_id=None,
-                 job_id=None, strategy_name=None, strategy_params=None, timeout_seconds=None, transferee=None,
-                 transferee_type=None, transferor=None, user_id=None):
+                 job_id=None, queuing_overflow_threshold=None, queuing_timeout_seconds=None, routing_type=None,
+                 strategy_name=None, strategy_params=None, tags=None, timeout_seconds=None, transferee=None, transferee_type=None,
+                 transferor=None, user_id=None):
         self.call_priority = call_priority  # type: int
         self.contact_flow_variables = contact_flow_variables  # type: str
         self.device_id = device_id  # type: str
         self.instance_id = instance_id  # type: str
         self.job_id = job_id  # type: str
+        self.queuing_overflow_threshold = queuing_overflow_threshold  # type: long
+        self.queuing_timeout_seconds = queuing_timeout_seconds  # type: long
+        self.routing_type = routing_type  # type: str
         self.strategy_name = strategy_name  # type: str
         self.strategy_params = strategy_params  # type: str
+        self.tags = tags  # type: str
         self.timeout_seconds = timeout_seconds  # type: int
         self.transferee = transferee  # type: str
         self.transferee_type = transferee_type  # type: str
@@ -2241,10 +2246,18 @@ class BlindTransferRequest(TeaModel):
             result['InstanceId'] = self.instance_id
         if self.job_id is not None:
             result['JobId'] = self.job_id
+        if self.queuing_overflow_threshold is not None:
+            result['QueuingOverflowThreshold'] = self.queuing_overflow_threshold
+        if self.queuing_timeout_seconds is not None:
+            result['QueuingTimeoutSeconds'] = self.queuing_timeout_seconds
+        if self.routing_type is not None:
+            result['RoutingType'] = self.routing_type
         if self.strategy_name is not None:
             result['StrategyName'] = self.strategy_name
         if self.strategy_params is not None:
             result['StrategyParams'] = self.strategy_params
+        if self.tags is not None:
+            result['Tags'] = self.tags
         if self.timeout_seconds is not None:
             result['TimeoutSeconds'] = self.timeout_seconds
         if self.transferee is not None:
@@ -2269,10 +2282,18 @@ class BlindTransferRequest(TeaModel):
             self.instance_id = m.get('InstanceId')
         if m.get('JobId') is not None:
             self.job_id = m.get('JobId')
+        if m.get('QueuingOverflowThreshold') is not None:
+            self.queuing_overflow_threshold = m.get('QueuingOverflowThreshold')
+        if m.get('QueuingTimeoutSeconds') is not None:
+            self.queuing_timeout_seconds = m.get('QueuingTimeoutSeconds')
+        if m.get('RoutingType') is not None:
+            self.routing_type = m.get('RoutingType')
         if m.get('StrategyName') is not None:
             self.strategy_name = m.get('StrategyName')
         if m.get('StrategyParams') is not None:
             self.strategy_params = m.get('StrategyParams')
+        if m.get('Tags') is not None:
+            self.tags = m.get('Tags')
         if m.get('TimeoutSeconds') is not None:
             self.timeout_seconds = m.get('TimeoutSeconds')
         if m.get('Transferee') is not None:
@@ -14325,16 +14346,22 @@ class ImportDoNotCallNumbersResponse(TeaModel):
 
 
 class InitiateAttendedTransferRequest(TeaModel):
-    def __init__(self, call_priority=None, device_id=None, instance_id=None, job_id=None, strategy_name=None,
-                 strategy_params=None, timeout_seconds=None, transferee=None, transferor=None, user_id=None):
+    def __init__(self, call_priority=None, device_id=None, instance_id=None, job_id=None,
+                 queuing_overflow_threshold=None, queuing_timeout_seconds=None, routing_type=None, strategy_name=None, strategy_params=None,
+                 tags=None, timeout_seconds=None, transferee=None, transferee_type=None, transferor=None, user_id=None):
         self.call_priority = call_priority  # type: int
         self.device_id = device_id  # type: str
         self.instance_id = instance_id  # type: str
         self.job_id = job_id  # type: str
+        self.queuing_overflow_threshold = queuing_overflow_threshold  # type: long
+        self.queuing_timeout_seconds = queuing_timeout_seconds  # type: long
+        self.routing_type = routing_type  # type: str
         self.strategy_name = strategy_name  # type: str
         self.strategy_params = strategy_params  # type: str
+        self.tags = tags  # type: str
         self.timeout_seconds = timeout_seconds  # type: int
         self.transferee = transferee  # type: str
+        self.transferee_type = transferee_type  # type: str
         self.transferor = transferor  # type: str
         self.user_id = user_id  # type: str
 
@@ -14355,14 +14382,24 @@ class InitiateAttendedTransferRequest(TeaModel):
             result['InstanceId'] = self.instance_id
         if self.job_id is not None:
             result['JobId'] = self.job_id
+        if self.queuing_overflow_threshold is not None:
+            result['QueuingOverflowThreshold'] = self.queuing_overflow_threshold
+        if self.queuing_timeout_seconds is not None:
+            result['QueuingTimeoutSeconds'] = self.queuing_timeout_seconds
+        if self.routing_type is not None:
+            result['RoutingType'] = self.routing_type
         if self.strategy_name is not None:
             result['StrategyName'] = self.strategy_name
         if self.strategy_params is not None:
             result['StrategyParams'] = self.strategy_params
+        if self.tags is not None:
+            result['Tags'] = self.tags
         if self.timeout_seconds is not None:
             result['TimeoutSeconds'] = self.timeout_seconds
         if self.transferee is not None:
             result['Transferee'] = self.transferee
+        if self.transferee_type is not None:
+            result['TransfereeType'] = self.transferee_type
         if self.transferor is not None:
             result['Transferor'] = self.transferor
         if self.user_id is not None:
@@ -14379,14 +14416,24 @@ class InitiateAttendedTransferRequest(TeaModel):
             self.instance_id = m.get('InstanceId')
         if m.get('JobId') is not None:
             self.job_id = m.get('JobId')
+        if m.get('QueuingOverflowThreshold') is not None:
+            self.queuing_overflow_threshold = m.get('QueuingOverflowThreshold')
+        if m.get('QueuingTimeoutSeconds') is not None:
+            self.queuing_timeout_seconds = m.get('QueuingTimeoutSeconds')
+        if m.get('RoutingType') is not None:
+            self.routing_type = m.get('RoutingType')
         if m.get('StrategyName') is not None:
             self.strategy_name = m.get('StrategyName')
         if m.get('StrategyParams') is not None:
             self.strategy_params = m.get('StrategyParams')
+        if m.get('Tags') is not None:
+            self.tags = m.get('Tags')
         if m.get('TimeoutSeconds') is not None:
             self.timeout_seconds = m.get('TimeoutSeconds')
         if m.get('Transferee') is not None:
             self.transferee = m.get('Transferee')
+        if m.get('TransfereeType') is not None:
+            self.transferee_type = m.get('TransfereeType')
         if m.get('Transferor') is not None:
             self.transferor = m.get('Transferor')
         if m.get('UserId') is not None:
@@ -17525,6 +17572,158 @@ class ListAudioFilesResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListAudioFilesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListBlacklistCallTaggingsRequest(TeaModel):
+    def __init__(self, instance_id=None, number_list=None):
+        self.instance_id = instance_id  # type: str
+        self.number_list = number_list  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListBlacklistCallTaggingsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.number_list is not None:
+            result['NumberList'] = self.number_list
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('NumberList') is not None:
+            self.number_list = m.get('NumberList')
+        return self
+
+
+class ListBlacklistCallTaggingsResponseBodyData(TeaModel):
+    def __init__(self, blacklisted=None, job_id=None, number=None):
+        self.blacklisted = blacklisted  # type: bool
+        self.job_id = job_id  # type: str
+        self.number = number  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListBlacklistCallTaggingsResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.blacklisted is not None:
+            result['Blacklisted'] = self.blacklisted
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        if self.number is not None:
+            result['Number'] = self.number
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Blacklisted') is not None:
+            self.blacklisted = m.get('Blacklisted')
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        if m.get('Number') is not None:
+            self.number = m.get('Number')
+        return self
+
+
+class ListBlacklistCallTaggingsResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.data = data  # type: list[ListBlacklistCallTaggingsResponseBodyData]
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListBlacklistCallTaggingsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = ListBlacklistCallTaggingsResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ListBlacklistCallTaggingsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListBlacklistCallTaggingsResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListBlacklistCallTaggingsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListBlacklistCallTaggingsResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
