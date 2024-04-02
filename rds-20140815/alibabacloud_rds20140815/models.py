@@ -4089,12 +4089,7 @@ class CreateDBInstanceRequest(TeaModel):
         # > *   If the instance runs PostgreSQL or MariaDB, you must set this parameter to **VPC**.
         # > *   RDS instances that run SQL Server Basic and SQL Server Web can reside in the classic network and virtual private clouds (VPCs). If the instance runs other database engines, you must set this parameter to **VPC**.
         self.instance_network_type = instance_network_type  # type: str
-        # Specifies whether to enable the I/O acceleration feature. Valid values:
-        # 
-        # *   1: The feature is enabled.
-        # *   0: The feature is disabled.
-        # 
-        # >  For more information about the I/O acceleration feature of general enhanced SSDs (ESSDs), see [Introduction](~~2527067~~).
+        # A reserved parameter.
         self.io_acceleration_enabled = io_acceleration_enabled  # type: str
         # The billing method of the instance. Valid values:
         # 
@@ -4740,12 +4735,7 @@ class CreateDBInstanceShrinkRequest(TeaModel):
         # > *   If the instance runs PostgreSQL or MariaDB, you must set this parameter to **VPC**.
         # > *   RDS instances that run SQL Server Basic and SQL Server Web can reside in the classic network and virtual private clouds (VPCs). If the instance runs other database engines, you must set this parameter to **VPC**.
         self.instance_network_type = instance_network_type  # type: str
-        # Specifies whether to enable the I/O acceleration feature. Valid values:
-        # 
-        # *   1: The feature is enabled.
-        # *   0: The feature is disabled.
-        # 
-        # >  For more information about the I/O acceleration feature of general enhanced SSDs (ESSDs), see [Introduction](~~2527067~~).
+        # A reserved parameter.
         self.io_acceleration_enabled = io_acceleration_enabled  # type: str
         # The billing method of the instance. Valid values:
         # 
@@ -15545,6 +15535,12 @@ class DescribeBackupPolicyResponseBody(TeaModel):
         # *   **True**: Incremental backup is enabled.
         # *   **False**: Incremental backup is disabled.
         self.enable_increment_data_backup = enable_increment_data_backup  # type: bool
+        # Whether PITR recovery is enabled at any point in time (the upgraded version of the original log backup). Return value:
+        # 
+        # - True: Yes
+        # - False: no
+        # 
+        # > Only MySQL instances return this parameter.
         self.enable_pitr_protection = enable_pitr_protection  # type: bool
         # Indicates whether the log backup deletion feature is enabled. If the disk usage exceeds 80% or the remaining disk space is less than 5 GB on the instance, this feature deletes binary log files. Valid values:
         # 
@@ -15566,6 +15562,7 @@ class DescribeBackupPolicyResponseBody(TeaModel):
         self.log_backup_local_retention_number = log_backup_local_retention_number  # type: int
         # The number of days for which log backup files are retained.
         self.log_backup_retention_period = log_backup_retention_period  # type: int
+        # The number of days to restore at any point in time.
         self.pitr_retention_period = pitr_retention_period  # type: int
         # The cycle based on which you want to perform a backup. Separate multiple values with commas (,). Valid values:
         # 
@@ -20216,9 +20213,9 @@ class DescribeDBInstanceAttributeResponseBodyItemsDBInstanceAttribute(TeaModel):
         # 
         # >  This parameter applies only to ApsaraDB RDS for PostgreSQL instances for which Babelfish is enabled. For more information, see [Introduction to Babelfish](~~428613~~).
         self.babelfish_config = babelfish_config  # type: DescribeDBInstanceAttributeResponseBodyItemsDBInstanceAttributeBabelfishConfig
-        # An invalid parameter. You can ignore this parameter.
+        # A deprecated parameter. You do not need to specify this parameter.
         self.bpe_enabled = bpe_enabled  # type: str
-        # An invalid parameter. You can ignore this parameter.
+        # An invalid parameter. You do not need to specify this parameter.
         self.bursting_enabled = bursting_enabled  # type: bool
         # The RDS edition. Valid values:
         # 
@@ -20229,7 +20226,7 @@ class DescribeDBInstanceAttributeResponseBodyItemsDBInstanceAttribute(TeaModel):
         # *   **Finance**: RDS Enterprise Edition
         # *   **Serverless_basic**: RDS Basic Edition for serverless instances
         self.category = category  # type: str
-        # A reserved parameter.
+        # A reserved parameter. You do not need to specify this parameter.
         self.cold_data_enabled = cold_data_enabled  # type: bool
         # The character set collation of the instance.
         self.collation = collation  # type: str
@@ -20374,6 +20371,7 @@ class DescribeDBInstanceAttributeResponseBodyItemsDBInstanceAttribute(TeaModel):
         # 
         # *   **Postpaid**: pay-as-you-go
         # *   **Prepaid**: subscription
+        # *   **SERVERLESS**\
         self.pay_type = pay_type  # type: str
         # The port that is used to connect to the instance over an internal network.
         self.port = port  # type: str
@@ -23123,7 +23121,7 @@ class DescribeDBInstanceNetInfoResponseBodyDBInstanceNetInfosDBInstanceNetInfoDB
         self.availability = availability  # type: str
         # The instance ID.
         self.dbinstance_id = dbinstance_id  # type: str
-        # The role of the instance. Valid values:
+        # The type of the instance. Valid values:
         # 
         # *   **Master**: primary instance
         # *   **Readonly**: read-only instance
@@ -23205,7 +23203,7 @@ class DescribeDBInstanceNetInfoResponseBodyDBInstanceNetInfosDBInstanceNetInfoSe
     def __init__(self, security_ipgroup_name=None, security_ips=None):
         # The name of the IP address whitelist.
         self.security_ipgroup_name = security_ipgroup_name  # type: str
-        # The IP addresses that is contained in the IP address whitelist.
+        # The IP address in the whitelist.
         self.security_ips = security_ips  # type: str
 
     def validate(self):
@@ -23270,23 +23268,23 @@ class DescribeDBInstanceNetInfoResponseBodyDBInstanceNetInfosDBInstanceNetInfo(T
                  pgbouncer_port=None, port=None, security_ipgroups=None, upgradeable=None, vpcid=None, v_switch_id=None):
         # The Tabular Data Stream (TDS) port of the instance for which Babelfish is enabled.
         # 
-        # > This parameter applies only to ApsaraDB RDS for PostgreSQL instances. For more information about Babelfish for ApsaraDB RDS for PostgreSQL, see [Introduction to Babelfish](~~428613~~).
+        # >  This parameter applies only to ApsaraDB RDS for PostgreSQL instances. For more information about Babelfish for ApsaraDB RDS for PostgreSQL, see [Introduction to Babelfish](~~428613~~).
         self.babelfish_port = babelfish_port  # type: str
-        # The endpoints of the instance.
+        # The endpoint of the instance.
         self.connection_string = connection_string  # type: str
-        # The types of the endpoints. Valid values:
+        # The type of the endpoint. Valid values:
         # 
-        # *   **Normal**: regular endpoints
-        # *   **ReadWriteSplitting**: read/write splitting endpoints
+        # *   **Normal**: a regular endpoint
+        # *   **ReadWriteSplitting**: a read/write splitting endpoint
         self.connection_string_type = connection_string_type  # type: str
         # The information about the instance weight.
         # 
-        # > This parameter is returned only for instances that have read/write splitting endpoints.
+        # >  This parameter is returned only when the read/write splitting feature is enabled for the instance.
         self.dbinstance_weights = dbinstance_weights  # type: DescribeDBInstanceNetInfoResponseBodyDBInstanceNetInfosDBInstanceNetInfoDBInstanceWeights
         # The policy that is used to assign read weights. This parameter is returned only for a read/write splitting endpoint. Valid values:
         # 
-        # *   **Standard**: The system automatically assigns read weights to the instance and its read-only instances based on the specifications of these instances.
-        # *   **Custom**: You must manually assign read weights to the instance and its read-only instances.
+        # *   **Standard**: The system automatically allocates read weights to the instance and its read-only instances based on the specifications of the instances.
+        # *   **Custom**: You must manually allocate read weights to the instance and its read-only instances.
         self.distribution_type = distribution_type  # type: str
         # The remaining validity period of the instance in the classic network in hybrid access mode. Unit: seconds.
         self.expired_time = expired_time  # type: str
@@ -23296,34 +23294,34 @@ class DescribeDBInstanceNetInfoResponseBodyDBInstanceNetInfosDBInstanceNetInfo(T
         # 
         # *   Valid values when the instance resides in the classic network:
         # 
-        #     *   **Inner:**: internal network
-        #     *   **Public**: Internet
+        #     *   **Inner**\
+        #     *   **Public**\
         # 
         # *   Valid values when the instance resides in a virtual private cloud (VPC):
         # 
-        #     *   **Private**: internal network
-        #     *   **Public**: Internet
+        #     *   **Private**\
+        #     *   **Public**\
         self.iptype = iptype  # type: str
         # The latency threshold. This parameter is returned only for a read/write splitting endpoint. Unit: seconds.
         # 
-        # > If the latency on a read-only instance exceeds the specified threshold, the system no longer forwards read requests to the read-only instance.
+        # >  If the latency on a read-only instance exceeds the specified threshold, ApsaraDB RDS no longer forwards read requests to the read-only instance.
         self.max_delay_time = max_delay_time  # type: str
         # The PgBouncer port.
         # 
-        # > This parameter is returned only when PgBouncer is enabled for the instance that runs PostgreSQL.
+        # >  This parameter is returned only when PgBouncer is enabled for the instance that runs PostgreSQL.
         self.pgbouncer_port = pgbouncer_port  # type: str
         # The port that is used to connect to the instance.
         self.port = port  # type: str
-        # The details of the IP address whitelist.
+        # The IP addresses in the whitelist for the instance.
         self.security_ipgroups = security_ipgroups  # type: DescribeDBInstanceNetInfoResponseBodyDBInstanceNetInfosDBInstanceNetInfoSecurityIPGroups
         # Indicates whether the IP version can be updated. Valid values:
         # 
-        # *   **Enable**: The IP version can be updated.
-        # *   **Disabled**: The IP version cannot be updated.
+        # *   **Enable**\
+        # *   **Disabled**\
         # 
-        # > The IP version can be updated from IPv4 to IPv6.
+        # >  The IP version can be updated from IPv4 to IPv6.
         self.upgradeable = upgradeable  # type: str
-        # The VPC ID.
+        # The VPC ID of the instance.
         self.vpcid = vpcid  # type: str
         # The vSwitch ID.
         self.v_switch_id = v_switch_id  # type: str
@@ -25377,18 +25375,18 @@ class DescribeDBInstancesResponseBodyItemsDBInstanceReadOnlyDBInstanceIds(TeaMod
 
 class DescribeDBInstancesResponseBodyItemsDBInstance(TeaModel):
     def __init__(self, bpe_enabled=None, bursting_enabled=None, category=None, cold_data_enabled=None,
-                 connection_mode=None, connection_string=None, create_time=None, dbinstance_class=None,
-                 dbinstance_description=None, dbinstance_id=None, dbinstance_net_type=None, dbinstance_status=None,
-                 dbinstance_storage_type=None, dbinstance_type=None, dedicated_host_group_id=None, dedicated_host_group_name=None,
-                 dedicated_host_id_for_log=None, dedicated_host_id_for_master=None, dedicated_host_id_for_slave=None,
-                 dedicated_host_name_for_log=None, dedicated_host_name_for_master=None, dedicated_host_name_for_slave=None,
-                 dedicated_host_zone_id_for_log=None, dedicated_host_zone_id_for_master=None, dedicated_host_zone_id_for_slave=None,
-                 deletion_protection=None, destroy_time=None, engine=None, engine_version=None, expire_time=None,
-                 general_group_name=None, guard_dbinstance_id=None, instance_network_type=None, io_acceleration_enabled=None,
-                 lock_mode=None, lock_reason=None, master_instance_id=None, mutri_orsignle=None, pay_type=None,
-                 read_only_dbinstance_ids=None, region_id=None, resource_group_id=None, switch_weight=None, temp_dbinstance_id=None,
-                 tips=None, tips_level=None, v_switch_id=None, vpc_cloud_instance_id=None, vpc_id=None, vpc_name=None,
-                 zone_id=None):
+                 connection_mode=None, connection_string=None, create_time=None, dbinstance_class=None, dbinstance_cpu_cores=None,
+                 dbinstance_description=None, dbinstance_id=None, dbinstance_memory=None, dbinstance_net_type=None,
+                 dbinstance_status=None, dbinstance_storage_type=None, dbinstance_type=None, dedicated_host_group_id=None,
+                 dedicated_host_group_name=None, dedicated_host_id_for_log=None, dedicated_host_id_for_master=None,
+                 dedicated_host_id_for_slave=None, dedicated_host_name_for_log=None, dedicated_host_name_for_master=None,
+                 dedicated_host_name_for_slave=None, dedicated_host_zone_id_for_log=None, dedicated_host_zone_id_for_master=None,
+                 dedicated_host_zone_id_for_slave=None, deletion_protection=None, destroy_time=None, engine=None, engine_version=None,
+                 expire_time=None, general_group_name=None, guard_dbinstance_id=None, instance_network_type=None,
+                 io_acceleration_enabled=None, lock_mode=None, lock_reason=None, master_instance_id=None, mutri_orsignle=None,
+                 pay_type=None, read_only_dbinstance_ids=None, region_id=None, resource_group_id=None, switch_weight=None,
+                 temp_dbinstance_id=None, tips=None, tips_level=None, v_switch_id=None, vpc_cloud_instance_id=None, vpc_id=None,
+                 vpc_name=None, zone_id=None):
         # Indicates whether the buffer pool extension (BPE) feature is enabled. Valid values:
         # 
         # *   **1**\
@@ -25407,6 +25405,7 @@ class DescribeDBInstancesResponseBodyItemsDBInstance(TeaModel):
         # 
         # >  This parameter is returned only when the **InstanceLevel** parameter is set to **1**.
         self.category = category  # type: str
+        # A reserved parameter.
         self.cold_data_enabled = cold_data_enabled  # type: bool
         # The connection mode of the instance. Valid values:
         # 
@@ -25419,10 +25418,12 @@ class DescribeDBInstancesResponseBodyItemsDBInstance(TeaModel):
         self.create_time = create_time  # type: str
         # The instance type of the instance. For information, see [Primary ApsaraDB RDS instance types](~~26312~~).
         self.dbinstance_class = dbinstance_class  # type: str
+        self.dbinstance_cpu_cores = dbinstance_cpu_cores  # type: str
         # The instance description.
         self.dbinstance_description = dbinstance_description  # type: str
         # The instance ID.
         self.dbinstance_id = dbinstance_id  # type: str
+        self.dbinstance_memory = dbinstance_memory  # type: str
         # The type of the network connection to the instance. Valid values:
         # 
         # *   **Internet**\
@@ -25485,6 +25486,10 @@ class DescribeDBInstancesResponseBodyItemsDBInstance(TeaModel):
         # *   **Classic**\
         # *   **VPC**\
         self.instance_network_type = instance_network_type  # type: str
+        # Whether IO acceleration is enabled. The value has the following meanings:
+        # 
+        # - 1: enabled
+        # - 0: not enabled
         self.io_acceleration_enabled = io_acceleration_enabled  # type: str
         # The lock mode of the instance. Valid values:
         # 
@@ -25568,10 +25573,14 @@ class DescribeDBInstancesResponseBodyItemsDBInstance(TeaModel):
             result['CreateTime'] = self.create_time
         if self.dbinstance_class is not None:
             result['DBInstanceClass'] = self.dbinstance_class
+        if self.dbinstance_cpu_cores is not None:
+            result['DBInstanceCpuCores'] = self.dbinstance_cpu_cores
         if self.dbinstance_description is not None:
             result['DBInstanceDescription'] = self.dbinstance_description
         if self.dbinstance_id is not None:
             result['DBInstanceId'] = self.dbinstance_id
+        if self.dbinstance_memory is not None:
+            result['DBInstanceMemory'] = self.dbinstance_memory
         if self.dbinstance_net_type is not None:
             result['DBInstanceNetType'] = self.dbinstance_net_type
         if self.dbinstance_status is not None:
@@ -25674,10 +25683,14 @@ class DescribeDBInstancesResponseBodyItemsDBInstance(TeaModel):
             self.create_time = m.get('CreateTime')
         if m.get('DBInstanceClass') is not None:
             self.dbinstance_class = m.get('DBInstanceClass')
+        if m.get('DBInstanceCpuCores') is not None:
+            self.dbinstance_cpu_cores = m.get('DBInstanceCpuCores')
         if m.get('DBInstanceDescription') is not None:
             self.dbinstance_description = m.get('DBInstanceDescription')
         if m.get('DBInstanceId') is not None:
             self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('DBInstanceMemory') is not None:
+            self.dbinstance_memory = m.get('DBInstanceMemory')
         if m.get('DBInstanceNetType') is not None:
             self.dbinstance_net_type = m.get('DBInstanceNetType')
         if m.get('DBInstanceStatus') is not None:
@@ -43093,6 +43106,7 @@ class DescribeSecretsRequest(TeaModel):
         self.page_size = page_size  # type: long
         # The region ID. You can call the DescribeDBInstanceAttribute operation to query the region ID.
         self.region_id = region_id  # type: str
+        # The ID of the resource group where the instance is located.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -47834,133 +47848,6 @@ class GrantOperatorPermissionResponse(TeaModel):
         return self
 
 
-class ImportDatabaseBetweenInstancesRequest(TeaModel):
-    def __init__(self, dbinfo=None, dbinstance_id=None, owner_account=None, owner_id=None,
-                 resource_owner_account=None, resource_owner_id=None, source_dbinstance_id=None):
-        # The names of the source and destination databases. The value of this parameter is a JSON string.
-        # 
-        # >  If the source instance runs SQL Server, the value of this parameter consists of one or more key-value pairs. In each key-value pair, the key specifies the name of the source database, and the value specifies the name of the destination database. A source database can have a different name from the destination database. For example, `{"DBNames":{"srcdb":"destdb","srcdb2":"destmydb2"}}` indicates that srcdb is migrated to destdb and srcdb2 is migrated to destmydb2. The names of source databases cannot be the same, and the names of destination databases cannot be the same.
-        self.dbinfo = dbinfo  # type: str
-        # The ID of the instance.
-        self.dbinstance_id = dbinstance_id  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
-        # The ID of the source instance, which cannot be the same as the ID of the destination instance.
-        self.source_dbinstance_id = source_dbinstance_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ImportDatabaseBetweenInstancesRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.dbinfo is not None:
-            result['DBInfo'] = self.dbinfo
-        if self.dbinstance_id is not None:
-            result['DBInstanceId'] = self.dbinstance_id
-        if self.owner_account is not None:
-            result['OwnerAccount'] = self.owner_account
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.resource_owner_account is not None:
-            result['ResourceOwnerAccount'] = self.resource_owner_account
-        if self.resource_owner_id is not None:
-            result['ResourceOwnerId'] = self.resource_owner_id
-        if self.source_dbinstance_id is not None:
-            result['SourceDBInstanceId'] = self.source_dbinstance_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('DBInfo') is not None:
-            self.dbinfo = m.get('DBInfo')
-        if m.get('DBInstanceId') is not None:
-            self.dbinstance_id = m.get('DBInstanceId')
-        if m.get('OwnerAccount') is not None:
-            self.owner_account = m.get('OwnerAccount')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('ResourceOwnerAccount') is not None:
-            self.resource_owner_account = m.get('ResourceOwnerAccount')
-        if m.get('ResourceOwnerId') is not None:
-            self.resource_owner_id = m.get('ResourceOwnerId')
-        if m.get('SourceDBInstanceId') is not None:
-            self.source_dbinstance_id = m.get('SourceDBInstanceId')
-        return self
-
-
-class ImportDatabaseBetweenInstancesResponseBody(TeaModel):
-    def __init__(self, import_id=None, request_id=None):
-        # The ID of the import task.
-        self.import_id = import_id  # type: str
-        # The ID of the request.
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ImportDatabaseBetweenInstancesResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.import_id is not None:
-            result['ImportId'] = self.import_id
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ImportId') is not None:
-            self.import_id = m.get('ImportId')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class ImportDatabaseBetweenInstancesResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: ImportDatabaseBetweenInstancesResponseBody
-
-    def validate(self):
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(ImportDatabaseBetweenInstancesResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = ImportDatabaseBetweenInstancesResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class ImportUserBackupFileRequest(TeaModel):
     def __init__(self, backup_file=None, bucket_region=None, comment=None, engine_version=None, owner_id=None,
                  region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
@@ -49507,7 +49394,7 @@ class MigrateToOtherZoneRequest(TeaModel):
         # 
         # >  If you set this parameter to **ScheduleTime**, you must specify the **SwitchTime** parameter.
         self.effective_time = effective_time  # type: str
-        # A reserved parameter. You do not need to specify this parameter.
+        # A reserved parameter.
         self.io_acceleration_enabled = io_acceleration_enabled  # type: str
         # Specifies whether to change the specifications of the instance during the cross-zone migration. Valid values:
         # 
@@ -50649,23 +50536,25 @@ class ModifyBackupPolicyResponse(TeaModel):
 class ModifyCollationTimeZoneRequest(TeaModel):
     def __init__(self, collation=None, dbinstance_id=None, owner_id=None, resource_owner_account=None,
                  resource_owner_id=None, timezone=None):
-        # The character set collation of the instance. Valid values:
+        # The character set collation of the instance. By default, the system does not modify the character set collation of the instance. Valid values:
         # 
+        # *   **Chinese_PRC_CI_AS**\
+        # *   **Chinese_PRC_CS_AS**\
+        # *   **Chinese_PRC_BIN**\
         # *   **Latin1\_General_CI_AS**\
         # *   **Latin1\_General_CS_AS**\
         # *   **SQL_Latin1\_General_CP1\_CI_AS**\
         # *   **SQL_Latin1\_General_CP1\_CS_AS**\
-        # *   **Chinese_PRC_CS_AS**\
-        # *   **Chinese_PRC_BIN**\
-        # *   **Chinese_PRC_CI_AS**\
         # *   **Japanese_CI_AS**\
         # *   **Japanese_CS_AS**\
         # *   **Chinese_Taiwan_Stroke_CI_AS**\
         # *   **Chinese_Taiwan_Stroke_CS_AS**\
         # 
-        # By default, the system does not modify the character set collation of the instance.
+        # > 
         # 
-        # > You must specify one of the **Collation** and **Timezone** parameters.
+        # *   The default character set collation of the instance is **Chinese_PRC_CI_AS**.
+        # 
+        # *   You must specify one of the **Collation** and **Timezone** parameters.
         self.collation = collation  # type: str
         # The instance ID.
         self.dbinstance_id = dbinstance_id  # type: str
@@ -50674,7 +50563,11 @@ class ModifyCollationTimeZoneRequest(TeaModel):
         self.resource_owner_id = resource_owner_id  # type: long
         # The time zone of the instance. By default, the system does not modify the time zone.
         # 
-        # > You must specify one of the **Collation** and **Timezone** parameters.
+        # > 
+        # 
+        # *   The default time zone of the instance is **China Standard Time**.
+        # 
+        # *   You must specify one of the **Collation** and **Timezone** parameters.
         self.timezone = timezone  # type: str
 
     def validate(self):
@@ -53440,7 +53333,7 @@ class ModifyDBInstanceSSLRequest(TeaModel):
         # The method that is used to verify the identities of clients. This parameter is supported only when the instance runs PostgreSQL with cloud disks. In addition, this parameter is available only when the public key of the CA that issues client certificates is enabled. Valid values:
         # 
         # *   **cert**\
-        # *   **perfer**\
+        # *   **prefer**\
         # *   **verify-ca**\
         # *   **verify-full** (supported only when the instance runs PostgreSQL 12 or later)
         self.acl = acl  # type: str
@@ -53449,6 +53342,10 @@ class ModifyDBInstanceSSLRequest(TeaModel):
         # *   **aliyun**: a cloud certificate
         # *   **custom**: a custom certificate
         self.catype = catype  # type: str
+        # User-defined certificate. The custom certificate is in pfx format.
+        # 
+        # - Public address: `oss-<region ID>.aliyuncs.com:<Bucket name >:< certificate file name (with file suffix)>`
+        # - Intranet address: `oss-<region ID>-internal.aliyuncs.com:<Bucket name >:< certificate file name (with file suffix)>`
         self.certificate = certificate  # type: str
         # The public key of the CA that issues client certificates. This parameter is supported only when the instance runs PostgreSQL with cloud disks. This parameter must be specified when ClientCAEbabled is set to **1**.
         self.client_cacert = client_cacert  # type: str
@@ -53475,11 +53372,12 @@ class ModifyDBInstanceSSLRequest(TeaModel):
         self.force_encryption = force_encryption  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The password of the certificate.
         self.pass_word = pass_word  # type: str
-        # The method that is used to verify the replication permission. This parameter is supported only when the instance runs PostgreSQL with cloud disks. In addition, this parameter is available only when the public key of the CA that issues client certificates is enabled. Valid values:
+        # The method that is used to verify the replication permissions. This parameter is supported only when the instance runs PostgreSQL with cloud disks. In addition, this parameter is available only when the public key of the CA that issues client certificates is enabled. Valid values:
         # 
         # *   **cert**\
-        # *   **perfer**\
+        # *   **prefer**\
         # *   **verify-ca**\
         # *   **verify-full** (supported only when the instance runs PostgreSQL 12 or later)
         self.replication_acl = replication_acl  # type: str
@@ -61429,12 +61327,9 @@ class ResetAccountPasswordRequest(TeaModel):
         self.account_name = account_name  # type: str
         # The new password.
         # 
-        # > 
-        # 
-        # *   The value must be 8 to 32 characters in length.
-        # 
-        # *   The value must contain at least three types of the following characters: uppercase letters, lowercase letters, digits, and special characters.
-        # *   The following special characters are supported: ! @ # $ & % ^ \* ( ) \_ + - =\
+        # > *   The value must be 8 to 32 characters in length.
+        # > *   The value must contain at least three types of the following characters: uppercase letters, lowercase letters, digits, and special characters.
+        # > *   The following special characters are supported: ! @ # $ & % ^ \* ( ) \_ + - =\
         self.account_password = account_password  # type: str
         # The instance ID. You can call the DescribeDBInstances operation to query the instance ID.
         self.dbinstance_id = dbinstance_id  # type: str
