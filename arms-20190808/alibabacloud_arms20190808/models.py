@@ -7736,9 +7736,7 @@ class CreateOrUpdateIMRobotRequest(TeaModel):
         # The webhook URL of the IM chatbot.
         self.robot_address = robot_address  # type: str
         # The ID of the IM chatbot.
-        # 
-        # - If you do not specify the parameter, a new IM chatbot is created.
-        # - If you specify this parameter, the specified IM chatbot is modified.
+        # > If you do not specify the parameter, a new IM chatbot is created.
         self.robot_id = robot_id  # type: long
         # The name of the IM chatbot.
         self.robot_name = robot_name  # type: str
@@ -8610,6 +8608,7 @@ class CreateOrUpdateSilencePolicyRequest(TeaModel):
         self.matching_rules = matching_rules  # type: str
         # The name of the silence policy.
         self.name = name  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -25379,7 +25378,9 @@ class GetRetcodeLogstoreResponse(TeaModel):
 
 class GetRetcodeShareUrlRequest(TeaModel):
     def __init__(self, pid=None):
-        # The process identifier (PID) of the application. For more information about how to obtain the PID, see [Obtain the PID of an application](https://www.alibabacloud.com/help/zh/doc-detail/186100.htm?spm=a2cdw.13409063.0.0.7a72281f0bkTfx#title-imy-7gj-qhr).
+        # The process identifier (PID) of the application. 
+        # 
+        # Log on to the **ARMS console**. In the left-side navigation pane, choose **Browser Monitoring** > **Browser Monitoring**. On the Browser Monitoring page, click the name of an application. The URL in the address bar contains the process ID (PID) of the application. The PID is indicated in the `pid=xxx` format. The PID is usually percent encoded as `xxx%40xxx`. You must modify this value to remove the percent encoding. For example, if the PID in the URL is `eb4zdose6v%409781be0f44d****`, you must replace `%40` with @ to obtain `eb4zdose6v@9781be0f44d****`.
         self.pid = pid  # type: str
 
     def validate(self):
@@ -29837,9 +29838,11 @@ class ImportAppAlertRulesResponse(TeaModel):
 
 
 class InitEnvironmentRequest(TeaModel):
-    def __init__(self, aliyun_lang=None, environment_id=None, managed_type=None, region_id=None):
+    def __init__(self, aliyun_lang=None, create_auth_token=None, environment_id=None, managed_type=None,
+                 region_id=None):
         # The language. Valid values: zh and en. Default value: zh.
         self.aliyun_lang = aliyun_lang  # type: str
+        self.create_auth_token = create_auth_token  # type: bool
         # The ID of the environment instance.
         self.environment_id = environment_id  # type: str
         # type of managed:
@@ -29861,6 +29864,8 @@ class InitEnvironmentRequest(TeaModel):
         result = dict()
         if self.aliyun_lang is not None:
             result['AliyunLang'] = self.aliyun_lang
+        if self.create_auth_token is not None:
+            result['CreateAuthToken'] = self.create_auth_token
         if self.environment_id is not None:
             result['EnvironmentId'] = self.environment_id
         if self.managed_type is not None:
@@ -29873,6 +29878,8 @@ class InitEnvironmentRequest(TeaModel):
         m = m or dict()
         if m.get('AliyunLang') is not None:
             self.aliyun_lang = m.get('AliyunLang')
+        if m.get('CreateAuthToken') is not None:
+            self.create_auth_token = m.get('CreateAuthToken')
         if m.get('EnvironmentId') is not None:
             self.environment_id = m.get('EnvironmentId')
         if m.get('ManagedType') is not None:
@@ -33750,10 +33757,12 @@ class ListDashboardsResponseBodyDashboardVos(TeaModel):
 
 
 class ListDashboardsResponseBody(TeaModel):
-    def __init__(self, dashboard_vos=None, environment_id=None, prometheus_service_opened=None, request_id=None):
+    def __init__(self, dashboard_vos=None, environment_id=None, grafana_service_opened=None,
+                 prometheus_service_opened=None, request_id=None):
         # The information about the Grafana dashboard.
         self.dashboard_vos = dashboard_vos  # type: list[ListDashboardsResponseBodyDashboardVos]
         self.environment_id = environment_id  # type: str
+        self.grafana_service_opened = grafana_service_opened  # type: str
         # The indicators of whether the Prometheus service has been activated.
         self.prometheus_service_opened = prometheus_service_opened  # type: str
         # The request ID.
@@ -33777,6 +33786,8 @@ class ListDashboardsResponseBody(TeaModel):
                 result['DashboardVos'].append(k.to_map() if k else None)
         if self.environment_id is not None:
             result['EnvironmentId'] = self.environment_id
+        if self.grafana_service_opened is not None:
+            result['GrafanaServiceOpened'] = self.grafana_service_opened
         if self.prometheus_service_opened is not None:
             result['PrometheusServiceOpened'] = self.prometheus_service_opened
         if self.request_id is not None:
@@ -33792,6 +33803,8 @@ class ListDashboardsResponseBody(TeaModel):
                 self.dashboard_vos.append(temp_model.from_map(k))
         if m.get('EnvironmentId') is not None:
             self.environment_id = m.get('EnvironmentId')
+        if m.get('GrafanaServiceOpened') is not None:
+            self.grafana_service_opened = m.get('GrafanaServiceOpened')
         if m.get('PrometheusServiceOpened') is not None:
             self.prometheus_service_opened = m.get('PrometheusServiceOpened')
         if m.get('RequestId') is not None:
@@ -35005,7 +35018,7 @@ class ListEnvironmentDashboardsResponseBodyData(TeaModel):
     def __init__(self, dashboards=None, total=None):
         # List of dashboard.
         self.dashboards = dashboards  # type: list[ListEnvironmentDashboardsResponseBodyDataDashboards]
-        # Totle of the dashboards.
+        # Total of the dashboards.
         self.total = total  # type: long
 
     def validate(self):
@@ -40138,14 +40151,18 @@ class ListScenarioResponse(TeaModel):
 
 class ListSilencePoliciesRequest(TeaModel):
     def __init__(self, is_detail=None, name=None, page=None, region_id=None, size=None):
-        # The operation that you want to perform. Set the value to **ListSilencePolicies**.
+        # Specifies whether to query the details of a silence policy. Valid values:
+        # 
+        # *   `true`: Details of the silence policy are queried.
+        # *   `false`: Details about notification policies are not queried.
         self.is_detail = is_detail  # type: bool
-        # An array of matching condition objects.
+        # The name of the silence policy.
         self.name = name  # type: str
-        # The number of entries to return on each page.
+        # The number of the page to return.
         self.page = page  # type: long
+        # The ID of the region.
         self.region_id = region_id  # type: str
-        # The ID of the silence policy.
+        # The number of entries to return on each page.
         self.size = size  # type: long
 
     def validate(self):
@@ -40186,8 +40203,18 @@ class ListSilencePoliciesRequest(TeaModel):
 
 class ListSilencePoliciesResponseBodyPageBeanSilencePoliciesMatchingRulesMatchingConditions(TeaModel):
     def __init__(self, key=None, operator=None, value=None):
+        # The key of the matching condition.
         self.key = key  # type: str
+        # The logical operator of the matching condition. Valid values:
+        # 
+        # *   `eq`: equal to
+        # *   `neq`: not equal to
+        # *   `in`: contains
+        # *   `nin`: does not contain
+        # *   `re`: regular expression match
+        # *   `nre`: regular expression mismatch
         self.operator = operator  # type: str
+        # The value of the matching condition.
         self.value = value  # type: str
 
     def validate(self):
@@ -40220,7 +40247,7 @@ class ListSilencePoliciesResponseBodyPageBeanSilencePoliciesMatchingRulesMatchin
 
 class ListSilencePoliciesResponseBodyPageBeanSilencePoliciesMatchingRules(TeaModel):
     def __init__(self, matching_conditions=None):
-        # The ID of the request.
+        # An array of matching condition objects.
         self.matching_conditions = matching_conditions  # type: list[ListSilencePoliciesResponseBodyPageBeanSilencePoliciesMatchingRulesMatchingConditions]
 
     def validate(self):
@@ -40253,14 +40280,11 @@ class ListSilencePoliciesResponseBodyPageBeanSilencePoliciesMatchingRules(TeaMod
 
 class ListSilencePoliciesResponseBodyPageBeanSilencePolicies(TeaModel):
     def __init__(self, id=None, matching_rules=None, name=None):
-        # The name of the silence policy.
+        # The ID of the silence policy.
         self.id = id  # type: long
-        # Specifies whether to query the details of a silence policy. Valid values:
-        # 
-        # *   `true`: Details of the silence policy are queried.
-        # *   `false`: Details of the silence policy are not queried.
+        # An array of matching rule objects.
         self.matching_rules = matching_rules  # type: list[ListSilencePoliciesResponseBodyPageBeanSilencePoliciesMatchingRules]
-        # An array of returned objects.
+        # The name of the silence policy.
         self.name = name  # type: str
 
     def validate(self):
@@ -40301,13 +40325,13 @@ class ListSilencePoliciesResponseBodyPageBeanSilencePolicies(TeaModel):
 
 class ListSilencePoliciesResponseBodyPageBean(TeaModel):
     def __init__(self, page=None, silence_policies=None, size=None, total=None):
-        # The name of the silence policy.
+        # The number of the page returned.
         self.page = page  # type: long
-        # The number of silence policies that were returned.
+        # An array of silence policy objects.
         self.silence_policies = silence_policies  # type: list[ListSilencePoliciesResponseBodyPageBeanSilencePolicies]
-        # The number of entries that were returned on each page.
+        # The number of entries returned per page.
         self.size = size  # type: long
-        # An array of matching rule objects.
+        # The number of silence policies that were returned.
         self.total = total  # type: long
 
     def validate(self):
@@ -40352,16 +40376,9 @@ class ListSilencePoliciesResponseBodyPageBean(TeaModel):
 
 class ListSilencePoliciesResponseBody(TeaModel):
     def __init__(self, page_bean=None, request_id=None):
-        # The value of the matching condition.
+        # The objects that were returned.
         self.page_bean = page_bean  # type: ListSilencePoliciesResponseBodyPageBean
-        # The logical operator of the matching condition. Valid values:
-        # 
-        # *   `eq`: equal to.
-        # *   `neq`: not equal to.
-        # *   `in`: contains.
-        # *   `nin`: does not contain.
-        # *   `re`: regular expression match.
-        # *   `nre`: regular expression mismatch.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -47743,7 +47760,9 @@ class SetRetcodeShareStatusRequest(TeaModel):
     def __init__(self, app_name=None, pid=None, status=None):
         # The name of the application that is monitored by Browser Monitoring.
         self.app_name = app_name  # type: str
-        # The process identifier (PID) of the application. For more information, see [Obtain the PID of an application](https://www.alibabacloud.com/help/zh/doc-detail/186100.htm?spm=a2cdw.13409063.0.0.7a72281f0bkTfx#title-imy-7gj-qhr).
+        # The process identifier (PID) of the application. 
+        # 
+        # Log on to the **ARMS console**. In the left-side navigation pane, choose **Browser Monitoring** > **Browser Monitoring**. On the Browser Monitoring page, click the name of an application. The URL in the address bar contains the process ID (PID) of the application. The PID is indicated in the `pid=xxx` format. The PID is usually percent encoded as `xxx%40xxx`. You must modify this value to remove the percent encoding. For example, if the PID in the URL is `eb4zdose6v%409781be0f44d****`, you must replace `%40` with @ to obtain `eb4zdose6v@9781be0f44d****`.
         self.pid = pid  # type: str
         # Specifies whether to turn on or turn off the logon-free sharing switch. Valid values:
         # 
@@ -48563,7 +48582,15 @@ class TagResourcesRequest(TeaModel):
     def __init__(self, resource_id=None, resource_type=None, tag=None):
         # The resource IDs. You can specify a maximum of 50 resource IDs.
         self.resource_id = resource_id  # type: list[str]
-        # The type of the ARMS resources for which you want to modify tags. Valid values: WEB: Browser Monitoring APPLICATION: Application Monitoring PROMETHEUS: Managed Service for Prometheus SYNTHETICTASK: Synthetic Monitoring ALERTRULE: Application Monitoring alert rules PROMETHEUSALERTRULE: Prometheus alert rules
+        # The type of the ARMS resources for which you want to modify tags. Valid values:
+        # 
+        # *   WEB: Browser Monitoring
+        # *   APPLICATION: Application Monitoring
+        # *   PROMETHEUS: Managed Service for Prometheus
+        # *   SYNTHETICTASK: Synthetic Monitoring
+        # *   ALERTRULE: Application Monitoring alert rule
+        # *   PROMETHEUSALERTRULE: Managed Service for Prometheus alert rule
+        # *   XTRACEAPP: Managed Service for OpenTelemetry
         self.resource_type = resource_type  # type: str
         # The tags to add to the resource. You can specify a maximum of 20 tags.
         self.tag = tag  # type: list[TagResourcesRequestTag]
@@ -48965,7 +48992,15 @@ class UntagResourcesRequest(TeaModel):
         self.all = all  # type: bool
         # The resource IDs. You can specify a maximum of 50 resource IDs.
         self.resource_id = resource_id  # type: list[str]
-        # The type of the ARMS resources for which you want to modify tags.
+        # The type of the ARMS resources for which you want to modify tags. Valid values:
+        # 
+        # *   WEB: Browser Monitoring
+        # *   APPLICATION: Application Monitoring
+        # *   PROMETHEUS: Managed Service for Prometheus
+        # *   SYNTHETICTASK: Synthetic Monitoring
+        # *   ALERTRULE: Application Monitoring alert rule
+        # *   PROMETHEUSALERTRULE: Managed Service for Prometheus alert rule
+        # *   XTRACEAPP: Managed Service for OpenTelemetry
         self.resource_type = resource_type  # type: str
         # The tag keys. You can specify a maximum of 20 tag keys.
         self.tag_key = tag_key  # type: list[str]
@@ -50110,12 +50145,15 @@ class UpdateEnvServiceMonitorResponse(TeaModel):
 class UpdateEnvironmentRequest(TeaModel):
     def __init__(self, aliyun_lang=None, environment_id=None, environment_name=None, fee_package=None,
                  region_id=None):
-        # Locale, the default is Chinese zh | en.
+        # The language. Valid values: zh and en. Default value: zh.
         self.aliyun_lang = aliyun_lang  # type: str
-        # Environment ID.
+        # The environment ID.
         self.environment_id = environment_id  # type: str
-        # Environment name.
+        # The environment name.
         self.environment_name = environment_name  # type: str
+        # Fee package.
+        # * When the EnvironmentType is CS: it can be specified as CS_Basic (default) or CS-Pro.
+        # * When the EnvironmentType is a different value, please enter a null value.
         self.fee_package = fee_package  # type: str
         # The region ID.
         self.region_id = region_id  # type: str
@@ -50158,13 +50196,13 @@ class UpdateEnvironmentRequest(TeaModel):
 
 class UpdateEnvironmentResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
-        # The status code or error code.
+        # The HTTP status code. The status code 200 indicates that the request was successful.
         self.code = code  # type: int
-        # The data returned.
+        # The result of the operation.
         self.data = data  # type: str
-        # The message returned.
+        # The returned message.
         self.message = message  # type: str
-        # Id of the request
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
