@@ -256,8 +256,9 @@ class ConvertPostPayOrderResponse(TeaModel):
 
 
 class CreateAclRequest(TeaModel):
-    def __init__(self, acl_operation_type=None, acl_resource_name=None, acl_resource_pattern_type=None,
-                 acl_resource_type=None, instance_id=None, region_id=None, username=None):
+    def __init__(self, acl_operation_type=None, acl_operation_types=None, acl_permission_type=None,
+                 acl_resource_name=None, acl_resource_pattern_type=None, acl_resource_type=None, host=None, instance_id=None,
+                 region_id=None, username=None):
         # The operation type. Valid values:
         # 
         # *   **Write**: data writes
@@ -265,6 +266,8 @@ class CreateAclRequest(TeaModel):
         # *   **Describe**: reads of transaction IDs****\
         # *   **IdempotentWrite**: idempotent data writes to clusters****\
         self.acl_operation_type = acl_operation_type  # type: str
+        self.acl_operation_types = acl_operation_types  # type: str
+        self.acl_permission_type = acl_permission_type  # type: str
         # The name or ID of the resource.
         # 
         # *   The value can be the name of a topic, consumer group, or cluster, or the ID of a transaction.
@@ -282,6 +285,7 @@ class CreateAclRequest(TeaModel):
         # *   **Cluster**\
         # *   **TransactionalId**: transaction
         self.acl_resource_type = acl_resource_type  # type: str
+        self.host = host  # type: str
         # The instance ID.
         self.instance_id = instance_id  # type: str
         # The region ID.
@@ -302,12 +306,18 @@ class CreateAclRequest(TeaModel):
         result = dict()
         if self.acl_operation_type is not None:
             result['AclOperationType'] = self.acl_operation_type
+        if self.acl_operation_types is not None:
+            result['AclOperationTypes'] = self.acl_operation_types
+        if self.acl_permission_type is not None:
+            result['AclPermissionType'] = self.acl_permission_type
         if self.acl_resource_name is not None:
             result['AclResourceName'] = self.acl_resource_name
         if self.acl_resource_pattern_type is not None:
             result['AclResourcePatternType'] = self.acl_resource_pattern_type
         if self.acl_resource_type is not None:
             result['AclResourceType'] = self.acl_resource_type
+        if self.host is not None:
+            result['Host'] = self.host
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
         if self.region_id is not None:
@@ -320,12 +330,18 @@ class CreateAclRequest(TeaModel):
         m = m or dict()
         if m.get('AclOperationType') is not None:
             self.acl_operation_type = m.get('AclOperationType')
+        if m.get('AclOperationTypes') is not None:
+            self.acl_operation_types = m.get('AclOperationTypes')
+        if m.get('AclPermissionType') is not None:
+            self.acl_permission_type = m.get('AclPermissionType')
         if m.get('AclResourceName') is not None:
             self.acl_resource_name = m.get('AclResourceName')
         if m.get('AclResourcePatternType') is not None:
             self.acl_resource_pattern_type = m.get('AclResourcePatternType')
         if m.get('AclResourceType') is not None:
             self.acl_resource_type = m.get('AclResourceType')
+        if m.get('Host') is not None:
+            self.host = m.get('Host')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
         if m.get('RegionId') is not None:
@@ -1428,9 +1444,10 @@ class CreatePrePayOrderResponse(TeaModel):
 
 
 class CreateSaslUserRequest(TeaModel):
-    def __init__(self, instance_id=None, password=None, region_id=None, type=None, username=None):
+    def __init__(self, instance_id=None, mechanism=None, password=None, region_id=None, type=None, username=None):
         # The instance ID.
         self.instance_id = instance_id  # type: str
+        self.mechanism = mechanism  # type: str
         # The password of the SASL user.
         self.password = password  # type: str
         # The region ID.
@@ -1456,6 +1473,8 @@ class CreateSaslUserRequest(TeaModel):
         result = dict()
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.mechanism is not None:
+            result['Mechanism'] = self.mechanism
         if self.password is not None:
             result['Password'] = self.password
         if self.region_id is not None:
@@ -1470,6 +1489,8 @@ class CreateSaslUserRequest(TeaModel):
         m = m or dict()
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('Mechanism') is not None:
+            self.mechanism = m.get('Mechanism')
         if m.get('Password') is not None:
             self.password = m.get('Password')
         if m.get('RegionId') is not None:
@@ -1803,13 +1824,16 @@ class CreateTopicResponse(TeaModel):
 
 
 class DeleteAclRequest(TeaModel):
-    def __init__(self, acl_operation_type=None, acl_resource_name=None, acl_resource_pattern_type=None,
-                 acl_resource_type=None, instance_id=None, region_id=None, username=None):
+    def __init__(self, acl_operation_type=None, acl_operation_types=None, acl_permission_type=None,
+                 acl_resource_name=None, acl_resource_pattern_type=None, acl_resource_type=None, host=None, instance_id=None,
+                 region_id=None, username=None):
         # The operation type. Valid values:
         # 
         # *   **Write**\
         # *   **Read**\
         self.acl_operation_type = acl_operation_type  # type: str
+        self.acl_operation_types = acl_operation_types  # type: str
+        self.acl_permission_type = acl_permission_type  # type: str
         # The name of the resource.
         # 
         # *   The value can be the name of a topic or consumer group.
@@ -1825,6 +1849,7 @@ class DeleteAclRequest(TeaModel):
         # *   **Topic**\
         # *   **Group**\
         self.acl_resource_type = acl_resource_type  # type: str
+        self.host = host  # type: str
         # The ID of the instance.
         self.instance_id = instance_id  # type: str
         # The ID of the region.
@@ -1843,12 +1868,18 @@ class DeleteAclRequest(TeaModel):
         result = dict()
         if self.acl_operation_type is not None:
             result['AclOperationType'] = self.acl_operation_type
+        if self.acl_operation_types is not None:
+            result['AclOperationTypes'] = self.acl_operation_types
+        if self.acl_permission_type is not None:
+            result['AclPermissionType'] = self.acl_permission_type
         if self.acl_resource_name is not None:
             result['AclResourceName'] = self.acl_resource_name
         if self.acl_resource_pattern_type is not None:
             result['AclResourcePatternType'] = self.acl_resource_pattern_type
         if self.acl_resource_type is not None:
             result['AclResourceType'] = self.acl_resource_type
+        if self.host is not None:
+            result['Host'] = self.host
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
         if self.region_id is not None:
@@ -1861,12 +1892,18 @@ class DeleteAclRequest(TeaModel):
         m = m or dict()
         if m.get('AclOperationType') is not None:
             self.acl_operation_type = m.get('AclOperationType')
+        if m.get('AclOperationTypes') is not None:
+            self.acl_operation_types = m.get('AclOperationTypes')
+        if m.get('AclPermissionType') is not None:
+            self.acl_permission_type = m.get('AclPermissionType')
         if m.get('AclResourceName') is not None:
             self.acl_resource_name = m.get('AclResourceName')
         if m.get('AclResourcePatternType') is not None:
             self.acl_resource_pattern_type = m.get('AclResourcePatternType')
         if m.get('AclResourceType') is not None:
             self.acl_resource_type = m.get('AclResourceType')
+        if m.get('Host') is not None:
+            self.host = m.get('Host')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
         if m.get('RegionId') is not None:
@@ -2182,9 +2219,10 @@ class DeleteInstanceResponse(TeaModel):
 
 
 class DeleteSaslUserRequest(TeaModel):
-    def __init__(self, instance_id=None, region_id=None, type=None, username=None):
+    def __init__(self, instance_id=None, mechanism=None, region_id=None, type=None, username=None):
         # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        self.mechanism = mechanism  # type: str
         # The ID of the region.
         self.region_id = region_id  # type: str
         # The SASL mechanism. Valid values:
@@ -2208,6 +2246,8 @@ class DeleteSaslUserRequest(TeaModel):
         result = dict()
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.mechanism is not None:
+            result['Mechanism'] = self.mechanism
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.type is not None:
@@ -2220,6 +2260,8 @@ class DeleteSaslUserRequest(TeaModel):
         m = m or dict()
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('Mechanism') is not None:
+            self.mechanism = m.get('Mechanism')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('Type') is not None:
@@ -2425,8 +2467,10 @@ class DeleteTopicResponse(TeaModel):
 
 
 class DescribeAclsRequest(TeaModel):
-    def __init__(self, acl_resource_name=None, acl_resource_pattern_type=None, acl_resource_type=None,
-                 instance_id=None, region_id=None, username=None):
+    def __init__(self, acl_operation_type=None, acl_permission_type=None, acl_resource_name=None,
+                 acl_resource_pattern_type=None, acl_resource_type=None, host=None, instance_id=None, region_id=None, username=None):
+        self.acl_operation_type = acl_operation_type  # type: str
+        self.acl_permission_type = acl_permission_type  # type: str
         # The name or ID of the resource.
         # 
         # *   The value can be the name of a topic or a consumer group.
@@ -2442,6 +2486,7 @@ class DescribeAclsRequest(TeaModel):
         # *   **Topic**\
         # *   **Group**\
         self.acl_resource_type = acl_resource_type  # type: str
+        self.host = host  # type: str
         # The ID of the instance.
         self.instance_id = instance_id  # type: str
         # The ID of the region.
@@ -2458,12 +2503,18 @@ class DescribeAclsRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.acl_operation_type is not None:
+            result['AclOperationType'] = self.acl_operation_type
+        if self.acl_permission_type is not None:
+            result['AclPermissionType'] = self.acl_permission_type
         if self.acl_resource_name is not None:
             result['AclResourceName'] = self.acl_resource_name
         if self.acl_resource_pattern_type is not None:
             result['AclResourcePatternType'] = self.acl_resource_pattern_type
         if self.acl_resource_type is not None:
             result['AclResourceType'] = self.acl_resource_type
+        if self.host is not None:
+            result['Host'] = self.host
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
         if self.region_id is not None:
@@ -2474,12 +2525,18 @@ class DescribeAclsRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AclOperationType') is not None:
+            self.acl_operation_type = m.get('AclOperationType')
+        if m.get('AclPermissionType') is not None:
+            self.acl_permission_type = m.get('AclPermissionType')
         if m.get('AclResourceName') is not None:
             self.acl_resource_name = m.get('AclResourceName')
         if m.get('AclResourcePatternType') is not None:
             self.acl_resource_pattern_type = m.get('AclResourcePatternType')
         if m.get('AclResourceType') is not None:
             self.acl_resource_type = m.get('AclResourceType')
+        if m.get('Host') is not None:
+            self.host = m.get('Host')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
         if m.get('RegionId') is not None:
@@ -2490,13 +2547,14 @@ class DescribeAclsRequest(TeaModel):
 
 
 class DescribeAclsResponseBodyKafkaAclListKafkaAclVO(TeaModel):
-    def __init__(self, acl_operation_type=None, acl_resource_name=None, acl_resource_pattern_type=None,
-                 acl_resource_type=None, host=None, username=None):
+    def __init__(self, acl_operation_type=None, acl_permission_type=None, acl_resource_name=None,
+                 acl_resource_pattern_type=None, acl_resource_type=None, host=None, username=None):
         # The type of the operation. Valid values:
         # 
         # *   **Write**\
         # *   **Read**\
         self.acl_operation_type = acl_operation_type  # type: str
+        self.acl_permission_type = acl_permission_type  # type: str
         # The name of the resource.
         # 
         # *   The value can be the name of a topic or a consumer group.
@@ -2528,6 +2586,8 @@ class DescribeAclsResponseBodyKafkaAclListKafkaAclVO(TeaModel):
         result = dict()
         if self.acl_operation_type is not None:
             result['AclOperationType'] = self.acl_operation_type
+        if self.acl_permission_type is not None:
+            result['AclPermissionType'] = self.acl_permission_type
         if self.acl_resource_name is not None:
             result['AclResourceName'] = self.acl_resource_name
         if self.acl_resource_pattern_type is not None:
@@ -2544,6 +2604,8 @@ class DescribeAclsResponseBodyKafkaAclListKafkaAclVO(TeaModel):
         m = m or dict()
         if m.get('AclOperationType') is not None:
             self.acl_operation_type = m.get('AclOperationType')
+        if m.get('AclPermissionType') is not None:
+            self.acl_permission_type = m.get('AclPermissionType')
         if m.get('AclResourceName') is not None:
             self.acl_resource_name = m.get('AclResourceName')
         if m.get('AclResourcePatternType') is not None:
@@ -2708,7 +2770,8 @@ class DescribeSaslUsersRequest(TeaModel):
 
 
 class DescribeSaslUsersResponseBodySaslUserListSaslUserVO(TeaModel):
-    def __init__(self, password=None, type=None, username=None):
+    def __init__(self, mechanism=None, password=None, type=None, username=None):
+        self.mechanism = mechanism  # type: str
         # The password that is used to access the Elasticsearch cluster.
         self.password = password  # type: str
         # The request type. Valid values:
@@ -2730,6 +2793,8 @@ class DescribeSaslUsersResponseBodySaslUserListSaslUserVO(TeaModel):
             return _map
 
         result = dict()
+        if self.mechanism is not None:
+            result['Mechanism'] = self.mechanism
         if self.password is not None:
             result['Password'] = self.password
         if self.type is not None:
@@ -2740,6 +2805,8 @@ class DescribeSaslUsersResponseBodySaslUserListSaslUserVO(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Mechanism') is not None:
+            self.mechanism = m.get('Mechanism')
         if m.get('Password') is not None:
             self.password = m.get('Password')
         if m.get('Type') is not None:
@@ -3824,6 +3891,88 @@ class GetConsumerProgressRequest(TeaModel):
         return self
 
 
+class GetConsumerProgressResponseBodyConsumerProgressRebalanceInfoListRebalanceInfoList(TeaModel):
+    def __init__(self, generation=None, group_id=None, last_rebalance_timestamp=None, reason=None,
+                 rebalance_success=None, rebalance_time_consuming=None):
+        self.generation = generation  # type: long
+        self.group_id = group_id  # type: str
+        self.last_rebalance_timestamp = last_rebalance_timestamp  # type: long
+        self.reason = reason  # type: str
+        self.rebalance_success = rebalance_success  # type: bool
+        self.rebalance_time_consuming = rebalance_time_consuming  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetConsumerProgressResponseBodyConsumerProgressRebalanceInfoListRebalanceInfoList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.generation is not None:
+            result['Generation'] = self.generation
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
+        if self.last_rebalance_timestamp is not None:
+            result['LastRebalanceTimestamp'] = self.last_rebalance_timestamp
+        if self.reason is not None:
+            result['Reason'] = self.reason
+        if self.rebalance_success is not None:
+            result['RebalanceSuccess'] = self.rebalance_success
+        if self.rebalance_time_consuming is not None:
+            result['RebalanceTimeConsuming'] = self.rebalance_time_consuming
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Generation') is not None:
+            self.generation = m.get('Generation')
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
+        if m.get('LastRebalanceTimestamp') is not None:
+            self.last_rebalance_timestamp = m.get('LastRebalanceTimestamp')
+        if m.get('Reason') is not None:
+            self.reason = m.get('Reason')
+        if m.get('RebalanceSuccess') is not None:
+            self.rebalance_success = m.get('RebalanceSuccess')
+        if m.get('RebalanceTimeConsuming') is not None:
+            self.rebalance_time_consuming = m.get('RebalanceTimeConsuming')
+        return self
+
+
+class GetConsumerProgressResponseBodyConsumerProgressRebalanceInfoList(TeaModel):
+    def __init__(self, rebalance_info_list=None):
+        self.rebalance_info_list = rebalance_info_list  # type: list[GetConsumerProgressResponseBodyConsumerProgressRebalanceInfoListRebalanceInfoList]
+
+    def validate(self):
+        if self.rebalance_info_list:
+            for k in self.rebalance_info_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetConsumerProgressResponseBodyConsumerProgressRebalanceInfoList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['RebalanceInfoList'] = []
+        if self.rebalance_info_list is not None:
+            for k in self.rebalance_info_list:
+                result['RebalanceInfoList'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.rebalance_info_list = []
+        if m.get('RebalanceInfoList') is not None:
+            for k in m.get('RebalanceInfoList'):
+                temp_model = GetConsumerProgressResponseBodyConsumerProgressRebalanceInfoListRebalanceInfoList()
+                self.rebalance_info_list.append(temp_model.from_map(k))
+        return self
+
+
 class GetConsumerProgressResponseBodyConsumerProgressTopicListTopicListOffsetListOffsetList(TeaModel):
     def __init__(self, broker_offset=None, consumer_offset=None, last_timestamp=None, partition=None):
         # The latest offset in the partition of the topic.
@@ -3977,15 +4126,18 @@ class GetConsumerProgressResponseBodyConsumerProgressTopicList(TeaModel):
 
 
 class GetConsumerProgressResponseBodyConsumerProgress(TeaModel):
-    def __init__(self, last_timestamp=None, topic_list=None, total_diff=None):
+    def __init__(self, last_timestamp=None, rebalance_info_list=None, topic_list=None, total_diff=None):
         # The time when the last message consumed by the consumer group was generated.
         self.last_timestamp = last_timestamp  # type: long
+        self.rebalance_info_list = rebalance_info_list  # type: GetConsumerProgressResponseBodyConsumerProgressRebalanceInfoList
         # The consumption progress of each topic to which the consumer group is subscribed.
         self.topic_list = topic_list  # type: GetConsumerProgressResponseBodyConsumerProgressTopicList
         # The number of messages that were not consumed in all topics. This is also known as the number of accumulated messages in all topics.
         self.total_diff = total_diff  # type: long
 
     def validate(self):
+        if self.rebalance_info_list:
+            self.rebalance_info_list.validate()
         if self.topic_list:
             self.topic_list.validate()
 
@@ -3997,6 +4149,8 @@ class GetConsumerProgressResponseBodyConsumerProgress(TeaModel):
         result = dict()
         if self.last_timestamp is not None:
             result['LastTimestamp'] = self.last_timestamp
+        if self.rebalance_info_list is not None:
+            result['RebalanceInfoList'] = self.rebalance_info_list.to_map()
         if self.topic_list is not None:
             result['TopicList'] = self.topic_list.to_map()
         if self.total_diff is not None:
@@ -4007,6 +4161,9 @@ class GetConsumerProgressResponseBodyConsumerProgress(TeaModel):
         m = m or dict()
         if m.get('LastTimestamp') is not None:
             self.last_timestamp = m.get('LastTimestamp')
+        if m.get('RebalanceInfoList') is not None:
+            temp_model = GetConsumerProgressResponseBodyConsumerProgressRebalanceInfoList()
+            self.rebalance_info_list = temp_model.from_map(m['RebalanceInfoList'])
         if m.get('TopicList') is not None:
             temp_model = GetConsumerProgressResponseBodyConsumerProgressTopicList()
             self.topic_list = temp_model.from_map(m['TopicList'])

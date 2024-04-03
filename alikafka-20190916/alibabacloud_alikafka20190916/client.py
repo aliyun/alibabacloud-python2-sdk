@@ -99,12 +99,18 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.acl_operation_type):
             query['AclOperationType'] = request.acl_operation_type
+        if not UtilClient.is_unset(request.acl_operation_types):
+            query['AclOperationTypes'] = request.acl_operation_types
+        if not UtilClient.is_unset(request.acl_permission_type):
+            query['AclPermissionType'] = request.acl_permission_type
         if not UtilClient.is_unset(request.acl_resource_name):
             query['AclResourceName'] = request.acl_resource_name
         if not UtilClient.is_unset(request.acl_resource_pattern_type):
             query['AclResourcePatternType'] = request.acl_resource_pattern_type
         if not UtilClient.is_unset(request.acl_resource_type):
             query['AclResourceType'] = request.acl_resource_type
+        if not UtilClient.is_unset(request.host):
+            query['Host'] = request.host
         if not UtilClient.is_unset(request.instance_id):
             query['InstanceId'] = request.instance_id
         if not UtilClient.is_unset(request.region_id):
@@ -323,6 +329,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.instance_id):
             query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.mechanism):
+            query['Mechanism'] = request.mechanism
         if not UtilClient.is_unset(request.password):
             query['Password'] = request.password
         if not UtilClient.is_unset(request.region_id):
@@ -427,12 +435,18 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.acl_operation_type):
             query['AclOperationType'] = request.acl_operation_type
+        if not UtilClient.is_unset(request.acl_operation_types):
+            query['AclOperationTypes'] = request.acl_operation_types
+        if not UtilClient.is_unset(request.acl_permission_type):
+            query['AclPermissionType'] = request.acl_permission_type
         if not UtilClient.is_unset(request.acl_resource_name):
             query['AclResourceName'] = request.acl_resource_name
         if not UtilClient.is_unset(request.acl_resource_pattern_type):
             query['AclResourcePatternType'] = request.acl_resource_pattern_type
         if not UtilClient.is_unset(request.acl_resource_type):
             query['AclResourceType'] = request.acl_resource_type
+        if not UtilClient.is_unset(request.host):
+            query['Host'] = request.host
         if not UtilClient.is_unset(request.instance_id):
             query['InstanceId'] = request.instance_id
         if not UtilClient.is_unset(request.region_id):
@@ -529,6 +543,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.instance_id):
             query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.mechanism):
+            query['Mechanism'] = request.mechanism
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.type):
@@ -593,12 +609,18 @@ class Client(OpenApiClient):
     def describe_acls_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.acl_operation_type):
+            query['AclOperationType'] = request.acl_operation_type
+        if not UtilClient.is_unset(request.acl_permission_type):
+            query['AclPermissionType'] = request.acl_permission_type
         if not UtilClient.is_unset(request.acl_resource_name):
             query['AclResourceName'] = request.acl_resource_name
         if not UtilClient.is_unset(request.acl_resource_pattern_type):
             query['AclResourcePatternType'] = request.acl_resource_pattern_type
         if not UtilClient.is_unset(request.acl_resource_type):
             query['AclResourceType'] = request.acl_resource_type
+        if not UtilClient.is_unset(request.host):
+            query['Host'] = request.host
         if not UtilClient.is_unset(request.instance_id):
             query['InstanceId'] = request.instance_id
         if not UtilClient.is_unset(request.region_id):
