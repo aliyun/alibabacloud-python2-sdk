@@ -7627,7 +7627,8 @@ class RecognizeMedicalDeviceProduceLicenseResponse(TeaModel):
 
 
 class RecognizeMixedInvoicesRequest(TeaModel):
-    def __init__(self, page_no=None, url=None, body=None):
+    def __init__(self, merge_pdf_pages=None, page_no=None, url=None, body=None):
+        self.merge_pdf_pages = merge_pdf_pages  # type: bool
         self.page_no = page_no  # type: int
         self.url = url  # type: str
         self.body = body  # type: READABLE
@@ -7641,6 +7642,8 @@ class RecognizeMixedInvoicesRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.merge_pdf_pages is not None:
+            result['MergePdfPages'] = self.merge_pdf_pages
         if self.page_no is not None:
             result['PageNo'] = self.page_no
         if self.url is not None:
@@ -7651,6 +7654,8 @@ class RecognizeMixedInvoicesRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('MergePdfPages') is not None:
+            self.merge_pdf_pages = m.get('MergePdfPages')
         if m.get('PageNo') is not None:
             self.page_no = m.get('PageNo')
         if m.get('Url') is not None:
