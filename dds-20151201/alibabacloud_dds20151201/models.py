@@ -3358,11 +3358,21 @@ class DescribeActiveOperationTasksRequest(TeaModel):
     def __init__(self, allow_cancel=None, allow_change=None, change_level=None, db_type=None, ins_name=None,
                  owner_account=None, owner_id=None, page_number=None, page_size=None, product_id=None, region=None,
                  resource_owner_account=None, resource_owner_id=None, status=None, task_type=None):
-        # Specifies whether the task can be canceled. Valid values: -**0**: The task cannot be canceled. -**1**: The task can be canceled.
+        # Specifies whether to allow the cancellation operation. Valid values:
+        # 
+        # *   **0**: The cancellation operation is not allowed.
+        # *   **1**: The cancellation operation is allowed.
         self.allow_cancel = allow_cancel  # type: int
-        # Specifies whether the time can be modified. Valid values: -**0**: The time cannot be modified. -**1**: The time can be modified.
+        # Specifies whether to allow the modification operation. Valid values:
+        # 
+        # *   **0**: The modification operation is not allowed.
+        # *   **1**: The modification operation is allowed.
         self.allow_change = allow_change  # type: int
-        # The type of configuration change. Valid values: -**all** (default): All O\&M tasks are returned. -**S0**: O\&M tasks that are executed for exception fixing are returned. -**S1**: O\&M tasks that are executed for regular O\&M are returned.
+        # The type of task configuration change. Valid values:
+        # 
+        # *   **all** (default): The configurations of all O\&M tasks are changed.
+        # *   **S0**: The configurations of tasks initiated to fix exceptions are changed.
+        # *   **S1**: The configurations of system O\&M tasks are changed.
         self.change_level = change_level  # type: str
         # The type of the database engine.
         self.db_type = db_type  # type: str
@@ -3376,11 +3386,18 @@ class DescribeActiveOperationTasksRequest(TeaModel):
         self.page_size = page_size  # type: int
         # The ID of the service.
         self.product_id = product_id  # type: str
-        # The region of the instance. If you set the Region parameter to all, all tasks created within your Alibaba Cloud account are queried. In this case, you must also set the TaskType parameter to all.
+        # The region ID of the instance.
+        # 
+        # >  If you set the Region parameter to **all**, all tasks created within your Alibaba Cloud account are queried. In this case, you must set the **taskType** parameter to **all**.
         self.region = region  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # Specifies the status of the task. Valid values: **0**: The task is waiting to be run. **1**: The task is running. **2**: The task is run. **3**: The task failed to be run.
+        # The status of the task. Valid values:
+        # 
+        # *   **0**: waiting for execution
+        # *   **1**: being executed
+        # *   **2**: successful
+        # *   **3**: failed
         self.status = status  # type: int
         # The task type.
         self.task_type = task_type  # type: str
@@ -3467,22 +3484,22 @@ class DescribeActiveOperationTasksResponseBodyItems(TeaModel):
                  impact_en=None, impact_zh=None, ins_comment=None, ins_name=None, modified_time=None, prepare_interval=None,
                  region=None, result_info=None, start_time=None, status=None, sub_ins_names=None, switch_time=None,
                  task_type=None, task_type_en=None, task_type_zh=None):
-        # None
+        # N/A
         self.allow_cancel = allow_cancel  # type: str
-        # Indicates whether the change is allowed.
+        # Indicates whether the modification operation is allowed.
         # 
-        # *   **0**: The change is not allowed.
-        # *   **1**: The change is allowed.
+        # *   **0**: The modification operation is not allowed.
+        # *   **1**: The modification operation is allowed.
         self.allow_change = allow_change  # type: str
         # The change level of the O\&M task.
         self.change_level = change_level  # type: str
-        # None
+        # N/A
         self.change_level_en = change_level_en  # type: str
         # The task type in English.
         self.change_level_zh = change_level_zh  # type: str
         # The time when the task was created.
         self.created_time = created_time  # type: str
-        # None
+        # N/A
         self.current_avz = current_avz  # type: str
         # The type of the database engine.
         self.db_type = db_type  # type: str
@@ -3492,15 +3509,15 @@ class DescribeActiveOperationTasksResponseBodyItems(TeaModel):
         self.deadline = deadline  # type: str
         # The task ID.
         self.id = id  # type: int
-        # None
+        # N/A
         self.impact_en = impact_en  # type: str
-        # None
+        # N/A
         self.impact_zh = impact_zh  # type: str
         # The description of the instance.
         self.ins_comment = ins_comment  # type: str
-        # The node ID.
+        # The ID of the node.
         self.ins_name = ins_name  # type: str
-        # The time when the O\&M task was modified. The time follows the ISO 8601 standard in the *yyyy-mm-dd*T*hh:mm:ss*Z format. The time is displayed in UTC.
+        # The time when the task is modified. The time follows the ISO 8601 standard in the *yyyy-mm-dd*T*hh:mm:ss*Z format. The time is displayed in UTC.
         self.modified_time = modified_time  # type: str
         # The required preparation period between the task start time and the switchover time. The time is displayed in the *HH:mm:ss* format.
         self.prepare_interval = prepare_interval  # type: str
@@ -3508,17 +3525,17 @@ class DescribeActiveOperationTasksResponseBodyItems(TeaModel):
         self.region = region  # type: str
         # The result information. The value of this parameter can be ignored.
         self.result_info = result_info  # type: str
-        # The time when the O\&M task started to run. The time follows the ISO 8601 standard in the *yyyy-mm-dd*T*hh:mm:ss*Z format. The time is displayed in UTC.
+        # The start time of the task. The time follows the ISO 8601 standard in the *yyyy-mm-dd* T*hh:mm:ss*Z format. The time is displayed in UTC.
         self.start_time = start_time  # type: str
-        # None
+        # N/A
         self.status = status  # type: int
         # The subinstances.
         self.sub_ins_names = sub_ins_names  # type: list[str]
-        # The point in time when the switchover is performed. The time follows the ISO 8601 standard in the *yyyy-mm-dd*T*hh:mm:ss*Z format. The time is displayed in UTC. Service interruptions may occur during switchover.
+        # The switchover point in time in which disconnection may occur. The time follows the ISO 8601 standard in the *yyyy-mm-dd*T*hh:mm:ss*Z format. The time is displayed in UTC.
         self.switch_time = switch_time  # type: str
         # The task type.
         self.task_type = task_type  # type: str
-        # None
+        # N/A
         self.task_type_en = task_type_en  # type: str
         # The task type in Chinese.
         self.task_type_zh = task_type_zh  # type: str
@@ -3651,7 +3668,7 @@ class DescribeActiveOperationTasksResponseBody(TeaModel):
         self.page_number = page_number  # type: int
         # The number of entries returned per page.
         self.page_size = page_size  # type: int
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
         # The total number of returned entries.
         self.total_record_count = total_record_count  # type: int
@@ -14438,7 +14455,7 @@ class DescribePriceResponseBodySubOrdersSubOrderDepreciateInfoContractActivity(T
 class DescribePriceResponseBodySubOrdersSubOrderDepreciateInfo(TeaModel):
     def __init__(self, cheap_rate=None, cheap_stand_amount=None, contract_activity=None, differential=None,
                  differential_name=None, is_contract_activity=None, is_show=None, list_price=None, month_price=None,
-                 original_stand_amount=None):
+                 original_stand_amount=None, start_time=None):
         self.cheap_rate = cheap_rate  # type: float
         self.cheap_stand_amount = cheap_stand_amount  # type: float
         self.contract_activity = contract_activity  # type: DescribePriceResponseBodySubOrdersSubOrderDepreciateInfoContractActivity
@@ -14449,6 +14466,7 @@ class DescribePriceResponseBodySubOrdersSubOrderDepreciateInfo(TeaModel):
         self.list_price = list_price  # type: float
         self.month_price = month_price  # type: float
         self.original_stand_amount = original_stand_amount  # type: float
+        self.start_time = start_time  # type: str
 
     def validate(self):
         if self.contract_activity:
@@ -14480,6 +14498,8 @@ class DescribePriceResponseBodySubOrdersSubOrderDepreciateInfo(TeaModel):
             result['MonthPrice'] = self.month_price
         if self.original_stand_amount is not None:
             result['OriginalStandAmount'] = self.original_stand_amount
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
@@ -14505,6 +14525,8 @@ class DescribePriceResponseBodySubOrdersSubOrderDepreciateInfo(TeaModel):
             self.month_price = m.get('MonthPrice')
         if m.get('OriginalStandAmount') is not None:
             self.original_stand_amount = m.get('OriginalStandAmount')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
@@ -15498,7 +15520,7 @@ class DescribeRegionsResponseBodyRegionsDdsRegion(TeaModel):
         # 
         # The value of the LocalName parameter is in the language that is specified by the **AcceptLanguage** parameter. For example, if the value of the RegionId parameter in the response is **cn-hangzhou**, the following values are returned for the LocalName parameter:
         # 
-        # *   If the value of the **AcceptLanguage** parameter is **zh**, the value **1（）** is returned for the LocalName parameter.
+        # *   If the value of the **AcceptLanguage** parameter is **zh**, the value **华东1（杭州）** is returned for the LocalName parameter.
         # *   If the value of the **AcceptLanguage** parameter is **en**, the value **China (Hangzhou)** is returned for the LocalName parameter.
         self.region_name = region_name  # type: str
         # The zones.
