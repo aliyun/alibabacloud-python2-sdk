@@ -28274,8 +28274,9 @@ class ListOrganizationMembersResponse(TeaModel):
 
 
 class ListOrganizationsRequest(TeaModel):
-    def __init__(self, access_level=None, min_access_level=None):
+    def __init__(self, access_level=None, access_token=None, min_access_level=None):
         self.access_level = access_level  # type: int
+        self.access_token = access_token  # type: str
         self.min_access_level = min_access_level  # type: int
 
     def validate(self):
@@ -28289,6 +28290,8 @@ class ListOrganizationsRequest(TeaModel):
         result = dict()
         if self.access_level is not None:
             result['accessLevel'] = self.access_level
+        if self.access_token is not None:
+            result['accessToken'] = self.access_token
         if self.min_access_level is not None:
             result['minAccessLevel'] = self.min_access_level
         return result
@@ -28297,6 +28300,8 @@ class ListOrganizationsRequest(TeaModel):
         m = m or dict()
         if m.get('accessLevel') is not None:
             self.access_level = m.get('accessLevel')
+        if m.get('accessToken') is not None:
+            self.access_token = m.get('accessToken')
         if m.get('minAccessLevel') is not None:
             self.min_access_level = m.get('minAccessLevel')
         return self
