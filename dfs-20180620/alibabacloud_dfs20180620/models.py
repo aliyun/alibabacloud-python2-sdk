@@ -9,7 +9,7 @@ class AttachVscMountPointRequest(TeaModel):
         self.description = description  # type: str
         self.file_system_id = file_system_id  # type: str
         self.input_region_id = input_region_id  # type: str
-        self.instance_ids = instance_ids  # type: dict[str, any]
+        self.instance_ids = instance_ids  # type: list[str]
         self.mount_point_id = mount_point_id  # type: str
         self.vsc_ids = vsc_ids  # type: list[str]
         self.vsc_type = vsc_type  # type: str
@@ -905,7 +905,7 @@ class CreateVscMountPointRequest(TeaModel):
         self.description = description  # type: str
         self.file_system_id = file_system_id  # type: str
         self.input_region_id = input_region_id  # type: str
-        self.instance_ids = instance_ids  # type: dict[str, any]
+        self.instance_ids = instance_ids  # type: list[str]
 
     def validate(self):
         pass
@@ -2066,7 +2066,7 @@ class DetachVscMountPointRequest(TeaModel):
         self.description = description  # type: str
         self.file_system_id = file_system_id  # type: str
         self.input_region_id = input_region_id  # type: str
-        self.instance_ids = instance_ids  # type: dict[str, any]
+        self.instance_ids = instance_ids  # type: list[str]
         self.mount_point_id = mount_point_id  # type: str
         self.vsc_ids = vsc_ids  # type: list[str]
 
