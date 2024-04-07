@@ -14821,7 +14821,8 @@ class DescribePriceResponseBodySubOrdersSubOrderDepreciateInfoContractActivity(T
 
 class DescribePriceResponseBodySubOrdersSubOrderDepreciateInfo(TeaModel):
     def __init__(self, cheap_rate=None, cheap_stand_amount=None, contract_activity=None, differential=None,
-                 differential_name=None, is_contract_activity=None, list_price=None, month_price=None, original_stand_amount=None):
+                 differential_name=None, is_contract_activity=None, list_price=None, month_price=None, original_stand_amount=None,
+                 start_time=None):
         self.cheap_rate = cheap_rate  # type: long
         self.cheap_stand_amount = cheap_stand_amount  # type: long
         self.contract_activity = contract_activity  # type: DescribePriceResponseBodySubOrdersSubOrderDepreciateInfoContractActivity
@@ -14831,6 +14832,7 @@ class DescribePriceResponseBodySubOrdersSubOrderDepreciateInfo(TeaModel):
         self.list_price = list_price  # type: long
         self.month_price = month_price  # type: long
         self.original_stand_amount = original_stand_amount  # type: long
+        self.start_time = start_time  # type: str
 
     def validate(self):
         if self.contract_activity:
@@ -14860,6 +14862,8 @@ class DescribePriceResponseBodySubOrdersSubOrderDepreciateInfo(TeaModel):
             result['MonthPrice'] = self.month_price
         if self.original_stand_amount is not None:
             result['OriginalStandAmount'] = self.original_stand_amount
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
@@ -14883,6 +14887,8 @@ class DescribePriceResponseBodySubOrdersSubOrderDepreciateInfo(TeaModel):
             self.month_price = m.get('MonthPrice')
         if m.get('OriginalStandAmount') is not None:
             self.original_stand_amount = m.get('OriginalStandAmount')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
@@ -18797,6 +18803,8 @@ class MigrateToOtherZoneRequest(TeaModel):
         # 
         # *   **Immediately**: immediately switched after the data is migrated.
         # *   **MaintainTime**: switched within the maintenance window.
+        # *   **0**: immediately switched after the data is migrated.
+        # *   **1**: switched within the maintenance window.
         # 
         # >  Default value: **Immediately**.
         self.effective_time = effective_time  # type: str
@@ -23837,7 +23845,7 @@ class SwitchNetworkRequest(TeaModel):
         # > This parameter is available only when the network type of the instance is classic network.
         self.retain_classic = retain_classic  # type: str
         self.security_token = security_token  # type: str
-        # The network type to which you want to switch. Set the value to **VPC**.
+        # The network type to which you want to switch. If you want to switch to VPC network, Set the value to **VPC**.
         self.target_network_type = target_network_type  # type: str
         # The ID of the vSwitch that belongs to the VPC to which you want to switch. You can call the [DescribeVpcs](~~35739~~) operation to query the VPC ID.
         # 
