@@ -1542,7 +1542,7 @@ class Client(OpenApiClient):
 
     def update_entity_with_options(self, tmp_req, runtime):
         """
-        @deprecated
+        @deprecated : UpdateEntity is deprecated, please use EasyGene::2021-03-15::UpdateEntityItems instead.
         
 
         @param tmp_req: UpdateEntityRequest
@@ -1587,7 +1587,7 @@ class Client(OpenApiClient):
 
     def update_entity(self, request):
         """
-        @deprecated
+        @deprecated : UpdateEntity is deprecated, please use EasyGene::2021-03-15::UpdateEntityItems instead.
         
 
         @param request: UpdateEntityRequest

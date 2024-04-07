@@ -4013,13 +4013,14 @@ class GetRunResponseBodyExecuteOptions(TeaModel):
 
 
 class GetRunResponseBody(TeaModel):
-    def __init__(self, app_name=None, app_revision=None, calls=None, create_time=None, default_runtime=None,
-                 description=None, end_time=None, entity_name=None, entity_type=None, execute_directory=None,
+    def __init__(self, app_name=None, app_revision=None, billing_instance_ids=None, calls=None, create_time=None,
+                 default_runtime=None, description=None, end_time=None, entity_name=None, entity_type=None, execute_directory=None,
                  execute_options=None, failures=None, host_id=None, inputs=None, labels=None, output_folder=None, outputs=None,
                  request_id=None, run_id=None, run_name=None, source=None, start_time=None, status=None, submission_id=None,
                  timing=None, user=None, workspace=None):
         self.app_name = app_name  # type: str
         self.app_revision = app_revision  # type: str
+        self.billing_instance_ids = billing_instance_ids  # type: list[str]
         self.calls = calls  # type: str
         self.create_time = create_time  # type: str
         self.default_runtime = default_runtime  # type: str
@@ -4060,6 +4061,8 @@ class GetRunResponseBody(TeaModel):
             result['AppName'] = self.app_name
         if self.app_revision is not None:
             result['AppRevision'] = self.app_revision
+        if self.billing_instance_ids is not None:
+            result['BillingInstanceIds'] = self.billing_instance_ids
         if self.calls is not None:
             result['Calls'] = self.calls
         if self.create_time is not None:
@@ -4118,6 +4121,8 @@ class GetRunResponseBody(TeaModel):
             self.app_name = m.get('AppName')
         if m.get('AppRevision') is not None:
             self.app_revision = m.get('AppRevision')
+        if m.get('BillingInstanceIds') is not None:
+            self.billing_instance_ids = m.get('BillingInstanceIds')
         if m.get('Calls') is not None:
             self.calls = m.get('Calls')
         if m.get('CreateTime') is not None:
