@@ -1294,13 +1294,15 @@ class DescribeClusterResponseBodyNetworks(TeaModel):
 
 class DescribeClusterResponseBody(TeaModel):
     def __init__(self, cluster_description=None, cluster_id=None, cluster_name=None, cluster_type=None,
-                 components=None, create_time=None, hpn_zone=None, networks=None, node_count=None, node_group_count=None,
-                 operating_state=None, request_id=None, resource_group_id=None, task_id=None, update_time=None, vpc_id=None):
+                 components=None, computing_ip_version=None, create_time=None, hpn_zone=None, networks=None, node_count=None,
+                 node_group_count=None, operating_state=None, request_id=None, resource_group_id=None, task_id=None,
+                 update_time=None, vpc_id=None):
         self.cluster_description = cluster_description  # type: str
         self.cluster_id = cluster_id  # type: str
         self.cluster_name = cluster_name  # type: str
         self.cluster_type = cluster_type  # type: str
         self.components = components  # type: list[DescribeClusterResponseBodyComponents]
+        self.computing_ip_version = computing_ip_version  # type: str
         self.create_time = create_time  # type: str
         self.hpn_zone = hpn_zone  # type: str
         self.networks = networks  # type: list[DescribeClusterResponseBodyNetworks]
@@ -1341,6 +1343,8 @@ class DescribeClusterResponseBody(TeaModel):
         if self.components is not None:
             for k in self.components:
                 result['Components'].append(k.to_map() if k else None)
+        if self.computing_ip_version is not None:
+            result['ComputingIpVersion'] = self.computing_ip_version
         if self.create_time is not None:
             result['CreateTime'] = self.create_time
         if self.hpn_zone is not None:
@@ -1382,6 +1386,8 @@ class DescribeClusterResponseBody(TeaModel):
             for k in m.get('Components'):
                 temp_model = DescribeClusterResponseBodyComponents()
                 self.components.append(temp_model.from_map(k))
+        if m.get('ComputingIpVersion') is not None:
+            self.computing_ip_version = m.get('ComputingIpVersion')
         if m.get('CreateTime') is not None:
             self.create_time = m.get('CreateTime')
         if m.get('HpnZone') is not None:
@@ -3658,13 +3664,14 @@ class ListClustersRequest(TeaModel):
 
 class ListClustersResponseBodyClusters(TeaModel):
     def __init__(self, cluster_description=None, cluster_id=None, cluster_name=None, cluster_type=None,
-                 components=None, create_time=None, hpn_zone=None, node_count=None, node_group_count=None,
-                 operating_state=None, resource_group_id=None, task_id=None, update_time=None, vpc_id=None):
+                 components=None, computing_ip_version=None, create_time=None, hpn_zone=None, node_count=None,
+                 node_group_count=None, operating_state=None, resource_group_id=None, task_id=None, update_time=None, vpc_id=None):
         self.cluster_description = cluster_description  # type: str
         self.cluster_id = cluster_id  # type: str
         self.cluster_name = cluster_name  # type: str
         self.cluster_type = cluster_type  # type: str
         self.components = components  # type: any
+        self.computing_ip_version = computing_ip_version  # type: str
         self.create_time = create_time  # type: str
         self.hpn_zone = hpn_zone  # type: str
         self.node_count = node_count  # type: long
@@ -3694,6 +3701,8 @@ class ListClustersResponseBodyClusters(TeaModel):
             result['ClusterType'] = self.cluster_type
         if self.components is not None:
             result['Components'] = self.components
+        if self.computing_ip_version is not None:
+            result['ComputingIpVersion'] = self.computing_ip_version
         if self.create_time is not None:
             result['CreateTime'] = self.create_time
         if self.hpn_zone is not None:
@@ -3726,6 +3735,8 @@ class ListClustersResponseBodyClusters(TeaModel):
             self.cluster_type = m.get('ClusterType')
         if m.get('Components') is not None:
             self.components = m.get('Components')
+        if m.get('ComputingIpVersion') is not None:
+            self.computing_ip_version = m.get('ComputingIpVersion')
         if m.get('CreateTime') is not None:
             self.create_time = m.get('CreateTime')
         if m.get('HpnZone') is not None:
