@@ -696,6 +696,7 @@ class DeployApplicationRequest(TeaModel):
     def __init__(self, application_id=None, client_token=None, resource_group_id=None):
         # The ID of the application.
         self.application_id = application_id  # type: str
+        # The client token that is used to ensure the idempotence of the request.
         self.client_token = client_token  # type: str
         # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
@@ -834,6 +835,7 @@ class ExecuteOperationASyncRequest(TeaModel):
         # 
         #     <!-- -->
         self.attributes = attributes  # type: dict[str, any]
+        # The client token that is used to ensure the idempotence of the request.
         self.client_token = client_token  # type: str
         # This operation type is the operation type of modifying the product, some operation types are generic, and some are used alone. The following is an example of ECS deployment:
         # - The name of the ECS: rename
@@ -917,6 +919,7 @@ class ExecuteOperationASyncShrinkRequest(TeaModel):
         # 
         #     <!-- -->
         self.attributes_shrink = attributes_shrink  # type: str
+        # The client token that is used to ensure the idempotence of the request.
         self.client_token = client_token  # type: str
         # This operation type is the operation type of modifying the product, some operation types are generic, and some are used alone. The following is an example of ECS deployment:
         # - The name of the ECS: rename
@@ -3355,6 +3358,7 @@ class ReleaseApplicationRequest(TeaModel):
     def __init__(self, application_id=None, client_token=None, resource_group_id=None):
         # The ID of the application.
         self.application_id = application_id  # type: str
+        # The client token that is used to ensure the idempotence of the request.
         self.client_token = client_token  # type: str
         # The ID of the resource.
         self.resource_group_id = resource_group_id  # type: str
@@ -3470,6 +3474,7 @@ class ValidateApplicationRequest(TeaModel):
     def __init__(self, application_id=None, client_token=None, resource_group_id=None):
         # The ID of the application.
         self.application_id = application_id  # type: str
+        # The client token that is used to ensure the idempotence of the request.
         self.client_token = client_token  # type: str
         # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
@@ -3583,10 +3588,11 @@ class ValidateApplicationResponse(TeaModel):
 
 class ValuateApplicationRequest(TeaModel):
     def __init__(self, application_id=None, client_token=None, resource_group_id=None):
-        # The ID of the application.
+        # The operation that you want to perform. Set the value to ValuateApplication.
         self.application_id = application_id  # type: str
+        # The ID of the resource group to which the application you want to query belongs.
         self.client_token = client_token  # type: str
-        # The ID of the resource group.
+        # The ID of the application.
         self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
@@ -3619,13 +3625,13 @@ class ValuateApplicationRequest(TeaModel):
 
 class ValuateApplicationResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
-        # The HTTP status code.
+        # The code of the query task.
         self.code = code  # type: int
-        # The data of the application.
-        self.data = data  # type: long
-        # The error message.
-        self.message = message  # type: str
         # The ID of the request.
+        self.data = data  # type: long
+        # Idempotent notation
+        self.message = message  # type: str
+        # The returned message.
         self.request_id = request_id  # type: str
 
     def validate(self):
