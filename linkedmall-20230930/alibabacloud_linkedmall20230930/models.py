@@ -2855,8 +2855,8 @@ class ShopPageResult(TeaModel):
 
 class Sku(TeaModel):
     def __init__(self, barcode=None, can_sell=None, division_code=None, fuzzy_quantity=None, mark_price=None,
-                 pic_url=None, platform_price=None, price=None, product_id=None, quantity=None, shop_id=None, sku_id=None,
-                 sku_specs=None, sku_specs_code=None, sku_status=None, title=None):
+                 pic_url=None, platform_price=None, price=None, product_id=None, quantity=None, rank_value=None,
+                 shop_id=None, sku_id=None, sku_specs=None, sku_specs_code=None, sku_status=None, title=None):
         self.barcode = barcode  # type: str
         self.can_sell = can_sell  # type: bool
         self.division_code = division_code  # type: str
@@ -2867,6 +2867,7 @@ class Sku(TeaModel):
         self.price = price  # type: long
         self.product_id = product_id  # type: str
         self.quantity = quantity  # type: long
+        self.rank_value = rank_value  # type: long
         self.shop_id = shop_id  # type: str
         self.sku_id = sku_id  # type: str
         self.sku_specs = sku_specs  # type: list[SkuSpec]
@@ -2906,6 +2907,8 @@ class Sku(TeaModel):
             result['productId'] = self.product_id
         if self.quantity is not None:
             result['quantity'] = self.quantity
+        if self.rank_value is not None:
+            result['rankValue'] = self.rank_value
         if self.shop_id is not None:
             result['shopId'] = self.shop_id
         if self.sku_id is not None:
@@ -2944,6 +2947,8 @@ class Sku(TeaModel):
             self.product_id = m.get('productId')
         if m.get('quantity') is not None:
             self.quantity = m.get('quantity')
+        if m.get('rankValue') is not None:
+            self.rank_value = m.get('rankValue')
         if m.get('shopId') is not None:
             self.shop_id = m.get('shopId')
         if m.get('skuId') is not None:
