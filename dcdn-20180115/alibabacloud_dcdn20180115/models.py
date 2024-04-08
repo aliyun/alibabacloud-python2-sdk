@@ -797,6 +797,233 @@ class BatchDeleteDcdnDomainConfigsResponse(TeaModel):
         return self
 
 
+class BatchDeleteDcdnKvRequest(TeaModel):
+    def __init__(self, keys=None, namespace=None):
+        self.keys = keys  # type: list[str]
+        self.namespace = namespace  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BatchDeleteDcdnKvRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.keys is not None:
+            result['Keys'] = self.keys
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Keys') is not None:
+            self.keys = m.get('Keys')
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
+        return self
+
+
+class BatchDeleteDcdnKvShrinkRequest(TeaModel):
+    def __init__(self, keys_shrink=None, namespace=None):
+        self.keys_shrink = keys_shrink  # type: str
+        self.namespace = namespace  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BatchDeleteDcdnKvShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.keys_shrink is not None:
+            result['Keys'] = self.keys_shrink
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Keys') is not None:
+            self.keys_shrink = m.get('Keys')
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
+        return self
+
+
+class BatchDeleteDcdnKvResponseBody(TeaModel):
+    def __init__(self, fail_keys=None, request_id=None, success_keys=None):
+        self.fail_keys = fail_keys  # type: list[str]
+        self.request_id = request_id  # type: str
+        self.success_keys = success_keys  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BatchDeleteDcdnKvResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.fail_keys is not None:
+            result['FailKeys'] = self.fail_keys
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success_keys is not None:
+            result['SuccessKeys'] = self.success_keys
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FailKeys') is not None:
+            self.fail_keys = m.get('FailKeys')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('SuccessKeys') is not None:
+            self.success_keys = m.get('SuccessKeys')
+        return self
+
+
+class BatchDeleteDcdnKvResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: BatchDeleteDcdnKvResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(BatchDeleteDcdnKvResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = BatchDeleteDcdnKvResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class BatchDeleteDcdnKvWithHighCapacityRequest(TeaModel):
+    def __init__(self, namespace=None, url=None):
+        self.namespace = namespace  # type: str
+        self.url = url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BatchDeleteDcdnKvWithHighCapacityRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
+        if self.url is not None:
+            result['Url'] = self.url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
+        if m.get('Url') is not None:
+            self.url = m.get('Url')
+        return self
+
+
+class BatchDeleteDcdnKvWithHighCapacityResponseBody(TeaModel):
+    def __init__(self, fail_keys=None, request_id=None, success_keys=None):
+        self.fail_keys = fail_keys  # type: list[str]
+        self.request_id = request_id  # type: str
+        self.success_keys = success_keys  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BatchDeleteDcdnKvWithHighCapacityResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.fail_keys is not None:
+            result['FailKeys'] = self.fail_keys
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success_keys is not None:
+            result['SuccessKeys'] = self.success_keys
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FailKeys') is not None:
+            self.fail_keys = m.get('FailKeys')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('SuccessKeys') is not None:
+            self.success_keys = m.get('SuccessKeys')
+        return self
+
+
+class BatchDeleteDcdnKvWithHighCapacityResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: BatchDeleteDcdnKvWithHighCapacityResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(BatchDeleteDcdnKvWithHighCapacityResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = BatchDeleteDcdnKvWithHighCapacityResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class BatchDeleteDcdnWafRulesRequest(TeaModel):
     def __init__(self, rule_ids=None):
         # The IDs of the protection rules that you want to delete. Separate multiple IDs with commas (,).
@@ -977,13 +1204,9 @@ class BatchModifyDcdnWafRulesResponse(TeaModel):
 
 class BatchPutDcdnKvRequestKvList(TeaModel):
     def __init__(self, expiration=None, expiration_ttl=None, key=None, value=None):
-        # The expiration time. The value is a timestamp in seconds. The expiration time cannot be earlier than the current time. If you specify Expiration and ExpirationTtl, only ExpirationTtl takes effect.
         self.expiration = expiration  # type: long
-        # The relative expiration time. Unit: seconds. If you specify Expiration and ExpirationTtl, only ExpirationTtl takes effect.
         self.expiration_ttl = expiration_ttl  # type: long
-        # The key. The key can be up to 512 characters in length and cannot contain spaces.
         self.key = key  # type: str
-        # The value.
         self.value = value  # type: str
 
     def validate(self):
@@ -1020,7 +1243,6 @@ class BatchPutDcdnKvRequestKvList(TeaModel):
 
 class BatchPutDcdnKvRequest(TeaModel):
     def __init__(self, kv_list=None, namespace=None):
-        # The key-value pairs. The key-value pairs can be up to 2 MB in size.
         self.kv_list = kv_list  # type: list[BatchPutDcdnKvRequestKvList]
         # The name of the namespace.
         self.namespace = namespace  # type: str
@@ -1059,7 +1281,6 @@ class BatchPutDcdnKvRequest(TeaModel):
 
 class BatchPutDcdnKvShrinkRequest(TeaModel):
     def __init__(self, kv_list_shrink=None, namespace=None):
-        # The key-value pairs. The key-value pairs can be up to 2 MB in size.
         self.kv_list_shrink = kv_list_shrink  # type: str
         # The name of the namespace.
         self.namespace = namespace  # type: str
@@ -1157,6 +1378,105 @@ class BatchPutDcdnKvResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = BatchPutDcdnKvResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class BatchPutDcdnKvWithHighCapacityRequest(TeaModel):
+    def __init__(self, namespace=None, url=None):
+        self.namespace = namespace  # type: str
+        self.url = url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BatchPutDcdnKvWithHighCapacityRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
+        if self.url is not None:
+            result['Url'] = self.url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
+        if m.get('Url') is not None:
+            self.url = m.get('Url')
+        return self
+
+
+class BatchPutDcdnKvWithHighCapacityResponseBody(TeaModel):
+    def __init__(self, fail_keys=None, request_id=None, success_keys=None):
+        self.fail_keys = fail_keys  # type: list[str]
+        self.request_id = request_id  # type: str
+        self.success_keys = success_keys  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BatchPutDcdnKvWithHighCapacityResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.fail_keys is not None:
+            result['FailKeys'] = self.fail_keys
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success_keys is not None:
+            result['SuccessKeys'] = self.success_keys
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FailKeys') is not None:
+            self.fail_keys = m.get('FailKeys')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('SuccessKeys') is not None:
+            self.success_keys = m.get('SuccessKeys')
+        return self
+
+
+class BatchPutDcdnKvWithHighCapacityResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: BatchPutDcdnKvWithHighCapacityResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(BatchPutDcdnKvWithHighCapacityResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = BatchPutDcdnKvWithHighCapacityResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -34468,6 +34788,110 @@ class PutDcdnKvNamespaceResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = PutDcdnKvNamespaceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class PutDcdnKvWithHighCapacityRequest(TeaModel):
+    def __init__(self, key=None, namespace=None, url=None):
+        self.key = key  # type: str
+        self.namespace = namespace  # type: str
+        self.url = url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PutDcdnKvWithHighCapacityRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
+        if self.url is not None:
+            result['Url'] = self.url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
+        if m.get('Url') is not None:
+            self.url = m.get('Url')
+        return self
+
+
+class PutDcdnKvWithHighCapacityResponseBody(TeaModel):
+    def __init__(self, length=None, request_id=None, value=None):
+        self.length = length  # type: int
+        self.request_id = request_id  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PutDcdnKvWithHighCapacityResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.length is not None:
+            result['Length'] = self.length
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Length') is not None:
+            self.length = m.get('Length')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class PutDcdnKvWithHighCapacityResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: PutDcdnKvWithHighCapacityResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(PutDcdnKvWithHighCapacityResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = PutDcdnKvWithHighCapacityResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
