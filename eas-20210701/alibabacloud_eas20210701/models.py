@@ -852,6 +852,117 @@ class Service(TeaModel):
         return self
 
 
+class CloneServiceRequest(TeaModel):
+    def __init__(self, body=None):
+        self.body = body  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CloneServiceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.body is not None:
+            result['body'] = self.body
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('body') is not None:
+            self.body = m.get('body')
+        return self
+
+
+class CloneServiceResponseBody(TeaModel):
+    def __init__(self, internet_endpoint=None, intranet_endpoint=None, request_id=None, service_id=None,
+                 service_name=None, status=None):
+        self.internet_endpoint = internet_endpoint  # type: str
+        self.intranet_endpoint = intranet_endpoint  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.service_id = service_id  # type: str
+        self.service_name = service_name  # type: str
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CloneServiceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.internet_endpoint is not None:
+            result['InternetEndpoint'] = self.internet_endpoint
+        if self.intranet_endpoint is not None:
+            result['IntranetEndpoint'] = self.intranet_endpoint
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.service_id is not None:
+            result['ServiceId'] = self.service_id
+        if self.service_name is not None:
+            result['ServiceName'] = self.service_name
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InternetEndpoint') is not None:
+            self.internet_endpoint = m.get('InternetEndpoint')
+        if m.get('IntranetEndpoint') is not None:
+            self.intranet_endpoint = m.get('IntranetEndpoint')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('ServiceId') is not None:
+            self.service_id = m.get('ServiceId')
+        if m.get('ServiceName') is not None:
+            self.service_name = m.get('ServiceName')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class CloneServiceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CloneServiceResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CloneServiceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CloneServiceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CommitServiceResponseBody(TeaModel):
     def __init__(self, message=None, request_id=None):
         self.message = message  # type: str
@@ -938,13 +1049,24 @@ class CreateAppServiceRequest(TeaModel):
         self.app_type = app_type  # type: str
         # The application version.
         self.app_version = app_version  # type: str
-        # Additional configurations that are required for the service deployment.
+        # The additional configurations that are required for service deployment.
         self.config = config  # type: dict[str, any]
         # The number of instances.
         self.replicas = replicas  # type: int
         # The service name.
         self.service_name = service_name  # type: str
-        # The service specifications.
+        # The service specifications. Valid values:
+        # 
+        # *   llama\_7b_fp16
+        # *   llama\_7b_int8
+        # *   llama\_13b_fp16
+        # *   llama\_7b_int8
+        # *   chatglm\_6b_fp16
+        # *   chatglm\_6b_int8
+        # *   chatglm2\_6b_fp16
+        # *   baichuan\_7b_int8
+        # *   baichuan\_13b_fp16
+        # *   baichuan\_7b_fp16
         self.service_spec = service_spec  # type: str
 
     def validate(self):
@@ -1450,13 +1572,9 @@ class CreateGatewayIntranetLinkedVpcResponse(TeaModel):
 
 class CreateResourceRequestSelfManagedResourceOptionsNodeTolerations(TeaModel):
     def __init__(self, effect=None, key=None, operator=None, value=None):
-        # 效果
         self.effect = effect  # type: str
-        # 键名
         self.key = key  # type: str
-        # 键名和键值的关系
         self.operator = operator  # type: str
-        # 键值
         self.value = value  # type: str
 
     def validate(self):
@@ -1493,13 +1611,9 @@ class CreateResourceRequestSelfManagedResourceOptionsNodeTolerations(TeaModel):
 
 class CreateResourceRequestSelfManagedResourceOptions(TeaModel):
     def __init__(self, external_cluster_id=None, node_match_labels=None, node_tolerations=None, role_name=None):
-        # 自运维集群Id
         self.external_cluster_id = external_cluster_id  # type: str
-        # 节点的标签键值对集合
         self.node_match_labels = node_match_labels  # type: dict[str, str]
-        # 节点污点的容忍度列表
         self.node_tolerations = node_tolerations  # type: list[CreateResourceRequestSelfManagedResourceOptionsNodeTolerations]
-        # 授予云服务PAI-EAS相关权限的RAM角色名称
         self.role_name = role_name  # type: str
 
     def validate(self):
@@ -1559,7 +1673,6 @@ class CreateResourceRequest(TeaModel):
         # The type of the Elastic Compute Service (ECS) instance.
         self.ecs_instance_type = ecs_instance_type  # type: str
         self.resource_type = resource_type  # type: str
-        # 自运维资源组配置选项
         self.self_managed_resource_options = self_managed_resource_options  # type: CreateResourceRequestSelfManagedResourceOptions
         # The size of the system disk. Unit: GiB. Valid values: 200 to 2000. Default value: 200.
         self.system_disk_size = system_disk_size  # type: int
@@ -6998,11 +7111,25 @@ class ListServiceVersionsRequest(TeaModel):
 class ListServiceVersionsResponseBodyVersions(TeaModel):
     def __init__(self, build_time=None, image_available=None, image_id=None, message=None, service_config=None,
                  service_runnable=None):
+        # The time when the service version was created. The time is displayed in UTC.
         self.build_time = build_time  # type: str
+        # Indicates whether the image is available. Valid values:
+        # 
+        # *   true: The image is available.
+        # *   false: The image is unavailable.
+        # *   unknown: The availability of the image is unknown.
         self.image_available = image_available  # type: str
+        # The ID of the image.
         self.image_id = image_id  # type: int
+        # The returned message.
         self.message = message  # type: str
+        # The service deployment configurations. This parameter is returned only if the service is deployed by using a custom image.
         self.service_config = service_config  # type: str
+        # Indicates whether EAS is enabled. Valid values:
+        # 
+        # *   true: EAS is enabled.
+        # *   false: EAS is not enabled.
+        # *   unknown: The enabling status of EAS is unknown.
         self.service_runnable = service_runnable  # type: str
 
     def validate(self):
@@ -7051,6 +7178,7 @@ class ListServiceVersionsResponseBody(TeaModel):
         self.page_size = page_size  # type: int
         self.request_id = request_id  # type: str
         self.total_count = total_count  # type: long
+        # The versions of the service.
         self.versions = versions  # type: list[ListServiceVersionsResponseBodyVersions]
 
     def validate(self):
@@ -7195,22 +7323,17 @@ class ListServicesRequest(TeaModel):
         self.filter = filter  # type: str
         self.group_name = group_name  # type: str
         self.label = label  # type: dict[str, str]
-        # 所属的group。
         self.order = order  # type: str
         # 376577
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
         self.parent_service_uid = parent_service_uid  # type: str
         self.quota_id = quota_id  # type: str
-        # 服务所属的资源组名称或ID。
         self.resource_name = resource_name  # type: str
-        # 服务名。
         self.service_name = service_name  # type: str
-        # 服务运行的状态。
         self.service_status = service_status  # type: str
         self.service_type = service_type  # type: str
         self.service_uid = service_uid  # type: str
-        # 服务的类型定义。
         self.sort = sort  # type: str
         self.workspace_id = workspace_id  # type: str
 
@@ -7352,22 +7475,17 @@ class ListServicesShrinkRequest(TeaModel):
         self.filter = filter  # type: str
         self.group_name = group_name  # type: str
         self.label_shrink = label_shrink  # type: str
-        # 所属的group。
         self.order = order  # type: str
         # 376577
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
         self.parent_service_uid = parent_service_uid  # type: str
         self.quota_id = quota_id  # type: str
-        # 服务所属的资源组名称或ID。
         self.resource_name = resource_name  # type: str
-        # 服务名。
         self.service_name = service_name  # type: str
-        # 服务运行的状态。
         self.service_status = service_status  # type: str
         self.service_type = service_type  # type: str
         self.service_uid = service_uid  # type: str
-        # 服务的类型定义。
         self.sort = sort  # type: str
         self.workspace_id = workspace_id  # type: str
 
@@ -7451,11 +7569,8 @@ class ListServicesResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, request_id=None, services=None, total_count=None):
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
-        # 请求ID。
         self.request_id = request_id  # type: str
-        # 服务列表。
         self.services = services  # type: list[Service]
-        # 服务总数。
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -7974,25 +8089,32 @@ class UpdateAppServiceRequest(TeaModel):
         # 
         # Valid values:
         # 
-        # *   LLM
+        # *   LLM: the large language model (LLM) application
         # 
         #     <!-- -->
         # 
-        #     :
-        # 
         #     <!-- -->
-        # 
-        #     the large language model (LLM) application
         # 
         #     <!-- -->
         self.app_type = app_type  # type: str
         # The application version.
         self.app_version = app_version  # type: str
-        # Additional configurations that are required for the service deployment.
+        # The additional configurations that are required for service deployment.
         self.config = config  # type: dict[str, any]
-        # The number of instances.
+        # The number of instances. This value must be greater than 0.
         self.replicas = replicas  # type: int
-        # The service specifications.
+        # The service specifications. Valid values:
+        # 
+        # *   llama\_7b_fp16
+        # *   llama\_7b_int8
+        # *   llama\_13b_fp16
+        # *   llama\_7b_int8
+        # *   chatglm\_6b_fp16
+        # *   chatglm\_6b_int8
+        # *   chatglm2\_6b_fp16
+        # *   baichuan\_7b_int8
+        # *   baichuan\_13b_fp16
+        # *   baichuan\_7b_fp16
         self.service_spec = service_spec  # type: str
 
     def validate(self):
@@ -9235,7 +9357,10 @@ class UpdateServiceCronScalerResponse(TeaModel):
 
 class UpdateServiceInstanceRequest(TeaModel):
     def __init__(self, isolate=None):
-        # Specifies whether to isolate the service instance.
+        # Specifies whether to isolate the service instance. Valid values:
+        # 
+        # *   true
+        # *   false
         self.isolate = isolate  # type: bool
 
     def validate(self):
@@ -9518,6 +9643,32 @@ class UpdateServiceSafetyLockRequest(TeaModel):
         # *   all: locks all operations.
         # *   dangerous: locks high-risk operations such as delete and stop operations.
         # *   none: locks no operations.
+        # 
+        # Enumerated values:
+        # 
+        # *   all
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   dangerous
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   none
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
         self.lock = lock  # type: str
 
     def validate(self):
