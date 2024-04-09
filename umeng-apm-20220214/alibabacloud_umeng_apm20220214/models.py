@@ -233,9 +233,6 @@ class GetH5PageTrendResponse(TeaModel):
         self.body = body  # type: GetH5PageTrendResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -418,9 +415,6 @@ class GetLaunchTrendResponse(TeaModel):
         self.body = body  # type: GetLaunchTrendResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -592,9 +586,6 @@ class GetNativePageTrendResponse(TeaModel):
         self.body = body  # type: GetNativePageTrendResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -767,9 +758,6 @@ class GetNetworkTrendResponse(TeaModel):
         self.body = body  # type: GetNetworkTrendResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -847,9 +835,9 @@ class GetStatTrendResponseBodyData(TeaModel):
     def __init__(self, affected_user_count=None, affected_user_rate=None, error_count=None, error_rate=None,
                  time_point=None):
         self.affected_user_count = affected_user_count  # type: long
-        self.affected_user_rate = affected_user_rate  # type: long
+        self.affected_user_rate = affected_user_rate  # type: float
         self.error_count = error_count  # type: long
-        self.error_rate = error_rate  # type: long
+        self.error_rate = error_rate  # type: float
         self.time_point = time_point  # type: str
 
     def validate(self):
@@ -942,9 +930,6 @@ class GetStatTrendResponse(TeaModel):
         self.body = body  # type: GetStatTrendResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1122,9 +1107,6 @@ class GetSymUploadParamResponse(TeaModel):
         self.body = body  # type: GetSymUploadParamResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1287,9 +1269,6 @@ class GetTodayStatTrendResponse(TeaModel):
         self.body = body  # type: GetTodayStatTrendResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1394,9 +1373,6 @@ class UpdateAlertPlanResponse(TeaModel):
         self.body = body  # type: UpdateAlertPlanResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1579,9 +1555,6 @@ class UploadSymbolFileResponse(TeaModel):
         self.body = body  # type: UploadSymbolFileResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
