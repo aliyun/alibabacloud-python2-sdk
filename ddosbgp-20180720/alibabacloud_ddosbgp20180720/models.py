@@ -117,6 +117,146 @@ class AddIpResponse(TeaModel):
         return self
 
 
+class AddRdMemberListRequestMemberList(TeaModel):
+    def __init__(self, uid=None):
+        self.uid = uid  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AddRdMemberListRequestMemberList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.uid is not None:
+            result['Uid'] = self.uid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Uid') is not None:
+            self.uid = m.get('Uid')
+        return self
+
+
+class AddRdMemberListRequest(TeaModel):
+    def __init__(self, member_list=None):
+        self.member_list = member_list  # type: list[AddRdMemberListRequestMemberList]
+
+    def validate(self):
+        if self.member_list:
+            for k in self.member_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(AddRdMemberListRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['MemberList'] = []
+        if self.member_list is not None:
+            for k in self.member_list:
+                result['MemberList'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.member_list = []
+        if m.get('MemberList') is not None:
+            for k in m.get('MemberList'):
+                temp_model = AddRdMemberListRequestMemberList()
+                self.member_list.append(temp_model.from_map(k))
+        return self
+
+
+class AddRdMemberListShrinkRequest(TeaModel):
+    def __init__(self, member_list_shrink=None):
+        self.member_list_shrink = member_list_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AddRdMemberListShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.member_list_shrink is not None:
+            result['MemberList'] = self.member_list_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('MemberList') is not None:
+            self.member_list_shrink = m.get('MemberList')
+        return self
+
+
+class AddRdMemberListResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AddRdMemberListResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class AddRdMemberListResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: AddRdMemberListResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(AddRdMemberListResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = AddRdMemberListResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class AttachAssetGroupToInstanceRequestAssetGroupList(TeaModel):
     def __init__(self, member_uid=None, name=None, region=None, type=None):
         # The UID of the member to which the asset belongs.
@@ -1116,6 +1256,146 @@ class DeleteIpResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteIpResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteRdMemberListRequestMemberList(TeaModel):
+    def __init__(self, uid=None):
+        self.uid = uid  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteRdMemberListRequestMemberList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.uid is not None:
+            result['Uid'] = self.uid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Uid') is not None:
+            self.uid = m.get('Uid')
+        return self
+
+
+class DeleteRdMemberListRequest(TeaModel):
+    def __init__(self, member_list=None):
+        self.member_list = member_list  # type: list[DeleteRdMemberListRequestMemberList]
+
+    def validate(self):
+        if self.member_list:
+            for k in self.member_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DeleteRdMemberListRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['MemberList'] = []
+        if self.member_list is not None:
+            for k in self.member_list:
+                result['MemberList'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.member_list = []
+        if m.get('MemberList') is not None:
+            for k in m.get('MemberList'):
+                temp_model = DeleteRdMemberListRequestMemberList()
+                self.member_list.append(temp_model.from_map(k))
+        return self
+
+
+class DeleteRdMemberListShrinkRequest(TeaModel):
+    def __init__(self, member_list_shrink=None):
+        self.member_list_shrink = member_list_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteRdMemberListShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.member_list_shrink is not None:
+            result['MemberList'] = self.member_list_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('MemberList') is not None:
+            self.member_list_shrink = m.get('MemberList')
+        return self
+
+
+class DeleteRdMemberListResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteRdMemberListResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteRdMemberListResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteRdMemberListResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteRdMemberListResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteRdMemberListResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -3751,6 +4031,253 @@ class DescribePackIpListResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribePackIpListResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeRdMemberListRequest(TeaModel):
+    def __init__(self, page_no=None, page_size=None, resource_directory_id=None):
+        self.page_no = page_no  # type: int
+        self.page_size = page_size  # type: int
+        self.resource_directory_id = resource_directory_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeRdMemberListRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.page_no is not None:
+            result['PageNo'] = self.page_no
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.resource_directory_id is not None:
+            result['ResourceDirectoryId'] = self.resource_directory_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PageNo') is not None:
+            self.page_no = m.get('PageNo')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('ResourceDirectoryId') is not None:
+            self.resource_directory_id = m.get('ResourceDirectoryId')
+        return self
+
+
+class DescribeRdMemberListResponseBodyMemberList(TeaModel):
+    def __init__(self, gmt_create=None, name=None, uid=None):
+        self.gmt_create = gmt_create  # type: long
+        self.name = name  # type: str
+        self.uid = uid  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeRdMemberListResponseBodyMemberList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.gmt_create is not None:
+            result['GmtCreate'] = self.gmt_create
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.uid is not None:
+            result['Uid'] = self.uid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('GmtCreate') is not None:
+            self.gmt_create = m.get('GmtCreate')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Uid') is not None:
+            self.uid = m.get('Uid')
+        return self
+
+
+class DescribeRdMemberListResponseBody(TeaModel):
+    def __init__(self, member_list=None, request_id=None, total=None):
+        self.member_list = member_list  # type: list[DescribeRdMemberListResponseBodyMemberList]
+        self.request_id = request_id  # type: str
+        self.total = total  # type: long
+
+    def validate(self):
+        if self.member_list:
+            for k in self.member_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeRdMemberListResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['MemberList'] = []
+        if self.member_list is not None:
+            for k in self.member_list:
+                result['MemberList'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total is not None:
+            result['Total'] = self.total
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.member_list = []
+        if m.get('MemberList') is not None:
+            for k in m.get('MemberList'):
+                temp_model = DescribeRdMemberListResponseBodyMemberList()
+                self.member_list.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Total') is not None:
+            self.total = m.get('Total')
+        return self
+
+
+class DescribeRdMemberListResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeRdMemberListResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeRdMemberListResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeRdMemberListResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeRdStatusResponseBody(TeaModel):
+    def __init__(self, current_uid=None, current_uid_type=None, enabled=None, local_enable=None, master_uid=None,
+                 remote_enable=None, request_id=None, root_uid=None, service_principal_enabled=None):
+        self.current_uid = current_uid  # type: str
+        self.current_uid_type = current_uid_type  # type: str
+        self.enabled = enabled  # type: bool
+        self.local_enable = local_enable  # type: bool
+        self.master_uid = master_uid  # type: str
+        self.remote_enable = remote_enable  # type: bool
+        self.request_id = request_id  # type: str
+        self.root_uid = root_uid  # type: str
+        self.service_principal_enabled = service_principal_enabled  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeRdStatusResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.current_uid is not None:
+            result['CurrentUid'] = self.current_uid
+        if self.current_uid_type is not None:
+            result['CurrentUidType'] = self.current_uid_type
+        if self.enabled is not None:
+            result['Enabled'] = self.enabled
+        if self.local_enable is not None:
+            result['LocalEnable'] = self.local_enable
+        if self.master_uid is not None:
+            result['MasterUid'] = self.master_uid
+        if self.remote_enable is not None:
+            result['RemoteEnable'] = self.remote_enable
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.root_uid is not None:
+            result['RootUid'] = self.root_uid
+        if self.service_principal_enabled is not None:
+            result['ServicePrincipalEnabled'] = self.service_principal_enabled
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CurrentUid') is not None:
+            self.current_uid = m.get('CurrentUid')
+        if m.get('CurrentUidType') is not None:
+            self.current_uid_type = m.get('CurrentUidType')
+        if m.get('Enabled') is not None:
+            self.enabled = m.get('Enabled')
+        if m.get('LocalEnable') is not None:
+            self.local_enable = m.get('LocalEnable')
+        if m.get('MasterUid') is not None:
+            self.master_uid = m.get('MasterUid')
+        if m.get('RemoteEnable') is not None:
+            self.remote_enable = m.get('RemoteEnable')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('RootUid') is not None:
+            self.root_uid = m.get('RootUid')
+        if m.get('ServicePrincipalEnabled') is not None:
+            self.service_principal_enabled = m.get('ServicePrincipalEnabled')
+        return self
+
+
+class DescribeRdStatusResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeRdStatusResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeRdStatusResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeRdStatusResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
