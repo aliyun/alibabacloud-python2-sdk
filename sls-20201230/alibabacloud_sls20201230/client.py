@@ -25,6 +25,7 @@ class Client(OpenApiClient):
         super(Client, self).__init__(config)
         self._client = GatewayClientClient()
         self._spi = self._client
+        self._signature_algorithm = 'v2'
         self._endpoint_rule = 'central'
 
     def apply_config_to_machine_group_with_options(self, project, machine_group, config_name, headers, runtime):
@@ -1254,9 +1255,51 @@ class Client(OpenApiClient):
         headers = {}
         return self.create_scheduled_sqlwith_options(project, request, headers, runtime)
 
-    def create_ticket_with_options(self, headers, runtime):
+    def create_sql_instance_with_options(self, project, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        body = {}
+        if not UtilClient.is_unset(request.cu):
+            body['cu'] = request.cu
+        if not UtilClient.is_unset(request.use_as_default):
+            body['useAsDefault'] = request.use_as_default
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            host_map=host_map,
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateSqlInstance',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/sqlinstance',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.CreateSqlInstanceResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def create_sql_instance(self, project, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_sql_instance_with_options(project, request, headers, runtime)
+
+    def create_ticket_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token_expiration_time):
+            query['accessTokenExpirationTime'] = request.access_token_expiration_time
+        if not UtilClient.is_unset(request.expiration_time):
+            query['expirationTime'] = request.expiration_time
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CreateTicket',
@@ -1274,10 +1317,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def create_ticket(self):
+    def create_ticket(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_ticket_with_options(headers, runtime)
+        return self.create_ticket_with_options(request, headers, runtime)
 
     def delete_alert_with_options(self, project, alert_name, headers, runtime):
         host_map = {}
@@ -3267,8 +3310,6 @@ class Client(OpenApiClient):
             body['reverse'] = request.reverse
         if not UtilClient.is_unset(request.session):
             body['session'] = request.session
-        if not UtilClient.is_unset(request.shard):
-            body['shard'] = request.shard
         if not UtilClient.is_unset(request.to):
             body['to'] = request.to
         if not UtilClient.is_unset(request.topic):
@@ -3822,6 +3863,59 @@ class Client(OpenApiClient):
         headers = {}
         return self.get_shipper_status_with_options(project, logstore, shipper_name, request, headers, runtime)
 
+    def get_sls_service_with_options(self, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetSlsService',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/slsservice',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.GetSlsServiceResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def get_sls_service(self):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_sls_service_with_options(headers, runtime)
+
+    def get_sql_instance_with_options(self, project, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetSqlInstance',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/sqlinstance',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='array'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.GetSqlInstanceResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def get_sql_instance(self, project):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_sql_instance_with_options(project, headers, runtime)
+
     def list_alerts_with_options(self, project, request, headers, runtime):
         UtilClient.validate_model(request)
         host_map = {}
@@ -4245,6 +4339,8 @@ class Client(OpenApiClient):
         host_map = {}
         host_map['project'] = project
         query = {}
+        if not UtilClient.is_unset(request.logstore):
+            query['logstore'] = request.logstore
         if not UtilClient.is_unset(request.offset):
             query['offset'] = request.offset
         if not UtilClient.is_unset(request.size):
@@ -4592,6 +4688,8 @@ class Client(OpenApiClient):
         host_map = {}
         host_map['project'] = project
         query = {}
+        if not UtilClient.is_unset(request.logstore):
+            query['logstore'] = request.logstore
         if not UtilClient.is_unset(request.offset):
             query['offset'] = request.offset
         if not UtilClient.is_unset(request.size):
@@ -4627,6 +4725,8 @@ class Client(OpenApiClient):
         host_map = {}
         host_map['project'] = project
         query = {}
+        if not UtilClient.is_unset(request.logstore):
+            query['logstore'] = request.logstore
         if not UtilClient.is_unset(request.offset):
             query['offset'] = request.offset
         if not UtilClient.is_unset(request.size):
@@ -4662,6 +4762,8 @@ class Client(OpenApiClient):
         host_map = {}
         host_map['project'] = project
         query = {}
+        if not UtilClient.is_unset(request.logstore):
+            query['logstore'] = request.logstore
         if not UtilClient.is_unset(request.offset):
             query['offset'] = request.offset
         if not UtilClient.is_unset(request.size):
@@ -4814,6 +4916,8 @@ class Client(OpenApiClient):
         host_map = {}
         host_map['project'] = project
         query = {}
+        if not UtilClient.is_unset(request.logstore):
+            query['logstore'] = request.logstore
         if not UtilClient.is_unset(request.offset):
             query['offset'] = request.offset
         if not UtilClient.is_unset(request.size):
@@ -5012,6 +5116,31 @@ class Client(OpenApiClient):
         headers = {}
         return self.merge_shard_with_options(project, logstore, shard, headers, runtime)
 
+    def open_sls_service_with_options(self, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='OpenSlsService',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/slsservice',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.OpenSlsServiceResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def open_sls_service(self):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.open_sls_service_with_options(headers, runtime)
+
     def put_annotation_data_with_options(self, dataset_id, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -5186,7 +5315,7 @@ class Client(OpenApiClient):
             protocol='HTTPS',
             pathname='/logstores/%s/track' % TeaConverter.to_unicode(logstore_name),
             method='POST',
-            auth_type='AK',
+            auth_type='Anonymous',
             style='ROA',
             req_body_type='json',
             body_type='none'
@@ -5269,6 +5398,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.query_mlservice_results_with_options(service_name, request, headers, runtime)
+
+    def refresh_token_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token_expiration_time):
+            query['accessTokenExpirationTime'] = request.access_token_expiration_time
+        if not UtilClient.is_unset(request.ticket):
+            query['ticket'] = request.ticket
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RefreshToken',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/token/refresh',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.RefreshTokenResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def refresh_token(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.refresh_token_with_options(request, headers, runtime)
 
     def remove_config_from_machine_group_with_options(self, project, machine_group, config_name, headers, runtime):
         """
@@ -6837,6 +6998,41 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_scheduled_sqlwith_options(project, scheduled_sqlname, request, headers, runtime)
+
+    def update_sql_instance_with_options(self, project, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        body = {}
+        if not UtilClient.is_unset(request.cu):
+            body['cu'] = request.cu
+        if not UtilClient.is_unset(request.use_as_default):
+            body['useAsDefault'] = request.use_as_default
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateSqlInstance',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/sqlinstance',
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.UpdateSqlInstanceResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def update_sql_instance(self, project, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_sql_instance_with_options(project, request, headers, runtime)
 
     def upsert_collection_policy_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)

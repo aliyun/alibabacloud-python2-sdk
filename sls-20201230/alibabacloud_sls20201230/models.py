@@ -843,8 +843,8 @@ class EncryptUserCmkConf(TeaModel):
 
 
 class GroupConfiguration(TeaModel):
-    def __init__(self, fileds=None, type=None):
-        self.fileds = fileds  # type: list[str]
+    def __init__(self, fields=None, type=None):
+        self.fields = fields  # type: list[str]
         self.type = type  # type: str
 
     def validate(self):
@@ -856,16 +856,16 @@ class GroupConfiguration(TeaModel):
             return _map
 
         result = dict()
-        if self.fileds is not None:
-            result['fileds'] = self.fileds
+        if self.fields is not None:
+            result['fields'] = self.fields
         if self.type is not None:
             result['type'] = self.type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('fileds') is not None:
-            self.fileds = m.get('fileds')
+        if m.get('fields') is not None:
+            self.fields = m.get('fields')
         if m.get('type') is not None:
             self.type = m.get('type')
         return self
@@ -1906,7 +1906,7 @@ class OSSExportConfigurationSink(TeaModel):
         self.buffer_interval = buffer_interval  # type: long
         self.buffer_size = buffer_size  # type: long
         self.compression_type = compression_type  # type: str
-        self.content_detail = content_detail  # type: str
+        self.content_detail = content_detail  # type: dict[str, any]
         self.content_type = content_type  # type: str
         self.delay_sec = delay_sec  # type: long
         self.endpoint = endpoint  # type: str
@@ -2660,6 +2660,40 @@ class SinkEventStoreConfiguration(TeaModel):
         return self
 
 
+class StoreViewStore(TeaModel):
+    def __init__(self, project=None, query=None, store_name=None):
+        self.project = project  # type: str
+        self.query = query  # type: str
+        self.store_name = store_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(StoreViewStore, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.project is not None:
+            result['project'] = self.project
+        if self.query is not None:
+            result['query'] = self.query
+        if self.store_name is not None:
+            result['storeName'] = self.store_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('project') is not None:
+            self.project = m.get('project')
+        if m.get('query') is not None:
+            self.query = m.get('query')
+        if m.get('storeName') is not None:
+            self.store_name = m.get('storeName')
+        return self
+
+
 class TemplateConfiguration(TeaModel):
     def __init__(self, aonotations=None, id=None, lang=None, tokens=None, type=None, version=None):
         self.aonotations = aonotations  # type: dict[str, any]
@@ -2711,7 +2745,7 @@ class TemplateConfiguration(TeaModel):
 
 class Ticket(TeaModel):
     def __init__(self, caller_uid=None, create_date=None, expiration_time=None, expire_date=None, extra=None,
-                 name=None, number=None, ticket=None, ticket_id=None, used_number=None, valid=None):
+                 name=None, number=None, sharing_to=None, ticket=None, ticket_id=None, used_number=None, valid=None):
         self.caller_uid = caller_uid  # type: long
         self.create_date = create_date  # type: str
         self.expiration_time = expiration_time  # type: long
@@ -2719,6 +2753,7 @@ class Ticket(TeaModel):
         self.extra = extra  # type: str
         self.name = name  # type: str
         self.number = number  # type: int
+        self.sharing_to = sharing_to  # type: str
         self.ticket = ticket  # type: str
         self.ticket_id = ticket_id  # type: str
         self.used_number = used_number  # type: int
@@ -2747,6 +2782,8 @@ class Ticket(TeaModel):
             result['name'] = self.name
         if self.number is not None:
             result['number'] = self.number
+        if self.sharing_to is not None:
+            result['sharingTo'] = self.sharing_to
         if self.ticket is not None:
             result['ticket'] = self.ticket
         if self.ticket_id is not None:
@@ -2773,6 +2810,8 @@ class Ticket(TeaModel):
             self.name = m.get('name')
         if m.get('number') is not None:
             self.number = m.get('number')
+        if m.get('sharingTo') is not None:
+            self.sharing_to = m.get('sharingTo')
         if m.get('ticket') is not None:
             self.ticket = m.get('ticket')
         if m.get('ticketId') is not None:
@@ -6061,6 +6100,93 @@ class CreateScheduledSQLResponse(TeaModel):
         return self
 
 
+class CreateSqlInstanceRequest(TeaModel):
+    def __init__(self, cu=None, use_as_default=None):
+        self.cu = cu  # type: int
+        self.use_as_default = use_as_default  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateSqlInstanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cu is not None:
+            result['cu'] = self.cu
+        if self.use_as_default is not None:
+            result['useAsDefault'] = self.use_as_default
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('cu') is not None:
+            self.cu = m.get('cu')
+        if m.get('useAsDefault') is not None:
+            self.use_as_default = m.get('useAsDefault')
+        return self
+
+
+class CreateSqlInstanceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateSqlInstanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        return self
+
+
+class CreateTicketRequest(TeaModel):
+    def __init__(self, access_token_expiration_time=None, expiration_time=None):
+        self.access_token_expiration_time = access_token_expiration_time  # type: long
+        self.expiration_time = expiration_time  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateTicketRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_token_expiration_time is not None:
+            result['accessTokenExpirationTime'] = self.access_token_expiration_time
+        if self.expiration_time is not None:
+            result['expirationTime'] = self.expiration_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('accessTokenExpirationTime') is not None:
+            self.access_token_expiration_time = m.get('accessTokenExpirationTime')
+        if m.get('expirationTime') is not None:
+            self.expiration_time = m.get('expirationTime')
+        return self
+
+
 class CreateTicketResponseBody(TeaModel):
     def __init__(self, ticket=None):
         self.ticket = ticket  # type: str
@@ -8664,7 +8790,7 @@ class GetLogsV2Headers(TeaModel):
 
 class GetLogsV2Request(TeaModel):
     def __init__(self, forward=None, from_=None, highlight=None, line=None, offset=None, power_sql=None, query=None,
-                 reverse=None, session=None, shard=None, to=None, topic=None):
+                 reverse=None, session=None, to=None, topic=None):
         # Specifies whether to page forward or backward for the scan-based query or the phrase search.
         self.forward = forward  # type: bool
         # The beginning of the time range to query. The value is the log time that is specified when log data is written.
@@ -8690,8 +8816,6 @@ class GetLogsV2Request(TeaModel):
         self.reverse = reverse  # type: bool
         # The parameter that is used to query data.
         self.session = session  # type: str
-        # The ID of the shard.
-        self.shard = shard  # type: int
         # The end of the time range to query. The value is the log time that is specified when log data is written.
         # 
         # The time range that is specified in this operation is a left-closed, right-open interval. The interval includes the start time specified by the from parameter, but does not include the end time specified by the to parameter. If you specify the same value for the from and to parameters, the interval is invalid, and an error message is returned. The value is a UNIX timestamp representing the number of seconds that have elapsed since January 1, 1970, 00:00:00 UTC.
@@ -8726,8 +8850,6 @@ class GetLogsV2Request(TeaModel):
             result['reverse'] = self.reverse
         if self.session is not None:
             result['session'] = self.session
-        if self.shard is not None:
-            result['shard'] = self.shard
         if self.to is not None:
             result['to'] = self.to
         if self.topic is not None:
@@ -8754,8 +8876,6 @@ class GetLogsV2Request(TeaModel):
             self.reverse = m.get('reverse')
         if m.get('session') is not None:
             self.session = m.get('session')
-        if m.get('shard') is not None:
-            self.shard = m.get('shard')
         if m.get('to') is not None:
             self.to = m.get('to')
         if m.get('topic') is not None:
@@ -9749,6 +9869,128 @@ class GetShipperStatusResponse(TeaModel):
         if m.get('body') is not None:
             temp_model = GetShipperStatusResponseBody()
             self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetSlsServiceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ServiceStatus
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetSlsServiceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ServiceStatus()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetSqlInstanceResponseBody(TeaModel):
+    def __init__(self, name=None, cu=None, create_time=None, update_time=None, use_as_default=None):
+        self.name = name  # type: str
+        self.cu = cu  # type: int
+        self.create_time = create_time  # type: int
+        self.update_time = update_time  # type: int
+        self.use_as_default = use_as_default  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetSqlInstanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.cu is not None:
+            result['cu'] = self.cu
+        if self.create_time is not None:
+            result['createTime'] = self.create_time
+        if self.update_time is not None:
+            result['updateTime'] = self.update_time
+        if self.use_as_default is not None:
+            result['useAsDefault'] = self.use_as_default
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('cu') is not None:
+            self.cu = m.get('cu')
+        if m.get('createTime') is not None:
+            self.create_time = m.get('createTime')
+        if m.get('updateTime') is not None:
+            self.update_time = m.get('updateTime')
+        if m.get('useAsDefault') is not None:
+            self.use_as_default = m.get('useAsDefault')
+        return self
+
+
+class GetSqlInstanceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: list[GetSqlInstanceResponseBody]
+
+    def validate(self):
+        if self.body:
+            for k in self.body:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetSqlInstanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        result['body'] = []
+        if self.body is not None:
+            for k in self.body:
+                result['body'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        self.body = []
+        if m.get('body') is not None:
+            for k in m.get('body'):
+                temp_model = GetSqlInstanceResponseBody()
+                self.body.append(temp_model.from_map(k))
         return self
 
 
@@ -10982,7 +11224,8 @@ class ListDomainsResponse(TeaModel):
 
 
 class ListETLsRequest(TeaModel):
-    def __init__(self, offset=None, size=None):
+    def __init__(self, logstore=None, offset=None, size=None):
+        self.logstore = logstore  # type: str
         self.offset = offset  # type: int
         self.size = size  # type: int
 
@@ -10995,6 +11238,8 @@ class ListETLsRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.logstore is not None:
+            result['logstore'] = self.logstore
         if self.offset is not None:
             result['offset'] = self.offset
         if self.size is not None:
@@ -11003,6 +11248,8 @@ class ListETLsRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('logstore') is not None:
+            self.logstore = m.get('logstore')
         if m.get('offset') is not None:
             self.offset = m.get('offset')
         if m.get('size') is not None:
@@ -11130,15 +11377,12 @@ class ListExternalStoreResponseBody(TeaModel):
         # The number of external stores returned on the current page.
         self.count = count  # type: int
         # The names of the external stores.
-        self.externalstores = externalstores  # type: list[ExternalStore]
+        self.externalstores = externalstores  # type: list[str]
         # The number of external stores that meet the query conditions.
         self.total = total  # type: int
 
     def validate(self):
-        if self.externalstores:
-            for k in self.externalstores:
-                if k:
-                    k.validate()
+        pass
 
     def to_map(self):
         _map = super(ListExternalStoreResponseBody, self).to_map()
@@ -11148,10 +11392,8 @@ class ListExternalStoreResponseBody(TeaModel):
         result = dict()
         if self.count is not None:
             result['count'] = self.count
-        result['externalstores'] = []
         if self.externalstores is not None:
-            for k in self.externalstores:
-                result['externalstores'].append(k.to_map() if k else None)
+            result['externalstores'] = self.externalstores
         if self.total is not None:
             result['total'] = self.total
         return result
@@ -11160,11 +11402,8 @@ class ListExternalStoreResponseBody(TeaModel):
         m = m or dict()
         if m.get('count') is not None:
             self.count = m.get('count')
-        self.externalstores = []
         if m.get('externalstores') is not None:
-            for k in m.get('externalstores'):
-                temp_model = ExternalStore()
-                self.externalstores.append(temp_model.from_map(k))
+            self.externalstores = m.get('externalstores')
         if m.get('total') is not None:
             self.total = m.get('total')
         return self
@@ -11673,7 +11912,8 @@ class ListMachinesResponse(TeaModel):
 
 
 class ListOSSExportsRequest(TeaModel):
-    def __init__(self, offset=None, size=None):
+    def __init__(self, logstore=None, offset=None, size=None):
+        self.logstore = logstore  # type: str
         self.offset = offset  # type: int
         self.size = size  # type: int
 
@@ -11686,6 +11926,8 @@ class ListOSSExportsRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.logstore is not None:
+            result['logstore'] = self.logstore
         if self.offset is not None:
             result['offset'] = self.offset
         if self.size is not None:
@@ -11694,6 +11936,8 @@ class ListOSSExportsRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('logstore') is not None:
+            self.logstore = m.get('logstore')
         if m.get('offset') is not None:
             self.offset = m.get('offset')
         if m.get('size') is not None:
@@ -11780,7 +12024,8 @@ class ListOSSExportsResponse(TeaModel):
 
 
 class ListOSSHDFSExportsRequest(TeaModel):
-    def __init__(self, offset=None, size=None):
+    def __init__(self, logstore=None, offset=None, size=None):
+        self.logstore = logstore  # type: str
         self.offset = offset  # type: int
         self.size = size  # type: int
 
@@ -11793,6 +12038,8 @@ class ListOSSHDFSExportsRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.logstore is not None:
+            result['logstore'] = self.logstore
         if self.offset is not None:
             result['offset'] = self.offset
         if self.size is not None:
@@ -11801,6 +12048,8 @@ class ListOSSHDFSExportsRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('logstore') is not None:
+            self.logstore = m.get('logstore')
         if m.get('offset') is not None:
             self.offset = m.get('offset')
         if m.get('size') is not None:
@@ -11887,7 +12136,8 @@ class ListOSSHDFSExportsResponse(TeaModel):
 
 
 class ListOSSIngestionsRequest(TeaModel):
-    def __init__(self, offset=None, size=None):
+    def __init__(self, logstore=None, offset=None, size=None):
+        self.logstore = logstore  # type: str
         self.offset = offset  # type: int
         self.size = size  # type: int
 
@@ -11900,6 +12150,8 @@ class ListOSSIngestionsRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.logstore is not None:
+            result['logstore'] = self.logstore
         if self.offset is not None:
             result['offset'] = self.offset
         if self.size is not None:
@@ -11908,6 +12160,8 @@ class ListOSSIngestionsRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('logstore') is not None:
+            self.logstore = m.get('logstore')
         if m.get('offset') is not None:
             self.offset = m.get('offset')
         if m.get('size') is not None:
@@ -12229,7 +12483,8 @@ class ListSavedSearchResponse(TeaModel):
 
 
 class ListScheduledSQLsRequest(TeaModel):
-    def __init__(self, offset=None, size=None):
+    def __init__(self, logstore=None, offset=None, size=None):
+        self.logstore = logstore  # type: str
         self.offset = offset  # type: long
         self.size = size  # type: long
 
@@ -12242,6 +12497,8 @@ class ListScheduledSQLsRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.logstore is not None:
+            result['logstore'] = self.logstore
         if self.offset is not None:
             result['offset'] = self.offset
         if self.size is not None:
@@ -12250,6 +12507,8 @@ class ListScheduledSQLsRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('logstore') is not None:
+            self.logstore = m.get('logstore')
         if m.get('offset') is not None:
             self.offset = m.get('offset')
         if m.get('size') is not None:
@@ -12727,6 +12986,35 @@ class MergeShardResponse(TeaModel):
         return self
 
 
+class OpenSlsServiceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(OpenSlsServiceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        return self
+
+
 class PutAnnotationDataRequest(TeaModel):
     def __init__(self, annotationdata_id=None, ml_data_param=None, raw_log=None):
         # The unique identifier of the data.
@@ -13068,6 +13356,95 @@ class QueryMLServiceResultsResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = QueryMLServiceResultsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class RefreshTokenRequest(TeaModel):
+    def __init__(self, access_token_expiration_time=None, ticket=None):
+        self.access_token_expiration_time = access_token_expiration_time  # type: long
+        self.ticket = ticket  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RefreshTokenRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_token_expiration_time is not None:
+            result['accessTokenExpirationTime'] = self.access_token_expiration_time
+        if self.ticket is not None:
+            result['ticket'] = self.ticket
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('accessTokenExpirationTime') is not None:
+            self.access_token_expiration_time = m.get('accessTokenExpirationTime')
+        if m.get('ticket') is not None:
+            self.ticket = m.get('ticket')
+        return self
+
+
+class RefreshTokenResponseBody(TeaModel):
+    def __init__(self, access_token=None):
+        self.access_token = access_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RefreshTokenResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_token is not None:
+            result['accessToken'] = self.access_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('accessToken') is not None:
+            self.access_token = m.get('accessToken')
+        return self
+
+
+class RefreshTokenResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: RefreshTokenResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(RefreshTokenResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = RefreshTokenResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -15465,6 +15842,64 @@ class UpdateScheduledSQLResponse(TeaModel):
 
     def to_map(self):
         _map = super(UpdateScheduledSQLResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        return self
+
+
+class UpdateSqlInstanceRequest(TeaModel):
+    def __init__(self, cu=None, use_as_default=None):
+        self.cu = cu  # type: int
+        self.use_as_default = use_as_default  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateSqlInstanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cu is not None:
+            result['cu'] = self.cu
+        if self.use_as_default is not None:
+            result['useAsDefault'] = self.use_as_default
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('cu') is not None:
+            self.cu = m.get('cu')
+        if m.get('useAsDefault') is not None:
+            self.use_as_default = m.get('useAsDefault')
+        return self
+
+
+class UpdateSqlInstanceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateSqlInstanceResponse, self).to_map()
         if _map is not None:
             return _map
 
