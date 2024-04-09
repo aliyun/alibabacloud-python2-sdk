@@ -60,6 +60,36 @@ class Client(OpenApiClient):
         headers = {}
         return self.auth_diagnosis_with_options(request, headers, runtime)
 
+    def generate_copilot_response_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.llm_param_string):
+            body['llmParamString'] = request.llm_param_string
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GenerateCopilotResponse',
+            version='2023-12-30',
+            protocol='HTTPS',
+            pathname='/api/v1/copilot/generate_copilot_response',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sys_om20231230_models.GenerateCopilotResponseResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def generate_copilot_response(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.generate_copilot_response_with_options(request, headers, runtime)
+
     def get_diagnosis_result_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
