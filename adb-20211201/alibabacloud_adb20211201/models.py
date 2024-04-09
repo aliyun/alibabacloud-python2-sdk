@@ -3735,7 +3735,7 @@ class DeleteDBResourceGroupRequest(TeaModel):
         self.dbcluster_id = dbcluster_id  # type: str
         # The name of the resource group.
         # 
-        # > You can call the [DescribeDBResourceGroup](~~612410~~) operation to query the resource group information of a cluster, including the resource group name.
+        # >  You can call the [DescribeDBResourceGroup](~~612410~~) operation to query the information about resource groups of an AnalyticDB for MySQL cluster, including resource group names.
         self.group_name = group_name  # type: str
 
     def validate(self):
@@ -7740,6 +7740,12 @@ class DescribeClusterResourceDetailResponseBodyDataResourceGroupList(TeaModel):
         self.cluster_mode = cluster_mode  # type: str
         # A reserved parameter.
         self.cluster_size_resource = cluster_size_resource  # type: str
+        # Indicates whether the preemptible instance feature is enabled for the resource group. After the preemptible instance feature is enabled, you are charged for resources at a lower unit price but the resources are probably released. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        # 
+        # The True value is returned only for job resource groups.
         self.enable_spot = enable_spot  # type: bool
         # A reserved parameter.
         self.max_cluster_count = max_cluster_count  # type: int
@@ -7759,7 +7765,7 @@ class DescribeClusterResourceDetailResponseBodyDataResourceGroupList(TeaModel):
         self.pool_users = pool_users  # type: str
         # A reserved parameter.
         self.running_cluster_count = running_cluster_count  # type: int
-        # The state of the resource group. Valid values:
+        # The status of the resource group. Valid values:
         # 
         # *   **running**\
         # *   **deleting**\
@@ -10633,7 +10639,7 @@ class DescribeDBResourceGroupResponseBodyGroupsInfo(TeaModel):
         self.cluster_size_resource = cluster_size_resource  # type: str
         # The time when the resource group was created. The time follows the ISO 8601 standard in the *yyyy-MM-ddTHH:mm:ssZ* format. The time is displayed in UTC.
         self.create_time = create_time  # type: str
-        # The minimum amount of elastic computing resources. Unit: ACUs.
+        # The minimum amount of elastic computing resources. Unit: ACU.
         self.elastic_min_compute_resource = elastic_min_compute_resource  # type: str
         self.enable_spot = enable_spot  # type: str
         # The name of the resource group.
@@ -10645,20 +10651,20 @@ class DescribeDBResourceGroupResponseBodyGroupsInfo(TeaModel):
         # 
         # >  For more information about resource groups, see [Resource groups](~~428610~~).
         self.group_type = group_type  # type: str
-        # The Resource Access Management (RAM) user with which the resource group is associated.
+        # The Resource Access Management (RAM) user that is associated with the resource group.
         self.group_users = group_users  # type: str
         # A reserved parameter.
         self.max_cluster_count = max_cluster_count  # type: int
-        # The maximum amount of reserved computing resources. Unit: ACUs.
+        # The maximum amount of reserved computing resources. Unit: ACU.
         self.max_compute_resource = max_compute_resource  # type: str
         # A reserved parameter.
         self.min_cluster_count = min_cluster_count  # type: int
-        # The minimum amount of reserved computing resources. Unit: AnalyticDB compute units (ACUs).
+        # The minimum amount of reserved computing resources. Unit: AnalyticDB compute unit (ACU).
         self.min_compute_resource = min_compute_resource  # type: str
         self.rules = rules  # type: list[DescribeDBResourceGroupResponseBodyGroupsInfoRules]
         # A reserved parameter.
         self.running_cluster_count = running_cluster_count  # type: int
-        # The state of the resource group. Valid values:
+        # The status of the resource group. Valid values:
         # 
         # *   **creating**: The resource group is being created.
         # *   **ok**: The resource group is created.
@@ -16462,7 +16468,7 @@ class GetSparkAppAttemptLogResponseBodyData(TeaModel):
         self.dbcluster_id = dbcluster_id  # type: str
         # The content of the log.
         self.log_content = log_content  # type: str
-        # The number of entries per page. A value of 0 indicates that no valid logs are returned.
+        # The number of log entries. A value of 0 indicates that no valid logs are returned.
         self.log_size = log_size  # type: int
         # The alert message returned for the request, such as task execution failure or insufficient resources. If no alert occurs, null is returned.
         self.message = message  # type: str
@@ -20321,9 +20327,9 @@ class ListSparkTemplateFileIdsResponse(TeaModel):
 
 class LoadSampleDataSetRequest(TeaModel):
     def __init__(self, dbcluster_id=None):
-        # The ID of the AnalyticDB for MySQL Data Warehouse Edition (V3.0) cluster.
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         # 
-        # >  You can call the [DescribeDBClusters](~~129857~~) operation to query the IDs of all AnalyticDB for MySQL Data Warehouse Edition (V3.0) clusters within a region.
+        # >  You can call the [DescribeDBClusters](~~454250~~) operation to query the IDs of all AnalyticDB for MySQL Data Lakehouse Edition (V3.0) clusters within a region.
         self.dbcluster_id = dbcluster_id  # type: str
 
     def validate(self):
@@ -20348,7 +20354,7 @@ class LoadSampleDataSetRequest(TeaModel):
 
 class LoadSampleDataSetResponseBody(TeaModel):
     def __init__(self, dbcluster_id=None, request_id=None):
-        # The ID of the AnalyticDB for MySQL Data Warehouse Edition (V3.0) cluster.
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
         # The request ID.
         self.request_id = request_id  # type: str
@@ -21185,11 +21191,11 @@ class ModifyClusterConnectionStringRequest(TeaModel):
         # *   The prefix can contain lowercase letters, digits, and hyphens (-). It must start with a lowercase letter.
         # *   The prefix can be up to 30 characters in length.
         self.connection_string_prefix = connection_string_prefix  # type: str
-        # The current public endpoint of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
+        # The public endpoint of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.current_connection_string = current_connection_string  # type: str
         # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
-        # The port number that is used to connect to the cluster. Set the value to **3306**.
+        # The port number. Set the value to **3306**.
         self.port = port  # type: int
 
     def validate(self):
@@ -21226,7 +21232,7 @@ class ModifyClusterConnectionStringRequest(TeaModel):
 
 class ModifyClusterConnectionStringResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -23228,7 +23234,7 @@ class UnbindAccountRequest(TeaModel):
     def __init__(self, account_name=None, dbcluster_id=None):
         # The name of the database account.
         # 
-        # > You can call the [DescribeAccounts](~~612430~~) operation to view the information about a database account in a cluster, including the name of the database account.
+        # >  You can call the [DescribeAccounts](~~612430~~) operation to query the information about database accounts of an AnalyticDB for MySQL cluster, including database account names.
         self.account_name = account_name  # type: str
         # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
