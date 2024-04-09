@@ -5186,10 +5186,11 @@ class CreateEventStreamingRequestSourceSourceMQTTParameters(TeaModel):
 
 
 class CreateEventStreamingRequestSourceSourcePrometheusParameters(TeaModel):
-    def __init__(self, cluster_id=None, data_type=None, labels=None):
+    def __init__(self, cluster_id=None, data_type=None, labels=None, region_id=None):
         self.cluster_id = cluster_id  # type: str
         self.data_type = data_type  # type: str
         self.labels = labels  # type: str
+        self.region_id = region_id  # type: str
 
     def validate(self):
         pass
@@ -5206,6 +5207,8 @@ class CreateEventStreamingRequestSourceSourcePrometheusParameters(TeaModel):
             result['DataType'] = self.data_type
         if self.labels is not None:
             result['Labels'] = self.labels
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         return result
 
     def from_map(self, m=None):
@@ -5216,6 +5219,8 @@ class CreateEventStreamingRequestSourceSourcePrometheusParameters(TeaModel):
             self.data_type = m.get('DataType')
         if m.get('Labels') is not None:
             self.labels = m.get('Labels')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         return self
 
 
@@ -6241,9 +6246,10 @@ class CreateServiceLinkedRoleForProductRequest(TeaModel):
 
 
 class CreateServiceLinkedRoleForProductResponseBody(TeaModel):
-    def __init__(self, code=None, message=None, request_id=None, success=None):
+    def __init__(self, code=None, http_code=None, message=None, request_id=None, success=None):
         # The returned response code. The value Success indicates that the request is successful. Other values indicate that the request failed. For more information about error codes, see Error codes.
         self.code = code  # type: str
+        self.http_code = http_code  # type: int
         # The returned message. If the request is successful, success is returned.
         self.message = message  # type: str
         # The request ID.
@@ -6262,6 +6268,8 @@ class CreateServiceLinkedRoleForProductResponseBody(TeaModel):
         result = dict()
         if self.code is not None:
             result['Code'] = self.code
+        if self.http_code is not None:
+            result['HttpCode'] = self.http_code
         if self.message is not None:
             result['Message'] = self.message
         if self.request_id is not None:
@@ -6274,6 +6282,8 @@ class CreateServiceLinkedRoleForProductResponseBody(TeaModel):
         m = m or dict()
         if m.get('Code') is not None:
             self.code = m.get('Code')
+        if m.get('HttpCode') is not None:
+            self.http_code = m.get('HttpCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('RequestId') is not None:
@@ -6620,7 +6630,8 @@ class DeleteEventBusResponse(TeaModel):
 
 
 class DeleteEventSourceRequest(TeaModel):
-    def __init__(self, event_source_name=None):
+    def __init__(self, event_bus_name=None, event_source_name=None):
+        self.event_bus_name = event_bus_name  # type: str
         # The name of the event source.
         self.event_source_name = event_source_name  # type: str
 
@@ -6633,12 +6644,16 @@ class DeleteEventSourceRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.event_bus_name is not None:
+            result['EventBusName'] = self.event_bus_name
         if self.event_source_name is not None:
             result['EventSourceName'] = self.event_source_name
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('EventBusName') is not None:
+            self.event_bus_name = m.get('EventBusName')
         if m.get('EventSourceName') is not None:
             self.event_source_name = m.get('EventSourceName')
         return self
@@ -10722,10 +10737,11 @@ class GetEventStreamingResponseBodyDataSourceSourceMQTTParameters(TeaModel):
 
 
 class GetEventStreamingResponseBodyDataSourceSourcePrometheusParameters(TeaModel):
-    def __init__(self, cluster_id=None, data_type=None, labels=None):
+    def __init__(self, cluster_id=None, data_type=None, labels=None, region_id=None):
         self.cluster_id = cluster_id  # type: str
         self.data_type = data_type  # type: str
         self.labels = labels  # type: str
+        self.region_id = region_id  # type: str
 
     def validate(self):
         pass
@@ -10742,6 +10758,8 @@ class GetEventStreamingResponseBodyDataSourceSourcePrometheusParameters(TeaModel
             result['DataType'] = self.data_type
         if self.labels is not None:
             result['Labels'] = self.labels
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         return result
 
     def from_map(self, m=None):
@@ -10752,6 +10770,8 @@ class GetEventStreamingResponseBodyDataSourceSourcePrometheusParameters(TeaModel
             self.data_type = m.get('DataType')
         if m.get('Labels') is not None:
             self.labels = m.get('Labels')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         return self
 
 
@@ -15362,6 +15382,45 @@ class ListEventStreamingsResponseBodyDataEventStreamingsSourceSourceMQTTParamete
         return self
 
 
+class ListEventStreamingsResponseBodyDataEventStreamingsSourceSourcePrometheusParameters(TeaModel):
+    def __init__(self, cluster_id=None, data_type=None, labels=None, region_id=None):
+        self.cluster_id = cluster_id  # type: str
+        self.data_type = data_type  # type: str
+        self.labels = labels  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListEventStreamingsResponseBodyDataEventStreamingsSourceSourcePrometheusParameters, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cluster_id is not None:
+            result['ClusterId'] = self.cluster_id
+        if self.data_type is not None:
+            result['DataType'] = self.data_type
+        if self.labels is not None:
+            result['Labels'] = self.labels
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClusterId') is not None:
+            self.cluster_id = m.get('ClusterId')
+        if m.get('DataType') is not None:
+            self.data_type = m.get('DataType')
+        if m.get('Labels') is not None:
+            self.labels = m.get('Labels')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
 class ListEventStreamingsResponseBodyDataEventStreamingsSourceSourceRabbitMQParameters(TeaModel):
     def __init__(self, instance_id=None, queue_name=None, region_id=None, virtual_host_name=None):
         # The ID of the Message Queue for RabbitMQ instance.
@@ -15577,8 +15636,8 @@ class ListEventStreamingsResponseBodyDataEventStreamingsSourceSourceSLSParameter
 
 class ListEventStreamingsResponseBodyDataEventStreamingsSource(TeaModel):
     def __init__(self, source_dtsparameters=None, source_kafka_parameters=None, source_mnsparameters=None,
-                 source_mqttparameters=None, source_rabbit_mqparameters=None, source_rocket_mqparameters=None,
-                 source_slsparameters=None):
+                 source_mqttparameters=None, source_prometheus_parameters=None, source_rabbit_mqparameters=None,
+                 source_rocket_mqparameters=None, source_slsparameters=None):
         # The parameters that are returned if Data Transmission Service (DTS) is specified as the event source.
         self.source_dtsparameters = source_dtsparameters  # type: ListEventStreamingsResponseBodyDataEventStreamingsSourceSourceDTSParameters
         # The parameters that are returned if Message Queue for Apache Kafka is specified as the event source.
@@ -15587,6 +15646,7 @@ class ListEventStreamingsResponseBodyDataEventStreamingsSource(TeaModel):
         self.source_mnsparameters = source_mnsparameters  # type: ListEventStreamingsResponseBodyDataEventStreamingsSourceSourceMNSParameters
         # The parameters that are returned if Message Queue for MQTT is specified as the event source.
         self.source_mqttparameters = source_mqttparameters  # type: ListEventStreamingsResponseBodyDataEventStreamingsSourceSourceMQTTParameters
+        self.source_prometheus_parameters = source_prometheus_parameters  # type: ListEventStreamingsResponseBodyDataEventStreamingsSourceSourcePrometheusParameters
         # The parameters that are returned if Message Queue for RabbitMQ is specified as the event source.
         self.source_rabbit_mqparameters = source_rabbit_mqparameters  # type: ListEventStreamingsResponseBodyDataEventStreamingsSourceSourceRabbitMQParameters
         # Source RocketMQ Parameters
@@ -15603,6 +15663,8 @@ class ListEventStreamingsResponseBodyDataEventStreamingsSource(TeaModel):
             self.source_mnsparameters.validate()
         if self.source_mqttparameters:
             self.source_mqttparameters.validate()
+        if self.source_prometheus_parameters:
+            self.source_prometheus_parameters.validate()
         if self.source_rabbit_mqparameters:
             self.source_rabbit_mqparameters.validate()
         if self.source_rocket_mqparameters:
@@ -15624,6 +15686,8 @@ class ListEventStreamingsResponseBodyDataEventStreamingsSource(TeaModel):
             result['SourceMNSParameters'] = self.source_mnsparameters.to_map()
         if self.source_mqttparameters is not None:
             result['SourceMQTTParameters'] = self.source_mqttparameters.to_map()
+        if self.source_prometheus_parameters is not None:
+            result['SourcePrometheusParameters'] = self.source_prometheus_parameters.to_map()
         if self.source_rabbit_mqparameters is not None:
             result['SourceRabbitMQParameters'] = self.source_rabbit_mqparameters.to_map()
         if self.source_rocket_mqparameters is not None:
@@ -15646,6 +15710,9 @@ class ListEventStreamingsResponseBodyDataEventStreamingsSource(TeaModel):
         if m.get('SourceMQTTParameters') is not None:
             temp_model = ListEventStreamingsResponseBodyDataEventStreamingsSourceSourceMQTTParameters()
             self.source_mqttparameters = temp_model.from_map(m['SourceMQTTParameters'])
+        if m.get('SourcePrometheusParameters') is not None:
+            temp_model = ListEventStreamingsResponseBodyDataEventStreamingsSourceSourcePrometheusParameters()
+            self.source_prometheus_parameters = temp_model.from_map(m['SourcePrometheusParameters'])
         if m.get('SourceRabbitMQParameters') is not None:
             temp_model = ListEventStreamingsResponseBodyDataEventStreamingsSourceSourceRabbitMQParameters()
             self.source_rabbit_mqparameters = temp_model.from_map(m['SourceRabbitMQParameters'])
@@ -23164,10 +23231,11 @@ class UpdateEventStreamingRequestSourceSourceMQTTParameters(TeaModel):
 
 
 class UpdateEventStreamingRequestSourceSourcePrometheusParameters(TeaModel):
-    def __init__(self, cluster_id=None, data_type=None, labels=None):
+    def __init__(self, cluster_id=None, data_type=None, labels=None, region_id=None):
         self.cluster_id = cluster_id  # type: str
         self.data_type = data_type  # type: str
         self.labels = labels  # type: str
+        self.region_id = region_id  # type: str
 
     def validate(self):
         pass
@@ -23184,6 +23252,8 @@ class UpdateEventStreamingRequestSourceSourcePrometheusParameters(TeaModel):
             result['DataType'] = self.data_type
         if self.labels is not None:
             result['Labels'] = self.labels
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         return result
 
     def from_map(self, m=None):
@@ -23194,6 +23264,8 @@ class UpdateEventStreamingRequestSourceSourcePrometheusParameters(TeaModel):
             self.data_type = m.get('DataType')
         if m.get('Labels') is not None:
             self.labels = m.get('Labels')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         return self
 
 
