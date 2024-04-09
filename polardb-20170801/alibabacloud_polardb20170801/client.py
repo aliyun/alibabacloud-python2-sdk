@@ -2737,16 +2737,6 @@ class Client(OpenApiClient):
         return self.describe_dbcluster_tdewith_options(request, runtime)
 
     def describe_dbcluster_version_with_options(self, request, runtime):
-        """
-        The release note of the kernel version.
-        
-
-        @param request: DescribeDBClusterVersionRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: DescribeDBClusterVersionResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbcluster_id):
@@ -2781,14 +2771,6 @@ class Client(OpenApiClient):
         )
 
     def describe_dbcluster_version(self, request):
-        """
-        The release note of the kernel version.
-        
-
-        @param request: DescribeDBClusterVersionRequest
-
-        @return: DescribeDBClusterVersionResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.describe_dbcluster_version_with_options(request, runtime)
 
