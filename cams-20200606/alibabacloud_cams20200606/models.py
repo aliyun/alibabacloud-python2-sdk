@@ -5,10 +5,15 @@ from Tea.model import TeaModel
 
 class AddChatappPhoneNumberRequest(TeaModel):
     def __init__(self, cc=None, cust_space_id=None, phone_number=None, pre_validate_id=None, verified_name=None):
+        # The country code.
         self.cc = cc  # type: str
+        # The space ID of the user within the independent software vendor (ISV) account.
         self.cust_space_id = cust_space_id  # type: str
+        # The phone number without a country code.
         self.phone_number = phone_number  # type: str
+        # The ID of the pre-registered phone number.
         self.pre_validate_id = pre_validate_id  # type: str
+        # The display name of the phone number.
         self.verified_name = verified_name  # type: str
 
     def validate(self):
@@ -49,10 +54,16 @@ class AddChatappPhoneNumberRequest(TeaModel):
 
 class AddChatappPhoneNumberResponseBody(TeaModel):
     def __init__(self, access_denied_detail=None, code=None, message=None, request_id=None):
+        # The details about the access denial.
         self.access_denied_detail = access_denied_detail  # type: str
+        # The response code.
+        # 
+        # *   The value OK indicates that the request was successful.
+        # *   Other values indicate that the request failed. For more information, see [Error codes](~~196974~~).
         self.code = code  # type: str
+        # The error message.
         self.message = message  # type: str
-        # Id of the request
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -94,9 +105,6 @@ class AddChatappPhoneNumberResponse(TeaModel):
         self.body = body  # type: AddChatappPhoneNumberResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -381,9 +389,6 @@ class BeeBotAssociateResponse(TeaModel):
         self.body = body  # type: BeeBotAssociateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1050,9 +1055,6 @@ class BeeBotChatResponse(TeaModel):
         self.body = body  # type: BeeBotChatResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1198,9 +1200,6 @@ class ChatappBindWabaResponse(TeaModel):
         self.body = body  # type: ChatappBindWabaResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1258,15 +1257,15 @@ class ChatappEmbedSignUpRequest(TeaModel):
 class ChatappEmbedSignUpResponseBodyWabas(TeaModel):
     def __init__(self, account_review_status=None, currency=None, id=None, message_template_namespace=None,
                  name=None):
-        # The review status of the WhatsApp Business account.
+        # The review state of the WABA.
         self.account_review_status = account_review_status  # type: str
         # The currency.
         self.currency = currency  # type: str
-        # The ID of the WhatsApp Business account.
+        # The ID of the WABA.
         self.id = id  # type: str
         # The namespace of the message template.
         self.message_template_namespace = message_template_namespace  # type: str
-        # The name of the WhatsApp Business account.
+        # The name of the WABA.
         self.name = name  # type: str
 
     def validate(self):
@@ -1307,6 +1306,7 @@ class ChatappEmbedSignUpResponseBodyWabas(TeaModel):
 
 class ChatappEmbedSignUpResponseBody(TeaModel):
     def __init__(self, access_denied_detail=None, code=None, message=None, request_id=None, wabas=None):
+        # The details about the access denial.
         self.access_denied_detail = access_denied_detail  # type: str
         # The HTTP status code returned.
         # 
@@ -1371,9 +1371,6 @@ class ChatappEmbedSignUpResponse(TeaModel):
         self.body = body  # type: ChatappEmbedSignUpResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1486,9 +1483,6 @@ class ChatappMigrationRegisterResponse(TeaModel):
         self.body = body  # type: ChatappMigrationRegisterResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1646,9 +1640,6 @@ class ChatappMigrationVerifiedResponse(TeaModel):
         self.body = body  # type: ChatappMigrationVerifiedResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1680,7 +1671,9 @@ class ChatappMigrationVerifiedResponse(TeaModel):
 
 class ChatappPhoneNumberDeregisterRequest(TeaModel):
     def __init__(self, cust_space_id=None, phone_number=None):
+        # The space ID of the user within the independent software vendor (ISV) account.
         self.cust_space_id = cust_space_id  # type: str
+        # The phone number.
         self.phone_number = phone_number  # type: str
 
     def validate(self):
@@ -1709,10 +1702,16 @@ class ChatappPhoneNumberDeregisterRequest(TeaModel):
 
 class ChatappPhoneNumberDeregisterResponseBody(TeaModel):
     def __init__(self, access_denied_detail=None, code=None, message=None, request_id=None):
+        # The details about the access denial.
         self.access_denied_detail = access_denied_detail  # type: str
+        # The response code.
+        # 
+        # *   The value OK indicates that the request was successful.
+        # *   Other values indicate that the request failed. For more information, see [Error codes](~~196974~~).
         self.code = code  # type: str
+        # The error message.
         self.message = message  # type: str
-        # Id of the request
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1754,9 +1753,6 @@ class ChatappPhoneNumberDeregisterResponse(TeaModel):
         self.body = body  # type: ChatappPhoneNumberDeregisterResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1869,9 +1865,6 @@ class ChatappPhoneNumberRegisterResponse(TeaModel):
         self.body = body  # type: ChatappPhoneNumberRegisterResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2085,9 +2078,6 @@ class ChatappSyncPhoneNumberResponse(TeaModel):
         self.body = body  # type: ChatappSyncPhoneNumberResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2206,9 +2196,6 @@ class ChatappVerifyAndRegisterResponse(TeaModel):
         self.body = body  # type: ChatappVerifyAndRegisterResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2359,9 +2346,6 @@ class CreateChatappMigrationInitiateResponse(TeaModel):
         self.body = body  # type: CreateChatappMigrationInitiateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2395,37 +2379,37 @@ class CreateChatappTemplateRequestComponentsButtons(TeaModel):
     def __init__(self, autofill_text=None, coupon_code=None, flow_action=None, flow_id=None, is_opt_out=None,
                  navigate_screen=None, package_name=None, phone_number=None, signature_hash=None, text=None, type=None, url=None,
                  url_type=None):
-        # The text of the one-tap autofill button. This parameter is required if Category is set to AUTHENTICATION and the Type sub-parameter of the Buttons parameter is set to ONE_TAP in a WhatsApp message template.
+        # The text of the one-tap autofill button. This parameter is required if Category is set to AUTHENTICATION and the Type sub-parameter of the Buttons parameter is set to ONE_TAP for a WhatsApp message template.
         self.autofill_text = autofill_text  # type: str
         self.coupon_code = coupon_code  # type: str
         self.flow_action = flow_action  # type: str
         self.flow_id = flow_id  # type: str
-        # The unsubscribe button. This parameter is valid if Category is set to MARKETING and the Type sub-parameter of the Buttons parameter is set to QUICK_REPLY in a WhatsApp message template. After you configure message sending in the ChatApp Message Service console, marketing messages will not be sent to customers if they click this button.
+        # The unsubscribe button. This parameter is valid if Category is set to MARKETING and the Type sub-parameter of the Buttons parameter is set to QUICK_REPLY for a WhatsApp message template. After you configure message sending in the ChatApp Message Service console, marketing messages are not sent to customers if they click this button.
         self.is_opt_out = is_opt_out  # type: bool
         self.navigate_screen = navigate_screen  # type: str
-        # The app package name that WhatsApp uses to load your app. This parameter is required if Category is set to AUTHENTICATION and the Type sub-parameter of the Buttons parameter is set to ONE_TAP in a WhatsApp message template.
+        # The app package name that WhatsApp uses to load your app. This parameter is required if Category is set to AUTHENTICATION and the Type sub-parameter of the Buttons parameter is set to ONE_TAP for a WhatsApp message template.
         self.package_name = package_name  # type: str
-        # The phone number. This parameter is valid only when the Type sub-parameter of the Buttons parameter is set to **PHONE_NUMBER**.
+        # The phone number. This parameter is valid only if the Type sub-parameter of the Buttons parameter is set to **PHONE_NUMBER**.
         self.phone_number = phone_number  # type: str
-        # The app signing key hash that WhatsApp uses to load your app. This parameter is required if Category is set to AUTHENTICATION and the Type sub-parameter of the Buttons parameter is set to ONE_TAP in a WhatsApp message template.
+        # The app signing key hash that WhatsApp uses to load your app. This parameter is required if Category is set to AUTHENTICATION and the Type sub-parameter of the Buttons parameter is set to ONE_TAP for a WhatsApp message template.
         self.signature_hash = signature_hash  # type: str
         # The display name of the button.
         self.text = text  # type: str
         # The type of the button. Valid values:
         # 
-        # *   **PHONE_NUMBER**: the phone call button
-        # *   **URL**: the URL button
-        # *   **QUICK_REPLY**: the quick reply button
-        # *   **COPY_CODE**: the copy code button if Category is set to AUTHENTICATION
-        # *   **ONE_TAP**: the one-tap autofill button if Category is set to AUTHENTICATION
+        # *   **PHONE_NUMBER**: phone call button
+        # *   **URL**: URL button
+        # *   **QUICK_REPLY**: quick reply button
+        # *   **COPY_CODE**: copy code button if Category is set to AUTHENTICATION
+        # *   **ONE_TAP**: one-tap autofill button if Category is set to AUTHENTICATION
         # 
         # > 
         # 
-        # *   In a WhatsApp message template, the quick reply button cannot be used together with the phone call button or the URL button.
+        # *   In a WhatsApp message template, a quick reply button cannot be used together with a phone call button or a URL button.
         # 
         # *   You can add a combination of two URL buttons or a combination of a URL button and a phone call button to a WhatsApp message template.
         # 
-        # *   If Category is set to AUTHENTICATION in a WhatsApp message template, you can add only one button to the WhatsApp message template and you must set the Type sub-parameter of the Buttons parameter to COPY_CODE or ONE_TAP. If the Type sub-parameter of the Buttons parameter is set to COPY_CODE, the Text sub-parameter of the Buttons parameter is required. If the Type sub-parameter of the Buttons parameter is set to ONE_TAP, the Text, SignatureHash, PackageName, and AutofillText sub-parameters of the Buttons parameter are required. The value of Text is displayed if the desired app is not installed on the device. The value indicates that you must manually copy the verification code.
+        # *   If Category is set to AUTHENTICATION for a WhatsApp message template, you can add only one button to the WhatsApp message template and you must set the Type sub-parameter of the Buttons parameter to COPY_CODE or ONE_TAP. If the Type sub-parameter of the Buttons parameter is set to COPY_CODE, the Text sub-parameter of the Buttons parameter is required. If the Type sub-parameter of the Buttons parameter is set to ONE_TAP, the Text, SignatureHash, PackageName, and AutofillText sub-parameters of the Buttons parameter are required. The value of Text is displayed if the desired app is not installed on the device. The value of Text indicates that you must manually copy the verification code.
         # 
         # *   You can add only one button to a Viber message template, and you must set the Type sub-parameter of the Buttons parameter to URL.
         self.type = type  # type: str
@@ -2637,9 +2621,19 @@ class CreateChatappTemplateRequestComponents(TeaModel):
     def __init__(self, add_secret_recommendation=None, buttons=None, caption=None, cards=None,
                  code_expiration_minutes=None, duration=None, file_name=None, file_type=None, format=None, has_expiration=None, text=None,
                  thumb_url=None, type=None, url=None):
-        # The note indicating that customers cannot share verification codes with others. The note is displayed in the message body. This parameter is valid if Category is set to AUTHENTICATION and the Type sub-parameter of the Components parameter is set to BODY in a WhatsApp message template.
+        # The note indicating that customers cannot share verification codes with others. The note is displayed in the message body. This parameter is valid only if Category is set to AUTHENTICATION and the Type sub-parameter of the Components parameter is set to BODY for a WhatsApp message template.
         self.add_secret_recommendation = add_secret_recommendation  # type: bool
-        # The buttons. This parameter applies only to **BUTTONS** components.
+        # The buttons. Specify this parameter only if you set the Type sub-parameter of the Components parameter to **BUTTONS**.
+        # 
+        # >  The following section describes the limits on the number of buttons in a WhatsApp message.
+        # 
+        # *   A marketing or utility WhatsApp message template supports up to 10 buttons.
+        # 
+        # *   A WhatsApp message template can contain only one phone call button.
+        # 
+        # *   A WhatsApp message template can contain up to two URL buttons.
+        # 
+        # *   In a WhatsApp message template, the quick reply button cannot be used together with the phone call button or the URL button.
         self.buttons = buttons  # type: list[CreateChatappTemplateRequestComponentsButtons]
         # The description of the document.
         self.caption = caption  # type: str
@@ -2662,7 +2656,7 @@ class CreateChatappTemplateRequestComponents(TeaModel):
         self.has_expiration = has_expiration  # type: bool
         # The text of the message that you want to send.
         # 
-        # > If Category is set to AUTHENTICATION, the Text sub-parameter of the Components parameter is empty.
+        # >  If Category is set to AUTHENTICATION, the Text sub-parameter of the Components parameter is empty.
         self.text = text  # type: str
         # The thumbnail URL of the video in the Viber message template.
         self.thumb_url = thumb_url  # type: str
@@ -2679,11 +2673,11 @@ class CreateChatappTemplateRequestComponents(TeaModel):
         # 
         # *   **FOOTER** components are not supported in Viber message templates.
         # 
-        # *   In a Viber message template, media resources, such as images, videos, or documents, are placed in the **HEADER** component. If a Viber message contains text and an image, the image is placed under the text in the message received on a device.
+        # *   In Viber message templates, media resources such as images, videos, and documents are placed in the **HEADER** component. If a Viber message contains both text and an image, the image is placed below the text in the message received on a device.
         self.type = type  # type: str
         # The URL of the media resource.
         # 
-        # > We recommend that the resolution of the image is 800 × 800 in a Viber message template.
+        # >  We recommend that you use 800 × 800 images in Viber message templates.
         self.url = url  # type: str
 
     def validate(self):
@@ -2801,7 +2795,7 @@ class CreateChatappTemplateRequest(TeaModel):
         self.category = category  # type: str
         # The components of the message template.
         # 
-        # > If Category is set to AUTHENTICATION, the Type sub-parameter of the Components parameter cannot be set to HEADER. If the Type sub-parameter is set to BODY or FOOTER, the Text sub-parameter of the Components parameter is empty.
+        # >  If Category is set to AUTHENTICATION, the Type sub-parameter of the Components parameter cannot be set to HEADER. If the Type sub-parameter is set to BODY or FOOTER, the Text sub-parameter of the Components parameter must be empty.
         self.components = components  # type: list[CreateChatappTemplateRequestComponents]
         # The space ID of the user within the ISV account.
         self.cust_space_id = cust_space_id  # type: str
@@ -2922,7 +2916,7 @@ class CreateChatappTemplateShrinkRequest(TeaModel):
         self.category = category  # type: str
         # The components of the message template.
         # 
-        # > If Category is set to AUTHENTICATION, the Type sub-parameter of the Components parameter cannot be set to HEADER. If the Type sub-parameter is set to BODY or FOOTER, the Text sub-parameter of the Components parameter is empty.
+        # >  If Category is set to AUTHENTICATION, the Type sub-parameter of the Components parameter cannot be set to HEADER. If the Type sub-parameter is set to BODY or FOOTER, the Text sub-parameter of the Components parameter must be empty.
         self.components_shrink = components_shrink  # type: str
         # The space ID of the user within the ISV account.
         self.cust_space_id = cust_space_id  # type: str
@@ -3042,7 +3036,6 @@ class CreateChatappTemplateResponseBodyData(TeaModel):
 
 class CreateChatappTemplateResponseBody(TeaModel):
     def __init__(self, access_denied_detail=None, code=None, data=None, message=None, request_id=None):
-        # 访问被拒绝详细信息。
         self.access_denied_detail = access_denied_detail  # type: str
         # The HTTP status code returned.
         # 
@@ -3101,9 +3094,6 @@ class CreateChatappTemplateResponse(TeaModel):
         self.body = body  # type: CreateChatappTemplateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3135,8 +3125,11 @@ class CreateChatappTemplateResponse(TeaModel):
 
 class CreateFlowRequest(TeaModel):
     def __init__(self, categories=None, cust_space_id=None, flow_name=None):
+        # The categories of the Flow.
         self.categories = categories  # type: list[str]
+        # The space ID of the user within the independent software vendor (ISV) account.
         self.cust_space_id = cust_space_id  # type: str
+        # The name of the Flow.
         self.flow_name = flow_name  # type: str
 
     def validate(self):
@@ -3169,8 +3162,11 @@ class CreateFlowRequest(TeaModel):
 
 class CreateFlowShrinkRequest(TeaModel):
     def __init__(self, categories_shrink=None, cust_space_id=None, flow_name=None):
+        # The categories of the Flow.
         self.categories_shrink = categories_shrink  # type: str
+        # The space ID of the user within the independent software vendor (ISV) account.
         self.cust_space_id = cust_space_id  # type: str
+        # The name of the Flow.
         self.flow_name = flow_name  # type: str
 
     def validate(self):
@@ -3203,9 +3199,11 @@ class CreateFlowShrinkRequest(TeaModel):
 
 class CreateFlowResponseBodyData(TeaModel):
     def __init__(self, categories=None, flow_id=None, flow_name=None):
+        # The categories of the Flow.
         self.categories = categories  # type: list[str]
-        # flow ID。
+        # The Flow ID.
         self.flow_id = flow_id  # type: str
+        # The name of the Flow.
         self.flow_name = flow_name  # type: str
 
     def validate(self):
@@ -3238,10 +3236,13 @@ class CreateFlowResponseBodyData(TeaModel):
 
 class CreateFlowResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
+        # If OK is returned, the request was successful.
         self.code = code  # type: str
+        # The returned data.
         self.data = data  # type: CreateFlowResponseBodyData
+        # The error message.
         self.message = message  # type: str
-        # Id of the request。
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3285,9 +3286,6 @@ class CreateFlowResponse(TeaModel):
         self.body = body  # type: CreateFlowResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3455,9 +3453,6 @@ class CreatePhoneMessageQrdlResponse(TeaModel):
         self.body = body  # type: CreatePhoneMessageQrdlResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3488,15 +3483,21 @@ class CreatePhoneMessageQrdlResponse(TeaModel):
 
 
 class DeleteChatappTemplateRequest(TeaModel):
-    def __init__(self, cust_space_id=None, cust_waba_id=None, isv_code=None, template_code=None):
+    def __init__(self, cust_space_id=None, cust_waba_id=None, isv_code=None, language=None, template_code=None,
+                 template_name=None, template_type=None):
         # The space ID of the user under the ISV account.
         self.cust_space_id = cust_space_id  # type: str
-        # The ID of the WhatsApp account that you register.
+        # The WhatsApp Business account (WABA) ID of the user within the independent software vendor (ISV) account.
+        # 
+        # >  CustWabaId is an obsolete parameter. Use CustSpaceId instead.
         self.cust_waba_id = cust_waba_id  # type: str
         # The independent software vendor (ISV) verification code, which is used to verify whether the user is authorized by the ISV account.
         self.isv_code = isv_code  # type: str
+        self.language = language  # type: str
         # The code of the message template.
         self.template_code = template_code  # type: str
+        self.template_name = template_name  # type: str
+        self.template_type = template_type  # type: str
 
     def validate(self):
         pass
@@ -3513,8 +3514,14 @@ class DeleteChatappTemplateRequest(TeaModel):
             result['CustWabaId'] = self.cust_waba_id
         if self.isv_code is not None:
             result['IsvCode'] = self.isv_code
+        if self.language is not None:
+            result['Language'] = self.language
         if self.template_code is not None:
             result['TemplateCode'] = self.template_code
+        if self.template_name is not None:
+            result['TemplateName'] = self.template_name
+        if self.template_type is not None:
+            result['TemplateType'] = self.template_type
         return result
 
     def from_map(self, m=None):
@@ -3525,8 +3532,14 @@ class DeleteChatappTemplateRequest(TeaModel):
             self.cust_waba_id = m.get('CustWabaId')
         if m.get('IsvCode') is not None:
             self.isv_code = m.get('IsvCode')
+        if m.get('Language') is not None:
+            self.language = m.get('Language')
         if m.get('TemplateCode') is not None:
             self.template_code = m.get('TemplateCode')
+        if m.get('TemplateName') is not None:
+            self.template_name = m.get('TemplateName')
+        if m.get('TemplateType') is not None:
+            self.template_type = m.get('TemplateType')
         return self
 
 
@@ -3582,9 +3595,6 @@ class DeleteChatappTemplateResponse(TeaModel):
         self.body = body  # type: DeleteChatappTemplateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3616,8 +3626,9 @@ class DeleteChatappTemplateResponse(TeaModel):
 
 class DeleteFlowRequest(TeaModel):
     def __init__(self, cust_space_id=None, flow_id=None):
+        # The space ID of the user within the independent software vendor (ISV) account.
         self.cust_space_id = cust_space_id  # type: str
-        # Flow ID。
+        # The Flow ID.
         self.flow_id = flow_id  # type: str
 
     def validate(self):
@@ -3646,9 +3657,11 @@ class DeleteFlowRequest(TeaModel):
 
 class DeleteFlowResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None):
+        # If OK is returned, the request was successful.
         self.code = code  # type: str
+        # The error message.
         self.message = message  # type: str
-        # Id of the request。
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3686,9 +3699,6 @@ class DeleteFlowResponse(TeaModel):
         self.body = body  # type: DeleteFlowResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3794,9 +3804,6 @@ class DeletePhoneMessageQrdlResponse(TeaModel):
         self.body = body  # type: DeletePhoneMessageQrdlResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3898,9 +3905,6 @@ class DeprecateFlowResponse(TeaModel):
         self.body = body  # type: DeprecateFlowResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3932,9 +3936,9 @@ class DeprecateFlowResponse(TeaModel):
 
 class EnableWhatsappROIMetricRequest(TeaModel):
     def __init__(self, cust_space_id=None, isv_code=None):
-        # The space ID of the user under the independent software vendor (ISV) account.
+        # The space ID of the user within the ISV account.
         self.cust_space_id = cust_space_id  # type: str
-        # The independent software vendor (ISV) verification code, which is used to verify whether the user is authorized by the ISV account.
+        # The verification code used to verify whether the RAM user is authorized by the independent software vendor (ISV) account.
         self.isv_code = isv_code  # type: str
 
     def validate(self):
@@ -3965,14 +3969,11 @@ class EnableWhatsappROIMetricResponseBody(TeaModel):
     def __init__(self, access_denied_detail=None, code=None, message=None, request_id=None):
         # The details about the access denial.
         self.access_denied_detail = access_denied_detail  # type: str
-        # The HTTP status code returned.
-        # 
-        # *   A value of OK indicates that the call is successful.
-        # *   Other values indicate that the call fails. For more information, see [Error codes](~~196974~~).
+        # The value OK indicates that the request was successful.
         self.code = code  # type: str
-        # The error message returned.
+        # The error message.
         self.message = message  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4014,9 +4015,6 @@ class EnableWhatsappROIMetricResponse(TeaModel):
         self.body = body  # type: EnableWhatsappROIMetricResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4048,22 +4046,17 @@ class EnableWhatsappROIMetricResponse(TeaModel):
 
 class GetChatappPhoneNumberMetricRequest(TeaModel):
     def __init__(self, cust_space_id=None, end=None, granularity=None, isv_code=None, phone_number=None, start=None):
-        # The space ID of the user under the ISV account.
+        # The space ID of the user within the ISV account.
         self.cust_space_id = cust_space_id  # type: str
-        # The end of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
-        # 
-        # >  The end time must be later than the start time. The interval between the start time and the end time cannot exceed 24 hours.
+        # The end of the time range to query.
         self.end = end  # type: long
-        # Metric granularity. Valid values:
-        # 
-        # - DAILY
-        # - HALF_HOUR
+        # The metric granularity.
         self.granularity = granularity  # type: str
-        # The ISV verification code, which is used to verify whether the user is authorized by the ISV account.
+        # The verification code used to verify whether the RAM user is authorized by the independent software vendor (ISV) account.
         self.isv_code = isv_code  # type: str
         # The business phone number.
         self.phone_number = phone_number  # type: str
-        # The beginning of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # The beginning of the time range to query.
         self.start = start  # type: long
 
     def validate(self):
@@ -4109,17 +4102,23 @@ class GetChatappPhoneNumberMetricRequest(TeaModel):
 class GetChatappPhoneNumberMetricResponseBodyData(TeaModel):
     def __init__(self, delivered_count=None, end=None, granularity=None, phone_number=None, sent_count=None,
                  start=None):
-        # Delivered count
+        # The number of delivered messages.
         self.delivered_count = delivered_count  # type: int
-        # The end of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # The end of the time range that you queried.
         self.end = end  # type: long
-        # The granularity at which bills are queried.
+        # The metric granularity.
+        # 
+        # >  Valid values:
+        # 
+        # *   DAILY
+        # 
+        # *   HALF_HOUR
         self.granularity = granularity  # type: str
         # The business phone number.
         self.phone_number = phone_number  # type: str
-        # Sent count
+        # The number of sent messages.
         self.sent_count = sent_count  # type: int
-        # The beginning of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # The beginning of the time range that you queried.
         self.start = start  # type: long
 
     def validate(self):
@@ -4166,16 +4165,13 @@ class GetChatappPhoneNumberMetricResponseBody(TeaModel):
     def __init__(self, access_denied_detail=None, code=None, data=None, message=None, request_id=None):
         # The details about the access denial.
         self.access_denied_detail = access_denied_detail  # type: str
-        # The HTTP status code returned.
-        # 
-        # *   A value of OK indicates that the call is successful.
-        # *   Other values indicate that the call fails. For more information, see [Error codes](~~196974~~).
+        # The value OK indicates that the request was successful.
         self.code = code  # type: str
         # The returned data.
         self.data = data  # type: list[GetChatappPhoneNumberMetricResponseBodyData]
-        # The error message returned.
+        # The error message.
         self.message = message  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4229,9 +4225,6 @@ class GetChatappPhoneNumberMetricResponse(TeaModel):
         self.body = body  # type: GetChatappPhoneNumberMetricResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4263,10 +4256,12 @@ class GetChatappPhoneNumberMetricResponse(TeaModel):
 
 class GetChatappTemplateDetailRequest(TeaModel):
     def __init__(self, cust_space_id=None, cust_waba_id=None, isv_code=None, language=None, template_code=None,
-                 template_type=None):
-        # The space ID of the user under the ISV account.
+                 template_name=None, template_type=None):
+        # The space ID of the user within the ISV account.
         self.cust_space_id = cust_space_id  # type: str
-        # The ID of the WhatsApp account that you registered.
+        # The WhatsApp Business account (WABA) ID of the user within the independent software vendor (ISV) account.
+        # 
+        # >  CustWabaId is an obsolete parameter. Use CustSpaceId instead.
         self.cust_waba_id = cust_waba_id  # type: str
         # The independent software vendor (ISV) verification code. This parameter is used to verify whether the user is authorized by the ISV account.
         self.isv_code = isv_code  # type: str
@@ -4274,6 +4269,7 @@ class GetChatappTemplateDetailRequest(TeaModel):
         self.language = language  # type: str
         # The code of the message template.
         self.template_code = template_code  # type: str
+        self.template_name = template_name  # type: str
         # The type of the message template. Valid values:
         # 
         # *   **WHATSAPP**\
@@ -4300,6 +4296,8 @@ class GetChatappTemplateDetailRequest(TeaModel):
             result['Language'] = self.language
         if self.template_code is not None:
             result['TemplateCode'] = self.template_code
+        if self.template_name is not None:
+            result['TemplateName'] = self.template_name
         if self.template_type is not None:
             result['TemplateType'] = self.template_type
         return result
@@ -4316,6 +4314,8 @@ class GetChatappTemplateDetailRequest(TeaModel):
             self.language = m.get('Language')
         if m.get('TemplateCode') is not None:
             self.template_code = m.get('TemplateCode')
+        if m.get('TemplateName') is not None:
+            self.template_name = m.get('TemplateName')
         if m.get('TemplateType') is not None:
             self.template_type = m.get('TemplateType')
         return self
@@ -4324,15 +4324,15 @@ class GetChatappTemplateDetailRequest(TeaModel):
 class GetChatappTemplateDetailResponseBodyDataComponentsButtonsExtendAttrs(TeaModel):
     def __init__(self, action=None, intent_code=None, next_language_code=None, next_template_code=None,
                  next_template_name=None):
-        # 事件类型
+        # The event type.
         self.action = action  # type: str
-        # 意图编码
+        # The intent code.
         self.intent_code = intent_code  # type: str
-        # 下一个模板语言
+        # The language of the next template.
         self.next_language_code = next_language_code  # type: str
-        # 下一个模板编码
+        # The code of the next template.
         self.next_template_code = next_template_code  # type: str
-        # 下一个模板名称
+        # The name of the next template.
         self.next_template_name = next_template_name  # type: str
 
     def validate(self):
@@ -4375,44 +4375,50 @@ class GetChatappTemplateDetailResponseBodyDataComponentsButtons(TeaModel):
     def __init__(self, autofill_text=None, coupon_code=None, extend_attrs=None, flow_action=None, flow_id=None,
                  is_opt_out=None, navigate_screen=None, package_name=None, phone_number=None, signature_hash=None, text=None,
                  type=None, url=None, url_type=None):
-        # Whatsapp模板，Category为Authentication，并且Button Type为ONE_TAP时必填，Whatsap Autofill操作的按钮文本
+        # The text of the one-tap autofill button. This parameter is required if Category is set to AUTHENTICATION and the Type sub-parameter of the Buttons parameter is set to ONE_TAP in a WhatsApp message template.
         self.autofill_text = autofill_text  # type: str
+        # The coupon code.
         self.coupon_code = coupon_code  # type: str
-        # 扩展字段
+        # The extended fields.
         self.extend_attrs = extend_attrs  # type: GetChatappTemplateDetailResponseBodyDataComponentsButtonsExtendAttrs
+        # flow 数据事件类型
+        # 取值范围：NAVIGATE/DATA_EXCHANGE
         self.flow_action = flow_action  # type: str
+        # Flow ID
         self.flow_id = flow_id  # type: str
-        # Whatsapp模板，在Category为Marketing,并且Button type为QUICK_REPLY时有效，表示按钮为营销退订按钮，客户如果点击了此按钮，并且在chatapp平台上配置了发送控制操作，则后续Marketing消息则不会发送到客户
+        # The unsubscribe button. This parameter is valid if Category is set to MARKETING and the Type sub-parameter of the Buttons parameter is set to QUICK_REPLY in a WhatsApp message template. After you configure message sending in the ChatApp Message Service console, marketing messages will not be sent to customers if they click this button.
         self.is_opt_out = is_opt_out  # type: bool
+        # 跳转屏 
+        # 在FlowAction=NAVIGATE时必填
         self.navigate_screen = navigate_screen  # type: str
-        # Whatsapp模板，Category为Authentication，并且Button Type为ONE_TAP时必填，表示Whatsapp调起应用的包名
+        # The app package name that WhatsApp uses to load your app. This parameter is required if Category is set to AUTHENTICATION and the Type sub-parameter of the Buttons parameter is set to ONE_TAP in a WhatsApp message template.
         self.package_name = package_name  # type: str
-        # The phone number. This parameter is valid only if the returned value of the Type parameter is **PHONE_NUMBER**.
+        # The phone number. This parameter is valid only if the Type sub-parameter of the Buttons parameter is set to **PHONE_NUMBER**.
         self.phone_number = phone_number  # type: str
-        # Whatsapp模板，Category为Authentication，并且Button Type为ONE_TAP时必填，表示Whatsapp调起应用的签名Hash值
+        # The app signing key hash that WhatsApp uses to load your app. This parameter is required if Category is set to AUTHENTICATION and the Type sub-parameter of the Buttons parameter is set to ONE_TAP in a WhatsApp message template.
         self.signature_hash = signature_hash  # type: str
         # The display name of the button.
         self.text = text  # type: str
         # The type of the button. Valid values:
         # 
-        # *   **PHONE_NUMBER**: a phone call button
-        # *   **URL**: a URL button
-        # *   **QUICK_REPLY**: a quick reply button
+        # *   **PHONE_NUMBER**: phone call button
+        # *   **URL**: URL button
+        # *   **QUICK_REPLY**: quick reply button
         # 
         # > 
         # 
-        # *   A quick reply button cannot coexist with a phone call button or a URL button in a message template.
+        # *   In a message template, a quick reply button cannot be used together with a phone call button or a URL button.
         # 
         # *   You can add a combination of two URL buttons or a combination of a URL button and a phone call button to a message template.
         # 
-        # *   You can add only one button to a Viber message template, and the button must be a URL button.
+        # *   You can add only one button to a Viber message template, and you must set the Type sub-parameter of the Buttons parameter to URL.
         self.type = type  # type: str
-        # The URL to be accessed when you click the URL button.
+        # The URL to which you are redirected when you click the URL button.
         self.url = url  # type: str
         # The type of the URL. Valid values:
         # 
-        # *   **static**: a static URL
-        # *   **dynamic**: a dynamic URL
+        # *   **static**\
+        # *   **dynamic**\
         self.url_type = url_type  # type: str
 
     def validate(self):
@@ -4491,10 +4497,15 @@ class GetChatappTemplateDetailResponseBodyDataComponentsButtons(TeaModel):
 
 class GetChatappTemplateDetailResponseBodyDataComponentsCardsCardComponentsButtons(TeaModel):
     def __init__(self, phone_number=None, text=None, type=None, url=None, url_type=None):
+        # The phone number.
         self.phone_number = phone_number  # type: str
+        # The button content.
         self.text = text  # type: str
+        # The type of the button in the carousel template. Valid values: URL, PHONE_NUMBER, and QUICK_REQLY.
         self.type = type  # type: str
+        # The URL to be accessed when you click the URL button.
         self.url = url  # type: str
+        # The type of the URL. Valid values: static and dynamic.
         self.url_type = url_type  # type: str
 
     def validate(self):
@@ -4535,10 +4546,15 @@ class GetChatappTemplateDetailResponseBodyDataComponentsCardsCardComponentsButto
 
 class GetChatappTemplateDetailResponseBodyDataComponentsCardsCardComponents(TeaModel):
     def __init__(self, buttons=None, format=None, text=None, type=None, url=None):
+        # The card buttons.
         self.buttons = buttons  # type: list[GetChatappTemplateDetailResponseBodyDataComponentsCardsCardComponentsButtons]
+        # The type of the header in the carousel template. The header can only be an image or a video. The headers of all cards must be the same.
         self.format = format  # type: str
+        # The card text.
         self.text = text  # type: str
+        # The type of the component.
         self.type = type  # type: str
+        # The URL address.
         self.url = url  # type: str
 
     def validate(self):
@@ -4587,6 +4603,7 @@ class GetChatappTemplateDetailResponseBodyDataComponentsCardsCardComponents(TeaM
 
 class GetChatappTemplateDetailResponseBodyDataComponentsCards(TeaModel):
     def __init__(self, card_components=None):
+        # The card components.
         self.card_components = card_components  # type: list[GetChatappTemplateDetailResponseBodyDataComponentsCardsCardComponents]
 
     def validate(self):
@@ -4622,31 +4639,33 @@ class GetChatappTemplateDetailResponseBodyDataComponents(TeaModel):
                  code_expiration_minutes=None, duration=None, file_name=None, file_type=None, format=None, latitude=None,
                  location_address=None, location_name=None, longitude=None, offer_expiration_time_ms=None, text=None, thumb_url=None,
                  type=None, url=None, has_expiration=None):
-        # Whatsapp类型模板，Category为Authentication，并且Component Type为Body时有效，表示在Body上面显示不要将验证码信息提供给其它人的提示信息
+        # The note indicating that customers cannot share verification codes with others. The note is displayed in the message body. This parameter is valid if Category is set to AUTHENTICATION and the Type sub-parameter of the Components parameter is set to BODY in a WhatsApp message template.
         self.add_secret_recommendation = add_secret_recommendation  # type: bool
-        # This parameter applies only to components of the **BUTTONS** type. This parameter is passed in by converting its original JSON structure into a string.
+        # The buttons. Specify this parameter only if you set the Type sub-parameter of the Components parameter to **BUTTONS**. Before you specify this parameter, the format of the value must be changed from JSON to String.
         self.buttons = buttons  # type: list[GetChatappTemplateDetailResponseBodyDataComponentsButtons]
-        # The description of the file.
+        # The description of the document.
         self.caption = caption  # type: str
+        # The carousel cards.
         self.cards = cards  # type: list[GetChatappTemplateDetailResponseBodyDataComponentsCards]
-        # Whatsapp Authentication模板验证码有效期（分钟），只在Whatsapp类型消息，Category为Authentication并且Component Type为Footer时有效（此信息显示在Footer位置）
+        # The validity period of the verification code in the WhatsApp authentication template. Unit: minutes. This parameter is valid only when Category is set to AUTHENTICATION and the Type sub-parameter of the Components parameter is set to FOOTER in a WhatsApp message template. The validity period of the verification code is displayed in the footer.
         self.code_expiration_minutes = code_expiration_minutes  # type: int
         # The length of the video in the Viber message template. Valid values: 0 to 600. Unit: seconds.
         self.duration = duration  # type: int
-        # The name of the file.
+        # The name of the document.
         self.file_name = file_name  # type: str
-        # The type of the file attached in the Viber message template.
+        # The type of the document attached in the Viber message template.
         self.file_type = file_type  # type: str
-        # The type of the media resources that are included in the message.
+        # The format.
         self.format = format  # type: str
-        # 位置纬度属性
+        # The latitude of the location.
         self.latitude = latitude  # type: str
-        # 位置地址
+        # The address of the location.
         self.location_address = location_address  # type: str
-        # 位置名称
+        # The name of the location.
         self.location_name = location_name  # type: str
-        # 位置经度属性
+        # The longitude of the location.
         self.longitude = longitude  # type: str
+        # The variable when the coupon code expires in the limited-time offer template.
         self.offer_expiration_time_ms = offer_expiration_time_ms  # type: str
         # The text of the message that you want to send.
         self.text = text  # type: str
@@ -4661,18 +4680,15 @@ class GetChatappTemplateDetailResponseBodyDataComponents(TeaModel):
         # 
         # > 
         # 
-        # *   The following limits apply to components in WhatsApp message templates: A component of the **BODY** type cannot exceed 1,024 characters. A component of the **HEADER** or **FOOTER** type cannot exceed 60 characters in length.
-        # 
-        # > 
+        # *   The following limits apply to components in WhatsApp message templates: A **BODY** component cannot exceed 1,024 characters in length. A **HEADER** or **FOOTER** component cannot exceed 60 characters in length.
         # 
         # *   **FOOTER** components are not supported in Viber message templates.
         # 
-        # > 
-        # 
-        # *   In a Viber message template, a media resource, such as an image, a video, or a file, is placed in the **HEADER** component. If a Viber message contains text and an image, the image is placed under the text in the message received on a device.
+        # *   In a Viber message template, media resources such as images, videos, and documents are placed in the **HEADER** component. If a Viber message contains both text and an image, the image is placed below the text in the message received on a device.
         self.type = type  # type: str
-        # The URL of the material.
+        # The URL of the media resource.
         self.url = url  # type: str
+        # Indicates whether the coupon code will expire in the limited-time offer template.
         self.has_expiration = has_expiration  # type: bool
 
     def validate(self):
@@ -4820,12 +4836,13 @@ class GetChatappTemplateDetailResponseBodyData(TeaModel):
         self.example = example  # type: dict[str, str]
         # The language that is used in the message template. For more information, see [Language codes](~~463420~~).
         self.language = language  # type: str
-        # Whatsapp中Authentication类型模板发送消息时的消息有效期
+        # The validity period of the WhatsApp authentication message.
         self.message_send_ttl_seconds = message_send_ttl_seconds  # type: int
         # The name of the message template.
         self.name = name  # type: str
-        # 模板质量
+        # The quality of the template.
         self.quality_score = quality_score  # type: str
+        # The reason why the template was rejected.
         self.reason = reason  # type: str
         # The code of the message template.
         self.template_code = template_code  # type: str
@@ -4964,9 +4981,6 @@ class GetChatappTemplateDetailResponse(TeaModel):
         self.body = body  # type: GetChatappTemplateDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5001,23 +5015,23 @@ class GetChatappTemplateMetricRequest(TeaModel):
                  template_code=None, template_type=None):
         # The space ID of the user within the ISV account.
         self.cust_space_id = cust_space_id  # type: str
-        # The end of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # The end of the time range to query.
         self.end = end  # type: long
-        # Metric granularity. Valid values:
+        # The metric granularity.
         # 
-        # - DAILY
+        # >  Valid values:
+        # 
+        # *   DAILY
         self.granularity = granularity  # type: str
-        # The independent software vendor (ISV) verification code. This parameter is used to verify whether the user is authorized by the ISV account.
+        # The verification code used to verify whether the RAM user is authorized by the independent software vendor (ISV) account.
         self.isv_code = isv_code  # type: str
-        # The language that is used in the message template. For more information, see [Language codes](~~463420~~).
+        # The template language.
         self.language = language  # type: str
-        # The beginning of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # The beginning of the time range to query.
         self.start = start  # type: long
-        # The code of the message template.
+        # The template code.
         self.template_code = template_code  # type: str
-        # The type of the message template. Valid values:
-        # 
-        # *   **WHATSAPP**\
+        # The template type. Valid values: WHATSAPP and VIBER. If you do not specify this parameter, WHATSAPP is used by default.
         self.template_type = template_type  # type: str
 
     def validate(self):
@@ -5070,11 +5084,19 @@ class GetChatappTemplateMetricRequest(TeaModel):
 
 class GetChatappTemplateMetricResponseBodyDataCliented(TeaModel):
     def __init__(self, button_content=None, count=None, type=None):
-        # Button name
+        # The text on the button.
         self.button_content = button_content  # type: str
-        # Clicked count
+        # The number of clicks.
         self.count = count  # type: int
-        # The type of button.
+        # The button type.
+        # 
+        # >  Valid values:
+        # 
+        # *   url_button
+        # 
+        # *   quick_relpy_button
+        # 
+        # *   phone_number_button
         self.type = type  # type: str
 
     def validate(self):
@@ -5108,21 +5130,21 @@ class GetChatappTemplateMetricResponseBodyDataCliented(TeaModel):
 class GetChatappTemplateMetricResponseBodyData(TeaModel):
     def __init__(self, cliented=None, delivered_count=None, end=None, language=None, read_count=None,
                  sent_count=None, start=None, template_code=None):
-        # Click Statistics
+        # The statistics on button clicks.
         self.cliented = cliented  # type: list[GetChatappTemplateMetricResponseBodyDataCliented]
-        # Delivered count
+        # The number of delivered messages.
         self.delivered_count = delivered_count  # type: int
-        # The end of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # The end of the time range you queried.
         self.end = end  # type: long
-        # The language that is used in the message template. For more information, see [Language codes](~~463420~~).
+        # The template language.
         self.language = language  # type: str
-        # Read count
+        # The number of read messages.
         self.read_count = read_count  # type: int
-        # Sent count
+        # The number of sent messages.
         self.sent_count = sent_count  # type: int
-        # The beginning of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # The beginning of the time range you queried.
         self.start = start  # type: long
-        # The code of the message template.
+        # The template code.
         self.template_code = template_code  # type: str
 
     def validate(self):
@@ -5185,16 +5207,13 @@ class GetChatappTemplateMetricResponseBody(TeaModel):
     def __init__(self, access_denied_detail=None, code=None, data=None, message=None, request_id=None):
         # The details about the access denial.
         self.access_denied_detail = access_denied_detail  # type: str
-        # The HTTP status code returned.
-        # 
-        # *   A value of OK indicates that the call is successful.
-        # *   Other values indicate that the call fails. For more information, see [Error codes](~~196974~~).
+        # The value OK indicates that the request was successful.
         self.code = code  # type: str
         # The returned data.
         self.data = data  # type: list[GetChatappTemplateMetricResponseBodyData]
-        # The error message returned.
+        # The error message.
         self.message = message  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5248,9 +5267,6 @@ class GetChatappTemplateMetricResponse(TeaModel):
         self.body = body  # type: GetChatappTemplateMetricResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5427,9 +5443,6 @@ class GetChatappUploadAuthorizationResponse(TeaModel):
         self.body = body  # type: GetChatappUploadAuthorizationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5554,9 +5567,6 @@ class GetChatappVerifyCodeResponse(TeaModel):
         self.body = body  # type: GetChatappVerifyCodeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5588,7 +5598,9 @@ class GetChatappVerifyCodeResponse(TeaModel):
 
 class GetCommerceSettingRequest(TeaModel):
     def __init__(self, cust_space_id=None, phone_number=None):
+        # The space ID of the user within the independent software vendor (ISV) account.
         self.cust_space_id = cust_space_id  # type: str
+        # The phone number.
         self.phone_number = phone_number  # type: str
 
     def validate(self):
@@ -5617,7 +5629,9 @@ class GetCommerceSettingRequest(TeaModel):
 
 class GetCommerceSettingResponseBodyData(TeaModel):
     def __init__(self, cart_enable=None, catalog_visible=None):
+        # Indicates whether the shopping cart button is displayed.
         self.cart_enable = cart_enable  # type: bool
+        # Indicates whether the catalog button is displayed.
         self.catalog_visible = catalog_visible  # type: bool
 
     def validate(self):
@@ -5646,10 +5660,16 @@ class GetCommerceSettingResponseBodyData(TeaModel):
 
 class GetCommerceSettingResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
+        # The response code.
+        # 
+        # *   The value OK indicates that the request was successful.
+        # *   Other values indicate that the request failed. For more information, see [Error codes](~~196974~~).
         self.code = code  # type: str
+        # The returned data.
         self.data = data  # type: GetCommerceSettingResponseBodyData
+        # The error message.
         self.message = message  # type: str
-        # Id of the request
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5693,9 +5713,6 @@ class GetCommerceSettingResponse(TeaModel):
         self.body = body  # type: GetCommerceSettingResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5727,8 +5744,9 @@ class GetCommerceSettingResponse(TeaModel):
 
 class GetFlowRequest(TeaModel):
     def __init__(self, cust_space_id=None, flow_id=None):
+        # The space ID of the user within the independent software vendor (ISV) account.
         self.cust_space_id = cust_space_id  # type: str
-        # Flow ID。
+        # The Flow ID.
         self.flow_id = flow_id  # type: str
 
     def validate(self):
@@ -5758,14 +5776,47 @@ class GetFlowRequest(TeaModel):
 class GetFlowResponseBodyData(TeaModel):
     def __init__(self, categories=None, data_api_version=None, flow_id=None, flow_name=None, jsonversion=None,
                  preview_url=None, preview_url_expires=None, status=None):
+        # The categories of the Flow.
         self.categories = categories  # type: list[str]
+        # The API version.
         self.data_api_version = data_api_version  # type: str
-        # flow ID。
+        # The Flow ID.
         self.flow_id = flow_id  # type: str
+        # The name of the Flow.
         self.flow_name = flow_name  # type: str
+        # The JSON version.
         self.jsonversion = jsonversion  # type: str
+        # The temporary preview URL.
         self.preview_url = preview_url  # type: str
+        # The time when the preview URL expires. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.preview_url_expires = preview_url_expires  # type: long
+        # The state of the Flow.
+        # 
+        # Valid values:
+        # 
+        # *   PUBLISHED
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   DRAFT
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   DEPRECATED
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
         self.status = status  # type: str
 
     def validate(self):
@@ -5818,10 +5869,13 @@ class GetFlowResponseBodyData(TeaModel):
 
 class GetFlowResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
+        # If OK is returned, the request was successful.
         self.code = code  # type: str
+        # The returned data.
         self.data = data  # type: GetFlowResponseBodyData
+        # The error message.
         self.message = message  # type: str
-        # Id of the request。
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5865,9 +5919,6 @@ class GetFlowResponse(TeaModel):
         self.body = body  # type: GetFlowResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6006,9 +6057,6 @@ class GetFlowJSONAssestResponse(TeaModel):
         self.body = body  # type: GetFlowJSONAssestResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6040,8 +6088,9 @@ class GetFlowJSONAssestResponse(TeaModel):
 
 class GetFlowPreviewUrlRequest(TeaModel):
     def __init__(self, cust_space_id=None, flow_id=None):
+        # The space ID of the user within the independent software vendor (ISV) account.
         self.cust_space_id = cust_space_id  # type: str
-        # Flow ID。
+        # The Flow ID.
         self.flow_id = flow_id  # type: str
 
     def validate(self):
@@ -6070,9 +6119,11 @@ class GetFlowPreviewUrlRequest(TeaModel):
 
 class GetFlowPreviewUrlResponseBodyData(TeaModel):
     def __init__(self, flow_id=None, preview_url=None, preview_url_expires=None):
-        # flow ID。
+        # The Flow ID.
         self.flow_id = flow_id  # type: str
+        # The temporary preview URL.
         self.preview_url = preview_url  # type: str
+        # The time when the preview URL expires. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.preview_url_expires = preview_url_expires  # type: long
 
     def validate(self):
@@ -6105,10 +6156,13 @@ class GetFlowPreviewUrlResponseBodyData(TeaModel):
 
 class GetFlowPreviewUrlResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
+        # If OK is returned, the request was successful.
         self.code = code  # type: str
+        # The returned data.
         self.data = data  # type: GetFlowPreviewUrlResponseBodyData
+        # The error message.
         self.message = message  # type: str
-        # Id of the request。
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -6152,9 +6206,6 @@ class GetFlowPreviewUrlResponse(TeaModel):
         self.body = body  # type: GetFlowPreviewUrlResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6305,9 +6356,6 @@ class GetMigrationVerifyCodeResponse(TeaModel):
         self.body = body  # type: GetMigrationVerifyCodeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6447,9 +6495,6 @@ class GetPermissionByCodeResponse(TeaModel):
         self.body = body  # type: GetPermissionByCodeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6591,9 +6636,6 @@ class GetPhoneEncryptionPublicKeyResponse(TeaModel):
         self.body = body  # type: GetPhoneEncryptionPublicKeyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6746,9 +6788,6 @@ class GetPhoneNumberVerificationStatusResponse(TeaModel):
         self.body = body  # type: GetPhoneNumberVerificationStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6780,7 +6819,9 @@ class GetPhoneNumberVerificationStatusResponse(TeaModel):
 
 class GetPreValidatePhoneIdRequest(TeaModel):
     def __init__(self, phone_number=None, verify_code=None):
+        # The phone number.
         self.phone_number = phone_number  # type: str
+        # The verification code provided when you purchased the pre-registered phone number.
         self.verify_code = verify_code  # type: str
 
     def validate(self):
@@ -6809,7 +6850,9 @@ class GetPreValidatePhoneIdRequest(TeaModel):
 
 class GetPreValidatePhoneIdResponseBodyData(TeaModel):
     def __init__(self, phone_number=None, phone_number_id=None):
+        # The phone number.
         self.phone_number = phone_number  # type: str
+        # The ID of the phone number.
         self.phone_number_id = phone_number_id  # type: str
 
     def validate(self):
@@ -6838,10 +6881,13 @@ class GetPreValidatePhoneIdResponseBodyData(TeaModel):
 
 class GetPreValidatePhoneIdResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
+        # The response code. The value OK indicates the request was successful.
         self.code = code  # type: str
+        # The returned data.
         self.data = data  # type: GetPreValidatePhoneIdResponseBodyData
+        # The error message.
         self.message = message  # type: str
-        # Id of the request
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -6885,9 +6931,6 @@ class GetPreValidatePhoneIdResponse(TeaModel):
         self.body = body  # type: GetPreValidatePhoneIdResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6920,7 +6963,7 @@ class GetPreValidatePhoneIdResponse(TeaModel):
 class GetWhatsappConnectionCatalogRequest(TeaModel):
     def __init__(self, cust_space_id=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  waba_id=None):
-        # The space ID of the user within the independent software vendor (ISV) account.
+        # The space ID of the user within the ISV account.
         self.cust_space_id = cust_space_id  # type: str
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
@@ -6975,7 +7018,7 @@ class GetWhatsappConnectionCatalogResponseBody(TeaModel):
         self.code = code  # type: str
         # The error message.
         self.message = message  # type: str
-        # The returned results.
+        # The returned data.
         self.model = model  # type: dict[str, any]
         # The request ID.
         self.request_id = request_id  # type: str
@@ -7032,9 +7075,6 @@ class GetWhatsappConnectionCatalogResponse(TeaModel):
         self.body = body  # type: GetWhatsappConnectionCatalogResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7066,6 +7106,7 @@ class GetWhatsappConnectionCatalogResponse(TeaModel):
 
 class IsvGetAppIdRequest(TeaModel):
     def __init__(self, permissions=None, type=None):
+        # 权限
         self.permissions = permissions  # type: str
         # The type of the application. Set the value to WHATSAPP.
         self.type = type  # type: str
@@ -7158,9 +7199,6 @@ class IsvGetAppIdResponse(TeaModel):
         self.body = body  # type: IsvGetAppIdResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7192,9 +7230,9 @@ class IsvGetAppIdResponse(TeaModel):
 
 class ListChatappTemplateRequestPage(TeaModel):
     def __init__(self, index=None, size=None):
-        # The number of the page to return. Pages start from page 1. Default value: 1.
+        # The page number. Default value: 1.
         self.index = index  # type: int
-        # The number of message templates to return on each page. Default value: 10.
+        # The number of entries per page. Default value: 10.
         self.size = size  # type: int
 
     def validate(self):
@@ -7233,7 +7271,9 @@ class ListChatappTemplateRequest(TeaModel):
         self.audit_status = audit_status  # type: str
         # The space ID of the user under the ISV account.
         self.cust_space_id = cust_space_id  # type: str
-        # The ID of the WhatsApp account that you register.
+        # The WhatsApp Business account (WABA) ID of the user within the independent software vendor (ISV) account.
+        # 
+        # >  CustWabaId is an obsolete parameter. Use CustSpaceId instead.
         self.cust_waba_id = cust_waba_id  # type: str
         # The independent software vendor (ISV) verification code, which is used to verify whether the user is authorized by the ISV account.
         self.isv_code = isv_code  # type: str
@@ -7241,7 +7281,7 @@ class ListChatappTemplateRequest(TeaModel):
         self.language = language  # type: str
         # The name of the message template.
         self.name = name  # type: str
-        # The paging settings.
+        # The pagination settings.
         self.page = page  # type: ListChatappTemplateRequestPage
         # The type of the message template.
         # 
@@ -7312,7 +7352,9 @@ class ListChatappTemplateShrinkRequest(TeaModel):
         self.audit_status = audit_status  # type: str
         # The space ID of the user under the ISV account.
         self.cust_space_id = cust_space_id  # type: str
-        # The ID of the WhatsApp account that you register.
+        # The WhatsApp Business account (WABA) ID of the user within the independent software vendor (ISV) account.
+        # 
+        # >  CustWabaId is an obsolete parameter. Use CustSpaceId instead.
         self.cust_waba_id = cust_waba_id  # type: str
         # The independent software vendor (ISV) verification code, which is used to verify whether the user is authorized by the ISV account.
         self.isv_code = isv_code  # type: str
@@ -7320,7 +7362,7 @@ class ListChatappTemplateShrinkRequest(TeaModel):
         self.language = language  # type: str
         # The name of the message template.
         self.name = name  # type: str
-        # The paging settings.
+        # The pagination settings.
         self.page_shrink = page_shrink  # type: str
         # The type of the message template.
         # 
@@ -7380,22 +7422,34 @@ class ListChatappTemplateShrinkRequest(TeaModel):
 class ListChatappTemplateResponseBodyListTemplate(TeaModel):
     def __init__(self, audit_status=None, category=None, language=None, reason=None, template_code=None,
                  template_name=None, template_type=None):
-        # The review status of the message template. Valid values:
+        # The review state of the message template. Valid values:
         # 
         # *   **pass**: The message template is approved.
         # *   **fail**: The message template is rejected.
         # *   **auditing**: The message template is being reviewed.
         # *   **unaudit**: The review is suspended.
         self.audit_status = audit_status  # type: str
-        # The category of the message template. Valid values:
+        # The category of the WhatsApp template. Valid values:
         # 
-        # *   **TRANSACTIONAL**: a transactional template
-        # *   **MARKETING**: a marketing template
-        # *   **OTP**: a one-time password template
+        # *   **UTILITY**: utility template
+        # *   **MARKETING**: marketing template
+        # *   **AUTHENTICATION**: authentication template
+        # 
+        # The category of the Viber template. Valid values:
+        # 
+        # *   **text**: template that contains only text
+        # *   **image**: template that contains only an image
+        # *   **text_image_button**: template that contains text, an image, and a button
+        # *   **text_button**: template that contains text and a button
+        # *   **document**: template that contains only a document
+        # *   **video**: template that contains only a video
+        # *   **text_video**: template that contains text and a video
+        # *   **text_video_button**: template that contains text, a video, and a button
+        # *   **text_image**: template that contains text and an image
         self.category = category  # type: str
         # The language that is used in the message template. For more information, see [Language codes](~~463420~~).
         self.language = language  # type: str
-        # 模板审核被拒的原因
+        # The reason for the review failure.
         self.reason = reason  # type: str
         # The code of the message template.
         self.template_code = template_code  # type: str
@@ -7451,7 +7505,6 @@ class ListChatappTemplateResponseBodyListTemplate(TeaModel):
 class ListChatappTemplateResponseBody(TeaModel):
     def __init__(self, access_denied_detail=None, code=None, list_template=None, message=None, request_id=None,
                  total=None):
-        # 访问被拒绝详细信息。
         self.access_denied_detail = access_denied_detail  # type: str
         # The HTTP status code returned.
         # 
@@ -7464,7 +7517,7 @@ class ListChatappTemplateResponseBody(TeaModel):
         self.message = message  # type: str
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # 总记录条数。
+        # The total number of entries returned.
         self.total = total  # type: int
 
     def validate(self):
@@ -7522,9 +7575,6 @@ class ListChatappTemplateResponse(TeaModel):
         self.body = body  # type: ListChatappTemplateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7556,7 +7606,9 @@ class ListChatappTemplateResponse(TeaModel):
 
 class ListFlowRequestPage(TeaModel):
     def __init__(self, index=None, size=None):
+        # The page number.
         self.index = index  # type: int
+        # The number of entries per page.
         self.size = size  # type: int
 
     def validate(self):
@@ -7585,8 +7637,11 @@ class ListFlowRequestPage(TeaModel):
 
 class ListFlowRequest(TeaModel):
     def __init__(self, cust_space_id=None, flow_name=None, page=None):
+        # The space ID of the user within the independent software vendor (ISV) account.
         self.cust_space_id = cust_space_id  # type: str
+        # The name of the Flow.
         self.flow_name = flow_name  # type: str
+        # The returned pages.
         self.page = page  # type: ListFlowRequestPage
 
     def validate(self):
@@ -7621,8 +7676,11 @@ class ListFlowRequest(TeaModel):
 
 class ListFlowShrinkRequest(TeaModel):
     def __init__(self, cust_space_id=None, flow_name=None, page_shrink=None):
+        # The space ID of the user within the independent software vendor (ISV) account.
         self.cust_space_id = cust_space_id  # type: str
+        # The name of the Flow.
         self.flow_name = flow_name  # type: str
+        # The returned pages.
         self.page_shrink = page_shrink  # type: str
 
     def validate(self):
@@ -7655,9 +7713,11 @@ class ListFlowShrinkRequest(TeaModel):
 
 class ListFlowResponseBodyData(TeaModel):
     def __init__(self, categories=None, flow_id=None, flow_name=None):
+        # The categories of the Flows.
         self.categories = categories  # type: list[str]
-        # flow ID。
+        # The Flow ID.
         self.flow_id = flow_id  # type: str
+        # The name of the Flow.
         self.flow_name = flow_name  # type: str
 
     def validate(self):
@@ -7690,10 +7750,13 @@ class ListFlowResponseBodyData(TeaModel):
 
 class ListFlowResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
+        # If OK is returned, the request was successful.
         self.code = code  # type: str
+        # The returned data.
         self.data = data  # type: list[ListFlowResponseBodyData]
+        # The error message.
         self.message = message  # type: str
-        # Id of the request。
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -7743,9 +7806,6 @@ class ListFlowResponse(TeaModel):
         self.body = body  # type: ListFlowResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7909,9 +7969,6 @@ class ListPhoneMessageQrdlResponse(TeaModel):
         self.body = body  # type: ListPhoneMessageQrdlResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7948,7 +8005,7 @@ class ListProductRequest(TeaModel):
         self.after = after  # type: str
         # The cursor that points to the beginning of the page of the returned data.
         self.before = before  # type: str
-        # The ID of the product catalog.
+        # The catalog ID.
         self.catalog_id = catalog_id  # type: str
         # The space ID of the user within the independent software vendor (ISV) account.
         self.cust_space_id = cust_space_id  # type: str
@@ -8181,9 +8238,6 @@ class ListProductResponse(TeaModel):
         self.body = body  # type: ListProductResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8387,7 +8441,7 @@ class ListProductCatalogResponseBody(TeaModel):
         self.code = code  # type: str
         # The error message.
         self.message = message  # type: str
-        # The returned results.
+        # The returned data.
         self.model = model  # type: ListProductCatalogResponseBodyModel
         # The request ID.
         self.request_id = request_id  # type: str
@@ -8446,9 +8500,6 @@ class ListProductCatalogResponse(TeaModel):
         self.body = body  # type: ListProductCatalogResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8482,37 +8533,37 @@ class ModifyChatappTemplateRequestComponentsButtons(TeaModel):
     def __init__(self, autofill_text=None, coupon_code=None, flow_action=None, flow_id=None, is_opt_out=None,
                  navigate_screen=None, package_name=None, phone_number=None, signature_hash=None, text=None, type=None, url=None,
                  url_type=None):
-        # The text of the one-tap autofill button. This parameter is required if Category is set to AUTHENTICATION and the Type sub-parameter of the Buttons parameter is set to ONE_TAP in a WhatsApp message template.
+        # The text of the one-tap autofill button. This parameter is required if Category is set to AUTHENTICATION and the Type sub-parameter of the Buttons parameter is set to ONE_TAP for a WhatsApp message template.
         self.autofill_text = autofill_text  # type: str
         self.coupon_code = coupon_code  # type: str
         self.flow_action = flow_action  # type: str
         self.flow_id = flow_id  # type: str
-        # The unsubscribe button. This parameter is valid only when Category is set to MARKETING and the Type sub-parameter of the Buttons parameter is set to QUICK_REPLY in a WhatsApp message template. After you configure message sending in the ChatApp Message Service console, marketing messages will not be sent to customers if they click this button.
+        # The unsubscribe button. This parameter is valid if Category is set to MARKETING and the Type sub-parameter of the Buttons parameter is set to QUICK_REPLY for a WhatsApp message template. After you configure message sending in the ChatApp Message Service console, marketing messages are not sent to customers if they click this button.
         self.is_opt_out = is_opt_out  # type: bool
         self.navigate_screen = navigate_screen  # type: str
-        # The app package name that WhatsApp uses to load your app. This parameter is required if Category is set to AUTHENTICATION and the Type sub-parameter of the Buttons parameter is set to ONE_TAP in a WhatsApp message template.
+        # The app package name that WhatsApp uses to load your app. This parameter is required if Category is set to AUTHENTICATION and the Type sub-parameter of the Buttons parameter is set to ONE_TAP for a WhatsApp message template.
         self.package_name = package_name  # type: str
         # The phone number.
         self.phone_number = phone_number  # type: str
-        # The app signing key hash that WhatsApp uses to load your app. This parameter is required if Category is set to AUTHENTICATION and the Type sub-parameter of the Buttons parameter is set to ONE_TAP in a WhatsApp message template.
+        # The app signing key hash that WhatsApp uses to load your app. This parameter is required if Category is set to AUTHENTICATION and the Type sub-parameter of the Buttons parameter is set to ONE_TAP for a WhatsApp message template.
         self.signature_hash = signature_hash  # type: str
         # The text of the button.
         self.text = text  # type: str
         # The type of the button. Valid values:
         # 
-        # *   **PHONE_NUMBER**: the phone call button
-        # *   **URL**: the URL button
-        # *   **QUICK_REPLY**: the quick reply button
-        # *   **COPY_CODE**: the copy code button if Category is set to AUTHENTICATION
-        # *   **ONE_TAP**: the one-tap autofill button if Category is set to AUTHENTICATION
+        # *   **PHONE_NUMBER**: phone call button
+        # *   **URL**: URL button
+        # *   **QUICK_REPLY**: quick reply button
+        # *   **COPY_CODE**: copy code button if Category is set to AUTHENTICATION
+        # *   **ONE_TAP**: one-tap autofill button if Category is set to AUTHENTICATION
         # 
         # > 
         # 
-        # *   In a WhatsApp message template, the quick reply button cannot be used together with the phone call button or the URL button.
+        # *   In a WhatsApp message template, a quick reply button cannot be used together with a phone call button or a URL button.
         # 
         # *   You can add a combination of two URL buttons or a combination of a URL button and a phone call button to a WhatsApp message template.
         # 
-        # *   If Category is set to AUTHENTICATION in a WhatsApp message template, you can add only one button to the WhatsApp message template and you must set the Type sub-parameter of the Buttons parameter to COPY_CODE or ONE_TAP. If the Type sub-parameter of the Buttons parameter is set to COPY_CODE, the Text sub-parameter of the Buttons parameter is required. If the Type sub-parameter of the Buttons parameter is set to ONE_TAP, the Text, SignatureHash, PackageName, and AutofillText sub-parameters of the Buttons parameter are required. The value of Text is displayed if the desired app is not installed on the device. The value indicates that you must manually copy the verification code.
+        # *   If Category is set to AUTHENTICATION for a WhatsApp message template, you can add only one button to the WhatsApp message template and you must set the Type sub-parameter of the Buttons parameter to COPY_CODE or ONE_TAP. If the Type sub-parameter of the Buttons parameter is set to COPY_CODE, the Text sub-parameter of the Buttons parameter is required. If the Type sub-parameter of the Buttons parameter is set to ONE_TAP, the Text, SignatureHash, PackageName, and AutofillText sub-parameters of the Buttons parameter are required. The value of Text is displayed if the desired app is not installed on the device. The value of Text indicates that you must manually copy the verification code.
         # 
         # *   You can add only one button to a Viber message template, and you must set the Type sub-parameter of the Buttons parameter to URL.
         self.type = type  # type: str
@@ -8724,13 +8775,23 @@ class ModifyChatappTemplateRequestComponents(TeaModel):
     def __init__(self, add_secret_recommendation=None, buttons=None, caption=None, cards=None,
                  code_expiration_minutes=None, duration=None, file_name=None, file_type=None, format=None, has_expiration=None, text=None,
                  thumb_url=None, type=None, url=None):
-        # The note indicating that customers cannot share verification codes with others. The note is displayed in the message body. This parameter is valid only when Category is set to AUTHENTICATION and the Type sub-parameter of the Components parameter is set to BODY in a WhatsApp message template.
+        # The note indicating that customers cannot share verification codes with others. The note is displayed in the message body. This parameter is valid only if Category is set to AUTHENTICATION and the Type sub-parameter of the Components parameter is set to BODY for a WhatsApp message template.
         self.add_secret_recommendation = add_secret_recommendation  # type: bool
-        # The buttons. This parameter applies only to **BUTTONS** components.
-        self.buttons = buttons  # type: list[ModifyChatappTemplateRequestComponentsButtons]
-        # The description of the media resource.
+        # The buttons. Specify this parameter only if you set the Type sub-parameter of the Components parameter to **BUTTONS**.
         # 
-        # > If the Type sub-parameter of the Components parameter is set to **HEADER** and the Format sub-parameter of the Components parameter is set to **IMAGE, DOCUMENT, or VIDEO**, you can specify this parameter.
+        # >  The following section describes the limits on the number of buttons in a WhatsApp message.
+        # 
+        # *   A marketing or utility WhatsApp message template supports up to 10 buttons.
+        # 
+        # *   A WhatsApp message template can contain only one phone call button.
+        # 
+        # *   A WhatsApp message template can contain up to two URL buttons.
+        # 
+        # *   In a WhatsApp message template, the quick reply button cannot be used together with the phone call button or the URL button.
+        self.buttons = buttons  # type: list[ModifyChatappTemplateRequestComponentsButtons]
+        # The description.
+        # 
+        # >  You can specify this parameter if the Type sub-parameter of the Components parameter is set to **HEADER** and the Format sub-parameter of the Components parameter is set to **IMAGE, DOCUMENT, or VIDEO**.
         self.caption = caption  # type: str
         self.cards = cards  # type: list[ModifyChatappTemplateRequestComponentsCards]
         # The validity period of the verification code in the WhatsApp authentication template. Unit: minutes. This parameter is valid only when Category is set to AUTHENTICATION and the Type sub-parameter of the Components parameter is set to FOOTER in a WhatsApp message template. The validity period of the verification code is displayed in the footer.
@@ -8739,7 +8800,7 @@ class ModifyChatappTemplateRequestComponents(TeaModel):
         self.duration = duration  # type: int
         # The name of the document.
         # 
-        # > If the Type sub-parameter of the Components parameter is set to **HEADER** and the Format sub-parameter of the Components parameter is set to **DOCUMENT**, you can specify this parameter.
+        # >  You can specify this parameter if the Type sub-parameter of the Components parameter is set to **HEADER** and the Format sub-parameter of the Components parameter is set to **DOCUMENT**.
         self.file_name = file_name  # type: str
         # The type of the document attached in the Viber message template.
         self.file_type = file_type  # type: str
@@ -8753,7 +8814,7 @@ class ModifyChatappTemplateRequestComponents(TeaModel):
         self.has_expiration = has_expiration  # type: bool
         # The text of the message that you want to send.
         # 
-        # > If Category is set to AUTHENTICATION, the Text sub-parameter of the Components parameter is empty.
+        # >  If Category is set to AUTHENTICATION, the Text sub-parameter of the Components parameter is empty.
         self.text = text  # type: str
         # The thumbnail URL of the video in the Viber message template.
         self.thumb_url = thumb_url  # type: str
@@ -8766,11 +8827,11 @@ class ModifyChatappTemplateRequestComponents(TeaModel):
         # 
         # > 
         # 
-        # *   In WhatsApp message templates, a **BODY** component cannot exceed 1,024 characters in length, and a **HEADER** or **FOOTER** component cannot exceed 60 characters in length.
+        # *   The following limits apply to components in WhatsApp message templates: A **BODY** component cannot exceed 1,024 characters in length. A **HEADER** or **FOOTER** component cannot exceed 60 characters in length.
         # 
         # *   **FOOTER** components are not supported in Viber message templates.
         # 
-        # *   In a Viber message template, media resources, such as images, videos, or documents, are placed in the **HEADER** component. If a Viber message contains text and an image, the image is placed under the text in the message received on a device.
+        # *   In a Viber message template, media resources such as images, videos, and documents are placed in the **HEADER** component. If a Viber message contains text and images, the images are placed under the text in the message received on a device.
         self.type = type  # type: str
         # The URL of the media resource.
         self.url = url  # type: str
@@ -8866,7 +8927,8 @@ class ModifyChatappTemplateRequestComponents(TeaModel):
 
 class ModifyChatappTemplateRequest(TeaModel):
     def __init__(self, category=None, components=None, cust_space_id=None, cust_waba_id=None, example=None,
-                 isv_code=None, language=None, message_send_ttl_seconds=None, template_code=None, template_type=None):
+                 isv_code=None, language=None, message_send_ttl_seconds=None, template_code=None, template_name=None,
+                 template_type=None):
         # The category of the Viber message template. Valid values:
         # 
         # *   **text**: the template that contains only text
@@ -8883,7 +8945,7 @@ class ModifyChatappTemplateRequest(TeaModel):
         self.category = category  # type: str
         # The components of the message template.
         # 
-        # > If Category is set to AUTHENTICATION, the Type sub-parameter of the Components parameter cannot be set to HEADER. If the Type sub-parameter is set to BODY or FOOTER, the Text sub-parameter of the Components parameter is empty and text in the body or footer is automatically generated.
+        # >  If Category is set to AUTHENTICATION, the Type sub-parameter of the Components parameter cannot be set to HEADER. If the Type sub-parameter is set to BODY or FOOTER, the Text sub-parameter of the Components parameter is empty and text in the body or footer is automatically generated.
         self.components = components  # type: list[ModifyChatappTemplateRequestComponents]
         # The space ID of the user within the ISV account.
         self.cust_space_id = cust_space_id  # type: str
@@ -8903,6 +8965,7 @@ class ModifyChatappTemplateRequest(TeaModel):
         self.message_send_ttl_seconds = message_send_ttl_seconds  # type: int
         # The message template code.
         self.template_code = template_code  # type: str
+        self.template_name = template_name  # type: str
         # The type of the message template.
         # 
         # *   **WHATSAPP**\
@@ -8942,6 +9005,8 @@ class ModifyChatappTemplateRequest(TeaModel):
             result['MessageSendTtlSeconds'] = self.message_send_ttl_seconds
         if self.template_code is not None:
             result['TemplateCode'] = self.template_code
+        if self.template_name is not None:
+            result['TemplateName'] = self.template_name
         if self.template_type is not None:
             result['TemplateType'] = self.template_type
         return result
@@ -8969,6 +9034,8 @@ class ModifyChatappTemplateRequest(TeaModel):
             self.message_send_ttl_seconds = m.get('MessageSendTtlSeconds')
         if m.get('TemplateCode') is not None:
             self.template_code = m.get('TemplateCode')
+        if m.get('TemplateName') is not None:
+            self.template_name = m.get('TemplateName')
         if m.get('TemplateType') is not None:
             self.template_type = m.get('TemplateType')
         return self
@@ -8977,7 +9044,7 @@ class ModifyChatappTemplateRequest(TeaModel):
 class ModifyChatappTemplateShrinkRequest(TeaModel):
     def __init__(self, category=None, components_shrink=None, cust_space_id=None, cust_waba_id=None,
                  example_shrink=None, isv_code=None, language=None, message_send_ttl_seconds=None, template_code=None,
-                 template_type=None):
+                 template_name=None, template_type=None):
         # The category of the Viber message template. Valid values:
         # 
         # *   **text**: the template that contains only text
@@ -8994,7 +9061,7 @@ class ModifyChatappTemplateShrinkRequest(TeaModel):
         self.category = category  # type: str
         # The components of the message template.
         # 
-        # > If Category is set to AUTHENTICATION, the Type sub-parameter of the Components parameter cannot be set to HEADER. If the Type sub-parameter is set to BODY or FOOTER, the Text sub-parameter of the Components parameter is empty and text in the body or footer is automatically generated.
+        # >  If Category is set to AUTHENTICATION, the Type sub-parameter of the Components parameter cannot be set to HEADER. If the Type sub-parameter is set to BODY or FOOTER, the Text sub-parameter of the Components parameter is empty and text in the body or footer is automatically generated.
         self.components_shrink = components_shrink  # type: str
         # The space ID of the user within the ISV account.
         self.cust_space_id = cust_space_id  # type: str
@@ -9014,6 +9081,7 @@ class ModifyChatappTemplateShrinkRequest(TeaModel):
         self.message_send_ttl_seconds = message_send_ttl_seconds  # type: int
         # The message template code.
         self.template_code = template_code  # type: str
+        self.template_name = template_name  # type: str
         # The type of the message template.
         # 
         # *   **WHATSAPP**\
@@ -9048,6 +9116,8 @@ class ModifyChatappTemplateShrinkRequest(TeaModel):
             result['MessageSendTtlSeconds'] = self.message_send_ttl_seconds
         if self.template_code is not None:
             result['TemplateCode'] = self.template_code
+        if self.template_name is not None:
+            result['TemplateName'] = self.template_name
         if self.template_type is not None:
             result['TemplateType'] = self.template_type
         return result
@@ -9072,6 +9142,8 @@ class ModifyChatappTemplateShrinkRequest(TeaModel):
             self.message_send_ttl_seconds = m.get('MessageSendTtlSeconds')
         if m.get('TemplateCode') is not None:
             self.template_code = m.get('TemplateCode')
+        if m.get('TemplateName') is not None:
+            self.template_name = m.get('TemplateName')
         if m.get('TemplateType') is not None:
             self.template_type = m.get('TemplateType')
         return self
@@ -9169,9 +9241,6 @@ class ModifyChatappTemplateResponse(TeaModel):
         self.body = body  # type: ModifyChatappTemplateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9203,9 +9272,13 @@ class ModifyChatappTemplateResponse(TeaModel):
 
 class ModifyFlowRequest(TeaModel):
     def __init__(self, categories=None, cust_space_id=None, flow_id=None, flow_name=None):
+        # The categories of the Flow.
         self.categories = categories  # type: list[str]
+        # The space ID of the user within the independent software vendor (ISV) account.
         self.cust_space_id = cust_space_id  # type: str
+        # The Flow ID.
         self.flow_id = flow_id  # type: str
+        # The name of the Flow.
         self.flow_name = flow_name  # type: str
 
     def validate(self):
@@ -9242,9 +9315,13 @@ class ModifyFlowRequest(TeaModel):
 
 class ModifyFlowShrinkRequest(TeaModel):
     def __init__(self, categories_shrink=None, cust_space_id=None, flow_id=None, flow_name=None):
+        # The categories of the Flow.
         self.categories_shrink = categories_shrink  # type: str
+        # The space ID of the user within the independent software vendor (ISV) account.
         self.cust_space_id = cust_space_id  # type: str
+        # The Flow ID.
         self.flow_id = flow_id  # type: str
+        # The name of the Flow.
         self.flow_name = flow_name  # type: str
 
     def validate(self):
@@ -9281,9 +9358,11 @@ class ModifyFlowShrinkRequest(TeaModel):
 
 class ModifyFlowResponseBodyData(TeaModel):
     def __init__(self, categories=None, flow_id=None, flow_name=None):
+        # The categories of the Flow.
         self.categories = categories  # type: list[str]
-        # flow ID。
+        # The Flow ID.
         self.flow_id = flow_id  # type: str
+        # The name of the Flow.
         self.flow_name = flow_name  # type: str
 
     def validate(self):
@@ -9316,10 +9395,13 @@ class ModifyFlowResponseBodyData(TeaModel):
 
 class ModifyFlowResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
+        # If OK is returned, the request was successful.
         self.code = code  # type: str
+        # The returned data.
         self.data = data  # type: ModifyFlowResponseBodyData
+        # The error message.
         self.message = message  # type: str
-        # Id of the request。
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -9363,9 +9445,6 @@ class ModifyFlowResponse(TeaModel):
         self.body = body  # type: ModifyFlowResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9396,8 +9475,9 @@ class ModifyFlowResponse(TeaModel):
 
 
 class ModifyPhoneBusinessProfileRequest(TeaModel):
-    def __init__(self, address=None, cust_space_id=None, description=None, email=None, phone_number=None,
+    def __init__(self, about=None, address=None, cust_space_id=None, description=None, email=None, phone_number=None,
                  profile_picture_url=None, vertical=None, websites=None):
+        self.about = about  # type: str
         # The space ID of the user under the independent software vendor (ISV) account.
         self.address = address  # type: str
         # Modifies the business information of the account to which a specified phone number is bound.
@@ -9426,6 +9506,8 @@ class ModifyPhoneBusinessProfileRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.about is not None:
+            result['About'] = self.about
         if self.address is not None:
             result['Address'] = self.address
         if self.cust_space_id is not None:
@@ -9446,6 +9528,8 @@ class ModifyPhoneBusinessProfileRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('About') is not None:
+            self.about = m.get('About')
         if m.get('Address') is not None:
             self.address = m.get('Address')
         if m.get('CustSpaceId') is not None:
@@ -9466,8 +9550,9 @@ class ModifyPhoneBusinessProfileRequest(TeaModel):
 
 
 class ModifyPhoneBusinessProfileShrinkRequest(TeaModel):
-    def __init__(self, address=None, cust_space_id=None, description=None, email=None, phone_number=None,
+    def __init__(self, about=None, address=None, cust_space_id=None, description=None, email=None, phone_number=None,
                  profile_picture_url=None, vertical=None, websites_shrink=None):
+        self.about = about  # type: str
         # The space ID of the user under the independent software vendor (ISV) account.
         self.address = address  # type: str
         # Modifies the business information of the account to which a specified phone number is bound.
@@ -9496,6 +9581,8 @@ class ModifyPhoneBusinessProfileShrinkRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.about is not None:
+            result['About'] = self.about
         if self.address is not None:
             result['Address'] = self.address
         if self.cust_space_id is not None:
@@ -9516,6 +9603,8 @@ class ModifyPhoneBusinessProfileShrinkRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('About') is not None:
+            self.about = m.get('About')
         if m.get('Address') is not None:
             self.address = m.get('Address')
         if m.get('CustSpaceId') is not None:
@@ -9584,9 +9673,6 @@ class ModifyPhoneBusinessProfileResponse(TeaModel):
         self.body = body  # type: ModifyPhoneBusinessProfileResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9618,8 +9704,9 @@ class ModifyPhoneBusinessProfileResponse(TeaModel):
 
 class PublishFlowRequest(TeaModel):
     def __init__(self, cust_space_id=None, flow_id=None):
+        # The space ID of the user within the independent software vendor (ISV) account.
         self.cust_space_id = cust_space_id  # type: str
-        # Flow ID。
+        # The Flow ID.
         self.flow_id = flow_id  # type: str
 
     def validate(self):
@@ -9648,9 +9735,11 @@ class PublishFlowRequest(TeaModel):
 
 class PublishFlowResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None):
+        # If OK is returned, the request was successful.
         self.code = code  # type: str
+        # The error message.
         self.message = message  # type: str
-        # Id of the request。
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -9688,9 +9777,6 @@ class PublishFlowResponse(TeaModel):
         self.body = body  # type: PublishFlowResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9754,7 +9840,17 @@ class QueryChatappBindWabaRequest(TeaModel):
 class QueryChatappBindWabaResponseBodyData(TeaModel):
     def __init__(self, account_review_status=None, currency=None, id=None, message_template_namespace=None,
                  name=None):
-        # The review status of the WhatsApp Business account.
+        # The review state of the WhatsApp Business account (WABA).
+        # 
+        # >  Valid values:
+        # 
+        # *   PENDING: The WABA is to be reviewed.
+        # 
+        # *   APPROVED: The WABA was approved.
+        # 
+        # *   REJECTED: The WABA was rejected.
+        # 
+        # *   DISABLED: The WABA was forbidden.
         self.account_review_status = account_review_status  # type: str
         # The currency.
         self.currency = currency  # type: str
@@ -9803,13 +9899,14 @@ class QueryChatappBindWabaResponseBodyData(TeaModel):
 
 class QueryChatappBindWabaResponseBody(TeaModel):
     def __init__(self, access_denied_detail=None, code=None, data=None, message=None, request_id=None):
+        # The details about the access denial.
         self.access_denied_detail = access_denied_detail  # type: str
         # The HTTP status code returned.
         # 
         # *   A value of OK indicates that the call is successful.
         # *   Other values indicate that the call fails. For more information, see [Error codes](~~196974~~).
         self.code = code  # type: str
-        # The data returned.
+        # The returned data.
         self.data = data  # type: QueryChatappBindWabaResponseBodyData
         # The error message returned.
         self.message = message  # type: str
@@ -9861,9 +9958,6 @@ class QueryChatappBindWabaResponse(TeaModel):
         self.body = body  # type: QueryChatappBindWabaResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9894,11 +9988,12 @@ class QueryChatappBindWabaResponse(TeaModel):
 
 
 class QueryChatappPhoneNumbersRequest(TeaModel):
-    def __init__(self, cust_space_id=None, isv_code=None):
+    def __init__(self, cust_space_id=None, isv_code=None, status=None):
         # The space ID of the user under the ISV account.
         self.cust_space_id = cust_space_id  # type: str
         # The ISV verification code, which is used to verify whether the user is authorized by the ISV account.
         self.isv_code = isv_code  # type: str
+        self.status = status  # type: str
 
     def validate(self):
         pass
@@ -9913,6 +10008,8 @@ class QueryChatappPhoneNumbersRequest(TeaModel):
             result['CustSpaceId'] = self.cust_space_id
         if self.isv_code is not None:
             result['IsvCode'] = self.isv_code
+        if self.status is not None:
+            result['Status'] = self.status
         return result
 
     def from_map(self, m=None):
@@ -9921,6 +10018,8 @@ class QueryChatappPhoneNumbersRequest(TeaModel):
             self.cust_space_id = m.get('CustSpaceId')
         if m.get('IsvCode') is not None:
             self.isv_code = m.get('IsvCode')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
         return self
 
 
@@ -10100,9 +10199,6 @@ class QueryChatappPhoneNumbersResponse(TeaModel):
         self.body = body  # type: QueryChatappPhoneNumbersResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10164,8 +10260,9 @@ class QueryPhoneBusinessProfileRequest(TeaModel):
 
 
 class QueryPhoneBusinessProfileResponseBodyData(TeaModel):
-    def __init__(self, address=None, description=None, email=None, profile_picture_url=None, vertical=None,
-                 websites=None):
+    def __init__(self, about=None, address=None, description=None, email=None, profile_picture_url=None,
+                 vertical=None, websites=None):
+        self.about = about  # type: str
         # The address.
         self.address = address  # type: str
         # The description.
@@ -10188,6 +10285,8 @@ class QueryPhoneBusinessProfileResponseBodyData(TeaModel):
             return _map
 
         result = dict()
+        if self.about is not None:
+            result['About'] = self.about
         if self.address is not None:
             result['Address'] = self.address
         if self.description is not None:
@@ -10204,6 +10303,8 @@ class QueryPhoneBusinessProfileResponseBodyData(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('About') is not None:
+            self.about = m.get('About')
         if m.get('Address') is not None:
             self.address = m.get('Address')
         if m.get('Description') is not None:
@@ -10279,9 +10380,6 @@ class QueryPhoneBusinessProfileResponse(TeaModel):
         self.body = body  # type: QueryPhoneBusinessProfileResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10445,9 +10543,6 @@ class QueryWabaBusinessInfoResponse(TeaModel):
         self.body = body  # type: QueryWabaBusinessInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10508,6 +10603,7 @@ class SendChatappMassMessageRequestSenderListFlowAction(TeaModel):
 
 class SendChatappMassMessageRequestSenderListProductActionSectionsProductItems(TeaModel):
     def __init__(self, product_retailer_id=None):
+        # The retailer ID of the product.
         self.product_retailer_id = product_retailer_id  # type: str
 
     def validate(self):
@@ -10532,7 +10628,9 @@ class SendChatappMassMessageRequestSenderListProductActionSectionsProductItems(T
 
 class SendChatappMassMessageRequestSenderListProductActionSections(TeaModel):
     def __init__(self, product_items=None, title=None):
+        # The products.
         self.product_items = product_items  # type: list[SendChatappMassMessageRequestSenderListProductActionSectionsProductItems]
+        # The name of the category.
         self.title = title  # type: str
 
     def validate(self):
@@ -10569,7 +10667,9 @@ class SendChatappMassMessageRequestSenderListProductActionSections(TeaModel):
 
 class SendChatappMassMessageRequestSenderListProductAction(TeaModel):
     def __init__(self, sections=None, thumbnail_product_retailer_id=None):
+        # The products. Up to 30 products and 10 categories can be added.
         self.sections = sections  # type: list[SendChatappMassMessageRequestSenderListProductActionSections]
+        # The retailer ID of the product.
         self.thumbnail_product_retailer_id = thumbnail_product_retailer_id  # type: str
 
     def validate(self):
@@ -10607,12 +10707,13 @@ class SendChatappMassMessageRequestSenderListProductAction(TeaModel):
 class SendChatappMassMessageRequestSenderList(TeaModel):
     def __init__(self, flow_action=None, payload=None, product_action=None, template_params=None, to=None):
         self.flow_action = flow_action  # type: SendChatappMassMessageRequestSenderListFlowAction
-        # payload
+        # The payload.
         self.payload = payload  # type: list[str]
+        # The information about the product.
         self.product_action = product_action  # type: SendChatappMassMessageRequestSenderListProductAction
-        # The parameters of the message template.
+        # The parameters of the template.
         self.template_params = template_params  # type: dict[str, str]
-        # The phone number that receives the message.
+        # The phone number to which the message is sent.
         self.to = to  # type: str
 
     def validate(self):
@@ -10659,7 +10760,7 @@ class SendChatappMassMessageRequestSenderList(TeaModel):
 class SendChatappMassMessageRequest(TeaModel):
     def __init__(self, channel_type=None, cust_space_id=None, cust_waba_id=None, fall_back_content=None,
                  fall_back_duration=None, fall_back_id=None, fall_back_rule=None, from_=None, isv_code=None, label=None, language=None,
-                 sender_list=None, tag=None, task_id=None, template_code=None, ttl=None):
+                 sender_list=None, tag=None, task_id=None, template_code=None, template_name=None, ttl=None):
         # The channel type. Valid values: whatsapp, viber, and line.
         self.channel_type = channel_type  # type: str
         # The space ID of the user.
@@ -10668,10 +10769,16 @@ class SendChatappMassMessageRequest(TeaModel):
         self.cust_waba_id = cust_waba_id  # type: str
         # The fallback content.
         self.fall_back_content = fall_back_content  # type: str
-        # 消息在指定时间内没有返回已到达回执时回落, 不填代表不根据此时间判断回落，只有发送失败和有失败的状态报告时才会回落。时间单位为秒 最小值为60，最大值43200
         self.fall_back_duration = fall_back_duration  # type: int
         # The ID of the fallback strategy.
         self.fall_back_id = fall_back_id  # type: str
+        # The fallback rule.
+        # 
+        # >  Valid values:
+        # 
+        # *   undelivered: A fallback is triggered if the WhatsApp message is not delivered to clients. When the WhatsApp message is being sent, the template parameters are verified. If the parameters fail to pass the verification, the message fails to be sent. Whether the template and phone number are prohibited is not verified. By default, this value is used when FallBackRule is left empty.
+        # 
+        # *   sentfailed: A fallback is triggered even if the template parameters including variables fail to pass the verification. If the channelType, type, messageType, to, and from parameters fail to pass the verification, a fallback is not triggered.
         self.fall_back_rule = fall_back_rule  # type: str
         # The phone number of the message sender.
         self.from_ = from_  # type: str
@@ -10681,7 +10788,7 @@ class SendChatappMassMessageRequest(TeaModel):
         self.label = label  # type: str
         # The language. For more information about language codes, see [Language codes](~~463420~~).
         self.language = language  # type: str
-        # The list of phone numbers that receive the message.
+        # The phone numbers to which the message is sent.
         self.sender_list = sender_list  # type: list[SendChatappMassMessageRequestSenderList]
         # The tag information when the ChannelType parameter is set to viber.
         self.tag = tag  # type: str
@@ -10689,6 +10796,7 @@ class SendChatappMassMessageRequest(TeaModel):
         self.task_id = task_id  # type: str
         # The encoding of the message template.
         self.template_code = template_code  # type: str
+        self.template_name = template_name  # type: str
         # The timeout period for sending messages when the ChannelType parameter is set to viber. Valid values: 30 to 1209600. Unit: seconds.
         self.ttl = ttl  # type: long
 
@@ -10736,6 +10844,8 @@ class SendChatappMassMessageRequest(TeaModel):
             result['TaskId'] = self.task_id
         if self.template_code is not None:
             result['TemplateCode'] = self.template_code
+        if self.template_name is not None:
+            result['TemplateName'] = self.template_name
         if self.ttl is not None:
             result['Ttl'] = self.ttl
         return result
@@ -10775,6 +10885,8 @@ class SendChatappMassMessageRequest(TeaModel):
             self.task_id = m.get('TaskId')
         if m.get('TemplateCode') is not None:
             self.template_code = m.get('TemplateCode')
+        if m.get('TemplateName') is not None:
+            self.template_name = m.get('TemplateName')
         if m.get('Ttl') is not None:
             self.ttl = m.get('Ttl')
         return self
@@ -10783,7 +10895,7 @@ class SendChatappMassMessageRequest(TeaModel):
 class SendChatappMassMessageShrinkRequest(TeaModel):
     def __init__(self, channel_type=None, cust_space_id=None, cust_waba_id=None, fall_back_content=None,
                  fall_back_duration=None, fall_back_id=None, fall_back_rule=None, from_=None, isv_code=None, label=None, language=None,
-                 sender_list_shrink=None, tag=None, task_id=None, template_code=None, ttl=None):
+                 sender_list_shrink=None, tag=None, task_id=None, template_code=None, template_name=None, ttl=None):
         # The channel type. Valid values: whatsapp, viber, and line.
         self.channel_type = channel_type  # type: str
         # The space ID of the user.
@@ -10792,10 +10904,16 @@ class SendChatappMassMessageShrinkRequest(TeaModel):
         self.cust_waba_id = cust_waba_id  # type: str
         # The fallback content.
         self.fall_back_content = fall_back_content  # type: str
-        # 消息在指定时间内没有返回已到达回执时回落, 不填代表不根据此时间判断回落，只有发送失败和有失败的状态报告时才会回落。时间单位为秒 最小值为60，最大值43200
         self.fall_back_duration = fall_back_duration  # type: int
         # The ID of the fallback strategy.
         self.fall_back_id = fall_back_id  # type: str
+        # The fallback rule.
+        # 
+        # >  Valid values:
+        # 
+        # *   undelivered: A fallback is triggered if the WhatsApp message is not delivered to clients. When the WhatsApp message is being sent, the template parameters are verified. If the parameters fail to pass the verification, the message fails to be sent. Whether the template and phone number are prohibited is not verified. By default, this value is used when FallBackRule is left empty.
+        # 
+        # *   sentfailed: A fallback is triggered even if the template parameters including variables fail to pass the verification. If the channelType, type, messageType, to, and from parameters fail to pass the verification, a fallback is not triggered.
         self.fall_back_rule = fall_back_rule  # type: str
         # The phone number of the message sender.
         self.from_ = from_  # type: str
@@ -10805,7 +10923,7 @@ class SendChatappMassMessageShrinkRequest(TeaModel):
         self.label = label  # type: str
         # The language. For more information about language codes, see [Language codes](~~463420~~).
         self.language = language  # type: str
-        # The list of phone numbers that receive the message.
+        # The phone numbers to which the message is sent.
         self.sender_list_shrink = sender_list_shrink  # type: str
         # The tag information when the ChannelType parameter is set to viber.
         self.tag = tag  # type: str
@@ -10813,6 +10931,7 @@ class SendChatappMassMessageShrinkRequest(TeaModel):
         self.task_id = task_id  # type: str
         # The encoding of the message template.
         self.template_code = template_code  # type: str
+        self.template_name = template_name  # type: str
         # The timeout period for sending messages when the ChannelType parameter is set to viber. Valid values: 30 to 1209600. Unit: seconds.
         self.ttl = ttl  # type: long
 
@@ -10855,6 +10974,8 @@ class SendChatappMassMessageShrinkRequest(TeaModel):
             result['TaskId'] = self.task_id
         if self.template_code is not None:
             result['TemplateCode'] = self.template_code
+        if self.template_name is not None:
+            result['TemplateName'] = self.template_name
         if self.ttl is not None:
             result['Ttl'] = self.ttl
         return result
@@ -10891,6 +11012,8 @@ class SendChatappMassMessageShrinkRequest(TeaModel):
             self.task_id = m.get('TaskId')
         if m.get('TemplateCode') is not None:
             self.template_code = m.get('TemplateCode')
+        if m.get('TemplateName') is not None:
+            self.template_name = m.get('TemplateName')
         if m.get('Ttl') is not None:
             self.ttl = m.get('Ttl')
         return self
@@ -10954,9 +11077,6 @@ class SendChatappMassMessageResponse(TeaModel):
         self.body = body  # type: SendChatappMassMessageResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10988,7 +11108,9 @@ class SendChatappMassMessageResponse(TeaModel):
 
 class SendChatappMessageRequestFlowAction(TeaModel):
     def __init__(self, flow_action_data=None, flow_token=None):
+        # flow默认参数
         self.flow_action_data = flow_action_data  # type: dict[str, str]
+        # flow token信息
         self.flow_token = flow_token  # type: str
 
     def validate(self):
@@ -11122,8 +11244,8 @@ class SendChatappMessageRequest(TeaModel):
     def __init__(self, channel_type=None, content=None, context_message_id=None, cust_space_id=None,
                  cust_waba_id=None, fall_back_content=None, fall_back_duration=None, fall_back_id=None, fall_back_rule=None,
                  flow_action=None, from_=None, isv_code=None, label=None, language=None, message_type=None, payload=None,
-                 product_action=None, tag=None, task_id=None, template_code=None, template_params=None, to=None, tracking_data=None,
-                 ttl=None, type=None):
+                 product_action=None, tag=None, task_id=None, template_code=None, template_name=None, template_params=None, to=None,
+                 tracking_data=None, ttl=None, type=None):
         # The type of the message channel. Valid values:
         # 
         # *   **whatsapp**\
@@ -11164,10 +11286,22 @@ class SendChatappMessageRequest(TeaModel):
         self.cust_waba_id = cust_waba_id  # type: str
         # The content of the fallback message.
         self.fall_back_content = fall_back_content  # type: str
+        # Specifies the period of time after which the fallback Short Message Service (SMS) message is sent if the message receipt that indicates the message is delivered to customers is not received. If this parameter is left empty, the fallback SMS message is sent only when the **message fails to be sent** or **the message receipt that indicates the message is not delivered to customers** is received. Valid values: 60 to 43200. Unit: seconds.
         self.fall_back_duration = fall_back_duration  # type: int
         # The ID of the fallback strategy. You can create a fallback strategy and view the information in the console.
         self.fall_back_id = fall_back_id  # type: str
+        # 回落规则。
+        # 
+        # > 取值范围
+        # > - undelivered  消息不能发送到端时回落（在发送状态时模板、参数需要校验通过，模板被封、号码被封等不做校验）。参数值为空时默认使用此规则
+        # > - sentFailed  消息在校验模板、模板变量等参数时，校验不通过也会回落。只会强校验channelType, type, messageType, to, from(是否存在) 几个参数。
+        # 
+        # <props="china">
+        # 
+        # > 中国站此字段无效
+        # </props>
         self.fall_back_rule = fall_back_rule  # type: str
+        # Flow发送数据
         self.flow_action = flow_action  # type: SendChatappMessageRequestFlowAction
         # The phone number of the message sender.
         # 
@@ -11218,6 +11352,7 @@ class SendChatappMessageRequest(TeaModel):
         self.task_id = task_id  # type: str
         # The code of the message template. This parameter is required only if you set the Type parameter to **template**.
         self.template_code = template_code  # type: str
+        self.template_name = template_name  # type: str
         # The variables of the message template.
         self.template_params = template_params  # type: dict[str, str]
         # The phone number that receives the message.
@@ -11284,6 +11419,8 @@ class SendChatappMessageRequest(TeaModel):
             result['TaskId'] = self.task_id
         if self.template_code is not None:
             result['TemplateCode'] = self.template_code
+        if self.template_name is not None:
+            result['TemplateName'] = self.template_name
         if self.template_params is not None:
             result['TemplateParams'] = self.template_params
         if self.to is not None:
@@ -11340,6 +11477,8 @@ class SendChatappMessageRequest(TeaModel):
             self.task_id = m.get('TaskId')
         if m.get('TemplateCode') is not None:
             self.template_code = m.get('TemplateCode')
+        if m.get('TemplateName') is not None:
+            self.template_name = m.get('TemplateName')
         if m.get('TemplateParams') is not None:
             self.template_params = m.get('TemplateParams')
         if m.get('To') is not None:
@@ -11357,8 +11496,8 @@ class SendChatappMessageShrinkRequest(TeaModel):
     def __init__(self, channel_type=None, content=None, context_message_id=None, cust_space_id=None,
                  cust_waba_id=None, fall_back_content=None, fall_back_duration=None, fall_back_id=None, fall_back_rule=None,
                  flow_action_shrink=None, from_=None, isv_code=None, label=None, language=None, message_type=None, payload_shrink=None,
-                 product_action_shrink=None, tag=None, task_id=None, template_code=None, template_params_shrink=None, to=None,
-                 tracking_data=None, ttl=None, type=None):
+                 product_action_shrink=None, tag=None, task_id=None, template_code=None, template_name=None, template_params_shrink=None,
+                 to=None, tracking_data=None, ttl=None, type=None):
         # The type of the message channel. Valid values:
         # 
         # *   **whatsapp**\
@@ -11399,10 +11538,22 @@ class SendChatappMessageShrinkRequest(TeaModel):
         self.cust_waba_id = cust_waba_id  # type: str
         # The content of the fallback message.
         self.fall_back_content = fall_back_content  # type: str
+        # Specifies the period of time after which the fallback Short Message Service (SMS) message is sent if the message receipt that indicates the message is delivered to customers is not received. If this parameter is left empty, the fallback SMS message is sent only when the **message fails to be sent** or **the message receipt that indicates the message is not delivered to customers** is received. Valid values: 60 to 43200. Unit: seconds.
         self.fall_back_duration = fall_back_duration  # type: int
         # The ID of the fallback strategy. You can create a fallback strategy and view the information in the console.
         self.fall_back_id = fall_back_id  # type: str
+        # 回落规则。
+        # 
+        # > 取值范围
+        # > - undelivered  消息不能发送到端时回落（在发送状态时模板、参数需要校验通过，模板被封、号码被封等不做校验）。参数值为空时默认使用此规则
+        # > - sentFailed  消息在校验模板、模板变量等参数时，校验不通过也会回落。只会强校验channelType, type, messageType, to, from(是否存在) 几个参数。
+        # 
+        # <props="china">
+        # 
+        # > 中国站此字段无效
+        # </props>
         self.fall_back_rule = fall_back_rule  # type: str
+        # Flow发送数据
         self.flow_action_shrink = flow_action_shrink  # type: str
         # The phone number of the message sender.
         # 
@@ -11453,6 +11604,7 @@ class SendChatappMessageShrinkRequest(TeaModel):
         self.task_id = task_id  # type: str
         # The code of the message template. This parameter is required only if you set the Type parameter to **template**.
         self.template_code = template_code  # type: str
+        self.template_name = template_name  # type: str
         # The variables of the message template.
         self.template_params_shrink = template_params_shrink  # type: str
         # The phone number that receives the message.
@@ -11516,6 +11668,8 @@ class SendChatappMessageShrinkRequest(TeaModel):
             result['TaskId'] = self.task_id
         if self.template_code is not None:
             result['TemplateCode'] = self.template_code
+        if self.template_name is not None:
+            result['TemplateName'] = self.template_name
         if self.template_params_shrink is not None:
             result['TemplateParams'] = self.template_params_shrink
         if self.to is not None:
@@ -11570,6 +11724,8 @@ class SendChatappMessageShrinkRequest(TeaModel):
             self.task_id = m.get('TaskId')
         if m.get('TemplateCode') is not None:
             self.template_code = m.get('TemplateCode')
+        if m.get('TemplateName') is not None:
+            self.template_name = m.get('TemplateName')
         if m.get('TemplateParams') is not None:
             self.template_params_shrink = m.get('TemplateParams')
         if m.get('To') is not None:
@@ -11636,9 +11792,6 @@ class SendChatappMessageResponse(TeaModel):
         self.body = body  # type: SendChatappMessageResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11786,9 +11939,6 @@ class SubmitIsvCustomerTermsResponse(TeaModel):
         self.body = body  # type: SubmitIsvCustomerTermsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11919,9 +12069,6 @@ class UpdateAccountWebhookResponse(TeaModel):
         self.body = body  # type: UpdateAccountWebhookResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11953,9 +12100,13 @@ class UpdateAccountWebhookResponse(TeaModel):
 
 class UpdateCommerceSettingRequest(TeaModel):
     def __init__(self, cart_enable=None, catalog_visible=None, cust_space_id=None, phone_number=None):
+        # Specifies whether to display the shopping cart button.
         self.cart_enable = cart_enable  # type: bool
+        # Specifies whether to display the catalog button.
         self.catalog_visible = catalog_visible  # type: bool
+        # The space ID of the user within the independent software vendor (ISV) account.
         self.cust_space_id = cust_space_id  # type: str
+        # The phone number.
         self.phone_number = phone_number  # type: str
 
     def validate(self):
@@ -11992,9 +12143,14 @@ class UpdateCommerceSettingRequest(TeaModel):
 
 class UpdateCommerceSettingResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None):
+        # The response code.
+        # 
+        # *   The value OK indicates that the request was successful.
+        # *   Other values indicate that the request failed. For more information, see [Error codes](~~196974~~).
         self.code = code  # type: str
+        # The error message.
         self.message = message  # type: str
-        # Id of the request
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -12032,9 +12188,6 @@ class UpdateCommerceSettingResponse(TeaModel):
         self.body = body  # type: UpdateCommerceSettingResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12173,9 +12326,6 @@ class UpdateFlowJSONAssetResponse(TeaModel):
         self.body = body  # type: UpdateFlowJSONAssetResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12281,9 +12431,6 @@ class UpdatePhoneEncryptionPublicKeyResponse(TeaModel):
         self.body = body  # type: UpdatePhoneEncryptionPublicKeyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12457,9 +12604,6 @@ class UpdatePhoneMessageQrdlResponse(TeaModel):
         self.body = body  # type: UpdatePhoneMessageQrdlResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12585,9 +12729,6 @@ class UpdatePhoneWebhookResponse(TeaModel):
         self.body = body  # type: UpdatePhoneWebhookResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 

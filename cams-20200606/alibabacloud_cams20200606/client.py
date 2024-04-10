@@ -31,6 +31,16 @@ class Client(OpenApiClient):
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
     def add_chatapp_phone_number_with_options(self, request, runtime):
+        """
+        You can call this operation up to 10 times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: AddChatappPhoneNumberRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AddChatappPhoneNumberResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.cc):
@@ -63,6 +73,14 @@ class Client(OpenApiClient):
         )
 
     def add_chatapp_phone_number(self, request):
+        """
+        You can call this operation up to 10 times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: AddChatappPhoneNumberRequest
+
+        @return: AddChatappPhoneNumberResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.add_chatapp_phone_number_with_options(request, runtime)
 
@@ -391,6 +409,16 @@ class Client(OpenApiClient):
         return self.chatapp_migration_verified_with_options(request, runtime)
 
     def chatapp_phone_number_deregister_with_options(self, request, runtime):
+        """
+        You can call this operation up to 10 times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: ChatappPhoneNumberDeregisterRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ChatappPhoneNumberDeregisterResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.cust_space_id):
@@ -417,6 +445,14 @@ class Client(OpenApiClient):
         )
 
     def chatapp_phone_number_deregister(self, request):
+        """
+        You can call this operation up to 10 times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: ChatappPhoneNumberDeregisterRequest
+
+        @return: ChatappPhoneNumberDeregisterResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.chatapp_phone_number_deregister_with_options(request, runtime)
 
@@ -687,6 +723,16 @@ class Client(OpenApiClient):
         return self.create_chatapp_template_with_options(request, runtime)
 
     def create_flow_with_options(self, tmp_req, runtime):
+        """
+        You can call this operation up to five times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param tmp_req: CreateFlowRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateFlowResponse
+        """
         UtilClient.validate_model(tmp_req)
         request = cams_20200606_models.CreateFlowShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
@@ -719,6 +765,14 @@ class Client(OpenApiClient):
         )
 
     def create_flow(self, request):
+        """
+        You can call this operation up to five times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: CreateFlowRequest
+
+        @return: CreateFlowResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_flow_with_options(request, runtime)
 
@@ -776,8 +830,14 @@ class Client(OpenApiClient):
             query['CustWabaId'] = request.cust_waba_id
         if not UtilClient.is_unset(request.isv_code):
             query['IsvCode'] = request.isv_code
+        if not UtilClient.is_unset(request.language):
+            query['Language'] = request.language
         if not UtilClient.is_unset(request.template_code):
             query['TemplateCode'] = request.template_code
+        if not UtilClient.is_unset(request.template_name):
+            query['TemplateName'] = request.template_name
+        if not UtilClient.is_unset(request.template_type):
+            query['TemplateType'] = request.template_type
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -811,6 +871,16 @@ class Client(OpenApiClient):
         return self.delete_chatapp_template_with_options(request, runtime)
 
     def delete_flow_with_options(self, request, runtime):
+        """
+        You can call this operation up to five times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: DeleteFlowRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteFlowResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.cust_space_id):
@@ -837,6 +907,14 @@ class Client(OpenApiClient):
         )
 
     def delete_flow(self, request):
+        """
+        You can call this operation up to five times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: DeleteFlowRequest
+
+        @return: DeleteFlowResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_flow_with_options(request, runtime)
 
@@ -903,6 +981,16 @@ class Client(OpenApiClient):
         return self.deprecate_flow_with_options(request, runtime)
 
     def enable_whatsapp_roimetric_with_options(self, request, runtime):
+        """
+        You can call this operation up to five times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: EnableWhatsappROIMetricRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: EnableWhatsappROIMetricResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.cust_space_id):
@@ -929,10 +1017,28 @@ class Client(OpenApiClient):
         )
 
     def enable_whatsapp_roimetric(self, request):
+        """
+        You can call this operation up to five times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: EnableWhatsappROIMetricRequest
+
+        @return: EnableWhatsappROIMetricResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.enable_whatsapp_roimetric_with_options(request, runtime)
 
     def get_chatapp_phone_number_metric_with_options(self, request, runtime):
+        """
+        You can call this operation up to 50 times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: GetChatappPhoneNumberMetricRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetChatappPhoneNumberMetricResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.cust_space_id):
@@ -967,6 +1073,14 @@ class Client(OpenApiClient):
         )
 
     def get_chatapp_phone_number_metric(self, request):
+        """
+        You can call this operation up to 50 times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: GetChatappPhoneNumberMetricRequest
+
+        @return: GetChatappPhoneNumberMetricResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_chatapp_phone_number_metric_with_options(request, runtime)
 
@@ -994,6 +1108,8 @@ class Client(OpenApiClient):
             query['Language'] = request.language
         if not UtilClient.is_unset(request.template_code):
             query['TemplateCode'] = request.template_code
+        if not UtilClient.is_unset(request.template_name):
+            query['TemplateName'] = request.template_name
         if not UtilClient.is_unset(request.template_type):
             query['TemplateType'] = request.template_type
         req = open_api_models.OpenApiRequest(
@@ -1029,6 +1145,16 @@ class Client(OpenApiClient):
         return self.get_chatapp_template_detail_with_options(request, runtime)
 
     def get_chatapp_template_metric_with_options(self, request, runtime):
+        """
+        You can call this operation up to 50 times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: GetChatappTemplateMetricRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetChatappTemplateMetricResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.cust_space_id):
@@ -1067,6 +1193,14 @@ class Client(OpenApiClient):
         )
 
     def get_chatapp_template_metric(self, request):
+        """
+        You can call this operation up to 50 times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: GetChatappTemplateMetricRequest
+
+        @return: GetChatappTemplateMetricResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_chatapp_template_metric_with_options(request, runtime)
 
@@ -1169,6 +1303,16 @@ class Client(OpenApiClient):
         return self.get_chatapp_verify_code_with_options(request, runtime)
 
     def get_commerce_setting_with_options(self, request, runtime):
+        """
+        You can call this operation up to 10 times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: GetCommerceSettingRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetCommerceSettingResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.cust_space_id):
@@ -1195,10 +1339,28 @@ class Client(OpenApiClient):
         )
 
     def get_commerce_setting(self, request):
+        """
+        You can call this operation up to 10 times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: GetCommerceSettingRequest
+
+        @return: GetCommerceSettingResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_commerce_setting_with_options(request, runtime)
 
     def get_flow_with_options(self, request, runtime):
+        """
+        You can call this operation up to five times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: GetFlowRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetFlowResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.cust_space_id):
@@ -1225,6 +1387,14 @@ class Client(OpenApiClient):
         )
 
     def get_flow(self, request):
+        """
+        You can call this operation up to five times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: GetFlowRequest
+
+        @return: GetFlowResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_flow_with_options(request, runtime)
 
@@ -1259,6 +1429,16 @@ class Client(OpenApiClient):
         return self.get_flow_jsonassest_with_options(request, runtime)
 
     def get_flow_preview_url_with_options(self, request, runtime):
+        """
+        You can call this operation up to five times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: GetFlowPreviewUrlRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetFlowPreviewUrlResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.cust_space_id):
@@ -1285,6 +1465,14 @@ class Client(OpenApiClient):
         )
 
     def get_flow_preview_url(self, request):
+        """
+        You can call this operation up to five times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: GetFlowPreviewUrlRequest
+
+        @return: GetFlowPreviewUrlResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_flow_preview_url_with_options(request, runtime)
 
@@ -1455,6 +1643,16 @@ class Client(OpenApiClient):
         return self.get_phone_number_verification_status_with_options(request, runtime)
 
     def get_pre_validate_phone_id_with_options(self, request, runtime):
+        """
+        You can call this operation up to 10 times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: GetPreValidatePhoneIdRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetPreValidatePhoneIdResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.phone_number):
@@ -1481,6 +1679,14 @@ class Client(OpenApiClient):
         )
 
     def get_pre_validate_phone_id(self, request):
+        """
+        You can call this operation up to 10 times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: GetPreValidatePhoneIdRequest
+
+        @return: GetPreValidatePhoneIdResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_pre_validate_phone_id_with_options(request, runtime)
 
@@ -1653,6 +1859,16 @@ class Client(OpenApiClient):
         return self.list_chatapp_template_with_options(request, runtime)
 
     def list_flow_with_options(self, tmp_req, runtime):
+        """
+        You can call this operation up to five times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param tmp_req: ListFlowRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListFlowResponse
+        """
         UtilClient.validate_model(tmp_req)
         request = cams_20200606_models.ListFlowShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
@@ -1685,6 +1901,14 @@ class Client(OpenApiClient):
         )
 
     def list_flow(self, request):
+        """
+        You can call this operation up to five times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: ListFlowRequest
+
+        @return: ListFlowResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_flow_with_options(request, runtime)
 
@@ -1881,6 +2105,8 @@ class Client(OpenApiClient):
             body['MessageSendTtlSeconds'] = request.message_send_ttl_seconds
         if not UtilClient.is_unset(request.template_code):
             body['TemplateCode'] = request.template_code
+        if not UtilClient.is_unset(request.template_name):
+            body['TemplateName'] = request.template_name
         if not UtilClient.is_unset(request.template_type):
             body['TemplateType'] = request.template_type
         req = open_api_models.OpenApiRequest(
@@ -1915,6 +2141,16 @@ class Client(OpenApiClient):
         return self.modify_chatapp_template_with_options(request, runtime)
 
     def modify_flow_with_options(self, tmp_req, runtime):
+        """
+        You can call this operation up to five times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param tmp_req: ModifyFlowRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyFlowResponse
+        """
         UtilClient.validate_model(tmp_req)
         request = cams_20200606_models.ModifyFlowShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
@@ -1949,6 +2185,14 @@ class Client(OpenApiClient):
         )
 
     def modify_flow(self, request):
+        """
+        You can call this operation up to five times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: ModifyFlowRequest
+
+        @return: ModifyFlowResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_flow_with_options(request, runtime)
 
@@ -1969,6 +2213,8 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(tmp_req.websites):
             request.websites_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.websites, 'Websites', 'json')
         query = {}
+        if not UtilClient.is_unset(request.about):
+            query['About'] = request.about
         if not UtilClient.is_unset(request.address):
             query['Address'] = request.address
         if not UtilClient.is_unset(request.cust_space_id):
@@ -2017,6 +2263,16 @@ class Client(OpenApiClient):
         return self.modify_phone_business_profile_with_options(request, runtime)
 
     def publish_flow_with_options(self, request, runtime):
+        """
+        You can call this operation up to five times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: PublishFlowRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: PublishFlowResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.cust_space_id):
@@ -2043,6 +2299,14 @@ class Client(OpenApiClient):
         )
 
     def publish_flow(self, request):
+        """
+        You can call this operation up to five times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: PublishFlowRequest
+
+        @return: PublishFlowResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.publish_flow_with_options(request, runtime)
 
@@ -2111,6 +2375,8 @@ class Client(OpenApiClient):
             query['CustSpaceId'] = request.cust_space_id
         if not UtilClient.is_unset(request.isv_code):
             query['IsvCode'] = request.isv_code
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2286,6 +2552,8 @@ class Client(OpenApiClient):
             body['TaskId'] = request.task_id
         if not UtilClient.is_unset(request.template_code):
             body['TemplateCode'] = request.template_code
+        if not UtilClient.is_unset(request.template_name):
+            body['TemplateName'] = request.template_name
         if not UtilClient.is_unset(request.ttl):
             body['Ttl'] = request.ttl
         req = open_api_models.OpenApiRequest(
@@ -2384,6 +2652,8 @@ class Client(OpenApiClient):
             body['TaskId'] = request.task_id
         if not UtilClient.is_unset(request.template_code):
             body['TemplateCode'] = request.template_code
+        if not UtilClient.is_unset(request.template_name):
+            body['TemplateName'] = request.template_name
         if not UtilClient.is_unset(request.template_params_shrink):
             body['TemplateParams'] = request.template_params_shrink
         if not UtilClient.is_unset(request.to):
@@ -2537,6 +2807,16 @@ class Client(OpenApiClient):
         return self.update_account_webhook_with_options(request, runtime)
 
     def update_commerce_setting_with_options(self, request, runtime):
+        """
+        You can call this operation up to 10 times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: UpdateCommerceSettingRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateCommerceSettingResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.cart_enable):
@@ -2567,6 +2847,14 @@ class Client(OpenApiClient):
         )
 
     def update_commerce_setting(self, request):
+        """
+        You can call this operation up to 10 times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: UpdateCommerceSettingRequest
+
+        @return: UpdateCommerceSettingResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_commerce_setting_with_options(request, runtime)
 
