@@ -776,8 +776,14 @@ class Client(OpenApiClient):
             query['BindAll'] = request.bind_all
         if not UtilClient.is_unset(request.criteria):
             query['Criteria'] = request.criteria
+        if not UtilClient.is_unset(request.is_pre_bind):
+            query['IsPreBind'] = request.is_pre_bind
         if not UtilClient.is_unset(request.logical_exp):
             query['LogicalExp'] = request.logical_exp
+        if not UtilClient.is_unset(request.ntm_version):
+            query['NtmVersion'] = request.ntm_version
+        if not UtilClient.is_unset(request.pre_bind_order_id):
+            query['PreBindOrderId'] = request.pre_bind_order_id
         if not UtilClient.is_unset(request.un_bind):
             query['UnBind'] = request.un_bind
         req = open_api_models.OpenApiRequest(
@@ -2234,6 +2240,10 @@ class Client(OpenApiClient):
             query['AllKeyPrefix'] = request.all_key_prefix
         if not UtilClient.is_unset(request.bucket_name_list):
             query['BucketNameList'] = request.bucket_name_list
+        if not UtilClient.is_unset(request.decompress_max_file_count):
+            query['DecompressMaxFileCount'] = request.decompress_max_file_count
+        if not UtilClient.is_unset(request.decompress_max_layer):
+            query['DecompressMaxLayer'] = request.decompress_max_layer
         if not UtilClient.is_unset(request.exclude_key_suffix_list):
             query['ExcludeKeySuffixList'] = request.exclude_key_suffix_list
         if not UtilClient.is_unset(request.key_prefix_list):
@@ -2272,6 +2282,10 @@ class Client(OpenApiClient):
             query['AllKeyPrefix'] = request.all_key_prefix
         if not UtilClient.is_unset(request.bucket_name_list):
             query['BucketNameList'] = request.bucket_name_list
+        if not UtilClient.is_unset(request.decompress_max_file_count):
+            query['DecompressMaxFileCount'] = request.decompress_max_file_count
+        if not UtilClient.is_unset(request.decompress_max_layer):
+            query['DecompressMaxLayer'] = request.decompress_max_layer
         if not UtilClient.is_unset(request.enable):
             query['Enable'] = request.enable
         if not UtilClient.is_unset(request.end_time):
@@ -17462,6 +17476,8 @@ class Client(OpenApiClient):
             query['OssKey'] = request.oss_key
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.parent_event_id):
+            query['ParentEventId'] = request.parent_event_id
         if not UtilClient.is_unset(request.risk_level):
             query['RiskLevel'] = request.risk_level
         if not UtilClient.is_unset(request.source):
@@ -23390,6 +23406,10 @@ class Client(OpenApiClient):
             query['AllKeyPrefix'] = request.all_key_prefix
         if not UtilClient.is_unset(request.bucket_name_list):
             query['BucketNameList'] = request.bucket_name_list
+        if not UtilClient.is_unset(request.decompress_max_file_count):
+            query['DecompressMaxFileCount'] = request.decompress_max_file_count
+        if not UtilClient.is_unset(request.decompress_max_layer):
+            query['DecompressMaxLayer'] = request.decompress_max_layer
         if not UtilClient.is_unset(request.enable):
             query['Enable'] = request.enable
         if not UtilClient.is_unset(request.end_time):
