@@ -771,11 +771,12 @@ class DeleteTranscriptionPhrasesResponse(TeaModel):
 
 class GetTaskInfoResponseBodyDataResult(TeaModel):
     def __init__(self, auto_chapters=None, meeting_assistance=None, ppt_extraction=None, summarization=None,
-                 transcription=None, translation=None):
+                 text_polish=None, transcription=None, translation=None):
         self.auto_chapters = auto_chapters  # type: str
         self.meeting_assistance = meeting_assistance  # type: str
         self.ppt_extraction = ppt_extraction  # type: str
         self.summarization = summarization  # type: str
+        self.text_polish = text_polish  # type: str
         self.transcription = transcription  # type: str
         self.translation = translation  # type: str
 
@@ -796,6 +797,8 @@ class GetTaskInfoResponseBodyDataResult(TeaModel):
             result['PptExtraction'] = self.ppt_extraction
         if self.summarization is not None:
             result['Summarization'] = self.summarization
+        if self.text_polish is not None:
+            result['TextPolish'] = self.text_polish
         if self.transcription is not None:
             result['Transcription'] = self.transcription
         if self.translation is not None:
@@ -812,6 +815,8 @@ class GetTaskInfoResponseBodyDataResult(TeaModel):
             self.ppt_extraction = m.get('PptExtraction')
         if m.get('Summarization') is not None:
             self.summarization = m.get('Summarization')
+        if m.get('TextPolish') is not None:
+            self.text_polish = m.get('TextPolish')
         if m.get('Transcription') is not None:
             self.transcription = m.get('Transcription')
         if m.get('Translation') is not None:
