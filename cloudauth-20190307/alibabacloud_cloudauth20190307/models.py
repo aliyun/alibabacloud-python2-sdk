@@ -169,6 +169,167 @@ class AIGCFaceVerifyResponse(TeaModel):
         return self
 
 
+class BankMetaVerifyRequest(TeaModel):
+    def __init__(self, bank_card=None, identify_num=None, mobile=None, param_type=None, product_type=None,
+                 user_name=None, verify_mode=None):
+        self.bank_card = bank_card  # type: str
+        self.identify_num = identify_num  # type: str
+        self.mobile = mobile  # type: str
+        self.param_type = param_type  # type: str
+        self.product_type = product_type  # type: str
+        self.user_name = user_name  # type: str
+        self.verify_mode = verify_mode  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BankMetaVerifyRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bank_card is not None:
+            result['BankCard'] = self.bank_card
+        if self.identify_num is not None:
+            result['IdentifyNum'] = self.identify_num
+        if self.mobile is not None:
+            result['Mobile'] = self.mobile
+        if self.param_type is not None:
+            result['ParamType'] = self.param_type
+        if self.product_type is not None:
+            result['ProductType'] = self.product_type
+        if self.user_name is not None:
+            result['UserName'] = self.user_name
+        if self.verify_mode is not None:
+            result['VerifyMode'] = self.verify_mode
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BankCard') is not None:
+            self.bank_card = m.get('BankCard')
+        if m.get('IdentifyNum') is not None:
+            self.identify_num = m.get('IdentifyNum')
+        if m.get('Mobile') is not None:
+            self.mobile = m.get('Mobile')
+        if m.get('ParamType') is not None:
+            self.param_type = m.get('ParamType')
+        if m.get('ProductType') is not None:
+            self.product_type = m.get('ProductType')
+        if m.get('UserName') is not None:
+            self.user_name = m.get('UserName')
+        if m.get('VerifyMode') is not None:
+            self.verify_mode = m.get('VerifyMode')
+        return self
+
+
+class BankMetaVerifyResponseBodyResultObject(TeaModel):
+    def __init__(self, biz_code=None, sub_code=None):
+        self.biz_code = biz_code  # type: str
+        self.sub_code = sub_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BankMetaVerifyResponseBodyResultObject, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.biz_code is not None:
+            result['BizCode'] = self.biz_code
+        if self.sub_code is not None:
+            result['SubCode'] = self.sub_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BizCode') is not None:
+            self.biz_code = m.get('BizCode')
+        if m.get('SubCode') is not None:
+            self.sub_code = m.get('SubCode')
+        return self
+
+
+class BankMetaVerifyResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None, result_object=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.result_object = result_object  # type: BankMetaVerifyResponseBodyResultObject
+
+    def validate(self):
+        if self.result_object:
+            self.result_object.validate()
+
+    def to_map(self):
+        _map = super(BankMetaVerifyResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.result_object is not None:
+            result['ResultObject'] = self.result_object.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('ResultObject') is not None:
+            temp_model = BankMetaVerifyResponseBodyResultObject()
+            self.result_object = temp_model.from_map(m['ResultObject'])
+        return self
+
+
+class BankMetaVerifyResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: BankMetaVerifyResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(BankMetaVerifyResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = BankMetaVerifyResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CompareFaceVerifyRequest(TeaModel):
     def __init__(self, crop=None, outer_order_no=None, product_code=None, scene_id=None, source_certify_id=None,
                  source_face_contrast_picture=None, source_face_contrast_picture_url=None, source_oss_bucket_name=None,
@@ -1613,6 +1774,215 @@ class DescribeOssUploadTokenResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeOssUploadTokenResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribePageFaceVerifyDataRequest(TeaModel):
+    def __init__(self, current_page=None, end_date=None, page_size=None, product_code=None, scene_id=None,
+                 start_date=None):
+        self.current_page = current_page  # type: long
+        self.end_date = end_date  # type: str
+        self.page_size = page_size  # type: long
+        self.product_code = product_code  # type: str
+        self.scene_id = scene_id  # type: long
+        self.start_date = start_date  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribePageFaceVerifyDataRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        if self.end_date is not None:
+            result['EndDate'] = self.end_date
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.product_code is not None:
+            result['ProductCode'] = self.product_code
+        if self.scene_id is not None:
+            result['SceneId'] = self.scene_id
+        if self.start_date is not None:
+            result['StartDate'] = self.start_date
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        if m.get('EndDate') is not None:
+            self.end_date = m.get('EndDate')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('ProductCode') is not None:
+            self.product_code = m.get('ProductCode')
+        if m.get('SceneId') is not None:
+            self.scene_id = m.get('SceneId')
+        if m.get('StartDate') is not None:
+            self.start_date = m.get('StartDate')
+        return self
+
+
+class DescribePageFaceVerifyDataResponseBodyItems(TeaModel):
+    def __init__(self, date=None, product_code=None, scene_id=None, scene_name=None, success_count=None,
+                 total_count=None):
+        self.date = date  # type: str
+        self.product_code = product_code  # type: str
+        self.scene_id = scene_id  # type: str
+        self.scene_name = scene_name  # type: str
+        self.success_count = success_count  # type: str
+        self.total_count = total_count  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribePageFaceVerifyDataResponseBodyItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.date is not None:
+            result['Date'] = self.date
+        if self.product_code is not None:
+            result['ProductCode'] = self.product_code
+        if self.scene_id is not None:
+            result['SceneId'] = self.scene_id
+        if self.scene_name is not None:
+            result['SceneName'] = self.scene_name
+        if self.success_count is not None:
+            result['SuccessCount'] = self.success_count
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Date') is not None:
+            self.date = m.get('Date')
+        if m.get('ProductCode') is not None:
+            self.product_code = m.get('ProductCode')
+        if m.get('SceneId') is not None:
+            self.scene_id = m.get('SceneId')
+        if m.get('SceneName') is not None:
+            self.scene_name = m.get('SceneName')
+        if m.get('SuccessCount') is not None:
+            self.success_count = m.get('SuccessCount')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class DescribePageFaceVerifyDataResponseBody(TeaModel):
+    def __init__(self, code=None, current_page=None, items=None, message=None, page_size=None, request_id=None,
+                 success=None, total_count=None, total_page=None):
+        self.code = code  # type: str
+        self.current_page = current_page  # type: str
+        self.items = items  # type: list[DescribePageFaceVerifyDataResponseBodyItems]
+        self.message = message  # type: str
+        self.page_size = page_size  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: str
+        self.total_count = total_count  # type: str
+        self.total_page = total_page  # type: str
+
+    def validate(self):
+        if self.items:
+            for k in self.items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribePageFaceVerifyDataResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        result['Items'] = []
+        if self.items is not None:
+            for k in self.items:
+                result['Items'].append(k.to_map() if k else None)
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        if self.total_page is not None:
+            result['TotalPage'] = self.total_page
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        self.items = []
+        if m.get('Items') is not None:
+            for k in m.get('Items'):
+                temp_model = DescribePageFaceVerifyDataResponseBodyItems()
+                self.items.append(temp_model.from_map(k))
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        if m.get('TotalPage') is not None:
+            self.total_page = m.get('TotalPage')
+        return self
+
+
+class DescribePageFaceVerifyDataResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribePageFaceVerifyDataResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribePageFaceVerifyDataResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribePageFaceVerifyDataResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -3691,6 +4061,473 @@ class Mobile3MetaSimpleVerifyResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = Mobile3MetaSimpleVerifyResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class MobileDetectRequest(TeaModel):
+    def __init__(self, mobiles=None, param_type=None):
+        self.mobiles = mobiles  # type: str
+        self.param_type = param_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(MobileDetectRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.mobiles is not None:
+            result['Mobiles'] = self.mobiles
+        if self.param_type is not None:
+            result['ParamType'] = self.param_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Mobiles') is not None:
+            self.mobiles = m.get('Mobiles')
+        if m.get('ParamType') is not None:
+            self.param_type = m.get('ParamType')
+        return self
+
+
+class MobileDetectResponseBodyResultObjectItems(TeaModel):
+    def __init__(self, area=None, biz_code=None, isp_name=None, mobile=None, sub_code=None):
+        self.area = area  # type: str
+        self.biz_code = biz_code  # type: str
+        self.isp_name = isp_name  # type: str
+        self.mobile = mobile  # type: str
+        self.sub_code = sub_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(MobileDetectResponseBodyResultObjectItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.area is not None:
+            result['Area'] = self.area
+        if self.biz_code is not None:
+            result['BizCode'] = self.biz_code
+        if self.isp_name is not None:
+            result['IspName'] = self.isp_name
+        if self.mobile is not None:
+            result['Mobile'] = self.mobile
+        if self.sub_code is not None:
+            result['SubCode'] = self.sub_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Area') is not None:
+            self.area = m.get('Area')
+        if m.get('BizCode') is not None:
+            self.biz_code = m.get('BizCode')
+        if m.get('IspName') is not None:
+            self.isp_name = m.get('IspName')
+        if m.get('Mobile') is not None:
+            self.mobile = m.get('Mobile')
+        if m.get('SubCode') is not None:
+            self.sub_code = m.get('SubCode')
+        return self
+
+
+class MobileDetectResponseBodyResultObject(TeaModel):
+    def __init__(self, charge_count=None, items=None):
+        self.charge_count = charge_count  # type: str
+        self.items = items  # type: list[MobileDetectResponseBodyResultObjectItems]
+
+    def validate(self):
+        if self.items:
+            for k in self.items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(MobileDetectResponseBodyResultObject, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.charge_count is not None:
+            result['ChargeCount'] = self.charge_count
+        result['Items'] = []
+        if self.items is not None:
+            for k in self.items:
+                result['Items'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ChargeCount') is not None:
+            self.charge_count = m.get('ChargeCount')
+        self.items = []
+        if m.get('Items') is not None:
+            for k in m.get('Items'):
+                temp_model = MobileDetectResponseBodyResultObjectItems()
+                self.items.append(temp_model.from_map(k))
+        return self
+
+
+class MobileDetectResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None, result_object=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.result_object = result_object  # type: MobileDetectResponseBodyResultObject
+
+    def validate(self):
+        if self.result_object:
+            self.result_object.validate()
+
+    def to_map(self):
+        _map = super(MobileDetectResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.result_object is not None:
+            result['ResultObject'] = self.result_object.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('ResultObject') is not None:
+            temp_model = MobileDetectResponseBodyResultObject()
+            self.result_object = temp_model.from_map(m['ResultObject'])
+        return self
+
+
+class MobileDetectResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: MobileDetectResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(MobileDetectResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = MobileDetectResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class MobileOnlineStatusRequest(TeaModel):
+    def __init__(self, mobile=None, param_type=None):
+        self.mobile = mobile  # type: str
+        self.param_type = param_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(MobileOnlineStatusRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.mobile is not None:
+            result['Mobile'] = self.mobile
+        if self.param_type is not None:
+            result['ParamType'] = self.param_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Mobile') is not None:
+            self.mobile = m.get('Mobile')
+        if m.get('ParamType') is not None:
+            self.param_type = m.get('ParamType')
+        return self
+
+
+class MobileOnlineStatusResponseBodyResultObject(TeaModel):
+    def __init__(self, biz_code=None, isp_name=None, sub_code=None):
+        self.biz_code = biz_code  # type: str
+        self.isp_name = isp_name  # type: str
+        self.sub_code = sub_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(MobileOnlineStatusResponseBodyResultObject, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.biz_code is not None:
+            result['BizCode'] = self.biz_code
+        if self.isp_name is not None:
+            result['IspName'] = self.isp_name
+        if self.sub_code is not None:
+            result['SubCode'] = self.sub_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BizCode') is not None:
+            self.biz_code = m.get('BizCode')
+        if m.get('IspName') is not None:
+            self.isp_name = m.get('IspName')
+        if m.get('SubCode') is not None:
+            self.sub_code = m.get('SubCode')
+        return self
+
+
+class MobileOnlineStatusResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None, result_object=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.result_object = result_object  # type: MobileOnlineStatusResponseBodyResultObject
+
+    def validate(self):
+        if self.result_object:
+            self.result_object.validate()
+
+    def to_map(self):
+        _map = super(MobileOnlineStatusResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.result_object is not None:
+            result['ResultObject'] = self.result_object.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('ResultObject') is not None:
+            temp_model = MobileOnlineStatusResponseBodyResultObject()
+            self.result_object = temp_model.from_map(m['ResultObject'])
+        return self
+
+
+class MobileOnlineStatusResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: MobileOnlineStatusResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(MobileOnlineStatusResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = MobileOnlineStatusResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class MobileOnlineTimeRequest(TeaModel):
+    def __init__(self, mobile=None, param_type=None):
+        self.mobile = mobile  # type: str
+        self.param_type = param_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(MobileOnlineTimeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.mobile is not None:
+            result['Mobile'] = self.mobile
+        if self.param_type is not None:
+            result['ParamType'] = self.param_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Mobile') is not None:
+            self.mobile = m.get('Mobile')
+        if m.get('ParamType') is not None:
+            self.param_type = m.get('ParamType')
+        return self
+
+
+class MobileOnlineTimeResponseBodyResultObject(TeaModel):
+    def __init__(self, biz_code=None, isp_name=None, time_code=None):
+        self.biz_code = biz_code  # type: str
+        self.isp_name = isp_name  # type: str
+        self.time_code = time_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(MobileOnlineTimeResponseBodyResultObject, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.biz_code is not None:
+            result['BizCode'] = self.biz_code
+        if self.isp_name is not None:
+            result['IspName'] = self.isp_name
+        if self.time_code is not None:
+            result['TimeCode'] = self.time_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BizCode') is not None:
+            self.biz_code = m.get('BizCode')
+        if m.get('IspName') is not None:
+            self.isp_name = m.get('IspName')
+        if m.get('TimeCode') is not None:
+            self.time_code = m.get('TimeCode')
+        return self
+
+
+class MobileOnlineTimeResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None, result_object=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.result_object = result_object  # type: MobileOnlineTimeResponseBodyResultObject
+
+    def validate(self):
+        if self.result_object:
+            self.result_object.validate()
+
+    def to_map(self):
+        _map = super(MobileOnlineTimeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.result_object is not None:
+            result['ResultObject'] = self.result_object.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('ResultObject') is not None:
+            temp_model = MobileOnlineTimeResponseBodyResultObject()
+            self.result_object = temp_model.from_map(m['ResultObject'])
+        return self
+
+
+class MobileOnlineTimeResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: MobileOnlineTimeResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(MobileOnlineTimeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = MobileOnlineTimeResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
