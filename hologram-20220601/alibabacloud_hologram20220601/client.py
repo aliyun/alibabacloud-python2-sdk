@@ -109,6 +109,8 @@ class Client(OpenApiClient):
             body['cpu'] = request.cpu
         if not UtilClient.is_unset(request.duration):
             body['duration'] = request.duration
+        if not UtilClient.is_unset(request.enable_serverless_computing):
+            body['enableServerlessComputing'] = request.enable_serverless_computing
         if not UtilClient.is_unset(request.gateway_count):
             body['gatewayCount'] = request.gateway_count
         if not UtilClient.is_unset(request.initial_databases):
@@ -541,6 +543,8 @@ class Client(OpenApiClient):
             body['coldStorageSize'] = request.cold_storage_size
         if not UtilClient.is_unset(request.cpu):
             body['cpu'] = request.cpu
+        if not UtilClient.is_unset(request.enable_serverless_computing):
+            body['enableServerlessComputing'] = request.enable_serverless_computing
         if not UtilClient.is_unset(request.gateway_count):
             body['gatewayCount'] = request.gateway_count
         if not UtilClient.is_unset(request.scale_type):

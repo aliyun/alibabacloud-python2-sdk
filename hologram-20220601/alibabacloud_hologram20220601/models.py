@@ -100,9 +100,9 @@ class ChangeResourceGroupResponse(TeaModel):
 
 class CreateInstanceRequest(TeaModel):
     def __init__(self, auto_pay=None, auto_renew=None, charge_type=None, cold_storage_size=None, cpu=None,
-                 duration=None, gateway_count=None, initial_databases=None, instance_name=None, instance_type=None,
-                 leader_instance_id=None, pricing_cycle=None, region_id=None, resource_group_id=None, storage_size=None,
-                 v_switch_id=None, vpc_id=None, zone_id=None):
+                 duration=None, enable_serverless_computing=None, gateway_count=None, initial_databases=None,
+                 instance_name=None, instance_type=None, leader_instance_id=None, pricing_cycle=None, region_id=None,
+                 resource_group_id=None, storage_size=None, v_switch_id=None, vpc_id=None, zone_id=None):
         # Specifies whether to enable auto-payment. Default value: true. Valid values:
         # 
         # *   true
@@ -150,6 +150,7 @@ class CreateInstanceRequest(TeaModel):
         # 
         # > You do not need to configure this parameter for pay-as-you-go instances.
         self.duration = duration  # type: long
+        self.enable_serverless_computing = enable_serverless_computing  # type: bool
         # The number of gateways. Valid values: 2 to 50.
         # 
         # > This parameter is required only for virtual warehouse instances.
@@ -227,6 +228,8 @@ class CreateInstanceRequest(TeaModel):
             result['cpu'] = self.cpu
         if self.duration is not None:
             result['duration'] = self.duration
+        if self.enable_serverless_computing is not None:
+            result['enableServerlessComputing'] = self.enable_serverless_computing
         if self.gateway_count is not None:
             result['gatewayCount'] = self.gateway_count
         if self.initial_databases is not None:
@@ -267,6 +270,8 @@ class CreateInstanceRequest(TeaModel):
             self.cpu = m.get('cpu')
         if m.get('duration') is not None:
             self.duration = m.get('duration')
+        if m.get('enableServerlessComputing') is not None:
+            self.enable_serverless_computing = m.get('enableServerlessComputing')
         if m.get('gatewayCount') is not None:
             self.gateway_count = m.get('gatewayCount')
         if m.get('initialDatabases') is not None:
@@ -2779,7 +2784,8 @@ class ResumeInstanceResponse(TeaModel):
 
 
 class ScaleInstanceRequest(TeaModel):
-    def __init__(self, cold_storage_size=None, cpu=None, gateway_count=None, scale_type=None, storage_size=None):
+    def __init__(self, cold_storage_size=None, cpu=None, enable_serverless_computing=None, gateway_count=None,
+                 scale_type=None, storage_size=None):
         # The infrequent access (IA) storage space of the instance. Unit: GB.
         # 
         # > Ignore this parameter for pay-as-you-go instances.
@@ -2804,6 +2810,7 @@ class ScaleInstanceRequest(TeaModel):
         # 
         # *   The specifications of 8-core 32GB (number of compute nodes: 1) are for trial use only and cannot be used for production.
         self.cpu = cpu  # type: long
+        self.enable_serverless_computing = enable_serverless_computing  # type: bool
         # The number of gateways. Valid values: 2 to 50.
         # 
         # > This parameter is required only for virtual warehouse instances.
@@ -2837,6 +2844,8 @@ class ScaleInstanceRequest(TeaModel):
             result['coldStorageSize'] = self.cold_storage_size
         if self.cpu is not None:
             result['cpu'] = self.cpu
+        if self.enable_serverless_computing is not None:
+            result['enableServerlessComputing'] = self.enable_serverless_computing
         if self.gateway_count is not None:
             result['gatewayCount'] = self.gateway_count
         if self.scale_type is not None:
@@ -2851,6 +2860,8 @@ class ScaleInstanceRequest(TeaModel):
             self.cold_storage_size = m.get('coldStorageSize')
         if m.get('cpu') is not None:
             self.cpu = m.get('cpu')
+        if m.get('enableServerlessComputing') is not None:
+            self.enable_serverless_computing = m.get('enableServerlessComputing')
         if m.get('gatewayCount') is not None:
             self.gateway_count = m.get('gatewayCount')
         if m.get('scaleType') is not None:
