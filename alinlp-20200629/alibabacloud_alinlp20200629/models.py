@@ -6892,13 +6892,14 @@ class PostMSDataProcessingCountResponse(TeaModel):
 
 
 class PostMSSearchEnhanceRequest(TeaModel):
-    def __init__(self, body=None, custom_config_info=None, debug=None, fields=None, filters=None, page=None,
-                 queries=None, rank_model_info=None, rows=None, service_id=None, sort=None, type=None, uq=None):
+    def __init__(self, body=None, custom_config_info=None, debug=None, fields=None, filters=None, min_score=None,
+                 page=None, queries=None, rank_model_info=None, rows=None, service_id=None, sort=None, type=None, uq=None):
         self.body = body  # type: str
         self.custom_config_info = custom_config_info  # type: dict[str, any]
         self.debug = debug  # type: bool
         self.fields = fields  # type: list[str]
         self.filters = filters  # type: str
+        self.min_score = min_score  # type: float
         self.page = page  # type: int
         self.queries = queries  # type: str
         self.rank_model_info = rank_model_info  # type: dict[str, any]
@@ -6927,6 +6928,8 @@ class PostMSSearchEnhanceRequest(TeaModel):
             result['Fields'] = self.fields
         if self.filters is not None:
             result['Filters'] = self.filters
+        if self.min_score is not None:
+            result['MinScore'] = self.min_score
         if self.page is not None:
             result['Page'] = self.page
         if self.queries is not None:
@@ -6957,6 +6960,8 @@ class PostMSSearchEnhanceRequest(TeaModel):
             self.fields = m.get('Fields')
         if m.get('Filters') is not None:
             self.filters = m.get('Filters')
+        if m.get('MinScore') is not None:
+            self.min_score = m.get('MinScore')
         if m.get('Page') is not None:
             self.page = m.get('Page')
         if m.get('Queries') is not None:
@@ -6978,13 +6983,14 @@ class PostMSSearchEnhanceRequest(TeaModel):
 
 class PostMSSearchEnhanceShrinkRequest(TeaModel):
     def __init__(self, body=None, custom_config_info_shrink=None, debug=None, fields_shrink=None, filters=None,
-                 page=None, queries=None, rank_model_info_shrink=None, rows=None, service_id=None, sort_shrink=None,
-                 type=None, uq=None):
+                 min_score=None, page=None, queries=None, rank_model_info_shrink=None, rows=None, service_id=None,
+                 sort_shrink=None, type=None, uq=None):
         self.body = body  # type: str
         self.custom_config_info_shrink = custom_config_info_shrink  # type: str
         self.debug = debug  # type: bool
         self.fields_shrink = fields_shrink  # type: str
         self.filters = filters  # type: str
+        self.min_score = min_score  # type: float
         self.page = page  # type: int
         self.queries = queries  # type: str
         self.rank_model_info_shrink = rank_model_info_shrink  # type: str
@@ -7013,6 +7019,8 @@ class PostMSSearchEnhanceShrinkRequest(TeaModel):
             result['Fields'] = self.fields_shrink
         if self.filters is not None:
             result['Filters'] = self.filters
+        if self.min_score is not None:
+            result['MinScore'] = self.min_score
         if self.page is not None:
             result['Page'] = self.page
         if self.queries is not None:
@@ -7043,6 +7051,8 @@ class PostMSSearchEnhanceShrinkRequest(TeaModel):
             self.fields_shrink = m.get('Fields')
         if m.get('Filters') is not None:
             self.filters = m.get('Filters')
+        if m.get('MinScore') is not None:
+            self.min_score = m.get('MinScore')
         if m.get('Page') is not None:
             self.page = m.get('Page')
         if m.get('Queries') is not None:

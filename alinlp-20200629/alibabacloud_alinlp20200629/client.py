@@ -2111,6 +2111,8 @@ class Client(OpenApiClient):
             body['Fields'] = request.fields_shrink
         if not UtilClient.is_unset(request.filters):
             body['Filters'] = request.filters
+        if not UtilClient.is_unset(request.min_score):
+            body['MinScore'] = request.min_score
         if not UtilClient.is_unset(request.page):
             body['Page'] = request.page
         if not UtilClient.is_unset(request.queries):
