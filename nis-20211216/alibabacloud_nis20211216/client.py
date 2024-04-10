@@ -274,6 +274,8 @@ class Client(OpenApiClient):
         UtilClient.validate_model(tmp_req)
         request = nis_20211216_models.GetInternetTupleShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.cloud_ip_list):
+            request.cloud_ip_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.cloud_ip_list, 'CloudIpList', 'json')
         if not UtilClient.is_unset(tmp_req.instance_list):
             request.instance_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.instance_list, 'InstanceList', 'json')
         query = {}
@@ -283,6 +285,8 @@ class Client(OpenApiClient):
             query['BeginTime'] = request.begin_time
         if not UtilClient.is_unset(request.cloud_ip):
             query['CloudIp'] = request.cloud_ip
+        if not UtilClient.is_unset(request.cloud_ip_list_shrink):
+            query['CloudIpList'] = request.cloud_ip_list_shrink
         if not UtilClient.is_unset(request.cloud_isp):
             query['CloudIsp'] = request.cloud_isp
         if not UtilClient.is_unset(request.cloud_port):

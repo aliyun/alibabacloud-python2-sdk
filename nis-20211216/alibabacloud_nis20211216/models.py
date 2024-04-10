@@ -859,16 +859,18 @@ class DeleteNetworkReachableAnalysisResponse(TeaModel):
 
 
 class GetInternetTupleRequest(TeaModel):
-    def __init__(self, account_ids=None, begin_time=None, cloud_ip=None, cloud_isp=None, cloud_port=None,
-                 direction=None, end_time=None, instance_id=None, instance_list=None, order_by=None, other_city=None,
-                 other_country=None, other_ip=None, other_isp=None, other_port=None, protocol=None, region_id=None, sort=None,
-                 top_n=None, tuple_type=None, use_multi_account=None):
+    def __init__(self, account_ids=None, begin_time=None, cloud_ip=None, cloud_ip_list=None, cloud_isp=None,
+                 cloud_port=None, direction=None, end_time=None, instance_id=None, instance_list=None, order_by=None,
+                 other_city=None, other_country=None, other_ip=None, other_isp=None, other_port=None, protocol=None,
+                 region_id=None, sort=None, top_n=None, tuple_type=None, use_multi_account=None):
         # The IDs of member accounts.
         self.account_ids = account_ids  # type: list[long]
         # The beginning of the time range to query. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.begin_time = begin_time  # type: long
         # The local IP address.
         self.cloud_ip = cloud_ip  # type: str
+        # The local IP addresses for filtering.
+        self.cloud_ip_list = cloud_ip_list  # type: list[str]
         # The local Internet service provider (ISP).
         # 
         # >  In most cases, the value is Alibaba or Alibaba Cloud.
@@ -969,6 +971,8 @@ class GetInternetTupleRequest(TeaModel):
             result['BeginTime'] = self.begin_time
         if self.cloud_ip is not None:
             result['CloudIp'] = self.cloud_ip
+        if self.cloud_ip_list is not None:
+            result['CloudIpList'] = self.cloud_ip_list
         if self.cloud_isp is not None:
             result['CloudIsp'] = self.cloud_isp
         if self.cloud_port is not None:
@@ -1015,6 +1019,8 @@ class GetInternetTupleRequest(TeaModel):
             self.begin_time = m.get('BeginTime')
         if m.get('CloudIp') is not None:
             self.cloud_ip = m.get('CloudIp')
+        if m.get('CloudIpList') is not None:
+            self.cloud_ip_list = m.get('CloudIpList')
         if m.get('CloudIsp') is not None:
             self.cloud_isp = m.get('CloudIsp')
         if m.get('CloudPort') is not None:
@@ -1055,16 +1061,18 @@ class GetInternetTupleRequest(TeaModel):
 
 
 class GetInternetTupleShrinkRequest(TeaModel):
-    def __init__(self, account_ids=None, begin_time=None, cloud_ip=None, cloud_isp=None, cloud_port=None,
-                 direction=None, end_time=None, instance_id=None, instance_list_shrink=None, order_by=None, other_city=None,
-                 other_country=None, other_ip=None, other_isp=None, other_port=None, protocol=None, region_id=None, sort=None,
-                 top_n=None, tuple_type=None, use_multi_account=None):
+    def __init__(self, account_ids=None, begin_time=None, cloud_ip=None, cloud_ip_list_shrink=None, cloud_isp=None,
+                 cloud_port=None, direction=None, end_time=None, instance_id=None, instance_list_shrink=None, order_by=None,
+                 other_city=None, other_country=None, other_ip=None, other_isp=None, other_port=None, protocol=None,
+                 region_id=None, sort=None, top_n=None, tuple_type=None, use_multi_account=None):
         # The IDs of member accounts.
         self.account_ids = account_ids  # type: list[long]
         # The beginning of the time range to query. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.begin_time = begin_time  # type: long
         # The local IP address.
         self.cloud_ip = cloud_ip  # type: str
+        # The local IP addresses for filtering.
+        self.cloud_ip_list_shrink = cloud_ip_list_shrink  # type: str
         # The local Internet service provider (ISP).
         # 
         # >  In most cases, the value is Alibaba or Alibaba Cloud.
@@ -1165,6 +1173,8 @@ class GetInternetTupleShrinkRequest(TeaModel):
             result['BeginTime'] = self.begin_time
         if self.cloud_ip is not None:
             result['CloudIp'] = self.cloud_ip
+        if self.cloud_ip_list_shrink is not None:
+            result['CloudIpList'] = self.cloud_ip_list_shrink
         if self.cloud_isp is not None:
             result['CloudIsp'] = self.cloud_isp
         if self.cloud_port is not None:
@@ -1211,6 +1221,8 @@ class GetInternetTupleShrinkRequest(TeaModel):
             self.begin_time = m.get('BeginTime')
         if m.get('CloudIp') is not None:
             self.cloud_ip = m.get('CloudIp')
+        if m.get('CloudIpList') is not None:
+            self.cloud_ip_list_shrink = m.get('CloudIpList')
         if m.get('CloudIsp') is not None:
             self.cloud_isp = m.get('CloudIsp')
         if m.get('CloudPort') is not None:
