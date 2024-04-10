@@ -36494,13 +36494,15 @@ class ListListenersByConfigRequest(TeaModel):
 
 
 class ListListenersByConfigResponseBodyListeners(TeaModel):
-    def __init__(self, ip=None, md_5=None, status=None):
+    def __init__(self, ip=None, labels=None, md_5=None, status=None, version=None):
         # The IP address.
         self.ip = ip  # type: str
+        self.labels = labels  # type: dict[str, str]
         # The verification string.
         self.md_5 = md_5  # type: str
         # The status.
         self.status = status  # type: str
+        self.version = version  # type: str
 
     def validate(self):
         pass
@@ -36513,20 +36515,28 @@ class ListListenersByConfigResponseBodyListeners(TeaModel):
         result = dict()
         if self.ip is not None:
             result['Ip'] = self.ip
+        if self.labels is not None:
+            result['Labels'] = self.labels
         if self.md_5 is not None:
             result['Md5'] = self.md_5
         if self.status is not None:
             result['Status'] = self.status
+        if self.version is not None:
+            result['Version'] = self.version
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('Ip') is not None:
             self.ip = m.get('Ip')
+        if m.get('Labels') is not None:
+            self.labels = m.get('Labels')
         if m.get('Md5') is not None:
             self.md_5 = m.get('Md5')
         if m.get('Status') is not None:
             self.status = m.get('Status')
+        if m.get('Version') is not None:
+            self.version = m.get('Version')
         return self
 
 
@@ -36704,13 +36714,14 @@ class ListListenersByIpRequest(TeaModel):
 
 
 class ListListenersByIpResponseBodyListeners(TeaModel):
-    def __init__(self, data_id=None, group=None, md_5=None):
+    def __init__(self, data_id=None, group=None, md_5=None, namespace_id=None):
         # The ID of the data.
         self.data_id = data_id  # type: str
         # The group.
         self.group = group  # type: str
         # The verification string.
         self.md_5 = md_5  # type: str
+        self.namespace_id = namespace_id  # type: str
 
     def validate(self):
         pass
@@ -36727,6 +36738,8 @@ class ListListenersByIpResponseBodyListeners(TeaModel):
             result['Group'] = self.group
         if self.md_5 is not None:
             result['Md5'] = self.md_5
+        if self.namespace_id is not None:
+            result['NamespaceId'] = self.namespace_id
         return result
 
     def from_map(self, m=None):
@@ -36737,6 +36750,8 @@ class ListListenersByIpResponseBodyListeners(TeaModel):
             self.group = m.get('Group')
         if m.get('Md5') is not None:
             self.md_5 = m.get('Md5')
+        if m.get('NamespaceId') is not None:
+            self.namespace_id = m.get('NamespaceId')
         return self
 
 
