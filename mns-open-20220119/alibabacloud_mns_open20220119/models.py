@@ -150,9 +150,6 @@ class CreateQueueResponse(TeaModel):
         self.body = body  # type: CreateQueueResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -308,9 +305,6 @@ class CreateTopicResponse(TeaModel):
         self.body = body  # type: CreateTopicResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -456,9 +450,6 @@ class DeleteQueueResponse(TeaModel):
         self.body = body  # type: DeleteQueueResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -568,9 +559,6 @@ class DeleteTopicResponse(TeaModel):
         self.body = body  # type: DeleteTopicResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -627,8 +615,7 @@ class GetQueueAttributesRequest(TeaModel):
 class GetQueueAttributesResponseBodyData(TeaModel):
     def __init__(self, active_messages=None, create_time=None, delay_messages=None, delay_seconds=None,
                  inactive_messages=None, last_modify_time=None, logging_enabled=None, maximum_message_size=None,
-                 message_retention_period=None, polling_wait_seconds=None, queue_internal_url=None, queue_name=None, queue_url=None,
-                 visibility_timeout=None):
+                 message_retention_period=None, polling_wait_seconds=None, queue_name=None, visibility_timeout=None):
         self.active_messages = active_messages  # type: long
         self.create_time = create_time  # type: long
         self.delay_messages = delay_messages  # type: long
@@ -639,9 +626,7 @@ class GetQueueAttributesResponseBodyData(TeaModel):
         self.maximum_message_size = maximum_message_size  # type: long
         self.message_retention_period = message_retention_period  # type: long
         self.polling_wait_seconds = polling_wait_seconds  # type: long
-        self.queue_internal_url = queue_internal_url  # type: str
         self.queue_name = queue_name  # type: str
-        self.queue_url = queue_url  # type: str
         self.visibility_timeout = visibility_timeout  # type: long
 
     def validate(self):
@@ -673,12 +658,8 @@ class GetQueueAttributesResponseBodyData(TeaModel):
             result['MessageRetentionPeriod'] = self.message_retention_period
         if self.polling_wait_seconds is not None:
             result['PollingWaitSeconds'] = self.polling_wait_seconds
-        if self.queue_internal_url is not None:
-            result['QueueInternalUrl'] = self.queue_internal_url
         if self.queue_name is not None:
             result['QueueName'] = self.queue_name
-        if self.queue_url is not None:
-            result['QueueUrl'] = self.queue_url
         if self.visibility_timeout is not None:
             result['VisibilityTimeout'] = self.visibility_timeout
         return result
@@ -705,12 +686,8 @@ class GetQueueAttributesResponseBodyData(TeaModel):
             self.message_retention_period = m.get('MessageRetentionPeriod')
         if m.get('PollingWaitSeconds') is not None:
             self.polling_wait_seconds = m.get('PollingWaitSeconds')
-        if m.get('QueueInternalUrl') is not None:
-            self.queue_internal_url = m.get('QueueInternalUrl')
         if m.get('QueueName') is not None:
             self.queue_name = m.get('QueueName')
-        if m.get('QueueUrl') is not None:
-            self.queue_url = m.get('QueueUrl')
         if m.get('VisibilityTimeout') is not None:
             self.visibility_timeout = m.get('VisibilityTimeout')
         return self
@@ -774,9 +751,6 @@ class GetQueueAttributesResponse(TeaModel):
         self.body = body  # type: GetQueueAttributesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -837,8 +811,7 @@ class GetSubscriptionAttributesRequest(TeaModel):
 
 class GetSubscriptionAttributesResponseBodyData(TeaModel):
     def __init__(self, create_time=None, endpoint=None, filter_tag=None, last_modify_time=None,
-                 notify_content_format=None, notify_strategy=None, subscription_name=None, subscription_url=None, topic_name=None,
-                 topic_owner=None):
+                 notify_content_format=None, notify_strategy=None, subscription_name=None, topic_name=None, topic_owner=None):
         self.create_time = create_time  # type: long
         self.endpoint = endpoint  # type: str
         self.filter_tag = filter_tag  # type: str
@@ -846,7 +819,6 @@ class GetSubscriptionAttributesResponseBodyData(TeaModel):
         self.notify_content_format = notify_content_format  # type: str
         self.notify_strategy = notify_strategy  # type: str
         self.subscription_name = subscription_name  # type: str
-        self.subscription_url = subscription_url  # type: str
         self.topic_name = topic_name  # type: str
         self.topic_owner = topic_owner  # type: str
 
@@ -873,8 +845,6 @@ class GetSubscriptionAttributesResponseBodyData(TeaModel):
             result['NotifyStrategy'] = self.notify_strategy
         if self.subscription_name is not None:
             result['SubscriptionName'] = self.subscription_name
-        if self.subscription_url is not None:
-            result['SubscriptionURL'] = self.subscription_url
         if self.topic_name is not None:
             result['TopicName'] = self.topic_name
         if self.topic_owner is not None:
@@ -897,8 +867,6 @@ class GetSubscriptionAttributesResponseBodyData(TeaModel):
             self.notify_strategy = m.get('NotifyStrategy')
         if m.get('SubscriptionName') is not None:
             self.subscription_name = m.get('SubscriptionName')
-        if m.get('SubscriptionURL') is not None:
-            self.subscription_url = m.get('SubscriptionURL')
         if m.get('TopicName') is not None:
             self.topic_name = m.get('TopicName')
         if m.get('TopicOwner') is not None:
@@ -964,9 +932,6 @@ class GetSubscriptionAttributesResponse(TeaModel):
         self.body = body  # type: GetSubscriptionAttributesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1022,16 +987,14 @@ class GetTopicAttributesRequest(TeaModel):
 
 class GetTopicAttributesResponseBodyData(TeaModel):
     def __init__(self, create_time=None, last_modify_time=None, logging_enabled=None, max_message_size=None,
-                 message_count=None, message_retention_period=None, topic_inner_url=None, topic_name=None, topic_url=None):
+                 message_count=None, message_retention_period=None, topic_name=None):
         self.create_time = create_time  # type: long
         self.last_modify_time = last_modify_time  # type: long
         self.logging_enabled = logging_enabled  # type: bool
         self.max_message_size = max_message_size  # type: long
         self.message_count = message_count  # type: long
         self.message_retention_period = message_retention_period  # type: long
-        self.topic_inner_url = topic_inner_url  # type: str
         self.topic_name = topic_name  # type: str
-        self.topic_url = topic_url  # type: str
 
     def validate(self):
         pass
@@ -1054,12 +1017,8 @@ class GetTopicAttributesResponseBodyData(TeaModel):
             result['MessageCount'] = self.message_count
         if self.message_retention_period is not None:
             result['MessageRetentionPeriod'] = self.message_retention_period
-        if self.topic_inner_url is not None:
-            result['TopicInnerUrl'] = self.topic_inner_url
         if self.topic_name is not None:
             result['TopicName'] = self.topic_name
-        if self.topic_url is not None:
-            result['TopicUrl'] = self.topic_url
         return result
 
     def from_map(self, m=None):
@@ -1076,12 +1035,8 @@ class GetTopicAttributesResponseBodyData(TeaModel):
             self.message_count = m.get('MessageCount')
         if m.get('MessageRetentionPeriod') is not None:
             self.message_retention_period = m.get('MessageRetentionPeriod')
-        if m.get('TopicInnerUrl') is not None:
-            self.topic_inner_url = m.get('TopicInnerUrl')
         if m.get('TopicName') is not None:
             self.topic_name = m.get('TopicName')
-        if m.get('TopicUrl') is not None:
-            self.topic_url = m.get('TopicUrl')
         return self
 
 
@@ -1143,9 +1098,6 @@ class GetTopicAttributesResponse(TeaModel):
         self.body = body  # type: GetTopicAttributesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1212,8 +1164,7 @@ class ListQueueRequest(TeaModel):
 class ListQueueResponseBodyDataPageData(TeaModel):
     def __init__(self, active_messages=None, create_time=None, delay_messages=None, delay_seconds=None,
                  inactive_messages=None, last_modify_time=None, logging_enabled=None, maximum_message_size=None,
-                 message_retention_period=None, polling_wait_seconds=None, queue_internal_url=None, queue_name=None, queue_url=None,
-                 visibility_timeout=None):
+                 message_retention_period=None, polling_wait_seconds=None, queue_name=None, visibility_timeout=None):
         self.active_messages = active_messages  # type: long
         self.create_time = create_time  # type: long
         self.delay_messages = delay_messages  # type: long
@@ -1224,9 +1175,7 @@ class ListQueueResponseBodyDataPageData(TeaModel):
         self.maximum_message_size = maximum_message_size  # type: long
         self.message_retention_period = message_retention_period  # type: long
         self.polling_wait_seconds = polling_wait_seconds  # type: long
-        self.queue_internal_url = queue_internal_url  # type: str
         self.queue_name = queue_name  # type: str
-        self.queue_url = queue_url  # type: str
         self.visibility_timeout = visibility_timeout  # type: long
 
     def validate(self):
@@ -1258,12 +1207,8 @@ class ListQueueResponseBodyDataPageData(TeaModel):
             result['MessageRetentionPeriod'] = self.message_retention_period
         if self.polling_wait_seconds is not None:
             result['PollingWaitSeconds'] = self.polling_wait_seconds
-        if self.queue_internal_url is not None:
-            result['QueueInternalUrl'] = self.queue_internal_url
         if self.queue_name is not None:
             result['QueueName'] = self.queue_name
-        if self.queue_url is not None:
-            result['QueueUrl'] = self.queue_url
         if self.visibility_timeout is not None:
             result['VisibilityTimeout'] = self.visibility_timeout
         return result
@@ -1290,12 +1235,8 @@ class ListQueueResponseBodyDataPageData(TeaModel):
             self.message_retention_period = m.get('MessageRetentionPeriod')
         if m.get('PollingWaitSeconds') is not None:
             self.polling_wait_seconds = m.get('PollingWaitSeconds')
-        if m.get('QueueInternalUrl') is not None:
-            self.queue_internal_url = m.get('QueueInternalUrl')
         if m.get('QueueName') is not None:
             self.queue_name = m.get('QueueName')
-        if m.get('QueueUrl') is not None:
-            self.queue_url = m.get('QueueUrl')
         if m.get('VisibilityTimeout') is not None:
             self.visibility_timeout = m.get('VisibilityTimeout')
         return self
@@ -1416,9 +1357,6 @@ class ListQueueResponse(TeaModel):
         self.body = body  # type: ListQueueResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1489,8 +1427,7 @@ class ListSubscriptionByTopicRequest(TeaModel):
 
 class ListSubscriptionByTopicResponseBodyDataPageData(TeaModel):
     def __init__(self, create_time=None, endpoint=None, filter_tag=None, last_modify_time=None,
-                 notify_content_format=None, notify_strategy=None, subscription_name=None, subscription_url=None, topic_name=None,
-                 topic_owner=None):
+                 notify_content_format=None, notify_strategy=None, subscription_name=None, topic_name=None, topic_owner=None):
         self.create_time = create_time  # type: long
         self.endpoint = endpoint  # type: str
         self.filter_tag = filter_tag  # type: str
@@ -1498,7 +1435,6 @@ class ListSubscriptionByTopicResponseBodyDataPageData(TeaModel):
         self.notify_content_format = notify_content_format  # type: str
         self.notify_strategy = notify_strategy  # type: str
         self.subscription_name = subscription_name  # type: str
-        self.subscription_url = subscription_url  # type: str
         self.topic_name = topic_name  # type: str
         self.topic_owner = topic_owner  # type: str
 
@@ -1525,8 +1461,6 @@ class ListSubscriptionByTopicResponseBodyDataPageData(TeaModel):
             result['NotifyStrategy'] = self.notify_strategy
         if self.subscription_name is not None:
             result['SubscriptionName'] = self.subscription_name
-        if self.subscription_url is not None:
-            result['SubscriptionURL'] = self.subscription_url
         if self.topic_name is not None:
             result['TopicName'] = self.topic_name
         if self.topic_owner is not None:
@@ -1549,8 +1483,6 @@ class ListSubscriptionByTopicResponseBodyDataPageData(TeaModel):
             self.notify_strategy = m.get('NotifyStrategy')
         if m.get('SubscriptionName') is not None:
             self.subscription_name = m.get('SubscriptionName')
-        if m.get('SubscriptionURL') is not None:
-            self.subscription_url = m.get('SubscriptionURL')
         if m.get('TopicName') is not None:
             self.topic_name = m.get('TopicName')
         if m.get('TopicOwner') is not None:
@@ -1673,9 +1605,6 @@ class ListSubscriptionByTopicResponse(TeaModel):
         self.body = body  # type: ListSubscriptionByTopicResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1741,16 +1670,14 @@ class ListTopicRequest(TeaModel):
 
 class ListTopicResponseBodyDataPageData(TeaModel):
     def __init__(self, create_time=None, last_modify_time=None, logging_enabled=None, max_message_size=None,
-                 message_count=None, message_retention_period=None, topic_inner_url=None, topic_name=None, topic_url=None):
+                 message_count=None, message_retention_period=None, topic_name=None):
         self.create_time = create_time  # type: long
         self.last_modify_time = last_modify_time  # type: long
         self.logging_enabled = logging_enabled  # type: bool
         self.max_message_size = max_message_size  # type: long
         self.message_count = message_count  # type: long
         self.message_retention_period = message_retention_period  # type: long
-        self.topic_inner_url = topic_inner_url  # type: str
         self.topic_name = topic_name  # type: str
-        self.topic_url = topic_url  # type: str
 
     def validate(self):
         pass
@@ -1773,12 +1700,8 @@ class ListTopicResponseBodyDataPageData(TeaModel):
             result['MessageCount'] = self.message_count
         if self.message_retention_period is not None:
             result['MessageRetentionPeriod'] = self.message_retention_period
-        if self.topic_inner_url is not None:
-            result['TopicInnerUrl'] = self.topic_inner_url
         if self.topic_name is not None:
             result['TopicName'] = self.topic_name
-        if self.topic_url is not None:
-            result['TopicUrl'] = self.topic_url
         return result
 
     def from_map(self, m=None):
@@ -1795,12 +1718,8 @@ class ListTopicResponseBodyDataPageData(TeaModel):
             self.message_count = m.get('MessageCount')
         if m.get('MessageRetentionPeriod') is not None:
             self.message_retention_period = m.get('MessageRetentionPeriod')
-        if m.get('TopicInnerUrl') is not None:
-            self.topic_inner_url = m.get('TopicInnerUrl')
         if m.get('TopicName') is not None:
             self.topic_name = m.get('TopicName')
-        if m.get('TopicUrl') is not None:
-            self.topic_url = m.get('TopicUrl')
         return self
 
 
@@ -1909,9 +1828,6 @@ class ListTopicResponse(TeaModel):
         self.body = body  # type: ListTopicResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2088,9 +2004,6 @@ class SetQueueAttributesResponse(TeaModel):
         self.body = body  # type: SetQueueAttributesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2246,9 +2159,6 @@ class SetSubscriptionAttributesResponse(TeaModel):
         self.body = body  # type: SetSubscriptionAttributesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2404,9 +2314,6 @@ class SetTopicAttributesResponse(TeaModel):
         self.body = body  # type: SetTopicAttributesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2547,9 +2454,6 @@ class SubscribeResponse(TeaModel):
         self.body = body  # type: SubscribeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2700,9 +2604,6 @@ class UnsubscribeResponse(TeaModel):
         self.body = body  # type: UnsubscribeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
