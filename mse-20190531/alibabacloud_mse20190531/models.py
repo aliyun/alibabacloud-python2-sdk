@@ -8324,6 +8324,470 @@ class CreateFlowRuleResponse(TeaModel):
         return self
 
 
+class CreateGatewayCircuitBreakerRuleRequest(TeaModel):
+    def __init__(self, accept_language=None, behavior_type=None, body_encoding=None, enable=None, gateway_id=None,
+                 gateway_unique_id=None, max_allowed_ms=None, min_request_amount=None, recovery_timeout_sec=None,
+                 response_content_body=None, response_redirect_url=None, response_status_code=None, route_id=None, route_name=None,
+                 stat_duration_sec=None, strategy=None, trigger_ratio=None):
+        self.accept_language = accept_language  # type: str
+        self.behavior_type = behavior_type  # type: int
+        self.body_encoding = body_encoding  # type: int
+        self.enable = enable  # type: int
+        self.gateway_id = gateway_id  # type: long
+        self.gateway_unique_id = gateway_unique_id  # type: str
+        self.max_allowed_ms = max_allowed_ms  # type: int
+        self.min_request_amount = min_request_amount  # type: int
+        self.recovery_timeout_sec = recovery_timeout_sec  # type: int
+        self.response_content_body = response_content_body  # type: str
+        self.response_redirect_url = response_redirect_url  # type: str
+        self.response_status_code = response_status_code  # type: int
+        self.route_id = route_id  # type: long
+        self.route_name = route_name  # type: str
+        self.stat_duration_sec = stat_duration_sec  # type: int
+        self.strategy = strategy  # type: int
+        self.trigger_ratio = trigger_ratio  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateGatewayCircuitBreakerRuleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
+        if self.behavior_type is not None:
+            result['BehaviorType'] = self.behavior_type
+        if self.body_encoding is not None:
+            result['BodyEncoding'] = self.body_encoding
+        if self.enable is not None:
+            result['Enable'] = self.enable
+        if self.gateway_id is not None:
+            result['GatewayId'] = self.gateway_id
+        if self.gateway_unique_id is not None:
+            result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.max_allowed_ms is not None:
+            result['MaxAllowedMs'] = self.max_allowed_ms
+        if self.min_request_amount is not None:
+            result['MinRequestAmount'] = self.min_request_amount
+        if self.recovery_timeout_sec is not None:
+            result['RecoveryTimeoutSec'] = self.recovery_timeout_sec
+        if self.response_content_body is not None:
+            result['ResponseContentBody'] = self.response_content_body
+        if self.response_redirect_url is not None:
+            result['ResponseRedirectUrl'] = self.response_redirect_url
+        if self.response_status_code is not None:
+            result['ResponseStatusCode'] = self.response_status_code
+        if self.route_id is not None:
+            result['RouteId'] = self.route_id
+        if self.route_name is not None:
+            result['RouteName'] = self.route_name
+        if self.stat_duration_sec is not None:
+            result['StatDurationSec'] = self.stat_duration_sec
+        if self.strategy is not None:
+            result['Strategy'] = self.strategy
+        if self.trigger_ratio is not None:
+            result['TriggerRatio'] = self.trigger_ratio
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
+        if m.get('BehaviorType') is not None:
+            self.behavior_type = m.get('BehaviorType')
+        if m.get('BodyEncoding') is not None:
+            self.body_encoding = m.get('BodyEncoding')
+        if m.get('Enable') is not None:
+            self.enable = m.get('Enable')
+        if m.get('GatewayId') is not None:
+            self.gateway_id = m.get('GatewayId')
+        if m.get('GatewayUniqueId') is not None:
+            self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MaxAllowedMs') is not None:
+            self.max_allowed_ms = m.get('MaxAllowedMs')
+        if m.get('MinRequestAmount') is not None:
+            self.min_request_amount = m.get('MinRequestAmount')
+        if m.get('RecoveryTimeoutSec') is not None:
+            self.recovery_timeout_sec = m.get('RecoveryTimeoutSec')
+        if m.get('ResponseContentBody') is not None:
+            self.response_content_body = m.get('ResponseContentBody')
+        if m.get('ResponseRedirectUrl') is not None:
+            self.response_redirect_url = m.get('ResponseRedirectUrl')
+        if m.get('ResponseStatusCode') is not None:
+            self.response_status_code = m.get('ResponseStatusCode')
+        if m.get('RouteId') is not None:
+            self.route_id = m.get('RouteId')
+        if m.get('RouteName') is not None:
+            self.route_name = m.get('RouteName')
+        if m.get('StatDurationSec') is not None:
+            self.stat_duration_sec = m.get('StatDurationSec')
+        if m.get('Strategy') is not None:
+            self.strategy = m.get('Strategy')
+        if m.get('TriggerRatio') is not None:
+            self.trigger_ratio = m.get('TriggerRatio')
+        return self
+
+
+class CreateGatewayCircuitBreakerRuleResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: long
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateGatewayCircuitBreakerRuleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CreateGatewayCircuitBreakerRuleResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateGatewayCircuitBreakerRuleResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateGatewayCircuitBreakerRuleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateGatewayCircuitBreakerRuleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateGatewayFlowRuleRequest(TeaModel):
+    def __init__(self, accept_language=None, behavior_type=None, body_encoding=None, enable=None, gateway_id=None,
+                 gateway_unique_id=None, response_content_body=None, response_redirect_url=None, response_status_code=None,
+                 route_id=None, route_name=None, threshold=None):
+        self.accept_language = accept_language  # type: str
+        self.behavior_type = behavior_type  # type: int
+        self.body_encoding = body_encoding  # type: int
+        self.enable = enable  # type: int
+        self.gateway_id = gateway_id  # type: long
+        self.gateway_unique_id = gateway_unique_id  # type: str
+        self.response_content_body = response_content_body  # type: str
+        self.response_redirect_url = response_redirect_url  # type: str
+        self.response_status_code = response_status_code  # type: int
+        self.route_id = route_id  # type: long
+        self.route_name = route_name  # type: str
+        self.threshold = threshold  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateGatewayFlowRuleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
+        if self.behavior_type is not None:
+            result['BehaviorType'] = self.behavior_type
+        if self.body_encoding is not None:
+            result['BodyEncoding'] = self.body_encoding
+        if self.enable is not None:
+            result['Enable'] = self.enable
+        if self.gateway_id is not None:
+            result['GatewayId'] = self.gateway_id
+        if self.gateway_unique_id is not None:
+            result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.response_content_body is not None:
+            result['ResponseContentBody'] = self.response_content_body
+        if self.response_redirect_url is not None:
+            result['ResponseRedirectUrl'] = self.response_redirect_url
+        if self.response_status_code is not None:
+            result['ResponseStatusCode'] = self.response_status_code
+        if self.route_id is not None:
+            result['RouteId'] = self.route_id
+        if self.route_name is not None:
+            result['RouteName'] = self.route_name
+        if self.threshold is not None:
+            result['Threshold'] = self.threshold
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
+        if m.get('BehaviorType') is not None:
+            self.behavior_type = m.get('BehaviorType')
+        if m.get('BodyEncoding') is not None:
+            self.body_encoding = m.get('BodyEncoding')
+        if m.get('Enable') is not None:
+            self.enable = m.get('Enable')
+        if m.get('GatewayId') is not None:
+            self.gateway_id = m.get('GatewayId')
+        if m.get('GatewayUniqueId') is not None:
+            self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('ResponseContentBody') is not None:
+            self.response_content_body = m.get('ResponseContentBody')
+        if m.get('ResponseRedirectUrl') is not None:
+            self.response_redirect_url = m.get('ResponseRedirectUrl')
+        if m.get('ResponseStatusCode') is not None:
+            self.response_status_code = m.get('ResponseStatusCode')
+        if m.get('RouteId') is not None:
+            self.route_id = m.get('RouteId')
+        if m.get('RouteName') is not None:
+            self.route_name = m.get('RouteName')
+        if m.get('Threshold') is not None:
+            self.threshold = m.get('Threshold')
+        return self
+
+
+class CreateGatewayFlowRuleResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: long
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateGatewayFlowRuleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CreateGatewayFlowRuleResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateGatewayFlowRuleResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateGatewayFlowRuleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateGatewayFlowRuleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateGatewayIsolationRuleRequest(TeaModel):
+    def __init__(self, accept_language=None, behavior_type=None, body_encoding=None, enable=None, gateway_id=None,
+                 gateway_unique_id=None, max_concurrency=None, response_content_body=None, response_redirect_url=None,
+                 response_status_code=None, route_id=None, route_name=None):
+        self.accept_language = accept_language  # type: str
+        self.behavior_type = behavior_type  # type: int
+        self.body_encoding = body_encoding  # type: int
+        self.enable = enable  # type: int
+        self.gateway_id = gateway_id  # type: long
+        self.gateway_unique_id = gateway_unique_id  # type: str
+        self.max_concurrency = max_concurrency  # type: int
+        self.response_content_body = response_content_body  # type: str
+        self.response_redirect_url = response_redirect_url  # type: str
+        self.response_status_code = response_status_code  # type: int
+        self.route_id = route_id  # type: long
+        self.route_name = route_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateGatewayIsolationRuleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
+        if self.behavior_type is not None:
+            result['BehaviorType'] = self.behavior_type
+        if self.body_encoding is not None:
+            result['BodyEncoding'] = self.body_encoding
+        if self.enable is not None:
+            result['Enable'] = self.enable
+        if self.gateway_id is not None:
+            result['GatewayId'] = self.gateway_id
+        if self.gateway_unique_id is not None:
+            result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.max_concurrency is not None:
+            result['MaxConcurrency'] = self.max_concurrency
+        if self.response_content_body is not None:
+            result['ResponseContentBody'] = self.response_content_body
+        if self.response_redirect_url is not None:
+            result['ResponseRedirectUrl'] = self.response_redirect_url
+        if self.response_status_code is not None:
+            result['ResponseStatusCode'] = self.response_status_code
+        if self.route_id is not None:
+            result['RouteId'] = self.route_id
+        if self.route_name is not None:
+            result['RouteName'] = self.route_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
+        if m.get('BehaviorType') is not None:
+            self.behavior_type = m.get('BehaviorType')
+        if m.get('BodyEncoding') is not None:
+            self.body_encoding = m.get('BodyEncoding')
+        if m.get('Enable') is not None:
+            self.enable = m.get('Enable')
+        if m.get('GatewayId') is not None:
+            self.gateway_id = m.get('GatewayId')
+        if m.get('GatewayUniqueId') is not None:
+            self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('MaxConcurrency') is not None:
+            self.max_concurrency = m.get('MaxConcurrency')
+        if m.get('ResponseContentBody') is not None:
+            self.response_content_body = m.get('ResponseContentBody')
+        if m.get('ResponseRedirectUrl') is not None:
+            self.response_redirect_url = m.get('ResponseRedirectUrl')
+        if m.get('ResponseStatusCode') is not None:
+            self.response_status_code = m.get('ResponseStatusCode')
+        if m.get('RouteId') is not None:
+            self.route_id = m.get('RouteId')
+        if m.get('RouteName') is not None:
+            self.route_name = m.get('RouteName')
+        return self
+
+
+class CreateGatewayIsolationRuleResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: long
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateGatewayIsolationRuleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CreateGatewayIsolationRuleResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateGatewayIsolationRuleResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateGatewayIsolationRuleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateGatewayIsolationRuleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateIsolationRuleRequest(TeaModel):
     def __init__(self, accept_language=None, app_id=None, app_name=None, enable=None, namespace=None, region_id=None,
                  resource=None, threshold=None):
@@ -12180,6 +12644,110 @@ class DeleteGatewayAuthConsumerResourceResponse(TeaModel):
         return self
 
 
+class DeleteGatewayCircuitBreakerRuleRequest(TeaModel):
+    def __init__(self, accept_language=None, gateway_unique_id=None, route_id=None, rule_id=None):
+        self.accept_language = accept_language  # type: str
+        self.gateway_unique_id = gateway_unique_id  # type: str
+        self.route_id = route_id  # type: long
+        self.rule_id = rule_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteGatewayCircuitBreakerRuleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
+        if self.gateway_unique_id is not None:
+            result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.route_id is not None:
+            result['RouteId'] = self.route_id
+        if self.rule_id is not None:
+            result['RuleId'] = self.rule_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
+        if m.get('GatewayUniqueId') is not None:
+            self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('RouteId') is not None:
+            self.route_id = m.get('RouteId')
+        if m.get('RuleId') is not None:
+            self.rule_id = m.get('RuleId')
+        return self
+
+
+class DeleteGatewayCircuitBreakerRuleResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: bool
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteGatewayCircuitBreakerRuleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteGatewayCircuitBreakerRuleResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteGatewayCircuitBreakerRuleResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteGatewayCircuitBreakerRuleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteGatewayCircuitBreakerRuleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DeleteGatewayDomainRequest(TeaModel):
     def __init__(self, accept_language=None, gateway_unique_id=None, id=None):
         # The language of the response. Valid values:
@@ -12386,6 +12954,214 @@ class DeleteGatewayDomainResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteGatewayDomainResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteGatewayFlowRuleRequest(TeaModel):
+    def __init__(self, accept_language=None, gateway_unique_id=None, route_id=None, rule_id=None):
+        self.accept_language = accept_language  # type: str
+        self.gateway_unique_id = gateway_unique_id  # type: str
+        self.route_id = route_id  # type: long
+        self.rule_id = rule_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteGatewayFlowRuleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
+        if self.gateway_unique_id is not None:
+            result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.route_id is not None:
+            result['RouteId'] = self.route_id
+        if self.rule_id is not None:
+            result['RuleId'] = self.rule_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
+        if m.get('GatewayUniqueId') is not None:
+            self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('RouteId') is not None:
+            self.route_id = m.get('RouteId')
+        if m.get('RuleId') is not None:
+            self.rule_id = m.get('RuleId')
+        return self
+
+
+class DeleteGatewayFlowRuleResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: bool
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteGatewayFlowRuleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteGatewayFlowRuleResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteGatewayFlowRuleResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteGatewayFlowRuleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteGatewayFlowRuleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteGatewayIsolationRuleRequest(TeaModel):
+    def __init__(self, accept_language=None, gateway_unique_id=None, route_id=None, rule_id=None):
+        self.accept_language = accept_language  # type: str
+        self.gateway_unique_id = gateway_unique_id  # type: str
+        self.route_id = route_id  # type: long
+        self.rule_id = rule_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteGatewayIsolationRuleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
+        if self.gateway_unique_id is not None:
+            result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.route_id is not None:
+            result['RouteId'] = self.route_id
+        if self.rule_id is not None:
+            result['RuleId'] = self.rule_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
+        if m.get('GatewayUniqueId') is not None:
+            self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('RouteId') is not None:
+            self.route_id = m.get('RouteId')
+        if m.get('RuleId') is not None:
+            self.rule_id = m.get('RuleId')
+        return self
+
+
+class DeleteGatewayIsolationRuleResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: bool
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteGatewayIsolationRuleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteGatewayIsolationRuleResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteGatewayIsolationRuleResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteGatewayIsolationRuleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteGatewayIsolationRuleResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -33122,6 +33898,408 @@ class ListGatewayAuthConsumerResourceResponse(TeaModel):
         return self
 
 
+class ListGatewayCircuitBreakerRuleRequest(TeaModel):
+    def __init__(self, accept_language=None, filter_params=None):
+        self.accept_language = accept_language  # type: str
+        # just for POP
+        self.filter_params = filter_params  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListGatewayCircuitBreakerRuleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
+        if self.filter_params is not None:
+            result['FilterParams'] = self.filter_params
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
+        if m.get('FilterParams') is not None:
+            self.filter_params = m.get('FilterParams')
+        return self
+
+
+class ListGatewayCircuitBreakerRuleResponseBodyDataResult(TeaModel):
+    def __init__(self, behavior_type=None, body_encoding=None, enable=None, gateway_id=None, gateway_unique_id=None,
+                 id=None, id_list=None, limit_mode=None, max_allowed_ms=None, min_request_amount=None,
+                 recovery_timeout_sec=None, response_additional_headers=None, response_content_body=None, response_redirect_url=None,
+                 response_status_code=None, route_id=None, route_name=None, stat_duration_sec=None, strategy=None, trigger_ratio=None):
+        self.behavior_type = behavior_type  # type: int
+        self.body_encoding = body_encoding  # type: int
+        self.enable = enable  # type: int
+        self.gateway_id = gateway_id  # type: long
+        self.gateway_unique_id = gateway_unique_id  # type: str
+        self.id = id  # type: long
+        self.id_list = id_list  # type: list[long]
+        self.limit_mode = limit_mode  # type: int
+        self.max_allowed_ms = max_allowed_ms  # type: int
+        self.min_request_amount = min_request_amount  # type: int
+        self.recovery_timeout_sec = recovery_timeout_sec  # type: int
+        self.response_additional_headers = response_additional_headers  # type: str
+        self.response_content_body = response_content_body  # type: str
+        self.response_redirect_url = response_redirect_url  # type: str
+        self.response_status_code = response_status_code  # type: int
+        self.route_id = route_id  # type: long
+        self.route_name = route_name  # type: str
+        self.stat_duration_sec = stat_duration_sec  # type: int
+        self.strategy = strategy  # type: int
+        self.trigger_ratio = trigger_ratio  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListGatewayCircuitBreakerRuleResponseBodyDataResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.behavior_type is not None:
+            result['BehaviorType'] = self.behavior_type
+        if self.body_encoding is not None:
+            result['BodyEncoding'] = self.body_encoding
+        if self.enable is not None:
+            result['Enable'] = self.enable
+        if self.gateway_id is not None:
+            result['GatewayId'] = self.gateway_id
+        if self.gateway_unique_id is not None:
+            result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.id_list is not None:
+            result['IdList'] = self.id_list
+        if self.limit_mode is not None:
+            result['LimitMode'] = self.limit_mode
+        if self.max_allowed_ms is not None:
+            result['MaxAllowedMs'] = self.max_allowed_ms
+        if self.min_request_amount is not None:
+            result['MinRequestAmount'] = self.min_request_amount
+        if self.recovery_timeout_sec is not None:
+            result['RecoveryTimeoutSec'] = self.recovery_timeout_sec
+        if self.response_additional_headers is not None:
+            result['ResponseAdditionalHeaders'] = self.response_additional_headers
+        if self.response_content_body is not None:
+            result['ResponseContentBody'] = self.response_content_body
+        if self.response_redirect_url is not None:
+            result['ResponseRedirectUrl'] = self.response_redirect_url
+        if self.response_status_code is not None:
+            result['ResponseStatusCode'] = self.response_status_code
+        if self.route_id is not None:
+            result['RouteId'] = self.route_id
+        if self.route_name is not None:
+            result['RouteName'] = self.route_name
+        if self.stat_duration_sec is not None:
+            result['StatDurationSec'] = self.stat_duration_sec
+        if self.strategy is not None:
+            result['Strategy'] = self.strategy
+        if self.trigger_ratio is not None:
+            result['TriggerRatio'] = self.trigger_ratio
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BehaviorType') is not None:
+            self.behavior_type = m.get('BehaviorType')
+        if m.get('BodyEncoding') is not None:
+            self.body_encoding = m.get('BodyEncoding')
+        if m.get('Enable') is not None:
+            self.enable = m.get('Enable')
+        if m.get('GatewayId') is not None:
+            self.gateway_id = m.get('GatewayId')
+        if m.get('GatewayUniqueId') is not None:
+            self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('IdList') is not None:
+            self.id_list = m.get('IdList')
+        if m.get('LimitMode') is not None:
+            self.limit_mode = m.get('LimitMode')
+        if m.get('MaxAllowedMs') is not None:
+            self.max_allowed_ms = m.get('MaxAllowedMs')
+        if m.get('MinRequestAmount') is not None:
+            self.min_request_amount = m.get('MinRequestAmount')
+        if m.get('RecoveryTimeoutSec') is not None:
+            self.recovery_timeout_sec = m.get('RecoveryTimeoutSec')
+        if m.get('ResponseAdditionalHeaders') is not None:
+            self.response_additional_headers = m.get('ResponseAdditionalHeaders')
+        if m.get('ResponseContentBody') is not None:
+            self.response_content_body = m.get('ResponseContentBody')
+        if m.get('ResponseRedirectUrl') is not None:
+            self.response_redirect_url = m.get('ResponseRedirectUrl')
+        if m.get('ResponseStatusCode') is not None:
+            self.response_status_code = m.get('ResponseStatusCode')
+        if m.get('RouteId') is not None:
+            self.route_id = m.get('RouteId')
+        if m.get('RouteName') is not None:
+            self.route_name = m.get('RouteName')
+        if m.get('StatDurationSec') is not None:
+            self.stat_duration_sec = m.get('StatDurationSec')
+        if m.get('Strategy') is not None:
+            self.strategy = m.get('Strategy')
+        if m.get('TriggerRatio') is not None:
+            self.trigger_ratio = m.get('TriggerRatio')
+        return self
+
+
+class ListGatewayCircuitBreakerRuleResponseBodyDataResults(TeaModel):
+    def __init__(self, behavior_type=None, body_encoding=None, enable=None, gateway_id=None, gateway_unique_id=None,
+                 id=None, id_list=None, limit_mode=None, max_allowed_ms=None, min_request_amount=None,
+                 recovery_timeout_sec=None, response_additional_headers=None, response_content_body=None, response_redirect_url=None,
+                 response_status_code=None, route_id=None, route_name=None, stat_duration_sec=None, strategy=None, trigger_ratio=None):
+        self.behavior_type = behavior_type  # type: int
+        self.body_encoding = body_encoding  # type: int
+        self.enable = enable  # type: int
+        self.gateway_id = gateway_id  # type: long
+        self.gateway_unique_id = gateway_unique_id  # type: str
+        self.id = id  # type: long
+        self.id_list = id_list  # type: list[long]
+        self.limit_mode = limit_mode  # type: int
+        self.max_allowed_ms = max_allowed_ms  # type: int
+        self.min_request_amount = min_request_amount  # type: int
+        self.recovery_timeout_sec = recovery_timeout_sec  # type: int
+        self.response_additional_headers = response_additional_headers  # type: str
+        self.response_content_body = response_content_body  # type: str
+        self.response_redirect_url = response_redirect_url  # type: str
+        self.response_status_code = response_status_code  # type: int
+        self.route_id = route_id  # type: long
+        self.route_name = route_name  # type: str
+        self.stat_duration_sec = stat_duration_sec  # type: int
+        self.strategy = strategy  # type: int
+        self.trigger_ratio = trigger_ratio  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListGatewayCircuitBreakerRuleResponseBodyDataResults, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.behavior_type is not None:
+            result['BehaviorType'] = self.behavior_type
+        if self.body_encoding is not None:
+            result['BodyEncoding'] = self.body_encoding
+        if self.enable is not None:
+            result['Enable'] = self.enable
+        if self.gateway_id is not None:
+            result['GatewayId'] = self.gateway_id
+        if self.gateway_unique_id is not None:
+            result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.id_list is not None:
+            result['IdList'] = self.id_list
+        if self.limit_mode is not None:
+            result['LimitMode'] = self.limit_mode
+        if self.max_allowed_ms is not None:
+            result['MaxAllowedMs'] = self.max_allowed_ms
+        if self.min_request_amount is not None:
+            result['MinRequestAmount'] = self.min_request_amount
+        if self.recovery_timeout_sec is not None:
+            result['RecoveryTimeoutSec'] = self.recovery_timeout_sec
+        if self.response_additional_headers is not None:
+            result['ResponseAdditionalHeaders'] = self.response_additional_headers
+        if self.response_content_body is not None:
+            result['ResponseContentBody'] = self.response_content_body
+        if self.response_redirect_url is not None:
+            result['ResponseRedirectUrl'] = self.response_redirect_url
+        if self.response_status_code is not None:
+            result['ResponseStatusCode'] = self.response_status_code
+        if self.route_id is not None:
+            result['RouteId'] = self.route_id
+        if self.route_name is not None:
+            result['RouteName'] = self.route_name
+        if self.stat_duration_sec is not None:
+            result['StatDurationSec'] = self.stat_duration_sec
+        if self.strategy is not None:
+            result['Strategy'] = self.strategy
+        if self.trigger_ratio is not None:
+            result['TriggerRatio'] = self.trigger_ratio
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BehaviorType') is not None:
+            self.behavior_type = m.get('BehaviorType')
+        if m.get('BodyEncoding') is not None:
+            self.body_encoding = m.get('BodyEncoding')
+        if m.get('Enable') is not None:
+            self.enable = m.get('Enable')
+        if m.get('GatewayId') is not None:
+            self.gateway_id = m.get('GatewayId')
+        if m.get('GatewayUniqueId') is not None:
+            self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('IdList') is not None:
+            self.id_list = m.get('IdList')
+        if m.get('LimitMode') is not None:
+            self.limit_mode = m.get('LimitMode')
+        if m.get('MaxAllowedMs') is not None:
+            self.max_allowed_ms = m.get('MaxAllowedMs')
+        if m.get('MinRequestAmount') is not None:
+            self.min_request_amount = m.get('MinRequestAmount')
+        if m.get('RecoveryTimeoutSec') is not None:
+            self.recovery_timeout_sec = m.get('RecoveryTimeoutSec')
+        if m.get('ResponseAdditionalHeaders') is not None:
+            self.response_additional_headers = m.get('ResponseAdditionalHeaders')
+        if m.get('ResponseContentBody') is not None:
+            self.response_content_body = m.get('ResponseContentBody')
+        if m.get('ResponseRedirectUrl') is not None:
+            self.response_redirect_url = m.get('ResponseRedirectUrl')
+        if m.get('ResponseStatusCode') is not None:
+            self.response_status_code = m.get('ResponseStatusCode')
+        if m.get('RouteId') is not None:
+            self.route_id = m.get('RouteId')
+        if m.get('RouteName') is not None:
+            self.route_name = m.get('RouteName')
+        if m.get('StatDurationSec') is not None:
+            self.stat_duration_sec = m.get('StatDurationSec')
+        if m.get('Strategy') is not None:
+            self.strategy = m.get('Strategy')
+        if m.get('TriggerRatio') is not None:
+            self.trigger_ratio = m.get('TriggerRatio')
+        return self
+
+
+class ListGatewayCircuitBreakerRuleResponseBodyData(TeaModel):
+    def __init__(self, page_number=None, page_size=None, result=None, results=None, total_size=None):
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.result = result  # type: list[ListGatewayCircuitBreakerRuleResponseBodyDataResult]
+        self.results = results  # type: list[ListGatewayCircuitBreakerRuleResponseBodyDataResults]
+        self.total_size = total_size  # type: int
+
+    def validate(self):
+        if self.result:
+            for k in self.result:
+                if k:
+                    k.validate()
+        if self.results:
+            for k in self.results:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListGatewayCircuitBreakerRuleResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        result['Result'] = []
+        if self.result is not None:
+            for k in self.result:
+                result['Result'].append(k.to_map() if k else None)
+        result['Results'] = []
+        if self.results is not None:
+            for k in self.results:
+                result['Results'].append(k.to_map() if k else None)
+        if self.total_size is not None:
+            result['TotalSize'] = self.total_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        self.result = []
+        if m.get('Result') is not None:
+            for k in m.get('Result'):
+                temp_model = ListGatewayCircuitBreakerRuleResponseBodyDataResult()
+                self.result.append(temp_model.from_map(k))
+        self.results = []
+        if m.get('Results') is not None:
+            for k in m.get('Results'):
+                temp_model = ListGatewayCircuitBreakerRuleResponseBodyDataResults()
+                self.results.append(temp_model.from_map(k))
+        if m.get('TotalSize') is not None:
+            self.total_size = m.get('TotalSize')
+        return self
+
+
+class ListGatewayCircuitBreakerRuleResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: ListGatewayCircuitBreakerRuleResponseBodyData
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(ListGatewayCircuitBreakerRuleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            temp_model = ListGatewayCircuitBreakerRuleResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ListGatewayCircuitBreakerRuleResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListGatewayCircuitBreakerRuleResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListGatewayCircuitBreakerRuleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListGatewayCircuitBreakerRuleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListGatewayDomainRequest(TeaModel):
     def __init__(self, accept_language=None, domain_name=None, gateway_unique_id=None, type=None):
         # The language of the response. Valid values:
@@ -33417,6 +34595,697 @@ class ListGatewayDomainResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListGatewayDomainResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListGatewayFlowRuleRequest(TeaModel):
+    def __init__(self, accept_language=None, filter_params=None):
+        self.accept_language = accept_language  # type: str
+        # just for POP
+        self.filter_params = filter_params  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListGatewayFlowRuleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
+        if self.filter_params is not None:
+            result['FilterParams'] = self.filter_params
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
+        if m.get('FilterParams') is not None:
+            self.filter_params = m.get('FilterParams')
+        return self
+
+
+class ListGatewayFlowRuleResponseBodyDataResult(TeaModel):
+    def __init__(self, behavior_type=None, body_encoding=None, enable=None, gateway_id=None, gateway_unique_id=None,
+                 id=None, response_content_body=None, response_redirect_url=None, response_status_code=None,
+                 route_id=None, route_name=None, threshold=None):
+        self.behavior_type = behavior_type  # type: int
+        self.body_encoding = body_encoding  # type: int
+        self.enable = enable  # type: int
+        self.gateway_id = gateway_id  # type: long
+        self.gateway_unique_id = gateway_unique_id  # type: str
+        self.id = id  # type: long
+        self.response_content_body = response_content_body  # type: str
+        self.response_redirect_url = response_redirect_url  # type: str
+        self.response_status_code = response_status_code  # type: int
+        self.route_id = route_id  # type: long
+        self.route_name = route_name  # type: str
+        self.threshold = threshold  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListGatewayFlowRuleResponseBodyDataResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.behavior_type is not None:
+            result['BehaviorType'] = self.behavior_type
+        if self.body_encoding is not None:
+            result['BodyEncoding'] = self.body_encoding
+        if self.enable is not None:
+            result['Enable'] = self.enable
+        if self.gateway_id is not None:
+            result['GatewayId'] = self.gateway_id
+        if self.gateway_unique_id is not None:
+            result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.response_content_body is not None:
+            result['ResponseContentBody'] = self.response_content_body
+        if self.response_redirect_url is not None:
+            result['ResponseRedirectUrl'] = self.response_redirect_url
+        if self.response_status_code is not None:
+            result['ResponseStatusCode'] = self.response_status_code
+        if self.route_id is not None:
+            result['RouteId'] = self.route_id
+        if self.route_name is not None:
+            result['RouteName'] = self.route_name
+        if self.threshold is not None:
+            result['Threshold'] = self.threshold
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BehaviorType') is not None:
+            self.behavior_type = m.get('BehaviorType')
+        if m.get('BodyEncoding') is not None:
+            self.body_encoding = m.get('BodyEncoding')
+        if m.get('Enable') is not None:
+            self.enable = m.get('Enable')
+        if m.get('GatewayId') is not None:
+            self.gateway_id = m.get('GatewayId')
+        if m.get('GatewayUniqueId') is not None:
+            self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('ResponseContentBody') is not None:
+            self.response_content_body = m.get('ResponseContentBody')
+        if m.get('ResponseRedirectUrl') is not None:
+            self.response_redirect_url = m.get('ResponseRedirectUrl')
+        if m.get('ResponseStatusCode') is not None:
+            self.response_status_code = m.get('ResponseStatusCode')
+        if m.get('RouteId') is not None:
+            self.route_id = m.get('RouteId')
+        if m.get('RouteName') is not None:
+            self.route_name = m.get('RouteName')
+        if m.get('Threshold') is not None:
+            self.threshold = m.get('Threshold')
+        return self
+
+
+class ListGatewayFlowRuleResponseBodyDataResults(TeaModel):
+    def __init__(self, behavior_type=None, body_encoding=None, enable=None, gateway_id=None, gateway_unique_id=None,
+                 id=None, id_list=None, limit_mode=None, response_additional_headers=None, response_content_body=None,
+                 response_redirect_url=None, response_status_code=None, route_id=None, route_name=None, stat_duration_ms=None,
+                 threshold=None):
+        self.behavior_type = behavior_type  # type: int
+        self.body_encoding = body_encoding  # type: int
+        self.enable = enable  # type: int
+        self.gateway_id = gateway_id  # type: long
+        self.gateway_unique_id = gateway_unique_id  # type: str
+        self.id = id  # type: long
+        self.id_list = id_list  # type: list[long]
+        self.limit_mode = limit_mode  # type: int
+        self.response_additional_headers = response_additional_headers  # type: str
+        self.response_content_body = response_content_body  # type: str
+        self.response_redirect_url = response_redirect_url  # type: str
+        self.response_status_code = response_status_code  # type: int
+        self.route_id = route_id  # type: long
+        self.route_name = route_name  # type: str
+        self.stat_duration_ms = stat_duration_ms  # type: int
+        self.threshold = threshold  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListGatewayFlowRuleResponseBodyDataResults, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.behavior_type is not None:
+            result['BehaviorType'] = self.behavior_type
+        if self.body_encoding is not None:
+            result['BodyEncoding'] = self.body_encoding
+        if self.enable is not None:
+            result['Enable'] = self.enable
+        if self.gateway_id is not None:
+            result['GatewayId'] = self.gateway_id
+        if self.gateway_unique_id is not None:
+            result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.id_list is not None:
+            result['IdList'] = self.id_list
+        if self.limit_mode is not None:
+            result['LimitMode'] = self.limit_mode
+        if self.response_additional_headers is not None:
+            result['ResponseAdditionalHeaders'] = self.response_additional_headers
+        if self.response_content_body is not None:
+            result['ResponseContentBody'] = self.response_content_body
+        if self.response_redirect_url is not None:
+            result['ResponseRedirectUrl'] = self.response_redirect_url
+        if self.response_status_code is not None:
+            result['ResponseStatusCode'] = self.response_status_code
+        if self.route_id is not None:
+            result['RouteId'] = self.route_id
+        if self.route_name is not None:
+            result['RouteName'] = self.route_name
+        if self.stat_duration_ms is not None:
+            result['StatDurationMs'] = self.stat_duration_ms
+        if self.threshold is not None:
+            result['Threshold'] = self.threshold
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BehaviorType') is not None:
+            self.behavior_type = m.get('BehaviorType')
+        if m.get('BodyEncoding') is not None:
+            self.body_encoding = m.get('BodyEncoding')
+        if m.get('Enable') is not None:
+            self.enable = m.get('Enable')
+        if m.get('GatewayId') is not None:
+            self.gateway_id = m.get('GatewayId')
+        if m.get('GatewayUniqueId') is not None:
+            self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('IdList') is not None:
+            self.id_list = m.get('IdList')
+        if m.get('LimitMode') is not None:
+            self.limit_mode = m.get('LimitMode')
+        if m.get('ResponseAdditionalHeaders') is not None:
+            self.response_additional_headers = m.get('ResponseAdditionalHeaders')
+        if m.get('ResponseContentBody') is not None:
+            self.response_content_body = m.get('ResponseContentBody')
+        if m.get('ResponseRedirectUrl') is not None:
+            self.response_redirect_url = m.get('ResponseRedirectUrl')
+        if m.get('ResponseStatusCode') is not None:
+            self.response_status_code = m.get('ResponseStatusCode')
+        if m.get('RouteId') is not None:
+            self.route_id = m.get('RouteId')
+        if m.get('RouteName') is not None:
+            self.route_name = m.get('RouteName')
+        if m.get('StatDurationMs') is not None:
+            self.stat_duration_ms = m.get('StatDurationMs')
+        if m.get('Threshold') is not None:
+            self.threshold = m.get('Threshold')
+        return self
+
+
+class ListGatewayFlowRuleResponseBodyData(TeaModel):
+    def __init__(self, page_number=None, page_size=None, result=None, results=None, total_size=None):
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.result = result  # type: list[ListGatewayFlowRuleResponseBodyDataResult]
+        self.results = results  # type: list[ListGatewayFlowRuleResponseBodyDataResults]
+        self.total_size = total_size  # type: int
+
+    def validate(self):
+        if self.result:
+            for k in self.result:
+                if k:
+                    k.validate()
+        if self.results:
+            for k in self.results:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListGatewayFlowRuleResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        result['Result'] = []
+        if self.result is not None:
+            for k in self.result:
+                result['Result'].append(k.to_map() if k else None)
+        result['Results'] = []
+        if self.results is not None:
+            for k in self.results:
+                result['Results'].append(k.to_map() if k else None)
+        if self.total_size is not None:
+            result['TotalSize'] = self.total_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        self.result = []
+        if m.get('Result') is not None:
+            for k in m.get('Result'):
+                temp_model = ListGatewayFlowRuleResponseBodyDataResult()
+                self.result.append(temp_model.from_map(k))
+        self.results = []
+        if m.get('Results') is not None:
+            for k in m.get('Results'):
+                temp_model = ListGatewayFlowRuleResponseBodyDataResults()
+                self.results.append(temp_model.from_map(k))
+        if m.get('TotalSize') is not None:
+            self.total_size = m.get('TotalSize')
+        return self
+
+
+class ListGatewayFlowRuleResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: ListGatewayFlowRuleResponseBodyData
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(ListGatewayFlowRuleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            temp_model = ListGatewayFlowRuleResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ListGatewayFlowRuleResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListGatewayFlowRuleResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListGatewayFlowRuleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListGatewayFlowRuleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListGatewayIsolationRuleRequest(TeaModel):
+    def __init__(self, accept_language=None, filter_params=None):
+        self.accept_language = accept_language  # type: str
+        # just for POP
+        self.filter_params = filter_params  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListGatewayIsolationRuleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
+        if self.filter_params is not None:
+            result['FilterParams'] = self.filter_params
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
+        if m.get('FilterParams') is not None:
+            self.filter_params = m.get('FilterParams')
+        return self
+
+
+class ListGatewayIsolationRuleResponseBodyDataResult(TeaModel):
+    def __init__(self, behavior_type=None, body_encoding=None, enable=None, gateway_id=None, gateway_unique_id=None,
+                 id=None, id_list=None, limit_mode=None, max_concurrency=None, response_additional_headers=None,
+                 response_content_body=None, response_redirect_url=None, response_status_code=None, route_id=None, route_name=None):
+        self.behavior_type = behavior_type  # type: int
+        self.body_encoding = body_encoding  # type: int
+        self.enable = enable  # type: int
+        self.gateway_id = gateway_id  # type: long
+        self.gateway_unique_id = gateway_unique_id  # type: str
+        self.id = id  # type: long
+        self.id_list = id_list  # type: list[long]
+        self.limit_mode = limit_mode  # type: int
+        self.max_concurrency = max_concurrency  # type: int
+        self.response_additional_headers = response_additional_headers  # type: str
+        self.response_content_body = response_content_body  # type: str
+        self.response_redirect_url = response_redirect_url  # type: str
+        self.response_status_code = response_status_code  # type: int
+        self.route_id = route_id  # type: long
+        self.route_name = route_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListGatewayIsolationRuleResponseBodyDataResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.behavior_type is not None:
+            result['BehaviorType'] = self.behavior_type
+        if self.body_encoding is not None:
+            result['BodyEncoding'] = self.body_encoding
+        if self.enable is not None:
+            result['Enable'] = self.enable
+        if self.gateway_id is not None:
+            result['GatewayId'] = self.gateway_id
+        if self.gateway_unique_id is not None:
+            result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.id_list is not None:
+            result['IdList'] = self.id_list
+        if self.limit_mode is not None:
+            result['LimitMode'] = self.limit_mode
+        if self.max_concurrency is not None:
+            result['MaxConcurrency'] = self.max_concurrency
+        if self.response_additional_headers is not None:
+            result['ResponseAdditionalHeaders'] = self.response_additional_headers
+        if self.response_content_body is not None:
+            result['ResponseContentBody'] = self.response_content_body
+        if self.response_redirect_url is not None:
+            result['ResponseRedirectUrl'] = self.response_redirect_url
+        if self.response_status_code is not None:
+            result['ResponseStatusCode'] = self.response_status_code
+        if self.route_id is not None:
+            result['RouteId'] = self.route_id
+        if self.route_name is not None:
+            result['RouteName'] = self.route_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BehaviorType') is not None:
+            self.behavior_type = m.get('BehaviorType')
+        if m.get('BodyEncoding') is not None:
+            self.body_encoding = m.get('BodyEncoding')
+        if m.get('Enable') is not None:
+            self.enable = m.get('Enable')
+        if m.get('GatewayId') is not None:
+            self.gateway_id = m.get('GatewayId')
+        if m.get('GatewayUniqueId') is not None:
+            self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('IdList') is not None:
+            self.id_list = m.get('IdList')
+        if m.get('LimitMode') is not None:
+            self.limit_mode = m.get('LimitMode')
+        if m.get('MaxConcurrency') is not None:
+            self.max_concurrency = m.get('MaxConcurrency')
+        if m.get('ResponseAdditionalHeaders') is not None:
+            self.response_additional_headers = m.get('ResponseAdditionalHeaders')
+        if m.get('ResponseContentBody') is not None:
+            self.response_content_body = m.get('ResponseContentBody')
+        if m.get('ResponseRedirectUrl') is not None:
+            self.response_redirect_url = m.get('ResponseRedirectUrl')
+        if m.get('ResponseStatusCode') is not None:
+            self.response_status_code = m.get('ResponseStatusCode')
+        if m.get('RouteId') is not None:
+            self.route_id = m.get('RouteId')
+        if m.get('RouteName') is not None:
+            self.route_name = m.get('RouteName')
+        return self
+
+
+class ListGatewayIsolationRuleResponseBodyDataResults(TeaModel):
+    def __init__(self, behavior_type=None, body_encoding=None, enable=None, gateway_id=None, gateway_unique_id=None,
+                 id=None, id_list=None, limit_mode=None, max_concurrency=None, response_additional_headers=None,
+                 response_content_body=None, response_redirect_url=None, response_status_code=None, route_id=None, route_name=None):
+        self.behavior_type = behavior_type  # type: int
+        self.body_encoding = body_encoding  # type: int
+        self.enable = enable  # type: int
+        self.gateway_id = gateway_id  # type: long
+        self.gateway_unique_id = gateway_unique_id  # type: str
+        self.id = id  # type: long
+        self.id_list = id_list  # type: list[long]
+        self.limit_mode = limit_mode  # type: int
+        self.max_concurrency = max_concurrency  # type: int
+        self.response_additional_headers = response_additional_headers  # type: str
+        self.response_content_body = response_content_body  # type: str
+        self.response_redirect_url = response_redirect_url  # type: str
+        self.response_status_code = response_status_code  # type: int
+        self.route_id = route_id  # type: long
+        self.route_name = route_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListGatewayIsolationRuleResponseBodyDataResults, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.behavior_type is not None:
+            result['BehaviorType'] = self.behavior_type
+        if self.body_encoding is not None:
+            result['BodyEncoding'] = self.body_encoding
+        if self.enable is not None:
+            result['Enable'] = self.enable
+        if self.gateway_id is not None:
+            result['GatewayId'] = self.gateway_id
+        if self.gateway_unique_id is not None:
+            result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.id_list is not None:
+            result['IdList'] = self.id_list
+        if self.limit_mode is not None:
+            result['LimitMode'] = self.limit_mode
+        if self.max_concurrency is not None:
+            result['MaxConcurrency'] = self.max_concurrency
+        if self.response_additional_headers is not None:
+            result['ResponseAdditionalHeaders'] = self.response_additional_headers
+        if self.response_content_body is not None:
+            result['ResponseContentBody'] = self.response_content_body
+        if self.response_redirect_url is not None:
+            result['ResponseRedirectUrl'] = self.response_redirect_url
+        if self.response_status_code is not None:
+            result['ResponseStatusCode'] = self.response_status_code
+        if self.route_id is not None:
+            result['RouteId'] = self.route_id
+        if self.route_name is not None:
+            result['RouteName'] = self.route_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BehaviorType') is not None:
+            self.behavior_type = m.get('BehaviorType')
+        if m.get('BodyEncoding') is not None:
+            self.body_encoding = m.get('BodyEncoding')
+        if m.get('Enable') is not None:
+            self.enable = m.get('Enable')
+        if m.get('GatewayId') is not None:
+            self.gateway_id = m.get('GatewayId')
+        if m.get('GatewayUniqueId') is not None:
+            self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('IdList') is not None:
+            self.id_list = m.get('IdList')
+        if m.get('LimitMode') is not None:
+            self.limit_mode = m.get('LimitMode')
+        if m.get('MaxConcurrency') is not None:
+            self.max_concurrency = m.get('MaxConcurrency')
+        if m.get('ResponseAdditionalHeaders') is not None:
+            self.response_additional_headers = m.get('ResponseAdditionalHeaders')
+        if m.get('ResponseContentBody') is not None:
+            self.response_content_body = m.get('ResponseContentBody')
+        if m.get('ResponseRedirectUrl') is not None:
+            self.response_redirect_url = m.get('ResponseRedirectUrl')
+        if m.get('ResponseStatusCode') is not None:
+            self.response_status_code = m.get('ResponseStatusCode')
+        if m.get('RouteId') is not None:
+            self.route_id = m.get('RouteId')
+        if m.get('RouteName') is not None:
+            self.route_name = m.get('RouteName')
+        return self
+
+
+class ListGatewayIsolationRuleResponseBodyData(TeaModel):
+    def __init__(self, page_number=None, page_size=None, result=None, results=None, total_size=None):
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.result = result  # type: list[ListGatewayIsolationRuleResponseBodyDataResult]
+        self.results = results  # type: list[ListGatewayIsolationRuleResponseBodyDataResults]
+        self.total_size = total_size  # type: int
+
+    def validate(self):
+        if self.result:
+            for k in self.result:
+                if k:
+                    k.validate()
+        if self.results:
+            for k in self.results:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListGatewayIsolationRuleResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        result['Result'] = []
+        if self.result is not None:
+            for k in self.result:
+                result['Result'].append(k.to_map() if k else None)
+        result['Results'] = []
+        if self.results is not None:
+            for k in self.results:
+                result['Results'].append(k.to_map() if k else None)
+        if self.total_size is not None:
+            result['TotalSize'] = self.total_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        self.result = []
+        if m.get('Result') is not None:
+            for k in m.get('Result'):
+                temp_model = ListGatewayIsolationRuleResponseBodyDataResult()
+                self.result.append(temp_model.from_map(k))
+        self.results = []
+        if m.get('Results') is not None:
+            for k in m.get('Results'):
+                temp_model = ListGatewayIsolationRuleResponseBodyDataResults()
+                self.results.append(temp_model.from_map(k))
+        if m.get('TotalSize') is not None:
+            self.total_size = m.get('TotalSize')
+        return self
+
+
+class ListGatewayIsolationRuleResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: ListGatewayIsolationRuleResponseBodyData
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(ListGatewayIsolationRuleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            temp_model = ListGatewayIsolationRuleResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ListGatewayIsolationRuleResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListGatewayIsolationRuleResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListGatewayIsolationRuleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListGatewayIsolationRuleResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -49261,6 +51130,307 @@ class UpdateGatewayAuthConsumerStatusResponse(TeaModel):
         return self
 
 
+class UpdateGatewayCircuitBreakerRuleRequest(TeaModel):
+    def __init__(self, accept_language=None, behavior_type=None, body_encoding=None, enable=None, gateway_id=None,
+                 gateway_unique_id=None, id=None, max_allowed_ms=None, min_request_amount=None, recovery_timeout_sec=None,
+                 response_content_body=None, response_redirect_url=None, response_status_code=None, route_id=None, route_name=None,
+                 stat_duration_sec=None, strategy=None, trigger_ratio=None):
+        self.accept_language = accept_language  # type: str
+        self.behavior_type = behavior_type  # type: int
+        self.body_encoding = body_encoding  # type: int
+        self.enable = enable  # type: int
+        self.gateway_id = gateway_id  # type: long
+        self.gateway_unique_id = gateway_unique_id  # type: str
+        self.id = id  # type: long
+        self.max_allowed_ms = max_allowed_ms  # type: int
+        self.min_request_amount = min_request_amount  # type: int
+        self.recovery_timeout_sec = recovery_timeout_sec  # type: int
+        self.response_content_body = response_content_body  # type: str
+        self.response_redirect_url = response_redirect_url  # type: str
+        self.response_status_code = response_status_code  # type: int
+        self.route_id = route_id  # type: long
+        self.route_name = route_name  # type: str
+        self.stat_duration_sec = stat_duration_sec  # type: int
+        self.strategy = strategy  # type: int
+        self.trigger_ratio = trigger_ratio  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateGatewayCircuitBreakerRuleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
+        if self.behavior_type is not None:
+            result['BehaviorType'] = self.behavior_type
+        if self.body_encoding is not None:
+            result['BodyEncoding'] = self.body_encoding
+        if self.enable is not None:
+            result['Enable'] = self.enable
+        if self.gateway_id is not None:
+            result['GatewayId'] = self.gateway_id
+        if self.gateway_unique_id is not None:
+            result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.max_allowed_ms is not None:
+            result['MaxAllowedMs'] = self.max_allowed_ms
+        if self.min_request_amount is not None:
+            result['MinRequestAmount'] = self.min_request_amount
+        if self.recovery_timeout_sec is not None:
+            result['RecoveryTimeoutSec'] = self.recovery_timeout_sec
+        if self.response_content_body is not None:
+            result['ResponseContentBody'] = self.response_content_body
+        if self.response_redirect_url is not None:
+            result['ResponseRedirectUrl'] = self.response_redirect_url
+        if self.response_status_code is not None:
+            result['ResponseStatusCode'] = self.response_status_code
+        if self.route_id is not None:
+            result['RouteId'] = self.route_id
+        if self.route_name is not None:
+            result['RouteName'] = self.route_name
+        if self.stat_duration_sec is not None:
+            result['StatDurationSec'] = self.stat_duration_sec
+        if self.strategy is not None:
+            result['Strategy'] = self.strategy
+        if self.trigger_ratio is not None:
+            result['TriggerRatio'] = self.trigger_ratio
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
+        if m.get('BehaviorType') is not None:
+            self.behavior_type = m.get('BehaviorType')
+        if m.get('BodyEncoding') is not None:
+            self.body_encoding = m.get('BodyEncoding')
+        if m.get('Enable') is not None:
+            self.enable = m.get('Enable')
+        if m.get('GatewayId') is not None:
+            self.gateway_id = m.get('GatewayId')
+        if m.get('GatewayUniqueId') is not None:
+            self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('MaxAllowedMs') is not None:
+            self.max_allowed_ms = m.get('MaxAllowedMs')
+        if m.get('MinRequestAmount') is not None:
+            self.min_request_amount = m.get('MinRequestAmount')
+        if m.get('RecoveryTimeoutSec') is not None:
+            self.recovery_timeout_sec = m.get('RecoveryTimeoutSec')
+        if m.get('ResponseContentBody') is not None:
+            self.response_content_body = m.get('ResponseContentBody')
+        if m.get('ResponseRedirectUrl') is not None:
+            self.response_redirect_url = m.get('ResponseRedirectUrl')
+        if m.get('ResponseStatusCode') is not None:
+            self.response_status_code = m.get('ResponseStatusCode')
+        if m.get('RouteId') is not None:
+            self.route_id = m.get('RouteId')
+        if m.get('RouteName') is not None:
+            self.route_name = m.get('RouteName')
+        if m.get('StatDurationSec') is not None:
+            self.stat_duration_sec = m.get('StatDurationSec')
+        if m.get('Strategy') is not None:
+            self.strategy = m.get('Strategy')
+        if m.get('TriggerRatio') is not None:
+            self.trigger_ratio = m.get('TriggerRatio')
+        return self
+
+
+class UpdateGatewayCircuitBreakerRuleResponseBodyData(TeaModel):
+    def __init__(self, behavior_type=None, body_encoding=None, enable=None, gateway_id=None, gateway_unique_id=None,
+                 id=None, id_list=None, limit_mode=None, max_allowed_ms=None, min_request_amount=None,
+                 recovery_timeout_sec=None, response_additional_headers=None, response_content_body=None, response_redirect_url=None,
+                 response_status_code=None, route_id=None, route_name=None, stat_duration_sec=None, strategy=None, trigger_ratio=None):
+        self.behavior_type = behavior_type  # type: int
+        self.body_encoding = body_encoding  # type: int
+        self.enable = enable  # type: int
+        self.gateway_id = gateway_id  # type: long
+        self.gateway_unique_id = gateway_unique_id  # type: str
+        self.id = id  # type: long
+        self.id_list = id_list  # type: list[long]
+        self.limit_mode = limit_mode  # type: int
+        self.max_allowed_ms = max_allowed_ms  # type: int
+        self.min_request_amount = min_request_amount  # type: int
+        self.recovery_timeout_sec = recovery_timeout_sec  # type: int
+        self.response_additional_headers = response_additional_headers  # type: str
+        self.response_content_body = response_content_body  # type: str
+        self.response_redirect_url = response_redirect_url  # type: str
+        self.response_status_code = response_status_code  # type: int
+        self.route_id = route_id  # type: long
+        self.route_name = route_name  # type: str
+        self.stat_duration_sec = stat_duration_sec  # type: int
+        self.strategy = strategy  # type: int
+        self.trigger_ratio = trigger_ratio  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateGatewayCircuitBreakerRuleResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.behavior_type is not None:
+            result['BehaviorType'] = self.behavior_type
+        if self.body_encoding is not None:
+            result['BodyEncoding'] = self.body_encoding
+        if self.enable is not None:
+            result['Enable'] = self.enable
+        if self.gateway_id is not None:
+            result['GatewayId'] = self.gateway_id
+        if self.gateway_unique_id is not None:
+            result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.id_list is not None:
+            result['IdList'] = self.id_list
+        if self.limit_mode is not None:
+            result['LimitMode'] = self.limit_mode
+        if self.max_allowed_ms is not None:
+            result['MaxAllowedMs'] = self.max_allowed_ms
+        if self.min_request_amount is not None:
+            result['MinRequestAmount'] = self.min_request_amount
+        if self.recovery_timeout_sec is not None:
+            result['RecoveryTimeoutSec'] = self.recovery_timeout_sec
+        if self.response_additional_headers is not None:
+            result['ResponseAdditionalHeaders'] = self.response_additional_headers
+        if self.response_content_body is not None:
+            result['ResponseContentBody'] = self.response_content_body
+        if self.response_redirect_url is not None:
+            result['ResponseRedirectUrl'] = self.response_redirect_url
+        if self.response_status_code is not None:
+            result['ResponseStatusCode'] = self.response_status_code
+        if self.route_id is not None:
+            result['RouteId'] = self.route_id
+        if self.route_name is not None:
+            result['RouteName'] = self.route_name
+        if self.stat_duration_sec is not None:
+            result['StatDurationSec'] = self.stat_duration_sec
+        if self.strategy is not None:
+            result['Strategy'] = self.strategy
+        if self.trigger_ratio is not None:
+            result['TriggerRatio'] = self.trigger_ratio
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BehaviorType') is not None:
+            self.behavior_type = m.get('BehaviorType')
+        if m.get('BodyEncoding') is not None:
+            self.body_encoding = m.get('BodyEncoding')
+        if m.get('Enable') is not None:
+            self.enable = m.get('Enable')
+        if m.get('GatewayId') is not None:
+            self.gateway_id = m.get('GatewayId')
+        if m.get('GatewayUniqueId') is not None:
+            self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('IdList') is not None:
+            self.id_list = m.get('IdList')
+        if m.get('LimitMode') is not None:
+            self.limit_mode = m.get('LimitMode')
+        if m.get('MaxAllowedMs') is not None:
+            self.max_allowed_ms = m.get('MaxAllowedMs')
+        if m.get('MinRequestAmount') is not None:
+            self.min_request_amount = m.get('MinRequestAmount')
+        if m.get('RecoveryTimeoutSec') is not None:
+            self.recovery_timeout_sec = m.get('RecoveryTimeoutSec')
+        if m.get('ResponseAdditionalHeaders') is not None:
+            self.response_additional_headers = m.get('ResponseAdditionalHeaders')
+        if m.get('ResponseContentBody') is not None:
+            self.response_content_body = m.get('ResponseContentBody')
+        if m.get('ResponseRedirectUrl') is not None:
+            self.response_redirect_url = m.get('ResponseRedirectUrl')
+        if m.get('ResponseStatusCode') is not None:
+            self.response_status_code = m.get('ResponseStatusCode')
+        if m.get('RouteId') is not None:
+            self.route_id = m.get('RouteId')
+        if m.get('RouteName') is not None:
+            self.route_name = m.get('RouteName')
+        if m.get('StatDurationSec') is not None:
+            self.stat_duration_sec = m.get('StatDurationSec')
+        if m.get('Strategy') is not None:
+            self.strategy = m.get('Strategy')
+        if m.get('TriggerRatio') is not None:
+            self.trigger_ratio = m.get('TriggerRatio')
+        return self
+
+
+class UpdateGatewayCircuitBreakerRuleResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: UpdateGatewayCircuitBreakerRuleResponseBodyData
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(UpdateGatewayCircuitBreakerRuleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            temp_model = UpdateGatewayCircuitBreakerRuleResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UpdateGatewayCircuitBreakerRuleResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateGatewayCircuitBreakerRuleResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateGatewayCircuitBreakerRuleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateGatewayCircuitBreakerRuleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class UpdateGatewayDomainRequest(TeaModel):
     def __init__(self, accept_language=None, cert_identifier=None, gateway_unique_id=None, http_2=None, id=None,
                  must_https=None, protocol=None, tls_max=None, tls_min=None):
@@ -49435,6 +51605,510 @@ class UpdateGatewayDomainResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UpdateGatewayDomainResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdateGatewayFlowRuleRequest(TeaModel):
+    def __init__(self, accept_language=None, behavior_type=None, body_encoding=None, enable=None, gateway_id=None,
+                 gateway_unique_id=None, id=None, response_content_body=None, response_redirect_url=None, response_status_code=None,
+                 route_id=None, route_name=None, threshold=None):
+        self.accept_language = accept_language  # type: str
+        self.behavior_type = behavior_type  # type: int
+        self.body_encoding = body_encoding  # type: int
+        self.enable = enable  # type: int
+        self.gateway_id = gateway_id  # type: long
+        self.gateway_unique_id = gateway_unique_id  # type: str
+        self.id = id  # type: long
+        self.response_content_body = response_content_body  # type: str
+        self.response_redirect_url = response_redirect_url  # type: str
+        self.response_status_code = response_status_code  # type: int
+        self.route_id = route_id  # type: long
+        self.route_name = route_name  # type: str
+        self.threshold = threshold  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateGatewayFlowRuleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
+        if self.behavior_type is not None:
+            result['BehaviorType'] = self.behavior_type
+        if self.body_encoding is not None:
+            result['BodyEncoding'] = self.body_encoding
+        if self.enable is not None:
+            result['Enable'] = self.enable
+        if self.gateway_id is not None:
+            result['GatewayId'] = self.gateway_id
+        if self.gateway_unique_id is not None:
+            result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.response_content_body is not None:
+            result['ResponseContentBody'] = self.response_content_body
+        if self.response_redirect_url is not None:
+            result['ResponseRedirectUrl'] = self.response_redirect_url
+        if self.response_status_code is not None:
+            result['ResponseStatusCode'] = self.response_status_code
+        if self.route_id is not None:
+            result['RouteId'] = self.route_id
+        if self.route_name is not None:
+            result['RouteName'] = self.route_name
+        if self.threshold is not None:
+            result['Threshold'] = self.threshold
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
+        if m.get('BehaviorType') is not None:
+            self.behavior_type = m.get('BehaviorType')
+        if m.get('BodyEncoding') is not None:
+            self.body_encoding = m.get('BodyEncoding')
+        if m.get('Enable') is not None:
+            self.enable = m.get('Enable')
+        if m.get('GatewayId') is not None:
+            self.gateway_id = m.get('GatewayId')
+        if m.get('GatewayUniqueId') is not None:
+            self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('ResponseContentBody') is not None:
+            self.response_content_body = m.get('ResponseContentBody')
+        if m.get('ResponseRedirectUrl') is not None:
+            self.response_redirect_url = m.get('ResponseRedirectUrl')
+        if m.get('ResponseStatusCode') is not None:
+            self.response_status_code = m.get('ResponseStatusCode')
+        if m.get('RouteId') is not None:
+            self.route_id = m.get('RouteId')
+        if m.get('RouteName') is not None:
+            self.route_name = m.get('RouteName')
+        if m.get('Threshold') is not None:
+            self.threshold = m.get('Threshold')
+        return self
+
+
+class UpdateGatewayFlowRuleResponseBodyData(TeaModel):
+    def __init__(self, behavior_type=None, body_encoding=None, enable=None, gateway_id=None, gateway_unique_id=None,
+                 id=None, id_list=None, limit_mode=None, response_additional_headers=None, response_content_body=None,
+                 response_redirect_url=None, response_status_code=None, route_id=None, route_name=None, stat_duration_ms=None,
+                 threshold=None):
+        self.behavior_type = behavior_type  # type: int
+        self.body_encoding = body_encoding  # type: int
+        self.enable = enable  # type: int
+        self.gateway_id = gateway_id  # type: long
+        self.gateway_unique_id = gateway_unique_id  # type: str
+        self.id = id  # type: long
+        self.id_list = id_list  # type: list[long]
+        self.limit_mode = limit_mode  # type: int
+        self.response_additional_headers = response_additional_headers  # type: str
+        self.response_content_body = response_content_body  # type: str
+        self.response_redirect_url = response_redirect_url  # type: str
+        self.response_status_code = response_status_code  # type: int
+        self.route_id = route_id  # type: long
+        self.route_name = route_name  # type: str
+        self.stat_duration_ms = stat_duration_ms  # type: int
+        self.threshold = threshold  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateGatewayFlowRuleResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.behavior_type is not None:
+            result['BehaviorType'] = self.behavior_type
+        if self.body_encoding is not None:
+            result['BodyEncoding'] = self.body_encoding
+        if self.enable is not None:
+            result['Enable'] = self.enable
+        if self.gateway_id is not None:
+            result['GatewayId'] = self.gateway_id
+        if self.gateway_unique_id is not None:
+            result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.id_list is not None:
+            result['IdList'] = self.id_list
+        if self.limit_mode is not None:
+            result['LimitMode'] = self.limit_mode
+        if self.response_additional_headers is not None:
+            result['ResponseAdditionalHeaders'] = self.response_additional_headers
+        if self.response_content_body is not None:
+            result['ResponseContentBody'] = self.response_content_body
+        if self.response_redirect_url is not None:
+            result['ResponseRedirectUrl'] = self.response_redirect_url
+        if self.response_status_code is not None:
+            result['ResponseStatusCode'] = self.response_status_code
+        if self.route_id is not None:
+            result['RouteId'] = self.route_id
+        if self.route_name is not None:
+            result['RouteName'] = self.route_name
+        if self.stat_duration_ms is not None:
+            result['StatDurationMs'] = self.stat_duration_ms
+        if self.threshold is not None:
+            result['Threshold'] = self.threshold
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BehaviorType') is not None:
+            self.behavior_type = m.get('BehaviorType')
+        if m.get('BodyEncoding') is not None:
+            self.body_encoding = m.get('BodyEncoding')
+        if m.get('Enable') is not None:
+            self.enable = m.get('Enable')
+        if m.get('GatewayId') is not None:
+            self.gateway_id = m.get('GatewayId')
+        if m.get('GatewayUniqueId') is not None:
+            self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('IdList') is not None:
+            self.id_list = m.get('IdList')
+        if m.get('LimitMode') is not None:
+            self.limit_mode = m.get('LimitMode')
+        if m.get('ResponseAdditionalHeaders') is not None:
+            self.response_additional_headers = m.get('ResponseAdditionalHeaders')
+        if m.get('ResponseContentBody') is not None:
+            self.response_content_body = m.get('ResponseContentBody')
+        if m.get('ResponseRedirectUrl') is not None:
+            self.response_redirect_url = m.get('ResponseRedirectUrl')
+        if m.get('ResponseStatusCode') is not None:
+            self.response_status_code = m.get('ResponseStatusCode')
+        if m.get('RouteId') is not None:
+            self.route_id = m.get('RouteId')
+        if m.get('RouteName') is not None:
+            self.route_name = m.get('RouteName')
+        if m.get('StatDurationMs') is not None:
+            self.stat_duration_ms = m.get('StatDurationMs')
+        if m.get('Threshold') is not None:
+            self.threshold = m.get('Threshold')
+        return self
+
+
+class UpdateGatewayFlowRuleResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: UpdateGatewayFlowRuleResponseBodyData
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(UpdateGatewayFlowRuleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            temp_model = UpdateGatewayFlowRuleResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UpdateGatewayFlowRuleResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateGatewayFlowRuleResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateGatewayFlowRuleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateGatewayFlowRuleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdateGatewayIsolationRuleRequest(TeaModel):
+    def __init__(self, accept_language=None, behavior_type=None, body_encoding=None, enable=None, gateway_id=None,
+                 gateway_unique_id=None, id=None, max_concurrency=None, response_content_body=None, response_redirect_url=None,
+                 response_status_code=None, route_id=None, route_name=None):
+        self.accept_language = accept_language  # type: str
+        self.behavior_type = behavior_type  # type: int
+        self.body_encoding = body_encoding  # type: int
+        self.enable = enable  # type: int
+        self.gateway_id = gateway_id  # type: long
+        self.gateway_unique_id = gateway_unique_id  # type: str
+        self.id = id  # type: long
+        self.max_concurrency = max_concurrency  # type: int
+        self.response_content_body = response_content_body  # type: str
+        self.response_redirect_url = response_redirect_url  # type: str
+        self.response_status_code = response_status_code  # type: int
+        self.route_id = route_id  # type: long
+        self.route_name = route_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateGatewayIsolationRuleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
+        if self.behavior_type is not None:
+            result['BehaviorType'] = self.behavior_type
+        if self.body_encoding is not None:
+            result['BodyEncoding'] = self.body_encoding
+        if self.enable is not None:
+            result['Enable'] = self.enable
+        if self.gateway_id is not None:
+            result['GatewayId'] = self.gateway_id
+        if self.gateway_unique_id is not None:
+            result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.max_concurrency is not None:
+            result['MaxConcurrency'] = self.max_concurrency
+        if self.response_content_body is not None:
+            result['ResponseContentBody'] = self.response_content_body
+        if self.response_redirect_url is not None:
+            result['ResponseRedirectUrl'] = self.response_redirect_url
+        if self.response_status_code is not None:
+            result['ResponseStatusCode'] = self.response_status_code
+        if self.route_id is not None:
+            result['RouteId'] = self.route_id
+        if self.route_name is not None:
+            result['RouteName'] = self.route_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
+        if m.get('BehaviorType') is not None:
+            self.behavior_type = m.get('BehaviorType')
+        if m.get('BodyEncoding') is not None:
+            self.body_encoding = m.get('BodyEncoding')
+        if m.get('Enable') is not None:
+            self.enable = m.get('Enable')
+        if m.get('GatewayId') is not None:
+            self.gateway_id = m.get('GatewayId')
+        if m.get('GatewayUniqueId') is not None:
+            self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('MaxConcurrency') is not None:
+            self.max_concurrency = m.get('MaxConcurrency')
+        if m.get('ResponseContentBody') is not None:
+            self.response_content_body = m.get('ResponseContentBody')
+        if m.get('ResponseRedirectUrl') is not None:
+            self.response_redirect_url = m.get('ResponseRedirectUrl')
+        if m.get('ResponseStatusCode') is not None:
+            self.response_status_code = m.get('ResponseStatusCode')
+        if m.get('RouteId') is not None:
+            self.route_id = m.get('RouteId')
+        if m.get('RouteName') is not None:
+            self.route_name = m.get('RouteName')
+        return self
+
+
+class UpdateGatewayIsolationRuleResponseBodyData(TeaModel):
+    def __init__(self, behavior_type=None, body_encoding=None, enable=None, gateway_id=None, gateway_unique_id=None,
+                 id=None, id_list=None, limit_mode=None, max_concurrency=None, response_additional_headers=None,
+                 response_content_body=None, response_redirect_url=None, response_status_code=None, route_id=None, route_name=None):
+        self.behavior_type = behavior_type  # type: int
+        self.body_encoding = body_encoding  # type: int
+        self.enable = enable  # type: int
+        self.gateway_id = gateway_id  # type: long
+        self.gateway_unique_id = gateway_unique_id  # type: str
+        self.id = id  # type: long
+        self.id_list = id_list  # type: list[long]
+        self.limit_mode = limit_mode  # type: int
+        self.max_concurrency = max_concurrency  # type: int
+        self.response_additional_headers = response_additional_headers  # type: str
+        self.response_content_body = response_content_body  # type: str
+        self.response_redirect_url = response_redirect_url  # type: str
+        self.response_status_code = response_status_code  # type: int
+        self.route_id = route_id  # type: long
+        self.route_name = route_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateGatewayIsolationRuleResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.behavior_type is not None:
+            result['BehaviorType'] = self.behavior_type
+        if self.body_encoding is not None:
+            result['BodyEncoding'] = self.body_encoding
+        if self.enable is not None:
+            result['Enable'] = self.enable
+        if self.gateway_id is not None:
+            result['GatewayId'] = self.gateway_id
+        if self.gateway_unique_id is not None:
+            result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.id_list is not None:
+            result['IdList'] = self.id_list
+        if self.limit_mode is not None:
+            result['LimitMode'] = self.limit_mode
+        if self.max_concurrency is not None:
+            result['MaxConcurrency'] = self.max_concurrency
+        if self.response_additional_headers is not None:
+            result['ResponseAdditionalHeaders'] = self.response_additional_headers
+        if self.response_content_body is not None:
+            result['ResponseContentBody'] = self.response_content_body
+        if self.response_redirect_url is not None:
+            result['ResponseRedirectUrl'] = self.response_redirect_url
+        if self.response_status_code is not None:
+            result['ResponseStatusCode'] = self.response_status_code
+        if self.route_id is not None:
+            result['RouteId'] = self.route_id
+        if self.route_name is not None:
+            result['RouteName'] = self.route_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BehaviorType') is not None:
+            self.behavior_type = m.get('BehaviorType')
+        if m.get('BodyEncoding') is not None:
+            self.body_encoding = m.get('BodyEncoding')
+        if m.get('Enable') is not None:
+            self.enable = m.get('Enable')
+        if m.get('GatewayId') is not None:
+            self.gateway_id = m.get('GatewayId')
+        if m.get('GatewayUniqueId') is not None:
+            self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('IdList') is not None:
+            self.id_list = m.get('IdList')
+        if m.get('LimitMode') is not None:
+            self.limit_mode = m.get('LimitMode')
+        if m.get('MaxConcurrency') is not None:
+            self.max_concurrency = m.get('MaxConcurrency')
+        if m.get('ResponseAdditionalHeaders') is not None:
+            self.response_additional_headers = m.get('ResponseAdditionalHeaders')
+        if m.get('ResponseContentBody') is not None:
+            self.response_content_body = m.get('ResponseContentBody')
+        if m.get('ResponseRedirectUrl') is not None:
+            self.response_redirect_url = m.get('ResponseRedirectUrl')
+        if m.get('ResponseStatusCode') is not None:
+            self.response_status_code = m.get('ResponseStatusCode')
+        if m.get('RouteId') is not None:
+            self.route_id = m.get('RouteId')
+        if m.get('RouteName') is not None:
+            self.route_name = m.get('RouteName')
+        return self
+
+
+class UpdateGatewayIsolationRuleResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: UpdateGatewayIsolationRuleResponseBodyData
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(UpdateGatewayIsolationRuleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            temp_model = UpdateGatewayIsolationRuleResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UpdateGatewayIsolationRuleResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateGatewayIsolationRuleResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateGatewayIsolationRuleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateGatewayIsolationRuleResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
