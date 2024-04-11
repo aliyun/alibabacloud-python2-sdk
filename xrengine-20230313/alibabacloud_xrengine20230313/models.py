@@ -17426,10 +17426,12 @@ class QueryMotionShopVideoDetectResultRequest(TeaModel):
 
 
 class QueryMotionShopVideoDetectResultResponseBodyDataDetectResult(TeaModel):
-    def __init__(self, box=None, code=None, cover_url=None, message=None, selected_frame_index=None):
+    def __init__(self, box=None, code=None, cover_url=None, human_boxes=None, message=None,
+                 selected_frame_index=None):
         self.box = box  # type: list[float]
         self.code = code  # type: int
         self.cover_url = cover_url  # type: str
+        self.human_boxes = human_boxes  # type: list[list[float]]
         self.message = message  # type: str
         self.selected_frame_index = selected_frame_index  # type: int
 
@@ -17448,6 +17450,8 @@ class QueryMotionShopVideoDetectResultResponseBodyDataDetectResult(TeaModel):
             result['Code'] = self.code
         if self.cover_url is not None:
             result['CoverUrl'] = self.cover_url
+        if self.human_boxes is not None:
+            result['HumanBoxes'] = self.human_boxes
         if self.message is not None:
             result['Message'] = self.message
         if self.selected_frame_index is not None:
@@ -17462,6 +17466,8 @@ class QueryMotionShopVideoDetectResultResponseBodyDataDetectResult(TeaModel):
             self.code = m.get('Code')
         if m.get('CoverUrl') is not None:
             self.cover_url = m.get('CoverUrl')
+        if m.get('HumanBoxes') is not None:
+            self.human_boxes = m.get('HumanBoxes')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('SelectedFrameIndex') is not None:
@@ -17702,9 +17708,10 @@ class SubmitLongTtsTaskResponse(TeaModel):
 
 
 class SubmitMotionShopTaskRequest(TeaModel):
-    def __init__(self, avatar_id=None, jwt_token=None, title=None, video_id=None):
+    def __init__(self, avatar_id=None, jwt_token=None, selected_box_index=None, title=None, video_id=None):
         self.avatar_id = avatar_id  # type: str
         self.jwt_token = jwt_token  # type: str
+        self.selected_box_index = selected_box_index  # type: int
         self.title = title  # type: str
         self.video_id = video_id  # type: str
 
@@ -17721,6 +17728,8 @@ class SubmitMotionShopTaskRequest(TeaModel):
             result['AvatarId'] = self.avatar_id
         if self.jwt_token is not None:
             result['JwtToken'] = self.jwt_token
+        if self.selected_box_index is not None:
+            result['SelectedBoxIndex'] = self.selected_box_index
         if self.title is not None:
             result['Title'] = self.title
         if self.video_id is not None:
@@ -17733,6 +17742,8 @@ class SubmitMotionShopTaskRequest(TeaModel):
             self.avatar_id = m.get('AvatarId')
         if m.get('JwtToken') is not None:
             self.jwt_token = m.get('JwtToken')
+        if m.get('SelectedBoxIndex') is not None:
+            self.selected_box_index = m.get('SelectedBoxIndex')
         if m.get('Title') is not None:
             self.title = m.get('Title')
         if m.get('VideoId') is not None:
