@@ -2818,9 +2818,9 @@ class Client(OpenApiClient):
     def create_order_for_delete_dbnodes_with_options(self, tmp_req, runtime):
         """
         ### [](#)Supported database engines
-        MySQL
+        RDS MySQL
         ### [](#)References
-        > Before you call this operation, carefully read the following documentation. Make sure that you fully understand the prerequisites and impacts for calling this operation.
+        >  Before you call this operation, read the following topics and make sure that you fully understand the prerequisites and impacts of this operation.
         [Delete a node from an ApsaraDB RDS for MySQL instance that runs RDS Cluster Edition](~~464130~~)
         
 
@@ -2890,9 +2890,9 @@ class Client(OpenApiClient):
     def create_order_for_delete_dbnodes(self, request):
         """
         ### [](#)Supported database engines
-        MySQL
+        RDS MySQL
         ### [](#)References
-        > Before you call this operation, carefully read the following documentation. Make sure that you fully understand the prerequisites and impacts for calling this operation.
+        >  Before you call this operation, read the following topics and make sure that you fully understand the prerequisites and impacts of this operation.
         [Delete a node from an ApsaraDB RDS for MySQL instance that runs RDS Cluster Edition](~~464130~~)
         
 
@@ -9358,6 +9358,20 @@ class Client(OpenApiClient):
         return self.describe_instance_cross_backup_policy_with_options(request, runtime)
 
     def describe_instance_keywords_with_options(self, request, runtime):
+        """
+        ### [](#)Supported database engines
+        *   RDS MySQL
+        *   RDS PostgreSQL
+        *   RDS SQL Server
+        *   RDS MariaDB
+        
+
+        @param request: DescribeInstanceKeywordsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeInstanceKeywordsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.key):
@@ -9390,6 +9404,18 @@ class Client(OpenApiClient):
         )
 
     def describe_instance_keywords(self, request):
+        """
+        ### [](#)Supported database engines
+        *   RDS MySQL
+        *   RDS PostgreSQL
+        *   RDS SQL Server
+        *   RDS MariaDB
+        
+
+        @param request: DescribeInstanceKeywordsRequest
+
+        @return: DescribeInstanceKeywordsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_instance_keywords_with_options(request, runtime)
 

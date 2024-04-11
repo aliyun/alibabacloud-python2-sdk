@@ -33705,6 +33705,8 @@ class DescribeInstanceKeywordsRequest(TeaModel):
         # 
         # *   **account**\
         # *   **database**\
+        # 
+        # >  This parameter is required.
         self.key = key  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -33777,7 +33779,7 @@ class DescribeInstanceKeywordsResponseBody(TeaModel):
         self.key = key  # type: str
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # An array that consists of reserved keywords.
+        # The reserved keywords.
         self.words = words  # type: DescribeInstanceKeywordsResponseBodyWords
 
     def validate(self):
@@ -39283,8 +39285,8 @@ class DescribePriceResponseBodyPriceInfoRuleIds(TeaModel):
 
 
 class DescribePriceResponseBodyPriceInfo(TeaModel):
-    def __init__(self, activity_info=None, coupons=None, currency=None, discount_price=None, original_price=None,
-                 rule_ids=None, trade_price=None):
+    def __init__(self, activity_info=None, coupons=None, currency=None, discount_price=None, order_lines=None,
+                 original_price=None, rule_ids=None, trade_max_rcuamount=None, trade_min_rcuamount=None, trade_price=None):
         # The information about the promotion.
         self.activity_info = activity_info  # type: DescribePriceResponseBodyPriceInfoActivityInfo
         # The information about the coupon.
@@ -39293,10 +39295,13 @@ class DescribePriceResponseBodyPriceInfo(TeaModel):
         self.currency = currency  # type: str
         # The discount.
         self.discount_price = discount_price  # type: float
+        self.order_lines = order_lines  # type: str
         # The original price.
         self.original_price = original_price  # type: float
         # An array that consists of the ID of the promotion rule.
         self.rule_ids = rule_ids  # type: DescribePriceResponseBodyPriceInfoRuleIds
+        self.trade_max_rcuamount = trade_max_rcuamount  # type: float
+        self.trade_min_rcuamount = trade_min_rcuamount  # type: float
         # The transaction price, which is equal to the original price minus the discount.
         self.trade_price = trade_price  # type: float
 
@@ -39322,10 +39327,16 @@ class DescribePriceResponseBodyPriceInfo(TeaModel):
             result['Currency'] = self.currency
         if self.discount_price is not None:
             result['DiscountPrice'] = self.discount_price
+        if self.order_lines is not None:
+            result['OrderLines'] = self.order_lines
         if self.original_price is not None:
             result['OriginalPrice'] = self.original_price
         if self.rule_ids is not None:
             result['RuleIds'] = self.rule_ids.to_map()
+        if self.trade_max_rcuamount is not None:
+            result['TradeMaxRCUAmount'] = self.trade_max_rcuamount
+        if self.trade_min_rcuamount is not None:
+            result['TradeMinRCUAmount'] = self.trade_min_rcuamount
         if self.trade_price is not None:
             result['TradePrice'] = self.trade_price
         return result
@@ -39342,11 +39353,17 @@ class DescribePriceResponseBodyPriceInfo(TeaModel):
             self.currency = m.get('Currency')
         if m.get('DiscountPrice') is not None:
             self.discount_price = m.get('DiscountPrice')
+        if m.get('OrderLines') is not None:
+            self.order_lines = m.get('OrderLines')
         if m.get('OriginalPrice') is not None:
             self.original_price = m.get('OriginalPrice')
         if m.get('RuleIds') is not None:
             temp_model = DescribePriceResponseBodyPriceInfoRuleIds()
             self.rule_ids = temp_model.from_map(m['RuleIds'])
+        if m.get('TradeMaxRCUAmount') is not None:
+            self.trade_max_rcuamount = m.get('TradeMaxRCUAmount')
+        if m.get('TradeMinRCUAmount') is not None:
+            self.trade_min_rcuamount = m.get('TradeMinRCUAmount')
         if m.get('TradePrice') is not None:
             self.trade_price = m.get('TradePrice')
         return self
@@ -39421,15 +39438,88 @@ class DescribePriceResponseBodyRules(TeaModel):
         return self
 
 
+class DescribePriceResponseBodyServerlessPrice(TeaModel):
+    def __init__(self, rcudiscount_max_amount=None, rcudiscount_min_amount=None, rcuoriginal_max_amount=None,
+                 rcuoriginal_min_amount=None, storage_original_amount=None, total_original_max_amount=None,
+                 total_original_min_amount=None, trade_max_rcuamount=None, trade_min_rcuamount=None, storage_discount_amount=None):
+        self.rcudiscount_max_amount = rcudiscount_max_amount  # type: float
+        self.rcudiscount_min_amount = rcudiscount_min_amount  # type: float
+        self.rcuoriginal_max_amount = rcuoriginal_max_amount  # type: float
+        self.rcuoriginal_min_amount = rcuoriginal_min_amount  # type: float
+        self.storage_original_amount = storage_original_amount  # type: float
+        self.total_original_max_amount = total_original_max_amount  # type: float
+        self.total_original_min_amount = total_original_min_amount  # type: float
+        self.trade_max_rcuamount = trade_max_rcuamount  # type: float
+        self.trade_min_rcuamount = trade_min_rcuamount  # type: float
+        self.storage_discount_amount = storage_discount_amount  # type: float
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribePriceResponseBodyServerlessPrice, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.rcudiscount_max_amount is not None:
+            result['RCUDiscountMaxAmount'] = self.rcudiscount_max_amount
+        if self.rcudiscount_min_amount is not None:
+            result['RCUDiscountMinAmount'] = self.rcudiscount_min_amount
+        if self.rcuoriginal_max_amount is not None:
+            result['RCUOriginalMaxAmount'] = self.rcuoriginal_max_amount
+        if self.rcuoriginal_min_amount is not None:
+            result['RCUOriginalMinAmount'] = self.rcuoriginal_min_amount
+        if self.storage_original_amount is not None:
+            result['StorageOriginalAmount'] = self.storage_original_amount
+        if self.total_original_max_amount is not None:
+            result['TotalOriginalMaxAmount'] = self.total_original_max_amount
+        if self.total_original_min_amount is not None:
+            result['TotalOriginalMinAmount'] = self.total_original_min_amount
+        if self.trade_max_rcuamount is not None:
+            result['TradeMaxRCUAmount'] = self.trade_max_rcuamount
+        if self.trade_min_rcuamount is not None:
+            result['TradeMinRCUAmount'] = self.trade_min_rcuamount
+        if self.storage_discount_amount is not None:
+            result['storageDiscountAmount'] = self.storage_discount_amount
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RCUDiscountMaxAmount') is not None:
+            self.rcudiscount_max_amount = m.get('RCUDiscountMaxAmount')
+        if m.get('RCUDiscountMinAmount') is not None:
+            self.rcudiscount_min_amount = m.get('RCUDiscountMinAmount')
+        if m.get('RCUOriginalMaxAmount') is not None:
+            self.rcuoriginal_max_amount = m.get('RCUOriginalMaxAmount')
+        if m.get('RCUOriginalMinAmount') is not None:
+            self.rcuoriginal_min_amount = m.get('RCUOriginalMinAmount')
+        if m.get('StorageOriginalAmount') is not None:
+            self.storage_original_amount = m.get('StorageOriginalAmount')
+        if m.get('TotalOriginalMaxAmount') is not None:
+            self.total_original_max_amount = m.get('TotalOriginalMaxAmount')
+        if m.get('TotalOriginalMinAmount') is not None:
+            self.total_original_min_amount = m.get('TotalOriginalMinAmount')
+        if m.get('TradeMaxRCUAmount') is not None:
+            self.trade_max_rcuamount = m.get('TradeMaxRCUAmount')
+        if m.get('TradeMinRCUAmount') is not None:
+            self.trade_min_rcuamount = m.get('TradeMinRCUAmount')
+        if m.get('storageDiscountAmount') is not None:
+            self.storage_discount_amount = m.get('storageDiscountAmount')
+        return self
+
+
 class DescribePriceResponseBody(TeaModel):
-    def __init__(self, price_info=None, request_id=None, rules=None, show_discount=None, trade_max_rcuamount=None,
-                 trade_min_rcuamount=None):
+    def __init__(self, order_params=None, price_info=None, request_id=None, rules=None, serverless_price=None,
+                 show_discount=None, trade_max_rcuamount=None, trade_min_rcuamount=None):
+        self.order_params = order_params  # type: str
         # The price information.
         self.price_info = price_info  # type: DescribePriceResponseBodyPriceInfo
         # The ID of the request.
         self.request_id = request_id  # type: str
         # The details of the promotion rule.
         self.rules = rules  # type: DescribePriceResponseBodyRules
+        self.serverless_price = serverless_price  # type: DescribePriceResponseBodyServerlessPrice
         # Indicates whether discounts can be used.
         self.show_discount = show_discount  # type: bool
         # The estimated hourly fee that is calculated based on the maximum number of RCUs.
@@ -39442,6 +39532,8 @@ class DescribePriceResponseBody(TeaModel):
             self.price_info.validate()
         if self.rules:
             self.rules.validate()
+        if self.serverless_price:
+            self.serverless_price.validate()
 
     def to_map(self):
         _map = super(DescribePriceResponseBody, self).to_map()
@@ -39449,12 +39541,16 @@ class DescribePriceResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.order_params is not None:
+            result['OrderParams'] = self.order_params
         if self.price_info is not None:
             result['PriceInfo'] = self.price_info.to_map()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.rules is not None:
             result['Rules'] = self.rules.to_map()
+        if self.serverless_price is not None:
+            result['ServerlessPrice'] = self.serverless_price.to_map()
         if self.show_discount is not None:
             result['ShowDiscount'] = self.show_discount
         if self.trade_max_rcuamount is not None:
@@ -39465,6 +39561,8 @@ class DescribePriceResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('OrderParams') is not None:
+            self.order_params = m.get('OrderParams')
         if m.get('PriceInfo') is not None:
             temp_model = DescribePriceResponseBodyPriceInfo()
             self.price_info = temp_model.from_map(m['PriceInfo'])
@@ -39473,6 +39571,9 @@ class DescribePriceResponseBody(TeaModel):
         if m.get('Rules') is not None:
             temp_model = DescribePriceResponseBodyRules()
             self.rules = temp_model.from_map(m['Rules'])
+        if m.get('ServerlessPrice') is not None:
+            temp_model = DescribePriceResponseBodyServerlessPrice()
+            self.serverless_price = temp_model.from_map(m['ServerlessPrice'])
         if m.get('ShowDiscount') is not None:
             self.show_discount = m.get('ShowDiscount')
         if m.get('TradeMaxRCUAmount') is not None:
