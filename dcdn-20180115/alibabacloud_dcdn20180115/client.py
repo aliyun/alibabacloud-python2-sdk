@@ -1222,10 +1222,8 @@ class Client(OpenApiClient):
 
     def create_dcdn_sub_task_with_options(self, request, runtime):
         """
-        *\
-        ****\
-        *\
-        *\
+        >    This operation allows you to create a custom operations report for a specific domain name. You can view the statistics about the domain name in the report.
+        > *   You can call this operation up to three times per second per account.
         
 
         @param request: CreateDcdnSubTaskRequest
@@ -1261,10 +1259,8 @@ class Client(OpenApiClient):
 
     def create_dcdn_sub_task(self, request):
         """
-        *\
-        ****\
-        *\
-        *\
+        >    This operation allows you to create a custom operations report for a specific domain name. You can view the statistics about the domain name in the report.
+        > *   You can call this operation up to three times per second per account.
         
 
         @param request: CreateDcdnSubTaskRequest
@@ -4716,7 +4712,7 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_staging_config_with_options(self, request, runtime):
         """
-        The name of the accelerated domain.
+        > You can call this operation up to 30 times per second per account.
         
 
         @param request: DescribeDcdnDomainStagingConfigRequest
@@ -4752,7 +4748,7 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_staging_config(self, request):
         """
-        The name of the accelerated domain.
+        > You can call this operation up to 30 times per second per account.
         
 
         @param request: DescribeDcdnDomainStagingConfigRequest
@@ -5468,7 +5464,7 @@ class Client(OpenApiClient):
 
     def describe_dcdn_https_domain_list_with_options(self, request, runtime):
         """
-        >  The maximum number of times that each user can call this operation per second is 100.
+        > You can call this operation up to 100 times per second per account.
         
 
         @param request: DescribeDcdnHttpsDomainListRequest
@@ -5506,7 +5502,7 @@ class Client(OpenApiClient):
 
     def describe_dcdn_https_domain_list(self, request):
         """
-        >  The maximum number of times that each user can call this operation per second is 100.
+        > You can call this operation up to 100 times per second per account.
         
 
         @param request: DescribeDcdnHttpsDomainListRequest
@@ -8954,7 +8950,7 @@ class Client(OpenApiClient):
 
     def describe_routine_user_info_with_options(self, runtime):
         """
-        >  You can call this operation up to 100 times per second per account.
+        > You can call this operation up to 100 times per second per account.
         
 
         @param request: DescribeRoutineUserInfoRequest
@@ -8982,7 +8978,7 @@ class Client(OpenApiClient):
 
     def describe_routine_user_info(self):
         """
-        >  You can call this operation up to 100 times per second per account.
+        > You can call this operation up to 100 times per second per account.
         
 
         @return: DescribeRoutineUserInfoResponse
@@ -9958,6 +9954,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.put_dcdn_kv_with_high_capacity_with_options(request, runtime)
 
+    def refresh_dcdn_object_cache_by_cache_tag_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cache_tag):
+            query['CacheTag'] = request.cache_tag
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.force):
+            query['Force'] = request.force
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RefreshDcdnObjectCacheByCacheTag',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.RefreshDcdnObjectCacheByCacheTagResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def refresh_dcdn_object_cache_by_cache_tag(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.refresh_dcdn_object_cache_by_cache_tag_with_options(request, runtime)
+
     def refresh_dcdn_object_caches_with_options(self, request, runtime):
         """
         DCDN supports POST requests in which parameters are sent as a form.
@@ -10922,7 +10950,7 @@ class Client(OpenApiClient):
 
     def update_dcdn_domain_with_options(self, request, runtime):
         """
-        >  You can call this operation up to 30 times per second per account.
+        > You can call this operation up to 30 times per second per account.
         
 
         @param request: UpdateDcdnDomainRequest
@@ -10966,7 +10994,7 @@ class Client(OpenApiClient):
 
     def update_dcdn_domain(self, request):
         """
-        >  You can call this operation up to 30 times per second per account.
+        > You can call this operation up to 30 times per second per account.
         
 
         @param request: UpdateDcdnDomainRequest
