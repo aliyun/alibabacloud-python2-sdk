@@ -2425,13 +2425,16 @@ class AddGatewayAuthRequestExternalAuthZJSON(TeaModel):
 
 
 class AddGatewayAuthRequest(TeaModel):
-    def __init__(self, accept_language=None, auth_resource_list=None, client_id=None, client_secret=None,
-                 cookie_domain=None, external_auth_zjson=None, gateway_unique_id=None, is_white=None, issuer=None, jwks=None,
-                 login_url=None, name=None, redirect_url=None, scopes_list=None, status=None, sub=None, token_name=None,
-                 token_name_prefix=None, token_pass=None, token_position=None, type=None):
+    def __init__(self, accept_language=None, auth_resource_config=None, auth_resource_list=None,
+                 auth_resource_mode=None, client_id=None, client_secret=None, cookie_domain=None, external_auth_zjson=None,
+                 gateway_unique_id=None, is_white=None, issuer=None, jwks=None, login_url=None, name=None, redirect_url=None,
+                 scopes_list=None, status=None, sub=None, token_name=None, token_name_prefix=None, token_pass=None,
+                 token_position=None, type=None):
         self.accept_language = accept_language  # type: str
+        self.auth_resource_config = auth_resource_config  # type: str
         # The information about the resource to be authorized.
         self.auth_resource_list = auth_resource_list  # type: list[AddGatewayAuthRequestAuthResourceList]
+        self.auth_resource_mode = auth_resource_mode  # type: int
         # The application ID registered with the OIDC authentication service.
         self.client_id = client_id  # type: str
         # The application secret registered with the OIDC authentication service.
@@ -2487,10 +2490,14 @@ class AddGatewayAuthRequest(TeaModel):
         result = dict()
         if self.accept_language is not None:
             result['AcceptLanguage'] = self.accept_language
+        if self.auth_resource_config is not None:
+            result['AuthResourceConfig'] = self.auth_resource_config
         result['AuthResourceList'] = []
         if self.auth_resource_list is not None:
             for k in self.auth_resource_list:
                 result['AuthResourceList'].append(k.to_map() if k else None)
+        if self.auth_resource_mode is not None:
+            result['AuthResourceMode'] = self.auth_resource_mode
         if self.client_id is not None:
             result['ClientId'] = self.client_id
         if self.client_secret is not None:
@@ -2535,11 +2542,15 @@ class AddGatewayAuthRequest(TeaModel):
         m = m or dict()
         if m.get('AcceptLanguage') is not None:
             self.accept_language = m.get('AcceptLanguage')
+        if m.get('AuthResourceConfig') is not None:
+            self.auth_resource_config = m.get('AuthResourceConfig')
         self.auth_resource_list = []
         if m.get('AuthResourceList') is not None:
             for k in m.get('AuthResourceList'):
                 temp_model = AddGatewayAuthRequestAuthResourceList()
                 self.auth_resource_list.append(temp_model.from_map(k))
+        if m.get('AuthResourceMode') is not None:
+            self.auth_resource_mode = m.get('AuthResourceMode')
         if m.get('ClientId') is not None:
             self.client_id = m.get('ClientId')
         if m.get('ClientSecret') is not None:
@@ -2583,13 +2594,16 @@ class AddGatewayAuthRequest(TeaModel):
 
 
 class AddGatewayAuthShrinkRequest(TeaModel):
-    def __init__(self, accept_language=None, auth_resource_list_shrink=None, client_id=None, client_secret=None,
-                 cookie_domain=None, external_auth_zjsonshrink=None, gateway_unique_id=None, is_white=None, issuer=None,
-                 jwks=None, login_url=None, name=None, redirect_url=None, scopes_list_shrink=None, status=None, sub=None,
-                 token_name=None, token_name_prefix=None, token_pass=None, token_position=None, type=None):
+    def __init__(self, accept_language=None, auth_resource_config=None, auth_resource_list_shrink=None,
+                 auth_resource_mode=None, client_id=None, client_secret=None, cookie_domain=None, external_auth_zjsonshrink=None,
+                 gateway_unique_id=None, is_white=None, issuer=None, jwks=None, login_url=None, name=None, redirect_url=None,
+                 scopes_list_shrink=None, status=None, sub=None, token_name=None, token_name_prefix=None, token_pass=None,
+                 token_position=None, type=None):
         self.accept_language = accept_language  # type: str
+        self.auth_resource_config = auth_resource_config  # type: str
         # The information about the resource to be authorized.
         self.auth_resource_list_shrink = auth_resource_list_shrink  # type: str
+        self.auth_resource_mode = auth_resource_mode  # type: int
         # The application ID registered with the OIDC authentication service.
         self.client_id = client_id  # type: str
         # The application secret registered with the OIDC authentication service.
@@ -2640,8 +2654,12 @@ class AddGatewayAuthShrinkRequest(TeaModel):
         result = dict()
         if self.accept_language is not None:
             result['AcceptLanguage'] = self.accept_language
+        if self.auth_resource_config is not None:
+            result['AuthResourceConfig'] = self.auth_resource_config
         if self.auth_resource_list_shrink is not None:
             result['AuthResourceList'] = self.auth_resource_list_shrink
+        if self.auth_resource_mode is not None:
+            result['AuthResourceMode'] = self.auth_resource_mode
         if self.client_id is not None:
             result['ClientId'] = self.client_id
         if self.client_secret is not None:
@@ -2686,8 +2704,12 @@ class AddGatewayAuthShrinkRequest(TeaModel):
         m = m or dict()
         if m.get('AcceptLanguage') is not None:
             self.accept_language = m.get('AcceptLanguage')
+        if m.get('AuthResourceConfig') is not None:
+            self.auth_resource_config = m.get('AuthResourceConfig')
         if m.get('AuthResourceList') is not None:
             self.auth_resource_list_shrink = m.get('AuthResourceList')
+        if m.get('AuthResourceMode') is not None:
+            self.auth_resource_mode = m.get('AuthResourceMode')
         if m.get('ClientId') is not None:
             self.client_id = m.get('ClientId')
         if m.get('ClientSecret') is not None:
@@ -18036,11 +18058,13 @@ class GetGatewayAuthDetailResponseBodyDataResourceList(TeaModel):
 
 
 class GetGatewayAuthDetailResponseBodyData(TeaModel):
-    def __init__(self, client_id=None, client_secret=None, cookie_domain=None, external_auth_z=None,
-                 gateway_id=None, gateway_unique_id=None, gmt_create=None, gmt_modified=None, id=None, is_white=None,
-                 issuer=None, jwks=None, login_url=None, name=None, redirect_url=None, resource_list=None, scopes_list=None,
-                 status=None, sub=None, token_name=None, token_name_prefix=None, token_pass=None, token_position=None,
-                 type=None):
+    def __init__(self, auth_resource_config=None, auth_resource_mode=None, client_id=None, client_secret=None,
+                 cookie_domain=None, external_auth_z=None, gateway_id=None, gateway_unique_id=None, gmt_create=None,
+                 gmt_modified=None, id=None, is_white=None, issuer=None, jwks=None, login_url=None, name=None, redirect_url=None,
+                 resource_list=None, scopes_list=None, status=None, sub=None, token_name=None, token_name_prefix=None,
+                 token_pass=None, token_position=None, type=None):
+        self.auth_resource_config = auth_resource_config  # type: str
+        self.auth_resource_mode = auth_resource_mode  # type: int
         self.client_id = client_id  # type: str
         self.client_secret = client_secret  # type: str
         self.cookie_domain = cookie_domain  # type: str
@@ -18080,6 +18104,10 @@ class GetGatewayAuthDetailResponseBodyData(TeaModel):
             return _map
 
         result = dict()
+        if self.auth_resource_config is not None:
+            result['AuthResourceConfig'] = self.auth_resource_config
+        if self.auth_resource_mode is not None:
+            result['AuthResourceMode'] = self.auth_resource_mode
         if self.client_id is not None:
             result['ClientId'] = self.client_id
         if self.client_secret is not None:
@@ -18134,6 +18162,10 @@ class GetGatewayAuthDetailResponseBodyData(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AuthResourceConfig') is not None:
+            self.auth_resource_config = m.get('AuthResourceConfig')
+        if m.get('AuthResourceMode') is not None:
+            self.auth_resource_mode = m.get('AuthResourceMode')
         if m.get('ClientId') is not None:
             self.client_id = m.get('ClientId')
         if m.get('ClientSecret') is not None:
