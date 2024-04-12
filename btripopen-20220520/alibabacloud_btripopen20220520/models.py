@@ -5848,17 +5848,23 @@ class ApplyAddRequestExternalTravelerStandardHotelIntlCitys(TeaModel):
 
 class ApplyAddRequestExternalTravelerStandard(TeaModel):
     def __init__(self, business_discount=None, economy_discount=None, first_discount=None, flight_cabins=None,
-                 hotel_citys=None, hotel_intl_citys=None, international_flight_cabins=None, premium_economy_discount=None,
-                 reserve_type=None, train_seats=None):
+                 flight_intl_rule_code=None, flight_rule_code=None, hotel_citys=None, hotel_intl_citys=None, hotel_intl_rule_code=None,
+                 hotel_rule_code=None, international_flight_cabins=None, premium_economy_discount=None, reserve_type=None,
+                 train_rule_code=None, train_seats=None):
         self.business_discount = business_discount  # type: int
         self.economy_discount = economy_discount  # type: int
         self.first_discount = first_discount  # type: int
         self.flight_cabins = flight_cabins  # type: str
+        self.flight_intl_rule_code = flight_intl_rule_code  # type: long
+        self.flight_rule_code = flight_rule_code  # type: long
         self.hotel_citys = hotel_citys  # type: list[ApplyAddRequestExternalTravelerStandardHotelCitys]
         self.hotel_intl_citys = hotel_intl_citys  # type: list[ApplyAddRequestExternalTravelerStandardHotelIntlCitys]
+        self.hotel_intl_rule_code = hotel_intl_rule_code  # type: long
+        self.hotel_rule_code = hotel_rule_code  # type: long
         self.international_flight_cabins = international_flight_cabins  # type: str
         self.premium_economy_discount = premium_economy_discount  # type: int
         self.reserve_type = reserve_type  # type: int
+        self.train_rule_code = train_rule_code  # type: long
         self.train_seats = train_seats  # type: str
 
     def validate(self):
@@ -5885,6 +5891,10 @@ class ApplyAddRequestExternalTravelerStandard(TeaModel):
             result['first_discount'] = self.first_discount
         if self.flight_cabins is not None:
             result['flight_cabins'] = self.flight_cabins
+        if self.flight_intl_rule_code is not None:
+            result['flight_intl_rule_code'] = self.flight_intl_rule_code
+        if self.flight_rule_code is not None:
+            result['flight_rule_code'] = self.flight_rule_code
         result['hotel_citys'] = []
         if self.hotel_citys is not None:
             for k in self.hotel_citys:
@@ -5893,12 +5903,18 @@ class ApplyAddRequestExternalTravelerStandard(TeaModel):
         if self.hotel_intl_citys is not None:
             for k in self.hotel_intl_citys:
                 result['hotel_intl_citys'].append(k.to_map() if k else None)
+        if self.hotel_intl_rule_code is not None:
+            result['hotel_intl_rule_code'] = self.hotel_intl_rule_code
+        if self.hotel_rule_code is not None:
+            result['hotel_rule_code'] = self.hotel_rule_code
         if self.international_flight_cabins is not None:
             result['international_flight_cabins'] = self.international_flight_cabins
         if self.premium_economy_discount is not None:
             result['premium_economy_discount'] = self.premium_economy_discount
         if self.reserve_type is not None:
             result['reserve_type'] = self.reserve_type
+        if self.train_rule_code is not None:
+            result['train_rule_code'] = self.train_rule_code
         if self.train_seats is not None:
             result['train_seats'] = self.train_seats
         return result
@@ -5913,6 +5929,10 @@ class ApplyAddRequestExternalTravelerStandard(TeaModel):
             self.first_discount = m.get('first_discount')
         if m.get('flight_cabins') is not None:
             self.flight_cabins = m.get('flight_cabins')
+        if m.get('flight_intl_rule_code') is not None:
+            self.flight_intl_rule_code = m.get('flight_intl_rule_code')
+        if m.get('flight_rule_code') is not None:
+            self.flight_rule_code = m.get('flight_rule_code')
         self.hotel_citys = []
         if m.get('hotel_citys') is not None:
             for k in m.get('hotel_citys'):
@@ -5923,12 +5943,18 @@ class ApplyAddRequestExternalTravelerStandard(TeaModel):
             for k in m.get('hotel_intl_citys'):
                 temp_model = ApplyAddRequestExternalTravelerStandardHotelIntlCitys()
                 self.hotel_intl_citys.append(temp_model.from_map(k))
+        if m.get('hotel_intl_rule_code') is not None:
+            self.hotel_intl_rule_code = m.get('hotel_intl_rule_code')
+        if m.get('hotel_rule_code') is not None:
+            self.hotel_rule_code = m.get('hotel_rule_code')
         if m.get('international_flight_cabins') is not None:
             self.international_flight_cabins = m.get('international_flight_cabins')
         if m.get('premium_economy_discount') is not None:
             self.premium_economy_discount = m.get('premium_economy_discount')
         if m.get('reserve_type') is not None:
             self.reserve_type = m.get('reserve_type')
+        if m.get('train_rule_code') is not None:
+            self.train_rule_code = m.get('train_rule_code')
         if m.get('train_seats') is not None:
             self.train_seats = m.get('train_seats')
         return self
@@ -6341,18 +6367,24 @@ class ApplyAddRequestTravelerStandardHotelIntlCitys(TeaModel):
 
 class ApplyAddRequestTravelerStandard(TeaModel):
     def __init__(self, business_discount=None, car_city_set=None, economy_discount=None, first_discount=None,
-                 flight_cabins=None, hotel_citys=None, hotel_intl_citys=None, international_flight_cabins=None,
-                 premium_economy_discount=None, reserve_type=None, train_seats=None, user_id=None):
+                 flight_cabins=None, flight_intl_rule_code=None, flight_rule_code=None, hotel_citys=None, hotel_intl_citys=None,
+                 hotel_intl_rule_code=None, hotel_rule_code=None, international_flight_cabins=None, premium_economy_discount=None,
+                 reserve_type=None, train_rule_code=None, train_seats=None, user_id=None):
         self.business_discount = business_discount  # type: int
         self.car_city_set = car_city_set  # type: list[ApplyAddRequestTravelerStandardCarCitySet]
         self.economy_discount = economy_discount  # type: int
         self.first_discount = first_discount  # type: int
         self.flight_cabins = flight_cabins  # type: str
+        self.flight_intl_rule_code = flight_intl_rule_code  # type: long
+        self.flight_rule_code = flight_rule_code  # type: long
         self.hotel_citys = hotel_citys  # type: list[ApplyAddRequestTravelerStandardHotelCitys]
         self.hotel_intl_citys = hotel_intl_citys  # type: list[ApplyAddRequestTravelerStandardHotelIntlCitys]
+        self.hotel_intl_rule_code = hotel_intl_rule_code  # type: long
+        self.hotel_rule_code = hotel_rule_code  # type: long
         self.international_flight_cabins = international_flight_cabins  # type: str
         self.premium_economy_discount = premium_economy_discount  # type: int
         self.reserve_type = reserve_type  # type: int
+        self.train_rule_code = train_rule_code  # type: long
         self.train_seats = train_seats  # type: str
         self.user_id = user_id  # type: str
 
@@ -6388,6 +6420,10 @@ class ApplyAddRequestTravelerStandard(TeaModel):
             result['first_discount'] = self.first_discount
         if self.flight_cabins is not None:
             result['flight_cabins'] = self.flight_cabins
+        if self.flight_intl_rule_code is not None:
+            result['flight_intl_rule_code'] = self.flight_intl_rule_code
+        if self.flight_rule_code is not None:
+            result['flight_rule_code'] = self.flight_rule_code
         result['hotel_citys'] = []
         if self.hotel_citys is not None:
             for k in self.hotel_citys:
@@ -6396,12 +6432,18 @@ class ApplyAddRequestTravelerStandard(TeaModel):
         if self.hotel_intl_citys is not None:
             for k in self.hotel_intl_citys:
                 result['hotel_intl_citys'].append(k.to_map() if k else None)
+        if self.hotel_intl_rule_code is not None:
+            result['hotel_intl_rule_code'] = self.hotel_intl_rule_code
+        if self.hotel_rule_code is not None:
+            result['hotel_rule_code'] = self.hotel_rule_code
         if self.international_flight_cabins is not None:
             result['international_flight_cabins'] = self.international_flight_cabins
         if self.premium_economy_discount is not None:
             result['premium_economy_discount'] = self.premium_economy_discount
         if self.reserve_type is not None:
             result['reserve_type'] = self.reserve_type
+        if self.train_rule_code is not None:
+            result['train_rule_code'] = self.train_rule_code
         if self.train_seats is not None:
             result['train_seats'] = self.train_seats
         if self.user_id is not None:
@@ -6423,6 +6465,10 @@ class ApplyAddRequestTravelerStandard(TeaModel):
             self.first_discount = m.get('first_discount')
         if m.get('flight_cabins') is not None:
             self.flight_cabins = m.get('flight_cabins')
+        if m.get('flight_intl_rule_code') is not None:
+            self.flight_intl_rule_code = m.get('flight_intl_rule_code')
+        if m.get('flight_rule_code') is not None:
+            self.flight_rule_code = m.get('flight_rule_code')
         self.hotel_citys = []
         if m.get('hotel_citys') is not None:
             for k in m.get('hotel_citys'):
@@ -6433,12 +6479,18 @@ class ApplyAddRequestTravelerStandard(TeaModel):
             for k in m.get('hotel_intl_citys'):
                 temp_model = ApplyAddRequestTravelerStandardHotelIntlCitys()
                 self.hotel_intl_citys.append(temp_model.from_map(k))
+        if m.get('hotel_intl_rule_code') is not None:
+            self.hotel_intl_rule_code = m.get('hotel_intl_rule_code')
+        if m.get('hotel_rule_code') is not None:
+            self.hotel_rule_code = m.get('hotel_rule_code')
         if m.get('international_flight_cabins') is not None:
             self.international_flight_cabins = m.get('international_flight_cabins')
         if m.get('premium_economy_discount') is not None:
             self.premium_economy_discount = m.get('premium_economy_discount')
         if m.get('reserve_type') is not None:
             self.reserve_type = m.get('reserve_type')
+        if m.get('train_rule_code') is not None:
+            self.train_rule_code = m.get('train_rule_code')
         if m.get('train_seats') is not None:
             self.train_seats = m.get('train_seats')
         if m.get('user_id') is not None:
@@ -8634,16 +8686,22 @@ class ApplyModifyRequestExternalTravelerStandardHotelIntlCitys(TeaModel):
 
 class ApplyModifyRequestExternalTravelerStandard(TeaModel):
     def __init__(self, business_discount=None, economy_discount=None, first_discount=None, flight_cabins=None,
-                 hotel_citys=None, hotel_intl_citys=None, premium_economy_discount=None, reserve_type=None, train_seats=None):
+                 flight_intl_rule_code=None, flight_rule_code=None, hotel_citys=None, hotel_intl_citys=None, hotel_intl_rule_code=None,
+                 hotel_rule_code=None, premium_economy_discount=None, reserve_type=None, train_rule_code=None, train_seats=None):
         self.business_discount = business_discount  # type: int
         self.economy_discount = economy_discount  # type: int
         self.first_discount = first_discount  # type: int
         self.flight_cabins = flight_cabins  # type: str
+        self.flight_intl_rule_code = flight_intl_rule_code  # type: long
+        self.flight_rule_code = flight_rule_code  # type: long
         self.hotel_citys = hotel_citys  # type: list[ApplyModifyRequestExternalTravelerStandardHotelCitys]
         self.hotel_intl_citys = hotel_intl_citys  # type: list[ApplyModifyRequestExternalTravelerStandardHotelIntlCitys]
+        self.hotel_intl_rule_code = hotel_intl_rule_code  # type: long
+        self.hotel_rule_code = hotel_rule_code  # type: long
         # 超级经济舱折扣。1到10的整数
         self.premium_economy_discount = premium_economy_discount  # type: int
         self.reserve_type = reserve_type  # type: int
+        self.train_rule_code = train_rule_code  # type: long
         self.train_seats = train_seats  # type: str
 
     def validate(self):
@@ -8670,6 +8728,10 @@ class ApplyModifyRequestExternalTravelerStandard(TeaModel):
             result['first_discount'] = self.first_discount
         if self.flight_cabins is not None:
             result['flight_cabins'] = self.flight_cabins
+        if self.flight_intl_rule_code is not None:
+            result['flight_intl_rule_code'] = self.flight_intl_rule_code
+        if self.flight_rule_code is not None:
+            result['flight_rule_code'] = self.flight_rule_code
         result['hotel_citys'] = []
         if self.hotel_citys is not None:
             for k in self.hotel_citys:
@@ -8678,10 +8740,16 @@ class ApplyModifyRequestExternalTravelerStandard(TeaModel):
         if self.hotel_intl_citys is not None:
             for k in self.hotel_intl_citys:
                 result['hotel_intl_citys'].append(k.to_map() if k else None)
+        if self.hotel_intl_rule_code is not None:
+            result['hotel_intl_rule_code'] = self.hotel_intl_rule_code
+        if self.hotel_rule_code is not None:
+            result['hotel_rule_code'] = self.hotel_rule_code
         if self.premium_economy_discount is not None:
             result['premium_economy_discount'] = self.premium_economy_discount
         if self.reserve_type is not None:
             result['reserve_type'] = self.reserve_type
+        if self.train_rule_code is not None:
+            result['train_rule_code'] = self.train_rule_code
         if self.train_seats is not None:
             result['train_seats'] = self.train_seats
         return result
@@ -8696,6 +8764,10 @@ class ApplyModifyRequestExternalTravelerStandard(TeaModel):
             self.first_discount = m.get('first_discount')
         if m.get('flight_cabins') is not None:
             self.flight_cabins = m.get('flight_cabins')
+        if m.get('flight_intl_rule_code') is not None:
+            self.flight_intl_rule_code = m.get('flight_intl_rule_code')
+        if m.get('flight_rule_code') is not None:
+            self.flight_rule_code = m.get('flight_rule_code')
         self.hotel_citys = []
         if m.get('hotel_citys') is not None:
             for k in m.get('hotel_citys'):
@@ -8706,10 +8778,16 @@ class ApplyModifyRequestExternalTravelerStandard(TeaModel):
             for k in m.get('hotel_intl_citys'):
                 temp_model = ApplyModifyRequestExternalTravelerStandardHotelIntlCitys()
                 self.hotel_intl_citys.append(temp_model.from_map(k))
+        if m.get('hotel_intl_rule_code') is not None:
+            self.hotel_intl_rule_code = m.get('hotel_intl_rule_code')
+        if m.get('hotel_rule_code') is not None:
+            self.hotel_rule_code = m.get('hotel_rule_code')
         if m.get('premium_economy_discount') is not None:
             self.premium_economy_discount = m.get('premium_economy_discount')
         if m.get('reserve_type') is not None:
             self.reserve_type = m.get('reserve_type')
+        if m.get('train_rule_code') is not None:
+            self.train_rule_code = m.get('train_rule_code')
         if m.get('train_seats') is not None:
             self.train_seats = m.get('train_seats')
         return self
@@ -9122,18 +9200,24 @@ class ApplyModifyRequestTravelerStandardHotelIntlCitys(TeaModel):
 
 class ApplyModifyRequestTravelerStandard(TeaModel):
     def __init__(self, business_discount=None, car_city_set=None, economy_discount=None, first_discount=None,
-                 flight_cabins=None, hotel_citys=None, hotel_intl_citys=None, premium_economy_discount=None, reserve_type=None,
-                 train_seats=None, user_id=None):
+                 flight_cabins=None, flight_intl_rule_code=None, flight_rule_code=None, hotel_citys=None, hotel_intl_citys=None,
+                 hotel_intl_rule_code=None, hotel_rule_code=None, premium_economy_discount=None, reserve_type=None,
+                 train_rule_code=None, train_seats=None, user_id=None):
         self.business_discount = business_discount  # type: int
         self.car_city_set = car_city_set  # type: list[ApplyModifyRequestTravelerStandardCarCitySet]
         self.economy_discount = economy_discount  # type: int
         self.first_discount = first_discount  # type: int
         self.flight_cabins = flight_cabins  # type: str
+        self.flight_intl_rule_code = flight_intl_rule_code  # type: long
+        self.flight_rule_code = flight_rule_code  # type: long
         self.hotel_citys = hotel_citys  # type: list[ApplyModifyRequestTravelerStandardHotelCitys]
         self.hotel_intl_citys = hotel_intl_citys  # type: list[ApplyModifyRequestTravelerStandardHotelIntlCitys]
+        self.hotel_intl_rule_code = hotel_intl_rule_code  # type: long
+        self.hotel_rule_code = hotel_rule_code  # type: long
         # 超级经济舱折扣。1到10的整数
         self.premium_economy_discount = premium_economy_discount  # type: int
         self.reserve_type = reserve_type  # type: int
+        self.train_rule_code = train_rule_code  # type: long
         self.train_seats = train_seats  # type: str
         self.user_id = user_id  # type: str
 
@@ -9169,6 +9253,10 @@ class ApplyModifyRequestTravelerStandard(TeaModel):
             result['first_discount'] = self.first_discount
         if self.flight_cabins is not None:
             result['flight_cabins'] = self.flight_cabins
+        if self.flight_intl_rule_code is not None:
+            result['flight_intl_rule_code'] = self.flight_intl_rule_code
+        if self.flight_rule_code is not None:
+            result['flight_rule_code'] = self.flight_rule_code
         result['hotel_citys'] = []
         if self.hotel_citys is not None:
             for k in self.hotel_citys:
@@ -9177,10 +9265,16 @@ class ApplyModifyRequestTravelerStandard(TeaModel):
         if self.hotel_intl_citys is not None:
             for k in self.hotel_intl_citys:
                 result['hotel_intl_citys'].append(k.to_map() if k else None)
+        if self.hotel_intl_rule_code is not None:
+            result['hotel_intl_rule_code'] = self.hotel_intl_rule_code
+        if self.hotel_rule_code is not None:
+            result['hotel_rule_code'] = self.hotel_rule_code
         if self.premium_economy_discount is not None:
             result['premium_economy_discount'] = self.premium_economy_discount
         if self.reserve_type is not None:
             result['reserve_type'] = self.reserve_type
+        if self.train_rule_code is not None:
+            result['train_rule_code'] = self.train_rule_code
         if self.train_seats is not None:
             result['train_seats'] = self.train_seats
         if self.user_id is not None:
@@ -9202,6 +9296,10 @@ class ApplyModifyRequestTravelerStandard(TeaModel):
             self.first_discount = m.get('first_discount')
         if m.get('flight_cabins') is not None:
             self.flight_cabins = m.get('flight_cabins')
+        if m.get('flight_intl_rule_code') is not None:
+            self.flight_intl_rule_code = m.get('flight_intl_rule_code')
+        if m.get('flight_rule_code') is not None:
+            self.flight_rule_code = m.get('flight_rule_code')
         self.hotel_citys = []
         if m.get('hotel_citys') is not None:
             for k in m.get('hotel_citys'):
@@ -9212,10 +9310,16 @@ class ApplyModifyRequestTravelerStandard(TeaModel):
             for k in m.get('hotel_intl_citys'):
                 temp_model = ApplyModifyRequestTravelerStandardHotelIntlCitys()
                 self.hotel_intl_citys.append(temp_model.from_map(k))
+        if m.get('hotel_intl_rule_code') is not None:
+            self.hotel_intl_rule_code = m.get('hotel_intl_rule_code')
+        if m.get('hotel_rule_code') is not None:
+            self.hotel_rule_code = m.get('hotel_rule_code')
         if m.get('premium_economy_discount') is not None:
             self.premium_economy_discount = m.get('premium_economy_discount')
         if m.get('reserve_type') is not None:
             self.reserve_type = m.get('reserve_type')
+        if m.get('train_rule_code') is not None:
+            self.train_rule_code = m.get('train_rule_code')
         if m.get('train_seats') is not None:
             self.train_seats = m.get('train_seats')
         if m.get('user_id') is not None:
@@ -9999,16 +10103,22 @@ class ApplyQueryResponseBodyModuleExternalTravelerListHotelIntlCitys(TeaModel):
 
 class ApplyQueryResponseBodyModuleExternalTravelerList(TeaModel):
     def __init__(self, business_discount=None, economy_discount=None, first_discount=None, flight_cabins=None,
-                 hotel_citys=None, hotel_intl_citys=None, premium_economy_discount=None, reserve_type=None, train_seats=None,
+                 flight_intl_rule_code=None, flight_rule_code=None, hotel_citys=None, hotel_intl_citys=None, hotel_intl_rule_code=None,
+                 hotel_rule_code=None, premium_economy_discount=None, reserve_type=None, train_rule_code=None, train_seats=None,
                  user_name=None):
         self.business_discount = business_discount  # type: int
         self.economy_discount = economy_discount  # type: int
         self.first_discount = first_discount  # type: int
         self.flight_cabins = flight_cabins  # type: str
+        self.flight_intl_rule_code = flight_intl_rule_code  # type: long
+        self.flight_rule_code = flight_rule_code  # type: long
         self.hotel_citys = hotel_citys  # type: list[ApplyQueryResponseBodyModuleExternalTravelerListHotelCitys]
         self.hotel_intl_citys = hotel_intl_citys  # type: list[ApplyQueryResponseBodyModuleExternalTravelerListHotelIntlCitys]
+        self.hotel_intl_rule_code = hotel_intl_rule_code  # type: long
+        self.hotel_rule_code = hotel_rule_code  # type: long
         self.premium_economy_discount = premium_economy_discount  # type: int
         self.reserve_type = reserve_type  # type: int
+        self.train_rule_code = train_rule_code  # type: long
         self.train_seats = train_seats  # type: str
         self.user_name = user_name  # type: str
 
@@ -10036,6 +10146,10 @@ class ApplyQueryResponseBodyModuleExternalTravelerList(TeaModel):
             result['first_discount'] = self.first_discount
         if self.flight_cabins is not None:
             result['flight_cabins'] = self.flight_cabins
+        if self.flight_intl_rule_code is not None:
+            result['flight_intl_rule_code'] = self.flight_intl_rule_code
+        if self.flight_rule_code is not None:
+            result['flight_rule_code'] = self.flight_rule_code
         result['hotel_citys'] = []
         if self.hotel_citys is not None:
             for k in self.hotel_citys:
@@ -10044,10 +10158,16 @@ class ApplyQueryResponseBodyModuleExternalTravelerList(TeaModel):
         if self.hotel_intl_citys is not None:
             for k in self.hotel_intl_citys:
                 result['hotel_intl_citys'].append(k.to_map() if k else None)
+        if self.hotel_intl_rule_code is not None:
+            result['hotel_intl_rule_code'] = self.hotel_intl_rule_code
+        if self.hotel_rule_code is not None:
+            result['hotel_rule_code'] = self.hotel_rule_code
         if self.premium_economy_discount is not None:
             result['premium_economy_discount'] = self.premium_economy_discount
         if self.reserve_type is not None:
             result['reserve_type'] = self.reserve_type
+        if self.train_rule_code is not None:
+            result['train_rule_code'] = self.train_rule_code
         if self.train_seats is not None:
             result['train_seats'] = self.train_seats
         if self.user_name is not None:
@@ -10064,6 +10184,10 @@ class ApplyQueryResponseBodyModuleExternalTravelerList(TeaModel):
             self.first_discount = m.get('first_discount')
         if m.get('flight_cabins') is not None:
             self.flight_cabins = m.get('flight_cabins')
+        if m.get('flight_intl_rule_code') is not None:
+            self.flight_intl_rule_code = m.get('flight_intl_rule_code')
+        if m.get('flight_rule_code') is not None:
+            self.flight_rule_code = m.get('flight_rule_code')
         self.hotel_citys = []
         if m.get('hotel_citys') is not None:
             for k in m.get('hotel_citys'):
@@ -10074,10 +10198,16 @@ class ApplyQueryResponseBodyModuleExternalTravelerList(TeaModel):
             for k in m.get('hotel_intl_citys'):
                 temp_model = ApplyQueryResponseBodyModuleExternalTravelerListHotelIntlCitys()
                 self.hotel_intl_citys.append(temp_model.from_map(k))
+        if m.get('hotel_intl_rule_code') is not None:
+            self.hotel_intl_rule_code = m.get('hotel_intl_rule_code')
+        if m.get('hotel_rule_code') is not None:
+            self.hotel_rule_code = m.get('hotel_rule_code')
         if m.get('premium_economy_discount') is not None:
             self.premium_economy_discount = m.get('premium_economy_discount')
         if m.get('reserve_type') is not None:
             self.reserve_type = m.get('reserve_type')
+        if m.get('train_rule_code') is not None:
+            self.train_rule_code = m.get('train_rule_code')
         if m.get('train_seats') is not None:
             self.train_seats = m.get('train_seats')
         if m.get('user_name') is not None:
@@ -10442,17 +10572,23 @@ class ApplyQueryResponseBodyModuleTravelerListHotelIntlCitys(TeaModel):
 
 class ApplyQueryResponseBodyModuleTravelerList(TeaModel):
     def __init__(self, business_discount=None, car_city_set=None, economy_discount=None, first_discount=None,
-                 flight_cabins=None, hotel_citys=None, hotel_intl_citys=None, premium_economy_discount=None, reserve_type=None,
-                 train_seats=None, user_id=None, user_name=None):
+                 flight_cabins=None, flight_intl_rule_code=None, flight_rule_code=None, hotel_citys=None, hotel_intl_citys=None,
+                 hotel_intl_rule_code=None, hotel_rule_code=None, premium_economy_discount=None, reserve_type=None,
+                 train_rule_code=None, train_seats=None, user_id=None, user_name=None):
         self.business_discount = business_discount  # type: int
         self.car_city_set = car_city_set  # type: list[ApplyQueryResponseBodyModuleTravelerListCarCitySet]
         self.economy_discount = economy_discount  # type: int
         self.first_discount = first_discount  # type: int
         self.flight_cabins = flight_cabins  # type: str
+        self.flight_intl_rule_code = flight_intl_rule_code  # type: long
+        self.flight_rule_code = flight_rule_code  # type: long
         self.hotel_citys = hotel_citys  # type: list[ApplyQueryResponseBodyModuleTravelerListHotelCitys]
         self.hotel_intl_citys = hotel_intl_citys  # type: list[ApplyQueryResponseBodyModuleTravelerListHotelIntlCitys]
+        self.hotel_intl_rule_code = hotel_intl_rule_code  # type: long
+        self.hotel_rule_code = hotel_rule_code  # type: long
         self.premium_economy_discount = premium_economy_discount  # type: int
         self.reserve_type = reserve_type  # type: int
+        self.train_rule_code = train_rule_code  # type: long
         self.train_seats = train_seats  # type: str
         self.user_id = user_id  # type: str
         self.user_name = user_name  # type: str
@@ -10489,6 +10625,10 @@ class ApplyQueryResponseBodyModuleTravelerList(TeaModel):
             result['first_discount'] = self.first_discount
         if self.flight_cabins is not None:
             result['flight_cabins'] = self.flight_cabins
+        if self.flight_intl_rule_code is not None:
+            result['flight_intl_rule_code'] = self.flight_intl_rule_code
+        if self.flight_rule_code is not None:
+            result['flight_rule_code'] = self.flight_rule_code
         result['hotel_citys'] = []
         if self.hotel_citys is not None:
             for k in self.hotel_citys:
@@ -10497,10 +10637,16 @@ class ApplyQueryResponseBodyModuleTravelerList(TeaModel):
         if self.hotel_intl_citys is not None:
             for k in self.hotel_intl_citys:
                 result['hotel_intl_citys'].append(k.to_map() if k else None)
+        if self.hotel_intl_rule_code is not None:
+            result['hotel_intl_rule_code'] = self.hotel_intl_rule_code
+        if self.hotel_rule_code is not None:
+            result['hotel_rule_code'] = self.hotel_rule_code
         if self.premium_economy_discount is not None:
             result['premium_economy_discount'] = self.premium_economy_discount
         if self.reserve_type is not None:
             result['reserve_type'] = self.reserve_type
+        if self.train_rule_code is not None:
+            result['train_rule_code'] = self.train_rule_code
         if self.train_seats is not None:
             result['train_seats'] = self.train_seats
         if self.user_id is not None:
@@ -10524,6 +10670,10 @@ class ApplyQueryResponseBodyModuleTravelerList(TeaModel):
             self.first_discount = m.get('first_discount')
         if m.get('flight_cabins') is not None:
             self.flight_cabins = m.get('flight_cabins')
+        if m.get('flight_intl_rule_code') is not None:
+            self.flight_intl_rule_code = m.get('flight_intl_rule_code')
+        if m.get('flight_rule_code') is not None:
+            self.flight_rule_code = m.get('flight_rule_code')
         self.hotel_citys = []
         if m.get('hotel_citys') is not None:
             for k in m.get('hotel_citys'):
@@ -10534,10 +10684,16 @@ class ApplyQueryResponseBodyModuleTravelerList(TeaModel):
             for k in m.get('hotel_intl_citys'):
                 temp_model = ApplyQueryResponseBodyModuleTravelerListHotelIntlCitys()
                 self.hotel_intl_citys.append(temp_model.from_map(k))
+        if m.get('hotel_intl_rule_code') is not None:
+            self.hotel_intl_rule_code = m.get('hotel_intl_rule_code')
+        if m.get('hotel_rule_code') is not None:
+            self.hotel_rule_code = m.get('hotel_rule_code')
         if m.get('premium_economy_discount') is not None:
             self.premium_economy_discount = m.get('premium_economy_discount')
         if m.get('reserve_type') is not None:
             self.reserve_type = m.get('reserve_type')
+        if m.get('train_rule_code') is not None:
+            self.train_rule_code = m.get('train_rule_code')
         if m.get('train_seats') is not None:
             self.train_seats = m.get('train_seats')
         if m.get('user_id') is not None:
@@ -80268,6 +80424,688 @@ class TrainTicketScanQueryResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = TrainTicketScanQueryResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class TravelStandardListQueryHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_acs_btrip_corp_token=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_acs_btrip_corp_token = x_acs_btrip_corp_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TravelStandardListQueryHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_acs_btrip_corp_token is not None:
+            result['x-acs-btrip-corp-token'] = self.x_acs_btrip_corp_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('x-acs-btrip-corp-token') is not None:
+            self.x_acs_btrip_corp_token = m.get('x-acs-btrip-corp-token')
+        return self
+
+
+class TravelStandardListQueryRequest(TeaModel):
+    def __init__(self, from_group=None, page_no=None, page_size=None, rule_name=None):
+        self.from_group = from_group  # type: bool
+        self.page_no = page_no  # type: int
+        self.page_size = page_size  # type: int
+        self.rule_name = rule_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TravelStandardListQueryRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.from_group is not None:
+            result['from_group'] = self.from_group
+        if self.page_no is not None:
+            result['page_no'] = self.page_no
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.rule_name is not None:
+            result['rule_name'] = self.rule_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('from_group') is not None:
+            self.from_group = m.get('from_group')
+        if m.get('page_no') is not None:
+            self.page_no = m.get('page_no')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('rule_name') is not None:
+            self.rule_name = m.get('rule_name')
+        return self
+
+
+class TravelStandardListQueryResponseBodyModuleItemsMainReserveRule(TeaModel):
+    def __init__(self, open_service_type_list=None, rule_code=None, rule_desc=None, rule_id=None, rule_name=None):
+        self.open_service_type_list = open_service_type_list  # type: list[str]
+        self.rule_code = rule_code  # type: long
+        self.rule_desc = rule_desc  # type: str
+        self.rule_id = rule_id  # type: long
+        self.rule_name = rule_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TravelStandardListQueryResponseBodyModuleItemsMainReserveRule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.open_service_type_list is not None:
+            result['open_service_type_list'] = self.open_service_type_list
+        if self.rule_code is not None:
+            result['rule_code'] = self.rule_code
+        if self.rule_desc is not None:
+            result['rule_desc'] = self.rule_desc
+        if self.rule_id is not None:
+            result['rule_id'] = self.rule_id
+        if self.rule_name is not None:
+            result['rule_name'] = self.rule_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('open_service_type_list') is not None:
+            self.open_service_type_list = m.get('open_service_type_list')
+        if m.get('rule_code') is not None:
+            self.rule_code = m.get('rule_code')
+        if m.get('rule_desc') is not None:
+            self.rule_desc = m.get('rule_desc')
+        if m.get('rule_id') is not None:
+            self.rule_id = m.get('rule_id')
+        if m.get('rule_name') is not None:
+            self.rule_name = m.get('rule_name')
+        return self
+
+
+class TravelStandardListQueryResponseBodyModuleItemsReserveRuleDescDataList(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TravelStandardListQueryResponseBodyModuleItemsReserveRuleDescDataList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['key'] = self.key
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('key') is not None:
+            self.key = m.get('key')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        return self
+
+
+class TravelStandardListQueryResponseBodyModuleItemsReserveRuleDesc(TeaModel):
+    def __init__(self, data_list=None, title=None, type=None):
+        self.data_list = data_list  # type: list[TravelStandardListQueryResponseBodyModuleItemsReserveRuleDescDataList]
+        self.title = title  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        if self.data_list:
+            for k in self.data_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(TravelStandardListQueryResponseBodyModuleItemsReserveRuleDesc, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['data_list'] = []
+        if self.data_list is not None:
+            for k in self.data_list:
+                result['data_list'].append(k.to_map() if k else None)
+        if self.title is not None:
+            result['title'] = self.title
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.data_list = []
+        if m.get('data_list') is not None:
+            for k in m.get('data_list'):
+                temp_model = TravelStandardListQueryResponseBodyModuleItemsReserveRuleDescDataList()
+                self.data_list.append(temp_model.from_map(k))
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class TravelStandardListQueryResponseBodyModuleItems(TeaModel):
+    def __init__(self, main_reserve_rule=None, reserve_rule_desc=None, scope=None):
+        self.main_reserve_rule = main_reserve_rule  # type: TravelStandardListQueryResponseBodyModuleItemsMainReserveRule
+        self.reserve_rule_desc = reserve_rule_desc  # type: list[TravelStandardListQueryResponseBodyModuleItemsReserveRuleDesc]
+        self.scope = scope  # type: int
+
+    def validate(self):
+        if self.main_reserve_rule:
+            self.main_reserve_rule.validate()
+        if self.reserve_rule_desc:
+            for k in self.reserve_rule_desc:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(TravelStandardListQueryResponseBodyModuleItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.main_reserve_rule is not None:
+            result['main_reserve_rule'] = self.main_reserve_rule.to_map()
+        result['reserve_rule_desc'] = []
+        if self.reserve_rule_desc is not None:
+            for k in self.reserve_rule_desc:
+                result['reserve_rule_desc'].append(k.to_map() if k else None)
+        if self.scope is not None:
+            result['scope'] = self.scope
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('main_reserve_rule') is not None:
+            temp_model = TravelStandardListQueryResponseBodyModuleItemsMainReserveRule()
+            self.main_reserve_rule = temp_model.from_map(m['main_reserve_rule'])
+        self.reserve_rule_desc = []
+        if m.get('reserve_rule_desc') is not None:
+            for k in m.get('reserve_rule_desc'):
+                temp_model = TravelStandardListQueryResponseBodyModuleItemsReserveRuleDesc()
+                self.reserve_rule_desc.append(temp_model.from_map(k))
+        if m.get('scope') is not None:
+            self.scope = m.get('scope')
+        return self
+
+
+class TravelStandardListQueryResponseBodyModule(TeaModel):
+    def __init__(self, items=None, total_size=None):
+        self.items = items  # type: list[TravelStandardListQueryResponseBodyModuleItems]
+        self.total_size = total_size  # type: int
+
+    def validate(self):
+        if self.items:
+            for k in self.items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(TravelStandardListQueryResponseBodyModule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['items'] = []
+        if self.items is not None:
+            for k in self.items:
+                result['items'].append(k.to_map() if k else None)
+        if self.total_size is not None:
+            result['total_size'] = self.total_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.items = []
+        if m.get('items') is not None:
+            for k in m.get('items'):
+                temp_model = TravelStandardListQueryResponseBodyModuleItems()
+                self.items.append(temp_model.from_map(k))
+        if m.get('total_size') is not None:
+            self.total_size = m.get('total_size')
+        return self
+
+
+class TravelStandardListQueryResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
+        self.code = code  # type: int
+        self.message = message  # type: str
+        self.module = module  # type: TravelStandardListQueryResponseBodyModule
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        # traceId
+        self.trace_id = trace_id  # type: str
+
+    def validate(self):
+        if self.module:
+            self.module.validate()
+
+    def to_map(self):
+        _map = super(TravelStandardListQueryResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.module is not None:
+            result['module'] = self.module.to_map()
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        if self.trace_id is not None:
+            result['traceId'] = self.trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('module') is not None:
+            temp_model = TravelStandardListQueryResponseBodyModule()
+            self.module = temp_model.from_map(m['module'])
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('traceId') is not None:
+            self.trace_id = m.get('traceId')
+        return self
+
+
+class TravelStandardListQueryResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: TravelStandardListQueryResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(TravelStandardListQueryResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = TravelStandardListQueryResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class TravelStandardQueryHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_acs_btrip_corp_token=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_acs_btrip_corp_token = x_acs_btrip_corp_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TravelStandardQueryHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_acs_btrip_corp_token is not None:
+            result['x-acs-btrip-corp-token'] = self.x_acs_btrip_corp_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('x-acs-btrip-corp-token') is not None:
+            self.x_acs_btrip_corp_token = m.get('x-acs-btrip-corp-token')
+        return self
+
+
+class TravelStandardQueryRequest(TeaModel):
+    def __init__(self, from_group=None, rule_code=None, service_type_list=None):
+        self.from_group = from_group  # type: bool
+        self.rule_code = rule_code  # type: long
+        self.service_type_list = service_type_list  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TravelStandardQueryRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.from_group is not None:
+            result['from_group'] = self.from_group
+        if self.rule_code is not None:
+            result['rule_code'] = self.rule_code
+        if self.service_type_list is not None:
+            result['service_type_list'] = self.service_type_list
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('from_group') is not None:
+            self.from_group = m.get('from_group')
+        if m.get('rule_code') is not None:
+            self.rule_code = m.get('rule_code')
+        if m.get('service_type_list') is not None:
+            self.service_type_list = m.get('service_type_list')
+        return self
+
+
+class TravelStandardQueryShrinkRequest(TeaModel):
+    def __init__(self, from_group=None, rule_code=None, service_type_list_shrink=None):
+        self.from_group = from_group  # type: bool
+        self.rule_code = rule_code  # type: long
+        self.service_type_list_shrink = service_type_list_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TravelStandardQueryShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.from_group is not None:
+            result['from_group'] = self.from_group
+        if self.rule_code is not None:
+            result['rule_code'] = self.rule_code
+        if self.service_type_list_shrink is not None:
+            result['service_type_list'] = self.service_type_list_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('from_group') is not None:
+            self.from_group = m.get('from_group')
+        if m.get('rule_code') is not None:
+            self.rule_code = m.get('rule_code')
+        if m.get('service_type_list') is not None:
+            self.service_type_list_shrink = m.get('service_type_list')
+        return self
+
+
+class TravelStandardQueryResponseBodyModuleReserveRuleMainReserveRule(TeaModel):
+    def __init__(self, open_service_type_list=None, rule_code=None, rule_desc=None, rule_id=None, rule_name=None):
+        self.open_service_type_list = open_service_type_list  # type: list[str]
+        self.rule_code = rule_code  # type: long
+        self.rule_desc = rule_desc  # type: str
+        self.rule_id = rule_id  # type: long
+        self.rule_name = rule_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TravelStandardQueryResponseBodyModuleReserveRuleMainReserveRule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.open_service_type_list is not None:
+            result['open_service_type_list'] = self.open_service_type_list
+        if self.rule_code is not None:
+            result['rule_code'] = self.rule_code
+        if self.rule_desc is not None:
+            result['rule_desc'] = self.rule_desc
+        if self.rule_id is not None:
+            result['rule_id'] = self.rule_id
+        if self.rule_name is not None:
+            result['rule_name'] = self.rule_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('open_service_type_list') is not None:
+            self.open_service_type_list = m.get('open_service_type_list')
+        if m.get('rule_code') is not None:
+            self.rule_code = m.get('rule_code')
+        if m.get('rule_desc') is not None:
+            self.rule_desc = m.get('rule_desc')
+        if m.get('rule_id') is not None:
+            self.rule_id = m.get('rule_id')
+        if m.get('rule_name') is not None:
+            self.rule_name = m.get('rule_name')
+        return self
+
+
+class TravelStandardQueryResponseBodyModuleReserveRuleModuleConfigList(TeaModel):
+    def __init__(self, code=None, value=None):
+        self.code = code  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TravelStandardQueryResponseBodyModuleReserveRuleModuleConfigList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        return self
+
+
+class TravelStandardQueryResponseBodyModuleReserveRule(TeaModel):
+    def __init__(self, main_reserve_rule=None, module_config_list=None):
+        self.main_reserve_rule = main_reserve_rule  # type: TravelStandardQueryResponseBodyModuleReserveRuleMainReserveRule
+        self.module_config_list = module_config_list  # type: list[TravelStandardQueryResponseBodyModuleReserveRuleModuleConfigList]
+
+    def validate(self):
+        if self.main_reserve_rule:
+            self.main_reserve_rule.validate()
+        if self.module_config_list:
+            for k in self.module_config_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(TravelStandardQueryResponseBodyModuleReserveRule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.main_reserve_rule is not None:
+            result['main_reserve_rule'] = self.main_reserve_rule.to_map()
+        result['module_config_list'] = []
+        if self.module_config_list is not None:
+            for k in self.module_config_list:
+                result['module_config_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('main_reserve_rule') is not None:
+            temp_model = TravelStandardQueryResponseBodyModuleReserveRuleMainReserveRule()
+            self.main_reserve_rule = temp_model.from_map(m['main_reserve_rule'])
+        self.module_config_list = []
+        if m.get('module_config_list') is not None:
+            for k in m.get('module_config_list'):
+                temp_model = TravelStandardQueryResponseBodyModuleReserveRuleModuleConfigList()
+                self.module_config_list.append(temp_model.from_map(k))
+        return self
+
+
+class TravelStandardQueryResponseBodyModule(TeaModel):
+    def __init__(self, activated_service_type_list=None, reserve_rule=None):
+        self.activated_service_type_list = activated_service_type_list  # type: list[str]
+        self.reserve_rule = reserve_rule  # type: TravelStandardQueryResponseBodyModuleReserveRule
+
+    def validate(self):
+        if self.reserve_rule:
+            self.reserve_rule.validate()
+
+    def to_map(self):
+        _map = super(TravelStandardQueryResponseBodyModule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.activated_service_type_list is not None:
+            result['activated_service_type_list'] = self.activated_service_type_list
+        if self.reserve_rule is not None:
+            result['reserve_rule'] = self.reserve_rule.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('activated_service_type_list') is not None:
+            self.activated_service_type_list = m.get('activated_service_type_list')
+        if m.get('reserve_rule') is not None:
+            temp_model = TravelStandardQueryResponseBodyModuleReserveRule()
+            self.reserve_rule = temp_model.from_map(m['reserve_rule'])
+        return self
+
+
+class TravelStandardQueryResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.module = module  # type: TravelStandardQueryResponseBodyModule
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        # traceId
+        self.trace_id = trace_id  # type: str
+
+    def validate(self):
+        if self.module:
+            self.module.validate()
+
+    def to_map(self):
+        _map = super(TravelStandardQueryResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.module is not None:
+            result['module'] = self.module.to_map()
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        if self.trace_id is not None:
+            result['traceId'] = self.trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('module') is not None:
+            temp_model = TravelStandardQueryResponseBodyModule()
+            self.module = temp_model.from_map(m['module'])
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('traceId') is not None:
+            self.trace_id = m.get('traceId')
+        return self
+
+
+class TravelStandardQueryResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: TravelStandardQueryResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(TravelStandardQueryResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = TravelStandardQueryResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
