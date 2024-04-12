@@ -1903,6 +1903,41 @@ class GetInstanceResponseBodyLatestSnapshot(TeaModel):
         return self
 
 
+class GetInstanceResponseBodyNodeErrorRecovery(TeaModel):
+    def __init__(self, auto_switch_countdown_seconds=None, enable_auto_switch_on_node_error=None,
+                 has_node_error=None):
+        self.auto_switch_countdown_seconds = auto_switch_countdown_seconds  # type: long
+        self.enable_auto_switch_on_node_error = enable_auto_switch_on_node_error  # type: bool
+        self.has_node_error = has_node_error  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetInstanceResponseBodyNodeErrorRecovery, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auto_switch_countdown_seconds is not None:
+            result['autoSwitchCountdownSeconds'] = self.auto_switch_countdown_seconds
+        if self.enable_auto_switch_on_node_error is not None:
+            result['enableAutoSwitchOnNodeError'] = self.enable_auto_switch_on_node_error
+        if self.has_node_error is not None:
+            result['hasNodeError'] = self.has_node_error
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('autoSwitchCountdownSeconds') is not None:
+            self.auto_switch_countdown_seconds = m.get('autoSwitchCountdownSeconds')
+        if m.get('enableAutoSwitchOnNodeError') is not None:
+            self.enable_auto_switch_on_node_error = m.get('enableAutoSwitchOnNodeError')
+        if m.get('hasNodeError') is not None:
+            self.has_node_error = m.get('hasNodeError')
+        return self
+
+
 class GetInstanceResponseBodyRequestedResource(TeaModel):
     def __init__(self, cpu=None, gpu=None, gputype=None, memory=None, shared_memory=None):
         self.cpu = cpu  # type: str
@@ -2012,7 +2047,7 @@ class GetInstanceResponseBody(TeaModel):
                  gmt_create_time=None, gmt_modified_time=None, http_status_code=None, idle_instance_culler=None, image_id=None,
                  image_name=None, image_url=None, instance_id=None, instance_name=None, instance_shutdown_timer=None,
                  instance_snapshot_list=None, instance_url=None, jupyterlab_url=None, labels=None, latest_snapshot=None, message=None,
-                 payment_type=None, priority=None, reason_code=None, reason_message=None, request_id=None,
+                 node_error_recovery=None, payment_type=None, priority=None, reason_code=None, reason_message=None, request_id=None,
                  requested_resource=None, resource_id=None, resource_name=None, status=None, success=None, terminal_url=None,
                  user_id=None, user_name=None, user_vpc=None, web_ideurl=None, workspace_id=None, workspace_name=None,
                  workspace_source=None):
@@ -2042,6 +2077,7 @@ class GetInstanceResponseBody(TeaModel):
         self.labels = labels  # type: list[GetInstanceResponseBodyLabels]
         self.latest_snapshot = latest_snapshot  # type: GetInstanceResponseBodyLatestSnapshot
         self.message = message  # type: str
+        self.node_error_recovery = node_error_recovery  # type: GetInstanceResponseBodyNodeErrorRecovery
         self.payment_type = payment_type  # type: str
         self.priority = priority  # type: long
         self.reason_code = reason_code  # type: str
@@ -2085,6 +2121,8 @@ class GetInstanceResponseBody(TeaModel):
                     k.validate()
         if self.latest_snapshot:
             self.latest_snapshot.validate()
+        if self.node_error_recovery:
+            self.node_error_recovery.validate()
         if self.requested_resource:
             self.requested_resource.validate()
         if self.user_vpc:
@@ -2154,6 +2192,8 @@ class GetInstanceResponseBody(TeaModel):
             result['LatestSnapshot'] = self.latest_snapshot.to_map()
         if self.message is not None:
             result['Message'] = self.message
+        if self.node_error_recovery is not None:
+            result['NodeErrorRecovery'] = self.node_error_recovery.to_map()
         if self.payment_type is not None:
             result['PaymentType'] = self.payment_type
         if self.priority is not None:
@@ -2259,6 +2299,9 @@ class GetInstanceResponseBody(TeaModel):
             self.latest_snapshot = temp_model.from_map(m['LatestSnapshot'])
         if m.get('Message') is not None:
             self.message = m.get('Message')
+        if m.get('NodeErrorRecovery') is not None:
+            temp_model = GetInstanceResponseBodyNodeErrorRecovery()
+            self.node_error_recovery = temp_model.from_map(m['NodeErrorRecovery'])
         if m.get('PaymentType') is not None:
             self.payment_type = m.get('PaymentType')
         if m.get('Priority') is not None:
