@@ -6728,7 +6728,9 @@ class QueryDomainGroupListResponse(TeaModel):
 
 class QueryDomainListRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag to add to the resource.
         self.key = key  # type: str
+        # The value of the tag to add to the resource.
         self.value = value  # type: str
 
     def validate(self):
@@ -6760,22 +6762,61 @@ class QueryDomainListRequest(TeaModel):
                  end_registration_date=None, lang=None, order_by_type=None, order_key_type=None, page_num=None, page_size=None,
                  product_domain_type=None, query_type=None, resource_group_id=None, start_expiration_date=None,
                  start_registration_date=None, tag=None, user_client_ip=None):
+        # The name of the domain name registrant.
         self.ccompany = ccompany  # type: str
+        # The ID of the domain name group.
         self.domain_group_id = domain_group_id  # type: str
+        # The domain name that you want to search for.
         self.domain_name = domain_name  # type: str
+        # The end of the time range to query domain names based on expiration dates. Set the value to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC. Only queries by day are supported.
         self.end_expiration_date = end_expiration_date  # type: long
+        # The end of the time range to query domain names based on registration dates. Set the value to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC. Only queries by day are supported.
         self.end_registration_date = end_registration_date  # type: long
+        # The language of the error message to return if the request fails. Valid values:
+        # 
+        # *   **zh**: Chinese
+        # *   **en**: English
+        # 
+        # Default value: **en**.
         self.lang = lang  # type: str
+        # The order of the information based on which the domain names are sorted, such as the registration date and expiration date. Valid values:
+        # 
+        # *   **ASC**: ascending order
+        # *   **DESC**: descending order
+        # 
+        # >  If this parameter is not specified, the default value **DESC** is used.
         self.order_by_type = order_by_type  # type: str
+        # The field that you use to sort the domain names. Valid values:
+        # 
+        # *   **RegistrationDate**: registration date
+        # *   **ExpirationDate**: expiration date
+        # 
+        # >  If this parameter is not specified, the domain names are sorted by the time when they were added to the database.
         self.order_key_type = order_key_type  # type: str
+        # The page number.
         self.page_num = page_num  # type: int
+        # The number of entries per page.
         self.page_size = page_size  # type: int
+        # The type of the domain name. Valid values:
+        # 
+        # *   **New gTLD**: new generic top-level domain names
+        # *   **gTLD**: generic top-level domain names
+        # *   **ccTLD**: country code top-level domain names
         self.product_domain_type = product_domain_type  # type: str
+        # The category of the domain names that you want to query. Valid values:
+        # 
+        # *   **1**: the domain names that need to be renewed
+        # *   **2**: the domain names that need to be redeemed
         self.query_type = query_type  # type: str
+        # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
+        # The beginning of the time range to query domain names based on expiration dates. Set the value to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC. Only queries by day are supported.
         self.start_expiration_date = start_expiration_date  # type: long
+        # The beginning of the time range to query domain names based on registration dates. Set the value to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC. Only queries by day are supported.
         self.start_registration_date = start_registration_date  # type: long
+        # The tags to add to the resource.
         self.tag = tag  # type: list[QueryDomainListRequestTag]
+        # The IP address of the client. Set the value to **127.0.0.1**.
         self.user_client_ip = user_client_ip  # type: str
 
     def validate(self):
@@ -6872,7 +6913,9 @@ class QueryDomainListRequest(TeaModel):
 
 class QueryDomainListResponseBodyDataDomainTagTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag added to the resource.
         self.key = key  # type: str
+        # The value of the tag added to the resource.
         self.value = value  # type: str
 
     def validate(self):
@@ -6937,25 +6980,64 @@ class QueryDomainListResponseBodyDataDomain(TeaModel):
                  expiration_date_long=None, expiration_date_status=None, instance_id=None, premium=None, product_id=None,
                  registrant_type=None, registration_date=None, registration_date_long=None, remark=None, resource_group_id=None,
                  tag=None):
+        # The name of the domain name registrant.
         self.ccompany = ccompany  # type: str
+        # The state of real-name verification for the domain name. Valid values:
+        # 
+        # *   **FAILED**: Real-name verification for the domain name fails.
+        # *   **SUCCEED**: Real-name verification for the domain name is successful.
+        # *   **NONAUDIT**: Real-name verification for the domain name is not performed.
+        # *   **AUDITING**: Real-name verification for the domain name is in progress.
         self.domain_audit_status = domain_audit_status  # type: str
+        # The ID of the domain name group.
         self.domain_group_id = domain_group_id  # type: str
+        # The name of the domain name group.
         self.domain_group_name = domain_group_name  # type: str
+        # The domain name.
         self.domain_name = domain_name  # type: str
+        # The state of the domain name. Valid values:
+        # 
+        # *   **1**: The domain name needs to be renewed.
+        # *   **2**: The domain name needs to be redeemed.
+        # *   **3**: The domain name is normal.
         self.domain_status = domain_status  # type: str
+        # The type of the domain name. Valid values:
+        # 
+        # *   **New gTLD**\
+        # *   **gTLD**\
+        # *   **ccTLD**\
         self.domain_type = domain_type  # type: str
+        # The number of days from the expiration date of the domain name to the current date.
         self.expiration_curr_date_diff = expiration_curr_date_diff  # type: int
+        # The time when the domain name expires.
         self.expiration_date = expiration_date  # type: str
+        # The validity period of the domain name. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.expiration_date_long = expiration_date_long  # type: long
+        # Indicates whether the domain name expires. Valid values:
+        # 
+        # *   **1**: The domain name does not expire.
+        # *   **2**: The domain name expires.
         self.expiration_date_status = expiration_date_status  # type: str
+        # The instance ID.
         self.instance_id = instance_id  # type: str
+        # Indicates whether the domain name is a premium domain name.
         self.premium = premium  # type: bool
+        # The service ID.
         self.product_id = product_id  # type: str
+        # The registration type of the domain name. Valid values:
+        # 
+        # *   **1**: individual
+        # *   **2**: enterprise
         self.registrant_type = registrant_type  # type: str
+        # The time when the domain name was registered.
         self.registration_date = registration_date  # type: str
+        # Indicates how long the domain name has been registered. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.registration_date_long = registration_date_long  # type: long
+        # The remarks of the domain name.
         self.remark = remark  # type: str
+        # The ID of the resource group to which the domain name belongs.
         self.resource_group_id = resource_group_id  # type: str
+        # The tags added to the resource.
         self.tag = tag  # type: QueryDomainListResponseBodyDataDomainTag
 
     def validate(self):
@@ -7091,13 +7173,21 @@ class QueryDomainListResponseBodyData(TeaModel):
 class QueryDomainListResponseBody(TeaModel):
     def __init__(self, current_page_num=None, data=None, next_page=None, page_size=None, pre_page=None,
                  request_id=None, total_item_num=None, total_page_num=None):
+        # The page number.
         self.current_page_num = current_page_num  # type: int
+        # The domain names.
         self.data = data  # type: QueryDomainListResponseBodyData
+        # Indicates whether the current page is followed by a page.
         self.next_page = next_page  # type: bool
+        # The number of entries per page.
         self.page_size = page_size  # type: int
+        # Indicates whether the current page is preceded by a page.
         self.pre_page = pre_page  # type: bool
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of domain names returned.
         self.total_item_num = total_item_num  # type: int
+        # The total number of pages returned.
         self.total_page_num = total_page_num  # type: int
 
     def validate(self):
@@ -14129,8 +14219,16 @@ class SaveBatchTaskForDomainNameProxyServiceResponse(TeaModel):
 
 class SaveBatchTaskForGenerateDomainCertificateRequest(TeaModel):
     def __init__(self, domain_names=None, lang=None, user_client_ip=None):
+        # The domain names.
         self.domain_names = domain_names  # type: list[str]
+        # The language of the error message to return if the request fails. Valid values:
+        # 
+        # *   **zh**: Chinese.
+        # *   **en**: English.
+        # 
+        # Default value: **en**.
         self.lang = lang  # type: str
+        # The IP address of the client.
         self.user_client_ip = user_client_ip  # type: str
 
     def validate(self):
@@ -14163,8 +14261,16 @@ class SaveBatchTaskForGenerateDomainCertificateRequest(TeaModel):
 
 class SaveBatchTaskForGenerateDomainCertificateShrinkRequest(TeaModel):
     def __init__(self, domain_names_shrink=None, lang=None, user_client_ip=None):
+        # The domain names.
         self.domain_names_shrink = domain_names_shrink  # type: str
+        # The language of the error message to return if the request fails. Valid values:
+        # 
+        # *   **zh**: Chinese.
+        # *   **en**: English.
+        # 
+        # Default value: **en**.
         self.lang = lang  # type: str
+        # The IP address of the client.
         self.user_client_ip = user_client_ip  # type: str
 
     def validate(self):
@@ -14197,7 +14303,9 @@ class SaveBatchTaskForGenerateDomainCertificateShrinkRequest(TeaModel):
 
 class SaveBatchTaskForGenerateDomainCertificateResponseBody(TeaModel):
     def __init__(self, request_id=None, task_no=None):
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The task ID.
         self.task_no = task_no  # type: str
 
     def validate(self):
@@ -14370,7 +14478,9 @@ class SaveBatchTaskForModifyingDomainDnsResponse(TeaModel):
 
 
 class SaveBatchTaskForReserveDropListDomainRequestDomains(TeaModel):
-    def __init__(self, domain_name=None):
+    def __init__(self, dns_1=None, dns_2=None, domain_name=None):
+        self.dns_1 = dns_1  # type: str
+        self.dns_2 = dns_2  # type: str
         self.domain_name = domain_name  # type: str
 
     def validate(self):
@@ -14382,12 +14492,20 @@ class SaveBatchTaskForReserveDropListDomainRequestDomains(TeaModel):
             return _map
 
         result = dict()
+        if self.dns_1 is not None:
+            result['Dns1'] = self.dns_1
+        if self.dns_2 is not None:
+            result['Dns2'] = self.dns_2
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Dns1') is not None:
+            self.dns_1 = m.get('Dns1')
+        if m.get('Dns2') is not None:
+            self.dns_2 = m.get('Dns2')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
         return self
@@ -17345,8 +17463,16 @@ class SaveSingleTaskForDomainNameProxyServiceResponse(TeaModel):
 
 class SaveSingleTaskForGenerateDomainCertificateRequest(TeaModel):
     def __init__(self, domain_name=None, lang=None, user_client_ip=None):
+        # The domain name.
         self.domain_name = domain_name  # type: str
+        # The language of the error message to return if the request fails. Valid values:
+        # 
+        # *   **zh**: Chinese.
+        # *   **en**: English.
+        # 
+        # Default value: **en**.
         self.lang = lang  # type: str
+        # The IP address of the client.
         self.user_client_ip = user_client_ip  # type: str
 
     def validate(self):
@@ -17379,7 +17505,9 @@ class SaveSingleTaskForGenerateDomainCertificateRequest(TeaModel):
 
 class SaveSingleTaskForGenerateDomainCertificateResponseBody(TeaModel):
     def __init__(self, request_id=None, task_no=None):
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The task ID.
         self.task_no = task_no  # type: str
 
     def validate(self):
