@@ -4839,9 +4839,10 @@ class GetModelVersionResponse(TeaModel):
 
 
 class GetPermissionRequest(TeaModel):
-    def __init__(self, accessibility=None, creator=None, resource=None):
+    def __init__(self, accessibility=None, creator=None, option=None, resource=None):
         self.accessibility = accessibility  # type: str
         self.creator = creator  # type: str
+        self.option = option  # type: str
         self.resource = resource  # type: str
 
     def validate(self):
@@ -4857,6 +4858,8 @@ class GetPermissionRequest(TeaModel):
             result['Accessibility'] = self.accessibility
         if self.creator is not None:
             result['Creator'] = self.creator
+        if self.option is not None:
+            result['Option'] = self.option
         if self.resource is not None:
             result['Resource'] = self.resource
         return result
@@ -4867,6 +4870,8 @@ class GetPermissionRequest(TeaModel):
             self.accessibility = m.get('Accessibility')
         if m.get('Creator') is not None:
             self.creator = m.get('Creator')
+        if m.get('Option') is not None:
+            self.option = m.get('Option')
         if m.get('Resource') is not None:
             self.resource = m.get('Resource')
         return self
