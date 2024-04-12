@@ -8626,6 +8626,10 @@ class Client(OpenApiClient):
             query['DedicatedHostType'] = request.dedicated_host_type
         if not UtilClient.is_unset(request.lock_reason):
             query['LockReason'] = request.lock_reason
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
         if not UtilClient.is_unset(request.owner_account):
             query['OwnerAccount'] = request.owner_account
         if not UtilClient.is_unset(request.owner_id):
@@ -10957,16 +10961,26 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.cpu_architecture):
             query['CpuArchitecture'] = request.cpu_architecture
+        if not UtilClient.is_unset(request.cpu_architectures):
+            query['CpuArchitectures'] = request.cpu_architectures
         if not UtilClient.is_unset(request.gpuspec):
             query['GPUSpec'] = request.gpuspec
+        if not UtilClient.is_unset(request.gpu_specs):
+            query['GpuSpecs'] = request.gpu_specs
+        if not UtilClient.is_unset(request.instance_categories):
+            query['InstanceCategories'] = request.instance_categories
         if not UtilClient.is_unset(request.instance_category):
             query['InstanceCategory'] = request.instance_category
         if not UtilClient.is_unset(request.instance_family_level):
             query['InstanceFamilyLevel'] = request.instance_family_level
+        if not UtilClient.is_unset(request.instance_type_families):
+            query['InstanceTypeFamilies'] = request.instance_type_families
         if not UtilClient.is_unset(request.instance_type_family):
             query['InstanceTypeFamily'] = request.instance_type_family
         if not UtilClient.is_unset(request.instance_types):
             query['InstanceTypes'] = request.instance_types
+        if not UtilClient.is_unset(request.local_storage_categories):
+            query['LocalStorageCategories'] = request.local_storage_categories
         if not UtilClient.is_unset(request.local_storage_category):
             query['LocalStorageCategory'] = request.local_storage_category
         if not UtilClient.is_unset(request.max_results):
@@ -11033,6 +11047,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.physical_processor_model):
             query['PhysicalProcessorModel'] = request.physical_processor_model
+        if not UtilClient.is_unset(request.physical_processor_models):
+            query['PhysicalProcessorModels'] = request.physical_processor_models
         if not UtilClient.is_unset(request.resource_owner_account):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
@@ -11455,10 +11471,12 @@ class Client(OpenApiClient):
 
     def describe_invocations_with_options(self, request, runtime):
         """
-        - After you run a command, the command may not succeed or return the expected result. You can call this operation to query the execution result.
-        - You can query information about command executions within the last four weeks. A maximum of 100,000 entries of execution information can be retained.
-        - Method 1: During a paged query, when you call the DescribeInvocations operation to retrieve the first page of results, set MaxResults to specify the maximum number of entries to return in the call. The return value of NextToken is a pagination token, which can be used in the next request to retrieve a new page of results. When you call the DescribeInvocations operation to retrieve a new page of results, set NextToken to the NextToken value returned in the previous call and set MaxResults to specify the maximum number of entries to return in this call.
-        - Method 2: Use PageSize to specify the number of entries to return on each page, and then use PageNumber to specify the number of the page to return. You can use only one of the preceding methods. If you specify MaxResults or NextToken, the PageSize and PageNumber request parameters do not take effect and the TotalCount response parameter is invalid.
+        ## [](#)Usage notes
+        *   After you run a command, the command may not succeed or return the expected results. You can call this operation to query the execution results.
+        *   You can query information about command executions within the last four weeks. Up to 100,000 pieces of execution information can be retained.
+        *   You can use one of the following methods to check the responses:
+        *   Method 1: During a paged query, when you call the DescribeInvocations operation to retrieve the first page of results, use `MaxResults` to specify the maximum number of entries to return in the call. The return value of `NextToken` is a pagination token, which you can use in the next request to retrieve a new page of results. When you call the DescribeInvocations operation to retrieve a new page of results, set `NextToken` to the `NextToken` value returned in the previous call and set `MaxResults` to specify the maximum number of entries to return in this call.
+        *   Method 2: Use `PageSize` to specify the number of entries to return on each page, and then use `PageNumber` to specify the number of the page to return. You can use only one of the preceding methods. If you specify `MaxResults` or `NextToken`, the `PageSize` and `PageNumber` request parameters do not take effect and the `TotalCount` response parameter is invalid.
         
 
         @param request: DescribeInvocationsRequest
@@ -11534,10 +11552,12 @@ class Client(OpenApiClient):
 
     def describe_invocations(self, request):
         """
-        - After you run a command, the command may not succeed or return the expected result. You can call this operation to query the execution result.
-        - You can query information about command executions within the last four weeks. A maximum of 100,000 entries of execution information can be retained.
-        - Method 1: During a paged query, when you call the DescribeInvocations operation to retrieve the first page of results, set MaxResults to specify the maximum number of entries to return in the call. The return value of NextToken is a pagination token, which can be used in the next request to retrieve a new page of results. When you call the DescribeInvocations operation to retrieve a new page of results, set NextToken to the NextToken value returned in the previous call and set MaxResults to specify the maximum number of entries to return in this call.
-        - Method 2: Use PageSize to specify the number of entries to return on each page, and then use PageNumber to specify the number of the page to return. You can use only one of the preceding methods. If you specify MaxResults or NextToken, the PageSize and PageNumber request parameters do not take effect and the TotalCount response parameter is invalid.
+        ## [](#)Usage notes
+        *   After you run a command, the command may not succeed or return the expected results. You can call this operation to query the execution results.
+        *   You can query information about command executions within the last four weeks. Up to 100,000 pieces of execution information can be retained.
+        *   You can use one of the following methods to check the responses:
+        *   Method 1: During a paged query, when you call the DescribeInvocations operation to retrieve the first page of results, use `MaxResults` to specify the maximum number of entries to return in the call. The return value of `NextToken` is a pagination token, which you can use in the next request to retrieve a new page of results. When you call the DescribeInvocations operation to retrieve a new page of results, set `NextToken` to the `NextToken` value returned in the previous call and set `MaxResults` to specify the maximum number of entries to return in this call.
+        *   Method 2: Use `PageSize` to specify the number of entries to return on each page, and then use `PageNumber` to specify the number of the page to return. You can use only one of the preceding methods. If you specify `MaxResults` or `NextToken`, the `PageSize` and `PageNumber` request parameters do not take effect and the `TotalCount` response parameter is invalid.
         
 
         @param request: DescribeInvocationsRequest
@@ -20257,12 +20277,13 @@ class Client(OpenApiClient):
 
     def modify_security_group_rule_with_options(self, request, runtime):
         """
-        In the security group-related API documents, inbound traffic refers to the traffic that is sent by the source device and received at the destination device.
-        When you modify the rules of a security group by specifying the rule IDs, take note of the following limits:
-        *   A security group authorization object can be one of the following types: IP address or CIDR block, security group, or prefix list. The type of an existing security group authorization object cannot be changed. If the original authorization object is an IP address, you can change it to another IP address or a CIDR block, but not to a security group or prefix list.
-        *   The IP address family of the authorization object cannot be changed. For example, if the original authorization object is an IPv4 CIDR block, you cannot change it to an IPv6 CIDR block. If the original authorization object is a prefix list of an IPv4 address family, you cannot change it to a prefix list of an IPv6 address family.
-        *   The modified security group rule cannot be the same as other existing rules.
-        *   You cannot delete the value of a non-empty parameter. We recommend that you create a new rule and delete the original rule.
+        ## [](#)Usage notes
+        In security group-related API documents, inbound traffic refers to the traffic that is sent by the source device and received at the destination device.
+        Take note of the following items:
+        *   An authorization object in a security group rule can be one of the following types: IP address or CIDR block, security group, or prefix list. You cannot call this operation to change the type of an existing authorization object. For example, if an authorization object is an IP address, you can change the authorization object to another IP address or a CIDR block, but you cannot change the authorization object to a security group or prefix list.
+        *   You cannot change the IP address family of an existing authorization object. For example, if an authorization object is an IPv4 CIDR block, you cannot change the authorization object to an IPv6 CIDR block. If an authorization object is a prefix list of the IPv4 address family, you cannot change the authorization object to a prefix list of the IPv6 address family.
+        *   The new security group rule after modification cannot be the same as other existing rules.
+        *   You cannot delete the value of a non-empty parameter. If you want to delete the values of non-empty parameters, we recommend that you create another rule and delete the original rule.
         
 
         @param request: ModifySecurityGroupRuleRequest
@@ -20342,12 +20363,13 @@ class Client(OpenApiClient):
 
     def modify_security_group_rule(self, request):
         """
-        In the security group-related API documents, inbound traffic refers to the traffic that is sent by the source device and received at the destination device.
-        When you modify the rules of a security group by specifying the rule IDs, take note of the following limits:
-        *   A security group authorization object can be one of the following types: IP address or CIDR block, security group, or prefix list. The type of an existing security group authorization object cannot be changed. If the original authorization object is an IP address, you can change it to another IP address or a CIDR block, but not to a security group or prefix list.
-        *   The IP address family of the authorization object cannot be changed. For example, if the original authorization object is an IPv4 CIDR block, you cannot change it to an IPv6 CIDR block. If the original authorization object is a prefix list of an IPv4 address family, you cannot change it to a prefix list of an IPv6 address family.
-        *   The modified security group rule cannot be the same as other existing rules.
-        *   You cannot delete the value of a non-empty parameter. We recommend that you create a new rule and delete the original rule.
+        ## [](#)Usage notes
+        In security group-related API documents, inbound traffic refers to the traffic that is sent by the source device and received at the destination device.
+        Take note of the following items:
+        *   An authorization object in a security group rule can be one of the following types: IP address or CIDR block, security group, or prefix list. You cannot call this operation to change the type of an existing authorization object. For example, if an authorization object is an IP address, you can change the authorization object to another IP address or a CIDR block, but you cannot change the authorization object to a security group or prefix list.
+        *   You cannot change the IP address family of an existing authorization object. For example, if an authorization object is an IPv4 CIDR block, you cannot change the authorization object to an IPv6 CIDR block. If an authorization object is a prefix list of the IPv4 address family, you cannot change the authorization object to a prefix list of the IPv6 address family.
+        *   The new security group rule after modification cannot be the same as other existing rules.
+        *   You cannot delete the value of a non-empty parameter. If you want to delete the values of non-empty parameters, we recommend that you create another rule and delete the original rule.
         
 
         @param request: ModifySecurityGroupRuleRequest
