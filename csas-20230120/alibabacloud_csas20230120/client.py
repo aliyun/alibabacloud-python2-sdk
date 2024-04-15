@@ -1312,6 +1312,32 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_user_groups_for_registration_policy_with_options(request, runtime)
 
+    def list_users_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListUsers',
+            version='2023-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            csas_20230120_models.ListUsersResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_users(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_users_with_options(request, runtime)
+
     def update_dynamic_route_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -1659,3 +1685,33 @@ class Client(OpenApiClient):
     def update_user_group(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_user_group_with_options(request, runtime)
+
+    def update_users_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.sase_user_ids):
+            query['SaseUserIds'] = request.sase_user_ids
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateUsersStatus',
+            version='2023-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            csas_20230120_models.UpdateUsersStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_users_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_users_status_with_options(request, runtime)

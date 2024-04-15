@@ -8609,6 +8609,194 @@ class ListUserGroupsForRegistrationPolicyResponse(TeaModel):
         return self
 
 
+class ListUsersRequest(TeaModel):
+    def __init__(self, current_page=None, department=None, fuzzy_username=None, page_size=None,
+                 precise_username=None, sase_user_ids=None, status=None):
+        self.current_page = current_page  # type: long
+        self.department = department  # type: str
+        self.fuzzy_username = fuzzy_username  # type: str
+        self.page_size = page_size  # type: long
+        self.precise_username = precise_username  # type: str
+        self.sase_user_ids = sase_user_ids  # type: list[str]
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListUsersRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        if self.department is not None:
+            result['Department'] = self.department
+        if self.fuzzy_username is not None:
+            result['FuzzyUsername'] = self.fuzzy_username
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.precise_username is not None:
+            result['PreciseUsername'] = self.precise_username
+        if self.sase_user_ids is not None:
+            result['SaseUserIds'] = self.sase_user_ids
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        if m.get('Department') is not None:
+            self.department = m.get('Department')
+        if m.get('FuzzyUsername') is not None:
+            self.fuzzy_username = m.get('FuzzyUsername')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('PreciseUsername') is not None:
+            self.precise_username = m.get('PreciseUsername')
+        if m.get('SaseUserIds') is not None:
+            self.sase_user_ids = m.get('SaseUserIds')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class ListUsersResponseBodyUsers(TeaModel):
+    def __init__(self, department=None, email=None, idp_name=None, phone=None, sase_user_id=None, status=None,
+                 username=None):
+        self.department = department  # type: str
+        self.email = email  # type: str
+        self.idp_name = idp_name  # type: str
+        self.phone = phone  # type: str
+        self.sase_user_id = sase_user_id  # type: str
+        self.status = status  # type: str
+        self.username = username  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListUsersResponseBodyUsers, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.department is not None:
+            result['Department'] = self.department
+        if self.email is not None:
+            result['Email'] = self.email
+        if self.idp_name is not None:
+            result['IdpName'] = self.idp_name
+        if self.phone is not None:
+            result['Phone'] = self.phone
+        if self.sase_user_id is not None:
+            result['SaseUserId'] = self.sase_user_id
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.username is not None:
+            result['Username'] = self.username
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Department') is not None:
+            self.department = m.get('Department')
+        if m.get('Email') is not None:
+            self.email = m.get('Email')
+        if m.get('IdpName') is not None:
+            self.idp_name = m.get('IdpName')
+        if m.get('Phone') is not None:
+            self.phone = m.get('Phone')
+        if m.get('SaseUserId') is not None:
+            self.sase_user_id = m.get('SaseUserId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Username') is not None:
+            self.username = m.get('Username')
+        return self
+
+
+class ListUsersResponseBody(TeaModel):
+    def __init__(self, request_id=None, total_num=None, users=None):
+        self.request_id = request_id  # type: str
+        self.total_num = total_num  # type: str
+        self.users = users  # type: list[ListUsersResponseBodyUsers]
+
+    def validate(self):
+        if self.users:
+            for k in self.users:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListUsersResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_num is not None:
+            result['TotalNum'] = self.total_num
+        result['Users'] = []
+        if self.users is not None:
+            for k in self.users:
+                result['Users'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalNum') is not None:
+            self.total_num = m.get('TotalNum')
+        self.users = []
+        if m.get('Users') is not None:
+            for k in m.get('Users'):
+                temp_model = ListUsersResponseBodyUsers()
+                self.users.append(temp_model.from_map(k))
+        return self
+
+
+class ListUsersResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListUsersResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListUsersResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListUsersResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class UpdateDynamicRouteRequest(TeaModel):
     def __init__(self, application_ids=None, application_type=None, description=None, dynamic_route_id=None,
                  dynamic_route_type=None, modify_type=None, name=None, next_hop=None, priority=None, region_ids=None, status=None,
@@ -10378,6 +10566,95 @@ class UpdateUserGroupResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UpdateUserGroupResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdateUsersStatusRequest(TeaModel):
+    def __init__(self, sase_user_ids=None, status=None):
+        self.sase_user_ids = sase_user_ids  # type: list[str]
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateUsersStatusRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.sase_user_ids is not None:
+            result['SaseUserIds'] = self.sase_user_ids
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('SaseUserIds') is not None:
+            self.sase_user_ids = m.get('SaseUserIds')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class UpdateUsersStatusResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateUsersStatusResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UpdateUsersStatusResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateUsersStatusResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateUsersStatusResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateUsersStatusResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
