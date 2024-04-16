@@ -5912,7 +5912,7 @@ class DescribeBackupStorageResponse(TeaModel):
 class DescribeBackupTasksRequest(TeaModel):
     def __init__(self, backup_job_id=None, dbinstance_id=None, owner_account=None, owner_id=None,
                  resource_owner_account=None, resource_owner_id=None, security_token=None):
-        self.backup_job_id = backup_job_id  # type: long
+        self.backup_job_id = backup_job_id  # type: str
         self.dbinstance_id = dbinstance_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -5969,7 +5969,7 @@ class DescribeBackupTasksResponseBodyBackupJobs(TeaModel):
                  progress=None):
         self.backup_set_status = backup_set_status  # type: str
         self.backup_start_time = backup_start_time  # type: str
-        self.backupjob_id = backupjob_id  # type: long
+        self.backupjob_id = backupjob_id  # type: str
         self.job_mode = job_mode  # type: str
         self.progress = progress  # type: str
 
@@ -6186,12 +6186,12 @@ class DescribeBackupsResponseBodyBackupsBackup(TeaModel):
         # The end of the backup time range. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
         self.backup_end_time = backup_end_time  # type: str
         # The ID of the backup set.
-        self.backup_id = backup_id  # type: long
+        self.backup_id = backup_id  # type: str
         # The internal download URL of the backup set.
         # 
         # > You can use this URL to download the backup set from on the Elastic Compute Service (ECS) instance which is on the same network as the ApsaraDB for MongoDB instance.
         self.backup_intranet_download_url = backup_intranet_download_url  # type: str
-        self.backup_job_id = backup_job_id  # type: long
+        self.backup_job_id = backup_job_id  # type: str
         # The method that is used to generate the backup set. Valid values:
         # 
         # *   **Snapshot**\
@@ -18906,9 +18906,8 @@ class ListTagResourcesResponse(TeaModel):
 
 
 class MigrateAvailableZoneRequest(TeaModel):
-    def __init__(self, category=None, dbinstance_id=None, effective_time=None, owner_account=None, owner_id=None,
+    def __init__(self, dbinstance_id=None, effective_time=None, owner_account=None, owner_id=None,
                  resource_owner_account=None, resource_owner_id=None, vswitch=None, zone_id=None):
-        self.category = category  # type: str
         # The ID of the instance.
         # 
         # > If the instance is deployed in a VPC, you must specify the **Vswitch** parameter.
@@ -18946,8 +18945,6 @@ class MigrateAvailableZoneRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.category is not None:
-            result['Category'] = self.category
         if self.dbinstance_id is not None:
             result['DBInstanceId'] = self.dbinstance_id
         if self.effective_time is not None:
@@ -18968,8 +18965,6 @@ class MigrateAvailableZoneRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Category') is not None:
-            self.category = m.get('Category')
         if m.get('DBInstanceId') is not None:
             self.dbinstance_id = m.get('DBInstanceId')
         if m.get('EffectiveTime') is not None:
