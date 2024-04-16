@@ -3124,6 +3124,7 @@ class CreateAuthorityTemplateResponseBody(TeaModel):
         # *   **true**: The request was successful.
         # *   **false**: The request failed.
         self.success = success  # type: bool
+        # The ID of the tenant. You can call the [GetUserActiveTenant](~~198073~~) or [ListUserTenants](~~198074~~) operation to query the tenant ID.
         self.tid = tid  # type: long
 
     def validate(self):
@@ -3208,7 +3209,7 @@ class CreateDataArchiveOrderRequestParamTableIncludes(TeaModel):
     def __init__(self, table_name=None, table_where=None):
         # The name of the table.
         self.table_name = table_name  # type: str
-        # The filter condition specified by the WHERE clause of the archiving configuration.
+        # The filter condition specified by the WHERE clause of the archiving configuration. If a time variable is used in the filter condition, the filter condition is specified in the following format: field name <=\"${variable name}\". The variable name in the filter condition must be the same as the Name value of Variables.
         self.table_where = table_where  # type: str
 
     def validate(self):
@@ -3268,43 +3269,48 @@ class CreateDataArchiveOrderRequestParam(TeaModel):
     def __init__(self, archive_method=None, cron_str=None, logic=None, order_after=None, run_method=None,
                  source_catalog_name=None, source_instance_name=None, source_schema_name=None, table_includes=None, table_mapping=None,
                  target_instance_host=None, variables=None):
-        # The database for archiving data. Valid values:
+        # The type of the destination database for archiving data. Valid values:
         # 
-        # *   inner_oss: Built-in Object Storage Service (OSS) of Database Backup (DBS).
-        # *   oss_userself: OSS of user.
-        # *   mysql: ApsaraDB RDS for MySQL.
-        # *   polardb: PolarDB for MySQL.
-        # *   lindorm: Lindorm.
+        # >  If you set ArchiveMethod to a value other than inner_oss, you must connect the destination database for archiving data to Data Management (DMS) before you create the data archiving ticket. After the database is connected to DMS, the database is displayed in the Instances Connected section of the DMS console.
+        # 
+        # *   **inner_oss**: dedicated storage, which is a built-in Object Storage Service (OSS) bucket.
+        # *   **oss_userself**: OSS bucket of the user.
+        # *   **mysql**: ApsaraDB RDS for MySQL instance.
+        # *   **polardb**: PolarDB for MySQL cluster.
+        # *   **adb_mysql**: AnalyticDB for MySQL V3.0 cluster.
+        # *   **lindorm**: ApsaraDB for Lindorm instance.
         self.archive_method = archive_method  # type: str
-        # 填写Crontab表达式，以便定期执行任务，更多信息，请参见[Crontab表达式](~~206581~~)。
-        # 当运行方式为周期归档时需要填写该参数。
+        # A crontab expression that specifies the scheduling cycle to run the task. For more information, see the [Crontab expressions](~~206581~~) section of the "Create shadow tables for synchronization" topic. This parameter is required if RunMethod is set to schedule.
         self.cron_str = cron_str  # type: str
         # Specifies whether the database is a logical database.
         self.logic = logic  # type: bool
         # The post behaviors.
         self.order_after = order_after  # type: list[str]
-        # The running mode. Only now is supported, which indicates that data archiving is immediately executed.
+        # The method that is used to run the data archiving task. Valid values:
+        # 
+        # *   **schedule**: The data archiving task is periodically scheduled.
+        # *   **now**: The data archiving task is immediately run.
         self.run_method = run_method  # type: str
-        # 源库目录（catalog）。
-        # - **def**：对于两层逻辑结构的数据库，如MySQL，PolarDB MySQL，AnalyticDB MySQL，固定为def。
-        # - **空字符串**： 对于lindorm与MongoDB，填入空字符串。
-        # - **catalog名**：对于三层逻辑结构的数据库，如PostgreSQL，填入catalog名。
+        # The catalog of the source database. Valid values:
+        # 
+        # *   **def**: Set this parameter to def if the source database is of the two-layer logical schema, such as a MySQL database, a PolarDB for MySQL cluster, or an AnalyticDB for MySQL instance.
+        # *   **An empty string**: Set this parameter to an empty string if the source database is an ApsaraDB for Lindorm or ApsaraDB for MongoDB instance.
+        # *   **Catalog name**: Set this parameter to the catalog name of the source database if the source database is of the three-layer logical schema, such as a PostgreSQL database.
         self.source_catalog_name = source_catalog_name  # type: str
-        # 源实例名称。
+        # The name of the source instance.
         self.source_instance_name = source_instance_name  # type: str
-        # 源库Schema，源库与目标库同名。
-        # 如MySQL为库名，PostgreSQL为Schema名。
+        # The schema name of the source database. The schema name of the source database is the same as that of the destination database. If the source database is a MySQL database, this parameter specifies the name of the source database. If the source database is a PostgreSQL database, this parameter specifies the schema name of the source database.
         self.source_schema_name = source_schema_name  # type: str
         # The collection of tables to be archived.
         self.table_includes = table_includes  # type: list[CreateDataArchiveOrderRequestParamTableIncludes]
-        # The table names mapped in the destination database.
+        # The table names mapped to the destination database. If you call an API operation to create the data archiving ticket, you do not need to specify this parameter. The default value is used.
         self.table_mapping = table_mapping  # type: list[str]
-        # 目标库Host，若目标实例同时开放了内网与公网，优先写入内网Host。
+        # The host of the destination instance. If the destination instance can be accessed over an internal network or the Internet, preferentially set the value to the internal endpoint of the destination instance.
         # 
-        # - 若归档目标为OSS，则为Bucket名。
-        # - 若归档目标为专属存储，则为inner_oss。
+        # *   If the data is archived in an OSS bucket, set the value to the name of the bucket.
+        # *   If the data is archived in the dedicated storage space, set the value to inner_oss.
         self.target_instance_host = target_instance_host  # type: str
-        # The configuration of archiving variables.
+        # The configuration of archiving variables. You can use a time variable as a filter condition for archiving data. Each variable has two attributes: name and pattern.
         self.variables = variables  # type: list[CreateDataArchiveOrderRequestParamVariables]
 
     def validate(self):
@@ -3394,9 +3400,9 @@ class CreateDataArchiveOrderRequest(TeaModel):
         self.comment = comment  # type: str
         # The parameters for archiving data.
         self.param = param  # type: CreateDataArchiveOrderRequestParam
-        # The ID of the parent ticket. A parent ticket is generated only when a sub ticket is created.
+        # The ID of the parent ticket. A parent ticket is generated only when a child ticket is created.
         self.parent_id = parent_id  # type: long
-        # The plugin type. Default value: DATA_ARCHIVE.
+        # The type of the plug-in. Default value: DATA_ARCHIVE.
         self.plugin_type = plugin_type  # type: str
         # The list of the related users.
         self.related_user_list = related_user_list  # type: list[str]
@@ -3452,9 +3458,9 @@ class CreateDataArchiveOrderShrinkRequest(TeaModel):
         self.comment = comment  # type: str
         # The parameters for archiving data.
         self.param_shrink = param_shrink  # type: str
-        # The ID of the parent ticket. A parent ticket is generated only when a sub ticket is created.
+        # The ID of the parent ticket. A parent ticket is generated only when a child ticket is created.
         self.parent_id = parent_id  # type: long
-        # The plugin type. Default value: DATA_ARCHIVE.
+        # The type of the plug-in. Default value: DATA_ARCHIVE.
         self.plugin_type = plugin_type  # type: str
         # The list of the related users.
         self.related_user_list_shrink = related_user_list_shrink  # type: str
@@ -3503,18 +3509,18 @@ class CreateDataArchiveOrderShrinkRequest(TeaModel):
 
 class CreateDataArchiveOrderResponseBody(TeaModel):
     def __init__(self, create_order_result=None, error_code=None, error_message=None, request_id=None, success=None):
-        # The data archiving ticket IDs.
+        # The ID of the data archiving ticket.
         self.create_order_result = create_order_result  # type: list[long]
-        # Error code
+        # The error code returned if the request failed.
         self.error_code = error_code  # type: str
         # The error message returned if the request failed.
         self.error_message = error_message  # type: str
         # The ID of the request, which is used to query logs and troubleshoot issues.
         self.request_id = request_id  # type: str
-        # Indicates whether the request is successful. Valid values:
+        # Indicates whether the request was successful. Valid values:
         # 
-        # *   true
-        # *   false
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: bool
 
     def validate(self):
@@ -7542,6 +7548,7 @@ class CreateStandardGroupResponseBodyStandardGroup(TeaModel):
         self.db_type = db_type  # type: str
         # The description of the security rule set.
         self.description = description  # type: str
+        # The security rule set ID.
         self.group_id = group_id  # type: long
         # The control mode. Valid values:
         # 
@@ -7602,7 +7609,7 @@ class CreateStandardGroupResponseBody(TeaModel):
         self.error_message = error_message  # type: str
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # The created security rule set.
+        # The information about the created security rule set.
         self.standard_group = standard_group  # type: CreateStandardGroupResponseBodyStandardGroup
         # Indicates whether the request was successful. Valid values:
         # 
@@ -28828,6 +28835,7 @@ class ListDDLPublishRecordsResponseBodyDDLPublishRecordList(TeaModel):
         # *   **SUCCESS**: The ticket is approved.
         # *   **FAIL**: The ticket fails to pass the approval.
         self.audit_status = audit_status  # type: str
+        # Release remarks.
         self.comment = comment  # type: str
         # The ID of the user who creates the ticket. You can obtain the user ID by calling the [GetUser](~~147098~~) operation and querying the value of the UserId parameter. The value is not the unique ID (UID) of the Alibaba Cloud account.
         self.creator_id = creator_id  # type: long
@@ -36057,6 +36065,352 @@ class ListScenariosResponse(TeaModel):
         return self
 
 
+class ListSensitiveColumnInfoRequest(TeaModel):
+    def __init__(self, column_name=None, instance_id=None, page_number=None, page_size=None, schema_name=None,
+                 table_name=None, tid=None):
+        self.column_name = column_name  # type: str
+        self.instance_id = instance_id  # type: int
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.schema_name = schema_name  # type: str
+        self.table_name = table_name  # type: str
+        self.tid = tid  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListSensitiveColumnInfoRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.column_name is not None:
+            result['ColumnName'] = self.column_name
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.schema_name is not None:
+            result['SchemaName'] = self.schema_name
+        if self.table_name is not None:
+            result['TableName'] = self.table_name
+        if self.tid is not None:
+            result['Tid'] = self.tid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ColumnName') is not None:
+            self.column_name = m.get('ColumnName')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('SchemaName') is not None:
+            self.schema_name = m.get('SchemaName')
+        if m.get('TableName') is not None:
+            self.table_name = m.get('TableName')
+        if m.get('Tid') is not None:
+            self.tid = m.get('Tid')
+        return self
+
+
+class ListSensitiveColumnInfoResponseBodySensitiveColumnListSensitiveColumnDefaultDesensitizationRule(TeaModel):
+    def __init__(self, rule_id=None, rule_name=None):
+        self.rule_id = rule_id  # type: long
+        self.rule_name = rule_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListSensitiveColumnInfoResponseBodySensitiveColumnListSensitiveColumnDefaultDesensitizationRule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.rule_id is not None:
+            result['RuleId'] = self.rule_id
+        if self.rule_name is not None:
+            result['RuleName'] = self.rule_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RuleId') is not None:
+            self.rule_id = m.get('RuleId')
+        if m.get('RuleName') is not None:
+            self.rule_name = m.get('RuleName')
+        return self
+
+
+class ListSensitiveColumnInfoResponseBodySensitiveColumnListSensitiveColumnSemiDesensitizationRuleListSemiDesensitizationRule(TeaModel):
+    def __init__(self, rule_id=None, rule_name=None):
+        self.rule_id = rule_id  # type: long
+        self.rule_name = rule_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListSensitiveColumnInfoResponseBodySensitiveColumnListSensitiveColumnSemiDesensitizationRuleListSemiDesensitizationRule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.rule_id is not None:
+            result['RuleId'] = self.rule_id
+        if self.rule_name is not None:
+            result['RuleName'] = self.rule_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RuleId') is not None:
+            self.rule_id = m.get('RuleId')
+        if m.get('RuleName') is not None:
+            self.rule_name = m.get('RuleName')
+        return self
+
+
+class ListSensitiveColumnInfoResponseBodySensitiveColumnListSensitiveColumnSemiDesensitizationRuleList(TeaModel):
+    def __init__(self, semi_desensitization_rule=None):
+        self.semi_desensitization_rule = semi_desensitization_rule  # type: list[ListSensitiveColumnInfoResponseBodySensitiveColumnListSensitiveColumnSemiDesensitizationRuleListSemiDesensitizationRule]
+
+    def validate(self):
+        if self.semi_desensitization_rule:
+            for k in self.semi_desensitization_rule:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListSensitiveColumnInfoResponseBodySensitiveColumnListSensitiveColumnSemiDesensitizationRuleList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['SemiDesensitizationRule'] = []
+        if self.semi_desensitization_rule is not None:
+            for k in self.semi_desensitization_rule:
+                result['SemiDesensitizationRule'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.semi_desensitization_rule = []
+        if m.get('SemiDesensitizationRule') is not None:
+            for k in m.get('SemiDesensitizationRule'):
+                temp_model = ListSensitiveColumnInfoResponseBodySensitiveColumnListSensitiveColumnSemiDesensitizationRuleListSemiDesensitizationRule()
+                self.semi_desensitization_rule.append(temp_model.from_map(k))
+        return self
+
+
+class ListSensitiveColumnInfoResponseBodySensitiveColumnListSensitiveColumn(TeaModel):
+    def __init__(self, category_name=None, column_name=None, default_desensitization_rule=None, instance_id=None,
+                 is_plain=None, sample_data=None, schema_name=None, security_level=None,
+                 semi_desensitization_rule_list=None, table_name=None, user_sensitivity_level=None):
+        self.category_name = category_name  # type: str
+        self.column_name = column_name  # type: str
+        self.default_desensitization_rule = default_desensitization_rule  # type: ListSensitiveColumnInfoResponseBodySensitiveColumnListSensitiveColumnDefaultDesensitizationRule
+        self.instance_id = instance_id  # type: int
+        self.is_plain = is_plain  # type: bool
+        self.sample_data = sample_data  # type: str
+        self.schema_name = schema_name  # type: str
+        self.security_level = security_level  # type: str
+        self.semi_desensitization_rule_list = semi_desensitization_rule_list  # type: ListSensitiveColumnInfoResponseBodySensitiveColumnListSensitiveColumnSemiDesensitizationRuleList
+        self.table_name = table_name  # type: str
+        self.user_sensitivity_level = user_sensitivity_level  # type: str
+
+    def validate(self):
+        if self.default_desensitization_rule:
+            self.default_desensitization_rule.validate()
+        if self.semi_desensitization_rule_list:
+            self.semi_desensitization_rule_list.validate()
+
+    def to_map(self):
+        _map = super(ListSensitiveColumnInfoResponseBodySensitiveColumnListSensitiveColumn, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.category_name is not None:
+            result['CategoryName'] = self.category_name
+        if self.column_name is not None:
+            result['ColumnName'] = self.column_name
+        if self.default_desensitization_rule is not None:
+            result['DefaultDesensitizationRule'] = self.default_desensitization_rule.to_map()
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.is_plain is not None:
+            result['IsPlain'] = self.is_plain
+        if self.sample_data is not None:
+            result['SampleData'] = self.sample_data
+        if self.schema_name is not None:
+            result['SchemaName'] = self.schema_name
+        if self.security_level is not None:
+            result['SecurityLevel'] = self.security_level
+        if self.semi_desensitization_rule_list is not None:
+            result['SemiDesensitizationRuleList'] = self.semi_desensitization_rule_list.to_map()
+        if self.table_name is not None:
+            result['TableName'] = self.table_name
+        if self.user_sensitivity_level is not None:
+            result['UserSensitivityLevel'] = self.user_sensitivity_level
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CategoryName') is not None:
+            self.category_name = m.get('CategoryName')
+        if m.get('ColumnName') is not None:
+            self.column_name = m.get('ColumnName')
+        if m.get('DefaultDesensitizationRule') is not None:
+            temp_model = ListSensitiveColumnInfoResponseBodySensitiveColumnListSensitiveColumnDefaultDesensitizationRule()
+            self.default_desensitization_rule = temp_model.from_map(m['DefaultDesensitizationRule'])
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('IsPlain') is not None:
+            self.is_plain = m.get('IsPlain')
+        if m.get('SampleData') is not None:
+            self.sample_data = m.get('SampleData')
+        if m.get('SchemaName') is not None:
+            self.schema_name = m.get('SchemaName')
+        if m.get('SecurityLevel') is not None:
+            self.security_level = m.get('SecurityLevel')
+        if m.get('SemiDesensitizationRuleList') is not None:
+            temp_model = ListSensitiveColumnInfoResponseBodySensitiveColumnListSensitiveColumnSemiDesensitizationRuleList()
+            self.semi_desensitization_rule_list = temp_model.from_map(m['SemiDesensitizationRuleList'])
+        if m.get('TableName') is not None:
+            self.table_name = m.get('TableName')
+        if m.get('UserSensitivityLevel') is not None:
+            self.user_sensitivity_level = m.get('UserSensitivityLevel')
+        return self
+
+
+class ListSensitiveColumnInfoResponseBodySensitiveColumnList(TeaModel):
+    def __init__(self, sensitive_column=None):
+        self.sensitive_column = sensitive_column  # type: list[ListSensitiveColumnInfoResponseBodySensitiveColumnListSensitiveColumn]
+
+    def validate(self):
+        if self.sensitive_column:
+            for k in self.sensitive_column:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListSensitiveColumnInfoResponseBodySensitiveColumnList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['SensitiveColumn'] = []
+        if self.sensitive_column is not None:
+            for k in self.sensitive_column:
+                result['SensitiveColumn'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.sensitive_column = []
+        if m.get('SensitiveColumn') is not None:
+            for k in m.get('SensitiveColumn'):
+                temp_model = ListSensitiveColumnInfoResponseBodySensitiveColumnListSensitiveColumn()
+                self.sensitive_column.append(temp_model.from_map(k))
+        return self
+
+
+class ListSensitiveColumnInfoResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_message=None, request_id=None, sensitive_column_list=None,
+                 success=None, total_count=None):
+        self.error_code = error_code  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.sensitive_column_list = sensitive_column_list  # type: ListSensitiveColumnInfoResponseBodySensitiveColumnList
+        self.success = success  # type: bool
+        self.total_count = total_count  # type: long
+
+    def validate(self):
+        if self.sensitive_column_list:
+            self.sensitive_column_list.validate()
+
+    def to_map(self):
+        _map = super(ListSensitiveColumnInfoResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.sensitive_column_list is not None:
+            result['SensitiveColumnList'] = self.sensitive_column_list.to_map()
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('SensitiveColumnList') is not None:
+            temp_model = ListSensitiveColumnInfoResponseBodySensitiveColumnList()
+            self.sensitive_column_list = temp_model.from_map(m['SensitiveColumnList'])
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class ListSensitiveColumnInfoResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListSensitiveColumnInfoResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListSensitiveColumnInfoResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListSensitiveColumnInfoResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListSensitiveColumnsRequest(TeaModel):
     def __init__(self, column_name=None, db_id=None, logic=None, page_number=None, page_size=None, schema_name=None,
                  security_level=None, table_name=None, tid=None):
@@ -36939,8 +37293,18 @@ class ListSensitiveDataAuditLogResponse(TeaModel):
 
 class ListSensitivityLevelRequest(TeaModel):
     def __init__(self, template_id=None, template_type=None, tid=None):
+        # The ID of the classification template. You can call the [ListClassificationTemplates](~~460613~~) operation to query the ID of the classification template.
         self.template_id = template_id  # type: long
+        # The type of the classification template. You can call the [ListClassificationTemplates](~~460613~~) operation to query the type of the classification template.
+        # 
+        # Valid values:
+        # 
+        # *   USER_DEFINE: a custom template.
+        # *   INNER: a built-in template.
         self.template_type = template_type  # type: str
+        # The ID of the tenant.
+        # 
+        # >  To view the ID of the tenant, go to the Data Management (DMS) console and move the pointer over the profile picture in the upper-right corner. For more information, see [View information about the current tenant](~~181330~~) in the topic "Manage DMS tenants."
         self.tid = tid  # type: long
 
     def validate(self):
@@ -36973,9 +37337,16 @@ class ListSensitivityLevelRequest(TeaModel):
 
 class ListSensitivityLevelResponseBodySensitivityLevelList(TeaModel):
     def __init__(self, is_plain=None, name=None, template_id=None, template_type=None):
+        # Indicates whether the fields of the sensitive level are displayed in plaintext.
         self.is_plain = is_plain  # type: bool
+        # The name of the sensitive level.
         self.name = name  # type: str
+        # The ID of the classification template.
         self.template_id = template_id  # type: str
+        # The type of the classification template. Valid values:
+        # 
+        # *   **INNER**: a built-in template.
+        # *   **USER_DEFINE**: a custom template.
         self.template_type = template_type  # type: str
 
     def validate(self):
@@ -37013,10 +37384,18 @@ class ListSensitivityLevelResponseBodySensitivityLevelList(TeaModel):
 class ListSensitivityLevelResponseBody(TeaModel):
     def __init__(self, error_code=None, error_message=None, request_id=None, sensitivity_level_list=None,
                  success=None):
+        # The status code.
         self.error_code = error_code  # type: str
+        # The error message returned.
         self.error_message = error_message  # type: str
+        # The request ID. You can use the ID to query logs and troubleshoot issues.
         self.request_id = request_id  # type: str
+        # The sensitivity levels.
         self.sensitivity_level_list = sensitivity_level_list  # type: list[ListSensitivityLevelResponseBodySensitivityLevelList]
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**: The request was successful.
+        # *   **false**: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -43103,7 +43482,7 @@ class ReRunTaskFlowInstanceResponse(TeaModel):
 
 class RefundPayAsYouGoOrderRequest(TeaModel):
     def __init__(self, instance_id=None, order_id=None, tid=None):
-        # The ID of the sales order instance.
+        # The instance ID in the sales order.
         self.instance_id = instance_id  # type: str
         # The order ID of the order for the pay-as-you-go resource. You can call the ListEffectiveOrders operation to query the order ID.
         self.order_id = order_id  # type: str
@@ -47424,9 +47803,15 @@ class UpdateScenarioResponse(TeaModel):
 
 class UpdateStandardGroupRequest(TeaModel):
     def __init__(self, description=None, group_id=None, group_name=None, tid=None):
+        # The description of the security rule set.
         self.description = description  # type: str
+        # The security rule set ID. You can call the [ListStandardGroups](~~465940~~) operation to obtain the ID of the security rule set.
         self.group_id = group_id  # type: long
+        # The name of the security rule set.
         self.group_name = group_name  # type: str
+        # The tenant ID.
+        # 
+        # >  To view the tenant ID, go to the Data Management (DMS) console and move the pointer over the profile picture in the upper-right corner. For more information, see the [View information about the current tenant](~~181330~~) section of the "Manage DMS tenants" topic.
         self.tid = tid  # type: long
 
     def validate(self):
@@ -47464,11 +47849,21 @@ class UpdateStandardGroupRequest(TeaModel):
 class UpdateStandardGroupResponseBodyStandardGroup(TeaModel):
     def __init__(self, db_type=None, description=None, group_id=None, group_mode=None, group_name=None,
                  last_mender_id=None):
+        # The type of the database for which the security rules are used.
         self.db_type = db_type  # type: str
+        # The description of the security rule set.
         self.description = description  # type: str
+        # The security rule set ID.
         self.group_id = group_id  # type: long
+        # The control mode. Valid values:
+        # 
+        # *   **NONE_CONTROL**: Flexible Management
+        # *   **STABLE**: Stable Change
+        # *   **COMMON**: Security Collaboration
         self.group_mode = group_mode  # type: str
+        # The name of the security rule set.
         self.group_name = group_name  # type: str
+        # The ID of the user who last modified the security rules.
         self.last_mender_id = last_mender_id  # type: long
 
     def validate(self):
@@ -47513,10 +47908,18 @@ class UpdateStandardGroupResponseBodyStandardGroup(TeaModel):
 
 class UpdateStandardGroupResponseBody(TeaModel):
     def __init__(self, error_code=None, error_message=None, request_id=None, standard_group=None, success=None):
+        # The error code returned if the request failed.
         self.error_code = error_code  # type: str
+        # The error message returned if the request failed.
         self.error_message = error_message  # type: str
+        # The request ID. You can use the request ID to locate logs and troubleshoot issues.
         self.request_id = request_id  # type: str
+        # The information about the security rule set.
         self.standard_group = standard_group  # type: UpdateStandardGroupResponseBodyStandardGroup
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: bool
 
     def validate(self):

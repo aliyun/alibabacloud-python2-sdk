@@ -6129,6 +6129,46 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_scenarios_with_options(request, runtime)
 
+    def list_sensitive_column_info_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.column_name):
+            query['ColumnName'] = request.column_name
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.schema_name):
+            query['SchemaName'] = request.schema_name
+        if not UtilClient.is_unset(request.table_name):
+            query['TableName'] = request.table_name
+        if not UtilClient.is_unset(request.tid):
+            query['Tid'] = request.tid
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListSensitiveColumnInfo',
+            version='2018-11-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dms_enterprise_20181101_models.ListSensitiveColumnInfoResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_sensitive_column_info(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_sensitive_column_info_with_options(request, runtime)
+
     def list_sensitive_columns_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
