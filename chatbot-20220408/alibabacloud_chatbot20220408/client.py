@@ -1733,6 +1733,8 @@ class Client(OpenApiClient):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.product_code):
+            query['ProductCode'] = request.product_code
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )

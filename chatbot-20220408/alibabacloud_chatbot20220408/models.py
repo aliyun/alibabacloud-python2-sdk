@@ -7140,11 +7140,12 @@ class LinkInstanceCategoryResponse(TeaModel):
 
 
 class ListAgentRequest(TeaModel):
-    def __init__(self, agent_name=None, goods_codes=None, page_number=None, page_size=None):
+    def __init__(self, agent_name=None, goods_codes=None, page_number=None, page_size=None, product_code=None):
         self.agent_name = agent_name  # type: str
         self.goods_codes = goods_codes  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
+        self.product_code = product_code  # type: str
 
     def validate(self):
         pass
@@ -7163,6 +7164,8 @@ class ListAgentRequest(TeaModel):
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.product_code is not None:
+            result['ProductCode'] = self.product_code
         return result
 
     def from_map(self, m=None):
@@ -7175,14 +7178,17 @@ class ListAgentRequest(TeaModel):
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('ProductCode') is not None:
+            self.product_code = m.get('ProductCode')
         return self
 
 
 class ListAgentResponseBodyData(TeaModel):
-    def __init__(self, agent_id=None, agent_key=None, agent_name=None, instance_infos=None):
+    def __init__(self, agent_id=None, agent_key=None, agent_name=None, default_agent=None, instance_infos=None):
         self.agent_id = agent_id  # type: long
         self.agent_key = agent_key  # type: str
         self.agent_name = agent_name  # type: str
+        self.default_agent = default_agent  # type: bool
         self.instance_infos = instance_infos  # type: dict[str, any]
 
     def validate(self):
@@ -7200,6 +7206,8 @@ class ListAgentResponseBodyData(TeaModel):
             result['AgentKey'] = self.agent_key
         if self.agent_name is not None:
             result['AgentName'] = self.agent_name
+        if self.default_agent is not None:
+            result['DefaultAgent'] = self.default_agent
         if self.instance_infos is not None:
             result['InstanceInfos'] = self.instance_infos
         return result
@@ -7212,6 +7220,8 @@ class ListAgentResponseBodyData(TeaModel):
             self.agent_key = m.get('AgentKey')
         if m.get('AgentName') is not None:
             self.agent_name = m.get('AgentName')
+        if m.get('DefaultAgent') is not None:
+            self.default_agent = m.get('DefaultAgent')
         if m.get('InstanceInfos') is not None:
             self.instance_infos = m.get('InstanceInfos')
         return self
