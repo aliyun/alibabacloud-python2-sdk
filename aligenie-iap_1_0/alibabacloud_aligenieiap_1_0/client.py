@@ -7,6 +7,7 @@ from Tea.core import TeaCore
 from alibabacloud_tea_openapi.client import Client as OpenApiClient
 from alibabacloud_tea_openapi import models as open_api_models
 from alibabacloud_tea_util.client import Client as UtilClient
+from alibabacloud_endpoint_util.client import Client as EndpointUtilClient
 from alibabacloud_aligenieiap_1_0 import models as ali_genieiap__1__0_models
 from alibabacloud_tea_util import models as util_models
 from alibabacloud_openapi_util.client import Client as OpenApiUtilClient
@@ -19,8 +20,15 @@ class Client(OpenApiClient):
     def __init__(self, config):
         super(Client, self).__init__(config)
         self._endpoint_rule = ''
-        if UtilClient.empty(self._endpoint):
-            self._endpoint = 'openapi.aligenie.com/v1.0/iap'
+        self.check_config(config)
+        self._endpoint = self.get_endpoint('aligenie', self._region_id, self._endpoint_rule, self._network, self._suffix, self._endpoint_map, self._endpoint)
+
+    def get_endpoint(self, product_id, region_id, endpoint_rule, network, suffix, endpoint_map, endpoint):
+        if not UtilClient.empty(endpoint):
+            return endpoint
+        if not UtilClient.is_unset(endpoint_map) and not UtilClient.empty(endpoint_map.get(region_id)):
+            return endpoint_map.get(region_id)
+        return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
     def app_use_time_report_with_options(self, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
@@ -70,6 +78,112 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = ali_genieiap__1__0_models.AppUseTimeReportHeaders()
         return self.app_use_time_report_with_options(request, headers, runtime)
+
+    def call_back_third_right_send_plan_with_options(self, tmp_req, headers, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = ali_genieiap__1__0_models.CallBackThirdRightSendPlanShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.extend_info):
+            request.extend_info_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.extend_info, 'ExtendInfo', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.biz_group):
+            query['BizGroup'] = request.biz_group
+        if not UtilClient.is_unset(request.biz_type):
+            query['BizType'] = request.biz_type
+        if not UtilClient.is_unset(request.card_type):
+            query['CardType'] = request.card_type
+        if not UtilClient.is_unset(request.error_msg):
+            query['ErrorMsg'] = request.error_msg
+        if not UtilClient.is_unset(request.extend_info_shrink):
+            query['ExtendInfo'] = request.extend_info_shrink
+        if not UtilClient.is_unset(request.genie_open_id):
+            query['GenieOpenId'] = request.genie_open_id
+        if not UtilClient.is_unset(request.receive_status):
+            query['ReceiveStatus'] = request.receive_status
+        if not UtilClient.is_unset(request.sn):
+            query['Sn'] = request.sn
+        if not UtilClient.is_unset(request.supplier_id):
+            query['SupplierId'] = request.supplier_id
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_acs_aligenie_access_token):
+            real_headers['x-acs-aligenie-access-token'] = UtilClient.to_jsonstring(headers.x_acs_aligenie_access_token)
+        if not UtilClient.is_unset(headers.authorization):
+            real_headers['Authorization'] = UtilClient.to_jsonstring(headers.authorization)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CallBackThirdRightSendPlan',
+            version='iap_1.0',
+            protocol='HTTPS',
+            pathname='/1.0/iap/business/CallBackThirdRightSendPlan',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ali_genieiap__1__0_models.CallBackThirdRightSendPlanResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def call_back_third_right_send_plan(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = ali_genieiap__1__0_models.CallBackThirdRightSendPlanHeaders()
+        return self.call_back_third_right_send_plan_with_options(request, headers, runtime)
+
+    def check_third_right_send_plan_with_options(self, tmp_req, headers, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = ali_genieiap__1__0_models.CheckThirdRightSendPlanShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.extend_info):
+            request.extend_info_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.extend_info, 'ExtendInfo', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.biz_group):
+            query['BizGroup'] = request.biz_group
+        if not UtilClient.is_unset(request.biz_type):
+            query['BizType'] = request.biz_type
+        if not UtilClient.is_unset(request.extend_info_shrink):
+            query['ExtendInfo'] = request.extend_info_shrink
+        if not UtilClient.is_unset(request.sn):
+            query['Sn'] = request.sn
+        if not UtilClient.is_unset(request.supplier_id):
+            query['SupplierId'] = request.supplier_id
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_acs_aligenie_access_token):
+            real_headers['x-acs-aligenie-access-token'] = UtilClient.to_jsonstring(headers.x_acs_aligenie_access_token)
+        if not UtilClient.is_unset(headers.authorization):
+            real_headers['Authorization'] = UtilClient.to_jsonstring(headers.authorization)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CheckThirdRightSendPlan',
+            version='iap_1.0',
+            protocol='HTTPS',
+            pathname='/v1.0/iap/business/CheckThirdRightSendPlan',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ali_genieiap__1__0_models.CheckThirdRightSendPlanResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def check_third_right_send_plan(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = ali_genieiap__1__0_models.CheckThirdRightSendPlanHeaders()
+        return self.check_third_right_send_plan_with_options(request, headers, runtime)
 
     def create_reminder_with_options(self, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
@@ -217,6 +331,55 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = ali_genieiap__1__0_models.GetAccountForAppHeaders()
         return self.get_account_for_app_with_options(request, headers, runtime)
+
+    def get_bus_app_config_with_options(self, tmp_req, headers, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = ali_genieiap__1__0_models.GetBusAppConfigShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.device_info):
+            request.device_info_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.device_info, 'DeviceInfo', 'json')
+        if not UtilClient.is_unset(tmp_req.payload):
+            request.payload_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.payload, 'Payload', 'json')
+        if not UtilClient.is_unset(tmp_req.user_info):
+            request.user_info_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.user_info, 'UserInfo', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.device_info_shrink):
+            query['DeviceInfo'] = request.device_info_shrink
+        if not UtilClient.is_unset(request.payload_shrink):
+            query['Payload'] = request.payload_shrink
+        if not UtilClient.is_unset(request.user_info_shrink):
+            query['UserInfo'] = request.user_info_shrink
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_acs_aligenie_access_token):
+            real_headers['x-acs-aligenie-access-token'] = UtilClient.to_jsonstring(headers.x_acs_aligenie_access_token)
+        if not UtilClient.is_unset(headers.authorization):
+            real_headers['Authorization'] = UtilClient.to_jsonstring(headers.authorization)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetBusAppConfig',
+            version='iap_1.0',
+            protocol='HTTPS',
+            pathname='/v1.0/iap/app/config/get',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ali_genieiap__1__0_models.GetBusAppConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_bus_app_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = ali_genieiap__1__0_models.GetBusAppConfigHeaders()
+        return self.get_bus_app_config_with_options(request, headers, runtime)
 
     def get_phone_number_with_options(self, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)

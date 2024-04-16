@@ -297,9 +297,6 @@ class AppUseTimeReportResponse(TeaModel):
         self.body = body  # type: AppUseTimeReportResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -325,6 +322,494 @@ class AppUseTimeReportResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = AppUseTimeReportResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CallBackThirdRightSendPlanHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_acs_aligenie_access_token=None, authorization=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_acs_aligenie_access_token = x_acs_aligenie_access_token  # type: str
+        self.authorization = authorization  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CallBackThirdRightSendPlanHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_acs_aligenie_access_token is not None:
+            result['x-acs-aligenie-access-token'] = self.x_acs_aligenie_access_token
+        if self.authorization is not None:
+            result['Authorization'] = self.authorization
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('x-acs-aligenie-access-token') is not None:
+            self.x_acs_aligenie_access_token = m.get('x-acs-aligenie-access-token')
+        if m.get('Authorization') is not None:
+            self.authorization = m.get('Authorization')
+        return self
+
+
+class CallBackThirdRightSendPlanRequest(TeaModel):
+    def __init__(self, biz_group=None, biz_type=None, card_type=None, error_msg=None, extend_info=None,
+                 genie_open_id=None, receive_status=None, sn=None, supplier_id=None):
+        self.biz_group = biz_group  # type: str
+        self.biz_type = biz_type  # type: str
+        self.card_type = card_type  # type: int
+        self.error_msg = error_msg  # type: str
+        self.extend_info = extend_info  # type: dict[str, any]
+        self.genie_open_id = genie_open_id  # type: str
+        self.receive_status = receive_status  # type: int
+        self.sn = sn  # type: str
+        self.supplier_id = supplier_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CallBackThirdRightSendPlanRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.biz_group is not None:
+            result['BizGroup'] = self.biz_group
+        if self.biz_type is not None:
+            result['BizType'] = self.biz_type
+        if self.card_type is not None:
+            result['CardType'] = self.card_type
+        if self.error_msg is not None:
+            result['ErrorMsg'] = self.error_msg
+        if self.extend_info is not None:
+            result['ExtendInfo'] = self.extend_info
+        if self.genie_open_id is not None:
+            result['GenieOpenId'] = self.genie_open_id
+        if self.receive_status is not None:
+            result['ReceiveStatus'] = self.receive_status
+        if self.sn is not None:
+            result['Sn'] = self.sn
+        if self.supplier_id is not None:
+            result['SupplierId'] = self.supplier_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BizGroup') is not None:
+            self.biz_group = m.get('BizGroup')
+        if m.get('BizType') is not None:
+            self.biz_type = m.get('BizType')
+        if m.get('CardType') is not None:
+            self.card_type = m.get('CardType')
+        if m.get('ErrorMsg') is not None:
+            self.error_msg = m.get('ErrorMsg')
+        if m.get('ExtendInfo') is not None:
+            self.extend_info = m.get('ExtendInfo')
+        if m.get('GenieOpenId') is not None:
+            self.genie_open_id = m.get('GenieOpenId')
+        if m.get('ReceiveStatus') is not None:
+            self.receive_status = m.get('ReceiveStatus')
+        if m.get('Sn') is not None:
+            self.sn = m.get('Sn')
+        if m.get('SupplierId') is not None:
+            self.supplier_id = m.get('SupplierId')
+        return self
+
+
+class CallBackThirdRightSendPlanShrinkRequest(TeaModel):
+    def __init__(self, biz_group=None, biz_type=None, card_type=None, error_msg=None, extend_info_shrink=None,
+                 genie_open_id=None, receive_status=None, sn=None, supplier_id=None):
+        self.biz_group = biz_group  # type: str
+        self.biz_type = biz_type  # type: str
+        self.card_type = card_type  # type: int
+        self.error_msg = error_msg  # type: str
+        self.extend_info_shrink = extend_info_shrink  # type: str
+        self.genie_open_id = genie_open_id  # type: str
+        self.receive_status = receive_status  # type: int
+        self.sn = sn  # type: str
+        self.supplier_id = supplier_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CallBackThirdRightSendPlanShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.biz_group is not None:
+            result['BizGroup'] = self.biz_group
+        if self.biz_type is not None:
+            result['BizType'] = self.biz_type
+        if self.card_type is not None:
+            result['CardType'] = self.card_type
+        if self.error_msg is not None:
+            result['ErrorMsg'] = self.error_msg
+        if self.extend_info_shrink is not None:
+            result['ExtendInfo'] = self.extend_info_shrink
+        if self.genie_open_id is not None:
+            result['GenieOpenId'] = self.genie_open_id
+        if self.receive_status is not None:
+            result['ReceiveStatus'] = self.receive_status
+        if self.sn is not None:
+            result['Sn'] = self.sn
+        if self.supplier_id is not None:
+            result['SupplierId'] = self.supplier_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BizGroup') is not None:
+            self.biz_group = m.get('BizGroup')
+        if m.get('BizType') is not None:
+            self.biz_type = m.get('BizType')
+        if m.get('CardType') is not None:
+            self.card_type = m.get('CardType')
+        if m.get('ErrorMsg') is not None:
+            self.error_msg = m.get('ErrorMsg')
+        if m.get('ExtendInfo') is not None:
+            self.extend_info_shrink = m.get('ExtendInfo')
+        if m.get('GenieOpenId') is not None:
+            self.genie_open_id = m.get('GenieOpenId')
+        if m.get('ReceiveStatus') is not None:
+            self.receive_status = m.get('ReceiveStatus')
+        if m.get('Sn') is not None:
+            self.sn = m.get('Sn')
+        if m.get('SupplierId') is not None:
+            self.supplier_id = m.get('SupplierId')
+        return self
+
+
+class CallBackThirdRightSendPlanResponseBody(TeaModel):
+    def __init__(self, ret_code=None, ret_msg=None, ret_value=None, request_id=None):
+        self.ret_code = ret_code  # type: str
+        self.ret_msg = ret_msg  # type: str
+        self.ret_value = ret_value  # type: bool
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CallBackThirdRightSendPlanResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ret_code is not None:
+            result['RetCode'] = self.ret_code
+        if self.ret_msg is not None:
+            result['RetMsg'] = self.ret_msg
+        if self.ret_value is not None:
+            result['RetValue'] = self.ret_value
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RetCode') is not None:
+            self.ret_code = m.get('RetCode')
+        if m.get('RetMsg') is not None:
+            self.ret_msg = m.get('RetMsg')
+        if m.get('RetValue') is not None:
+            self.ret_value = m.get('RetValue')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        return self
+
+
+class CallBackThirdRightSendPlanResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CallBackThirdRightSendPlanResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CallBackThirdRightSendPlanResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CallBackThirdRightSendPlanResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CheckThirdRightSendPlanHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_acs_aligenie_access_token=None, authorization=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_acs_aligenie_access_token = x_acs_aligenie_access_token  # type: str
+        self.authorization = authorization  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CheckThirdRightSendPlanHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_acs_aligenie_access_token is not None:
+            result['x-acs-aligenie-access-token'] = self.x_acs_aligenie_access_token
+        if self.authorization is not None:
+            result['Authorization'] = self.authorization
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('x-acs-aligenie-access-token') is not None:
+            self.x_acs_aligenie_access_token = m.get('x-acs-aligenie-access-token')
+        if m.get('Authorization') is not None:
+            self.authorization = m.get('Authorization')
+        return self
+
+
+class CheckThirdRightSendPlanRequest(TeaModel):
+    def __init__(self, biz_group=None, biz_type=None, extend_info=None, sn=None, supplier_id=None):
+        self.biz_group = biz_group  # type: str
+        self.biz_type = biz_type  # type: str
+        self.extend_info = extend_info  # type: dict[str, any]
+        self.sn = sn  # type: str
+        self.supplier_id = supplier_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CheckThirdRightSendPlanRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.biz_group is not None:
+            result['BizGroup'] = self.biz_group
+        if self.biz_type is not None:
+            result['BizType'] = self.biz_type
+        if self.extend_info is not None:
+            result['ExtendInfo'] = self.extend_info
+        if self.sn is not None:
+            result['Sn'] = self.sn
+        if self.supplier_id is not None:
+            result['SupplierId'] = self.supplier_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BizGroup') is not None:
+            self.biz_group = m.get('BizGroup')
+        if m.get('BizType') is not None:
+            self.biz_type = m.get('BizType')
+        if m.get('ExtendInfo') is not None:
+            self.extend_info = m.get('ExtendInfo')
+        if m.get('Sn') is not None:
+            self.sn = m.get('Sn')
+        if m.get('SupplierId') is not None:
+            self.supplier_id = m.get('SupplierId')
+        return self
+
+
+class CheckThirdRightSendPlanShrinkRequest(TeaModel):
+    def __init__(self, biz_group=None, biz_type=None, extend_info_shrink=None, sn=None, supplier_id=None):
+        self.biz_group = biz_group  # type: str
+        self.biz_type = biz_type  # type: str
+        self.extend_info_shrink = extend_info_shrink  # type: str
+        self.sn = sn  # type: str
+        self.supplier_id = supplier_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CheckThirdRightSendPlanShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.biz_group is not None:
+            result['BizGroup'] = self.biz_group
+        if self.biz_type is not None:
+            result['BizType'] = self.biz_type
+        if self.extend_info_shrink is not None:
+            result['ExtendInfo'] = self.extend_info_shrink
+        if self.sn is not None:
+            result['Sn'] = self.sn
+        if self.supplier_id is not None:
+            result['SupplierId'] = self.supplier_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BizGroup') is not None:
+            self.biz_group = m.get('BizGroup')
+        if m.get('BizType') is not None:
+            self.biz_type = m.get('BizType')
+        if m.get('ExtendInfo') is not None:
+            self.extend_info_shrink = m.get('ExtendInfo')
+        if m.get('Sn') is not None:
+            self.sn = m.get('Sn')
+        if m.get('SupplierId') is not None:
+            self.supplier_id = m.get('SupplierId')
+        return self
+
+
+class CheckThirdRightSendPlanResponseBodyRetValue(TeaModel):
+    def __init__(self, activate_date=None, card_type=None, channel_code=None, channel_name=None, extend_info=None,
+                 request_id=None, rights_expired_date=None):
+        self.activate_date = activate_date  # type: str
+        self.card_type = card_type  # type: int
+        self.channel_code = channel_code  # type: str
+        self.channel_name = channel_name  # type: str
+        self.extend_info = extend_info  # type: dict[str, any]
+        self.request_id = request_id  # type: str
+        self.rights_expired_date = rights_expired_date  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CheckThirdRightSendPlanResponseBodyRetValue, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.activate_date is not None:
+            result['ActivateDate'] = self.activate_date
+        if self.card_type is not None:
+            result['CardType'] = self.card_type
+        if self.channel_code is not None:
+            result['ChannelCode'] = self.channel_code
+        if self.channel_name is not None:
+            result['ChannelName'] = self.channel_name
+        if self.extend_info is not None:
+            result['ExtendInfo'] = self.extend_info
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.rights_expired_date is not None:
+            result['RightsExpiredDate'] = self.rights_expired_date
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ActivateDate') is not None:
+            self.activate_date = m.get('ActivateDate')
+        if m.get('CardType') is not None:
+            self.card_type = m.get('CardType')
+        if m.get('ChannelCode') is not None:
+            self.channel_code = m.get('ChannelCode')
+        if m.get('ChannelName') is not None:
+            self.channel_name = m.get('ChannelName')
+        if m.get('ExtendInfo') is not None:
+            self.extend_info = m.get('ExtendInfo')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('RightsExpiredDate') is not None:
+            self.rights_expired_date = m.get('RightsExpiredDate')
+        return self
+
+
+class CheckThirdRightSendPlanResponseBody(TeaModel):
+    def __init__(self, ret_code=None, ret_msg=None, ret_value=None):
+        self.ret_code = ret_code  # type: int
+        self.ret_msg = ret_msg  # type: str
+        self.ret_value = ret_value  # type: CheckThirdRightSendPlanResponseBodyRetValue
+
+    def validate(self):
+        if self.ret_value:
+            self.ret_value.validate()
+
+    def to_map(self):
+        _map = super(CheckThirdRightSendPlanResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ret_code is not None:
+            result['RetCode'] = self.ret_code
+        if self.ret_msg is not None:
+            result['RetMsg'] = self.ret_msg
+        if self.ret_value is not None:
+            result['RetValue'] = self.ret_value.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RetCode') is not None:
+            self.ret_code = m.get('RetCode')
+        if m.get('RetMsg') is not None:
+            self.ret_msg = m.get('RetMsg')
+        if m.get('RetValue') is not None:
+            temp_model = CheckThirdRightSendPlanResponseBodyRetValue()
+            self.ret_value = temp_model.from_map(m['RetValue'])
+        return self
+
+
+class CheckThirdRightSendPlanResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CheckThirdRightSendPlanResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CheckThirdRightSendPlanResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CheckThirdRightSendPlanResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -684,9 +1169,6 @@ class CreateReminderResponse(TeaModel):
         self.body = body  # type: CreateReminderResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -984,9 +1466,6 @@ class DeleteReminderResponse(TeaModel):
         self.body = body  # type: DeleteReminderResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1320,9 +1799,6 @@ class GetAccountForAppResponse(TeaModel):
         self.body = body  # type: GetAccountForAppResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1348,6 +1824,344 @@ class GetAccountForAppResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetAccountForAppResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetBusAppConfigHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_acs_aligenie_access_token=None, authorization=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_acs_aligenie_access_token = x_acs_aligenie_access_token  # type: str
+        self.authorization = authorization  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetBusAppConfigHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_acs_aligenie_access_token is not None:
+            result['x-acs-aligenie-access-token'] = self.x_acs_aligenie_access_token
+        if self.authorization is not None:
+            result['Authorization'] = self.authorization
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('x-acs-aligenie-access-token') is not None:
+            self.x_acs_aligenie_access_token = m.get('x-acs-aligenie-access-token')
+        if m.get('Authorization') is not None:
+            self.authorization = m.get('Authorization')
+        return self
+
+
+class GetBusAppConfigRequestDeviceInfo(TeaModel):
+    def __init__(self, encode_key=None, encode_type=None, id=None, id_type=None, organization_id=None):
+        self.encode_key = encode_key  # type: str
+        self.encode_type = encode_type  # type: str
+        self.id = id  # type: str
+        self.id_type = id_type  # type: str
+        self.organization_id = organization_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetBusAppConfigRequestDeviceInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.encode_key is not None:
+            result['EncodeKey'] = self.encode_key
+        if self.encode_type is not None:
+            result['EncodeType'] = self.encode_type
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.id_type is not None:
+            result['IdType'] = self.id_type
+        if self.organization_id is not None:
+            result['OrganizationId'] = self.organization_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EncodeKey') is not None:
+            self.encode_key = m.get('EncodeKey')
+        if m.get('EncodeType') is not None:
+            self.encode_type = m.get('EncodeType')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('IdType') is not None:
+            self.id_type = m.get('IdType')
+        if m.get('OrganizationId') is not None:
+            self.organization_id = m.get('OrganizationId')
+        return self
+
+
+class GetBusAppConfigRequestPayload(TeaModel):
+    def __init__(self, origin_uuid=None, phone=None):
+        self.origin_uuid = origin_uuid  # type: str
+        self.phone = phone  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetBusAppConfigRequestPayload, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.origin_uuid is not None:
+            result['originUuid'] = self.origin_uuid
+        if self.phone is not None:
+            result['phone'] = self.phone
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('originUuid') is not None:
+            self.origin_uuid = m.get('originUuid')
+        if m.get('phone') is not None:
+            self.phone = m.get('phone')
+        return self
+
+
+class GetBusAppConfigRequestUserInfo(TeaModel):
+    def __init__(self, encode_key=None, encode_type=None, id=None, id_type=None, organization_id=None):
+        self.encode_key = encode_key  # type: str
+        self.encode_type = encode_type  # type: str
+        self.id = id  # type: str
+        self.id_type = id_type  # type: str
+        self.organization_id = organization_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetBusAppConfigRequestUserInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.encode_key is not None:
+            result['EncodeKey'] = self.encode_key
+        if self.encode_type is not None:
+            result['EncodeType'] = self.encode_type
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.id_type is not None:
+            result['IdType'] = self.id_type
+        if self.organization_id is not None:
+            result['OrganizationId'] = self.organization_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EncodeKey') is not None:
+            self.encode_key = m.get('EncodeKey')
+        if m.get('EncodeType') is not None:
+            self.encode_type = m.get('EncodeType')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('IdType') is not None:
+            self.id_type = m.get('IdType')
+        if m.get('OrganizationId') is not None:
+            self.organization_id = m.get('OrganizationId')
+        return self
+
+
+class GetBusAppConfigRequest(TeaModel):
+    def __init__(self, device_info=None, payload=None, user_info=None):
+        self.device_info = device_info  # type: GetBusAppConfigRequestDeviceInfo
+        self.payload = payload  # type: GetBusAppConfigRequestPayload
+        self.user_info = user_info  # type: GetBusAppConfigRequestUserInfo
+
+    def validate(self):
+        if self.device_info:
+            self.device_info.validate()
+        if self.payload:
+            self.payload.validate()
+        if self.user_info:
+            self.user_info.validate()
+
+    def to_map(self):
+        _map = super(GetBusAppConfigRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.device_info is not None:
+            result['DeviceInfo'] = self.device_info.to_map()
+        if self.payload is not None:
+            result['Payload'] = self.payload.to_map()
+        if self.user_info is not None:
+            result['UserInfo'] = self.user_info.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DeviceInfo') is not None:
+            temp_model = GetBusAppConfigRequestDeviceInfo()
+            self.device_info = temp_model.from_map(m['DeviceInfo'])
+        if m.get('Payload') is not None:
+            temp_model = GetBusAppConfigRequestPayload()
+            self.payload = temp_model.from_map(m['Payload'])
+        if m.get('UserInfo') is not None:
+            temp_model = GetBusAppConfigRequestUserInfo()
+            self.user_info = temp_model.from_map(m['UserInfo'])
+        return self
+
+
+class GetBusAppConfigShrinkRequest(TeaModel):
+    def __init__(self, device_info_shrink=None, payload_shrink=None, user_info_shrink=None):
+        self.device_info_shrink = device_info_shrink  # type: str
+        self.payload_shrink = payload_shrink  # type: str
+        self.user_info_shrink = user_info_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetBusAppConfigShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.device_info_shrink is not None:
+            result['DeviceInfo'] = self.device_info_shrink
+        if self.payload_shrink is not None:
+            result['Payload'] = self.payload_shrink
+        if self.user_info_shrink is not None:
+            result['UserInfo'] = self.user_info_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DeviceInfo') is not None:
+            self.device_info_shrink = m.get('DeviceInfo')
+        if m.get('Payload') is not None:
+            self.payload_shrink = m.get('Payload')
+        if m.get('UserInfo') is not None:
+            self.user_info_shrink = m.get('UserInfo')
+        return self
+
+
+class GetBusAppConfigResponseBodyRetValue(TeaModel):
+    def __init__(self, cashier=None, shopping_bar=None, shopping_window=None, vip_label=None):
+        self.cashier = cashier  # type: str
+        self.shopping_bar = shopping_bar  # type: str
+        self.shopping_window = shopping_window  # type: str
+        self.vip_label = vip_label  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetBusAppConfigResponseBodyRetValue, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cashier is not None:
+            result['Cashier'] = self.cashier
+        if self.shopping_bar is not None:
+            result['ShoppingBar'] = self.shopping_bar
+        if self.shopping_window is not None:
+            result['ShoppingWindow'] = self.shopping_window
+        if self.vip_label is not None:
+            result['VipLabel'] = self.vip_label
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Cashier') is not None:
+            self.cashier = m.get('Cashier')
+        if m.get('ShoppingBar') is not None:
+            self.shopping_bar = m.get('ShoppingBar')
+        if m.get('ShoppingWindow') is not None:
+            self.shopping_window = m.get('ShoppingWindow')
+        if m.get('VipLabel') is not None:
+            self.vip_label = m.get('VipLabel')
+        return self
+
+
+class GetBusAppConfigResponseBody(TeaModel):
+    def __init__(self, ret_code=None, ret_msg=None, ret_value=None):
+        self.ret_code = ret_code  # type: int
+        self.ret_msg = ret_msg  # type: str
+        self.ret_value = ret_value  # type: GetBusAppConfigResponseBodyRetValue
+
+    def validate(self):
+        if self.ret_value:
+            self.ret_value.validate()
+
+    def to_map(self):
+        _map = super(GetBusAppConfigResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ret_code is not None:
+            result['RetCode'] = self.ret_code
+        if self.ret_msg is not None:
+            result['RetMsg'] = self.ret_msg
+        if self.ret_value is not None:
+            result['RetValue'] = self.ret_value.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RetCode') is not None:
+            self.ret_code = m.get('RetCode')
+        if m.get('RetMsg') is not None:
+            self.ret_msg = m.get('RetMsg')
+        if m.get('RetValue') is not None:
+            temp_model = GetBusAppConfigResponseBodyRetValue()
+            self.ret_value = temp_model.from_map(m['RetValue'])
+        return self
+
+
+class GetBusAppConfigResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetBusAppConfigResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetBusAppConfigResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetBusAppConfigResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -1568,9 +2382,6 @@ class GetPhoneNumberResponse(TeaModel):
         self.body = body  # type: GetPhoneNumberResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2039,9 +2850,6 @@ class GetReminderResponse(TeaModel):
         self.body = body  # type: GetReminderResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2505,9 +3313,6 @@ class ListRemindersResponse(TeaModel):
         self.body = body  # type: ListRemindersResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2800,9 +3605,6 @@ class PullCashierResponse(TeaModel):
         self.body = body  # type: PullCashierResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3041,8 +3843,7 @@ class PushNotificationsResponse(TeaModel):
         self.status_code = status_code  # type: int
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
+        pass
 
     def to_map(self):
         _map = super(PushNotificationsResponse, self).to_map()
@@ -3364,8 +4165,7 @@ class SendNotificationsResponse(TeaModel):
         self.status_code = status_code  # type: int
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
+        pass
 
     def to_map(self):
         _map = super(SendNotificationsResponse, self).to_map()
@@ -3748,9 +4548,6 @@ class UpdateReminderResponse(TeaModel):
         self.body = body  # type: UpdateReminderResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4079,9 +4876,6 @@ class VideoAppReportResponse(TeaModel):
         self.body = body  # type: VideoAppReportResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4232,8 +5026,7 @@ class WakeUpAppResponse(TeaModel):
         self.status_code = status_code  # type: int
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
+        pass
 
     def to_map(self):
         _map = super(WakeUpAppResponse, self).to_map()
