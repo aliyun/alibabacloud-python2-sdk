@@ -148,6 +148,80 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_jobs_with_options(request, runtime)
 
+    def describe_job_metric_data_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = ehpc20230701_models.DescribeJobMetricDataShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.array_index):
+            request.array_index_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.array_index, 'ArrayIndex', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.array_index_shrink):
+            query['ArrayIndex'] = request.array_index_shrink
+        if not UtilClient.is_unset(request.job_id):
+            query['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.metric_name):
+            query['MetricName'] = request.metric_name
+        if not UtilClient.is_unset(request.task_name):
+            query['TaskName'] = request.task_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeJobMetricData',
+            version='2023-07-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ehpc20230701_models.DescribeJobMetricDataResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_job_metric_data(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_job_metric_data_with_options(request, runtime)
+
+    def describe_job_metric_last_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = ehpc20230701_models.DescribeJobMetricLastShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.array_index):
+            request.array_index_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.array_index, 'ArrayIndex', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.array_index_shrink):
+            query['ArrayIndex'] = request.array_index_shrink
+        if not UtilClient.is_unset(request.job_id):
+            query['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.task_name):
+            query['TaskName'] = request.task_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeJobMetricLast',
+            version='2023-07-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ehpc20230701_models.DescribeJobMetricLastResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_job_metric_last(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_job_metric_last_with_options(request, runtime)
+
     def get_image_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
