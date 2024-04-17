@@ -203,6 +203,58 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.decrease_nodes_with_options(request, runtime)
 
+    def delete_api_template_with_options(self, request, runtime):
+        """
+        创建集群模板
+        
+
+        @param request: DeleteApiTemplateRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteApiTemplateResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.api_name):
+            query['ApiName'] = request.api_name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.template_id):
+            query['TemplateId'] = request.template_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteApiTemplate',
+            version='2021-03-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            emr_20210320_models.DeleteApiTemplateResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_api_template(self, request):
+        """
+        创建集群模板
+        
+
+        @param request: DeleteApiTemplateRequest
+
+        @return: DeleteApiTemplateResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.delete_api_template_with_options(request, runtime)
+
     def delete_cluster_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -232,6 +284,36 @@ class Client(OpenApiClient):
     def delete_cluster(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_cluster_with_options(request, runtime)
+
+    def get_api_template_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.template_id):
+            query['TemplateId'] = request.template_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetApiTemplate',
+            version='2021-03-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            emr_20210320_models.GetApiTemplateResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_api_template(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_api_template_with_options(request, runtime)
 
     def get_application_with_options(self, request, runtime):
         """
@@ -1294,6 +1376,48 @@ class Client(OpenApiClient):
     def join_resource_group(self, request):
         runtime = util_models.RuntimeOptions()
         return self.join_resource_group_with_options(request, runtime)
+
+    def list_api_templates_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.api_name):
+            query['ApiName'] = request.api_name
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.template_id):
+            query['TemplateId'] = request.template_id
+        if not UtilClient.is_unset(request.template_ids):
+            query['TemplateIds'] = request.template_ids
+        if not UtilClient.is_unset(request.template_name):
+            query['TemplateName'] = request.template_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListApiTemplates',
+            version='2021-03-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            emr_20210320_models.ListApiTemplatesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_api_templates(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_api_templates_with_options(request, runtime)
 
     def list_application_configs_with_options(self, request, runtime):
         """
@@ -2678,6 +2802,58 @@ class Client(OpenApiClient):
     def remove_auto_scaling_policy(self, request):
         runtime = util_models.RuntimeOptions()
         return self.remove_auto_scaling_policy_with_options(request, runtime)
+
+    def run_api_template_with_options(self, request, runtime):
+        """
+        执行集群模板
+        
+
+        @param request: RunApiTemplateRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RunApiTemplateResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.api_name):
+            query['ApiName'] = request.api_name
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.template_id):
+            query['TemplateId'] = request.template_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RunApiTemplate',
+            version='2021-03-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            emr_20210320_models.RunApiTemplateResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def run_api_template(self, request):
+        """
+        执行集群模板
+        
+
+        @param request: RunApiTemplateRequest
+
+        @return: RunApiTemplateResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.run_api_template_with_options(request, runtime)
 
     def run_application_action_with_options(self, request, runtime):
         UtilClient.validate_model(request)

@@ -314,6 +314,68 @@ class AckNodeSelector(TeaModel):
         return self
 
 
+class ApiTemplate(TeaModel):
+    def __init__(self, api_name=None, content=None, region_id=None, resource_group_id=None, status=None,
+                 template_id=None, template_name=None):
+        # 接口名。
+        self.api_name = api_name  # type: str
+        # 模版接口参数。
+        self.content = content  # type: str
+        # 区域ID。
+        self.region_id = region_id  # type: str
+        # 资源组ID。
+        self.resource_group_id = resource_group_id  # type: str
+        # 模板状态。
+        self.status = status  # type: str
+        # 模板ID。
+        self.template_id = template_id  # type: str
+        # 模板ID。
+        self.template_name = template_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ApiTemplate, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.api_name is not None:
+            result['ApiName'] = self.api_name
+        if self.content is not None:
+            result['Content'] = self.content
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.template_id is not None:
+            result['TemplateId'] = self.template_id
+        if self.template_name is not None:
+            result['TemplateName'] = self.template_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApiName') is not None:
+            self.api_name = m.get('ApiName')
+        if m.get('Content') is not None:
+            self.content = m.get('Content')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('TemplateId') is not None:
+            self.template_id = m.get('TemplateId')
+        if m.get('TemplateName') is not None:
+            self.template_name = m.get('TemplateName')
+        return self
+
+
 class Application(TeaModel):
     def __init__(self, application_name=None):
         # 应用名称。从EMR控制台集群创建页面可查看到指定发行版的应用名称列表。
@@ -6726,6 +6788,115 @@ class DecreaseNodesResponse(TeaModel):
         return self
 
 
+class DeleteApiTemplateRequest(TeaModel):
+    def __init__(self, api_name=None, region_id=None, resource_group_id=None, template_id=None):
+        # 接口名。
+        self.api_name = api_name  # type: str
+        # 区域ID。
+        self.region_id = region_id  # type: str
+        # 资源组ID。
+        self.resource_group_id = resource_group_id  # type: str
+        # 集群模板id。
+        self.template_id = template_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteApiTemplateRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.api_name is not None:
+            result['ApiName'] = self.api_name
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.template_id is not None:
+            result['TemplateId'] = self.template_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApiName') is not None:
+            self.api_name = m.get('ApiName')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('TemplateId') is not None:
+            self.template_id = m.get('TemplateId')
+        return self
+
+
+class DeleteApiTemplateResponseBody(TeaModel):
+    def __init__(self, request_id=None, success=None):
+        # 请求ID。
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteApiTemplateResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class DeleteApiTemplateResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteApiTemplateResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteApiTemplateResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteApiTemplateResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DeleteClusterRequest(TeaModel):
     def __init__(self, cluster_id=None, region_id=None):
         # The ID of the cluster.
@@ -6820,6 +6991,105 @@ class DeleteClusterResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteClusterResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetApiTemplateRequest(TeaModel):
+    def __init__(self, region_id=None, template_id=None):
+        # 区域ID。
+        self.region_id = region_id  # type: str
+        # 集群模板id。
+        self.template_id = template_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetApiTemplateRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.template_id is not None:
+            result['TemplateId'] = self.template_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('TemplateId') is not None:
+            self.template_id = m.get('TemplateId')
+        return self
+
+
+class GetApiTemplateResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: ApiTemplate
+        # 请求ID。
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetApiTemplateResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            temp_model = ApiTemplate()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class GetApiTemplateResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetApiTemplateResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetApiTemplateResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetApiTemplateResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -25522,6 +25792,166 @@ class JoinResourceGroupResponse(TeaModel):
         return self
 
 
+class ListApiTemplatesRequest(TeaModel):
+    def __init__(self, api_name=None, max_results=None, next_token=None, region_id=None, resource_group_id=None,
+                 template_id=None, template_ids=None, template_name=None):
+        # 接口名。
+        self.api_name = api_name  # type: str
+        # 一次获取的最大记录数。
+        self.max_results = max_results  # type: int
+        # 标记当前开始读取的位置，置空表示从头开始。
+        self.next_token = next_token  # type: str
+        # 区域ID。
+        self.region_id = region_id  # type: str
+        # 资源组ID。
+        self.resource_group_id = resource_group_id  # type: str
+        # 集群模板id。
+        self.template_id = template_id  # type: str
+        # 集群模板id列表。
+        self.template_ids = template_ids  # type: list[str]
+        # 集群模板名字。
+        self.template_name = template_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListApiTemplatesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.api_name is not None:
+            result['ApiName'] = self.api_name
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.template_id is not None:
+            result['TemplateId'] = self.template_id
+        if self.template_ids is not None:
+            result['TemplateIds'] = self.template_ids
+        if self.template_name is not None:
+            result['TemplateName'] = self.template_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApiName') is not None:
+            self.api_name = m.get('ApiName')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('TemplateId') is not None:
+            self.template_id = m.get('TemplateId')
+        if m.get('TemplateIds') is not None:
+            self.template_ids = m.get('TemplateIds')
+        if m.get('TemplateName') is not None:
+            self.template_name = m.get('TemplateName')
+        return self
+
+
+class ListApiTemplatesResponseBody(TeaModel):
+    def __init__(self, api_templates=None, max_results=None, next_token=None, request_id=None, total_count=None):
+        self.api_templates = api_templates  # type: list[ApiTemplate]
+        # 本次请求所返回的最大记录条数。
+        self.max_results = max_results  # type: int
+        # 返回读取到的数据位置，空代表数据已经读取完毕。
+        self.next_token = next_token  # type: str
+        # 请求ID。
+        self.request_id = request_id  # type: str
+        # 本次请求条件下的数据总量。
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.api_templates:
+            for k in self.api_templates:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListApiTemplatesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['ApiTemplates'] = []
+        if self.api_templates is not None:
+            for k in self.api_templates:
+                result['ApiTemplates'].append(k.to_map() if k else None)
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.api_templates = []
+        if m.get('ApiTemplates') is not None:
+            for k in m.get('ApiTemplates'):
+                temp_model = ApiTemplate()
+                self.api_templates.append(temp_model.from_map(k))
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class ListApiTemplatesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListApiTemplatesResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListApiTemplatesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListApiTemplatesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListApplicationConfigsRequest(TeaModel):
     def __init__(self, application_name=None, cluster_id=None, config_file_name=None, config_item_key=None,
                  config_item_value=None, max_results=None, next_token=None, node_group_id=None, node_id=None, region_id=None):
@@ -40478,6 +40908,115 @@ class RemoveAutoScalingPolicyResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = RemoveAutoScalingPolicyResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class RunApiTemplateRequest(TeaModel):
+    def __init__(self, api_name=None, client_token=None, region_id=None, template_id=None):
+        # 接口名。
+        self.api_name = api_name  # type: str
+        # 幂等客户端TOKEN。
+        self.client_token = client_token  # type: str
+        # 地域ID。
+        self.region_id = region_id  # type: str
+        # 集群模板id。
+        self.template_id = template_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RunApiTemplateRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.api_name is not None:
+            result['ApiName'] = self.api_name
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.template_id is not None:
+            result['TemplateId'] = self.template_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApiName') is not None:
+            self.api_name = m.get('ApiName')
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('TemplateId') is not None:
+            self.template_id = m.get('TemplateId')
+        return self
+
+
+class RunApiTemplateResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: str
+        # 请求ID。
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RunApiTemplateResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class RunApiTemplateResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: RunApiTemplateResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(RunApiTemplateResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = RunApiTemplateResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
