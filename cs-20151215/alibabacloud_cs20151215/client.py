@@ -3458,6 +3458,8 @@ class Client(OpenApiClient):
         body = {}
         if not UtilClient.is_unset(request.kubelet_config):
             body['kubelet_config'] = request.kubelet_config
+        if not UtilClient.is_unset(request.os_config):
+            body['os_config'] = request.os_config
         if not UtilClient.is_unset(request.rolling_policy):
             body['rolling_policy'] = request.rolling_policy
         req = open_api_models.OpenApiRequest(
