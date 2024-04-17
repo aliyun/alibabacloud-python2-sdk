@@ -663,3 +663,30 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.render_refund_order_with_options(request, headers, runtime)
+
+    def split_purchase_order_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(request.body)
+        )
+        params = open_api_models.Params(
+            action='SplitPurchaseOrder',
+            version='2023-09-30',
+            protocol='HTTPS',
+            pathname='/opensaas-s2b/opensaas-s2b-biz-trade/v2/purchaseOrders/commands/split',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            linkedmall_20230930_models.SplitPurchaseOrderResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def split_purchase_order(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.split_purchase_order_with_options(request, headers, runtime)
