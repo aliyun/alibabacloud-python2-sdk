@@ -1,3 +1,6 @@
+2024-04-17 Version: 1.0.2
+- Generated python2 2022-02-22 for Ess.
+
 2024-03-20 Version: 1.0.1
 - Update API CreateScalingConfiguration: add param NetworkInterfaces.
 - Update API DescribeScalingConfigurations: update response param.
