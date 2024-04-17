@@ -1558,7 +1558,7 @@ class BindAccountResponse(TeaModel):
 
 
 class CloseDeliveryRequest(TeaModel):
-    def __init__(self, log_code=None, product_code=None, region_id=None):
+    def __init__(self, log_code=None, product_code=None, region_id=None, role_for=None, role_type=None):
         # The log code of the cloud service, such as the code of the process log for Security Center. You can obtain the log code from the response of the ListDelivery operation.
         self.log_code = log_code  # type: str
         # The code of the cloud service. Valid values:
@@ -1592,6 +1592,8 @@ class CloseDeliveryRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions inside the Chinese mainland or in the China (Hong Kong) region.
         # *   ap-southeast-1: Your assets reside in regions outside the Chinese mainland, excluding the China (Hong Kong) region.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
 
     def validate(self):
         pass
@@ -1608,6 +1610,10 @@ class CloseDeliveryRequest(TeaModel):
             result['ProductCode'] = self.product_code
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         return result
 
     def from_map(self, m=None):
@@ -1618,6 +1624,10 @@ class CloseDeliveryRequest(TeaModel):
             self.product_code = m.get('ProductCode')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         return self
 
 
@@ -1692,7 +1702,7 @@ class CloseDeliveryResponse(TeaModel):
 
 
 class DeleteAutomateResponseConfigRequest(TeaModel):
-    def __init__(self, id=None, region_id=None):
+    def __init__(self, id=None, region_id=None, role_for=None, role_type=None):
         # The ID of the rule.
         self.id = id  # type: long
         # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
@@ -1700,6 +1710,8 @@ class DeleteAutomateResponseConfigRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
 
     def validate(self):
         pass
@@ -1714,6 +1726,10 @@ class DeleteAutomateResponseConfigRequest(TeaModel):
             result['Id'] = self.id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         return result
 
     def from_map(self, m=None):
@@ -1722,6 +1738,10 @@ class DeleteAutomateResponseConfigRequest(TeaModel):
             self.id = m.get('Id')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         return self
 
 
@@ -1964,9 +1984,11 @@ class DeleteBindAccountResponse(TeaModel):
 
 
 class DeleteCustomizeRuleRequest(TeaModel):
-    def __init__(self, region_id=None, rule_id=None):
+    def __init__(self, region_id=None, role_for=None, role_type=None, rule_id=None):
         # The region in which the service is deployed.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
         # The ID of the rule.
         self.rule_id = rule_id  # type: long
 
@@ -1981,6 +2003,10 @@ class DeleteCustomizeRuleRequest(TeaModel):
         result = dict()
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         if self.rule_id is not None:
             result['RuleId'] = self.rule_id
         return result
@@ -1989,6 +2015,10 @@ class DeleteCustomizeRuleRequest(TeaModel):
         m = m or dict()
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         if m.get('RuleId') is not None:
             self.rule_id = m.get('RuleId')
         return self
@@ -2592,7 +2622,7 @@ class DeleteUserResponse(TeaModel):
 
 
 class DeleteWhiteRuleListRequest(TeaModel):
-    def __init__(self, id=None, region_id=None):
+    def __init__(self, id=None, region_id=None, role_for=None, role_type=None):
         # The unique ID of the whitelist rule.
         self.id = id  # type: long
         # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
@@ -2600,6 +2630,8 @@ class DeleteWhiteRuleListRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
 
     def validate(self):
         pass
@@ -2614,6 +2646,10 @@ class DeleteWhiteRuleListRequest(TeaModel):
             result['Id'] = self.id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         return result
 
     def from_map(self, m=None):
@@ -2622,6 +2658,10 @@ class DeleteWhiteRuleListRequest(TeaModel):
             self.id = m.get('Id')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         return self
 
 
@@ -2714,12 +2754,14 @@ class DeleteWhiteRuleListResponse(TeaModel):
 
 
 class DescribeAggregateFunctionRequest(TeaModel):
-    def __init__(self, region_id=None):
+    def __init__(self, region_id=None, role_for=None, role_type=None):
         # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
         # 
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
 
     def validate(self):
         pass
@@ -2732,12 +2774,20 @@ class DescribeAggregateFunctionRequest(TeaModel):
         result = dict()
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         return self
 
 
@@ -2869,12 +2919,14 @@ class DescribeAggregateFunctionResponse(TeaModel):
 
 
 class DescribeAlertSceneRequest(TeaModel):
-    def __init__(self, region_id=None):
+    def __init__(self, region_id=None, role_for=None, role_type=None):
         # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
         # 
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
 
     def validate(self):
         pass
@@ -2887,12 +2939,20 @@ class DescribeAlertSceneRequest(TeaModel):
         result = dict()
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         return self
 
 
@@ -3106,7 +3166,7 @@ class DescribeAlertSceneResponse(TeaModel):
 
 
 class DescribeAlertSceneByEventRequest(TeaModel):
-    def __init__(self, incident_uuid=None, region_id=None):
+    def __init__(self, incident_uuid=None, region_id=None, role_for=None, role_type=None):
         # The ID of the event.
         self.incident_uuid = incident_uuid  # type: str
         # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
@@ -3114,6 +3174,8 @@ class DescribeAlertSceneByEventRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
 
     def validate(self):
         pass
@@ -3128,6 +3190,10 @@ class DescribeAlertSceneByEventRequest(TeaModel):
             result['IncidentUuid'] = self.incident_uuid
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         return result
 
     def from_map(self, m=None):
@@ -3136,6 +3202,10 @@ class DescribeAlertSceneByEventRequest(TeaModel):
             self.incident_uuid = m.get('IncidentUuid')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         return self
 
 
@@ -3349,7 +3419,7 @@ class DescribeAlertSceneByEventResponse(TeaModel):
 
 
 class DescribeAlertSourceRequest(TeaModel):
-    def __init__(self, end_time=None, level=None, region_id=None, start_time=None):
+    def __init__(self, end_time=None, level=None, region_id=None, role_for=None, role_type=None, start_time=None):
         # The end of the time range to query. Unit: milliseconds.
         self.end_time = end_time  # type: long
         # The risk levels. The value is a JSON array. Valid values:
@@ -3363,6 +3433,8 @@ class DescribeAlertSourceRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
         # The beginning of the time range to query. Unit: milliseconds.
         self.start_time = start_time  # type: long
 
@@ -3381,6 +3453,10 @@ class DescribeAlertSourceRequest(TeaModel):
             result['Level'] = self.level
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         if self.start_time is not None:
             result['StartTime'] = self.start_time
         return result
@@ -3393,6 +3469,10 @@ class DescribeAlertSourceRequest(TeaModel):
             self.level = m.get('Level')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         if m.get('StartTime') is not None:
             self.start_time = m.get('StartTime')
         return self
@@ -3526,7 +3606,7 @@ class DescribeAlertSourceResponse(TeaModel):
 
 
 class DescribeAlertSourceWithEventRequest(TeaModel):
-    def __init__(self, incident_uuid=None, region_id=None):
+    def __init__(self, incident_uuid=None, region_id=None, role_for=None, role_type=None):
         # The UUID of the event.
         self.incident_uuid = incident_uuid  # type: str
         # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
@@ -3534,6 +3614,8 @@ class DescribeAlertSourceWithEventRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
 
     def validate(self):
         pass
@@ -3548,6 +3630,10 @@ class DescribeAlertSourceWithEventRequest(TeaModel):
             result['IncidentUuid'] = self.incident_uuid
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         return result
 
     def from_map(self, m=None):
@@ -3556,6 +3642,10 @@ class DescribeAlertSourceWithEventRequest(TeaModel):
             self.incident_uuid = m.get('IncidentUuid')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         return self
 
 
@@ -3687,12 +3777,15 @@ class DescribeAlertSourceWithEventResponse(TeaModel):
 
 
 class DescribeAlertTypeRequest(TeaModel):
-    def __init__(self, region_id=None):
+    def __init__(self, region_id=None, role_for=None, role_type=None, rule_type=None):
         # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
         # 
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
+        self.rule_type = rule_type  # type: str
 
     def validate(self):
         pass
@@ -3705,12 +3798,24 @@ class DescribeAlertTypeRequest(TeaModel):
         result = dict()
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
+        if self.rule_type is not None:
+            result['RuleType'] = self.rule_type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
+        if m.get('RuleType') is not None:
+            self.rule_type = m.get('RuleType')
         return self
 
 
@@ -3843,7 +3948,8 @@ class DescribeAlertTypeResponse(TeaModel):
 
 class DescribeAlertsRequest(TeaModel):
     def __init__(self, alert_title=None, alert_uuid=None, current_page=None, end_time=None, is_defend=None,
-                 level=None, page_size=None, region_id=None, source=None, start_time=None, sub_user_id=None):
+                 level=None, page_size=None, region_id=None, role_for=None, role_type=None, source=None, start_time=None,
+                 sub_user_id=None):
         # The title of the alert.
         self.alert_title = alert_title  # type: str
         # The UUID of the alert.
@@ -3870,6 +3976,8 @@ class DescribeAlertsRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
         # The source of the alert.
         self.source = source  # type: str
         # The beginning of the time range to query. Unit: milliseconds.
@@ -3902,6 +4010,10 @@ class DescribeAlertsRequest(TeaModel):
             result['PageSize'] = self.page_size
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         if self.source is not None:
             result['Source'] = self.source
         if self.start_time is not None:
@@ -3928,6 +4040,10 @@ class DescribeAlertsRequest(TeaModel):
             self.page_size = m.get('PageSize')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         if m.get('Source') is not None:
             self.source = m.get('Source')
         if m.get('StartTime') is not None:
@@ -4379,7 +4495,7 @@ class DescribeAlertsResponse(TeaModel):
 
 
 class DescribeAlertsCountRequest(TeaModel):
-    def __init__(self, end_time=None, region_id=None, start_time=None):
+    def __init__(self, end_time=None, region_id=None, role_for=None, role_type=None, start_time=None):
         # The end of the time range to query. Unit: milliseconds.
         self.end_time = end_time  # type: long
         # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
@@ -4387,6 +4503,8 @@ class DescribeAlertsCountRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
         # The beginning of the time range to query. Unit: milliseconds.
         self.start_time = start_time  # type: long
 
@@ -4403,6 +4521,10 @@ class DescribeAlertsCountRequest(TeaModel):
             result['EndTime'] = self.end_time
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         if self.start_time is not None:
             result['StartTime'] = self.start_time
         return result
@@ -4413,6 +4535,10 @@ class DescribeAlertsCountRequest(TeaModel):
             self.end_time = m.get('EndTime')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         if m.get('StartTime') is not None:
             self.start_time = m.get('StartTime')
         return self
@@ -4559,7 +4685,7 @@ class DescribeAlertsCountResponse(TeaModel):
 
 class DescribeAlertsWithEntityRequest(TeaModel):
     def __init__(self, current_page=None, entity_id=None, incident_uuid=None, page_size=None, region_id=None,
-                 sophon_task_id=None):
+                 role_for=None, role_type=None, sophon_task_id=None):
         # The page number. Pages start from page 1.
         self.current_page = current_page  # type: int
         # The ID of the entity.
@@ -4573,6 +4699,8 @@ class DescribeAlertsWithEntityRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
         # The ID of the SOAR handing policy.
         self.sophon_task_id = sophon_task_id  # type: str
 
@@ -4595,6 +4723,10 @@ class DescribeAlertsWithEntityRequest(TeaModel):
             result['PageSize'] = self.page_size
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         if self.sophon_task_id is not None:
             result['SophonTaskId'] = self.sophon_task_id
         return result
@@ -4611,6 +4743,10 @@ class DescribeAlertsWithEntityRequest(TeaModel):
             self.page_size = m.get('PageSize')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         if m.get('SophonTaskId') is not None:
             self.sophon_task_id = m.get('SophonTaskId')
         return self
@@ -5059,7 +5195,7 @@ class DescribeAlertsWithEntityResponse(TeaModel):
 
 class DescribeAlertsWithEventRequest(TeaModel):
     def __init__(self, alert_title=None, current_page=None, incident_uuid=None, is_defend=None, level=None,
-                 page_size=None, region_id=None, source=None, sub_user_id=None):
+                 page_size=None, region_id=None, role_for=None, role_type=None, source=None, sub_user_id=None):
         # The title of the alert.
         self.alert_title = alert_title  # type: str
         # The page number. Pages start from page 1.
@@ -5084,6 +5220,8 @@ class DescribeAlertsWithEventRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
         # The data source of the alert.
         self.source = source  # type: str
         # The ID of the account within which the alert is generated.
@@ -5112,6 +5250,10 @@ class DescribeAlertsWithEventRequest(TeaModel):
             result['PageSize'] = self.page_size
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         if self.source is not None:
             result['Source'] = self.source
         if self.sub_user_id is not None:
@@ -5134,6 +5276,10 @@ class DescribeAlertsWithEventRequest(TeaModel):
             self.page_size = m.get('PageSize')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         if m.get('Source') is not None:
             self.source = m.get('Source')
         if m.get('SubUserId') is not None:
@@ -5220,8 +5366,9 @@ class DescribeAlertsWithEventResponseBodyDataResponseData(TeaModel):
                  alert_info_list=None, alert_level=None, alert_name=None, alert_name_code=None, alert_name_en=None,
                  alert_src_prod=None, alert_src_prod_module=None, alert_title=None, alert_title_en=None, alert_type=None,
                  alert_type_code=None, alert_type_en=None, alert_uuid=None, asset_list=None, att_ck=None, cloud_code=None,
-                 end_time=None, gmt_create=None, gmt_modified=None, id=None, incident_uuid=None, is_defend=None,
-                 log_time=None, log_uuid=None, main_user_id=None, occur_time=None, start_time=None, sub_user_id=None):
+                 end_time=None, entity_list=None, gmt_create=None, gmt_modified=None, id=None, incident_uuid=None,
+                 is_defend=None, log_time=None, log_uuid=None, main_user_id=None, occur_time=None, start_time=None,
+                 sub_user_id=None):
         # The description of the alert.
         self.alert_desc = alert_desc  # type: str
         # The internal code of the alert description.
@@ -5272,6 +5419,7 @@ class DescribeAlertsWithEventResponseBodyDataResponseData(TeaModel):
         self.cloud_code = cloud_code  # type: str
         # The time when the alert was closed.
         self.end_time = end_time  # type: str
+        self.entity_list = entity_list  # type: str
         # The time when the alert was received.
         self.gmt_create = gmt_create  # type: str
         # The time when the alert was last updated.
@@ -5354,6 +5502,8 @@ class DescribeAlertsWithEventResponseBodyDataResponseData(TeaModel):
             result['CloudCode'] = self.cloud_code
         if self.end_time is not None:
             result['EndTime'] = self.end_time
+        if self.entity_list is not None:
+            result['EntityList'] = self.entity_list
         if self.gmt_create is not None:
             result['GmtCreate'] = self.gmt_create
         if self.gmt_modified is not None:
@@ -5425,6 +5575,8 @@ class DescribeAlertsWithEventResponseBodyDataResponseData(TeaModel):
             self.cloud_code = m.get('CloudCode')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
+        if m.get('EntityList') is not None:
+            self.entity_list = m.get('EntityList')
         if m.get('GmtCreate') is not None:
             self.gmt_create = m.get('GmtCreate')
         if m.get('GmtModified') is not None:
@@ -5583,7 +5735,8 @@ class DescribeAlertsWithEventResponse(TeaModel):
 
 
 class DescribeAttackTimeLineRequest(TeaModel):
-    def __init__(self, asset_name=None, end_time=None, incident_uuid=None, region_id=None, start_time=None):
+    def __init__(self, asset_name=None, end_time=None, incident_uuid=None, region_id=None, role_for=None,
+                 role_type=None, start_time=None):
         # The name of the asset.
         self.asset_name = asset_name  # type: str
         # The end of the time range to query. Unit: milliseconds.
@@ -5595,6 +5748,8 @@ class DescribeAttackTimeLineRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
         # The beginning of the time range to query. Unit: milliseconds.
         self.start_time = start_time  # type: long
 
@@ -5615,6 +5770,10 @@ class DescribeAttackTimeLineRequest(TeaModel):
             result['IncidentUuid'] = self.incident_uuid
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         if self.start_time is not None:
             result['StartTime'] = self.start_time
         return result
@@ -5629,6 +5788,10 @@ class DescribeAttackTimeLineRequest(TeaModel):
             self.incident_uuid = m.get('IncidentUuid')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         if m.get('StartTime') is not None:
             self.start_time = m.get('StartTime')
         return self
@@ -5979,12 +6142,14 @@ class DescribeAuthResponse(TeaModel):
 
 
 class DescribeAutomateResponseConfigCounterRequest(TeaModel):
-    def __init__(self, region_id=None):
+    def __init__(self, region_id=None, role_for=None, role_type=None):
         # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
         # 
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
 
     def validate(self):
         pass
@@ -5997,12 +6162,20 @@ class DescribeAutomateResponseConfigCounterRequest(TeaModel):
         result = dict()
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         return self
 
 
@@ -6128,7 +6301,7 @@ class DescribeAutomateResponseConfigCounterResponse(TeaModel):
 
 
 class DescribeAutomateResponseConfigFeatureRequest(TeaModel):
-    def __init__(self, auto_response_type=None, region_id=None):
+    def __init__(self, auto_response_type=None, region_id=None, role_for=None, role_type=None):
         # The type of the automated response rule. Valid values:
         # 
         # *   event
@@ -6139,6 +6312,8 @@ class DescribeAutomateResponseConfigFeatureRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
 
     def validate(self):
         pass
@@ -6153,6 +6328,10 @@ class DescribeAutomateResponseConfigFeatureRequest(TeaModel):
             result['AutoResponseType'] = self.auto_response_type
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         return result
 
     def from_map(self, m=None):
@@ -6161,6 +6340,10 @@ class DescribeAutomateResponseConfigFeatureRequest(TeaModel):
             self.auto_response_type = m.get('AutoResponseType')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         return self
 
 
@@ -6423,7 +6606,7 @@ class DescribeAutomateResponseConfigFeatureResponse(TeaModel):
 
 
 class DescribeAutomateResponseConfigPlayBooksRequest(TeaModel):
-    def __init__(self, auto_response_type=None, entity_type=None, region_id=None):
+    def __init__(self, auto_response_type=None, entity_type=None, region_id=None, role_for=None, role_type=None):
         # The type of the automated response rule. Valid values:
         # 
         # *   event
@@ -6440,6 +6623,8 @@ class DescribeAutomateResponseConfigPlayBooksRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
 
     def validate(self):
         pass
@@ -6456,6 +6641,10 @@ class DescribeAutomateResponseConfigPlayBooksRequest(TeaModel):
             result['EntityType'] = self.entity_type
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         return result
 
     def from_map(self, m=None):
@@ -6466,6 +6655,10 @@ class DescribeAutomateResponseConfigPlayBooksRequest(TeaModel):
             self.entity_type = m.get('EntityType')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         return self
 
 
@@ -6619,7 +6812,8 @@ class DescribeAutomateResponseConfigPlayBooksResponse(TeaModel):
 
 
 class DescribeCloudSiemAssetsRequest(TeaModel):
-    def __init__(self, asset_type=None, current_page=None, incident_uuid=None, page_size=None, region_id=None):
+    def __init__(self, asset_type=None, current_page=None, incident_uuid=None, page_size=None, region_id=None,
+                 role_for=None, role_type=None):
         # The type of the asset. Valid values:
         # 
         # *   ip
@@ -6640,6 +6834,8 @@ class DescribeCloudSiemAssetsRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
 
     def validate(self):
         pass
@@ -6660,6 +6856,10 @@ class DescribeCloudSiemAssetsRequest(TeaModel):
             result['PageSize'] = self.page_size
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         return result
 
     def from_map(self, m=None):
@@ -6674,6 +6874,10 @@ class DescribeCloudSiemAssetsRequest(TeaModel):
             self.page_size = m.get('PageSize')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         return self
 
 
@@ -6996,7 +7200,7 @@ class DescribeCloudSiemAssetsResponse(TeaModel):
 
 
 class DescribeCloudSiemAssetsCounterRequest(TeaModel):
-    def __init__(self, incident_uuid=None, region_id=None):
+    def __init__(self, incident_uuid=None, region_id=None, role_for=None, role_type=None):
         # The UUID of the event.
         self.incident_uuid = incident_uuid  # type: str
         # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
@@ -7004,6 +7208,8 @@ class DescribeCloudSiemAssetsCounterRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
 
     def validate(self):
         pass
@@ -7018,6 +7224,10 @@ class DescribeCloudSiemAssetsCounterRequest(TeaModel):
             result['IncidentUuid'] = self.incident_uuid
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         return result
 
     def from_map(self, m=None):
@@ -7026,6 +7236,10 @@ class DescribeCloudSiemAssetsCounterRequest(TeaModel):
             self.incident_uuid = m.get('IncidentUuid')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         return self
 
 
@@ -7164,7 +7378,7 @@ class DescribeCloudSiemAssetsCounterResponse(TeaModel):
 
 
 class DescribeCloudSiemEventDetailRequest(TeaModel):
-    def __init__(self, incident_uuid=None, region_id=None):
+    def __init__(self, incident_uuid=None, region_id=None, role_for=None, role_type=None):
         # The UUID of the event.
         self.incident_uuid = incident_uuid  # type: str
         # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
@@ -7172,6 +7386,8 @@ class DescribeCloudSiemEventDetailRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
 
     def validate(self):
         pass
@@ -7186,6 +7402,10 @@ class DescribeCloudSiemEventDetailRequest(TeaModel):
             result['IncidentUuid'] = self.incident_uuid
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         return result
 
     def from_map(self, m=None):
@@ -7194,6 +7414,10 @@ class DescribeCloudSiemEventDetailRequest(TeaModel):
             self.incident_uuid = m.get('IncidentUuid')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         return self
 
 
@@ -7427,8 +7651,8 @@ class DescribeCloudSiemEventDetailResponse(TeaModel):
 
 class DescribeCloudSiemEventsRequest(TeaModel):
     def __init__(self, asset_id=None, current_page=None, end_time=None, event_name=None, incident_uuid=None,
-                 order=None, order_field=None, page_size=None, region_id=None, start_time=None, status=None,
-                 thread_level=None):
+                 order=None, order_field=None, page_size=None, region_id=None, role_for=None, role_type=None,
+                 start_time=None, status=None, thread_level=None):
         # The ID of the asset that is associated with the event.
         self.asset_id = asset_id  # type: str
         # The page number. Pages start from page 1.
@@ -7456,6 +7680,8 @@ class DescribeCloudSiemEventsRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
         # The beginning of the time range to query. Unit: milliseconds.
         self.start_time = start_time  # type: long
         # The status of the event. Valid values:
@@ -7499,6 +7725,10 @@ class DescribeCloudSiemEventsRequest(TeaModel):
             result['PageSize'] = self.page_size
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         if self.start_time is not None:
             result['StartTime'] = self.start_time
         if self.status is not None:
@@ -7527,6 +7757,10 @@ class DescribeCloudSiemEventsRequest(TeaModel):
             self.page_size = m.get('PageSize')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         if m.get('StartTime') is not None:
             self.start_time = m.get('StartTime')
         if m.get('Status') is not None:
@@ -7576,8 +7810,8 @@ class DescribeCloudSiemEventsResponseBodyDataPageInfo(TeaModel):
 class DescribeCloudSiemEventsResponseBodyDataResponseData(TeaModel):
     def __init__(self, alert_num=None, aliuid=None, asset_num=None, att_ck_labels=None, data_sources=None,
                  description=None, description_en=None, ext_content=None, gmt_create=None, gmt_modified=None,
-                 incident_name=None, incident_name_en=None, incident_uuid=None, remark=None, status=None, threat_level=None,
-                 threat_score=None):
+                 incident_name=None, incident_name_en=None, incident_uuid=None, refer_account=None, remark=None, status=None,
+                 threat_level=None, threat_score=None):
         # The number of alerts that are associated with the event.
         self.alert_num = alert_num  # type: int
         # The ID of the Alibaba Cloud account to which the event belongs.
@@ -7604,6 +7838,7 @@ class DescribeCloudSiemEventsResponseBodyDataResponseData(TeaModel):
         self.incident_name_en = incident_name_en  # type: str
         # The UUID of the event.
         self.incident_uuid = incident_uuid  # type: str
+        self.refer_account = refer_account  # type: str
         # The remarks of the event.
         self.remark = remark  # type: str
         # The status of the event. Valid values:
@@ -7657,6 +7892,8 @@ class DescribeCloudSiemEventsResponseBodyDataResponseData(TeaModel):
             result['IncidentNameEn'] = self.incident_name_en
         if self.incident_uuid is not None:
             result['IncidentUuid'] = self.incident_uuid
+        if self.refer_account is not None:
+            result['ReferAccount'] = self.refer_account
         if self.remark is not None:
             result['Remark'] = self.remark
         if self.status is not None:
@@ -7695,6 +7932,8 @@ class DescribeCloudSiemEventsResponseBodyDataResponseData(TeaModel):
             self.incident_name_en = m.get('IncidentNameEn')
         if m.get('IncidentUuid') is not None:
             self.incident_uuid = m.get('IncidentUuid')
+        if m.get('ReferAccount') is not None:
+            self.refer_account = m.get('ReferAccount')
         if m.get('Remark') is not None:
             self.remark = m.get('Remark')
         if m.get('Status') is not None:
@@ -8247,12 +8486,14 @@ class DescribeCustomizeRuleResponse(TeaModel):
 
 
 class DescribeCustomizeRuleCountRequest(TeaModel):
-    def __init__(self, region_id=None):
+    def __init__(self, region_id=None, role_for=None, role_type=None):
         # The data management center of the threat analysis feature. Specify this parameter based on the region in which your assets reside. Valid values:
         # 
         # *   cn-hangzhou: Your assets reside in regions inside China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
 
     def validate(self):
         pass
@@ -8265,17 +8506,31 @@ class DescribeCustomizeRuleCountRequest(TeaModel):
         result = dict()
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         return self
 
 
 class DescribeCustomizeRuleCountResponseBodyData(TeaModel):
-    def __init__(self, high_rule_num=None, in_use_rule_num=None, low_rule_num=None, medium_rule_num=None):
+    def __init__(self, aggregation_rule_num=None, customize_rule_num=None, expert_rule_num=None,
+                 graph_computing_rule_num=None, high_rule_num=None, in_use_rule_num=None, low_rule_num=None, medium_rule_num=None,
+                 predefined_rule_num=None, single_alert_rule_num=None, total_rule_num=None, un_event_rule_num=None):
+        self.aggregation_rule_num = aggregation_rule_num  # type: int
+        self.customize_rule_num = customize_rule_num  # type: int
+        self.expert_rule_num = expert_rule_num  # type: int
+        self.graph_computing_rule_num = graph_computing_rule_num  # type: int
         # The number of rules that are used to identify high-risk threats.
         self.high_rule_num = high_rule_num  # type: int
         # The total number of rules.
@@ -8284,6 +8539,10 @@ class DescribeCustomizeRuleCountResponseBodyData(TeaModel):
         self.low_rule_num = low_rule_num  # type: int
         # The number of rules that are used to identify medium-risk threats.
         self.medium_rule_num = medium_rule_num  # type: int
+        self.predefined_rule_num = predefined_rule_num  # type: int
+        self.single_alert_rule_num = single_alert_rule_num  # type: int
+        self.total_rule_num = total_rule_num  # type: int
+        self.un_event_rule_num = un_event_rule_num  # type: int
 
     def validate(self):
         pass
@@ -8294,6 +8553,14 @@ class DescribeCustomizeRuleCountResponseBodyData(TeaModel):
             return _map
 
         result = dict()
+        if self.aggregation_rule_num is not None:
+            result['AggregationRuleNum'] = self.aggregation_rule_num
+        if self.customize_rule_num is not None:
+            result['CustomizeRuleNum'] = self.customize_rule_num
+        if self.expert_rule_num is not None:
+            result['ExpertRuleNum'] = self.expert_rule_num
+        if self.graph_computing_rule_num is not None:
+            result['GraphComputingRuleNum'] = self.graph_computing_rule_num
         if self.high_rule_num is not None:
             result['HighRuleNum'] = self.high_rule_num
         if self.in_use_rule_num is not None:
@@ -8302,10 +8569,26 @@ class DescribeCustomizeRuleCountResponseBodyData(TeaModel):
             result['LowRuleNum'] = self.low_rule_num
         if self.medium_rule_num is not None:
             result['MediumRuleNum'] = self.medium_rule_num
+        if self.predefined_rule_num is not None:
+            result['PredefinedRuleNum'] = self.predefined_rule_num
+        if self.single_alert_rule_num is not None:
+            result['SingleAlertRuleNum'] = self.single_alert_rule_num
+        if self.total_rule_num is not None:
+            result['TotalRuleNum'] = self.total_rule_num
+        if self.un_event_rule_num is not None:
+            result['UnEventRuleNum'] = self.un_event_rule_num
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AggregationRuleNum') is not None:
+            self.aggregation_rule_num = m.get('AggregationRuleNum')
+        if m.get('CustomizeRuleNum') is not None:
+            self.customize_rule_num = m.get('CustomizeRuleNum')
+        if m.get('ExpertRuleNum') is not None:
+            self.expert_rule_num = m.get('ExpertRuleNum')
+        if m.get('GraphComputingRuleNum') is not None:
+            self.graph_computing_rule_num = m.get('GraphComputingRuleNum')
         if m.get('HighRuleNum') is not None:
             self.high_rule_num = m.get('HighRuleNum')
         if m.get('InUseRuleNum') is not None:
@@ -8314,6 +8597,14 @@ class DescribeCustomizeRuleCountResponseBodyData(TeaModel):
             self.low_rule_num = m.get('LowRuleNum')
         if m.get('MediumRuleNum') is not None:
             self.medium_rule_num = m.get('MediumRuleNum')
+        if m.get('PredefinedRuleNum') is not None:
+            self.predefined_rule_num = m.get('PredefinedRuleNum')
+        if m.get('SingleAlertRuleNum') is not None:
+            self.single_alert_rule_num = m.get('SingleAlertRuleNum')
+        if m.get('TotalRuleNum') is not None:
+            self.total_rule_num = m.get('TotalRuleNum')
+        if m.get('UnEventRuleNum') is not None:
+            self.un_event_rule_num = m.get('UnEventRuleNum')
         return self
 
 
@@ -8408,7 +8699,7 @@ class DescribeCustomizeRuleCountResponse(TeaModel):
 
 
 class DescribeCustomizeRuleTestRequest(TeaModel):
-    def __init__(self, id=None, region_id=None):
+    def __init__(self, id=None, region_id=None, role_for=None, role_type=None):
         # The ID of the rule.
         self.id = id  # type: long
         # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
@@ -8416,6 +8707,8 @@ class DescribeCustomizeRuleTestRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
 
     def validate(self):
         pass
@@ -8430,6 +8723,10 @@ class DescribeCustomizeRuleTestRequest(TeaModel):
             result['Id'] = self.id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         return result
 
     def from_map(self, m=None):
@@ -8438,6 +8735,10 @@ class DescribeCustomizeRuleTestRequest(TeaModel):
             self.id = m.get('Id')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         return self
 
 
@@ -8575,7 +8876,7 @@ class DescribeCustomizeRuleTestResponse(TeaModel):
 
 
 class DescribeCustomizeRuleTestHistogramRequest(TeaModel):
-    def __init__(self, id=None, region_id=None):
+    def __init__(self, id=None, region_id=None, role_for=None, role_type=None):
         # The ID of the rule.
         self.id = id  # type: long
         # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
@@ -8583,6 +8884,8 @@ class DescribeCustomizeRuleTestHistogramRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
 
     def validate(self):
         pass
@@ -8597,6 +8900,10 @@ class DescribeCustomizeRuleTestHistogramRequest(TeaModel):
             result['Id'] = self.id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         return result
 
     def from_map(self, m=None):
@@ -8605,6 +8912,10 @@ class DescribeCustomizeRuleTestHistogramRequest(TeaModel):
             self.id = m.get('Id')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         return self
 
 
@@ -9237,7 +9548,8 @@ class DescribeDataSourceParametersResponse(TeaModel):
 
 
 class DescribeDisposeAndPlaybookRequest(TeaModel):
-    def __init__(self, current_page=None, entity_type=None, incident_uuid=None, page_size=None, region_id=None):
+    def __init__(self, current_page=None, entity_type=None, incident_uuid=None, page_size=None, region_id=None,
+                 role_for=None, role_type=None):
         # The page number. Pages start from page 1.
         self.current_page = current_page  # type: int
         # The entity type. Valid values:
@@ -9255,6 +9567,8 @@ class DescribeDisposeAndPlaybookRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions inside China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
 
     def validate(self):
         pass
@@ -9275,6 +9589,10 @@ class DescribeDisposeAndPlaybookRequest(TeaModel):
             result['PageSize'] = self.page_size
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         return result
 
     def from_map(self, m=None):
@@ -9289,6 +9607,10 @@ class DescribeDisposeAndPlaybookRequest(TeaModel):
             self.page_size = m.get('PageSize')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         return self
 
 
@@ -9612,7 +9934,7 @@ class DescribeDisposeAndPlaybookResponse(TeaModel):
 
 
 class DescribeDisposeStrategyPlaybookRequest(TeaModel):
-    def __init__(self, end_time=None, region_id=None, start_time=None):
+    def __init__(self, end_time=None, region_id=None, role_for=None, role_type=None, start_time=None):
         # The end of the time range to query. Unit: milliseconds.
         self.end_time = end_time  # type: long
         # The data management center of the threat analysis feature. Specify this parameter based on the region in which your assets reside. Valid values:
@@ -9620,6 +9942,8 @@ class DescribeDisposeStrategyPlaybookRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions inside China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
         # The beginning of the time range to query. Unit: milliseconds.
         self.start_time = start_time  # type: long
 
@@ -9636,6 +9960,10 @@ class DescribeDisposeStrategyPlaybookRequest(TeaModel):
             result['EndTime'] = self.end_time
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         if self.start_time is not None:
             result['StartTime'] = self.start_time
         return result
@@ -9646,6 +9974,10 @@ class DescribeDisposeStrategyPlaybookRequest(TeaModel):
             self.end_time = m.get('EndTime')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         if m.get('StartTime') is not None:
             self.start_time = m.get('StartTime')
         return self
@@ -9779,8 +10111,8 @@ class DescribeDisposeStrategyPlaybookResponse(TeaModel):
 
 
 class DescribeEntityInfoRequest(TeaModel):
-    def __init__(self, entity_id=None, entity_identity=None, incident_uuid=None, region_id=None,
-                 sophon_task_id=None):
+    def __init__(self, entity_id=None, entity_identity=None, incident_uuid=None, region_id=None, role_for=None,
+                 role_type=None, sophon_task_id=None):
         # The logical ID of the entity.
         self.entity_id = entity_id  # type: long
         # The feature value of the entity. Fuzzy match is supported.
@@ -9792,6 +10124,8 @@ class DescribeEntityInfoRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
         # The ID of the SOAR handling policy.
         self.sophon_task_id = sophon_task_id  # type: str
 
@@ -9812,6 +10146,10 @@ class DescribeEntityInfoRequest(TeaModel):
             result['IncidentUuid'] = self.incident_uuid
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         if self.sophon_task_id is not None:
             result['SophonTaskId'] = self.sophon_task_id
         return result
@@ -9826,6 +10164,10 @@ class DescribeEntityInfoRequest(TeaModel):
             self.incident_uuid = m.get('IncidentUuid')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         if m.get('SophonTaskId') is not None:
             self.sophon_task_id = m.get('SophonTaskId')
         return self
@@ -9972,12 +10314,16 @@ class DescribeEntityInfoResponse(TeaModel):
 
 
 class DescribeEventCountByThreatLevelRequest(TeaModel):
-    def __init__(self, region_id=None):
+    def __init__(self, end_time=None, region_id=None, role_for=None, role_type=None, start_time=None):
+        self.end_time = end_time  # type: long
         # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
         # 
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
+        self.start_time = start_time  # type: long
 
     def validate(self):
         pass
@@ -9988,14 +10334,30 @@ class DescribeEventCountByThreatLevelRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
@@ -10140,7 +10502,8 @@ class DescribeEventCountByThreatLevelResponse(TeaModel):
 
 
 class DescribeEventDisposeRequest(TeaModel):
-    def __init__(self, current_page=None, incident_uuid=None, page_size=None, region_id=None):
+    def __init__(self, current_page=None, incident_uuid=None, page_size=None, region_id=None, role_for=None,
+                 role_type=None):
         # The page number. Pages start from page 1.
         self.current_page = current_page  # type: int
         # The UUID of the event.
@@ -10152,6 +10515,8 @@ class DescribeEventDisposeRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions inside China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
 
     def validate(self):
         pass
@@ -10170,6 +10535,10 @@ class DescribeEventDisposeRequest(TeaModel):
             result['PageSize'] = self.page_size
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         return result
 
     def from_map(self, m=None):
@@ -10182,6 +10551,10 @@ class DescribeEventDisposeRequest(TeaModel):
             self.page_size = m.get('PageSize')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         return self
 
 
@@ -10868,7 +11241,7 @@ class DescribeJobStatusResponse(TeaModel):
 
 
 class DescribeLogFieldsRequest(TeaModel):
-    def __init__(self, log_source=None, log_type=None, region_id=None):
+    def __init__(self, log_source=None, log_type=None, region_id=None, role_for=None, role_type=None):
         # The log source of the rule.
         self.log_source = log_source  # type: str
         # The log type of the rule.
@@ -10878,6 +11251,8 @@ class DescribeLogFieldsRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
 
     def validate(self):
         pass
@@ -10894,6 +11269,10 @@ class DescribeLogFieldsRequest(TeaModel):
             result['LogType'] = self.log_type
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         return result
 
     def from_map(self, m=None):
@@ -10904,6 +11283,10 @@ class DescribeLogFieldsRequest(TeaModel):
             self.log_type = m.get('LogType')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         return self
 
 
@@ -11056,7 +11439,7 @@ class DescribeLogFieldsResponse(TeaModel):
 
 
 class DescribeLogSourceRequest(TeaModel):
-    def __init__(self, log_type=None, region_id=None):
+    def __init__(self, log_type=None, region_id=None, role_for=None, role_type=None):
         # The log type of the rule.
         self.log_type = log_type  # type: str
         # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
@@ -11064,6 +11447,8 @@ class DescribeLogSourceRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
 
     def validate(self):
         pass
@@ -11078,6 +11463,10 @@ class DescribeLogSourceRequest(TeaModel):
             result['LogType'] = self.log_type
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         return result
 
     def from_map(self, m=None):
@@ -11086,6 +11475,10 @@ class DescribeLogSourceRequest(TeaModel):
             self.log_type = m.get('LogType')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         return self
 
 
@@ -11385,12 +11778,14 @@ class DescribeLogStoreResponse(TeaModel):
 
 
 class DescribeLogTypeRequest(TeaModel):
-    def __init__(self, region_id=None):
+    def __init__(self, region_id=None, role_for=None, role_type=None):
         # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
         # 
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
 
     def validate(self):
         pass
@@ -11403,12 +11798,20 @@ class DescribeLogTypeRequest(TeaModel):
         result = dict()
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         return self
 
 
@@ -11540,12 +11943,14 @@ class DescribeLogTypeResponse(TeaModel):
 
 
 class DescribeOperatorsRequest(TeaModel):
-    def __init__(self, region_id=None, scene_type=None):
+    def __init__(self, region_id=None, role_for=None, role_type=None, scene_type=None):
         # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
         # 
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
         # The type of the scenario in which the operator is used. Valid values:
         # 
         # *   If you do not specify this parameter, the default scenario is used.
@@ -11563,6 +11968,10 @@ class DescribeOperatorsRequest(TeaModel):
         result = dict()
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         if self.scene_type is not None:
             result['SceneType'] = self.scene_type
         return result
@@ -11571,6 +11980,10 @@ class DescribeOperatorsRequest(TeaModel):
         m = m or dict()
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         if m.get('SceneType') is not None:
             self.scene_type = m.get('SceneType')
         return self
@@ -11869,12 +12282,14 @@ class DescribeProdCountResponse(TeaModel):
 
 
 class DescribeScopeUsersRequest(TeaModel):
-    def __init__(self, region_id=None):
+    def __init__(self, region_id=None, role_for=None, role_type=None):
         # The data management center of the threat analysis feature. Specify this parameter based on the region in which your assets reside. Valid values:
         # 
         # *   cn-hangzhou: Your assets reside in regions inside China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
 
     def validate(self):
         pass
@@ -11887,23 +12302,33 @@ class DescribeScopeUsersRequest(TeaModel):
         result = dict()
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         return self
 
 
 class DescribeScopeUsersResponseBodyData(TeaModel):
-    def __init__(self, ali_uid=None, domains=None, instance_id=None, user_name=None):
+    def __init__(self, ali_uid=None, cloud_code=None, domains=None, instance_id=None, user_id=None, user_name=None):
         # The ID of the security information and event management (SIEM) user.
         self.ali_uid = ali_uid  # type: long
+        self.cloud_code = cloud_code  # type: str
         # An array consisting of the domain names that are protected by the WAF instance.
         self.domains = domains  # type: list[str]
         # The ID of the Web Application Firewall (WAF) instance.
         self.instance_id = instance_id  # type: str
+        self.user_id = user_id  # type: str
         # The username.
         self.user_name = user_name  # type: str
 
@@ -11918,10 +12343,14 @@ class DescribeScopeUsersResponseBodyData(TeaModel):
         result = dict()
         if self.ali_uid is not None:
             result['AliUid'] = self.ali_uid
+        if self.cloud_code is not None:
+            result['CloudCode'] = self.cloud_code
         if self.domains is not None:
             result['Domains'] = self.domains
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
         if self.user_name is not None:
             result['UserName'] = self.user_name
         return result
@@ -11930,10 +12359,14 @@ class DescribeScopeUsersResponseBodyData(TeaModel):
         m = m or dict()
         if m.get('AliUid') is not None:
             self.ali_uid = m.get('AliUid')
+        if m.get('CloudCode') is not None:
+            self.cloud_code = m.get('CloudCode')
         if m.get('Domains') is not None:
             self.domains = m.get('Domains')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
         if m.get('UserName') is not None:
             self.user_name = m.get('UserName')
         return self
@@ -12134,12 +12567,14 @@ class DescribeServiceStatusResponse(TeaModel):
 
 
 class DescribeStorageRequest(TeaModel):
-    def __init__(self, region_id=None):
+    def __init__(self, region_id=None, role_for=None, role_type=None):
         # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the region where your assets reside. Valid values:
         # 
         # *   cn-hangzhou: Your assets reside in regions inside the Chinese mainland or in the China (Hong Kong) region.
         # *   ap-southeast-1: Your assets reside in regions outside the Chinese mainland, excluding the China (Hong Kong) region.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
 
     def validate(self):
         pass
@@ -12152,12 +12587,20 @@ class DescribeStorageRequest(TeaModel):
         result = dict()
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         return self
 
 
@@ -12267,8 +12710,8 @@ class DescribeUserBuyStatusRequest(TeaModel):
 
 class DescribeUserBuyStatusResponseBodyData(TeaModel):
     def __init__(self, can_buy=None, capacity=None, duration_days=None, end_time=None, main_user_id=None,
-                 main_user_name=None, master_user_id=None, master_user_name=None, sas_instance_id=None, sub_user_id=None,
-                 sub_user_name=None):
+                 main_user_name=None, master_user_id=None, master_user_name=None, rd_order=None, sas_instance_id=None,
+                 sub_user_id=None, sub_user_name=None):
         # Indicates whether the logon Alibaba Cloud account can be used to place orders for the threat analysis feature, such as purchase, upgrade, and specifications change orders. Valid values:
         # 
         # *   true
@@ -12288,6 +12731,7 @@ class DescribeUserBuyStatusResponseBodyData(TeaModel):
         self.master_user_id = master_user_id  # type: long
         # The display name of the management account of the resource directory.
         self.master_user_name = master_user_name  # type: str
+        self.rd_order = rd_order  # type: int
         # The instance ID of Security Center.
         self.sas_instance_id = sas_instance_id  # type: str
         # The ID of the logon Alibaba Cloud account.
@@ -12320,6 +12764,8 @@ class DescribeUserBuyStatusResponseBodyData(TeaModel):
             result['MasterUserId'] = self.master_user_id
         if self.master_user_name is not None:
             result['MasterUserName'] = self.master_user_name
+        if self.rd_order is not None:
+            result['RdOrder'] = self.rd_order
         if self.sas_instance_id is not None:
             result['SasInstanceId'] = self.sas_instance_id
         if self.sub_user_id is not None:
@@ -12346,6 +12792,8 @@ class DescribeUserBuyStatusResponseBodyData(TeaModel):
             self.master_user_id = m.get('MasterUserId')
         if m.get('MasterUserName') is not None:
             self.master_user_name = m.get('MasterUserName')
+        if m.get('RdOrder') is not None:
+            self.rd_order = m.get('RdOrder')
         if m.get('SasInstanceId') is not None:
             self.sas_instance_id = m.get('SasInstanceId')
         if m.get('SubUserId') is not None:
@@ -12425,7 +12873,7 @@ class DescribeUserBuyStatusResponse(TeaModel):
 
 
 class DescribeWafScopeRequest(TeaModel):
-    def __init__(self, entity_id=None, region_id=None):
+    def __init__(self, entity_id=None, region_id=None, role_for=None, role_type=None):
         # The ID of the entity.
         self.entity_id = entity_id  # type: long
         # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
@@ -12433,6 +12881,8 @@ class DescribeWafScopeRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
 
     def validate(self):
         pass
@@ -12447,6 +12897,10 @@ class DescribeWafScopeRequest(TeaModel):
             result['EntityId'] = self.entity_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         return result
 
     def from_map(self, m=None):
@@ -12455,6 +12909,10 @@ class DescribeWafScopeRequest(TeaModel):
             self.entity_id = m.get('EntityId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         return self
 
 
@@ -12593,7 +13051,7 @@ class DescribeWafScopeResponse(TeaModel):
 
 class DescribeWhiteRuleListRequest(TeaModel):
     def __init__(self, alert_name=None, alert_type=None, current_page=None, incident_uuid=None, page_size=None,
-                 region_id=None):
+                 region_id=None, role_for=None, role_type=None):
         # The name of the alert.
         self.alert_name = alert_name  # type: str
         # The type of the alert.
@@ -12609,6 +13067,8 @@ class DescribeWhiteRuleListRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
 
     def validate(self):
         pass
@@ -12631,6 +13091,10 @@ class DescribeWhiteRuleListRequest(TeaModel):
             result['PageSize'] = self.page_size
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         return result
 
     def from_map(self, m=None):
@@ -12647,6 +13111,10 @@ class DescribeWhiteRuleListRequest(TeaModel):
             self.page_size = m.get('PageSize')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         return self
 
 
@@ -13469,12 +13937,15 @@ class DoSelfDelegateResponse(TeaModel):
 
 
 class EnableAccessForCloudSiemRequest(TeaModel):
-    def __init__(self, region_id=None):
+    def __init__(self, auto_submit=None, region_id=None, role_for=None, role_type=None):
+        self.auto_submit = auto_submit  # type: int
         # The data management center of the threat analysis feature. Specify this parameter based on the region where your assets reside. Valid values:
         # 
         # *   cn-hangzhou: Your assets reside in regions inside China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
 
     def validate(self):
         pass
@@ -13485,14 +13956,26 @@ class EnableAccessForCloudSiemRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.auto_submit is not None:
+            result['AutoSubmit'] = self.auto_submit
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AutoSubmit') is not None:
+            self.auto_submit = m.get('AutoSubmit')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         return self
 
 
@@ -13662,12 +14145,14 @@ class EnableServiceForCloudSiemResponse(TeaModel):
 
 
 class GetCapacityRequest(TeaModel):
-    def __init__(self, region_id=None):
+    def __init__(self, region_id=None, role_for=None, role_type=None):
         # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the region where your assets reside. Valid values:
         # 
         # *   cn-hangzhou: Your assets reside in regions inside the Chinese mainland or in the China (Hong Kong) region.
         # *   ap-southeast-1: Your assets reside in regions outside the Chinese mainland, excluding the China (Hong Kong) region.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
 
     def validate(self):
         pass
@@ -13680,12 +14165,20 @@ class GetCapacityRequest(TeaModel):
         result = dict()
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         return self
 
 
@@ -14404,12 +14897,14 @@ class GetQuickQueryResponse(TeaModel):
 
 
 class GetStorageRequest(TeaModel):
-    def __init__(self, region_id=None):
+    def __init__(self, region_id=None, role_for=None, role_type=None):
         # The data management center of the threat analysis feature. Specify this parameter based on the region where your assets reside. Valid values:
         # 
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
 
     def validate(self):
         pass
@@ -14422,12 +14917,20 @@ class GetStorageRequest(TeaModel):
         result = dict()
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         return self
 
 
@@ -14752,7 +15255,8 @@ class ListAccountAccessIdResponse(TeaModel):
 
 
 class ListAccountsByLogRequest(TeaModel):
-    def __init__(self, cloud_code=None, log_codes=None, prod_code=None, region_id=None):
+    def __init__(self, cloud_code=None, log_codes=None, prod_code=None, region_id=None, role_for=None,
+                 role_type=None):
         # The code that is used for multi-cloud environments.
         # 
         # Valid values:
@@ -14770,6 +15274,8 @@ class ListAccountsByLogRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions inside China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
 
     def validate(self):
         pass
@@ -14788,6 +15294,10 @@ class ListAccountsByLogRequest(TeaModel):
             result['ProdCode'] = self.prod_code
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         return result
 
     def from_map(self, m=None):
@@ -14800,6 +15310,10 @@ class ListAccountsByLogRequest(TeaModel):
             self.prod_code = m.get('ProdCode')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         return self
 
 
@@ -14941,12 +15455,14 @@ class ListAccountsByLogResponse(TeaModel):
 
 
 class ListAllProdsRequest(TeaModel):
-    def __init__(self, region_id=None):
+    def __init__(self, region_id=None, role_for=None, role_type=None):
         # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
         # 
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
 
     def validate(self):
         pass
@@ -14959,12 +15475,20 @@ class ListAllProdsRequest(TeaModel):
         result = dict()
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         return self
 
 
@@ -15144,7 +15668,7 @@ class ListAllProdsResponse(TeaModel):
 
 class ListAutomateResponseConfigsRequest(TeaModel):
     def __init__(self, action_type=None, auto_response_type=None, current_page=None, id=None, page_size=None,
-                 playbook_uuid=None, region_id=None, rule_name=None, status=None, sub_user_id=None):
+                 playbook_uuid=None, region_id=None, role_for=None, role_type=None, rule_name=None, status=None, sub_user_id=None):
         # The type of the handling action. Valid values:
         # 
         # *   doPlaybook: runs a playbook.
@@ -15169,6 +15693,8 @@ class ListAutomateResponseConfigsRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
         # The name of the automated response rule.
         self.rule_name = rule_name  # type: str
         # The status of the rule. Valid values:
@@ -15202,6 +15728,10 @@ class ListAutomateResponseConfigsRequest(TeaModel):
             result['PlaybookUuid'] = self.playbook_uuid
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         if self.rule_name is not None:
             result['RuleName'] = self.rule_name
         if self.status is not None:
@@ -15226,6 +15756,10 @@ class ListAutomateResponseConfigsRequest(TeaModel):
             self.playbook_uuid = m.get('PlaybookUuid')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         if m.get('RuleName') is not None:
             self.rule_name = m.get('RuleName')
         if m.get('Status') is not None:
@@ -15273,7 +15807,7 @@ class ListAutomateResponseConfigsResponseBodyDataPageInfo(TeaModel):
 
 
 class ListAutomateResponseConfigsResponseBodyDataResponseData(TeaModel):
-    def __init__(self, action_config=None, action_type=None, aliuid=None, auto_response_type=None,
+    def __init__(self, action_config=None, action_type=None, aliuid=None, auto_response_type=None, data_type=None,
                  execution_condition=None, gmt_create=None, gmt_modified=None, id=None, rule_name=None, status=None, sub_user_id=None):
         # The configuration of the action that is performed after the rule is hit. The value is in JSON format.
         self.action_config = action_config  # type: str
@@ -15290,6 +15824,7 @@ class ListAutomateResponseConfigsResponseBodyDataResponseData(TeaModel):
         # *   event
         # *   alert
         self.auto_response_type = auto_response_type  # type: str
+        self.data_type = data_type  # type: int
         # The trigger condition of the rule. The value is in the JSON format.
         self.execution_condition = execution_condition  # type: str
         # The creation time.
@@ -15325,6 +15860,8 @@ class ListAutomateResponseConfigsResponseBodyDataResponseData(TeaModel):
             result['Aliuid'] = self.aliuid
         if self.auto_response_type is not None:
             result['AutoResponseType'] = self.auto_response_type
+        if self.data_type is not None:
+            result['DataType'] = self.data_type
         if self.execution_condition is not None:
             result['ExecutionCondition'] = self.execution_condition
         if self.gmt_create is not None:
@@ -15351,6 +15888,8 @@ class ListAutomateResponseConfigsResponseBodyDataResponseData(TeaModel):
             self.aliuid = m.get('Aliuid')
         if m.get('AutoResponseType') is not None:
             self.auto_response_type = m.get('AutoResponseType')
+        if m.get('DataType') is not None:
+            self.data_type = m.get('DataType')
         if m.get('ExecutionCondition') is not None:
             self.execution_condition = m.get('ExecutionCondition')
         if m.get('GmtCreate') is not None:
@@ -15889,8 +16428,9 @@ class ListBindDataSourcesResponse(TeaModel):
 
 
 class ListCloudSiemCustomizeRulesRequest(TeaModel):
-    def __init__(self, alert_type=None, current_page=None, end_time=None, id=None, page_size=None, region_id=None,
-                 rule_name=None, rule_type=None, start_time=None, status=None, threat_level=None):
+    def __init__(self, alert_type=None, current_page=None, end_time=None, id=None, order=None, order_field=None,
+                 page_size=None, region_id=None, role_for=None, role_type=None, rule_name=None, rule_type=None,
+                 start_time=None, status=None, threat_level=None):
         # The alert type.
         self.alert_type = alert_type  # type: str
         # The page number. Pages start from page 1.
@@ -15899,6 +16439,8 @@ class ListCloudSiemCustomizeRulesRequest(TeaModel):
         self.end_time = end_time  # type: long
         # The ID of the custom rule.
         self.id = id  # type: str
+        self.order = order  # type: str
+        self.order_field = order_field  # type: str
         # The number of entries per page. The value can be up to 100.
         self.page_size = page_size  # type: int
         # The data management center of the threat analysis feature. Specify this parameter based on the regions in which your assets reside. Valid values:
@@ -15906,6 +16448,8 @@ class ListCloudSiemCustomizeRulesRequest(TeaModel):
         # *   **cn-hangzhou**: Your assets reside in regions in China.
         # *   **ap-southeast-1**: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
         # The name of the rule. The name can contain letters, digits, underscores (\_), and periods (.).
         self.rule_name = rule_name  # type: str
         # The type of the rule. Valid values:
@@ -15947,10 +16491,18 @@ class ListCloudSiemCustomizeRulesRequest(TeaModel):
             result['EndTime'] = self.end_time
         if self.id is not None:
             result['Id'] = self.id
+        if self.order is not None:
+            result['Order'] = self.order
+        if self.order_field is not None:
+            result['OrderField'] = self.order_field
         if self.page_size is not None:
             result['PageSize'] = self.page_size
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         if self.rule_name is not None:
             result['RuleName'] = self.rule_name
         if self.rule_type is not None:
@@ -15973,10 +16525,18 @@ class ListCloudSiemCustomizeRulesRequest(TeaModel):
             self.end_time = m.get('EndTime')
         if m.get('Id') is not None:
             self.id = m.get('Id')
+        if m.get('Order') is not None:
+            self.order = m.get('Order')
+        if m.get('OrderField') is not None:
+            self.order_field = m.get('OrderField')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         if m.get('RuleName') is not None:
             self.rule_name = m.get('RuleName')
         if m.get('RuleType') is not None:
@@ -16028,16 +16588,19 @@ class ListCloudSiemCustomizeRulesResponseBodyDataPageInfo(TeaModel):
 
 
 class ListCloudSiemCustomizeRulesResponseBodyDataResponseData(TeaModel):
-    def __init__(self, alert_type=None, alert_type_mds=None, aliuid=None, event_transfer_ext=None,
-                 event_transfer_switch=None, event_transfer_type=None, gmt_create=None, gmt_modified=None, id=None, log_source=None,
-                 log_source_mds=None, log_type=None, log_type_mds=None, query_cycle=None, rule_condition=None, rule_desc=None,
-                 rule_group=None, rule_name=None, rule_threshold=None, rule_type=None, status=None, threat_level=None):
+    def __init__(self, alert_type=None, alert_type_mds=None, aliuid=None, att_ck=None, data_type=None,
+                 event_transfer_ext=None, event_transfer_switch=None, event_transfer_type=None, gmt_create=None, gmt_modified=None,
+                 id=None, log_source=None, log_source_mds=None, log_type=None, log_type_mds=None, query_cycle=None,
+                 rule_condition=None, rule_desc=None, rule_group=None, rule_name=None, rule_threshold=None, rule_type=None,
+                 status=None, threat_level=None):
         # The threat type.
         self.alert_type = alert_type  # type: str
         # The internal code of the threat type.
         self.alert_type_mds = alert_type_mds  # type: str
         # The ID of the Alibaba Cloud account in SIEM.
         self.aliuid = aliuid  # type: long
+        self.att_ck = att_ck  # type: str
+        self.data_type = data_type  # type: int
         # The extended information about event generation. If the value of **eventTransferType** is **allToSingle**, the value of this parameter indicates the length and unit of the alert aggregation window. The HTML escape characters are reversed.
         self.event_transfer_ext = event_transfer_ext  # type: str
         # Indicates whether the system generates an event for the alert. Valid values:
@@ -16112,6 +16675,10 @@ class ListCloudSiemCustomizeRulesResponseBodyDataResponseData(TeaModel):
             result['AlertTypeMds'] = self.alert_type_mds
         if self.aliuid is not None:
             result['Aliuid'] = self.aliuid
+        if self.att_ck is not None:
+            result['AttCk'] = self.att_ck
+        if self.data_type is not None:
+            result['DataType'] = self.data_type
         if self.event_transfer_ext is not None:
             result['EventTransferExt'] = self.event_transfer_ext
         if self.event_transfer_switch is not None:
@@ -16160,6 +16727,10 @@ class ListCloudSiemCustomizeRulesResponseBodyDataResponseData(TeaModel):
             self.alert_type_mds = m.get('AlertTypeMds')
         if m.get('Aliuid') is not None:
             self.aliuid = m.get('Aliuid')
+        if m.get('AttCk') is not None:
+            self.att_ck = m.get('AttCk')
+        if m.get('DataType') is not None:
+            self.data_type = m.get('DataType')
         if m.get('EventTransferExt') is not None:
             self.event_transfer_ext = m.get('EventTransferExt')
         if m.get('EventTransferSwitch') is not None:
@@ -16334,16 +16905,22 @@ class ListCloudSiemCustomizeRulesResponse(TeaModel):
 
 
 class ListCloudSiemPredefinedRulesRequest(TeaModel):
-    def __init__(self, alert_type=None, current_page=None, end_time=None, id=None, page_size=None, region_id=None,
-                 rule_name=None, rule_type=None, start_time=None, status=None, threat_level=None):
+    def __init__(self, alert_type=None, att_ck=None, current_page=None, end_time=None, event_transfer_type=None,
+                 id=None, log_source=None, order=None, order_field=None, page_size=None, region_id=None, role_for=None,
+                 role_type=None, rule_name=None, rule_type=None, start_time=None, status=None, threat_level=None):
         # The alert type.
         self.alert_type = alert_type  # type: str
+        self.att_ck = att_ck  # type: str
         # The page number. Pages start from page 1.
         self.current_page = current_page  # type: int
         # The end of the time range to query. Unit: milliseconds.
         self.end_time = end_time  # type: long
+        self.event_transfer_type = event_transfer_type  # type: str
         # The ID of the rule.
         self.id = id  # type: str
+        self.log_source = log_source  # type: str
+        self.order = order  # type: str
+        self.order_field = order_field  # type: str
         # The number of entries per page. Maximum value: 100.
         self.page_size = page_size  # type: int
         # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
@@ -16351,6 +16928,8 @@ class ListCloudSiemPredefinedRulesRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
         # The name of the rule. The name can contain letters, digits, underscores (\_), and periods (.).
         self.rule_name = rule_name  # type: str
         # The type of the rule. Valid values:
@@ -16386,16 +16965,30 @@ class ListCloudSiemPredefinedRulesRequest(TeaModel):
         result = dict()
         if self.alert_type is not None:
             result['AlertType'] = self.alert_type
+        if self.att_ck is not None:
+            result['AttCk'] = self.att_ck
         if self.current_page is not None:
             result['CurrentPage'] = self.current_page
         if self.end_time is not None:
             result['EndTime'] = self.end_time
+        if self.event_transfer_type is not None:
+            result['EventTransferType'] = self.event_transfer_type
         if self.id is not None:
             result['Id'] = self.id
+        if self.log_source is not None:
+            result['LogSource'] = self.log_source
+        if self.order is not None:
+            result['Order'] = self.order
+        if self.order_field is not None:
+            result['OrderField'] = self.order_field
         if self.page_size is not None:
             result['PageSize'] = self.page_size
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         if self.rule_name is not None:
             result['RuleName'] = self.rule_name
         if self.rule_type is not None:
@@ -16412,16 +17005,30 @@ class ListCloudSiemPredefinedRulesRequest(TeaModel):
         m = m or dict()
         if m.get('AlertType') is not None:
             self.alert_type = m.get('AlertType')
+        if m.get('AttCk') is not None:
+            self.att_ck = m.get('AttCk')
         if m.get('CurrentPage') is not None:
             self.current_page = m.get('CurrentPage')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
+        if m.get('EventTransferType') is not None:
+            self.event_transfer_type = m.get('EventTransferType')
         if m.get('Id') is not None:
             self.id = m.get('Id')
+        if m.get('LogSource') is not None:
+            self.log_source = m.get('LogSource')
+        if m.get('Order') is not None:
+            self.order = m.get('Order')
+        if m.get('OrderField') is not None:
+            self.order_field = m.get('OrderField')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         if m.get('RuleName') is not None:
             self.rule_name = m.get('RuleName')
         if m.get('RuleType') is not None:
@@ -16473,10 +17080,13 @@ class ListCloudSiemPredefinedRulesResponseBodyDataPageInfo(TeaModel):
 
 
 class ListCloudSiemPredefinedRulesResponseBodyDataResponseData(TeaModel):
-    def __init__(self, alert_type=None, gmt_create=None, gmt_modified=None, id=None, rule_desc_mds=None,
-                 rule_name=None, rule_name_mds=None, source=None, status=None, threat_level=None):
+    def __init__(self, alert_type=None, att_ck=None, event_transfer_type=None, gmt_create=None, gmt_modified=None,
+                 id=None, rule_desc_mds=None, rule_name=None, rule_name_cn=None, rule_name_en=None, rule_name_mds=None,
+                 source=None, status=None, threat_level=None):
         # The type of the risk.
         self.alert_type = alert_type  # type: str
+        self.att_ck = att_ck  # type: str
+        self.event_transfer_type = event_transfer_type  # type: str
         # The time when the rule was created.
         self.gmt_create = gmt_create  # type: str
         # The time when the rule was modified.
@@ -16487,6 +17097,8 @@ class ListCloudSiemPredefinedRulesResponseBodyDataResponseData(TeaModel):
         self.rule_desc_mds = rule_desc_mds  # type: str
         # The name of the rule.
         self.rule_name = rule_name  # type: str
+        self.rule_name_cn = rule_name_cn  # type: str
+        self.rule_name_en = rule_name_en  # type: str
         # The internal code of the rule name.
         self.rule_name_mds = rule_name_mds  # type: str
         # The log source of the rule.
@@ -16514,6 +17126,10 @@ class ListCloudSiemPredefinedRulesResponseBodyDataResponseData(TeaModel):
         result = dict()
         if self.alert_type is not None:
             result['AlertType'] = self.alert_type
+        if self.att_ck is not None:
+            result['AttCk'] = self.att_ck
+        if self.event_transfer_type is not None:
+            result['EventTransferType'] = self.event_transfer_type
         if self.gmt_create is not None:
             result['GmtCreate'] = self.gmt_create
         if self.gmt_modified is not None:
@@ -16524,6 +17140,10 @@ class ListCloudSiemPredefinedRulesResponseBodyDataResponseData(TeaModel):
             result['RuleDescMds'] = self.rule_desc_mds
         if self.rule_name is not None:
             result['RuleName'] = self.rule_name
+        if self.rule_name_cn is not None:
+            result['RuleNameCn'] = self.rule_name_cn
+        if self.rule_name_en is not None:
+            result['RuleNameEn'] = self.rule_name_en
         if self.rule_name_mds is not None:
             result['RuleNameMds'] = self.rule_name_mds
         if self.source is not None:
@@ -16538,6 +17158,10 @@ class ListCloudSiemPredefinedRulesResponseBodyDataResponseData(TeaModel):
         m = m or dict()
         if m.get('AlertType') is not None:
             self.alert_type = m.get('AlertType')
+        if m.get('AttCk') is not None:
+            self.att_ck = m.get('AttCk')
+        if m.get('EventTransferType') is not None:
+            self.event_transfer_type = m.get('EventTransferType')
         if m.get('GmtCreate') is not None:
             self.gmt_create = m.get('GmtCreate')
         if m.get('GmtModified') is not None:
@@ -16548,6 +17172,10 @@ class ListCloudSiemPredefinedRulesResponseBodyDataResponseData(TeaModel):
             self.rule_desc_mds = m.get('RuleDescMds')
         if m.get('RuleName') is not None:
             self.rule_name = m.get('RuleName')
+        if m.get('RuleNameCn') is not None:
+            self.rule_name_cn = m.get('RuleNameCn')
+        if m.get('RuleNameEn') is not None:
+            self.rule_name_en = m.get('RuleNameEn')
         if m.get('RuleNameMds') is not None:
             self.rule_name_mds = m.get('RuleNameMds')
         if m.get('Source') is not None:
@@ -16692,7 +17320,7 @@ class ListCloudSiemPredefinedRulesResponse(TeaModel):
 
 
 class ListCustomizeRuleTestResultRequest(TeaModel):
-    def __init__(self, current_page=None, id=None, page_size=None, region_id=None):
+    def __init__(self, current_page=None, id=None, page_size=None, region_id=None, role_for=None, role_type=None):
         # The page number. Pages start from page 1.
         self.current_page = current_page  # type: int
         # The ID of the rule.
@@ -16704,6 +17332,8 @@ class ListCustomizeRuleTestResultRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
 
     def validate(self):
         pass
@@ -16722,6 +17352,10 @@ class ListCustomizeRuleTestResultRequest(TeaModel):
             result['PageSize'] = self.page_size
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         return result
 
     def from_map(self, m=None):
@@ -16734,6 +17368,10 @@ class ListCustomizeRuleTestResultRequest(TeaModel):
             self.page_size = m.get('PageSize')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         return self
 
 
@@ -17458,12 +18096,14 @@ class ListDataSourceTypesResponse(TeaModel):
 
 
 class ListDeliveryRequest(TeaModel):
-    def __init__(self, region_id=None):
+    def __init__(self, region_id=None, role_for=None, role_type=None):
         # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the region where your assets reside. Valid values:
         # 
         # *   cn-hangzhou: Your assets reside in regions inside the Chinese mainland or in the China (Hong Kong) region.
         # *   ap-southeast-1: Your assets reside in regions outside the Chinese mainland, excluding the China (Hong Kong) region.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
 
     def validate(self):
         pass
@@ -17476,12 +18116,20 @@ class ListDeliveryRequest(TeaModel):
         result = dict()
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         return self
 
 
@@ -17828,7 +18476,7 @@ class ListDeliveryResponse(TeaModel):
 class ListDisposeStrategyRequest(TeaModel):
     def __init__(self, current_page=None, effective_status=None, end_time=None, entity_identity=None,
                  entity_type=None, order=None, order_field=None, page_size=None, playbook_name=None, playbook_types=None,
-                 playbook_uuid=None, region_id=None, sophon_task_id=None, start_time=None):
+                 playbook_uuid=None, region_id=None, role_for=None, role_type=None, sophon_task_id=None, start_time=None):
         # The page number. Pages start from page 1.
         self.current_page = current_page  # type: int
         # The status of the policy. Valid values:
@@ -17876,6 +18524,8 @@ class ListDisposeStrategyRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
         # The ID of the SOAR handling policy.
         self.sophon_task_id = sophon_task_id  # type: str
         # The beginning of the time range to query. Unit: milliseconds.
@@ -17914,6 +18564,10 @@ class ListDisposeStrategyRequest(TeaModel):
             result['PlaybookUuid'] = self.playbook_uuid
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         if self.sophon_task_id is not None:
             result['SophonTaskId'] = self.sophon_task_id
         if self.start_time is not None:
@@ -17946,6 +18600,10 @@ class ListDisposeStrategyRequest(TeaModel):
             self.playbook_uuid = m.get('PlaybookUuid')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         if m.get('SophonTaskId') is not None:
             self.sophon_task_id = m.get('SophonTaskId')
         if m.get('StartTime') is not None:
@@ -18289,7 +18947,7 @@ class ListDisposeStrategyResponse(TeaModel):
 
 
 class ListImportedLogsByProdRequest(TeaModel):
-    def __init__(self, cloud_code=None, prod_code=None, region_id=None):
+    def __init__(self, cloud_code=None, prod_code=None, region_id=None, role_for=None, role_type=None):
         # The code of the cloud service provider. Valid values:
         # 
         # *   qcloud: Tencent Cloud
@@ -18303,6 +18961,8 @@ class ListImportedLogsByProdRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
 
     def validate(self):
         pass
@@ -18319,6 +18979,10 @@ class ListImportedLogsByProdRequest(TeaModel):
             result['ProdCode'] = self.prod_code
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         return result
 
     def from_map(self, m=None):
@@ -18329,12 +18993,17 @@ class ListImportedLogsByProdRequest(TeaModel):
             self.prod_code = m.get('ProdCode')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         return self
 
 
 class ListImportedLogsByProdResponseBodyData(TeaModel):
     def __init__(self, auto_imported=None, cloud_code=None, imported=None, imported_user_count=None, log_code=None,
-                 log_mds_code=None, modify_time=None, prod_code=None, total_user_count=None, un_imported_user_count=None):
+                 log_mds_code=None, log_type=None, modify_time=None, prod_code=None, total_user_count=None,
+                 un_imported_user_count=None):
         # Indicates whether the log is automatically added to the threat analysis feature within newly added accounts. Valid values:
         # 
         # *   1: yes
@@ -18357,6 +19026,7 @@ class ListImportedLogsByProdResponseBodyData(TeaModel):
         self.log_code = log_code  # type: str
         # The display log code.
         self.log_mds_code = log_mds_code  # type: str
+        self.log_type = log_type  # type: int
         # The time when the log was last added.
         self.modify_time = modify_time  # type: str
         # The code of the cloud service to which the log belongs.
@@ -18387,6 +19057,8 @@ class ListImportedLogsByProdResponseBodyData(TeaModel):
             result['LogCode'] = self.log_code
         if self.log_mds_code is not None:
             result['LogMdsCode'] = self.log_mds_code
+        if self.log_type is not None:
+            result['LogType'] = self.log_type
         if self.modify_time is not None:
             result['ModifyTime'] = self.modify_time
         if self.prod_code is not None:
@@ -18411,6 +19083,8 @@ class ListImportedLogsByProdResponseBodyData(TeaModel):
             self.log_code = m.get('LogCode')
         if m.get('LogMdsCode') is not None:
             self.log_mds_code = m.get('LogMdsCode')
+        if m.get('LogType') is not None:
+            self.log_type = m.get('LogType')
         if m.get('ModifyTime') is not None:
             self.modify_time = m.get('ModifyTime')
         if m.get('ProdCode') is not None:
@@ -20079,7 +20753,7 @@ class ModifyDataSourceLogResponse(TeaModel):
 
 
 class OpenDeliveryRequest(TeaModel):
-    def __init__(self, log_code=None, product_code=None, region_id=None):
+    def __init__(self, log_code=None, product_code=None, region_id=None, role_for=None, role_type=None):
         # The log code of the cloud service, such as the code of the process log for Security Center. If you leave this parameter empty, operations are performed on all logs of the cloud service.
         self.log_code = log_code  # type: str
         # The code of the cloud service. Valid values:
@@ -20113,6 +20787,8 @@ class OpenDeliveryRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions inside the Chinese mainland or in the China (Hong Kong) region.
         # *   ap-southeast-1: Your assets reside in regions outside the Chinese mainland, excluding the China (Hong Kong) region.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
 
     def validate(self):
         pass
@@ -20129,6 +20805,10 @@ class OpenDeliveryRequest(TeaModel):
             result['ProductCode'] = self.product_code
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         return result
 
     def from_map(self, m=None):
@@ -20139,6 +20819,10 @@ class OpenDeliveryRequest(TeaModel):
             self.product_code = m.get('ProductCode')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         return self
 
 
@@ -20214,7 +20898,7 @@ class OpenDeliveryResponse(TeaModel):
 
 class PostAutomateResponseConfigRequest(TeaModel):
     def __init__(self, action_config=None, action_type=None, auto_response_type=None, execution_condition=None,
-                 id=None, region_id=None, rule_name=None, sub_user_id=None):
+                 id=None, region_id=None, role_for=None, role_type=None, rule_name=None, sub_user_id=None):
         # The action configuration of the automated response rule. The value is in the JSON format.
         self.action_config = action_config  # type: str
         # The type of the handling action. Multiple types are separated by commas (,). Valid values:
@@ -20237,6 +20921,8 @@ class PostAutomateResponseConfigRequest(TeaModel):
         # *   **cn-hangzhou**: Your assets reside in regions in China.
         # *   **ap-southeast-1**: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
         # The rule name.
         self.rule_name = rule_name  # type: str
         # The ID of the user who created the rule.
@@ -20263,6 +20949,10 @@ class PostAutomateResponseConfigRequest(TeaModel):
             result['Id'] = self.id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         if self.rule_name is not None:
             result['RuleName'] = self.rule_name
         if self.sub_user_id is not None:
@@ -20283,6 +20973,10 @@ class PostAutomateResponseConfigRequest(TeaModel):
             self.id = m.get('Id')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         if m.get('RuleName') is not None:
             self.rule_name = m.get('RuleName')
         if m.get('SubUserId') is not None:
@@ -20379,14 +21073,15 @@ class PostAutomateResponseConfigResponse(TeaModel):
 
 
 class PostCustomizeRuleRequest(TeaModel):
-    def __init__(self, alert_type=None, alert_type_mds=None, event_transfer_ext=None, event_transfer_switch=None,
-                 event_transfer_type=None, id=None, log_source=None, log_source_mds=None, log_type=None, log_type_mds=None,
-                 query_cycle=None, region_id=None, rule_condition=None, rule_desc=None, rule_group=None, rule_name=None,
-                 rule_threshold=None, threat_level=None):
+    def __init__(self, alert_type=None, alert_type_mds=None, att_ck=None, event_transfer_ext=None,
+                 event_transfer_switch=None, event_transfer_type=None, id=None, log_source=None, log_source_mds=None, log_type=None,
+                 log_type_mds=None, query_cycle=None, region_id=None, role_for=None, role_type=None, rule_condition=None,
+                 rule_desc=None, rule_group=None, rule_name=None, rule_threshold=None, threat_level=None):
         # The risk type.
         self.alert_type = alert_type  # type: str
         # The internal code of the risk type.
         self.alert_type_mds = alert_type_mds  # type: str
+        self.att_ck = att_ck  # type: str
         # The extended information about event generation. If eventTransferType is set to allToSingle, the value of this parameter indicates the length and unit of the alert aggregation window.
         self.event_transfer_ext = event_transfer_ext  # type: str
         # Specifies whether to convert an alert to an event. Valid values:
@@ -20417,6 +21112,8 @@ class PostCustomizeRuleRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
         # The query condition of the rule. The value is in the JSON format.
         self.rule_condition = rule_condition  # type: str
         # The description of the rule.
@@ -20447,6 +21144,8 @@ class PostCustomizeRuleRequest(TeaModel):
             result['AlertType'] = self.alert_type
         if self.alert_type_mds is not None:
             result['AlertTypeMds'] = self.alert_type_mds
+        if self.att_ck is not None:
+            result['AttCk'] = self.att_ck
         if self.event_transfer_ext is not None:
             result['EventTransferExt'] = self.event_transfer_ext
         if self.event_transfer_switch is not None:
@@ -20467,6 +21166,10 @@ class PostCustomizeRuleRequest(TeaModel):
             result['QueryCycle'] = self.query_cycle
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         if self.rule_condition is not None:
             result['RuleCondition'] = self.rule_condition
         if self.rule_desc is not None:
@@ -20487,6 +21190,8 @@ class PostCustomizeRuleRequest(TeaModel):
             self.alert_type = m.get('AlertType')
         if m.get('AlertTypeMds') is not None:
             self.alert_type_mds = m.get('AlertTypeMds')
+        if m.get('AttCk') is not None:
+            self.att_ck = m.get('AttCk')
         if m.get('EventTransferExt') is not None:
             self.event_transfer_ext = m.get('EventTransferExt')
         if m.get('EventTransferSwitch') is not None:
@@ -20507,6 +21212,10 @@ class PostCustomizeRuleRequest(TeaModel):
             self.query_cycle = m.get('QueryCycle')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         if m.get('RuleCondition') is not None:
             self.rule_condition = m.get('RuleCondition')
         if m.get('RuleDesc') is not None:
@@ -20523,16 +21232,19 @@ class PostCustomizeRuleRequest(TeaModel):
 
 
 class PostCustomizeRuleResponseBodyData(TeaModel):
-    def __init__(self, alert_type=None, alert_type_mds=None, aliuid=None, event_transfer_ext=None,
-                 event_transfer_switch=None, event_transfer_type=None, gmt_create=None, gmt_modified=None, id=None, log_source=None,
-                 log_source_mds=None, log_type=None, log_type_mds=None, query_cycle=None, rule_condition=None, rule_desc=None,
-                 rule_group=None, rule_name=None, rule_threshold=None, rule_type=None, status=None, threat_level=None):
+    def __init__(self, alert_type=None, alert_type_mds=None, aliuid=None, att_ck=None, data_type=None,
+                 event_transfer_ext=None, event_transfer_switch=None, event_transfer_type=None, gmt_create=None, gmt_modified=None,
+                 id=None, log_source=None, log_source_mds=None, log_type=None, log_type_mds=None, query_cycle=None,
+                 rule_condition=None, rule_desc=None, rule_group=None, rule_name=None, rule_threshold=None, rule_type=None,
+                 status=None, threat_level=None):
         # The risk type.
         self.alert_type = alert_type  # type: str
         # The internal code of the risk type.
         self.alert_type_mds = alert_type_mds  # type: str
         # The ID of the Alibaba Cloud account that is used to purchase the threat analysis feature.
         self.aliuid = aliuid  # type: long
+        self.att_ck = att_ck  # type: str
+        self.data_type = data_type  # type: int
         # The extended information about event generation. If eventTransferType is set to allToSingle, the value of this parameter indicates the length and unit of the alert aggregation window. The HTML escape characters are reversed.
         self.event_transfer_ext = event_transfer_ext  # type: str
         # Indicates whether the system generates an event for the alert. Valid values:
@@ -20607,6 +21319,10 @@ class PostCustomizeRuleResponseBodyData(TeaModel):
             result['AlertTypeMds'] = self.alert_type_mds
         if self.aliuid is not None:
             result['Aliuid'] = self.aliuid
+        if self.att_ck is not None:
+            result['AttCk'] = self.att_ck
+        if self.data_type is not None:
+            result['DataType'] = self.data_type
         if self.event_transfer_ext is not None:
             result['EventTransferExt'] = self.event_transfer_ext
         if self.event_transfer_switch is not None:
@@ -20655,6 +21371,10 @@ class PostCustomizeRuleResponseBodyData(TeaModel):
             self.alert_type_mds = m.get('AlertTypeMds')
         if m.get('Aliuid') is not None:
             self.aliuid = m.get('Aliuid')
+        if m.get('AttCk') is not None:
+            self.att_ck = m.get('AttCk')
+        if m.get('DataType') is not None:
+            self.data_type = m.get('DataType')
         if m.get('EventTransferExt') is not None:
             self.event_transfer_ext = m.get('EventTransferExt')
         if m.get('EventTransferSwitch') is not None:
@@ -20787,7 +21507,7 @@ class PostCustomizeRuleResponse(TeaModel):
 
 
 class PostCustomizeRuleTestRequest(TeaModel):
-    def __init__(self, id=None, region_id=None, simulated_data=None, test_type=None):
+    def __init__(self, id=None, region_id=None, role_for=None, role_type=None, simulated_data=None, test_type=None):
         # The ID of the rule.
         self.id = id  # type: long
         # The data management center of the threat analysis feature. Specify this parameter based on the region in which your assets reside. Valid values:
@@ -20795,6 +21515,8 @@ class PostCustomizeRuleTestRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions inside China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
         # The simulation data for the test. This parameter is available only when TestType is set to simulate.
         self.simulated_data = simulated_data  # type: str
         # The test type. Valid values:
@@ -20816,6 +21538,10 @@ class PostCustomizeRuleTestRequest(TeaModel):
             result['Id'] = self.id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         if self.simulated_data is not None:
             result['SimulatedData'] = self.simulated_data
         if self.test_type is not None:
@@ -20828,6 +21554,10 @@ class PostCustomizeRuleTestRequest(TeaModel):
             self.id = m.get('Id')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         if m.get('SimulatedData') is not None:
             self.simulated_data = m.get('SimulatedData')
         if m.get('TestType') is not None:
@@ -20925,7 +21655,7 @@ class PostCustomizeRuleTestResponse(TeaModel):
 
 class PostEventDisposeAndWhiteruleListRequest(TeaModel):
     def __init__(self, event_dispose=None, incident_uuid=None, receiver_info=None, region_id=None, remark=None,
-                 status=None):
+                 role_for=None, role_type=None, status=None):
         # The configuration of event handling. The value is a JSON object.
         self.event_dispose = event_dispose  # type: str
         # The UUID of the event.
@@ -20939,6 +21669,8 @@ class PostEventDisposeAndWhiteruleListRequest(TeaModel):
         self.region_id = region_id  # type: str
         # The remarks of the event.
         self.remark = remark  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
         # The status of the event. Valid values:
         # 
         # *   0: unhandled
@@ -20966,6 +21698,10 @@ class PostEventDisposeAndWhiteruleListRequest(TeaModel):
             result['RegionId'] = self.region_id
         if self.remark is not None:
             result['Remark'] = self.remark
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         if self.status is not None:
             result['Status'] = self.status
         return result
@@ -20982,6 +21718,10 @@ class PostEventDisposeAndWhiteruleListRequest(TeaModel):
             self.region_id = m.get('RegionId')
         if m.get('Remark') is not None:
             self.remark = m.get('Remark')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         return self
@@ -21076,7 +21816,7 @@ class PostEventDisposeAndWhiteruleListResponse(TeaModel):
 
 
 class PostEventWhiteruleListRequest(TeaModel):
-    def __init__(self, incident_uuid=None, region_id=None, whiterule_list=None):
+    def __init__(self, incident_uuid=None, region_id=None, role_for=None, role_type=None, whiterule_list=None):
         # The UUID of the event.
         self.incident_uuid = incident_uuid  # type: str
         # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
@@ -21084,6 +21824,8 @@ class PostEventWhiteruleListRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
         # The alert whitelist rule. The value is a JSON object.
         self.whiterule_list = whiterule_list  # type: str
 
@@ -21100,6 +21842,10 @@ class PostEventWhiteruleListRequest(TeaModel):
             result['IncidentUuid'] = self.incident_uuid
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         if self.whiterule_list is not None:
             result['WhiteruleList'] = self.whiterule_list
         return result
@@ -21110,6 +21856,10 @@ class PostEventWhiteruleListRequest(TeaModel):
             self.incident_uuid = m.get('IncidentUuid')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         if m.get('WhiteruleList') is not None:
             self.whiterule_list = m.get('WhiteruleList')
         return self
@@ -21204,7 +21954,7 @@ class PostEventWhiteruleListResponse(TeaModel):
 
 
 class PostFinishCustomizeRuleTestRequest(TeaModel):
-    def __init__(self, id=None, region_id=None):
+    def __init__(self, id=None, region_id=None, role_for=None, role_type=None):
         # The ID of the rule.
         self.id = id  # type: long
         # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
@@ -21212,6 +21962,8 @@ class PostFinishCustomizeRuleTestRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
 
     def validate(self):
         pass
@@ -21226,6 +21978,10 @@ class PostFinishCustomizeRuleTestRequest(TeaModel):
             result['Id'] = self.id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         return result
 
     def from_map(self, m=None):
@@ -21234,6 +21990,10 @@ class PostFinishCustomizeRuleTestRequest(TeaModel):
             self.id = m.get('Id')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         return self
 
 
@@ -21326,7 +22086,7 @@ class PostFinishCustomizeRuleTestResponse(TeaModel):
 
 
 class PostRuleStatusChangeRequest(TeaModel):
-    def __init__(self, ids=None, in_use=None, region_id=None, rule_type=None):
+    def __init__(self, ids=None, in_use=None, region_id=None, role_for=None, role_type=None, rule_type=None):
         # The rule IDs. The value is a JSON array.
         self.ids = ids  # type: str
         # Specifies whether to enable the rule. Valid values:
@@ -21339,6 +22099,8 @@ class PostRuleStatusChangeRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
         # The type of the rule. Valid values:
         # 
         # *   predefine
@@ -21360,6 +22122,10 @@ class PostRuleStatusChangeRequest(TeaModel):
             result['InUse'] = self.in_use
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         if self.rule_type is not None:
             result['RuleType'] = self.rule_type
         return result
@@ -21372,6 +22138,10 @@ class PostRuleStatusChangeRequest(TeaModel):
             self.in_use = m.get('InUse')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         if m.get('RuleType') is not None:
             self.rule_type = m.get('RuleType')
         return self
@@ -21466,12 +22236,14 @@ class PostRuleStatusChangeResponse(TeaModel):
 
 
 class RestoreCapacityRequest(TeaModel):
-    def __init__(self, region_id=None):
+    def __init__(self, region_id=None, role_for=None, role_type=None):
         # The data management center of the threat analysis feature. Specify this parameter based on the region where your assets reside. Valid values:
         # 
         # *   cn-hangzhou: Your assets reside in regions in the Chinese mainland or in the China (Hong Kong) region.
         # *   ap-southeast-1: Your assets reside in regions outside the Chinese mainland, excluding the China (Hong Kong) region.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
 
     def validate(self):
         pass
@@ -21484,12 +22256,20 @@ class RestoreCapacityRequest(TeaModel):
         result = dict()
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         return self
 
 
@@ -21674,7 +22454,7 @@ class SaveQuickQueryResponse(TeaModel):
 
 
 class SetStorageRequest(TeaModel):
-    def __init__(self, region=None, region_id=None, ttl=None):
+    def __init__(self, region=None, region_id=None, role_for=None, role_type=None, ttl=None):
         # The storage region of logs.
         # 
         # If the data management center is **cn-hangzhou**, the default value of **Region** is cn-shanghai, which specifies the China (Shanghai) region. If the data management center is **ap-southeast-1**, the default value of **Region** is ap-southeast-1, which specifies the Singapore region.
@@ -21686,6 +22466,8 @@ class SetStorageRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
         # The storage duration of logs. Default value: 180. Minimum value: 30. Maximum value: 3000. Unit: days.
         self.ttl = ttl  # type: int
 
@@ -21702,6 +22484,10 @@ class SetStorageRequest(TeaModel):
             result['Region'] = self.region
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         if self.ttl is not None:
             result['Ttl'] = self.ttl
         return result
@@ -21712,6 +22498,10 @@ class SetStorageRequest(TeaModel):
             self.region = m.get('Region')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         if m.get('Ttl') is not None:
             self.ttl = m.get('Ttl')
         return self
@@ -22190,7 +22980,7 @@ class SubmitJobsResponse(TeaModel):
 
 
 class UpdateAutomateResponseConfigStatusRequest(TeaModel):
-    def __init__(self, ids=None, in_use=None, region_id=None):
+    def __init__(self, ids=None, in_use=None, region_id=None, role_for=None, role_type=None):
         # The IDs of the automatic response rules. The value is a JSON array.
         self.ids = ids  # type: str
         # Specifies whether the rule is enabled. Valid values:
@@ -22203,6 +22993,8 @@ class UpdateAutomateResponseConfigStatusRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions inside China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
 
     def validate(self):
         pass
@@ -22219,6 +23011,10 @@ class UpdateAutomateResponseConfigStatusRequest(TeaModel):
             result['InUse'] = self.in_use
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         return result
 
     def from_map(self, m=None):
@@ -22229,6 +23025,10 @@ class UpdateAutomateResponseConfigStatusRequest(TeaModel):
             self.in_use = m.get('InUse')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         return self
 
 
@@ -22321,7 +23121,8 @@ class UpdateAutomateResponseConfigStatusResponse(TeaModel):
 
 
 class UpdateWhiteRuleListRequest(TeaModel):
-    def __init__(self, expression=None, incident_uuid=None, region_id=None, white_rule_id=None):
+    def __init__(self, expression=None, incident_uuid=None, region_id=None, role_for=None, role_type=None,
+                 white_rule_id=None):
         # The alert whitelist rule. The value is a JSON object.
         self.expression = expression  # type: str
         # The UUID of the event.
@@ -22331,6 +23132,8 @@ class UpdateWhiteRuleListRequest(TeaModel):
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
         # The unique ID of the whitelist rule.
         self.white_rule_id = white_rule_id  # type: long
 
@@ -22349,6 +23152,10 @@ class UpdateWhiteRuleListRequest(TeaModel):
             result['IncidentUuid'] = self.incident_uuid
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         if self.white_rule_id is not None:
             result['WhiteRuleId'] = self.white_rule_id
         return result
@@ -22361,6 +23168,10 @@ class UpdateWhiteRuleListRequest(TeaModel):
             self.incident_uuid = m.get('IncidentUuid')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         if m.get('WhiteRuleId') is not None:
             self.white_rule_id = m.get('WhiteRuleId')
         return self
