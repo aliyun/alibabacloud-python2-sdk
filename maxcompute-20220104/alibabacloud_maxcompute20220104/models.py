@@ -1438,18 +1438,21 @@ class GetProjectResponseBodyDataPropertiesTableLifecycle(TeaModel):
 
 class GetProjectResponseBodyDataProperties(TeaModel):
     def __init__(self, allow_full_scan=None, elder_tunnel_quota=None, enable_decimal_2=None,
-                 enable_tunnel_quota_route=None, encryption=None, retention_days=None, sql_metering_max=None, storage_tier_info=None,
-                 table_lifecycle=None, timezone=None, tunnel_quota=None, type_system=None):
+                 enable_fdc_cache_force=None, enable_tunnel_quota_route=None, encryption=None, fdc_quota=None, retention_days=None,
+                 sql_metering_max=None, storage_tier_info=None, table_lifecycle=None, timezone=None, tunnel_quota=None,
+                 type_system=None):
         # Indicates whether a full table scan on the project is enabled.
         self.allow_full_scan = allow_full_scan  # type: bool
         # This operation does not return a value for this parameter.
         self.elder_tunnel_quota = elder_tunnel_quota  # type: str
         # Indicates whether the DECIMAL data type in MaxCompute V2.0 is enabled.
         self.enable_decimal_2 = enable_decimal_2  # type: bool
+        self.enable_fdc_cache_force = enable_fdc_cache_force  # type: bool
         # Indicates whether tunnel quota routing is enabled.
         self.enable_tunnel_quota_route = enable_tunnel_quota_route  # type: bool
         # The encryption information.
         self.encryption = encryption  # type: GetProjectResponseBodyDataPropertiesEncryption
+        self.fdc_quota = fdc_quota  # type: str
         # The number of days for which backup data can be retained.
         self.retention_days = retention_days  # type: long
         # The upper limit for the resources that are consumed by an SQL statement.
@@ -1485,10 +1488,14 @@ class GetProjectResponseBodyDataProperties(TeaModel):
             result['elderTunnelQuota'] = self.elder_tunnel_quota
         if self.enable_decimal_2 is not None:
             result['enableDecimal2'] = self.enable_decimal_2
+        if self.enable_fdc_cache_force is not None:
+            result['enableFdcCacheForce'] = self.enable_fdc_cache_force
         if self.enable_tunnel_quota_route is not None:
             result['enableTunnelQuotaRoute'] = self.enable_tunnel_quota_route
         if self.encryption is not None:
             result['encryption'] = self.encryption.to_map()
+        if self.fdc_quota is not None:
+            result['fdcQuota'] = self.fdc_quota
         if self.retention_days is not None:
             result['retentionDays'] = self.retention_days
         if self.sql_metering_max is not None:
@@ -1513,11 +1520,15 @@ class GetProjectResponseBodyDataProperties(TeaModel):
             self.elder_tunnel_quota = m.get('elderTunnelQuota')
         if m.get('enableDecimal2') is not None:
             self.enable_decimal_2 = m.get('enableDecimal2')
+        if m.get('enableFdcCacheForce') is not None:
+            self.enable_fdc_cache_force = m.get('enableFdcCacheForce')
         if m.get('enableTunnelQuotaRoute') is not None:
             self.enable_tunnel_quota_route = m.get('enableTunnelQuotaRoute')
         if m.get('encryption') is not None:
             temp_model = GetProjectResponseBodyDataPropertiesEncryption()
             self.encryption = temp_model.from_map(m['encryption'])
+        if m.get('fdcQuota') is not None:
+            self.fdc_quota = m.get('fdcQuota')
         if m.get('retentionDays') is not None:
             self.retention_days = m.get('retentionDays')
         if m.get('sqlMeteringMax') is not None:
