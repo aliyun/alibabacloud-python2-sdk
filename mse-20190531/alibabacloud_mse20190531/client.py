@@ -879,6 +879,44 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.apply_tag_policies_with_options(request, runtime)
 
+    def bind_sentinel_block_fallback_definition_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.app_name):
+            query['AppName'] = request.app_name
+        if not UtilClient.is_unset(request.fallback_id):
+            query['FallbackId'] = request.fallback_id
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
+        if not UtilClient.is_unset(request.resource):
+            query['Resource'] = request.resource
+        if not UtilClient.is_unset(request.target_type):
+            query['TargetType'] = request.target_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='BindSentinelBlockFallbackDefinition',
+            version='2019-05-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mse_20190531_models.BindSentinelBlockFallbackDefinitionResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def bind_sentinel_block_fallback_definition(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.bind_sentinel_block_fallback_definition_with_options(request, runtime)
+
     def clone_nacos_config_with_options(self, request, runtime):
         """
         mse-200-105
@@ -5960,6 +5998,44 @@ class Client(OpenApiClient):
     def list_security_group_rule(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_security_group_rule_with_options(request, runtime)
+
+    def list_sentinel_block_fallback_definitions_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = mse_20190531_models.ListSentinelBlockFallbackDefinitionsShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.classification_set):
+            request.classification_set_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.classification_set, 'ClassificationSet', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.app_name):
+            query['AppName'] = request.app_name
+        if not UtilClient.is_unset(request.classification_set_shrink):
+            query['ClassificationSet'] = request.classification_set_shrink
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListSentinelBlockFallbackDefinitions',
+            version='2019-05-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mse_20190531_models.ListSentinelBlockFallbackDefinitionsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_sentinel_block_fallback_definitions(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_sentinel_block_fallback_definitions_with_options(request, runtime)
 
     def list_service_source_with_options(self, request, runtime):
         UtilClient.validate_model(request)
