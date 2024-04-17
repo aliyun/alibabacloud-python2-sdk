@@ -2196,13 +2196,14 @@ class QueryBookingDomainInfoRequest(TeaModel):
 
 class QueryBookingDomainInfoResponseBody(TeaModel):
     def __init__(self, auction_id=None, book_end_time=None, currency=None, max_bid=None, partner_type=None,
-                 request_id=None, transfer_in_price=None):
+                 request_id=None, snatch_no=None, transfer_in_price=None):
         self.auction_id = auction_id  # type: int
         self.book_end_time = book_end_time  # type: long
         self.currency = currency  # type: str
         self.max_bid = max_bid  # type: float
         self.partner_type = partner_type  # type: str
         self.request_id = request_id  # type: str
+        self.snatch_no = snatch_no  # type: str
         self.transfer_in_price = transfer_in_price  # type: float
 
     def validate(self):
@@ -2226,6 +2227,8 @@ class QueryBookingDomainInfoResponseBody(TeaModel):
             result['PartnerType'] = self.partner_type
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.snatch_no is not None:
+            result['SnatchNo'] = self.snatch_no
         if self.transfer_in_price is not None:
             result['TransferInPrice'] = self.transfer_in_price
         return result
@@ -2244,6 +2247,8 @@ class QueryBookingDomainInfoResponseBody(TeaModel):
             self.partner_type = m.get('PartnerType')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('SnatchNo') is not None:
+            self.snatch_no = m.get('SnatchNo')
         if m.get('TransferInPrice') is not None:
             self.transfer_in_price = m.get('TransferInPrice')
         return self
