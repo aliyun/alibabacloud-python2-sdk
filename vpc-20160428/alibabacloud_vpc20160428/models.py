@@ -49519,13 +49519,14 @@ class DescribeVirtualBorderRoutersResponseBodyVirtualBorderRouterSetVirtualBorde
 class DescribeVirtualBorderRoutersResponseBodyVirtualBorderRouterSetVirtualBorderRouterType(TeaModel):
     def __init__(self, access_point_id=None, activation_time=None, associated_cens=None,
                  associated_physical_connections=None, bandwidth=None, circuit_code=None, cloud_box_instance_id=None, creation_time=None,
-                 description=None, detect_multiplier=None, ecc_id=None, ecr_attatch_status=None, ecr_id=None, enable_ipv_6=None,
-                 local_gateway_ip=None, local_ipv_6gateway_ip=None, min_rx_interval=None, min_tx_interval=None, name=None,
-                 pconn_vbr_charge_type=None, pconn_vbr_expire_time=None, peer_gateway_ip=None, peer_ipv_6gateway_ip=None,
-                 peering_ipv_6subnet_mask=None, peering_subnet_mask=None, physical_connection_business_status=None,
-                 physical_connection_id=None, physical_connection_owner_uid=None, physical_connection_status=None, recovery_time=None,
-                 resource_group_id=None, route_table_id=None, sitelink_enable=None, status=None, tags=None, termination_time=None,
-                 type=None, vbr_id=None, vlan_id=None, vlan_interface_id=None):
+                 description=None, detect_multiplier=None, ecc_id=None, ecr_attatch_status=None, ecr_id=None, ecr_owner_id=None,
+                 enable_ipv_6=None, local_gateway_ip=None, local_ipv_6gateway_ip=None, min_rx_interval=None,
+                 min_tx_interval=None, name=None, pconn_vbr_charge_type=None, pconn_vbr_expire_time=None, peer_gateway_ip=None,
+                 peer_ipv_6gateway_ip=None, peering_ipv_6subnet_mask=None, peering_subnet_mask=None,
+                 physical_connection_business_status=None, physical_connection_id=None, physical_connection_owner_uid=None,
+                 physical_connection_status=None, recovery_time=None, resource_group_id=None, route_table_id=None, sitelink_enable=None,
+                 status=None, tags=None, termination_time=None, type=None, vbr_id=None, vlan_id=None,
+                 vlan_interface_id=None):
         # The ID of the access point.
         self.access_point_id = access_point_id  # type: str
         # The time when the VBR was first activated.
@@ -49554,6 +49555,7 @@ class DescribeVirtualBorderRoutersResponseBodyVirtualBorderRouterSetVirtualBorde
         self.ecc_id = ecc_id  # type: str
         self.ecr_attatch_status = ecr_attatch_status  # type: str
         self.ecr_id = ecr_id  # type: str
+        self.ecr_owner_id = ecr_owner_id  # type: str
         # Indicates whether IPv6 is enabled. Valid values:
         # 
         # *   **true**\
@@ -49675,6 +49677,8 @@ class DescribeVirtualBorderRoutersResponseBodyVirtualBorderRouterSetVirtualBorde
             result['EcrAttatchStatus'] = self.ecr_attatch_status
         if self.ecr_id is not None:
             result['EcrId'] = self.ecr_id
+        if self.ecr_owner_id is not None:
+            result['EcrOwnerId'] = self.ecr_owner_id
         if self.enable_ipv_6 is not None:
             result['EnableIpv6'] = self.enable_ipv_6
         if self.local_gateway_ip is not None:
@@ -49761,6 +49765,8 @@ class DescribeVirtualBorderRoutersResponseBodyVirtualBorderRouterSetVirtualBorde
             self.ecr_attatch_status = m.get('EcrAttatchStatus')
         if m.get('EcrId') is not None:
             self.ecr_id = m.get('EcrId')
+        if m.get('EcrOwnerId') is not None:
+            self.ecr_owner_id = m.get('EcrOwnerId')
         if m.get('EnableIpv6') is not None:
             self.enable_ipv_6 = m.get('EnableIpv6')
         if m.get('LocalGatewayIp') is not None:
