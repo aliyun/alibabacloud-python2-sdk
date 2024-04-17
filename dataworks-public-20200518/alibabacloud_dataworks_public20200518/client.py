@@ -3097,6 +3097,62 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.desensitize_data_with_options(request, runtime)
 
+    def dsg_query_sens_result_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.col):
+            body['Col'] = request.col
+        if not UtilClient.is_unset(request.db_type):
+            body['DbType'] = request.db_type
+        if not UtilClient.is_unset(request.level):
+            body['Level'] = request.level
+        if not UtilClient.is_unset(request.node_name):
+            body['NodeName'] = request.node_name
+        if not UtilClient.is_unset(request.order):
+            body['Order'] = request.order
+        if not UtilClient.is_unset(request.order_field):
+            body['OrderField'] = request.order_field
+        if not UtilClient.is_unset(request.page_no):
+            body['PageNo'] = request.page_no
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_name):
+            body['ProjectName'] = request.project_name
+        if not UtilClient.is_unset(request.schema_name):
+            body['SchemaName'] = request.schema_name
+        if not UtilClient.is_unset(request.sens_status):
+            body['SensStatus'] = request.sens_status
+        if not UtilClient.is_unset(request.sensitive_id):
+            body['SensitiveId'] = request.sensitive_id
+        if not UtilClient.is_unset(request.sensitive_name):
+            body['SensitiveName'] = request.sensitive_name
+        if not UtilClient.is_unset(request.table):
+            body['Table'] = request.table
+        if not UtilClient.is_unset(request.tenant_id):
+            body['TenantId'] = request.tenant_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DsgQuerySensResult',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.DsgQuerySensResultResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def dsg_query_sens_result(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.dsg_query_sens_result_with_options(request, runtime)
+
     def establish_relation_table_to_business_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
