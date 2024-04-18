@@ -349,11 +349,40 @@ class CreateInstanceRequestStorage(TeaModel):
         return self
 
 
+class CreateInstanceRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateInstanceRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class CreateInstanceRequest(TeaModel):
     def __init__(self, architecture_type=None, auto_renew=None, charge_type=None, duration=None, extra=None, ha=None,
                  ha_resource_spec=None, ha_vswitch_ids=None, ha_zone_id=None, instance_name=None, monitor_type=None,
                  pricing_cycle=None, promotion_code=None, region=None, resource_group_id=None, resource_spec=None, storage=None,
-                 use_promotion_code=None, v_switch_ids=None, vpc_id=None, zone_id=None):
+                 tag=None, use_promotion_code=None, v_switch_ids=None, vpc_id=None, zone_id=None):
         self.architecture_type = architecture_type  # type: str
         self.auto_renew = auto_renew  # type: bool
         self.charge_type = charge_type  # type: str
@@ -371,6 +400,7 @@ class CreateInstanceRequest(TeaModel):
         self.resource_group_id = resource_group_id  # type: str
         self.resource_spec = resource_spec  # type: CreateInstanceRequestResourceSpec
         self.storage = storage  # type: CreateInstanceRequestStorage
+        self.tag = tag  # type: list[CreateInstanceRequestTag]
         self.use_promotion_code = use_promotion_code  # type: bool
         self.v_switch_ids = v_switch_ids  # type: list[str]
         self.vpc_id = vpc_id  # type: str
@@ -383,6 +413,10 @@ class CreateInstanceRequest(TeaModel):
             self.resource_spec.validate()
         if self.storage:
             self.storage.validate()
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(CreateInstanceRequest, self).to_map()
@@ -424,6 +458,10 @@ class CreateInstanceRequest(TeaModel):
             result['ResourceSpec'] = self.resource_spec.to_map()
         if self.storage is not None:
             result['Storage'] = self.storage.to_map()
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         if self.use_promotion_code is not None:
             result['UsePromotionCode'] = self.use_promotion_code
         if self.v_switch_ids is not None:
@@ -473,6 +511,11 @@ class CreateInstanceRequest(TeaModel):
         if m.get('Storage') is not None:
             temp_model = CreateInstanceRequestStorage()
             self.storage = temp_model.from_map(m['Storage'])
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = CreateInstanceRequestTag()
+                self.tag.append(temp_model.from_map(k))
         if m.get('UsePromotionCode') is not None:
             self.use_promotion_code = m.get('UsePromotionCode')
         if m.get('VSwitchIds') is not None:
@@ -488,7 +531,8 @@ class CreateInstanceShrinkRequest(TeaModel):
     def __init__(self, architecture_type=None, auto_renew=None, charge_type=None, duration=None, extra=None, ha=None,
                  ha_resource_spec_shrink=None, ha_vswitch_ids_shrink=None, ha_zone_id=None, instance_name=None, monitor_type=None,
                  pricing_cycle=None, promotion_code=None, region=None, resource_group_id=None, resource_spec_shrink=None,
-                 storage_shrink=None, use_promotion_code=None, v_switch_ids_shrink=None, vpc_id=None, zone_id=None):
+                 storage_shrink=None, tag_shrink=None, use_promotion_code=None, v_switch_ids_shrink=None, vpc_id=None,
+                 zone_id=None):
         self.architecture_type = architecture_type  # type: str
         self.auto_renew = auto_renew  # type: bool
         self.charge_type = charge_type  # type: str
@@ -506,6 +550,7 @@ class CreateInstanceShrinkRequest(TeaModel):
         self.resource_group_id = resource_group_id  # type: str
         self.resource_spec_shrink = resource_spec_shrink  # type: str
         self.storage_shrink = storage_shrink  # type: str
+        self.tag_shrink = tag_shrink  # type: str
         self.use_promotion_code = use_promotion_code  # type: bool
         self.v_switch_ids_shrink = v_switch_ids_shrink  # type: str
         self.vpc_id = vpc_id  # type: str
@@ -554,6 +599,8 @@ class CreateInstanceShrinkRequest(TeaModel):
             result['ResourceSpec'] = self.resource_spec_shrink
         if self.storage_shrink is not None:
             result['Storage'] = self.storage_shrink
+        if self.tag_shrink is not None:
+            result['Tag'] = self.tag_shrink
         if self.use_promotion_code is not None:
             result['UsePromotionCode'] = self.use_promotion_code
         if self.v_switch_ids_shrink is not None:
@@ -600,6 +647,8 @@ class CreateInstanceShrinkRequest(TeaModel):
             self.resource_spec_shrink = m.get('ResourceSpec')
         if m.get('Storage') is not None:
             self.storage_shrink = m.get('Storage')
+        if m.get('Tag') is not None:
+            self.tag_shrink = m.get('Tag')
         if m.get('UsePromotionCode') is not None:
             self.use_promotion_code = m.get('UsePromotionCode')
         if m.get('VSwitchIds') is not None:
@@ -3138,6 +3187,56 @@ class QueryConvertInstancePriceShrinkRequest(TeaModel):
         return self
 
 
+class QueryConvertInstancePriceResponseBodyPriceInfoDepreciateInfo(TeaModel):
+    def __init__(self, cheap_rate=None, cheap_stand_amount=None, is_show=None, month_price=None,
+                 original_stand_amount=None, start_time=None):
+        self.cheap_rate = cheap_rate  # type: str
+        self.cheap_stand_amount = cheap_stand_amount  # type: str
+        self.is_show = is_show  # type: bool
+        self.month_price = month_price  # type: str
+        self.original_stand_amount = original_stand_amount  # type: str
+        self.start_time = start_time  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryConvertInstancePriceResponseBodyPriceInfoDepreciateInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cheap_rate is not None:
+            result['CheapRate'] = self.cheap_rate
+        if self.cheap_stand_amount is not None:
+            result['CheapStandAmount'] = self.cheap_stand_amount
+        if self.is_show is not None:
+            result['IsShow'] = self.is_show
+        if self.month_price is not None:
+            result['MonthPrice'] = self.month_price
+        if self.original_stand_amount is not None:
+            result['OriginalStandAmount'] = self.original_stand_amount
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CheapRate') is not None:
+            self.cheap_rate = m.get('CheapRate')
+        if m.get('CheapStandAmount') is not None:
+            self.cheap_stand_amount = m.get('CheapStandAmount')
+        if m.get('IsShow') is not None:
+            self.is_show = m.get('IsShow')
+        if m.get('MonthPrice') is not None:
+            self.month_price = m.get('MonthPrice')
+        if m.get('OriginalStandAmount') is not None:
+            self.original_stand_amount = m.get('OriginalStandAmount')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        return self
+
+
 class QueryConvertInstancePriceResponseBodyPriceInfoOptionalPromotions(TeaModel):
     def __init__(self, promotion_desc=None, promotion_name=None, promotion_option_no=None, selected=None):
         self.promotion_desc = promotion_desc  # type: str
@@ -3207,18 +3306,25 @@ class QueryConvertInstancePriceResponseBodyPriceInfoRules(TeaModel):
 
 
 class QueryConvertInstancePriceResponseBodyPriceInfo(TeaModel):
-    def __init__(self, code=None, currency=None, discount_amount=None, message=None, optional_promotions=None,
-                 original_amount=None, rules=None, trade_amount=None):
+    def __init__(self, code=None, currency=None, depreciate_info=None, discount_amount=None,
+                 is_contract_activity=None, message=None, optional_promotions=None, original_amount=None, rules=None,
+                 stand_discount_price=None, stand_price=None, trade_amount=None):
         self.code = code  # type: str
         self.currency = currency  # type: str
+        self.depreciate_info = depreciate_info  # type: QueryConvertInstancePriceResponseBodyPriceInfoDepreciateInfo
         self.discount_amount = discount_amount  # type: float
+        self.is_contract_activity = is_contract_activity  # type: bool
         self.message = message  # type: str
         self.optional_promotions = optional_promotions  # type: list[QueryConvertInstancePriceResponseBodyPriceInfoOptionalPromotions]
         self.original_amount = original_amount  # type: float
         self.rules = rules  # type: list[QueryConvertInstancePriceResponseBodyPriceInfoRules]
+        self.stand_discount_price = stand_discount_price  # type: str
+        self.stand_price = stand_price  # type: str
         self.trade_amount = trade_amount  # type: float
 
     def validate(self):
+        if self.depreciate_info:
+            self.depreciate_info.validate()
         if self.optional_promotions:
             for k in self.optional_promotions:
                 if k:
@@ -3238,8 +3344,12 @@ class QueryConvertInstancePriceResponseBodyPriceInfo(TeaModel):
             result['Code'] = self.code
         if self.currency is not None:
             result['Currency'] = self.currency
+        if self.depreciate_info is not None:
+            result['DepreciateInfo'] = self.depreciate_info.to_map()
         if self.discount_amount is not None:
             result['DiscountAmount'] = self.discount_amount
+        if self.is_contract_activity is not None:
+            result['IsContractActivity'] = self.is_contract_activity
         if self.message is not None:
             result['Message'] = self.message
         result['OptionalPromotions'] = []
@@ -3252,6 +3362,10 @@ class QueryConvertInstancePriceResponseBodyPriceInfo(TeaModel):
         if self.rules is not None:
             for k in self.rules:
                 result['Rules'].append(k.to_map() if k else None)
+        if self.stand_discount_price is not None:
+            result['StandDiscountPrice'] = self.stand_discount_price
+        if self.stand_price is not None:
+            result['StandPrice'] = self.stand_price
         if self.trade_amount is not None:
             result['TradeAmount'] = self.trade_amount
         return result
@@ -3262,8 +3376,13 @@ class QueryConvertInstancePriceResponseBodyPriceInfo(TeaModel):
             self.code = m.get('Code')
         if m.get('Currency') is not None:
             self.currency = m.get('Currency')
+        if m.get('DepreciateInfo') is not None:
+            temp_model = QueryConvertInstancePriceResponseBodyPriceInfoDepreciateInfo()
+            self.depreciate_info = temp_model.from_map(m['DepreciateInfo'])
         if m.get('DiscountAmount') is not None:
             self.discount_amount = m.get('DiscountAmount')
+        if m.get('IsContractActivity') is not None:
+            self.is_contract_activity = m.get('IsContractActivity')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         self.optional_promotions = []
@@ -3278,6 +3397,10 @@ class QueryConvertInstancePriceResponseBodyPriceInfo(TeaModel):
             for k in m.get('Rules'):
                 temp_model = QueryConvertInstancePriceResponseBodyPriceInfoRules()
                 self.rules.append(temp_model.from_map(k))
+        if m.get('StandDiscountPrice') is not None:
+            self.stand_discount_price = m.get('StandDiscountPrice')
+        if m.get('StandPrice') is not None:
+            self.stand_price = m.get('StandPrice')
         if m.get('TradeAmount') is not None:
             self.trade_amount = m.get('TradeAmount')
         return self
@@ -3684,6 +3807,56 @@ class QueryCreateInstancePriceShrinkRequest(TeaModel):
         return self
 
 
+class QueryCreateInstancePriceResponseBodyPriceInfoDepreciateInfo(TeaModel):
+    def __init__(self, cheap_rate=None, cheap_stand_amount=None, is_show=None, month_price=None,
+                 original_stand_amount=None, start_time=None):
+        self.cheap_rate = cheap_rate  # type: str
+        self.cheap_stand_amount = cheap_stand_amount  # type: str
+        self.is_show = is_show  # type: bool
+        self.month_price = month_price  # type: str
+        self.original_stand_amount = original_stand_amount  # type: str
+        self.start_time = start_time  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryCreateInstancePriceResponseBodyPriceInfoDepreciateInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cheap_rate is not None:
+            result['CheapRate'] = self.cheap_rate
+        if self.cheap_stand_amount is not None:
+            result['CheapStandAmount'] = self.cheap_stand_amount
+        if self.is_show is not None:
+            result['IsShow'] = self.is_show
+        if self.month_price is not None:
+            result['MonthPrice'] = self.month_price
+        if self.original_stand_amount is not None:
+            result['OriginalStandAmount'] = self.original_stand_amount
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CheapRate') is not None:
+            self.cheap_rate = m.get('CheapRate')
+        if m.get('CheapStandAmount') is not None:
+            self.cheap_stand_amount = m.get('CheapStandAmount')
+        if m.get('IsShow') is not None:
+            self.is_show = m.get('IsShow')
+        if m.get('MonthPrice') is not None:
+            self.month_price = m.get('MonthPrice')
+        if m.get('OriginalStandAmount') is not None:
+            self.original_stand_amount = m.get('OriginalStandAmount')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        return self
+
+
 class QueryCreateInstancePriceResponseBodyPriceInfoOptionalPromotions(TeaModel):
     def __init__(self, promotion_desc=None, promotion_name=None, promotion_option_no=None, selected=None):
         self.promotion_desc = promotion_desc  # type: str
@@ -3753,18 +3926,25 @@ class QueryCreateInstancePriceResponseBodyPriceInfoRules(TeaModel):
 
 
 class QueryCreateInstancePriceResponseBodyPriceInfo(TeaModel):
-    def __init__(self, code=None, currency=None, discount_amount=None, message=None, optional_promotions=None,
-                 original_amount=None, rules=None, trade_amount=None):
+    def __init__(self, code=None, currency=None, depreciate_info=None, discount_amount=None,
+                 is_contract_activity=None, message=None, optional_promotions=None, original_amount=None, rules=None,
+                 stand_discount_price=None, stand_price=None, trade_amount=None):
         self.code = code  # type: str
         self.currency = currency  # type: str
+        self.depreciate_info = depreciate_info  # type: QueryCreateInstancePriceResponseBodyPriceInfoDepreciateInfo
         self.discount_amount = discount_amount  # type: float
+        self.is_contract_activity = is_contract_activity  # type: bool
         self.message = message  # type: str
         self.optional_promotions = optional_promotions  # type: list[QueryCreateInstancePriceResponseBodyPriceInfoOptionalPromotions]
         self.original_amount = original_amount  # type: float
         self.rules = rules  # type: list[QueryCreateInstancePriceResponseBodyPriceInfoRules]
+        self.stand_discount_price = stand_discount_price  # type: str
+        self.stand_price = stand_price  # type: str
         self.trade_amount = trade_amount  # type: float
 
     def validate(self):
+        if self.depreciate_info:
+            self.depreciate_info.validate()
         if self.optional_promotions:
             for k in self.optional_promotions:
                 if k:
@@ -3784,8 +3964,12 @@ class QueryCreateInstancePriceResponseBodyPriceInfo(TeaModel):
             result['Code'] = self.code
         if self.currency is not None:
             result['Currency'] = self.currency
+        if self.depreciate_info is not None:
+            result['DepreciateInfo'] = self.depreciate_info.to_map()
         if self.discount_amount is not None:
             result['DiscountAmount'] = self.discount_amount
+        if self.is_contract_activity is not None:
+            result['IsContractActivity'] = self.is_contract_activity
         if self.message is not None:
             result['Message'] = self.message
         result['OptionalPromotions'] = []
@@ -3798,6 +3982,10 @@ class QueryCreateInstancePriceResponseBodyPriceInfo(TeaModel):
         if self.rules is not None:
             for k in self.rules:
                 result['Rules'].append(k.to_map() if k else None)
+        if self.stand_discount_price is not None:
+            result['StandDiscountPrice'] = self.stand_discount_price
+        if self.stand_price is not None:
+            result['StandPrice'] = self.stand_price
         if self.trade_amount is not None:
             result['TradeAmount'] = self.trade_amount
         return result
@@ -3808,8 +3996,13 @@ class QueryCreateInstancePriceResponseBodyPriceInfo(TeaModel):
             self.code = m.get('Code')
         if m.get('Currency') is not None:
             self.currency = m.get('Currency')
+        if m.get('DepreciateInfo') is not None:
+            temp_model = QueryCreateInstancePriceResponseBodyPriceInfoDepreciateInfo()
+            self.depreciate_info = temp_model.from_map(m['DepreciateInfo'])
         if m.get('DiscountAmount') is not None:
             self.discount_amount = m.get('DiscountAmount')
+        if m.get('IsContractActivity') is not None:
+            self.is_contract_activity = m.get('IsContractActivity')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         self.optional_promotions = []
@@ -3824,6 +4017,10 @@ class QueryCreateInstancePriceResponseBodyPriceInfo(TeaModel):
             for k in m.get('Rules'):
                 temp_model = QueryCreateInstancePriceResponseBodyPriceInfoRules()
                 self.rules.append(temp_model.from_map(k))
+        if m.get('StandDiscountPrice') is not None:
+            self.stand_discount_price = m.get('StandDiscountPrice')
+        if m.get('StandPrice') is not None:
+            self.stand_price = m.get('StandPrice')
         if m.get('TradeAmount') is not None:
             self.trade_amount = m.get('TradeAmount')
         return self
@@ -4074,6 +4271,56 @@ class QueryModifyInstancePriceShrinkRequest(TeaModel):
         return self
 
 
+class QueryModifyInstancePriceResponseBodyPriceInfoDepreciateInfo(TeaModel):
+    def __init__(self, cheap_rate=None, cheap_stand_amount=None, is_show=None, month_price=None,
+                 original_stand_amount=None, start_time=None):
+        self.cheap_rate = cheap_rate  # type: str
+        self.cheap_stand_amount = cheap_stand_amount  # type: str
+        self.is_show = is_show  # type: bool
+        self.month_price = month_price  # type: str
+        self.original_stand_amount = original_stand_amount  # type: str
+        self.start_time = start_time  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryModifyInstancePriceResponseBodyPriceInfoDepreciateInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cheap_rate is not None:
+            result['CheapRate'] = self.cheap_rate
+        if self.cheap_stand_amount is not None:
+            result['CheapStandAmount'] = self.cheap_stand_amount
+        if self.is_show is not None:
+            result['IsShow'] = self.is_show
+        if self.month_price is not None:
+            result['MonthPrice'] = self.month_price
+        if self.original_stand_amount is not None:
+            result['OriginalStandAmount'] = self.original_stand_amount
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CheapRate') is not None:
+            self.cheap_rate = m.get('CheapRate')
+        if m.get('CheapStandAmount') is not None:
+            self.cheap_stand_amount = m.get('CheapStandAmount')
+        if m.get('IsShow') is not None:
+            self.is_show = m.get('IsShow')
+        if m.get('MonthPrice') is not None:
+            self.month_price = m.get('MonthPrice')
+        if m.get('OriginalStandAmount') is not None:
+            self.original_stand_amount = m.get('OriginalStandAmount')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        return self
+
+
 class QueryModifyInstancePriceResponseBodyPriceInfoOptionalPromotions(TeaModel):
     def __init__(self, promotion_desc=None, promotion_name=None, promotion_option_no=None, selected=None):
         self.promotion_desc = promotion_desc  # type: str
@@ -4143,18 +4390,25 @@ class QueryModifyInstancePriceResponseBodyPriceInfoRules(TeaModel):
 
 
 class QueryModifyInstancePriceResponseBodyPriceInfo(TeaModel):
-    def __init__(self, code=None, currency=None, discount_amount=None, message=None, optional_promotions=None,
-                 original_amount=None, rules=None, trade_amount=None):
+    def __init__(self, code=None, currency=None, depreciate_info=None, discount_amount=None,
+                 is_contract_activity=None, message=None, optional_promotions=None, original_amount=None, rules=None,
+                 stand_discount_price=None, stand_price=None, trade_amount=None):
         self.code = code  # type: str
         self.currency = currency  # type: str
+        self.depreciate_info = depreciate_info  # type: QueryModifyInstancePriceResponseBodyPriceInfoDepreciateInfo
         self.discount_amount = discount_amount  # type: float
+        self.is_contract_activity = is_contract_activity  # type: bool
         self.message = message  # type: str
         self.optional_promotions = optional_promotions  # type: list[QueryModifyInstancePriceResponseBodyPriceInfoOptionalPromotions]
         self.original_amount = original_amount  # type: float
         self.rules = rules  # type: list[QueryModifyInstancePriceResponseBodyPriceInfoRules]
+        self.stand_discount_price = stand_discount_price  # type: str
+        self.stand_price = stand_price  # type: str
         self.trade_amount = trade_amount  # type: float
 
     def validate(self):
+        if self.depreciate_info:
+            self.depreciate_info.validate()
         if self.optional_promotions:
             for k in self.optional_promotions:
                 if k:
@@ -4174,8 +4428,12 @@ class QueryModifyInstancePriceResponseBodyPriceInfo(TeaModel):
             result['Code'] = self.code
         if self.currency is not None:
             result['Currency'] = self.currency
+        if self.depreciate_info is not None:
+            result['DepreciateInfo'] = self.depreciate_info.to_map()
         if self.discount_amount is not None:
             result['DiscountAmount'] = self.discount_amount
+        if self.is_contract_activity is not None:
+            result['IsContractActivity'] = self.is_contract_activity
         if self.message is not None:
             result['Message'] = self.message
         result['OptionalPromotions'] = []
@@ -4188,6 +4446,10 @@ class QueryModifyInstancePriceResponseBodyPriceInfo(TeaModel):
         if self.rules is not None:
             for k in self.rules:
                 result['Rules'].append(k.to_map() if k else None)
+        if self.stand_discount_price is not None:
+            result['StandDiscountPrice'] = self.stand_discount_price
+        if self.stand_price is not None:
+            result['StandPrice'] = self.stand_price
         if self.trade_amount is not None:
             result['TradeAmount'] = self.trade_amount
         return result
@@ -4198,8 +4460,13 @@ class QueryModifyInstancePriceResponseBodyPriceInfo(TeaModel):
             self.code = m.get('Code')
         if m.get('Currency') is not None:
             self.currency = m.get('Currency')
+        if m.get('DepreciateInfo') is not None:
+            temp_model = QueryModifyInstancePriceResponseBodyPriceInfoDepreciateInfo()
+            self.depreciate_info = temp_model.from_map(m['DepreciateInfo'])
         if m.get('DiscountAmount') is not None:
             self.discount_amount = m.get('DiscountAmount')
+        if m.get('IsContractActivity') is not None:
+            self.is_contract_activity = m.get('IsContractActivity')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         self.optional_promotions = []
@@ -4214,6 +4481,10 @@ class QueryModifyInstancePriceResponseBodyPriceInfo(TeaModel):
             for k in m.get('Rules'):
                 temp_model = QueryModifyInstancePriceResponseBodyPriceInfoRules()
                 self.rules.append(temp_model.from_map(k))
+        if m.get('StandDiscountPrice') is not None:
+            self.stand_discount_price = m.get('StandDiscountPrice')
+        if m.get('StandPrice') is not None:
+            self.stand_price = m.get('StandPrice')
         if m.get('TradeAmount') is not None:
             self.trade_amount = m.get('TradeAmount')
         return self
@@ -4330,6 +4601,56 @@ class QueryRenewInstancePriceRequest(TeaModel):
         return self
 
 
+class QueryRenewInstancePriceResponseBodyPriceInfoDepreciateInfo(TeaModel):
+    def __init__(self, cheap_rate=None, cheap_stand_amount=None, is_show=None, month_price=None,
+                 original_stand_amount=None, start_time=None):
+        self.cheap_rate = cheap_rate  # type: str
+        self.cheap_stand_amount = cheap_stand_amount  # type: str
+        self.is_show = is_show  # type: bool
+        self.month_price = month_price  # type: str
+        self.original_stand_amount = original_stand_amount  # type: str
+        self.start_time = start_time  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryRenewInstancePriceResponseBodyPriceInfoDepreciateInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cheap_rate is not None:
+            result['CheapRate'] = self.cheap_rate
+        if self.cheap_stand_amount is not None:
+            result['CheapStandAmount'] = self.cheap_stand_amount
+        if self.is_show is not None:
+            result['IsShow'] = self.is_show
+        if self.month_price is not None:
+            result['MonthPrice'] = self.month_price
+        if self.original_stand_amount is not None:
+            result['OriginalStandAmount'] = self.original_stand_amount
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CheapRate') is not None:
+            self.cheap_rate = m.get('CheapRate')
+        if m.get('CheapStandAmount') is not None:
+            self.cheap_stand_amount = m.get('CheapStandAmount')
+        if m.get('IsShow') is not None:
+            self.is_show = m.get('IsShow')
+        if m.get('MonthPrice') is not None:
+            self.month_price = m.get('MonthPrice')
+        if m.get('OriginalStandAmount') is not None:
+            self.original_stand_amount = m.get('OriginalStandAmount')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        return self
+
+
 class QueryRenewInstancePriceResponseBodyPriceInfoOptionalPromotions(TeaModel):
     def __init__(self, promotion_desc=None, promotion_name=None, promotion_option_no=None, selected=None):
         self.promotion_desc = promotion_desc  # type: str
@@ -4399,18 +4720,25 @@ class QueryRenewInstancePriceResponseBodyPriceInfoRules(TeaModel):
 
 
 class QueryRenewInstancePriceResponseBodyPriceInfo(TeaModel):
-    def __init__(self, code=None, currency=None, discount_amount=None, message=None, optional_promotions=None,
-                 original_amount=None, rules=None, trade_amount=None):
+    def __init__(self, code=None, currency=None, depreciate_info=None, discount_amount=None,
+                 is_contract_activity=None, message=None, optional_promotions=None, original_amount=None, rules=None,
+                 stand_discount_price=None, stand_price=None, trade_amount=None):
         self.code = code  # type: str
         self.currency = currency  # type: str
+        self.depreciate_info = depreciate_info  # type: QueryRenewInstancePriceResponseBodyPriceInfoDepreciateInfo
         self.discount_amount = discount_amount  # type: float
+        self.is_contract_activity = is_contract_activity  # type: bool
         self.message = message  # type: str
         self.optional_promotions = optional_promotions  # type: list[QueryRenewInstancePriceResponseBodyPriceInfoOptionalPromotions]
         self.original_amount = original_amount  # type: float
         self.rules = rules  # type: list[QueryRenewInstancePriceResponseBodyPriceInfoRules]
+        self.stand_discount_price = stand_discount_price  # type: str
+        self.stand_price = stand_price  # type: str
         self.trade_amount = trade_amount  # type: float
 
     def validate(self):
+        if self.depreciate_info:
+            self.depreciate_info.validate()
         if self.optional_promotions:
             for k in self.optional_promotions:
                 if k:
@@ -4430,8 +4758,12 @@ class QueryRenewInstancePriceResponseBodyPriceInfo(TeaModel):
             result['Code'] = self.code
         if self.currency is not None:
             result['Currency'] = self.currency
+        if self.depreciate_info is not None:
+            result['DepreciateInfo'] = self.depreciate_info.to_map()
         if self.discount_amount is not None:
             result['DiscountAmount'] = self.discount_amount
+        if self.is_contract_activity is not None:
+            result['IsContractActivity'] = self.is_contract_activity
         if self.message is not None:
             result['Message'] = self.message
         result['OptionalPromotions'] = []
@@ -4444,6 +4776,10 @@ class QueryRenewInstancePriceResponseBodyPriceInfo(TeaModel):
         if self.rules is not None:
             for k in self.rules:
                 result['Rules'].append(k.to_map() if k else None)
+        if self.stand_discount_price is not None:
+            result['StandDiscountPrice'] = self.stand_discount_price
+        if self.stand_price is not None:
+            result['StandPrice'] = self.stand_price
         if self.trade_amount is not None:
             result['TradeAmount'] = self.trade_amount
         return result
@@ -4454,8 +4790,13 @@ class QueryRenewInstancePriceResponseBodyPriceInfo(TeaModel):
             self.code = m.get('Code')
         if m.get('Currency') is not None:
             self.currency = m.get('Currency')
+        if m.get('DepreciateInfo') is not None:
+            temp_model = QueryRenewInstancePriceResponseBodyPriceInfoDepreciateInfo()
+            self.depreciate_info = temp_model.from_map(m['DepreciateInfo'])
         if m.get('DiscountAmount') is not None:
             self.discount_amount = m.get('DiscountAmount')
+        if m.get('IsContractActivity') is not None:
+            self.is_contract_activity = m.get('IsContractActivity')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         self.optional_promotions = []
@@ -4470,6 +4811,10 @@ class QueryRenewInstancePriceResponseBodyPriceInfo(TeaModel):
             for k in m.get('Rules'):
                 temp_model = QueryRenewInstancePriceResponseBodyPriceInfoRules()
                 self.rules.append(temp_model.from_map(k))
+        if m.get('StandDiscountPrice') is not None:
+            self.stand_discount_price = m.get('StandDiscountPrice')
+        if m.get('StandPrice') is not None:
+            self.stand_price = m.get('StandPrice')
         if m.get('TradeAmount') is not None:
             self.trade_amount = m.get('TradeAmount')
         return self

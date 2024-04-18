@@ -84,6 +84,8 @@ class Client(OpenApiClient):
             request.resource_spec_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.resource_spec, 'ResourceSpec', 'json')
         if not UtilClient.is_unset(tmp_req.storage):
             request.storage_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.storage, 'Storage', 'json')
+        if not UtilClient.is_unset(tmp_req.tag):
+            request.tag_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tag, 'Tag', 'json')
         if not UtilClient.is_unset(tmp_req.v_switch_ids):
             request.v_switch_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.v_switch_ids, 'VSwitchIds', 'json')
         body = {}
@@ -121,6 +123,8 @@ class Client(OpenApiClient):
             body['ResourceSpec'] = request.resource_spec_shrink
         if not UtilClient.is_unset(request.storage_shrink):
             body['Storage'] = request.storage_shrink
+        if not UtilClient.is_unset(request.tag_shrink):
+            body['Tag'] = request.tag_shrink
         if not UtilClient.is_unset(request.use_promotion_code):
             body['UsePromotionCode'] = request.use_promotion_code
         if not UtilClient.is_unset(request.v_switch_ids_shrink):
