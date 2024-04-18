@@ -286,6 +286,46 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.cancel_robot_task_with_options(request, runtime)
 
+    def change_media_type_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.call_id):
+            query['CallId'] = request.call_id
+        if not UtilClient.is_unset(request.called_num):
+            query['CalledNum'] = request.called_num
+        if not UtilClient.is_unset(request.media_type):
+            query['MediaType'] = request.media_type
+        if not UtilClient.is_unset(request.out_id):
+            query['OutId'] = request.out_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ChangeMediaType',
+            version='2017-05-25',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dyvmsapi_20170525_models.ChangeMediaTypeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def change_media_type(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.change_media_type_with_options(request, runtime)
+
     def create_call_task_with_options(self, request, runtime):
         """
         You can create up to 1,000 voice notifications for each task.
@@ -436,6 +476,46 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_robot_task_with_options(request, runtime)
 
+    def degrade_video_file_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.call_id):
+            query['CallId'] = request.call_id
+        if not UtilClient.is_unset(request.called_number):
+            query['CalledNumber'] = request.called_number
+        if not UtilClient.is_unset(request.media_type):
+            query['MediaType'] = request.media_type
+        if not UtilClient.is_unset(request.out_id):
+            query['OutId'] = request.out_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DegradeVideoFile',
+            version='2017-05-25',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dyvmsapi_20170525_models.DegradeVideoFileResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def degrade_video_file(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.degrade_video_file_with_options(request, runtime)
+
     def delete_robot_task_with_options(self, request, runtime):
         """
         You can call this operation to delete only tasks that are not started, that are completed, and that are terminated.
@@ -550,6 +630,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.execute_call_task_with_options(request, runtime)
 
+    def get_call_progress_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.call_id):
+            query['CallId'] = request.call_id
+        if not UtilClient.is_unset(request.called_num):
+            query['CalledNum'] = request.called_num
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetCallProgress',
+            version='2017-05-25',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dyvmsapi_20170525_models.GetCallProgressResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_call_progress(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_call_progress_with_options(request, runtime)
+
     def get_hotline_qualification_by_order_with_options(self, request, runtime):
         """
         ### QPS limits
@@ -657,6 +773,40 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.get_token_with_options(request, runtime)
+
+    def get_video_field_url_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.video_file):
+            query['VideoFile'] = request.video_file
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetVideoFieldUrl',
+            version='2017-05-25',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dyvmsapi_20170525_models.GetVideoFieldUrlResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_video_field_url(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_video_field_url_with_options(request, runtime)
 
     def ivr_call_with_options(self, request, runtime):
         """
@@ -983,6 +1133,82 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.list_hotline_transfer_register_file_with_options(request, runtime)
+
+    def pause_video_file_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.call_id):
+            query['CallId'] = request.call_id
+        if not UtilClient.is_unset(request.called_number):
+            query['CalledNumber'] = request.called_number
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='PauseVideoFile',
+            version='2017-05-25',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dyvmsapi_20170525_models.PauseVideoFileResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def pause_video_file(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.pause_video_file_with_options(request, runtime)
+
+    def play_video_file_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.call_id):
+            query['CallId'] = request.call_id
+        if not UtilClient.is_unset(request.called_number):
+            query['CalledNumber'] = request.called_number
+        if not UtilClient.is_unset(request.out_id):
+            query['OutId'] = request.out_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.video_id):
+            query['VideoId'] = request.video_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='PlayVideoFile',
+            version='2017-05-25',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dyvmsapi_20170525_models.PlayVideoFileResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def play_video_file(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.play_video_file_with_options(request, runtime)
 
     def query_call_detail_by_call_id_with_options(self, request, runtime):
         """
@@ -1530,6 +1756,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.query_robotv_2all_list_with_options(request, runtime)
 
+    def query_video_play_progress_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.call_id):
+            query['CallId'] = request.call_id
+        if not UtilClient.is_unset(request.called_number):
+            query['CalledNumber'] = request.called_number
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryVideoPlayProgress',
+            version='2017-05-25',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dyvmsapi_20170525_models.QueryVideoPlayProgressResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_video_play_progress(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_video_play_progress_with_options(request, runtime)
+
     def query_virtual_number_with_options(self, request, runtime):
         """
         ### QPS limits
@@ -1730,6 +1992,80 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.recover_call_in_config_with_options(request, runtime)
 
+    def resume_video_file_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.call_id):
+            query['CallId'] = request.call_id
+        if not UtilClient.is_unset(request.called_number):
+            query['CalledNumber'] = request.called_number
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ResumeVideoFile',
+            version='2017-05-25',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dyvmsapi_20170525_models.ResumeVideoFileResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def resume_video_file(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.resume_video_file_with_options(request, runtime)
+
+    def seek_video_file_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.call_id):
+            query['CallId'] = request.call_id
+        if not UtilClient.is_unset(request.called_number):
+            query['CalledNumber'] = request.called_number
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.seek_times):
+            query['SeekTimes'] = request.seek_times
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SeekVideoFile',
+            version='2017-05-25',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dyvmsapi_20170525_models.SeekVideoFileResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def seek_video_file(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.seek_video_file_with_options(request, runtime)
+
     def send_verification_with_options(self, request, runtime):
         """
         ### QPS limits
@@ -1920,6 +2256,54 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.single_call_by_tts_with_options(request, runtime)
 
+    def single_call_by_video_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.called_number):
+            query['CalledNumber'] = request.called_number
+        if not UtilClient.is_unset(request.called_show_number):
+            query['CalledShowNumber'] = request.called_show_number
+        if not UtilClient.is_unset(request.out_id):
+            query['OutId'] = request.out_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.play_times):
+            query['PlayTimes'] = request.play_times
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.speed):
+            query['Speed'] = request.speed
+        if not UtilClient.is_unset(request.video_code):
+            query['VideoCode'] = request.video_code
+        if not UtilClient.is_unset(request.voice_code):
+            query['VoiceCode'] = request.voice_code
+        if not UtilClient.is_unset(request.volume):
+            query['Volume'] = request.volume
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SingleCallByVideo',
+            version='2017-05-25',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dyvmsapi_20170525_models.SingleCallByVideoResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def single_call_by_video(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.single_call_by_video_with_options(request, runtime)
+
     def single_call_by_voice_with_options(self, request, runtime):
         """
         > Due to business adjustments, the updates of the voice notification and voice verification code services have been stopped in regions outside the Chinese mainland and the services have been discontinued since March 2022. Only qualified customers can continue using the voice notification and voice verification code services.
@@ -1990,6 +2374,46 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.single_call_by_voice_with_options(request, runtime)
 
+    def skip_video_file_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.call_id):
+            query['CallId'] = request.call_id
+        if not UtilClient.is_unset(request.called_number):
+            query['CalledNumber'] = request.called_number
+        if not UtilClient.is_unset(request.out_id):
+            query['OutId'] = request.out_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.skip_times):
+            query['SkipTimes'] = request.skip_times
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SkipVideoFile',
+            version='2017-05-25',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dyvmsapi_20170525_models.SkipVideoFileResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def skip_video_file(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.skip_video_file_with_options(request, runtime)
+
     def smart_call_with_options(self, request, runtime):
         """
         The SmartCall operation must be used together with the [intelligent outbound HTTP operation](~~112703~~). After the call initiated by the Voice Messaging Service (VMS) platform is connected, the VMS platform sends the text converted from speech back to the business side, and the business side then returns the follow-up action to the VMS platform.
@@ -2032,6 +2456,8 @@ class Client(OpenApiClient):
             query['EnableITN'] = request.enable_itn
         if not UtilClient.is_unset(request.mute_time):
             query['MuteTime'] = request.mute_time
+        if not UtilClient.is_unset(request.noise_threshold):
+            query['NoiseThreshold'] = request.noise_threshold
         if not UtilClient.is_unset(request.out_id):
             query['OutId'] = request.out_id
         if not UtilClient.is_unset(request.owner_id):
@@ -2377,6 +2803,46 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.submit_hotline_transfer_register_with_options(request, runtime)
+
+    def upgrade_video_file_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.call_id):
+            query['CallId'] = request.call_id
+        if not UtilClient.is_unset(request.called_number):
+            query['CalledNumber'] = request.called_number
+        if not UtilClient.is_unset(request.media_type):
+            query['MediaType'] = request.media_type
+        if not UtilClient.is_unset(request.out_id):
+            query['OutId'] = request.out_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpgradeVideoFile',
+            version='2017-05-25',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dyvmsapi_20170525_models.UpgradeVideoFileResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def upgrade_video_file(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.upgrade_video_file_with_options(request, runtime)
 
     def upload_robot_task_called_file_with_options(self, request, runtime):
         """

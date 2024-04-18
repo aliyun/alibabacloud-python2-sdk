@@ -605,6 +605,141 @@ class CancelRobotTaskResponse(TeaModel):
         return self
 
 
+class ChangeMediaTypeRequest(TeaModel):
+    def __init__(self, call_id=None, called_num=None, media_type=None, out_id=None, owner_id=None,
+                 resource_owner_account=None, resource_owner_id=None):
+        self.call_id = call_id  # type: str
+        self.called_num = called_num  # type: str
+        self.media_type = media_type  # type: str
+        self.out_id = out_id  # type: str
+        self.owner_id = owner_id  # type: long
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ChangeMediaTypeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.call_id is not None:
+            result['CallId'] = self.call_id
+        if self.called_num is not None:
+            result['CalledNum'] = self.called_num
+        if self.media_type is not None:
+            result['MediaType'] = self.media_type
+        if self.out_id is not None:
+            result['OutId'] = self.out_id
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CallId') is not None:
+            self.call_id = m.get('CallId')
+        if m.get('CalledNum') is not None:
+            self.called_num = m.get('CalledNum')
+        if m.get('MediaType') is not None:
+            self.media_type = m.get('MediaType')
+        if m.get('OutId') is not None:
+            self.out_id = m.get('OutId')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        return self
+
+
+class ChangeMediaTypeResponseBody(TeaModel):
+    def __init__(self, access_denied_detail=None, code=None, message=None, model=None, success=None):
+        self.access_denied_detail = access_denied_detail  # type: str
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.model = model  # type: bool
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ChangeMediaTypeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.model is not None:
+            result['Model'] = self.model
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('Model') is not None:
+            self.model = m.get('Model')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ChangeMediaTypeResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ChangeMediaTypeResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ChangeMediaTypeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ChangeMediaTypeResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateCallTaskRequest(TeaModel):
     def __init__(self, biz_type=None, data=None, data_type=None, fire_time=None, owner_id=None, resource=None,
                  resource_owner_account=None, resource_owner_id=None, resource_type=None, schedule_type=None, stop_time=None,
@@ -996,6 +1131,141 @@ class CreateRobotTaskResponse(TeaModel):
         return self
 
 
+class DegradeVideoFileRequest(TeaModel):
+    def __init__(self, call_id=None, called_number=None, media_type=None, out_id=None, owner_id=None,
+                 resource_owner_account=None, resource_owner_id=None):
+        self.call_id = call_id  # type: str
+        self.called_number = called_number  # type: str
+        self.media_type = media_type  # type: str
+        self.out_id = out_id  # type: str
+        self.owner_id = owner_id  # type: long
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DegradeVideoFileRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.call_id is not None:
+            result['CallId'] = self.call_id
+        if self.called_number is not None:
+            result['CalledNumber'] = self.called_number
+        if self.media_type is not None:
+            result['MediaType'] = self.media_type
+        if self.out_id is not None:
+            result['OutId'] = self.out_id
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CallId') is not None:
+            self.call_id = m.get('CallId')
+        if m.get('CalledNumber') is not None:
+            self.called_number = m.get('CalledNumber')
+        if m.get('MediaType') is not None:
+            self.media_type = m.get('MediaType')
+        if m.get('OutId') is not None:
+            self.out_id = m.get('OutId')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        return self
+
+
+class DegradeVideoFileResponseBody(TeaModel):
+    def __init__(self, access_denied_detail=None, code=None, data=None, message=None, success=None):
+        self.access_denied_detail = access_denied_detail  # type: str
+        self.code = code  # type: str
+        self.data = data  # type: dict[str, any]
+        self.message = message  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DegradeVideoFileResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class DegradeVideoFileResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DegradeVideoFileResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DegradeVideoFileResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DegradeVideoFileResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DeleteRobotTaskRequest(TeaModel):
     def __init__(self, owner_id=None, resource_owner_account=None, resource_owner_id=None, task_id=None):
         self.owner_id = owner_id  # type: long
@@ -1252,6 +1522,131 @@ class ExecuteCallTaskResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ExecuteCallTaskResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetCallProgressRequest(TeaModel):
+    def __init__(self, call_id=None, called_num=None, owner_id=None, resource_owner_account=None,
+                 resource_owner_id=None):
+        self.call_id = call_id  # type: str
+        self.called_num = called_num  # type: str
+        self.owner_id = owner_id  # type: long
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetCallProgressRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.call_id is not None:
+            result['CallId'] = self.call_id
+        if self.called_num is not None:
+            result['CalledNum'] = self.called_num
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CallId') is not None:
+            self.call_id = m.get('CallId')
+        if m.get('CalledNum') is not None:
+            self.called_num = m.get('CalledNum')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        return self
+
+
+class GetCallProgressResponseBody(TeaModel):
+    def __init__(self, access_denied_detail=None, code=None, message=None, model=None, success=None):
+        self.access_denied_detail = access_denied_detail  # type: str
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.model = model  # type: dict[str, any]
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetCallProgressResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.model is not None:
+            result['Model'] = self.model
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('Model') is not None:
+            self.model = m.get('Model')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetCallProgressResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetCallProgressResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetCallProgressResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetCallProgressResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -1546,6 +1941,125 @@ class GetTokenResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetTokenResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetVideoFieldUrlRequest(TeaModel):
+    def __init__(self, owner_id=None, resource_owner_account=None, resource_owner_id=None, video_file=None):
+        self.owner_id = owner_id  # type: long
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        self.video_file = video_file  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetVideoFieldUrlRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        if self.video_file is not None:
+            result['VideoFile'] = self.video_file
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('VideoFile') is not None:
+            self.video_file = m.get('VideoFile')
+        return self
+
+
+class GetVideoFieldUrlResponseBody(TeaModel):
+    def __init__(self, access_denied_detail=None, code=None, message=None, model=None, success=None):
+        self.access_denied_detail = access_denied_detail  # type: str
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.model = model  # type: dict[str, any]
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetVideoFieldUrlResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.model is not None:
+            result['Model'] = self.model
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('Model') is not None:
+            self.model = m.get('Model')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetVideoFieldUrlResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetVideoFieldUrlResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetVideoFieldUrlResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetVideoFieldUrlResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -2860,6 +3374,266 @@ class ListHotlineTransferRegisterFileResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListHotlineTransferRegisterFileResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class PauseVideoFileRequest(TeaModel):
+    def __init__(self, call_id=None, called_number=None, owner_id=None, resource_owner_account=None,
+                 resource_owner_id=None):
+        self.call_id = call_id  # type: str
+        self.called_number = called_number  # type: str
+        self.owner_id = owner_id  # type: long
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PauseVideoFileRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.call_id is not None:
+            result['CallId'] = self.call_id
+        if self.called_number is not None:
+            result['CalledNumber'] = self.called_number
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CallId') is not None:
+            self.call_id = m.get('CallId')
+        if m.get('CalledNumber') is not None:
+            self.called_number = m.get('CalledNumber')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        return self
+
+
+class PauseVideoFileResponseBody(TeaModel):
+    def __init__(self, access_denied_detail=None, code=None, data=None, message=None, success=None):
+        self.access_denied_detail = access_denied_detail  # type: str
+        self.code = code  # type: str
+        self.data = data  # type: dict[str, any]
+        self.message = message  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PauseVideoFileResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class PauseVideoFileResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: PauseVideoFileResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(PauseVideoFileResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = PauseVideoFileResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class PlayVideoFileRequest(TeaModel):
+    def __init__(self, call_id=None, called_number=None, out_id=None, owner_id=None, resource_owner_account=None,
+                 resource_owner_id=None, video_id=None):
+        self.call_id = call_id  # type: str
+        self.called_number = called_number  # type: str
+        self.out_id = out_id  # type: str
+        self.owner_id = owner_id  # type: long
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        self.video_id = video_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PlayVideoFileRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.call_id is not None:
+            result['CallId'] = self.call_id
+        if self.called_number is not None:
+            result['CalledNumber'] = self.called_number
+        if self.out_id is not None:
+            result['OutId'] = self.out_id
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        if self.video_id is not None:
+            result['VideoId'] = self.video_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CallId') is not None:
+            self.call_id = m.get('CallId')
+        if m.get('CalledNumber') is not None:
+            self.called_number = m.get('CalledNumber')
+        if m.get('OutId') is not None:
+            self.out_id = m.get('OutId')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('VideoId') is not None:
+            self.video_id = m.get('VideoId')
+        return self
+
+
+class PlayVideoFileResponseBody(TeaModel):
+    def __init__(self, access_denied_detail=None, code=None, message=None, model=None, success=None):
+        self.access_denied_detail = access_denied_detail  # type: str
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.model = model  # type: bool
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PlayVideoFileResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.model is not None:
+            result['Model'] = self.model
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('Model') is not None:
+            self.model = m.get('Model')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class PlayVideoFileResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: PlayVideoFileResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(PlayVideoFileResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = PlayVideoFileResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -4640,6 +5414,131 @@ class QueryRobotv2AllListResponse(TeaModel):
         return self
 
 
+class QueryVideoPlayProgressRequest(TeaModel):
+    def __init__(self, call_id=None, called_number=None, owner_id=None, resource_owner_account=None,
+                 resource_owner_id=None):
+        self.call_id = call_id  # type: str
+        self.called_number = called_number  # type: str
+        self.owner_id = owner_id  # type: long
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryVideoPlayProgressRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.call_id is not None:
+            result['CallId'] = self.call_id
+        if self.called_number is not None:
+            result['CalledNumber'] = self.called_number
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CallId') is not None:
+            self.call_id = m.get('CallId')
+        if m.get('CalledNumber') is not None:
+            self.called_number = m.get('CalledNumber')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        return self
+
+
+class QueryVideoPlayProgressResponseBody(TeaModel):
+    def __init__(self, access_denied_detail=None, code=None, data=None, message=None, success=None):
+        self.access_denied_detail = access_denied_detail  # type: str
+        self.code = code  # type: str
+        self.data = data  # type: dict[str, any]
+        self.message = message  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryVideoPlayProgressResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class QueryVideoPlayProgressResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: QueryVideoPlayProgressResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryVideoPlayProgressResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = QueryVideoPlayProgressResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class QueryVirtualNumberRequest(TeaModel):
     def __init__(self, owner_id=None, page_no=None, page_size=None, prod_code=None, resource_owner_account=None,
                  resource_owner_id=None, route_type=None):
@@ -5278,6 +6177,264 @@ class RecoverCallInConfigResponse(TeaModel):
         return self
 
 
+class ResumeVideoFileRequest(TeaModel):
+    def __init__(self, call_id=None, called_number=None, owner_id=None, resource_owner_account=None,
+                 resource_owner_id=None):
+        self.call_id = call_id  # type: str
+        self.called_number = called_number  # type: str
+        self.owner_id = owner_id  # type: long
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ResumeVideoFileRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.call_id is not None:
+            result['CallId'] = self.call_id
+        if self.called_number is not None:
+            result['CalledNumber'] = self.called_number
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CallId') is not None:
+            self.call_id = m.get('CallId')
+        if m.get('CalledNumber') is not None:
+            self.called_number = m.get('CalledNumber')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        return self
+
+
+class ResumeVideoFileResponseBody(TeaModel):
+    def __init__(self, access_denied_detail=None, code=None, data=None, message=None, success=None):
+        self.access_denied_detail = access_denied_detail  # type: str
+        self.code = code  # type: str
+        self.data = data  # type: dict[str, any]
+        self.message = message  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ResumeVideoFileResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ResumeVideoFileResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ResumeVideoFileResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ResumeVideoFileResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ResumeVideoFileResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SeekVideoFileRequest(TeaModel):
+    def __init__(self, call_id=None, called_number=None, owner_id=None, resource_owner_account=None,
+                 resource_owner_id=None, seek_times=None):
+        # 呼叫唯一ID
+        self.call_id = call_id  # type: str
+        # 被叫号码
+        self.called_number = called_number  # type: str
+        self.owner_id = owner_id  # type: long
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        # 快进或快退值，负数为快退，单位秒
+        self.seek_times = seek_times  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SeekVideoFileRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.call_id is not None:
+            result['CallId'] = self.call_id
+        if self.called_number is not None:
+            result['CalledNumber'] = self.called_number
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        if self.seek_times is not None:
+            result['SeekTimes'] = self.seek_times
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CallId') is not None:
+            self.call_id = m.get('CallId')
+        if m.get('CalledNumber') is not None:
+            self.called_number = m.get('CalledNumber')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('SeekTimes') is not None:
+            self.seek_times = m.get('SeekTimes')
+        return self
+
+
+class SeekVideoFileResponseBody(TeaModel):
+    def __init__(self, access_denied_detail=None, code=None, data=None, message=None, success=None):
+        self.access_denied_detail = access_denied_detail  # type: str
+        self.code = code  # type: str
+        self.data = data  # type: dict[str, any]
+        self.message = message  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SeekVideoFileResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class SeekVideoFileResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: SeekVideoFileResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SeekVideoFileResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = SeekVideoFileResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class SendVerificationRequest(TeaModel):
     def __init__(self, biz_type=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  target=None, verify_type=None):
@@ -5787,6 +6944,156 @@ class SingleCallByTtsResponse(TeaModel):
         return self
 
 
+class SingleCallByVideoRequest(TeaModel):
+    def __init__(self, called_number=None, called_show_number=None, out_id=None, owner_id=None, play_times=None,
+                 resource_owner_account=None, resource_owner_id=None, speed=None, video_code=None, voice_code=None, volume=None):
+        self.called_number = called_number  # type: str
+        self.called_show_number = called_show_number  # type: str
+        self.out_id = out_id  # type: str
+        self.owner_id = owner_id  # type: long
+        self.play_times = play_times  # type: int
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        self.speed = speed  # type: int
+        self.video_code = video_code  # type: str
+        self.voice_code = voice_code  # type: str
+        self.volume = volume  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SingleCallByVideoRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.called_number is not None:
+            result['CalledNumber'] = self.called_number
+        if self.called_show_number is not None:
+            result['CalledShowNumber'] = self.called_show_number
+        if self.out_id is not None:
+            result['OutId'] = self.out_id
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.play_times is not None:
+            result['PlayTimes'] = self.play_times
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        if self.speed is not None:
+            result['Speed'] = self.speed
+        if self.video_code is not None:
+            result['VideoCode'] = self.video_code
+        if self.voice_code is not None:
+            result['VoiceCode'] = self.voice_code
+        if self.volume is not None:
+            result['Volume'] = self.volume
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CalledNumber') is not None:
+            self.called_number = m.get('CalledNumber')
+        if m.get('CalledShowNumber') is not None:
+            self.called_show_number = m.get('CalledShowNumber')
+        if m.get('OutId') is not None:
+            self.out_id = m.get('OutId')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('PlayTimes') is not None:
+            self.play_times = m.get('PlayTimes')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('Speed') is not None:
+            self.speed = m.get('Speed')
+        if m.get('VideoCode') is not None:
+            self.video_code = m.get('VideoCode')
+        if m.get('VoiceCode') is not None:
+            self.voice_code = m.get('VoiceCode')
+        if m.get('Volume') is not None:
+            self.volume = m.get('Volume')
+        return self
+
+
+class SingleCallByVideoResponseBody(TeaModel):
+    def __init__(self, call_id=None, code=None, message=None, request_id=None):
+        self.call_id = call_id  # type: str
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SingleCallByVideoResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.call_id is not None:
+            result['CallId'] = self.call_id
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CallId') is not None:
+            self.call_id = m.get('CallId')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class SingleCallByVideoResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: SingleCallByVideoResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SingleCallByVideoResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = SingleCallByVideoResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class SingleCallByVoiceRequest(TeaModel):
     def __init__(self, called_number=None, called_show_number=None, out_id=None, owner_id=None, play_times=None,
                  resource_owner_account=None, resource_owner_id=None, speed=None, voice_code=None, volume=None):
@@ -5970,12 +7277,147 @@ class SingleCallByVoiceResponse(TeaModel):
         return self
 
 
+class SkipVideoFileRequest(TeaModel):
+    def __init__(self, call_id=None, called_number=None, out_id=None, owner_id=None, resource_owner_account=None,
+                 resource_owner_id=None, skip_times=None):
+        self.call_id = call_id  # type: str
+        self.called_number = called_number  # type: str
+        self.out_id = out_id  # type: str
+        self.owner_id = owner_id  # type: long
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        self.skip_times = skip_times  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SkipVideoFileRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.call_id is not None:
+            result['CallId'] = self.call_id
+        if self.called_number is not None:
+            result['CalledNumber'] = self.called_number
+        if self.out_id is not None:
+            result['OutId'] = self.out_id
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        if self.skip_times is not None:
+            result['SkipTimes'] = self.skip_times
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CallId') is not None:
+            self.call_id = m.get('CallId')
+        if m.get('CalledNumber') is not None:
+            self.called_number = m.get('CalledNumber')
+        if m.get('OutId') is not None:
+            self.out_id = m.get('OutId')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('SkipTimes') is not None:
+            self.skip_times = m.get('SkipTimes')
+        return self
+
+
+class SkipVideoFileResponseBody(TeaModel):
+    def __init__(self, access_denied_detail=None, code=None, data=None, message=None, success=None):
+        self.access_denied_detail = access_denied_detail  # type: str
+        self.code = code  # type: str
+        self.data = data  # type: bool
+        self.message = message  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SkipVideoFileResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class SkipVideoFileResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: SkipVideoFileResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SkipVideoFileResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = SkipVideoFileResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class SmartCallRequest(TeaModel):
     def __init__(self, action_code_break=None, action_code_time_break=None, asr_base_id=None, asr_model_id=None,
                  background_file_code=None, background_speed=None, background_volume=None, called_number=None, called_show_number=None,
-                 dynamic_id=None, early_media_asr=None, enable_itn=None, mute_time=None, out_id=None, owner_id=None,
-                 pause_time=None, record_flag=None, resource_owner_account=None, resource_owner_id=None, session_timeout=None,
-                 speed=None, stream_asr=None, tts_conf=None, tts_speed=None, tts_style=None, tts_volume=None,
+                 dynamic_id=None, early_media_asr=None, enable_itn=None, mute_time=None, noise_threshold=None, out_id=None,
+                 owner_id=None, pause_time=None, record_flag=None, resource_owner_account=None, resource_owner_id=None,
+                 session_timeout=None, speed=None, stream_asr=None, tts_conf=None, tts_speed=None, tts_style=None, tts_volume=None,
                  voice_code=None, voice_code_param=None, volume=None):
         # Specifies whether the playback of the recording file can be interrupted. Default value: **true**. The default value indicates that the playback of the recording file can be interrupted.
         # 
@@ -6051,6 +7493,7 @@ class SmartCallRequest(TeaModel):
         # 
         # *   The parameter value can be adjusted during the conversation. The last setting prevails.
         self.mute_time = mute_time  # type: int
+        self.noise_threshold = noise_threshold  # type: float
         # The ID that is reserved for the caller of the operation. This ID is returned to the caller in a receipt message.
         # 
         # The value is of the STRING type and must be 1 to 15 bytes in length.
@@ -6141,6 +7584,8 @@ class SmartCallRequest(TeaModel):
             result['EnableITN'] = self.enable_itn
         if self.mute_time is not None:
             result['MuteTime'] = self.mute_time
+        if self.noise_threshold is not None:
+            result['NoiseThreshold'] = self.noise_threshold
         if self.out_id is not None:
             result['OutId'] = self.out_id
         if self.owner_id is not None:
@@ -6203,6 +7648,8 @@ class SmartCallRequest(TeaModel):
             self.enable_itn = m.get('EnableITN')
         if m.get('MuteTime') is not None:
             self.mute_time = m.get('MuteTime')
+        if m.get('NoiseThreshold') is not None:
+            self.noise_threshold = m.get('NoiseThreshold')
         if m.get('OutId') is not None:
             self.out_id = m.get('OutId')
         if m.get('OwnerId') is not None:
@@ -7063,6 +8510,141 @@ class SubmitHotlineTransferRegisterResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SubmitHotlineTransferRegisterResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpgradeVideoFileRequest(TeaModel):
+    def __init__(self, call_id=None, called_number=None, media_type=None, out_id=None, owner_id=None,
+                 resource_owner_account=None, resource_owner_id=None):
+        self.call_id = call_id  # type: str
+        self.called_number = called_number  # type: str
+        self.media_type = media_type  # type: str
+        self.out_id = out_id  # type: str
+        self.owner_id = owner_id  # type: long
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpgradeVideoFileRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.call_id is not None:
+            result['CallId'] = self.call_id
+        if self.called_number is not None:
+            result['CalledNumber'] = self.called_number
+        if self.media_type is not None:
+            result['MediaType'] = self.media_type
+        if self.out_id is not None:
+            result['OutId'] = self.out_id
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CallId') is not None:
+            self.call_id = m.get('CallId')
+        if m.get('CalledNumber') is not None:
+            self.called_number = m.get('CalledNumber')
+        if m.get('MediaType') is not None:
+            self.media_type = m.get('MediaType')
+        if m.get('OutId') is not None:
+            self.out_id = m.get('OutId')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        return self
+
+
+class UpgradeVideoFileResponseBody(TeaModel):
+    def __init__(self, access_denied_detail=None, code=None, data=None, message=None, success=None):
+        self.access_denied_detail = access_denied_detail  # type: str
+        self.code = code  # type: str
+        self.data = data  # type: dict[str, any]
+        self.message = message  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpgradeVideoFileResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class UpgradeVideoFileResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpgradeVideoFileResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpgradeVideoFileResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpgradeVideoFileResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
