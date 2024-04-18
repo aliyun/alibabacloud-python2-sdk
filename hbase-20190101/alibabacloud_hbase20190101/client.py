@@ -236,6 +236,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.convert_instance_with_options(request, runtime)
 
+    def create_account_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.account_name):
+            query['AccountName'] = request.account_name
+        if not UtilClient.is_unset(request.account_password):
+            query['AccountPassword'] = request.account_password
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateAccount',
+            version='2019-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            hbase_20190101_models.CreateAccountResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_account(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_account_with_options(request, runtime)
+
     def create_backup_plan_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -620,6 +652,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_serverless_cluster_with_options(request, runtime)
 
+    def delete_account_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.account_name):
+            query['AccountName'] = request.account_name
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteAccount',
+            version='2019-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            hbase_20190101_models.DeleteAccountResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_account(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_account_with_options(request, runtime)
+
     def delete_global_resource_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -867,6 +929,34 @@ class Client(OpenApiClient):
     def delete_user_hdfs_info(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_user_hdfs_info_with_options(request, runtime)
+
+    def describe_accounts_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeAccounts',
+            version='2019-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            hbase_20190101_models.DescribeAccountsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_accounts(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_accounts_with_options(request, runtime)
 
     def describe_active_operation_task_type_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2098,6 +2188,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_multimode_cms_url_with_options(request, runtime)
 
+    def grant_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.account_name):
+            query['AccountName'] = request.account_name
+        if not UtilClient.is_unset(request.acl_actions):
+            query['AclActions'] = request.acl_actions
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
+        if not UtilClient.is_unset(request.table_name):
+            query['TableName'] = request.table_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='Grant',
+            version='2019-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            hbase_20190101_models.GrantResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def grant(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.grant_with_options(request, runtime)
+
     def list_hbase_instances_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -2251,6 +2377,38 @@ class Client(OpenApiClient):
     def list_tags(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_tags_with_options(request, runtime)
+
+    def modify_account_password_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.account_name):
+            query['AccountName'] = request.account_name
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.new_account_password):
+            query['NewAccountPassword'] = request.new_account_password
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyAccountPassword',
+            version='2019-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            hbase_20190101_models.ModifyAccountPasswordResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_account_password(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_account_password_with_options(request, runtime)
 
     def modify_active_operation_tasks_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -3163,6 +3321,42 @@ class Client(OpenApiClient):
     def restart_instance(self, request):
         runtime = util_models.RuntimeOptions()
         return self.restart_instance_with_options(request, runtime)
+
+    def revoke_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.account_name):
+            query['AccountName'] = request.account_name
+        if not UtilClient.is_unset(request.acl_actions):
+            query['AclActions'] = request.acl_actions
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
+        if not UtilClient.is_unset(request.table_name):
+            query['TableName'] = request.table_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='Revoke',
+            version='2019-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            hbase_20190101_models.RevokeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def revoke(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.revoke_with_options(request, runtime)
 
     def switch_hbase_ha_slb_with_options(self, request, runtime):
         UtilClient.validate_model(request)
