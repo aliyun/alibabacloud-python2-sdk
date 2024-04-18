@@ -860,6 +860,8 @@ class Client(OpenApiClient):
             query['FeatureType'] = request.feature_type
         if not UtilClient.is_unset(request.lang):
             query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.member_account):
+            query['MemberAccount'] = request.member_account
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.parent_id):
@@ -1122,6 +1124,8 @@ class Client(OpenApiClient):
             query['InstanceId'] = request.instance_id
         if not UtilClient.is_unset(request.lang):
             query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.member_account):
+            query['MemberAccount'] = request.member_account
         if not UtilClient.is_unset(request.model_ids):
             query['ModelIds'] = request.model_ids
         if not UtilClient.is_unset(request.model_tag_ids):
@@ -1339,9 +1343,10 @@ class Client(OpenApiClient):
 
     def describe_instance_sources_with_options(self, request, runtime):
         """
-        You can call this operation to query the data assets that DSC is not authorized to access. This helps you obtain information about the data assets.
-        # Limits
-        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        You can query a list of unauthorized or authorized data assets based on the value of AuthStatus.
+        This operation is no longer used for the KMS console of the new version.
+        # [](#qps-)QPS limits
+        This operation can be called up to 10 times per second for each Alibaba Cloud account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
 
         @param request: DescribeInstanceSourcesRequest
@@ -1399,9 +1404,10 @@ class Client(OpenApiClient):
 
     def describe_instance_sources(self, request):
         """
-        You can call this operation to query the data assets that DSC is not authorized to access. This helps you obtain information about the data assets.
-        # Limits
-        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        You can query a list of unauthorized or authorized data assets based on the value of AuthStatus.
+        This operation is no longer used for the KMS console of the new version.
+        # [](#qps-)QPS limits
+        This operation can be called up to 10 times per second for each Alibaba Cloud account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
 
         @param request: DescribeInstanceSourcesRequest
@@ -1698,6 +1704,8 @@ class Client(OpenApiClient):
             query['InstanceId'] = request.instance_id
         if not UtilClient.is_unset(request.lang):
             query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.member_account):
+            query['MemberAccount'] = request.member_account
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.resource_type):
