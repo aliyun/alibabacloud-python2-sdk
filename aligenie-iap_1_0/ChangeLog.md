@@ -1,3 +1,6 @@
+2024-04-18 Version: 1.1.2
+- Generated python2 iap_1.0 for AliGenie.
+
 2024-04-17 Version: 1.1.1
 - Generated python2 iap_1.0 for AliGenie.
 

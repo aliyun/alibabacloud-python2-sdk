@@ -119,7 +119,7 @@ class Client(OpenApiClient):
             action='CallBackThirdRightSendPlan',
             version='iap_1.0',
             protocol='HTTPS',
-            pathname='/1.0/iap/business/CallBackThirdRightSendPlan',
+            pathname='/v1.0/iap/business/CallBackThirdRightSendPlan',
             method='POST',
             auth_type='AK',
             style='ROA',
