@@ -1374,56 +1374,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_result_with_options(request, runtime)
 
-    def get_result_callback_with_options(self, request, runtime):
-        """
-        @deprecated
-        
-
-        @param request: GetResultCallbackRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: GetResultCallbackResponse
-        Deprecated
-        """
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.base_me_agent_id):
-            query['BaseMeAgentId'] = request.base_me_agent_id
-        if not UtilClient.is_unset(request.json_str):
-            query['JsonStr'] = request.json_str
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='GetResultCallback',
-            version='2019-01-15',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            qualitycheck_20190115_models.GetResultCallbackResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def get_result_callback(self, request):
-        """
-        @deprecated
-        
-
-        @param request: GetResultCallbackRequest
-
-        @return: GetResultCallbackResponse
-        Deprecated
-        """
-        runtime = util_models.RuntimeOptions()
-        return self.get_result_callback_with_options(request, runtime)
-
     def get_result_to_review_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -2111,36 +2061,6 @@ class Client(OpenApiClient):
     def list_data_set(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_data_set_with_options(request, runtime)
-
-    def list_hot_words_tasks_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.base_me_agent_id):
-            query['BaseMeAgentId'] = request.base_me_agent_id
-        if not UtilClient.is_unset(request.json_str):
-            query['JsonStr'] = request.json_str
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='ListHotWordsTasks',
-            version='2019-01-15',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            qualitycheck_20190115_models.ListHotWordsTasksResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def list_hot_words_tasks(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.list_hot_words_tasks_with_options(request, runtime)
 
     def list_precision_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
