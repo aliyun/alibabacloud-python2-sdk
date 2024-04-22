@@ -532,6 +532,8 @@ class Client(OpenApiClient):
             body['runtime'] = request.runtime
         if not UtilClient.is_unset(request.security_group_id):
             body['security_group_id'] = request.security_group_id
+        if not UtilClient.is_unset(request.security_hardening_os):
+            body['security_hardening_os'] = request.security_hardening_os
         if not UtilClient.is_unset(request.service_account_issuer):
             body['service_account_issuer'] = request.service_account_issuer
         if not UtilClient.is_unset(request.service_cidr):

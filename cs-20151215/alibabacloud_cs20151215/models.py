@@ -2272,11 +2272,11 @@ class CreateClusterRequest(TeaModel):
                  master_vswitch_ids=None, name=None, nat_gateway=None, node_cidr_mask=None, node_name_mode=None, node_port_range=None,
                  nodepools=None, num_of_nodes=None, os_type=None, period=None, period_unit=None, platform=None,
                  pod_vswitch_ids=None, profile=None, proxy_mode=None, rds_instances=None, region_id=None, resource_group_id=None,
-                 runtime=None, security_group_id=None, service_account_issuer=None, service_cidr=None,
-                 service_discovery_types=None, snat_entry=None, soc_enabled=None, ssh_flags=None, tags=None, taints=None, timeout_mins=None,
-                 timezone=None, user_ca=None, user_data=None, vpcid=None, vswitch_ids=None, worker_auto_renew=None,
-                 worker_auto_renew_period=None, worker_data_disks=None, worker_instance_charge_type=None, worker_instance_types=None,
-                 worker_period=None, worker_period_unit=None, worker_system_disk_category=None,
+                 runtime=None, security_group_id=None, security_hardening_os=None, service_account_issuer=None,
+                 service_cidr=None, service_discovery_types=None, snat_entry=None, soc_enabled=None, ssh_flags=None, tags=None,
+                 taints=None, timeout_mins=None, timezone=None, user_ca=None, user_data=None, vpcid=None, vswitch_ids=None,
+                 worker_auto_renew=None, worker_auto_renew_period=None, worker_data_disks=None, worker_instance_charge_type=None,
+                 worker_instance_types=None, worker_period=None, worker_period_unit=None, worker_system_disk_category=None,
                  worker_system_disk_performance_level=None, worker_system_disk_size=None, worker_system_disk_snapshot_policy_id=None,
                  worker_vswitch_ids=None, zone_id=None):
         # The network access control list (ACL) of the SLB instance associated with the API server if the cluster is a registered cluster.
@@ -2438,7 +2438,7 @@ class CreateClusterRequest(TeaModel):
         # 
         # >  This parameter is required when you create worker nodes on existing ECS instances.
         self.instances = instances  # type: list[str]
-        # The cluster IP stack.
+        # The cluster ip_stack.
         self.ip_stack = ip_stack  # type: str
         # Specifies whether to create an advanced security group. This parameter takes effect only if `security_group_id` is left empty.
         # 
@@ -2623,6 +2623,7 @@ class CreateClusterRequest(TeaModel):
         self.runtime = runtime  # type: Runtime
         # The ID of an existing security group. You need to choose between this parameter and the `is_enterprise_security_group` parameter. Cluster nodes are automatically added to the security group.
         self.security_group_id = security_group_id  # type: str
+        self.security_hardening_os = security_hardening_os  # type: bool
         # Service accounts provide identities for pods when pods communicate with the `API server` of the cluster. `service-account-issuer` is the issuer of the `serviceaccount token`, which corresponds to the `iss` field in the `token payload`.
         # 
         # For more information about `ServiceAccount`, see [Enable service account token volume projection](~~160384~~).
@@ -2913,6 +2914,8 @@ class CreateClusterRequest(TeaModel):
             result['runtime'] = self.runtime.to_map()
         if self.security_group_id is not None:
             result['security_group_id'] = self.security_group_id
+        if self.security_hardening_os is not None:
+            result['security_hardening_os'] = self.security_hardening_os
         if self.service_account_issuer is not None:
             result['service_account_issuer'] = self.service_account_issuer
         if self.service_cidr is not None:
@@ -3110,6 +3113,8 @@ class CreateClusterRequest(TeaModel):
             self.runtime = temp_model.from_map(m['runtime'])
         if m.get('security_group_id') is not None:
             self.security_group_id = m.get('security_group_id')
+        if m.get('security_hardening_os') is not None:
+            self.security_hardening_os = m.get('security_hardening_os')
         if m.get('service_account_issuer') is not None:
             self.service_account_issuer = m.get('service_account_issuer')
         if m.get('service_cidr') is not None:
@@ -3888,10 +3893,11 @@ class CreateClusterNodePoolRequestScalingGroup(TeaModel):
                  key_pair=None, login_as_non_root=None, login_password=None, multi_az_policy=None,
                  on_demand_base_capacity=None, on_demand_percentage_above_base_capacity=None, period=None, period_unit=None, platform=None,
                  private_pool_options=None, rds_instances=None, scaling_policy=None, security_group_id=None, security_group_ids=None,
-                 soc_enabled=None, spot_instance_pools=None, spot_instance_remedy=None, spot_price_limit=None,
-                 spot_strategy=None, system_disk_bursting_enabled=None, system_disk_categories=None, system_disk_category=None,
-                 system_disk_encrypt_algorithm=None, system_disk_encrypted=None, system_disk_kms_key_id=None,
-                 system_disk_performance_level=None, system_disk_provisioned_iops=None, system_disk_size=None, tags=None, vswitch_ids=None):
+                 security_hardening_os=None, soc_enabled=None, spot_instance_pools=None, spot_instance_remedy=None,
+                 spot_price_limit=None, spot_strategy=None, system_disk_bursting_enabled=None, system_disk_categories=None,
+                 system_disk_category=None, system_disk_encrypt_algorithm=None, system_disk_encrypted=None,
+                 system_disk_kms_key_id=None, system_disk_performance_level=None, system_disk_provisioned_iops=None,
+                 system_disk_size=None, tags=None, vswitch_ids=None):
         # Specifies whether to enable auto-renewal for nodes in the node pool. This parameter takes effect only when you set `instance_charge_type` to `PrePaid`. Valid values:
         # 
         # *   `true`: enables auto-renewal
@@ -3999,6 +4005,7 @@ class CreateClusterNodePoolRequestScalingGroup(TeaModel):
         self.security_group_id = security_group_id  # type: str
         # The IDs of security groups to which you want to add the node pool. You must set this parameter or `security_group_id`. We recommend that you set `security_group_ids`. If you set both `security_group_id` and `security_group_ids`, `security_group_ids` is used.
         self.security_group_ids = security_group_ids  # type: list[str]
+        self.security_hardening_os = security_hardening_os  # type: bool
         self.soc_enabled = soc_enabled  # type: bool
         # The number of instance types that are available. Auto Scaling creates preemptible instances of multiple instance types that are available at the lowest cost. Valid values: 1 to 10.
         self.spot_instance_pools = spot_instance_pools  # type: long
@@ -4138,6 +4145,8 @@ class CreateClusterNodePoolRequestScalingGroup(TeaModel):
             result['security_group_id'] = self.security_group_id
         if self.security_group_ids is not None:
             result['security_group_ids'] = self.security_group_ids
+        if self.security_hardening_os is not None:
+            result['security_hardening_os'] = self.security_hardening_os
         if self.soc_enabled is not None:
             result['soc_enabled'] = self.soc_enabled
         if self.spot_instance_pools is not None:
@@ -4236,6 +4245,8 @@ class CreateClusterNodePoolRequestScalingGroup(TeaModel):
             self.security_group_id = m.get('security_group_id')
         if m.get('security_group_ids') is not None:
             self.security_group_ids = m.get('security_group_ids')
+        if m.get('security_hardening_os') is not None:
+            self.security_hardening_os = m.get('security_hardening_os')
         if m.get('soc_enabled') is not None:
             self.soc_enabled = m.get('soc_enabled')
         if m.get('spot_instance_pools') is not None:
@@ -8236,11 +8247,11 @@ class DescribeClusterNodePoolDetailResponseBodyScalingGroup(TeaModel):
                  key_pair=None, login_as_non_root=None, login_password=None, multi_az_policy=None,
                  on_demand_base_capacity=None, on_demand_percentage_above_base_capacity=None, period=None, period_unit=None, platform=None,
                  private_pool_options=None, ram_policy=None, rds_instances=None, scaling_group_id=None, scaling_policy=None,
-                 security_group_id=None, security_group_ids=None, soc_enabled=None, spot_instance_pools=None,
-                 spot_instance_remedy=None, spot_price_limit=None, spot_strategy=None, system_disk_bursting_enabled=None,
-                 system_disk_categories=None, system_disk_category=None, system_disk_encrypt_algorithm=None, system_disk_encrypted=None,
-                 system_disk_kms_key_id=None, system_disk_performance_level=None, system_disk_provisioned_iops=None,
-                 system_disk_size=None, tags=None, vswitch_ids=None):
+                 security_group_id=None, security_group_ids=None, security_hardening_os=None, soc_enabled=None,
+                 spot_instance_pools=None, spot_instance_remedy=None, spot_price_limit=None, spot_strategy=None,
+                 system_disk_bursting_enabled=None, system_disk_categories=None, system_disk_category=None, system_disk_encrypt_algorithm=None,
+                 system_disk_encrypted=None, system_disk_kms_key_id=None, system_disk_performance_level=None,
+                 system_disk_provisioned_iops=None, system_disk_size=None, tags=None, vswitch_ids=None):
         # Indicates whether auto-renewal is enabled for the nodes in the node pool. This parameter takes effect only when `instance_charge_type` is set to `PrePaid`. Valid values:
         # 
         # *   `true`: Auto-renewal is enabled.
@@ -8333,6 +8344,7 @@ class DescribeClusterNodePoolDetailResponseBodyScalingGroup(TeaModel):
         self.security_group_id = security_group_id  # type: str
         # The IDs of the security groups to which the node pool is added.
         self.security_group_ids = security_group_ids  # type: list[str]
+        self.security_hardening_os = security_hardening_os  # type: bool
         self.soc_enabled = soc_enabled  # type: bool
         # The number of instance types that are available for creating preemptible instances. Auto Scaling creates preemptible instances of multiple instance types that are available at the lowest cost. Valid values: 1 to 10.
         self.spot_instance_pools = spot_instance_pools  # type: long
@@ -8459,6 +8471,8 @@ class DescribeClusterNodePoolDetailResponseBodyScalingGroup(TeaModel):
             result['security_group_id'] = self.security_group_id
         if self.security_group_ids is not None:
             result['security_group_ids'] = self.security_group_ids
+        if self.security_hardening_os is not None:
+            result['security_hardening_os'] = self.security_hardening_os
         if self.soc_enabled is not None:
             result['soc_enabled'] = self.soc_enabled
         if self.spot_instance_pools is not None:
@@ -8561,6 +8575,8 @@ class DescribeClusterNodePoolDetailResponseBodyScalingGroup(TeaModel):
             self.security_group_id = m.get('security_group_id')
         if m.get('security_group_ids') is not None:
             self.security_group_ids = m.get('security_group_ids')
+        if m.get('security_hardening_os') is not None:
+            self.security_hardening_os = m.get('security_hardening_os')
         if m.get('soc_enabled') is not None:
             self.soc_enabled = m.get('soc_enabled')
         if m.get('spot_instance_pools') is not None:
@@ -9487,11 +9503,11 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsScalingGroup(TeaModel):
                  key_pair=None, login_as_non_root=None, login_password=None, multi_az_policy=None,
                  on_demand_base_capacity=None, on_demand_percentage_above_base_capacity=None, period=None, period_unit=None, platform=None,
                  private_pool_options=None, ram_policy=None, rds_instances=None, scaling_group_id=None, scaling_policy=None,
-                 security_group_id=None, security_group_ids=None, soc_enabled=None, spot_instance_pools=None,
-                 spot_instance_remedy=None, spot_price_limit=None, spot_strategy=None, system_disk_bursting_enabled=None,
-                 system_disk_categories=None, system_disk_category=None, system_disk_encrypt_algorithm=None, system_disk_encrypted=None,
-                 system_disk_kms_key_id=None, system_disk_performance_level=None, system_disk_provisioned_iops=None,
-                 system_disk_size=None, tags=None, vswitch_ids=None):
+                 security_group_id=None, security_group_ids=None, security_hardening_os=None, soc_enabled=None,
+                 spot_instance_pools=None, spot_instance_remedy=None, spot_price_limit=None, spot_strategy=None,
+                 system_disk_bursting_enabled=None, system_disk_categories=None, system_disk_category=None, system_disk_encrypt_algorithm=None,
+                 system_disk_encrypted=None, system_disk_kms_key_id=None, system_disk_performance_level=None,
+                 system_disk_provisioned_iops=None, system_disk_size=None, tags=None, vswitch_ids=None):
         # Indicates whether auto-renewal is enabled for the nodes in the node pool. This parameter takes effect only when `instance_charge_type` is set to `PrePaid`. Valid values:
         # 
         # *   `true`: Auto-renewal is enabled.
@@ -9587,6 +9603,7 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsScalingGroup(TeaModel):
         self.security_group_id = security_group_id  # type: str
         # The IDs of the security groups to which the node pool is added.
         self.security_group_ids = security_group_ids  # type: list[str]
+        self.security_hardening_os = security_hardening_os  # type: bool
         # 是否开启等保加固，仅当系统镜像选择Alibaba Cloud Linux 2或Alibaba Cloud Linux 3时，可为节点开启等保加固。阿里云为Alibaba Cloud Linux 2和Alibaba Cloud Linux 3等保2.0三级版镜像提供等保合规的基线检查标准和扫描程序。
         self.soc_enabled = soc_enabled  # type: bool
         # The number of instance types that are available for creating preemptible instances. Auto Scaling creates preemptible instances of multiple instance types that are available at the lowest cost. Valid values: 1 to 10.
@@ -9720,6 +9737,8 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsScalingGroup(TeaModel):
             result['security_group_id'] = self.security_group_id
         if self.security_group_ids is not None:
             result['security_group_ids'] = self.security_group_ids
+        if self.security_hardening_os is not None:
+            result['security_hardening_os'] = self.security_hardening_os
         if self.soc_enabled is not None:
             result['soc_enabled'] = self.soc_enabled
         if self.spot_instance_pools is not None:
@@ -9822,6 +9841,8 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsScalingGroup(TeaModel):
             self.security_group_id = m.get('security_group_id')
         if m.get('security_group_ids') is not None:
             self.security_group_ids = m.get('security_group_ids')
+        if m.get('security_hardening_os') is not None:
+            self.security_hardening_os = m.get('security_hardening_os')
         if m.get('soc_enabled') is not None:
             self.soc_enabled = m.get('soc_enabled')
         if m.get('spot_instance_pools') is not None:
@@ -14320,7 +14341,7 @@ class DescribePolicyInstancesResponse(TeaModel):
 class DescribePolicyInstancesStatusResponseBodyPolicyInstances(TeaModel):
     def __init__(self, policy_category=None, policy_description=None, policy_instances_count=None,
                  policy_name=None, policy_severity=None):
-        # The policy type. For more information about different types of policies and their descriptions, see [Predefined security policies of ACK](https://www.alibabacloud.com/help/doc-detail/359819.html).
+        # The policy type. For more information about different types of policies and their descriptions, see [Predefined security policies of ACK](~~359819~~).
         self.policy_category = policy_category  # type: str
         # The description of the policy.
         self.policy_description = policy_description  # type: str
