@@ -259,9 +259,6 @@ class ApplyCreateDistributionOrderResponse(TeaModel):
         self.body = body  # type: ApplyCreateDistributionOrderResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -594,9 +591,6 @@ class ApplyRefund4DistributionResponse(TeaModel):
         self.body = body  # type: ApplyRefund4DistributionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -738,9 +732,6 @@ class CancelDistributionTradeResponse(TeaModel):
         self.body = body  # type: CancelDistributionTradeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -933,9 +924,6 @@ class CancelRefund4DistributionResponse(TeaModel):
         self.body = body  # type: CancelRefund4DistributionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1083,9 +1071,6 @@ class ConfirmDisburse4DistributionResponse(TeaModel):
         self.body = body  # type: ConfirmDisburse4DistributionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1369,9 +1354,6 @@ class InitApplyRefund4DistributionResponse(TeaModel):
         self.body = body  # type: InitApplyRefund4DistributionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1655,9 +1637,6 @@ class InitModifyRefund4DistributionResponse(TeaModel):
         self.body = body  # type: InitModifyRefund4DistributionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2337,9 +2316,6 @@ class ListDistributionItemResponse(TeaModel):
         self.body = body  # type: ListDistributionItemResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2956,9 +2932,6 @@ class ListDistributionItemWithoutCacheResponse(TeaModel):
         self.body = body  # type: ListDistributionItemWithoutCacheResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3199,9 +3172,6 @@ class ListDistributionMallResponse(TeaModel):
         self.body = body  # type: ListDistributionMallResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3544,9 +3514,6 @@ class ModifyRefund4DistributionResponse(TeaModel):
         self.body = body  # type: ModifyRefund4DistributionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3770,9 +3737,6 @@ class QueryChildDivisionCodeByIdResponse(TeaModel):
         self.body = body  # type: QueryChildDivisionCodeByIdResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3975,9 +3939,6 @@ class QueryDistributionBillDetailResponse(TeaModel):
         self.body = body  # type: QueryDistributionBillDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4186,9 +4147,6 @@ class QueryDistributionMallResponse(TeaModel):
         self.body = body  # type: QueryDistributionMallResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4341,9 +4299,6 @@ class QueryDistributionTradeStatusResponse(TeaModel):
         self.body = body  # type: QueryDistributionTradeStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4929,9 +4884,6 @@ class QueryItemDetailResponse(TeaModel):
         self.body = body  # type: QueryItemDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5533,9 +5485,6 @@ class QueryItemDetailWithDivisionResponse(TeaModel):
         self.body = body  # type: QueryItemDetailWithDivisionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5862,9 +5811,6 @@ class QueryItemGuideRetailPriceResponse(TeaModel):
         self.body = body  # type: QueryItemGuideRetailPriceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6164,9 +6110,6 @@ class QueryLogistics4DistributionResponse(TeaModel):
         self.body = body  # type: QueryLogistics4DistributionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6349,9 +6292,6 @@ class QueryMallCategoryListResponse(TeaModel):
         self.body = body  # type: QueryMallCategoryListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6670,9 +6610,6 @@ class QueryOrderDetail4DistributionResponse(TeaModel):
         self.body = body  # type: QueryOrderDetail4DistributionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7007,9 +6944,6 @@ class QueryOrderList4DistributionResponse(TeaModel):
         self.body = body  # type: QueryOrderList4DistributionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7365,9 +7299,6 @@ class QueryRefundApplicationDetail4DistributionResponse(TeaModel):
         self.body = body  # type: QueryRefundApplicationDetail4DistributionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9074,9 +9005,6 @@ class RenderDistributionOrderResponse(TeaModel):
         self.body = body  # type: RenderDistributionOrderResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9234,9 +9162,6 @@ class SubmitReturnGoodLogistics4DistributionResponse(TeaModel):
         self.body = body  # type: SubmitReturnGoodLogistics4DistributionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
