@@ -19,7 +19,6 @@ class Client(OpenApiClient):
     """
     def __init__(self, config):
         super(Client, self).__init__(config)
-        self._signature_algorithm = 'v2'
         self._endpoint_rule = 'central'
         self._endpoint_map = {
             'cn-beijing': 'adcp.cn-beijing.aliyuncs.com',
@@ -109,6 +108,8 @@ class Client(OpenApiClient):
             body['Profile'] = request.profile
         if not UtilClient.is_unset(request.region_id):
             body['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            body['ResourceGroupID'] = request.resource_group_id
         if not UtilClient.is_unset(request.v_switches):
             body['VSwitches'] = request.v_switches
         if not UtilClient.is_unset(request.vpc_id):
@@ -373,6 +374,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.profile):
             query['Profile'] = request.profile
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -687,6 +690,17 @@ class Client(OpenApiClient):
         return self.grant_user_permission_with_options(request, runtime)
 
     def grant_user_permissions_with_options(self, tmp_req, runtime):
+        """
+        @deprecated : GrantUserPermissions is deprecated, please use adcp::2022-01-01::GrantUserPermission instead.
+        
+
+        @param tmp_req: GrantUserPermissionsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GrantUserPermissionsResponse
+        Deprecated
+        """
         UtilClient.validate_model(tmp_req)
         request = adcp_20220101_models.GrantUserPermissionsShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
@@ -717,6 +731,15 @@ class Client(OpenApiClient):
         )
 
     def grant_user_permissions(self, request):
+        """
+        @deprecated : GrantUserPermissions is deprecated, please use adcp::2022-01-01::GrantUserPermission instead.
+        
+
+        @param request: GrantUserPermissionsRequest
+
+        @return: GrantUserPermissionsResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.grant_user_permissions_with_options(request, runtime)
 
@@ -749,8 +772,8 @@ class Client(OpenApiClient):
             query['DeletionProtection'] = request.deletion_protection
         if not UtilClient.is_unset(request.enable_mesh):
             query['EnableMesh'] = request.enable_mesh
-        if not UtilClient.is_unset(request.mseenabled):
-            query['MSEEnabled'] = request.mseenabled
+        if not UtilClient.is_unset(request.gateway_enabled):
+            query['GatewayEnabled'] = request.gateway_enabled
         if not UtilClient.is_unset(request.monitor_enabled):
             query['MonitorEnabled'] = request.monitor_enabled
         if not UtilClient.is_unset(request.name):
