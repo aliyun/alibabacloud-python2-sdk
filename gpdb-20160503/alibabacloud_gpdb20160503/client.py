@@ -4768,6 +4768,8 @@ class Client(OpenApiClient):
         UtilClient.validate_model(tmp_req)
         request = gpdb_20160503_models.QueryCollectionDataShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.hybrid_search_args):
+            request.hybrid_search_args_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.hybrid_search_args, 'HybridSearchArgs', 'json')
         if not UtilClient.is_unset(tmp_req.vector):
             request.vector_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.vector, 'Vector', 'json')
         query = {}
@@ -4779,6 +4781,10 @@ class Client(OpenApiClient):
             query['DBInstanceId'] = request.dbinstance_id
         if not UtilClient.is_unset(request.filter):
             query['Filter'] = request.filter
+        if not UtilClient.is_unset(request.hybrid_search):
+            query['HybridSearch'] = request.hybrid_search
+        if not UtilClient.is_unset(request.hybrid_search_args_shrink):
+            query['HybridSearchArgs'] = request.hybrid_search_args_shrink
         if not UtilClient.is_unset(request.include_values):
             query['IncludeValues'] = request.include_values
         if not UtilClient.is_unset(request.metrics):
@@ -4822,6 +4828,8 @@ class Client(OpenApiClient):
         UtilClient.validate_model(tmp_req)
         request = gpdb_20160503_models.QueryContentShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.hybrid_search_args):
+            request.hybrid_search_args_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.hybrid_search_args, 'HybridSearchArgs', 'json')
         if not UtilClient.is_unset(tmp_req.recall_window):
             request.recall_window_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.recall_window, 'RecallWindow', 'json')
         query = {}
@@ -4837,6 +4845,10 @@ class Client(OpenApiClient):
             query['FileUrl'] = request.file_url
         if not UtilClient.is_unset(request.filter):
             query['Filter'] = request.filter
+        if not UtilClient.is_unset(request.hybrid_search):
+            query['HybridSearch'] = request.hybrid_search
+        if not UtilClient.is_unset(request.hybrid_search_args_shrink):
+            query['HybridSearchArgs'] = request.hybrid_search_args_shrink
         if not UtilClient.is_unset(request.include_vector):
             query['IncludeVector'] = request.include_vector
         if not UtilClient.is_unset(request.metrics):
