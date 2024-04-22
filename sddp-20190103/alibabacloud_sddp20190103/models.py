@@ -5714,11 +5714,12 @@ class DescribeEventDetailRequest(TeaModel):
 
 
 class DescribeEventDetailResponseBodyEventDetailChartData(TeaModel):
-    def __init__(self, x=None, y=None):
+    def __init__(self, x=None, y=None, z=None):
         # The values of data on the x-axis.
         self.x = x  # type: list[str]
         # The values of data on the y-axis.
         self.y = y  # type: list[str]
+        self.z = z  # type: list[str]
 
     def validate(self):
         pass
@@ -5733,6 +5734,8 @@ class DescribeEventDetailResponseBodyEventDetailChartData(TeaModel):
             result['X'] = self.x
         if self.y is not None:
             result['Y'] = self.y
+        if self.z is not None:
+            result['Z'] = self.z
         return result
 
     def from_map(self, m=None):
@@ -5741,15 +5744,20 @@ class DescribeEventDetailResponseBodyEventDetailChartData(TeaModel):
             self.x = m.get('X')
         if m.get('Y') is not None:
             self.y = m.get('Y')
+        if m.get('Z') is not None:
+            self.z = m.get('Z')
         return self
 
 
 class DescribeEventDetailResponseBodyEventDetailChart(TeaModel):
-    def __init__(self, data=None, label=None, type=None, xlabel=None, ylabel=None):
+    def __init__(self, chat_type=None, data=None, label=None, name=None, type=None, xlabel=None, ylabel=None,
+                 zlabel=None):
+        self.chat_type = chat_type  # type: int
         # The data in the baseline behavior profile of the anomalous event.
         self.data = data  # type: DescribeEventDetailResponseBodyEventDetailChartData
         # The name of the baseline behavior chart of the anomalous event.
         self.label = label  # type: str
+        self.name = name  # type: str
         # The type of the chart. Valid values:
         # 
         # *   **1**: column chart
@@ -5759,6 +5767,7 @@ class DescribeEventDetailResponseBodyEventDetailChart(TeaModel):
         self.xlabel = xlabel  # type: str
         # The descriptive label of data on the y-axis.
         self.ylabel = ylabel  # type: str
+        self.zlabel = zlabel  # type: str
 
     def validate(self):
         if self.data:
@@ -5770,38 +5779,51 @@ class DescribeEventDetailResponseBodyEventDetailChart(TeaModel):
             return _map
 
         result = dict()
+        if self.chat_type is not None:
+            result['ChatType'] = self.chat_type
         if self.data is not None:
             result['Data'] = self.data.to_map()
         if self.label is not None:
             result['Label'] = self.label
+        if self.name is not None:
+            result['Name'] = self.name
         if self.type is not None:
             result['Type'] = self.type
         if self.xlabel is not None:
             result['XLabel'] = self.xlabel
         if self.ylabel is not None:
             result['YLabel'] = self.ylabel
+        if self.zlabel is not None:
+            result['ZLabel'] = self.zlabel
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ChatType') is not None:
+            self.chat_type = m.get('ChatType')
         if m.get('Data') is not None:
             temp_model = DescribeEventDetailResponseBodyEventDetailChartData()
             self.data = temp_model.from_map(m['Data'])
         if m.get('Label') is not None:
             self.label = m.get('Label')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
         if m.get('Type') is not None:
             self.type = m.get('Type')
         if m.get('XLabel') is not None:
             self.xlabel = m.get('XLabel')
         if m.get('YLabel') is not None:
             self.ylabel = m.get('YLabel')
+        if m.get('ZLabel') is not None:
+            self.zlabel = m.get('ZLabel')
         return self
 
 
 class DescribeEventDetailResponseBodyEventDetailContent(TeaModel):
-    def __init__(self, label=None, value=None):
+    def __init__(self, label=None, name=None, value=None):
         # The title of the content in the anomalous event.
         self.label = label  # type: str
+        self.name = name  # type: str
         # The description of the content in the anomalous event.
         self.value = value  # type: str
 
@@ -5816,6 +5838,8 @@ class DescribeEventDetailResponseBodyEventDetailContent(TeaModel):
         result = dict()
         if self.label is not None:
             result['Label'] = self.label
+        if self.name is not None:
+            result['Name'] = self.name
         if self.value is not None:
             result['Value'] = self.value
         return result
@@ -5824,6 +5848,8 @@ class DescribeEventDetailResponseBodyEventDetailContent(TeaModel):
         m = m or dict()
         if m.get('Label') is not None:
             self.label = m.get('Label')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
         if m.get('Value') is not None:
             self.value = m.get('Value')
         return self
@@ -5999,9 +6025,9 @@ class DescribeEventDetailResponseBodyEventHandleInfoList(TeaModel):
 class DescribeEventDetailResponseBodyEvent(TeaModel):
     def __init__(self, alert_time=None, backed=None, data_instance=None, deal_display_name=None,
                  deal_login_name=None, deal_reason=None, deal_time=None, deal_user_id=None, detail=None, display_name=None,
-                 event_time=None, handle_info_list=None, id=None, log_detail=None, login_name=None, product_code=None,
-                 status=None, status_name=None, sub_type_code=None, sub_type_name=None, type_code=None, type_name=None,
-                 user_id=None):
+                 event_time=None, handle_info_list=None, id=None, log_detail=None, login_name=None, new_alarm=None,
+                 product_code=None, status=None, status_name=None, sub_type_code=None, sub_type_name=None, type_code=None,
+                 type_name=None, user_id=None):
         # The time when the alert for the anomalous event was generated. The value is a UNIX timestamp. Unit: milliseconds.
         self.alert_time = alert_time  # type: long
         # Indicates whether the handling result of the anomalous event is used to enhance the detection of anomalous events. Valid values:
@@ -6037,6 +6063,7 @@ class DescribeEventDetailResponseBodyEvent(TeaModel):
         self.log_detail = log_detail  # type: str
         # The username of the account that triggered the anomalous event.
         self.login_name = login_name  # type: str
+        self.new_alarm = new_alarm  # type: bool
         # The name of the service in which the anomalous event was detected. Valid values include **MaxCompute, OSS, ADS, OTS, and RDS**.
         self.product_code = product_code  # type: str
         # The handling status for the anomalous event. Valid values:
@@ -6108,6 +6135,8 @@ class DescribeEventDetailResponseBodyEvent(TeaModel):
             result['LogDetail'] = self.log_detail
         if self.login_name is not None:
             result['LoginName'] = self.login_name
+        if self.new_alarm is not None:
+            result['NewAlarm'] = self.new_alarm
         if self.product_code is not None:
             result['ProductCode'] = self.product_code
         if self.status is not None:
@@ -6162,6 +6191,8 @@ class DescribeEventDetailResponseBodyEvent(TeaModel):
             self.log_detail = m.get('LogDetail')
         if m.get('LoginName') is not None:
             self.login_name = m.get('LoginName')
+        if m.get('NewAlarm') is not None:
+            self.new_alarm = m.get('NewAlarm')
         if m.get('ProductCode') is not None:
             self.product_code = m.get('ProductCode')
         if m.get('Status') is not None:
