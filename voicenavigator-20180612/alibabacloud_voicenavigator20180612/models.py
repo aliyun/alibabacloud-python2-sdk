@@ -3953,12 +3953,14 @@ class ListConversationsRequest(TeaModel):
 
 
 class ListConversationsResponseBodyConversations(TeaModel):
-    def __init__(self, called_number=None, calling_number=None, conversation_id=None, end_reason=None,
-                 end_time=None, has_last_playback_completed=None, has_to_agent=None, rounds=None, sand_box=None,
-                 skill_group=None, start_time=None):
+    def __init__(self, called_number=None, calling_number=None, conversation_id=None, ds_report=None,
+                 ds_report_titles=None, end_reason=None, end_time=None, has_last_playback_completed=None, has_to_agent=None,
+                 rounds=None, sand_box=None, skill_group=None, start_time=None):
         self.called_number = called_number  # type: str
         self.calling_number = calling_number  # type: str
         self.conversation_id = conversation_id  # type: str
+        self.ds_report = ds_report  # type: str
+        self.ds_report_titles = ds_report_titles  # type: list[str]
         self.end_reason = end_reason  # type: int
         self.end_time = end_time  # type: long
         self.has_last_playback_completed = has_last_playback_completed  # type: bool
@@ -3983,6 +3985,10 @@ class ListConversationsResponseBodyConversations(TeaModel):
             result['CallingNumber'] = self.calling_number
         if self.conversation_id is not None:
             result['ConversationId'] = self.conversation_id
+        if self.ds_report is not None:
+            result['DsReport'] = self.ds_report
+        if self.ds_report_titles is not None:
+            result['DsReportTitles'] = self.ds_report_titles
         if self.end_reason is not None:
             result['EndReason'] = self.end_reason
         if self.end_time is not None:
@@ -4009,6 +4015,10 @@ class ListConversationsResponseBodyConversations(TeaModel):
             self.calling_number = m.get('CallingNumber')
         if m.get('ConversationId') is not None:
             self.conversation_id = m.get('ConversationId')
+        if m.get('DsReport') is not None:
+            self.ds_report = m.get('DsReport')
+        if m.get('DsReportTitles') is not None:
+            self.ds_report_titles = m.get('DsReportTitles')
         if m.get('EndReason') is not None:
             self.end_reason = m.get('EndReason')
         if m.get('EndTime') is not None:
