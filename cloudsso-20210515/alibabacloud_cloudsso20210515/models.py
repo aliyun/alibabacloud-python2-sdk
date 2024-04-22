@@ -3682,8 +3682,9 @@ class GetDirectoryStatisticsRequest(TeaModel):
 class GetDirectoryStatisticsResponseBodyDirectoryStatistics(TeaModel):
     def __init__(self, access_assignment_count=None, access_configuration_count=None,
                  access_configuration_quota=None, directory_id=None, directory_name=None, group_count=None, group_quota=None,
-                 in_progress_task_count=None, region=None, scimserver_credential_count=None, scimsync_enabled=None, ssoenabled=None,
-                 system_policy_per_access_configuration_quota=None, user_count=None, user_quota=None):
+                 in_progress_task_count=None, inline_policy_per_access_configuration_quota=None, region=None,
+                 scimserver_credential_count=None, scimsync_enabled=None, ssoenabled=None, system_policy_per_access_configuration_quota=None,
+                 user_count=None, user_quota=None):
         # The number of access permissions that are assigned.
         self.access_assignment_count = access_assignment_count  # type: int
         # The number of access configurations.
@@ -3700,6 +3701,7 @@ class GetDirectoryStatisticsResponseBodyDirectoryStatistics(TeaModel):
         self.group_quota = group_quota  # type: int
         # The number of tasks that are being performed.
         self.in_progress_task_count = in_progress_task_count  # type: int
+        self.inline_policy_per_access_configuration_quota = inline_policy_per_access_configuration_quota  # type: int
         # The region ID of the directory.
         self.region = region  # type: str
         # The number of SCIM credentials.
@@ -3746,6 +3748,8 @@ class GetDirectoryStatisticsResponseBodyDirectoryStatistics(TeaModel):
             result['GroupQuota'] = self.group_quota
         if self.in_progress_task_count is not None:
             result['InProgressTaskCount'] = self.in_progress_task_count
+        if self.inline_policy_per_access_configuration_quota is not None:
+            result['InlinePolicyPerAccessConfigurationQuota'] = self.inline_policy_per_access_configuration_quota
         if self.region is not None:
             result['Region'] = self.region
         if self.scimserver_credential_count is not None:
@@ -3780,6 +3784,8 @@ class GetDirectoryStatisticsResponseBodyDirectoryStatistics(TeaModel):
             self.group_quota = m.get('GroupQuota')
         if m.get('InProgressTaskCount') is not None:
             self.in_progress_task_count = m.get('InProgressTaskCount')
+        if m.get('InlinePolicyPerAccessConfigurationQuota') is not None:
+            self.inline_policy_per_access_configuration_quota = m.get('InlinePolicyPerAccessConfigurationQuota')
         if m.get('Region') is not None:
             self.region = m.get('Region')
         if m.get('SCIMServerCredentialCount') is not None:
