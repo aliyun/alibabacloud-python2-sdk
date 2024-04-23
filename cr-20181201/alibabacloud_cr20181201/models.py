@@ -507,6 +507,146 @@ class CreateArtifactBuildRuleResponse(TeaModel):
         return self
 
 
+class CreateArtifactLifecycleRuleRequest(TeaModel):
+    def __init__(self, auto=None, enable_delete_tag=None, instance_id=None, namespace_name=None, repo_name=None,
+                 retention_tag_count=None, schedule_time=None, scope=None, tag_regexp=None):
+        self.auto = auto  # type: bool
+        self.enable_delete_tag = enable_delete_tag  # type: bool
+        self.instance_id = instance_id  # type: str
+        self.namespace_name = namespace_name  # type: str
+        self.repo_name = repo_name  # type: str
+        self.retention_tag_count = retention_tag_count  # type: long
+        self.schedule_time = schedule_time  # type: str
+        self.scope = scope  # type: str
+        self.tag_regexp = tag_regexp  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateArtifactLifecycleRuleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auto is not None:
+            result['Auto'] = self.auto
+        if self.enable_delete_tag is not None:
+            result['EnableDeleteTag'] = self.enable_delete_tag
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.namespace_name is not None:
+            result['NamespaceName'] = self.namespace_name
+        if self.repo_name is not None:
+            result['RepoName'] = self.repo_name
+        if self.retention_tag_count is not None:
+            result['RetentionTagCount'] = self.retention_tag_count
+        if self.schedule_time is not None:
+            result['ScheduleTime'] = self.schedule_time
+        if self.scope is not None:
+            result['Scope'] = self.scope
+        if self.tag_regexp is not None:
+            result['TagRegexp'] = self.tag_regexp
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Auto') is not None:
+            self.auto = m.get('Auto')
+        if m.get('EnableDeleteTag') is not None:
+            self.enable_delete_tag = m.get('EnableDeleteTag')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('NamespaceName') is not None:
+            self.namespace_name = m.get('NamespaceName')
+        if m.get('RepoName') is not None:
+            self.repo_name = m.get('RepoName')
+        if m.get('RetentionTagCount') is not None:
+            self.retention_tag_count = m.get('RetentionTagCount')
+        if m.get('ScheduleTime') is not None:
+            self.schedule_time = m.get('ScheduleTime')
+        if m.get('Scope') is not None:
+            self.scope = m.get('Scope')
+        if m.get('TagRegexp') is not None:
+            self.tag_regexp = m.get('TagRegexp')
+        return self
+
+
+class CreateArtifactLifecycleRuleResponseBody(TeaModel):
+    def __init__(self, code=None, is_success=None, request_id=None, rule_id=None):
+        self.code = code  # type: str
+        self.is_success = is_success  # type: bool
+        self.request_id = request_id  # type: str
+        self.rule_id = rule_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateArtifactLifecycleRuleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.is_success is not None:
+            result['IsSuccess'] = self.is_success
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.rule_id is not None:
+            result['RuleId'] = self.rule_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('IsSuccess') is not None:
+            self.is_success = m.get('IsSuccess')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('RuleId') is not None:
+            self.rule_id = m.get('RuleId')
+        return self
+
+
+class CreateArtifactLifecycleRuleResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateArtifactLifecycleRuleResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateArtifactLifecycleRuleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateArtifactLifecycleRuleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateBuildRecordByRecordRequest(TeaModel):
     def __init__(self, build_record_id=None, instance_id=None, repo_id=None):
         self.build_record_id = build_record_id  # type: str
@@ -2802,6 +2942,105 @@ class CreateRepositoryResponse(TeaModel):
         return self
 
 
+class DeleteArtifactLifecycleRuleRequest(TeaModel):
+    def __init__(self, instance_id=None, rule_id=None):
+        self.instance_id = instance_id  # type: str
+        self.rule_id = rule_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteArtifactLifecycleRuleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.rule_id is not None:
+            result['RuleId'] = self.rule_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('RuleId') is not None:
+            self.rule_id = m.get('RuleId')
+        return self
+
+
+class DeleteArtifactLifecycleRuleResponseBody(TeaModel):
+    def __init__(self, code=None, is_success=None, request_id=None):
+        self.code = code  # type: str
+        self.is_success = is_success  # type: bool
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteArtifactLifecycleRuleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.is_success is not None:
+            result['IsSuccess'] = self.is_success
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('IsSuccess') is not None:
+            self.is_success = m.get('IsSuccess')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteArtifactLifecycleRuleResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteArtifactLifecycleRuleResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteArtifactLifecycleRuleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteArtifactLifecycleRuleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DeleteChainRequest(TeaModel):
     def __init__(self, chain_id=None, instance_id=None):
         # The ID of the delivery pipeline.
@@ -4652,6 +4891,172 @@ class GetArtifactBuildTaskResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetArtifactBuildTaskResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetArtifactLifecycleRuleRequest(TeaModel):
+    def __init__(self, instance_id=None, rule_id=None):
+        self.instance_id = instance_id  # type: str
+        self.rule_id = rule_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetArtifactLifecycleRuleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.rule_id is not None:
+            result['RuleId'] = self.rule_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('RuleId') is not None:
+            self.rule_id = m.get('RuleId')
+        return self
+
+
+class GetArtifactLifecycleRuleResponseBody(TeaModel):
+    def __init__(self, auto=None, code=None, create_time=None, enable_delete_tag=None, instance_id=None,
+                 is_success=None, modified_time=None, namespace_name=None, next_time=None, repo_name=None, request_id=None,
+                 retention_tag_count=None, rule_id=None, schedule_time=None, scope=None, tag_regexp=None):
+        self.auto = auto  # type: bool
+        self.code = code  # type: str
+        self.create_time = create_time  # type: long
+        self.enable_delete_tag = enable_delete_tag  # type: bool
+        self.instance_id = instance_id  # type: str
+        self.is_success = is_success  # type: bool
+        self.modified_time = modified_time  # type: long
+        self.namespace_name = namespace_name  # type: str
+        self.next_time = next_time  # type: long
+        self.repo_name = repo_name  # type: str
+        self.request_id = request_id  # type: str
+        self.retention_tag_count = retention_tag_count  # type: long
+        self.rule_id = rule_id  # type: str
+        self.schedule_time = schedule_time  # type: str
+        self.scope = scope  # type: str
+        self.tag_regexp = tag_regexp  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetArtifactLifecycleRuleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auto is not None:
+            result['Auto'] = self.auto
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.enable_delete_tag is not None:
+            result['EnableDeleteTag'] = self.enable_delete_tag
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.is_success is not None:
+            result['IsSuccess'] = self.is_success
+        if self.modified_time is not None:
+            result['ModifiedTime'] = self.modified_time
+        if self.namespace_name is not None:
+            result['NamespaceName'] = self.namespace_name
+        if self.next_time is not None:
+            result['NextTime'] = self.next_time
+        if self.repo_name is not None:
+            result['RepoName'] = self.repo_name
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.retention_tag_count is not None:
+            result['RetentionTagCount'] = self.retention_tag_count
+        if self.rule_id is not None:
+            result['RuleId'] = self.rule_id
+        if self.schedule_time is not None:
+            result['ScheduleTime'] = self.schedule_time
+        if self.scope is not None:
+            result['Scope'] = self.scope
+        if self.tag_regexp is not None:
+            result['TagRegexp'] = self.tag_regexp
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Auto') is not None:
+            self.auto = m.get('Auto')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('EnableDeleteTag') is not None:
+            self.enable_delete_tag = m.get('EnableDeleteTag')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('IsSuccess') is not None:
+            self.is_success = m.get('IsSuccess')
+        if m.get('ModifiedTime') is not None:
+            self.modified_time = m.get('ModifiedTime')
+        if m.get('NamespaceName') is not None:
+            self.namespace_name = m.get('NamespaceName')
+        if m.get('NextTime') is not None:
+            self.next_time = m.get('NextTime')
+        if m.get('RepoName') is not None:
+            self.repo_name = m.get('RepoName')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('RetentionTagCount') is not None:
+            self.retention_tag_count = m.get('RetentionTagCount')
+        if m.get('RuleId') is not None:
+            self.rule_id = m.get('RuleId')
+        if m.get('ScheduleTime') is not None:
+            self.schedule_time = m.get('ScheduleTime')
+        if m.get('Scope') is not None:
+            self.scope = m.get('Scope')
+        if m.get('TagRegexp') is not None:
+            self.tag_regexp = m.get('TagRegexp')
+        return self
+
+
+class GetArtifactLifecycleRuleResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetArtifactLifecycleRuleResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetArtifactLifecycleRuleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetArtifactLifecycleRuleResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -8721,6 +9126,230 @@ class ListArtifactBuildTaskLogResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListArtifactBuildTaskLogResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListArtifactLifecycleRuleRequest(TeaModel):
+    def __init__(self, enable_delete_tag=None, instance_id=None, page_no=None, page_size=None):
+        self.enable_delete_tag = enable_delete_tag  # type: bool
+        self.instance_id = instance_id  # type: str
+        self.page_no = page_no  # type: int
+        self.page_size = page_size  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListArtifactLifecycleRuleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.enable_delete_tag is not None:
+            result['EnableDeleteTag'] = self.enable_delete_tag
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.page_no is not None:
+            result['PageNo'] = self.page_no
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EnableDeleteTag') is not None:
+            self.enable_delete_tag = m.get('EnableDeleteTag')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('PageNo') is not None:
+            self.page_no = m.get('PageNo')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        return self
+
+
+class ListArtifactLifecycleRuleResponseBodyRules(TeaModel):
+    def __init__(self, auto=None, create_time=None, enable_delete_tag=None, instance_id=None, modified_time=None,
+                 namespace_name=None, next_time=None, repo_name=None, retention_tag_count=None, rule_id=None, schedule_time=None,
+                 scope=None, tag_regexp=None):
+        self.auto = auto  # type: bool
+        self.create_time = create_time  # type: long
+        self.enable_delete_tag = enable_delete_tag  # type: bool
+        self.instance_id = instance_id  # type: str
+        self.modified_time = modified_time  # type: long
+        self.namespace_name = namespace_name  # type: str
+        self.next_time = next_time  # type: long
+        self.repo_name = repo_name  # type: str
+        self.retention_tag_count = retention_tag_count  # type: long
+        self.rule_id = rule_id  # type: str
+        self.schedule_time = schedule_time  # type: str
+        self.scope = scope  # type: str
+        self.tag_regexp = tag_regexp  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListArtifactLifecycleRuleResponseBodyRules, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auto is not None:
+            result['Auto'] = self.auto
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.enable_delete_tag is not None:
+            result['EnableDeleteTag'] = self.enable_delete_tag
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.modified_time is not None:
+            result['ModifiedTime'] = self.modified_time
+        if self.namespace_name is not None:
+            result['NamespaceName'] = self.namespace_name
+        if self.next_time is not None:
+            result['NextTime'] = self.next_time
+        if self.repo_name is not None:
+            result['RepoName'] = self.repo_name
+        if self.retention_tag_count is not None:
+            result['RetentionTagCount'] = self.retention_tag_count
+        if self.rule_id is not None:
+            result['RuleId'] = self.rule_id
+        if self.schedule_time is not None:
+            result['ScheduleTime'] = self.schedule_time
+        if self.scope is not None:
+            result['Scope'] = self.scope
+        if self.tag_regexp is not None:
+            result['TagRegexp'] = self.tag_regexp
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Auto') is not None:
+            self.auto = m.get('Auto')
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('EnableDeleteTag') is not None:
+            self.enable_delete_tag = m.get('EnableDeleteTag')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('ModifiedTime') is not None:
+            self.modified_time = m.get('ModifiedTime')
+        if m.get('NamespaceName') is not None:
+            self.namespace_name = m.get('NamespaceName')
+        if m.get('NextTime') is not None:
+            self.next_time = m.get('NextTime')
+        if m.get('RepoName') is not None:
+            self.repo_name = m.get('RepoName')
+        if m.get('RetentionTagCount') is not None:
+            self.retention_tag_count = m.get('RetentionTagCount')
+        if m.get('RuleId') is not None:
+            self.rule_id = m.get('RuleId')
+        if m.get('ScheduleTime') is not None:
+            self.schedule_time = m.get('ScheduleTime')
+        if m.get('Scope') is not None:
+            self.scope = m.get('Scope')
+        if m.get('TagRegexp') is not None:
+            self.tag_regexp = m.get('TagRegexp')
+        return self
+
+
+class ListArtifactLifecycleRuleResponseBody(TeaModel):
+    def __init__(self, code=None, is_success=None, page_no=None, page_size=None, request_id=None, rules=None,
+                 total_count=None):
+        self.code = code  # type: str
+        self.is_success = is_success  # type: bool
+        self.page_no = page_no  # type: int
+        self.page_size = page_size  # type: int
+        self.request_id = request_id  # type: str
+        self.rules = rules  # type: list[ListArtifactLifecycleRuleResponseBodyRules]
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.rules:
+            for k in self.rules:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListArtifactLifecycleRuleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.is_success is not None:
+            result['IsSuccess'] = self.is_success
+        if self.page_no is not None:
+            result['PageNo'] = self.page_no
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        result['Rules'] = []
+        if self.rules is not None:
+            for k in self.rules:
+                result['Rules'].append(k.to_map() if k else None)
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('IsSuccess') is not None:
+            self.is_success = m.get('IsSuccess')
+        if m.get('PageNo') is not None:
+            self.page_no = m.get('PageNo')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        self.rules = []
+        if m.get('Rules') is not None:
+            for k in m.get('Rules'):
+                temp_model = ListArtifactLifecycleRuleResponseBodyRules()
+                self.rules.append(temp_model.from_map(k))
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class ListArtifactLifecycleRuleResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListArtifactLifecycleRuleResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListArtifactLifecycleRuleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListArtifactLifecycleRuleResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -14536,6 +15165,146 @@ class UntagResourcesResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UntagResourcesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdateArtifactLifecycleRuleRequest(TeaModel):
+    def __init__(self, auto=None, enable_delete_tag=None, instance_id=None, namespace_name=None, repo_name=None,
+                 retention_tag_count=None, rule_id=None, schedule_time=None, scope=None, tag_regexp=None):
+        self.auto = auto  # type: bool
+        self.enable_delete_tag = enable_delete_tag  # type: bool
+        self.instance_id = instance_id  # type: str
+        self.namespace_name = namespace_name  # type: str
+        self.repo_name = repo_name  # type: str
+        self.retention_tag_count = retention_tag_count  # type: long
+        self.rule_id = rule_id  # type: str
+        self.schedule_time = schedule_time  # type: str
+        self.scope = scope  # type: str
+        self.tag_regexp = tag_regexp  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateArtifactLifecycleRuleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auto is not None:
+            result['Auto'] = self.auto
+        if self.enable_delete_tag is not None:
+            result['EnableDeleteTag'] = self.enable_delete_tag
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.namespace_name is not None:
+            result['NamespaceName'] = self.namespace_name
+        if self.repo_name is not None:
+            result['RepoName'] = self.repo_name
+        if self.retention_tag_count is not None:
+            result['RetentionTagCount'] = self.retention_tag_count
+        if self.rule_id is not None:
+            result['RuleId'] = self.rule_id
+        if self.schedule_time is not None:
+            result['ScheduleTime'] = self.schedule_time
+        if self.scope is not None:
+            result['Scope'] = self.scope
+        if self.tag_regexp is not None:
+            result['TagRegexp'] = self.tag_regexp
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Auto') is not None:
+            self.auto = m.get('Auto')
+        if m.get('EnableDeleteTag') is not None:
+            self.enable_delete_tag = m.get('EnableDeleteTag')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('NamespaceName') is not None:
+            self.namespace_name = m.get('NamespaceName')
+        if m.get('RepoName') is not None:
+            self.repo_name = m.get('RepoName')
+        if m.get('RetentionTagCount') is not None:
+            self.retention_tag_count = m.get('RetentionTagCount')
+        if m.get('RuleId') is not None:
+            self.rule_id = m.get('RuleId')
+        if m.get('ScheduleTime') is not None:
+            self.schedule_time = m.get('ScheduleTime')
+        if m.get('Scope') is not None:
+            self.scope = m.get('Scope')
+        if m.get('TagRegexp') is not None:
+            self.tag_regexp = m.get('TagRegexp')
+        return self
+
+
+class UpdateArtifactLifecycleRuleResponseBody(TeaModel):
+    def __init__(self, code=None, is_success=None, request_id=None):
+        self.code = code  # type: str
+        self.is_success = is_success  # type: bool
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateArtifactLifecycleRuleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.is_success is not None:
+            result['IsSuccess'] = self.is_success
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('IsSuccess') is not None:
+            self.is_success = m.get('IsSuccess')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UpdateArtifactLifecycleRuleResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateArtifactLifecycleRuleResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateArtifactLifecycleRuleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateArtifactLifecycleRuleResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 

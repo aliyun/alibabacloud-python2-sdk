@@ -184,6 +184,50 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_artifact_build_rule_with_options(request, runtime)
 
+    def create_artifact_lifecycle_rule_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.auto):
+            query['Auto'] = request.auto
+        if not UtilClient.is_unset(request.enable_delete_tag):
+            query['EnableDeleteTag'] = request.enable_delete_tag
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.namespace_name):
+            query['NamespaceName'] = request.namespace_name
+        if not UtilClient.is_unset(request.repo_name):
+            query['RepoName'] = request.repo_name
+        if not UtilClient.is_unset(request.retention_tag_count):
+            query['RetentionTagCount'] = request.retention_tag_count
+        if not UtilClient.is_unset(request.schedule_time):
+            query['ScheduleTime'] = request.schedule_time
+        if not UtilClient.is_unset(request.scope):
+            query['Scope'] = request.scope
+        if not UtilClient.is_unset(request.tag_regexp):
+            query['TagRegexp'] = request.tag_regexp
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateArtifactLifecycleRule',
+            version='2018-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cr_20181201_models.CreateArtifactLifecycleRuleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_artifact_lifecycle_rule(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_artifact_lifecycle_rule_with_options(request, runtime)
+
     def create_build_record_by_record_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -848,6 +892,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_repository_with_options(request, runtime)
 
+    def delete_artifact_lifecycle_rule_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.rule_id):
+            query['RuleId'] = request.rule_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteArtifactLifecycleRule',
+            version='2018-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cr_20181201_models.DeleteArtifactLifecycleRuleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_artifact_lifecycle_rule(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_artifact_lifecycle_rule_with_options(request, runtime)
+
     def delete_chain_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1369,6 +1443,32 @@ class Client(OpenApiClient):
     def get_artifact_build_task(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_artifact_build_task_with_options(request, runtime)
+
+    def get_artifact_lifecycle_rule_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetArtifactLifecycleRule',
+            version='2018-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cr_20181201_models.GetArtifactLifecycleRuleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_artifact_lifecycle_rule(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_artifact_lifecycle_rule_with_options(request, runtime)
 
     def get_authorization_token_with_options(self, request, runtime):
         """
@@ -2045,6 +2145,32 @@ class Client(OpenApiClient):
     def list_artifact_build_task_log(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_artifact_build_task_log_with_options(request, runtime)
+
+    def list_artifact_lifecycle_rule_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListArtifactLifecycleRule',
+            version='2018-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cr_20181201_models.ListArtifactLifecycleRuleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_artifact_lifecycle_rule(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_artifact_lifecycle_rule_with_options(request, runtime)
 
     def list_chain_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2933,6 +3059,52 @@ class Client(OpenApiClient):
     def untag_resources(self, request):
         runtime = util_models.RuntimeOptions()
         return self.untag_resources_with_options(request, runtime)
+
+    def update_artifact_lifecycle_rule_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.auto):
+            query['Auto'] = request.auto
+        if not UtilClient.is_unset(request.enable_delete_tag):
+            query['EnableDeleteTag'] = request.enable_delete_tag
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.namespace_name):
+            query['NamespaceName'] = request.namespace_name
+        if not UtilClient.is_unset(request.repo_name):
+            query['RepoName'] = request.repo_name
+        if not UtilClient.is_unset(request.retention_tag_count):
+            query['RetentionTagCount'] = request.retention_tag_count
+        if not UtilClient.is_unset(request.rule_id):
+            query['RuleId'] = request.rule_id
+        if not UtilClient.is_unset(request.schedule_time):
+            query['ScheduleTime'] = request.schedule_time
+        if not UtilClient.is_unset(request.scope):
+            query['Scope'] = request.scope
+        if not UtilClient.is_unset(request.tag_regexp):
+            query['TagRegexp'] = request.tag_regexp
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateArtifactLifecycleRule',
+            version='2018-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cr_20181201_models.UpdateArtifactLifecycleRuleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_artifact_lifecycle_rule(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_artifact_lifecycle_rule_with_options(request, runtime)
 
     def update_chain_with_options(self, request, runtime):
         UtilClient.validate_model(request)
