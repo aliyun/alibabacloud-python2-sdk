@@ -1674,6 +1674,14 @@ class CreateSaslUserRequest(TeaModel):
     def __init__(self, instance_id=None, mechanism=None, password=None, region_id=None, type=None, username=None):
         # The instance ID.
         self.instance_id = instance_id  # type: str
+        # The encryption method. Valid values:
+        # 
+        # *   SCRAM-SHA-512 (default)
+        # *   SCRAM-SHA-256
+        # 
+        # > 
+        # 
+        # *   This parameter is available only for ApsaraMQ for Kafka V3 serverless instances.
         self.mechanism = mechanism  # type: str
         # The password of the SASL user.
         self.password = password  # type: str
@@ -2054,12 +2062,30 @@ class DeleteAclRequest(TeaModel):
     def __init__(self, acl_operation_type=None, acl_operation_types=None, acl_permission_type=None,
                  acl_resource_name=None, acl_resource_pattern_type=None, acl_resource_type=None, host=None, instance_id=None,
                  region_id=None, username=None):
-        # The operation type. Valid values:
+        # The operation allowed by the access control list (ACL). Valid values:
         # 
-        # *   **Write**\
-        # *   **Read**\
+        # *   **Write**: data writes
+        # *   **Read**: data reads
+        # *   **Describe**: reads of transactional IDs
+        # *   **IdempotentWrite**: idempotent data writes to clusters
         self.acl_operation_type = acl_operation_type  # type: str
+        # The operations allowed by the ACL. Separate multiple operations with commas (,).
+        # 
+        # Valid values:
+        # 
+        # *   **Write**: data writes
+        # *   **Read**: data reads
+        # *   **Describe**: reads of **transactional IDs**\
+        # *   **IdempotentWrite**: idempotent data writes to **clusters**\
+        # 
+        # >  This parameter is available only for ApsaraMQ for Kafka V3 serverless instances.
         self.acl_operation_types = acl_operation_types  # type: str
+        # The authorization method. Valid values:
+        # 
+        # *   Deny
+        # *   ALLOW
+        # 
+        # >  This parameter is available only for ApsaraMQ for Kafka V3 serverless instances.
         self.acl_permission_type = acl_permission_type  # type: str
         # The name of the resource.
         # 
@@ -2071,11 +2097,14 @@ class DeleteAclRequest(TeaModel):
         # *   **LITERAL:** full match
         # *   **PREFIXED**: prefix match
         self.acl_resource_pattern_type = acl_resource_pattern_type  # type: str
-        # The type of the resource.
+        # The resource type. Valid values:
         # 
-        # *   **Topic**\
-        # *   **Group**\
+        # *   **Topic**: topic
+        # *   **Group**: consumer group
+        # *   **Cluster**: cluster
+        # *   **TransactionalId**: transactional ID
         self.acl_resource_type = acl_resource_type  # type: str
+        # The IP address of the source.
         self.host = host  # type: str
         # The ID of the instance.
         self.instance_id = instance_id  # type: str
@@ -3782,9 +3811,11 @@ class GetConsumerListRequest(TeaModel):
     def __init__(self, consumer_id=None, current_page=None, instance_id=None, page_size=None, region_id=None):
         # The name of the consumer group. If you do not configure this parameter, all consumer groups are queried.
         self.consumer_id = consumer_id  # type: str
+        # The page number.
         self.current_page = current_page  # type: int
         # The ID of the instance to which the consumer group belongs.
         self.instance_id = instance_id  # type: str
+        # The number of entries to be returned per page.
         self.page_size = page_size  # type: int
         # The region ID of the instance to which the consumer group belongs.
         self.region_id = region_id  # type: str
@@ -3891,15 +3922,15 @@ class GetConsumerListResponseBodyConsumerListConsumerVOTags(TeaModel):
 class GetConsumerListResponseBodyConsumerListConsumerVO(TeaModel):
     def __init__(self, automatically_created_group=None, consumer_id=None, instance_id=None, region_id=None,
                  remark=None, tags=None):
-        # The consumer group that is automatically created by the system.
+        # Indicates that the consumer group was automatically created by the system.
         self.automatically_created_group = automatically_created_group  # type: bool
-        # The ID of the consumer group.
+        # The consumer group ID.
         self.consumer_id = consumer_id  # type: str
         # The instance ID.
         self.instance_id = instance_id  # type: str
-        # The region ID.
+        # The ID of the region where the instance resides.
         self.region_id = region_id  # type: str
-        # The description of the consumer group.
+        # The instance description.
         self.remark = remark  # type: str
         # The tags.
         self.tags = tags  # type: GetConsumerListResponseBodyConsumerListConsumerVOTags
@@ -3985,14 +4016,17 @@ class GetConsumerListResponseBody(TeaModel):
         self.code = code  # type: int
         # The consumer groups.
         self.consumer_list = consumer_list  # type: GetConsumerListResponseBodyConsumerList
+        # The number of the page to return. Pages start from page 1.
         self.current_page = current_page  # type: int
         # The returned message.
         self.message = message  # type: str
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
         # The ID of the request.
         self.request_id = request_id  # type: str
         # Indicates whether the request is successful.
         self.success = success  # type: bool
+        # The total number of entries returned.
         self.total = total  # type: long
 
     def validate(self):
@@ -4121,11 +4155,17 @@ class GetConsumerProgressRequest(TeaModel):
 class GetConsumerProgressResponseBodyConsumerProgressRebalanceInfoListRebalanceInfoList(TeaModel):
     def __init__(self, generation=None, group_id=None, last_rebalance_timestamp=None, reason=None,
                  rebalance_success=None, rebalance_time_consuming=None):
+        # The number of rebalances.
         self.generation = generation  # type: long
+        # The group ID of the subscriber.
         self.group_id = group_id  # type: str
+        # The time when the last rebalance occurred. Unit: milliseconds.
         self.last_rebalance_timestamp = last_rebalance_timestamp  # type: long
+        # The cause of the rebalance.
         self.reason = reason  # type: str
+        # Indicates whether new members are added to the consumer group in the rebalance.
         self.rebalance_success = rebalance_success  # type: bool
+        # The duration of the rebalance. Unit: milliseconds.
         self.rebalance_time_consuming = rebalance_time_consuming  # type: long
 
     def validate(self):
@@ -4208,7 +4248,7 @@ class GetConsumerProgressResponseBodyConsumerProgressTopicListTopicListOffsetLis
         self.consumer_offset = consumer_offset  # type: long
         # The time when the last consumed message in the partition was generated.
         self.last_timestamp = last_timestamp  # type: long
-        # The ID of the partition.
+        # The partition ID.
         self.partition = partition  # type: int
 
     def validate(self):
@@ -4279,11 +4319,11 @@ class GetConsumerProgressResponseBodyConsumerProgressTopicListTopicList(TeaModel
     def __init__(self, last_timestamp=None, offset_list=None, topic=None, total_diff=None):
         # The time when the last consumed message in the topic was generated.
         self.last_timestamp = last_timestamp  # type: long
-        # The information about offsets in the topic.
+        # The consumer offsets.
         self.offset_list = offset_list  # type: GetConsumerProgressResponseBodyConsumerProgressTopicListTopicListOffsetList
-        # The name of the topic.
+        # The topic name.
         self.topic = topic  # type: str
-        # The number of messages that were not consumed in the topic. This is also known as the number of accumulated messages in the topic.
+        # The number of unconsumed messages in the topic to which the consumer group subscribes.
         self.total_diff = total_diff  # type: long
 
     def validate(self):
@@ -4356,10 +4396,11 @@ class GetConsumerProgressResponseBodyConsumerProgress(TeaModel):
     def __init__(self, last_timestamp=None, rebalance_info_list=None, topic_list=None, total_diff=None):
         # The time when the last message consumed by the consumer group was generated.
         self.last_timestamp = last_timestamp  # type: long
+        # The details of rebalances in the consumer group.
         self.rebalance_info_list = rebalance_info_list  # type: GetConsumerProgressResponseBodyConsumerProgressRebalanceInfoList
-        # The consumption progress of each topic to which the consumer group is subscribed.
+        # The consumer progress of each topic to which the consumer group subscribes.
         self.topic_list = topic_list  # type: GetConsumerProgressResponseBodyConsumerProgressTopicList
-        # The number of messages that were not consumed in all topics. This is also known as the number of accumulated messages in all topics.
+        # The total number of unconsumed messages in all topics to which the consumer group subscribes.
         self.total_diff = total_diff  # type: long
 
     def validate(self):
@@ -4401,13 +4442,13 @@ class GetConsumerProgressResponseBodyConsumerProgress(TeaModel):
 
 class GetConsumerProgressResponseBody(TeaModel):
     def __init__(self, code=None, consumer_progress=None, message=None, request_id=None, success=None):
-        # The HTTP status code returned. The HTTP status code 200 indicates that the request is successful.
+        # The returned HTTP status code. If the request is successful, 200 is returned.
         self.code = code  # type: int
-        # The consumption status of the consumer group.
+        # The consumer progress of the consumer group.
         self.consumer_progress = consumer_progress  # type: GetConsumerProgressResponseBodyConsumerProgress
         # The returned message.
         self.message = message  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
         # Indicates whether the request is successful.
         self.success = success  # type: bool
@@ -4524,7 +4565,8 @@ class GetInstanceListRequestTag(TeaModel):
 
 
 class GetInstanceListRequest(TeaModel):
-    def __init__(self, instance_id=None, order_id=None, region_id=None, resource_group_id=None, tag=None):
+    def __init__(self, instance_id=None, order_id=None, region_id=None, resource_group_id=None, series=None,
+                 tag=None):
         # The IDs of instances.
         self.instance_id = instance_id  # type: list[str]
         # The ID of the order. You can obtain the order ID on the [Orders](https://usercenter2-intl.aliyun.com/order/list?pageIndex=1\&pageSize=20\&spm=5176.12818093.top-nav.ditem-ord.36f016d0OQFmJa) page in Alibaba Cloud User Center.
@@ -4533,6 +4575,7 @@ class GetInstanceListRequest(TeaModel):
         self.region_id = region_id  # type: str
         # The ID of the resource group. You can obtain this ID on the Resource Group page in the Resource Management console.
         self.resource_group_id = resource_group_id  # type: str
+        self.series = series  # type: str
         # The tags.
         self.tag = tag  # type: list[GetInstanceListRequestTag]
 
@@ -4556,6 +4599,8 @@ class GetInstanceListRequest(TeaModel):
             result['RegionId'] = self.region_id
         if self.resource_group_id is not None:
             result['ResourceGroupId'] = self.resource_group_id
+        if self.series is not None:
+            result['Series'] = self.series
         result['Tag'] = []
         if self.tag is not None:
             for k in self.tag:
@@ -4572,6 +4617,8 @@ class GetInstanceListRequest(TeaModel):
             self.region_id = m.get('RegionId')
         if m.get('ResourceGroupId') is not None:
             self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('Series') is not None:
+            self.series = m.get('Series')
         self.tag = []
         if m.get('Tag') is not None:
             for k in m.get('Tag'):
@@ -4785,10 +4832,11 @@ class GetInstanceListResponseBodyInstanceListInstanceVO(TeaModel):
                  disk_type=None, domain_endpoint=None, eip_max=None, end_point=None, expired_time=None, instance_id=None,
                  io_max=None, io_max_read=None, io_max_spec=None, io_max_write=None, kms_key_id=None, msg_retain=None,
                  name=None, paid_type=None, region_id=None, reserved_publish_capacity=None,
-                 reserved_subscribe_capacity=None, resource_group_id=None, sasl_domain_endpoint=None, security_group=None, service_status=None,
-                 spec_type=None, ssl_domain_endpoint=None, ssl_end_point=None, standard_zone_id=None, tags=None,
-                 topic_num_limit=None, upgrade_service_detail_info=None, used_group_count=None, used_partition_count=None,
-                 used_topic_count=None, v_switch_id=None, view_instance_status_code=None, vpc_id=None, zone_id=None):
+                 reserved_subscribe_capacity=None, resource_group_id=None, sasl_domain_endpoint=None, security_group=None, series=None,
+                 service_status=None, spec_type=None, ssl_domain_endpoint=None, ssl_end_point=None, standard_zone_id=None,
+                 tags=None, topic_num_limit=None, upgrade_service_detail_info=None, used_group_count=None,
+                 used_partition_count=None, used_topic_count=None, v_switch_id=None, view_instance_status_code=None, vpc_id=None,
+                 zone_id=None):
         # The configurations of the deployed ApsaraMQ for Kafka instance.
         self.all_config = all_config  # type: str
         self.confluent_config = confluent_config  # type: GetInstanceListResponseBodyInstanceListInstanceVOConfluentConfig
@@ -4855,6 +4903,7 @@ class GetInstanceListResponseBodyInstanceListInstanceVO(TeaModel):
         # *   If the instance is deployed by using the ApsaraMQ for Kafka console or calling the [StartInstance](~~157786~~) operation without a security group configured, no value is returned.
         # *   If the instance is deployed by calling the [StartInstance](~~157786~~) operation with a security group configured, the returned value is the configured security group.
         self.security_group = security_group  # type: str
+        self.series = series  # type: str
         # The instance status. Valid values:
         # 
         # *   **0**: pending
@@ -4972,6 +5021,8 @@ class GetInstanceListResponseBodyInstanceListInstanceVO(TeaModel):
             result['SaslDomainEndpoint'] = self.sasl_domain_endpoint
         if self.security_group is not None:
             result['SecurityGroup'] = self.security_group
+        if self.series is not None:
+            result['Series'] = self.series
         if self.service_status is not None:
             result['ServiceStatus'] = self.service_status
         if self.spec_type is not None:
@@ -5057,6 +5108,8 @@ class GetInstanceListResponseBodyInstanceListInstanceVO(TeaModel):
             self.sasl_domain_endpoint = m.get('SaslDomainEndpoint')
         if m.get('SecurityGroup') is not None:
             self.security_group = m.get('SecurityGroup')
+        if m.get('Series') is not None:
+            self.series = m.get('Series')
         if m.get('ServiceStatus') is not None:
             self.service_status = m.get('ServiceStatus')
         if m.get('SpecType') is not None:
@@ -7209,7 +7262,9 @@ class ReleaseInstanceResponse(TeaModel):
 
 class ReopenInstanceRequest(TeaModel):
     def __init__(self, instance_id=None, region_id=None):
+        # The instance ID.
         self.instance_id = instance_id  # type: str
+        # The ID of the region where the instance resides.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -7238,9 +7293,13 @@ class ReopenInstanceRequest(TeaModel):
 
 class ReopenInstanceResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
+        # The returned HTTP status code. If the request is successful, 200 is returned.
         self.code = code  # type: int
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -7598,7 +7657,9 @@ class StartInstanceResponse(TeaModel):
 
 class StopInstanceRequest(TeaModel):
     def __init__(self, instance_id=None, region_id=None):
+        # The instance ID.
         self.instance_id = instance_id  # type: str
+        # The ID of the region where the instance resides.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -7627,9 +7688,13 @@ class StopInstanceRequest(TeaModel):
 
 class StopInstanceResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
+        # The returned status code. If the request is successful, 200 is returned.
         self.code = code  # type: int
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -8529,10 +8594,10 @@ class UpdateTopicConfigRequest(TeaModel):
     def __init__(self, config=None, instance_id=None, region_id=None, topic=None, value=None):
         # The key of the topic configuration.
         # 
-        # *   Valid values: retention.hours, max.message.bytes, and replications.
-        # *   retention.hours specifies the message retention period.
-        # *   max.message.bytes specifies the maximum size of a sent message.
-        # *   replications specifies the number of topic replicas.
+        # *   ApsaraMQ for Kafka V2 instances allow you to modify configurations only for topics that use local storage.
+        # *   ApsaraMQ for Kafka V3 instances allow you to modify configurations for all topics.
+        # *   The following keys are supported by `local topic` of ApsaraMQ for Kafka V2 instances: retention.ms, retention.bytes, and replications.
+        # *   The following keys are supported by ApsaraMQ for Kafka V3 instances: retention.hours and max.message.bytes.
         self.config = config  # type: str
         # The instance ID.
         self.instance_id = instance_id  # type: str
@@ -8542,9 +8607,8 @@ class UpdateTopicConfigRequest(TeaModel):
         self.topic = topic  # type: str
         # The value of the topic configuration.
         # 
-        # *   retention.hours specifies the message retention period. The value is a string. Valid values: 24 to 8760.
-        # *   max.message.bytes specifies the maximum size of a sent message. The value is a string. Valid values: 1048576 to 10485760.
-        # *   replications specifies the number of topic replicas. The value is a string. Valid values: 1 to 3.
+        # *   `retention.hours` specifies the message retention period. Value type: string. Valid values: 24 to 8760.
+        # *   `max.message.bytes` specifies the maximum size of a sent message. Value type: string. Valid values: 1048576 to 10485760.
         self.value = value  # type: str
 
     def validate(self):
@@ -8791,7 +8855,9 @@ class UpgradeInstanceVersionResponse(TeaModel):
 
 class UpgradePostPayOrderRequestServerlessConfig(TeaModel):
     def __init__(self, reserved_publish_capacity=None, reserved_subscribe_capacity=None):
+        # The traffic reserved for message publishing. Unit: MB/s. Valid values: 1 to 31457280. You can specify only integers for this parameter.
         self.reserved_publish_capacity = reserved_publish_capacity  # type: long
+        # The traffic reserved for message subscription. Unit: MB/s. Valid values: 1 to 31457280. You can specify only integers for this parameter.
         self.reserved_subscribe_capacity = reserved_subscribe_capacity  # type: long
 
     def validate(self):
@@ -8824,14 +8890,22 @@ class UpgradePostPayOrderRequest(TeaModel):
         # The disk size. Unit: GB.
         # 
         # *   The disk size that you specify must be greater than or equal to the current disk size of the instance.
-        # *   For more information about the valid values, see [Billing](~~84737~~).
+        # *   For information about the valid values of this parameter, see [Billing](~~84737~~).
+        # 
+        # >  When you create an ApsaraMQ for Kafka V3 serverless instance, you do not need to configure this parameter.
         self.disk_size = disk_size  # type: int
         # The Internet traffic for the instance.
         # 
-        # *   The Internet traffic volume that you specify must be greater than or equal to the current Internet traffic volume of the instance.
-        # *   For more information about the valid values, see [Billing](~~84737~~).
-        # > - If the **EipModel** parameter is set to **true**, set the **EipMax** parameter to a value that is greater than 0.
-        # > - If the **EipModel** parameter is set to **false**, set the **EipMax** parameter to **0**.
+        # *   The Internet traffic that you specify must be greater than or equal to the current Internet traffic of the instance.
+        # *   For information about the valid values of this parameter, see [Billing](~~84737~~).
+        # 
+        # > 
+        # 
+        # *   If you set **EipModel** to **true**, set **EipMax** to a value that is greater than 0.
+        # 
+        # *   If you set **EipModel** to **false**, set **EipMax** to **0**.
+        # 
+        # *   When you create an ApsaraMQ for Kafka V3 serverless instance, you do not need to configure this parameter.
         self.eip_max = eip_max  # type: int
         # Specifies whether to enable Internet access for the instance. Valid values:
         # 
@@ -8843,38 +8917,54 @@ class UpgradePostPayOrderRequest(TeaModel):
         # The maximum traffic for the instance. We recommend that you do not configure this parameter.
         # 
         # *   The maximum traffic that you specify must be greater than or equal to the current maximum traffic of the instance.
-        # *   You must configure at least one of the IoMax and IoMaxSpec parameters. If you configure both parameters, the value of the IoMaxSpec parameter takes effect. We recommend that you specify only the IoMaxSpec parameter.
-        # *   For more information about the valid values, see [Billing](~~84737~~).
+        # *   You must configure at least one of IoMax and IoMaxSpec. If you configure both parameters, the value of IoMaxSpec takes effect. We recommend that you configure only IoMaxSpec.
+        # *   For information about the valid values of this parameter, see [Billing](~~84737~~).
+        # 
+        # >  When you create an ApsaraMQ for Kafka V3 serverless instance, you do not need to configure this parameter.
         self.io_max = io_max  # type: int
         # The traffic specification of the instance. We recommend that you configure this parameter.
         # 
         # *   The traffic specification that you specify must be greater than or equal to the current traffic specification of the instance.
-        # *   You must configure at least one of the IoMax and IoMaxSpec parameters. If you configure both parameters, the value of the IoMaxSpec parameter takes effect. We recommend that you specify only the IoMaxSpec parameter.
-        # *   For more information about the valid values, see [Billing](~~84737~~).
+        # *   You must configure at least one of IoMax and IoMaxSpec. If you configure both parameters, the value of IoMaxSpec takes effect. We recommend that you configure only IoMaxSpec.
+        # *   For information about the valid values of this parameter, see [Billing](~~84737~~).
+        # 
+        # >  When you create an ApsaraMQ for Kafka V3 serverless instance, you do not need to configure this parameter.
         self.io_max_spec = io_max_spec  # type: str
         # The number of partitions. We recommend that you configure this parameter.
         # 
-        # *   You must specify at least one of the PartitionNum and TopicQuota parameters. We recommend that you configure only the PartitionNum parameter.
-        # *   If you specify both parameters, the topic-based sales model is used to check whether the PartitionNum value and the TopicQuota value are the same. If they are not the same, a failure response is returned. If they are the same, the order is placed based on the PartitionNum value.
-        # *   For more information about the valid values, see [Billing](~~84737~~).
+        # *   You must configure one of PartitionNum and TopicQuota. We recommend that you configure only ParittionNum.
+        # *   If you configure PartitionNum and TopicQuota at the same time, the system verifies whether the price of the partitions equals the price of the topics based on the previous topic-based selling mode. If the price of the partitions does not equal the price of the topics, an error is returned. If the price of the partitions equals the price of the topics, the instance is purchased based on the partition number.
+        # *   For information about the valid values of this parameter, see [Billing](~~84737~~).
+        # 
+        # >  When you create an ApsaraMQ for Kafka V3 serverless instance, you do not need to configure this parameter.
         self.partition_num = partition_num  # type: int
         # The region ID of the instance.
         self.region_id = region_id  # type: str
+        # The parameters configured for the Serverless instance. When you create an ApsaraMQ for Kafka V3 serverless instance, you must configure these parameters.
         self.serverless_config = serverless_config  # type: UpgradePostPayOrderRequestServerlessConfig
-        # The edition of the instance. Valid values:
+        # The instance edition.
         # 
-        # *   **normal**: Standard Edition (High Write)
-        # *   **professional**: Professional Edition (High Write)
-        # *   **professionalForHighRead**: Professional Edition (High Read)
+        # Valid values for this parameter if you set PaidType to 1:
         # 
-        # You cannot downgrade an instance from the Professional Edition to the Standard Edition. For more information about these instance editions, see [Billing](~~84737~~).
+        # *   normal: Standard Edition (High Write)
+        # *   professional: Professional Edition (High Write)
+        # *   professionalForHighRead: Professional Edition (High Read)
+        # 
+        # Valid values for this parameter if you set PaidType to 3:
+        # 
+        # *   normal: Serverless Standard Edition
+        # *   professional: Serverless Professional Edition
+        # 
+        # For more information, see [Billing](~~84737~~).
         self.spec_type = spec_type  # type: str
         # The number of topics. We recommend that you do not configure this parameter.
         # 
-        # *   You must specify at least one of the PartitionNum and TopicQuota parameters. We recommend that you configure only the PartitionNum parameter.
-        # *   If you specify both parameters, the topic-based sales model is used to check whether the PartitionNum value and the TopicQuota value are the same. If they are not the same, a failure response is returned. If they are the same, the order is placed based on the PartitionNum value.
-        # *   The default value of the TopicQuota parameter varies based on the value of the IoMaxSpec parameter. If the number of topics that you consume exceeds the default value, you are charged additional fees.
-        # *   For more information about the valid values, see [Billing](~~84737~~).
+        # *   You must configure one of PartitionNum and TopicQuota. We recommend that you configure only ParittionNum.
+        # *   If you configure PartitionNum and TopicQuota at the same time, the system verifies whether the price of the partitions equals the price of the topics based on the previous topic-based selling mode. If the price of the partitions does not equal the price of the topics, an error is returned. If the price of the partitions equals the price of the topics, the instance is purchased based on the partition number.
+        # *   The default value of TopicQuota varies based on the value of IoMaxSpec. If the number of topics that you consume exceeds the default value, you are charged additional fees.
+        # *   For information about the valid values of this parameter, see [Billing](~~84737~~).
+        # 
+        # >  When you create an ApsaraMQ for Kafka V3 serverless instance, you do not need to configure this parameter.
         self.topic_quota = topic_quota  # type: int
 
     def validate(self):
@@ -8945,14 +9035,22 @@ class UpgradePostPayOrderShrinkRequest(TeaModel):
         # The disk size. Unit: GB.
         # 
         # *   The disk size that you specify must be greater than or equal to the current disk size of the instance.
-        # *   For more information about the valid values, see [Billing](~~84737~~).
+        # *   For information about the valid values of this parameter, see [Billing](~~84737~~).
+        # 
+        # >  When you create an ApsaraMQ for Kafka V3 serverless instance, you do not need to configure this parameter.
         self.disk_size = disk_size  # type: int
         # The Internet traffic for the instance.
         # 
-        # *   The Internet traffic volume that you specify must be greater than or equal to the current Internet traffic volume of the instance.
-        # *   For more information about the valid values, see [Billing](~~84737~~).
-        # > - If the **EipModel** parameter is set to **true**, set the **EipMax** parameter to a value that is greater than 0.
-        # > - If the **EipModel** parameter is set to **false**, set the **EipMax** parameter to **0**.
+        # *   The Internet traffic that you specify must be greater than or equal to the current Internet traffic of the instance.
+        # *   For information about the valid values of this parameter, see [Billing](~~84737~~).
+        # 
+        # > 
+        # 
+        # *   If you set **EipModel** to **true**, set **EipMax** to a value that is greater than 0.
+        # 
+        # *   If you set **EipModel** to **false**, set **EipMax** to **0**.
+        # 
+        # *   When you create an ApsaraMQ for Kafka V3 serverless instance, you do not need to configure this parameter.
         self.eip_max = eip_max  # type: int
         # Specifies whether to enable Internet access for the instance. Valid values:
         # 
@@ -8964,38 +9062,54 @@ class UpgradePostPayOrderShrinkRequest(TeaModel):
         # The maximum traffic for the instance. We recommend that you do not configure this parameter.
         # 
         # *   The maximum traffic that you specify must be greater than or equal to the current maximum traffic of the instance.
-        # *   You must configure at least one of the IoMax and IoMaxSpec parameters. If you configure both parameters, the value of the IoMaxSpec parameter takes effect. We recommend that you specify only the IoMaxSpec parameter.
-        # *   For more information about the valid values, see [Billing](~~84737~~).
+        # *   You must configure at least one of IoMax and IoMaxSpec. If you configure both parameters, the value of IoMaxSpec takes effect. We recommend that you configure only IoMaxSpec.
+        # *   For information about the valid values of this parameter, see [Billing](~~84737~~).
+        # 
+        # >  When you create an ApsaraMQ for Kafka V3 serverless instance, you do not need to configure this parameter.
         self.io_max = io_max  # type: int
         # The traffic specification of the instance. We recommend that you configure this parameter.
         # 
         # *   The traffic specification that you specify must be greater than or equal to the current traffic specification of the instance.
-        # *   You must configure at least one of the IoMax and IoMaxSpec parameters. If you configure both parameters, the value of the IoMaxSpec parameter takes effect. We recommend that you specify only the IoMaxSpec parameter.
-        # *   For more information about the valid values, see [Billing](~~84737~~).
+        # *   You must configure at least one of IoMax and IoMaxSpec. If you configure both parameters, the value of IoMaxSpec takes effect. We recommend that you configure only IoMaxSpec.
+        # *   For information about the valid values of this parameter, see [Billing](~~84737~~).
+        # 
+        # >  When you create an ApsaraMQ for Kafka V3 serverless instance, you do not need to configure this parameter.
         self.io_max_spec = io_max_spec  # type: str
         # The number of partitions. We recommend that you configure this parameter.
         # 
-        # *   You must specify at least one of the PartitionNum and TopicQuota parameters. We recommend that you configure only the PartitionNum parameter.
-        # *   If you specify both parameters, the topic-based sales model is used to check whether the PartitionNum value and the TopicQuota value are the same. If they are not the same, a failure response is returned. If they are the same, the order is placed based on the PartitionNum value.
-        # *   For more information about the valid values, see [Billing](~~84737~~).
+        # *   You must configure one of PartitionNum and TopicQuota. We recommend that you configure only ParittionNum.
+        # *   If you configure PartitionNum and TopicQuota at the same time, the system verifies whether the price of the partitions equals the price of the topics based on the previous topic-based selling mode. If the price of the partitions does not equal the price of the topics, an error is returned. If the price of the partitions equals the price of the topics, the instance is purchased based on the partition number.
+        # *   For information about the valid values of this parameter, see [Billing](~~84737~~).
+        # 
+        # >  When you create an ApsaraMQ for Kafka V3 serverless instance, you do not need to configure this parameter.
         self.partition_num = partition_num  # type: int
         # The region ID of the instance.
         self.region_id = region_id  # type: str
+        # The parameters configured for the Serverless instance. When you create an ApsaraMQ for Kafka V3 serverless instance, you must configure these parameters.
         self.serverless_config_shrink = serverless_config_shrink  # type: str
-        # The edition of the instance. Valid values:
+        # The instance edition.
         # 
-        # *   **normal**: Standard Edition (High Write)
-        # *   **professional**: Professional Edition (High Write)
-        # *   **professionalForHighRead**: Professional Edition (High Read)
+        # Valid values for this parameter if you set PaidType to 1:
         # 
-        # You cannot downgrade an instance from the Professional Edition to the Standard Edition. For more information about these instance editions, see [Billing](~~84737~~).
+        # *   normal: Standard Edition (High Write)
+        # *   professional: Professional Edition (High Write)
+        # *   professionalForHighRead: Professional Edition (High Read)
+        # 
+        # Valid values for this parameter if you set PaidType to 3:
+        # 
+        # *   normal: Serverless Standard Edition
+        # *   professional: Serverless Professional Edition
+        # 
+        # For more information, see [Billing](~~84737~~).
         self.spec_type = spec_type  # type: str
         # The number of topics. We recommend that you do not configure this parameter.
         # 
-        # *   You must specify at least one of the PartitionNum and TopicQuota parameters. We recommend that you configure only the PartitionNum parameter.
-        # *   If you specify both parameters, the topic-based sales model is used to check whether the PartitionNum value and the TopicQuota value are the same. If they are not the same, a failure response is returned. If they are the same, the order is placed based on the PartitionNum value.
-        # *   The default value of the TopicQuota parameter varies based on the value of the IoMaxSpec parameter. If the number of topics that you consume exceeds the default value, you are charged additional fees.
-        # *   For more information about the valid values, see [Billing](~~84737~~).
+        # *   You must configure one of PartitionNum and TopicQuota. We recommend that you configure only ParittionNum.
+        # *   If you configure PartitionNum and TopicQuota at the same time, the system verifies whether the price of the partitions equals the price of the topics based on the previous topic-based selling mode. If the price of the partitions does not equal the price of the topics, an error is returned. If the price of the partitions equals the price of the topics, the instance is purchased based on the partition number.
+        # *   The default value of TopicQuota varies based on the value of IoMaxSpec. If the number of topics that you consume exceeds the default value, you are charged additional fees.
+        # *   For information about the valid values of this parameter, see [Billing](~~84737~~).
+        # 
+        # >  When you create an ApsaraMQ for Kafka V3 serverless instance, you do not need to configure this parameter.
         self.topic_quota = topic_quota  # type: int
 
     def validate(self):
