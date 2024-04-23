@@ -394,8 +394,9 @@ class AttachAlbServerGroupsResponse(TeaModel):
 
 
 class AttachDBInstancesRequest(TeaModel):
-    def __init__(self, client_token=None, dbinstances=None, force_attach=None, owner_id=None, region_id=None,
-                 resource_owner_account=None, scaling_group_id=None):
+    def __init__(self, attach_mode=None, client_token=None, dbinstances=None, force_attach=None, owner_id=None,
+                 region_id=None, resource_owner_account=None, scaling_group_id=None, type=None):
+        self.attach_mode = attach_mode  # type: str
         # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must ensure that the value is unique among different requests.
         # 
         # The token can only contain ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure the idempotence of a request](~~25965~~).
@@ -415,6 +416,7 @@ class AttachDBInstancesRequest(TeaModel):
         self.resource_owner_account = resource_owner_account  # type: str
         # The ID of the scaling group.
         self.scaling_group_id = scaling_group_id  # type: str
+        self.type = type  # type: str
 
     def validate(self):
         pass
@@ -425,6 +427,8 @@ class AttachDBInstancesRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.attach_mode is not None:
+            result['AttachMode'] = self.attach_mode
         if self.client_token is not None:
             result['ClientToken'] = self.client_token
         if self.dbinstances is not None:
@@ -439,10 +443,14 @@ class AttachDBInstancesRequest(TeaModel):
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.scaling_group_id is not None:
             result['ScalingGroupId'] = self.scaling_group_id
+        if self.type is not None:
+            result['Type'] = self.type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AttachMode') is not None:
+            self.attach_mode = m.get('AttachMode')
         if m.get('ClientToken') is not None:
             self.client_token = m.get('ClientToken')
         if m.get('DBInstances') is not None:
@@ -457,6 +465,8 @@ class AttachDBInstancesRequest(TeaModel):
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ScalingGroupId') is not None:
             self.scaling_group_id = m.get('ScalingGroupId')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
         return self
 
 
@@ -4804,12 +4814,12 @@ class CreateScalingConfigurationRequestSpotPriceLimits(TeaModel):
 class CreateScalingConfigurationRequest(TeaModel):
     def __init__(self, image_options=None, private_pool_options=None, system_disk=None, affinity=None,
                  client_token=None, cpu=None, credit_specification=None, custom_priorities=None, data_disks=None,
-                 dedicated_host_id=None, deletion_protection=None, deployment_set_id=None, host_name=None, hpc_cluster_id=None,
-                 image_family=None, image_id=None, image_name=None, instance_description=None, instance_name=None,
-                 instance_pattern_infos=None, instance_type=None, instance_type_overrides=None, instance_types=None,
-                 internet_charge_type=None, internet_max_bandwidth_in=None, internet_max_bandwidth_out=None, io_optimized=None,
-                 ipv_6address_count=None, key_pair_name=None, load_balancer_weight=None, memory=None, network_interfaces=None,
-                 owner_account=None, owner_id=None, password=None, password_inherit=None, ram_role_name=None,
+                 dedicated_host_cluster_id=None, dedicated_host_id=None, deletion_protection=None, deployment_set_id=None, host_name=None,
+                 hpc_cluster_id=None, image_family=None, image_id=None, image_name=None, instance_description=None,
+                 instance_name=None, instance_pattern_infos=None, instance_type=None, instance_type_overrides=None,
+                 instance_types=None, internet_charge_type=None, internet_max_bandwidth_in=None, internet_max_bandwidth_out=None,
+                 io_optimized=None, ipv_6address_count=None, key_pair_name=None, load_balancer_weight=None, memory=None,
+                 network_interfaces=None, owner_account=None, owner_id=None, password=None, password_inherit=None, ram_role_name=None,
                  resource_group_id=None, resource_owner_account=None, scaling_configuration_name=None, scaling_group_id=None,
                  scheduler_options=None, security_enhancement_strategy=None, security_group_id=None, security_group_ids=None,
                  spot_duration=None, spot_interruption_behavior=None, spot_price_limits=None, spot_strategy=None,
@@ -4852,6 +4862,7 @@ class CreateScalingConfigurationRequest(TeaModel):
         self.custom_priorities = custom_priorities  # type: list[CreateScalingConfigurationRequestCustomPriorities]
         # The data disks.
         self.data_disks = data_disks  # type: list[CreateScalingConfigurationRequestDataDisks]
+        self.dedicated_host_cluster_id = dedicated_host_cluster_id  # type: str
         # The ID of the dedicated host on which you want to create an ECS instance. You cannot create preemptible instances on dedicated hosts. If you specify DedicatedHostId, SpotStrategy and SpotPriceLimit are ignored.
         # 
         # You can call the DescribeDedicatedHosts operation to query dedicated host IDs.
@@ -5074,6 +5085,8 @@ class CreateScalingConfigurationRequest(TeaModel):
         if self.data_disks is not None:
             for k in self.data_disks:
                 result['DataDisks'].append(k.to_map() if k else None)
+        if self.dedicated_host_cluster_id is not None:
+            result['DedicatedHostClusterId'] = self.dedicated_host_cluster_id
         if self.dedicated_host_id is not None:
             result['DedicatedHostId'] = self.dedicated_host_id
         if self.deletion_protection is not None:
@@ -5207,6 +5220,8 @@ class CreateScalingConfigurationRequest(TeaModel):
             for k in m.get('DataDisks'):
                 temp_model = CreateScalingConfigurationRequestDataDisks()
                 self.data_disks.append(temp_model.from_map(k))
+        if m.get('DedicatedHostClusterId') is not None:
+            self.dedicated_host_cluster_id = m.get('DedicatedHostClusterId')
         if m.get('DedicatedHostId') is not None:
             self.dedicated_host_id = m.get('DedicatedHostId')
         if m.get('DeletionProtection') is not None:
@@ -5926,12 +5941,12 @@ class CreateScalingConfigurationShrinkRequestSpotPriceLimits(TeaModel):
 class CreateScalingConfigurationShrinkRequest(TeaModel):
     def __init__(self, image_options=None, private_pool_options=None, system_disk=None, affinity=None,
                  client_token=None, cpu=None, credit_specification=None, custom_priorities=None, data_disks=None,
-                 dedicated_host_id=None, deletion_protection=None, deployment_set_id=None, host_name=None, hpc_cluster_id=None,
-                 image_family=None, image_id=None, image_name=None, instance_description=None, instance_name=None,
-                 instance_pattern_infos=None, instance_type=None, instance_type_overrides=None, instance_types=None,
-                 internet_charge_type=None, internet_max_bandwidth_in=None, internet_max_bandwidth_out=None, io_optimized=None,
-                 ipv_6address_count=None, key_pair_name=None, load_balancer_weight=None, memory=None, network_interfaces=None,
-                 owner_account=None, owner_id=None, password=None, password_inherit=None, ram_role_name=None,
+                 dedicated_host_cluster_id=None, dedicated_host_id=None, deletion_protection=None, deployment_set_id=None, host_name=None,
+                 hpc_cluster_id=None, image_family=None, image_id=None, image_name=None, instance_description=None,
+                 instance_name=None, instance_pattern_infos=None, instance_type=None, instance_type_overrides=None,
+                 instance_types=None, internet_charge_type=None, internet_max_bandwidth_in=None, internet_max_bandwidth_out=None,
+                 io_optimized=None, ipv_6address_count=None, key_pair_name=None, load_balancer_weight=None, memory=None,
+                 network_interfaces=None, owner_account=None, owner_id=None, password=None, password_inherit=None, ram_role_name=None,
                  resource_group_id=None, resource_owner_account=None, scaling_configuration_name=None, scaling_group_id=None,
                  scheduler_options_shrink=None, security_enhancement_strategy=None, security_group_id=None, security_group_ids=None,
                  spot_duration=None, spot_interruption_behavior=None, spot_price_limits=None, spot_strategy=None,
@@ -5974,6 +5989,7 @@ class CreateScalingConfigurationShrinkRequest(TeaModel):
         self.custom_priorities = custom_priorities  # type: list[CreateScalingConfigurationShrinkRequestCustomPriorities]
         # The data disks.
         self.data_disks = data_disks  # type: list[CreateScalingConfigurationShrinkRequestDataDisks]
+        self.dedicated_host_cluster_id = dedicated_host_cluster_id  # type: str
         # The ID of the dedicated host on which you want to create an ECS instance. You cannot create preemptible instances on dedicated hosts. If you specify DedicatedHostId, SpotStrategy and SpotPriceLimit are ignored.
         # 
         # You can call the DescribeDedicatedHosts operation to query dedicated host IDs.
@@ -6196,6 +6212,8 @@ class CreateScalingConfigurationShrinkRequest(TeaModel):
         if self.data_disks is not None:
             for k in self.data_disks:
                 result['DataDisks'].append(k.to_map() if k else None)
+        if self.dedicated_host_cluster_id is not None:
+            result['DedicatedHostClusterId'] = self.dedicated_host_cluster_id
         if self.dedicated_host_id is not None:
             result['DedicatedHostId'] = self.dedicated_host_id
         if self.deletion_protection is not None:
@@ -6329,6 +6347,8 @@ class CreateScalingConfigurationShrinkRequest(TeaModel):
             for k in m.get('DataDisks'):
                 temp_model = CreateScalingConfigurationShrinkRequestDataDisks()
                 self.data_disks.append(temp_model.from_map(k))
+        if m.get('DedicatedHostClusterId') is not None:
+            self.dedicated_host_cluster_id = m.get('DedicatedHostClusterId')
         if m.get('DedicatedHostId') is not None:
             self.dedicated_host_id = m.get('DedicatedHostId')
         if m.get('DeletionProtection') is not None:
@@ -6541,6 +6561,40 @@ class CreateScalingGroupRequestAlbServerGroups(TeaModel):
             self.port = m.get('Port')
         if m.get('Weight') is not None:
             self.weight = m.get('Weight')
+        return self
+
+
+class CreateScalingGroupRequestDBInstances(TeaModel):
+    def __init__(self, attach_mode=None, dbinstance_id=None, type=None):
+        self.attach_mode = attach_mode  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateScalingGroupRequestDBInstances, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.attach_mode is not None:
+            result['AttachMode'] = self.attach_mode
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AttachMode') is not None:
+            self.attach_mode = m.get('AttachMode')
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
         return self
 
 
@@ -6876,15 +6930,16 @@ class CreateScalingGroupRequestVServerGroups(TeaModel):
 
 class CreateScalingGroupRequest(TeaModel):
     def __init__(self, alb_server_groups=None, allocation_strategy=None, az_balance=None, client_token=None,
-                 compensate_with_on_demand=None, container_group_id=None, custom_policy_arn=None, dbinstance_ids=None, default_cooldown=None,
-                 desired_capacity=None, group_deletion_protection=None, group_type=None, health_check_type=None,
-                 health_check_types=None, instance_id=None, launch_template_id=None, launch_template_overrides=None,
-                 launch_template_version=None, lifecycle_hooks=None, load_balancer_configs=None, load_balancer_ids=None,
-                 max_instance_lifetime=None, max_size=None, min_size=None, multi_azpolicy=None, on_demand_base_capacity=None,
-                 on_demand_percentage_above_base_capacity=None, owner_account=None, owner_id=None, region_id=None, removal_policies=None,
-                 resource_group_id=None, resource_owner_account=None, scaling_group_name=None, scaling_policy=None,
-                 server_groups=None, spot_allocation_strategy=None, spot_instance_pools=None, spot_instance_remedy=None,
-                 sync_alarm_rule_to_cms=None, tags=None, vserver_groups=None, v_switch_id=None, v_switch_ids=None):
+                 compensate_with_on_demand=None, container_group_id=None, custom_policy_arn=None, dbinstance_ids=None, dbinstances=None,
+                 default_cooldown=None, desired_capacity=None, group_deletion_protection=None, group_type=None,
+                 health_check_type=None, health_check_types=None, instance_id=None, launch_template_id=None,
+                 launch_template_overrides=None, launch_template_version=None, lifecycle_hooks=None, load_balancer_configs=None,
+                 load_balancer_ids=None, max_instance_lifetime=None, max_size=None, min_size=None, multi_azpolicy=None,
+                 on_demand_base_capacity=None, on_demand_percentage_above_base_capacity=None, owner_account=None, owner_id=None,
+                 region_id=None, removal_policies=None, resource_group_id=None, resource_owner_account=None,
+                 scaling_group_name=None, scaling_policy=None, server_groups=None, spot_allocation_strategy=None,
+                 spot_instance_pools=None, spot_instance_remedy=None, sync_alarm_rule_to_cms=None, tags=None, vserver_groups=None,
+                 v_switch_id=None, v_switch_ids=None):
         # Details of the Application Load Balancer (ALB) server groups that you want to associate with the scaling group.
         self.alb_server_groups = alb_server_groups  # type: list[CreateScalingGroupRequestAlbServerGroups]
         # The allocation policy of instances. Auto Scaling selects instance types based on the allocation policy to create the required number of instances. The policy can be applied to pay-as-you-go instances and preemptible instances. This parameter takes effect only when you set the `MultiAZPolicy` parameter to `COMPOSABLE`. Valid values:
@@ -6918,6 +6973,7 @@ class CreateScalingGroupRequest(TeaModel):
         # 
         # You can associate only a limited number of ApsaraDB RDS instances with a scaling group. Go to [Quota Center](https://quotas.console.aliyun.com/products/ess/quotas) to check the maximum number of ApsaraDB RDS instances that you can associate with a scaling group.
         self.dbinstance_ids = dbinstance_ids  # type: str
+        self.dbinstances = dbinstances  # type: list[CreateScalingGroupRequestDBInstances]
         # The cooldown period of the scaling group after a scaling activity is complete. Valid values: 0 to 86400. Unit: seconds.
         # 
         # During the cooldown period, Auto Scaling executes only scaling activities that are triggered by CloudMonitor event-triggered tasks.
@@ -7081,6 +7137,10 @@ class CreateScalingGroupRequest(TeaModel):
             for k in self.alb_server_groups:
                 if k:
                     k.validate()
+        if self.dbinstances:
+            for k in self.dbinstances:
+                if k:
+                    k.validate()
         if self.launch_template_overrides:
             for k in self.launch_template_overrides:
                 if k:
@@ -7130,6 +7190,10 @@ class CreateScalingGroupRequest(TeaModel):
             result['CustomPolicyARN'] = self.custom_policy_arn
         if self.dbinstance_ids is not None:
             result['DBInstanceIds'] = self.dbinstance_ids
+        result['DBInstances'] = []
+        if self.dbinstances is not None:
+            for k in self.dbinstances:
+                result['DBInstances'].append(k.to_map() if k else None)
         if self.default_cooldown is not None:
             result['DefaultCooldown'] = self.default_cooldown
         if self.desired_capacity is not None:
@@ -7237,6 +7301,11 @@ class CreateScalingGroupRequest(TeaModel):
             self.custom_policy_arn = m.get('CustomPolicyARN')
         if m.get('DBInstanceIds') is not None:
             self.dbinstance_ids = m.get('DBInstanceIds')
+        self.dbinstances = []
+        if m.get('DBInstances') is not None:
+            for k in m.get('DBInstances'):
+                temp_model = CreateScalingGroupRequestDBInstances()
+                self.dbinstances.append(temp_model.from_map(k))
         if m.get('DefaultCooldown') is not None:
             self.default_cooldown = m.get('DefaultCooldown')
         if m.get('DesiredCapacity') is not None:
@@ -14695,13 +14764,13 @@ class DescribeScalingConfigurationsResponseBodyScalingConfigurationsTags(TeaMode
 
 class DescribeScalingConfigurationsResponseBodyScalingConfigurations(TeaModel):
     def __init__(self, affinity=None, cpu=None, creation_time=None, credit_specification=None,
-                 custom_priorities=None, data_disks=None, dedicated_host_id=None, deletion_protection=None, deployment_set_id=None,
-                 host_name=None, hpc_cluster_id=None, image_family=None, image_id=None, image_name=None,
-                 image_options_login_as_non_root=None, image_owner_alias=None, instance_description=None, instance_generation=None,
-                 instance_name=None, instance_pattern_infos=None, instance_type=None, instance_types=None,
-                 internet_charge_type=None, internet_max_bandwidth_in=None, internet_max_bandwidth_out=None, io_optimized=None,
-                 ipv_6address_count=None, key_pair_name=None, lifecycle_state=None, load_balancer_weight=None, memory=None,
-                 network_interfaces=None, password_inherit=None, private_pool_options_id=None,
+                 custom_priorities=None, data_disks=None, dedicated_host_cluster_id=None, dedicated_host_id=None,
+                 deletion_protection=None, deployment_set_id=None, host_name=None, hpc_cluster_id=None, image_family=None,
+                 image_id=None, image_name=None, image_options_login_as_non_root=None, image_owner_alias=None,
+                 instance_description=None, instance_generation=None, instance_name=None, instance_pattern_infos=None,
+                 instance_type=None, instance_types=None, internet_charge_type=None, internet_max_bandwidth_in=None,
+                 internet_max_bandwidth_out=None, io_optimized=None, ipv_6address_count=None, key_pair_name=None, lifecycle_state=None,
+                 load_balancer_weight=None, memory=None, network_interfaces=None, password_inherit=None, private_pool_options_id=None,
                  private_pool_options_match_criteria=None, ram_role_name=None, resource_group_id=None, scaling_configuration_id=None,
                  scaling_configuration_name=None, scaling_group_id=None, scheduler_options=None, security_enhancement_strategy=None,
                  security_group_id=None, security_group_ids=None, spot_duration=None, spot_interruption_behavior=None,
@@ -14731,6 +14800,7 @@ class DescribeScalingConfigurationsResponseBodyScalingConfigurations(TeaModel):
         self.custom_priorities = custom_priorities  # type: list[DescribeScalingConfigurationsResponseBodyScalingConfigurationsCustomPriorities]
         # Details of the data disks.
         self.data_disks = data_disks  # type: list[DescribeScalingConfigurationsResponseBodyScalingConfigurationsDataDisks]
+        self.dedicated_host_cluster_id = dedicated_host_cluster_id  # type: str
         # The ID of the dedicated host on which the ECS instance is created. Preemptible instances cannot be created on dedicated hosts. If you specify the DedicatedHostId parameter, the SpotStrategy and SpotPriceLimit parameters are ignored.
         # 
         # You can call the DescribeDedicatedHosts operation to query dedicated host IDs.
@@ -14961,6 +15031,8 @@ class DescribeScalingConfigurationsResponseBodyScalingConfigurations(TeaModel):
         if self.data_disks is not None:
             for k in self.data_disks:
                 result['DataDisks'].append(k.to_map() if k else None)
+        if self.dedicated_host_cluster_id is not None:
+            result['DedicatedHostClusterId'] = self.dedicated_host_cluster_id
         if self.dedicated_host_id is not None:
             result['DedicatedHostId'] = self.dedicated_host_id
         if self.deletion_protection is not None:
@@ -15113,6 +15185,8 @@ class DescribeScalingConfigurationsResponseBodyScalingConfigurations(TeaModel):
             for k in m.get('DataDisks'):
                 temp_model = DescribeScalingConfigurationsResponseBodyScalingConfigurationsDataDisks()
                 self.data_disks.append(temp_model.from_map(k))
+        if m.get('DedicatedHostClusterId') is not None:
+            self.dedicated_host_cluster_id = m.get('DedicatedHostClusterId')
         if m.get('DedicatedHostId') is not None:
             self.dedicated_host_id = m.get('DedicatedHostId')
         if m.get('DeletionProtection') is not None:
@@ -16237,6 +16311,40 @@ class DescribeScalingGroupsResponseBodyScalingGroupsAlbServerGroups(TeaModel):
         return self
 
 
+class DescribeScalingGroupsResponseBodyScalingGroupsDBInstances(TeaModel):
+    def __init__(self, dbinstance_id=None, security_group_ids=None, type=None):
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.security_group_ids = security_group_ids  # type: list[str]
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeScalingGroupsResponseBodyScalingGroupsDBInstances, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.security_group_ids is not None:
+            result['SecurityGroupIds'] = self.security_group_ids
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('SecurityGroupIds') is not None:
+            self.security_group_ids = m.get('SecurityGroupIds')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
 class DescribeScalingGroupsResponseBodyScalingGroupsLaunchTemplateOverrides(TeaModel):
     def __init__(self, instance_type=None, spot_price_limit=None, weighted_capacity=None):
         # The instance type. The instance type that is specified by this parameter overrides the instance type that is specified in the launch template.
@@ -16474,7 +16582,7 @@ class DescribeScalingGroupsResponseBodyScalingGroupsVServerGroups(TeaModel):
 class DescribeScalingGroupsResponseBodyScalingGroups(TeaModel):
     def __init__(self, active_capacity=None, active_scaling_configuration_id=None, alb_server_groups=None,
                  allocation_strategy=None, az_balance=None, compensate_with_on_demand=None, creation_time=None, current_host_name=None,
-                 custom_policy_arn=None, dbinstance_ids=None, default_cooldown=None, desired_capacity=None,
+                 custom_policy_arn=None, dbinstance_ids=None, dbinstances=None, default_cooldown=None, desired_capacity=None,
                  enable_desired_capacity=None, group_deletion_protection=None, group_type=None, health_check_type=None,
                  health_check_types=None, init_capacity=None, is_elastic_strength_in_alarm=None, launch_template_id=None,
                  launch_template_overrides=None, launch_template_version=None, lifecycle_state=None, load_balancer_configs=None,
@@ -16515,6 +16623,7 @@ class DescribeScalingGroupsResponseBodyScalingGroups(TeaModel):
         self.custom_policy_arn = custom_policy_arn  # type: str
         # The IDs of the ApsaraDB RDS instances that are associated with the scaling group.
         self.dbinstance_ids = dbinstance_ids  # type: list[str]
+        self.dbinstances = dbinstances  # type: list[DescribeScalingGroupsResponseBodyScalingGroupsDBInstances]
         # The cooldown period of the scaling group. During the cooldown period, Auto Scaling does not execute the scaling activities that are triggered by [CloudMonitor](~~35170~~) event-triggered tasks.
         self.default_cooldown = default_cooldown  # type: int
         # The expected number of ECS instances in the scaling group. Auto Scaling automatically maintains the expected number of ECS instances.
@@ -16679,6 +16788,10 @@ class DescribeScalingGroupsResponseBodyScalingGroups(TeaModel):
             for k in self.alb_server_groups:
                 if k:
                     k.validate()
+        if self.dbinstances:
+            for k in self.dbinstances:
+                if k:
+                    k.validate()
         if self.launch_template_overrides:
             for k in self.launch_template_overrides:
                 if k:
@@ -16728,6 +16841,10 @@ class DescribeScalingGroupsResponseBodyScalingGroups(TeaModel):
             result['CustomPolicyARN'] = self.custom_policy_arn
         if self.dbinstance_ids is not None:
             result['DBInstanceIds'] = self.dbinstance_ids
+        result['DBInstances'] = []
+        if self.dbinstances is not None:
+            for k in self.dbinstances:
+                result['DBInstances'].append(k.to_map() if k else None)
         if self.default_cooldown is not None:
             result['DefaultCooldown'] = self.default_cooldown
         if self.desired_capacity is not None:
@@ -16863,6 +16980,11 @@ class DescribeScalingGroupsResponseBodyScalingGroups(TeaModel):
             self.custom_policy_arn = m.get('CustomPolicyARN')
         if m.get('DBInstanceIds') is not None:
             self.dbinstance_ids = m.get('DBInstanceIds')
+        self.dbinstances = []
+        if m.get('DBInstances') is not None:
+            for k in m.get('DBInstances'):
+                temp_model = DescribeScalingGroupsResponseBodyScalingGroupsDBInstances()
+                self.dbinstances.append(temp_model.from_map(k))
         if m.get('DefaultCooldown') is not None:
             self.default_cooldown = m.get('DefaultCooldown')
         if m.get('DesiredCapacity') is not None:
@@ -18482,7 +18604,7 @@ class DetachAlbServerGroupsResponse(TeaModel):
 
 class DetachDBInstancesRequest(TeaModel):
     def __init__(self, client_token=None, dbinstances=None, force_detach=None, owner_id=None, region_id=None,
-                 resource_owner_account=None, scaling_group_id=None):
+                 remove_security_group=None, resource_owner_account=None, scaling_group_id=None):
         # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must ensure that the value is unique among different requests.
         # 
         # The token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25965~~).
@@ -18499,6 +18621,7 @@ class DetachDBInstancesRequest(TeaModel):
         self.owner_id = owner_id  # type: long
         # The region ID of the scaling group.
         self.region_id = region_id  # type: str
+        self.remove_security_group = remove_security_group  # type: bool
         self.resource_owner_account = resource_owner_account  # type: str
         # The ID of the scaling group.
         self.scaling_group_id = scaling_group_id  # type: str
@@ -18522,6 +18645,8 @@ class DetachDBInstancesRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.remove_security_group is not None:
+            result['RemoveSecurityGroup'] = self.remove_security_group
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.scaling_group_id is not None:
@@ -18540,6 +18665,8 @@ class DetachDBInstancesRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RemoveSecurityGroup') is not None:
+            self.remove_security_group = m.get('RemoveSecurityGroup')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ScalingGroupId') is not None:
@@ -24249,16 +24376,17 @@ class ModifyScalingConfigurationRequestSpotPriceLimits(TeaModel):
 
 class ModifyScalingConfigurationRequest(TeaModel):
     def __init__(self, image_options=None, private_pool_options=None, system_disk=None, affinity=None, cpu=None,
-                 credit_specification=None, custom_priorities=None, data_disks=None, dedicated_host_id=None, deletion_protection=None,
-                 deployment_set_id=None, host_name=None, hpc_cluster_id=None, image_family=None, image_id=None, image_name=None,
-                 instance_description=None, instance_name=None, instance_pattern_infos=None, instance_type_overrides=None,
-                 instance_types=None, internet_charge_type=None, internet_max_bandwidth_out=None, io_optimized=None,
-                 ipv_6address_count=None, key_pair_name=None, load_balancer_weight=None, memory=None, network_interfaces=None,
-                 override=None, owner_account=None, owner_id=None, password_inherit=None, ram_role_name=None,
-                 resource_group_id=None, resource_owner_account=None, scaling_configuration_id=None,
-                 scaling_configuration_name=None, scheduler_options=None, security_group_id=None, security_group_ids=None, spot_duration=None,
-                 spot_interruption_behavior=None, spot_price_limits=None, spot_strategy=None, storage_set_id=None,
-                 storage_set_partition_number=None, system_disk_categories=None, tags=None, tenancy=None, user_data=None, zone_id=None):
+                 credit_specification=None, custom_priorities=None, data_disks=None, dedicated_host_cluster_id=None,
+                 dedicated_host_id=None, deletion_protection=None, deployment_set_id=None, host_name=None, hpc_cluster_id=None,
+                 image_family=None, image_id=None, image_name=None, instance_description=None, instance_name=None,
+                 instance_pattern_infos=None, instance_type_overrides=None, instance_types=None, internet_charge_type=None,
+                 internet_max_bandwidth_out=None, io_optimized=None, ipv_6address_count=None, key_pair_name=None, load_balancer_weight=None,
+                 memory=None, network_interfaces=None, override=None, owner_account=None, owner_id=None,
+                 password_inherit=None, ram_role_name=None, resource_group_id=None, resource_owner_account=None,
+                 scaling_configuration_id=None, scaling_configuration_name=None, scheduler_options=None, security_group_id=None,
+                 security_group_ids=None, spot_duration=None, spot_interruption_behavior=None, spot_price_limits=None,
+                 spot_strategy=None, storage_set_id=None, storage_set_partition_number=None, system_disk_categories=None,
+                 tags=None, tenancy=None, user_data=None, zone_id=None):
         self.image_options = image_options  # type: ModifyScalingConfigurationRequestImageOptions
         self.private_pool_options = private_pool_options  # type: ModifyScalingConfigurationRequestPrivatePoolOptions
         self.system_disk = system_disk  # type: ModifyScalingConfigurationRequestSystemDisk
@@ -24281,6 +24409,7 @@ class ModifyScalingConfigurationRequest(TeaModel):
         self.custom_priorities = custom_priorities  # type: list[ModifyScalingConfigurationRequestCustomPriorities]
         # The data disks.
         self.data_disks = data_disks  # type: list[ModifyScalingConfigurationRequestDataDisks]
+        self.dedicated_host_cluster_id = dedicated_host_cluster_id  # type: str
         # The ID of the dedicated host on which you want to create ECS instances. You cannot create preemptible instances on dedicated hosts. If you specify DedicatedHostId, SpotStrategy and SpotPriceLimit are ignored.
         # 
         # You can call the DescribeDedicatedHosts operation to query the most recent list of dedicated host IDs.
@@ -24473,6 +24602,8 @@ class ModifyScalingConfigurationRequest(TeaModel):
         if self.data_disks is not None:
             for k in self.data_disks:
                 result['DataDisks'].append(k.to_map() if k else None)
+        if self.dedicated_host_cluster_id is not None:
+            result['DedicatedHostClusterId'] = self.dedicated_host_cluster_id
         if self.dedicated_host_id is not None:
             result['DedicatedHostId'] = self.dedicated_host_id
         if self.deletion_protection is not None:
@@ -24598,6 +24729,8 @@ class ModifyScalingConfigurationRequest(TeaModel):
             for k in m.get('DataDisks'):
                 temp_model = ModifyScalingConfigurationRequestDataDisks()
                 self.data_disks.append(temp_model.from_map(k))
+        if m.get('DedicatedHostClusterId') is not None:
+            self.dedicated_host_cluster_id = m.get('DedicatedHostClusterId')
         if m.get('DedicatedHostId') is not None:
             self.dedicated_host_id = m.get('DedicatedHostId')
         if m.get('DeletionProtection') is not None:
@@ -25290,17 +25423,17 @@ class ModifyScalingConfigurationShrinkRequestSpotPriceLimits(TeaModel):
 
 class ModifyScalingConfigurationShrinkRequest(TeaModel):
     def __init__(self, image_options=None, private_pool_options=None, system_disk=None, affinity=None, cpu=None,
-                 credit_specification=None, custom_priorities=None, data_disks=None, dedicated_host_id=None, deletion_protection=None,
-                 deployment_set_id=None, host_name=None, hpc_cluster_id=None, image_family=None, image_id=None, image_name=None,
-                 instance_description=None, instance_name=None, instance_pattern_infos=None, instance_type_overrides=None,
-                 instance_types=None, internet_charge_type=None, internet_max_bandwidth_out=None, io_optimized=None,
-                 ipv_6address_count=None, key_pair_name=None, load_balancer_weight=None, memory=None, network_interfaces=None,
-                 override=None, owner_account=None, owner_id=None, password_inherit=None, ram_role_name=None,
-                 resource_group_id=None, resource_owner_account=None, scaling_configuration_id=None,
-                 scaling_configuration_name=None, scheduler_options_shrink=None, security_group_id=None, security_group_ids=None,
-                 spot_duration=None, spot_interruption_behavior=None, spot_price_limits=None, spot_strategy=None,
-                 storage_set_id=None, storage_set_partition_number=None, system_disk_categories=None, tags=None, tenancy=None,
-                 user_data=None, zone_id=None):
+                 credit_specification=None, custom_priorities=None, data_disks=None, dedicated_host_cluster_id=None,
+                 dedicated_host_id=None, deletion_protection=None, deployment_set_id=None, host_name=None, hpc_cluster_id=None,
+                 image_family=None, image_id=None, image_name=None, instance_description=None, instance_name=None,
+                 instance_pattern_infos=None, instance_type_overrides=None, instance_types=None, internet_charge_type=None,
+                 internet_max_bandwidth_out=None, io_optimized=None, ipv_6address_count=None, key_pair_name=None, load_balancer_weight=None,
+                 memory=None, network_interfaces=None, override=None, owner_account=None, owner_id=None,
+                 password_inherit=None, ram_role_name=None, resource_group_id=None, resource_owner_account=None,
+                 scaling_configuration_id=None, scaling_configuration_name=None, scheduler_options_shrink=None, security_group_id=None,
+                 security_group_ids=None, spot_duration=None, spot_interruption_behavior=None, spot_price_limits=None,
+                 spot_strategy=None, storage_set_id=None, storage_set_partition_number=None, system_disk_categories=None,
+                 tags=None, tenancy=None, user_data=None, zone_id=None):
         self.image_options = image_options  # type: ModifyScalingConfigurationShrinkRequestImageOptions
         self.private_pool_options = private_pool_options  # type: ModifyScalingConfigurationShrinkRequestPrivatePoolOptions
         self.system_disk = system_disk  # type: ModifyScalingConfigurationShrinkRequestSystemDisk
@@ -25323,6 +25456,7 @@ class ModifyScalingConfigurationShrinkRequest(TeaModel):
         self.custom_priorities = custom_priorities  # type: list[ModifyScalingConfigurationShrinkRequestCustomPriorities]
         # The data disks.
         self.data_disks = data_disks  # type: list[ModifyScalingConfigurationShrinkRequestDataDisks]
+        self.dedicated_host_cluster_id = dedicated_host_cluster_id  # type: str
         # The ID of the dedicated host on which you want to create ECS instances. You cannot create preemptible instances on dedicated hosts. If you specify DedicatedHostId, SpotStrategy and SpotPriceLimit are ignored.
         # 
         # You can call the DescribeDedicatedHosts operation to query the most recent list of dedicated host IDs.
@@ -25515,6 +25649,8 @@ class ModifyScalingConfigurationShrinkRequest(TeaModel):
         if self.data_disks is not None:
             for k in self.data_disks:
                 result['DataDisks'].append(k.to_map() if k else None)
+        if self.dedicated_host_cluster_id is not None:
+            result['DedicatedHostClusterId'] = self.dedicated_host_cluster_id
         if self.dedicated_host_id is not None:
             result['DedicatedHostId'] = self.dedicated_host_id
         if self.deletion_protection is not None:
@@ -25640,6 +25776,8 @@ class ModifyScalingConfigurationShrinkRequest(TeaModel):
             for k in m.get('DataDisks'):
                 temp_model = ModifyScalingConfigurationShrinkRequestDataDisks()
                 self.data_disks.append(temp_model.from_map(k))
+        if m.get('DedicatedHostClusterId') is not None:
+            self.dedicated_host_cluster_id = m.get('DedicatedHostClusterId')
         if m.get('DedicatedHostId') is not None:
             self.dedicated_host_id = m.get('DedicatedHostId')
         if m.get('DeletionProtection') is not None:
