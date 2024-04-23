@@ -452,66 +452,6 @@ class Client(OpenApiClient):
         headers = {}
         return self.create_data_stream_with_options(instance_id, request, headers, runtime)
 
-    def create_data_tasks_with_options(self, instance_id, request, headers, runtime):
-        """
-        @deprecated
-        Before you call this operation, note that:
-        *   Currently, the one-click index migration feature only supports the China (Beijing) region.
-        *   The source and destination Elasticsearch clusters must meet the following requirements: a user-created or Alibaba Cloud Elasticsearch Elasticsearch cluster with a source of version 6.7.0 and a Alibaba Cloud Elasticsearch Elasticsearch cluster with a destination of version 6.3.2 or 6.7.0.
-        
-
-        @param request: CreateDataTasksRequest
-
-        @type headers: dict
-        @param headers: map
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: CreateDataTasksResponse
-        Deprecated
-        """
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.client_token):
-            query['ClientToken'] = request.client_token
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_array(request.body)
-        )
-        params = open_api_models.Params(
-            action='CreateDataTasks',
-            version='2017-06-13',
-            protocol='HTTPS',
-            pathname='/openapi/instances/%s/data-task' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)),
-            method='POST',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            elasticsearch_20170613_models.CreateDataTasksResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def create_data_tasks(self, instance_id, request):
-        """
-        @deprecated
-        Before you call this operation, note that:
-        *   Currently, the one-click index migration feature only supports the China (Beijing) region.
-        *   The source and destination Elasticsearch clusters must meet the following requirements: a user-created or Alibaba Cloud Elasticsearch Elasticsearch cluster with a source of version 6.7.0 and a Alibaba Cloud Elasticsearch Elasticsearch cluster with a destination of version 6.3.2 or 6.7.0.
-        
-
-        @param request: CreateDataTasksRequest
-
-        @return: CreateDataTasksResponse
-        Deprecated
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.create_data_tasks_with_options(instance_id, request, headers, runtime)
-
     def create_ilmpolicy_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
