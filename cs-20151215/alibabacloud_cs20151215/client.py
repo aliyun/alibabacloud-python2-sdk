@@ -1355,10 +1355,12 @@ class Client(OpenApiClient):
         headers = {}
         return self.describe_cluster_addon_instance_with_options(cluster_id, addon_name, headers, runtime)
 
-    def describe_cluster_addon_metadata_with_options(self, cluster_id, component_id, version, headers, runtime):
+    def describe_cluster_addon_metadata_with_options(self, cluster_id, component_id, request, headers, runtime):
         """
         @deprecated
         
+
+        @param request: DescribeClusterAddonMetadataRequest
 
         @type headers: dict
         @param headers: map
@@ -1368,8 +1370,13 @@ class Client(OpenApiClient):
         @return: DescribeClusterAddonMetadataResponse
         Deprecated
         """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.version):
+            query['version'] = request.version
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeClusterAddonMetadata',
@@ -1387,17 +1394,19 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_cluster_addon_metadata(self, cluster_id, component_id, version):
+    def describe_cluster_addon_metadata(self, cluster_id, component_id, request):
         """
         @deprecated
         
+
+        @param request: DescribeClusterAddonMetadataRequest
 
         @return: DescribeClusterAddonMetadataResponse
         Deprecated
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_cluster_addon_metadata_with_options(cluster_id, component_id, version, headers, runtime)
+        return self.describe_cluster_addon_metadata_with_options(cluster_id, component_id, request, headers, runtime)
 
     def describe_cluster_addon_upgrade_status_with_options(self, cluster_id, component_id, headers, runtime):
         """
