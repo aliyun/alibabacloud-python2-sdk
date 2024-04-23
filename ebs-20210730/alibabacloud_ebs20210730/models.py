@@ -6259,6 +6259,230 @@ class DescribeEnterpriseSnapshotPolicyResponse(TeaModel):
         return self
 
 
+class DescribeEventsRequest(TeaModel):
+    def __init__(self, end_time=None, event_name=None, max_results=None, next_token=None, region_id=None,
+                 resource_id=None, resource_type=None, start_time=None, status=None):
+        self.end_time = end_time  # type: str
+        self.event_name = event_name  # type: str
+        self.max_results = max_results  # type: int
+        self.next_token = next_token  # type: str
+        self.region_id = region_id  # type: str
+        self.resource_id = resource_id  # type: str
+        self.resource_type = resource_type  # type: str
+        self.start_time = start_time  # type: str
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeEventsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.event_name is not None:
+            result['EventName'] = self.event_name
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_id is not None:
+            result['ResourceId'] = self.resource_id
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('EventName') is not None:
+            self.event_name = m.get('EventName')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceId') is not None:
+            self.resource_id = m.get('ResourceId')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class DescribeEventsResponseBodyResourceEvents(TeaModel):
+    def __init__(self, description=None, end_time=None, event_level=None, event_name=None, event_type=None,
+                 recommend_action=None, recommend_params=None, resource_id=None, resource_type=None, start_time=None, status=None):
+        self.description = description  # type: str
+        self.end_time = end_time  # type: str
+        self.event_level = event_level  # type: str
+        self.event_name = event_name  # type: str
+        self.event_type = event_type  # type: str
+        self.recommend_action = recommend_action  # type: str
+        self.recommend_params = recommend_params  # type: str
+        self.resource_id = resource_id  # type: str
+        self.resource_type = resource_type  # type: str
+        self.start_time = start_time  # type: str
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeEventsResponseBodyResourceEvents, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.event_level is not None:
+            result['EventLevel'] = self.event_level
+        if self.event_name is not None:
+            result['EventName'] = self.event_name
+        if self.event_type is not None:
+            result['EventType'] = self.event_type
+        if self.recommend_action is not None:
+            result['RecommendAction'] = self.recommend_action
+        if self.recommend_params is not None:
+            result['RecommendParams'] = self.recommend_params
+        if self.resource_id is not None:
+            result['ResourceId'] = self.resource_id
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('EventLevel') is not None:
+            self.event_level = m.get('EventLevel')
+        if m.get('EventName') is not None:
+            self.event_name = m.get('EventName')
+        if m.get('EventType') is not None:
+            self.event_type = m.get('EventType')
+        if m.get('RecommendAction') is not None:
+            self.recommend_action = m.get('RecommendAction')
+        if m.get('RecommendParams') is not None:
+            self.recommend_params = m.get('RecommendParams')
+        if m.get('ResourceId') is not None:
+            self.resource_id = m.get('ResourceId')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class DescribeEventsResponseBody(TeaModel):
+    def __init__(self, next_token=None, request_id=None, resource_events=None, total_count=None):
+        self.next_token = next_token  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.resource_events = resource_events  # type: list[DescribeEventsResponseBodyResourceEvents]
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.resource_events:
+            for k in self.resource_events:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeEventsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        result['ResourceEvents'] = []
+        if self.resource_events is not None:
+            for k in self.resource_events:
+                result['ResourceEvents'].append(k.to_map() if k else None)
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        self.resource_events = []
+        if m.get('ResourceEvents') is not None:
+            for k in m.get('ResourceEvents'):
+                temp_model = DescribeEventsResponseBodyResourceEvents()
+                self.resource_events.append(temp_model.from_map(k))
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class DescribeEventsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeEventsResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeEventsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeEventsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeLensServiceStatusResponseBody(TeaModel):
     def __init__(self, request_id=None, status=None):
         # The request ID.
@@ -8682,8 +8906,11 @@ class ModifyDiskReplicaPairResponse(TeaModel):
 
 class QueryDedicatedBlockStorageClusterDiskThroughputStatusRequest(TeaModel):
     def __init__(self, client_token=None, qos_request_id=None, region_id=None):
+        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must make sure that the value is unique among different requests. The ClientToken value can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).
         self.client_token = client_token  # type: str
+        # The ID of the request of SetDedicatedBlockStorageClusterDiskThroughput api.
         self.qos_request_id = qos_request_id  # type: str
+        # The region ID of the dedicated block storage cluster.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -8716,7 +8943,14 @@ class QueryDedicatedBlockStorageClusterDiskThroughputStatusRequest(TeaModel):
 
 class QueryDedicatedBlockStorageClusterDiskThroughputStatusResponseBody(TeaModel):
     def __init__(self, request_id=None, status=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The status of the throughput after setting the throughput by SetDedicatedBlockStorageClusterDiskThroughput api.
+        # 
+        # - SUCCESS: The throughput has been successfully set.
+        # - RUNNING: The throughput is currently being set.
+        # - WAIT(): The throughput is waiting to be set.
+        # - FAIL(): The throughput setting has failed.
         self.status = status  # type: str
 
     def validate(self):
@@ -9326,9 +9560,13 @@ class ReprotectDiskReplicaPairResponse(TeaModel):
 
 class SetDedicatedBlockStorageClusterDiskThroughputRequest(TeaModel):
     def __init__(self, bps=None, client_token=None, disk_id=None, region_id=None):
+        # Target throughput.
         self.bps = bps  # type: int
+        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must make sure that the value is unique among different requests. The ClientToken value can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).
         self.client_token = client_token  # type: str
+        # The ID of the disk.
         self.disk_id = disk_id  # type: str
+        # The region ID of disk.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -9365,6 +9603,7 @@ class SetDedicatedBlockStorageClusterDiskThroughputRequest(TeaModel):
 
 class SetDedicatedBlockStorageClusterDiskThroughputResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
