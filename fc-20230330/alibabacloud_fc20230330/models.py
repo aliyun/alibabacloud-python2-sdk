@@ -5690,6 +5690,66 @@ class GetAsyncInvokeConfigResponse(TeaModel):
         return self
 
 
+class GetAsyncTaskRequest(TeaModel):
+    def __init__(self, qualifier=None):
+        self.qualifier = qualifier  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetAsyncTaskRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.qualifier is not None:
+            result['qualifier'] = self.qualifier
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('qualifier') is not None:
+            self.qualifier = m.get('qualifier')
+        return self
+
+
+class GetAsyncTaskResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: AsyncTask
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetAsyncTaskResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = AsyncTask()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetConcurrencyConfigResponse(TeaModel):
     def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
@@ -6305,6 +6365,107 @@ class ListAsyncInvokeConfigsResponse(TeaModel):
         return self
 
 
+class ListAsyncTasksRequest(TeaModel):
+    def __init__(self, include_payload=None, limit=None, next_token=None, prefix=None, qualifier=None,
+                 sort_order_by_time=None, started_time_begin=None, started_time_end=None, status=None):
+        self.include_payload = include_payload  # type: bool
+        self.limit = limit  # type: int
+        self.next_token = next_token  # type: str
+        self.prefix = prefix  # type: str
+        self.qualifier = qualifier  # type: str
+        self.sort_order_by_time = sort_order_by_time  # type: str
+        self.started_time_begin = started_time_begin  # type: long
+        self.started_time_end = started_time_end  # type: long
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListAsyncTasksRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.include_payload is not None:
+            result['includePayload'] = self.include_payload
+        if self.limit is not None:
+            result['limit'] = self.limit
+        if self.next_token is not None:
+            result['nextToken'] = self.next_token
+        if self.prefix is not None:
+            result['prefix'] = self.prefix
+        if self.qualifier is not None:
+            result['qualifier'] = self.qualifier
+        if self.sort_order_by_time is not None:
+            result['sortOrderByTime'] = self.sort_order_by_time
+        if self.started_time_begin is not None:
+            result['startedTimeBegin'] = self.started_time_begin
+        if self.started_time_end is not None:
+            result['startedTimeEnd'] = self.started_time_end
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('includePayload') is not None:
+            self.include_payload = m.get('includePayload')
+        if m.get('limit') is not None:
+            self.limit = m.get('limit')
+        if m.get('nextToken') is not None:
+            self.next_token = m.get('nextToken')
+        if m.get('prefix') is not None:
+            self.prefix = m.get('prefix')
+        if m.get('qualifier') is not None:
+            self.qualifier = m.get('qualifier')
+        if m.get('sortOrderByTime') is not None:
+            self.sort_order_by_time = m.get('sortOrderByTime')
+        if m.get('startedTimeBegin') is not None:
+            self.started_time_begin = m.get('startedTimeBegin')
+        if m.get('startedTimeEnd') is not None:
+            self.started_time_end = m.get('startedTimeEnd')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
+class ListAsyncTasksResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListAsyncTaskOutput
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListAsyncTasksResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListAsyncTaskOutput()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListConcurrencyConfigsRequest(TeaModel):
     def __init__(self, function_name=None, limit=None, next_token=None):
         # The function name. If you leave this parameter empty, the concurrency configurations of all functions are returned.
@@ -6891,9 +7052,13 @@ class ListProvisionConfigsResponse(TeaModel):
 
 class ListTagResourcesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # 标签名
+        # The tag key.
+        # 
+        # The tag key can be up to 64 characters in length, and cannot contain `http://` or `https://`. The tag key cannot start with `aliyun` or `acs:`.
         self.key = key  # type: str
-        # 标签值
+        # The tag value.
+        # 
+        # The tag value can be up to 128 characters in length and can be an empty string.
         self.value = value  # type: str
 
     def validate(self):
@@ -6922,10 +7087,17 @@ class ListTagResourcesRequestTag(TeaModel):
 
 class ListTagResourcesRequest(TeaModel):
     def __init__(self, limit=None, next_token=None, resource_id=None, resource_type=None, tag=None):
+        # The number of resources to return.
         self.limit = limit  # type: int
+        # The pagination token that is used in the next request to retrieve a new page of results.
         self.next_token = next_token  # type: str
+        # The resource IDs.
         self.resource_id = resource_id  # type: list[str]
+        # The resource type.
         self.resource_type = resource_type  # type: str
+        # The tags.
+        # 
+        # You can query up to 20 tags at a time.
         self.tag = tag  # type: list[ListTagResourcesRequestTag]
 
     def validate(self):
@@ -6974,10 +7146,17 @@ class ListTagResourcesRequest(TeaModel):
 
 class ListTagResourcesShrinkRequest(TeaModel):
     def __init__(self, limit=None, next_token=None, resource_id_shrink=None, resource_type=None, tag_shrink=None):
+        # The number of resources to return.
         self.limit = limit  # type: int
+        # The pagination token that is used in the next request to retrieve a new page of results.
         self.next_token = next_token  # type: str
+        # The resource IDs.
         self.resource_id_shrink = resource_id_shrink  # type: str
+        # The resource type.
         self.resource_type = resource_type  # type: str
+        # The tags.
+        # 
+        # You can query up to 20 tags at a time.
         self.tag_shrink = tag_shrink  # type: str
 
     def validate(self):
@@ -7479,8 +7658,62 @@ class PutProvisionConfigResponse(TeaModel):
         return self
 
 
+class StopAsyncTaskRequest(TeaModel):
+    def __init__(self, qualifier=None):
+        self.qualifier = qualifier  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(StopAsyncTaskRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.qualifier is not None:
+            result['qualifier'] = self.qualifier
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('qualifier') is not None:
+            self.qualifier = m.get('qualifier')
+        return self
+
+
+class StopAsyncTaskResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(StopAsyncTaskResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        return self
+
+
 class TagResourcesRequest(TeaModel):
     def __init__(self, body=None):
+        # The configuration of the resource tag.
         self.body = body  # type: TagResourcesInput
 
     def validate(self):
@@ -7536,9 +7769,13 @@ class TagResourcesResponse(TeaModel):
 
 class UntagResourcesRequest(TeaModel):
     def __init__(self, all=None, resource_id=None, resource_type=None, tag_key=None):
+        # Specifies whether to delete all tags.
         self.all = all  # type: bool
+        # The resource identifiers.
         self.resource_id = resource_id  # type: list[str]
+        # The resource type.
         self.resource_type = resource_type  # type: str
+        # The tag to remove. You can specify a maximum of 50 tags.
         self.tag_key = tag_key  # type: list[str]
 
     def validate(self):
@@ -7575,9 +7812,13 @@ class UntagResourcesRequest(TeaModel):
 
 class UntagResourcesShrinkRequest(TeaModel):
     def __init__(self, all=None, resource_id_shrink=None, resource_type=None, tag_key_shrink=None):
+        # Specifies whether to delete all tags.
         self.all = all  # type: bool
+        # The resource identifiers.
         self.resource_id_shrink = resource_id_shrink  # type: str
+        # The resource type.
         self.resource_type = resource_type  # type: str
+        # The tag to remove. You can specify a maximum of 50 tags.
         self.tag_key_shrink = tag_key_shrink  # type: str
 
     def validate(self):

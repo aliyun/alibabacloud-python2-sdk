@@ -508,6 +508,36 @@ class Client(OpenApiClient):
         headers = {}
         return self.get_async_invoke_config_with_options(function_name, request, headers, runtime)
 
+    def get_async_task_with_options(self, function_name, task_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.qualifier):
+            query['qualifier'] = request.qualifier
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetAsyncTask',
+            version='2023-03-30',
+            protocol='HTTPS',
+            pathname='/2023-03-30/functions/%s/async-tasks/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(task_id))),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            fc20230330_models.GetAsyncTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_async_task(self, function_name, task_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_async_task_with_options(function_name, task_id, request, headers, runtime)
+
     def get_concurrency_config_with_options(self, function_name, headers, runtime):
         req = open_api_models.OpenApiRequest(
             headers=headers
@@ -839,6 +869,52 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_async_invoke_configs_with_options(request, headers, runtime)
+
+    def list_async_tasks_with_options(self, function_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.include_payload):
+            query['includePayload'] = request.include_payload
+        if not UtilClient.is_unset(request.limit):
+            query['limit'] = request.limit
+        if not UtilClient.is_unset(request.next_token):
+            query['nextToken'] = request.next_token
+        if not UtilClient.is_unset(request.prefix):
+            query['prefix'] = request.prefix
+        if not UtilClient.is_unset(request.qualifier):
+            query['qualifier'] = request.qualifier
+        if not UtilClient.is_unset(request.sort_order_by_time):
+            query['sortOrderByTime'] = request.sort_order_by_time
+        if not UtilClient.is_unset(request.started_time_begin):
+            query['startedTimeBegin'] = request.started_time_begin
+        if not UtilClient.is_unset(request.started_time_end):
+            query['startedTimeEnd'] = request.started_time_end
+        if not UtilClient.is_unset(request.status):
+            query['status'] = request.status
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListAsyncTasks',
+            version='2023-03-30',
+            protocol='HTTPS',
+            pathname='/2023-03-30/functions/%s/async-tasks' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            fc20230330_models.ListAsyncTasksResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_async_tasks(self, function_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_async_tasks_with_options(function_name, request, headers, runtime)
 
     def list_concurrency_configs_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1360,6 +1436,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.put_provision_config_with_options(function_name, request, headers, runtime)
+
+    def stop_async_task_with_options(self, function_name, task_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.qualifier):
+            query['qualifier'] = request.qualifier
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='StopAsyncTask',
+            version='2023-03-30',
+            protocol='HTTPS',
+            pathname='/2023-03-30/functions/%s/async-tasks/%s/stop' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(task_id))),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            fc20230330_models.StopAsyncTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def stop_async_task(self, function_name, task_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.stop_async_task_with_options(function_name, task_id, request, headers, runtime)
 
     def tag_resources_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
