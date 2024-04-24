@@ -32737,16 +32737,29 @@ class ListSkillGroupSummaryReportsSinceMidnightResponseBodyPagedSkillGroupSummar
 
 class ListSkillGroupSummaryReportsSinceMidnightResponseBodyPagedSkillGroupSummaryReportListOutbound(TeaModel):
     def __init__(self, answer_rate=None, average_dialing_time=None, average_talk_time=None, average_work_time=None,
-                 calls_answered=None, calls_dialed=None, calls_service_level_30=None, max_dialing_time=None, max_talk_time=None,
-                 max_work_time=None, satisfaction_index=None, satisfaction_surveys_offered=None,
-                 satisfaction_surveys_responded=None, total_dialing_time=None, total_talk_time=None, total_work_time=None):
+                 calls_abandoned=None, calls_agent_handled=None, calls_answered=None, calls_dialed=None, calls_offered=None,
+                 calls_queuing_cancelled=None, calls_queuing_failed=None, calls_queuing_failure=None, calls_queuing_overflow=None,
+                 calls_queuing_rerouted=None, calls_queuing_timeout=None, calls_service_level_30=None, calls_service_level_30v2=None,
+                 max_dialing_time=None, max_talk_time=None, max_work_time=None, satisfaction_index=None,
+                 satisfaction_surveys_offered=None, satisfaction_surveys_responded=None, total_dialing_time=None, total_talk_time=None,
+                 total_wait_time=None, total_work_time=None):
         self.answer_rate = answer_rate  # type: float
         self.average_dialing_time = average_dialing_time  # type: long
         self.average_talk_time = average_talk_time  # type: long
         self.average_work_time = average_work_time  # type: long
+        self.calls_abandoned = calls_abandoned  # type: long
+        self.calls_agent_handled = calls_agent_handled  # type: long
         self.calls_answered = calls_answered  # type: long
         self.calls_dialed = calls_dialed  # type: long
+        self.calls_offered = calls_offered  # type: long
+        self.calls_queuing_cancelled = calls_queuing_cancelled  # type: long
+        self.calls_queuing_failed = calls_queuing_failed  # type: long
+        self.calls_queuing_failure = calls_queuing_failure  # type: long
+        self.calls_queuing_overflow = calls_queuing_overflow  # type: long
+        self.calls_queuing_rerouted = calls_queuing_rerouted  # type: long
+        self.calls_queuing_timeout = calls_queuing_timeout  # type: long
         self.calls_service_level_30 = calls_service_level_30  # type: str
+        self.calls_service_level_30v2 = calls_service_level_30v2  # type: long
         self.max_dialing_time = max_dialing_time  # type: long
         self.max_talk_time = max_talk_time  # type: long
         self.max_work_time = max_work_time  # type: long
@@ -32755,6 +32768,7 @@ class ListSkillGroupSummaryReportsSinceMidnightResponseBodyPagedSkillGroupSummar
         self.satisfaction_surveys_responded = satisfaction_surveys_responded  # type: long
         self.total_dialing_time = total_dialing_time  # type: long
         self.total_talk_time = total_talk_time  # type: long
+        self.total_wait_time = total_wait_time  # type: long
         self.total_work_time = total_work_time  # type: long
 
     def validate(self):
@@ -32774,12 +32788,32 @@ class ListSkillGroupSummaryReportsSinceMidnightResponseBodyPagedSkillGroupSummar
             result['AverageTalkTime'] = self.average_talk_time
         if self.average_work_time is not None:
             result['AverageWorkTime'] = self.average_work_time
+        if self.calls_abandoned is not None:
+            result['CallsAbandoned'] = self.calls_abandoned
+        if self.calls_agent_handled is not None:
+            result['CallsAgentHandled'] = self.calls_agent_handled
         if self.calls_answered is not None:
             result['CallsAnswered'] = self.calls_answered
         if self.calls_dialed is not None:
             result['CallsDialed'] = self.calls_dialed
+        if self.calls_offered is not None:
+            result['CallsOffered'] = self.calls_offered
+        if self.calls_queuing_cancelled is not None:
+            result['CallsQueuingCancelled'] = self.calls_queuing_cancelled
+        if self.calls_queuing_failed is not None:
+            result['CallsQueuingFailed'] = self.calls_queuing_failed
+        if self.calls_queuing_failure is not None:
+            result['CallsQueuingFailure'] = self.calls_queuing_failure
+        if self.calls_queuing_overflow is not None:
+            result['CallsQueuingOverflow'] = self.calls_queuing_overflow
+        if self.calls_queuing_rerouted is not None:
+            result['CallsQueuingRerouted'] = self.calls_queuing_rerouted
+        if self.calls_queuing_timeout is not None:
+            result['CallsQueuingTimeout'] = self.calls_queuing_timeout
         if self.calls_service_level_30 is not None:
             result['CallsServiceLevel30'] = self.calls_service_level_30
+        if self.calls_service_level_30v2 is not None:
+            result['CallsServiceLevel30V2'] = self.calls_service_level_30v2
         if self.max_dialing_time is not None:
             result['MaxDialingTime'] = self.max_dialing_time
         if self.max_talk_time is not None:
@@ -32796,6 +32830,8 @@ class ListSkillGroupSummaryReportsSinceMidnightResponseBodyPagedSkillGroupSummar
             result['TotalDialingTime'] = self.total_dialing_time
         if self.total_talk_time is not None:
             result['TotalTalkTime'] = self.total_talk_time
+        if self.total_wait_time is not None:
+            result['TotalWaitTime'] = self.total_wait_time
         if self.total_work_time is not None:
             result['TotalWorkTime'] = self.total_work_time
         return result
@@ -32810,12 +32846,32 @@ class ListSkillGroupSummaryReportsSinceMidnightResponseBodyPagedSkillGroupSummar
             self.average_talk_time = m.get('AverageTalkTime')
         if m.get('AverageWorkTime') is not None:
             self.average_work_time = m.get('AverageWorkTime')
+        if m.get('CallsAbandoned') is not None:
+            self.calls_abandoned = m.get('CallsAbandoned')
+        if m.get('CallsAgentHandled') is not None:
+            self.calls_agent_handled = m.get('CallsAgentHandled')
         if m.get('CallsAnswered') is not None:
             self.calls_answered = m.get('CallsAnswered')
         if m.get('CallsDialed') is not None:
             self.calls_dialed = m.get('CallsDialed')
+        if m.get('CallsOffered') is not None:
+            self.calls_offered = m.get('CallsOffered')
+        if m.get('CallsQueuingCancelled') is not None:
+            self.calls_queuing_cancelled = m.get('CallsQueuingCancelled')
+        if m.get('CallsQueuingFailed') is not None:
+            self.calls_queuing_failed = m.get('CallsQueuingFailed')
+        if m.get('CallsQueuingFailure') is not None:
+            self.calls_queuing_failure = m.get('CallsQueuingFailure')
+        if m.get('CallsQueuingOverflow') is not None:
+            self.calls_queuing_overflow = m.get('CallsQueuingOverflow')
+        if m.get('CallsQueuingRerouted') is not None:
+            self.calls_queuing_rerouted = m.get('CallsQueuingRerouted')
+        if m.get('CallsQueuingTimeout') is not None:
+            self.calls_queuing_timeout = m.get('CallsQueuingTimeout')
         if m.get('CallsServiceLevel30') is not None:
             self.calls_service_level_30 = m.get('CallsServiceLevel30')
+        if m.get('CallsServiceLevel30V2') is not None:
+            self.calls_service_level_30v2 = m.get('CallsServiceLevel30V2')
         if m.get('MaxDialingTime') is not None:
             self.max_dialing_time = m.get('MaxDialingTime')
         if m.get('MaxTalkTime') is not None:
@@ -32832,6 +32888,8 @@ class ListSkillGroupSummaryReportsSinceMidnightResponseBodyPagedSkillGroupSummar
             self.total_dialing_time = m.get('TotalDialingTime')
         if m.get('TotalTalkTime') is not None:
             self.total_talk_time = m.get('TotalTalkTime')
+        if m.get('TotalWaitTime') is not None:
+            self.total_wait_time = m.get('TotalWaitTime')
         if m.get('TotalWorkTime') is not None:
             self.total_work_time = m.get('TotalWorkTime')
         return self
