@@ -6821,6 +6821,116 @@ class CloneNacosConfigResponse(TeaModel):
         return self
 
 
+class CloneSentinelRuleFromAhasRequest(TeaModel):
+    def __init__(self, accept_language=None, ahas_namespace=None, app_name=None, is_ahaspublic_region=None,
+                 namespace=None):
+        self.accept_language = accept_language  # type: str
+        self.ahas_namespace = ahas_namespace  # type: str
+        self.app_name = app_name  # type: str
+        self.is_ahaspublic_region = is_ahaspublic_region  # type: bool
+        self.namespace = namespace  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CloneSentinelRuleFromAhasRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
+        if self.ahas_namespace is not None:
+            result['AhasNamespace'] = self.ahas_namespace
+        if self.app_name is not None:
+            result['AppName'] = self.app_name
+        if self.is_ahaspublic_region is not None:
+            result['IsAHASPublicRegion'] = self.is_ahaspublic_region
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
+        if m.get('AhasNamespace') is not None:
+            self.ahas_namespace = m.get('AhasNamespace')
+        if m.get('AppName') is not None:
+            self.app_name = m.get('AppName')
+        if m.get('IsAHASPublicRegion') is not None:
+            self.is_ahaspublic_region = m.get('IsAHASPublicRegion')
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
+        return self
+
+
+class CloneSentinelRuleFromAhasResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: dict[str, list[str]]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CloneSentinelRuleFromAhasResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CloneSentinelRuleFromAhasResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CloneSentinelRuleFromAhasResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CloneSentinelRuleFromAhasResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CloneSentinelRuleFromAhasResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateApplicationRequest(TeaModel):
     def __init__(self, accept_language=None, app_name=None, language=None, namespace=None, region=None,
                  sentinel_enable=None, source=None, switch_enable=None):
