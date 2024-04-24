@@ -63,9 +63,6 @@ class ChangeResourceGroupResponse(TeaModel):
         self.body = body  # type: ChangeResourceGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -125,9 +122,11 @@ class CreateInstanceRequestTags(TeaModel):
 
 
 class CreateInstanceRequest(TeaModel):
-    def __init__(self, cluster_type=None, instance_description=None, instance_name=None, network=None,
-                 network_source_acl=None, network_type_acl=None, policy=None, resource_group_id=None, tags=None):
+    def __init__(self, cluster_type=None, disable_replication=None, instance_description=None, instance_name=None,
+                 network=None, network_source_acl=None, network_type_acl=None, policy=None, resource_group_id=None,
+                 tags=None):
         self.cluster_type = cluster_type  # type: str
+        self.disable_replication = disable_replication  # type: bool
         self.instance_description = instance_description  # type: str
         self.instance_name = instance_name  # type: str
         self.network = network  # type: str
@@ -151,6 +150,8 @@ class CreateInstanceRequest(TeaModel):
         result = dict()
         if self.cluster_type is not None:
             result['ClusterType'] = self.cluster_type
+        if self.disable_replication is not None:
+            result['DisableReplication'] = self.disable_replication
         if self.instance_description is not None:
             result['InstanceDescription'] = self.instance_description
         if self.instance_name is not None:
@@ -175,6 +176,8 @@ class CreateInstanceRequest(TeaModel):
         m = m or dict()
         if m.get('ClusterType') is not None:
             self.cluster_type = m.get('ClusterType')
+        if m.get('DisableReplication') is not None:
+            self.disable_replication = m.get('DisableReplication')
         if m.get('InstanceDescription') is not None:
             self.instance_description = m.get('InstanceDescription')
         if m.get('InstanceName') is not None:
@@ -238,9 +241,6 @@ class CreateInstanceResponse(TeaModel):
         self.body = body  # type: CreateInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -325,9 +325,6 @@ class DeleteInstanceResponse(TeaModel):
         self.body = body  # type: DeleteInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -454,9 +451,6 @@ class DescribeRegionsResponse(TeaModel):
         self.body = body  # type: DescribeRegionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -511,9 +505,11 @@ class GetInstanceRequest(TeaModel):
 
 
 class GetInstanceResponseBodyTags(TeaModel):
-    def __init__(self, tag_key=None, tag_value=None):
+    def __init__(self, key=None, tag_key=None, tag_value=None, value=None):
+        self.key = key  # type: str
         self.tag_key = tag_key  # type: str
         self.tag_value = tag_value  # type: str
+        self.value = value  # type: str
 
     def validate(self):
         pass
@@ -524,18 +520,26 @@ class GetInstanceResponseBodyTags(TeaModel):
             return _map
 
         result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
         if self.tag_key is not None:
             result['TagKey'] = self.tag_key
         if self.tag_value is not None:
             result['TagValue'] = self.tag_value
+        if self.value is not None:
+            result['Value'] = self.value
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
         if m.get('TagKey') is not None:
             self.tag_key = m.get('TagKey')
         if m.get('TagValue') is not None:
             self.tag_value = m.get('TagValue')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
         return self
 
 
@@ -681,9 +685,6 @@ class GetInstanceResponse(TeaModel):
         self.body = body  # type: GetInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -897,9 +898,6 @@ class ListInstancesResponse(TeaModel):
         self.body = body  # type: ListInstancesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1148,9 +1146,6 @@ class ListTagResourcesResponse(TeaModel):
         self.body = body  # type: ListTagResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1282,9 +1277,6 @@ class TagResourcesResponse(TeaModel):
         self.body = body  # type: TagResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1384,9 +1376,6 @@ class UntagResourcesResponse(TeaModel):
         self.body = body  # type: UntagResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1497,9 +1486,6 @@ class UpdateInstanceResponse(TeaModel):
         self.body = body  # type: UpdateInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
