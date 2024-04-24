@@ -17957,6 +17957,35 @@ class MigrateClusterResponse(TeaModel):
         return self
 
 
+class ModifyClusterRequestApiServerCustomCertSans(TeaModel):
+    def __init__(self, action=None, subject_alternative_names=None):
+        self.action = action  # type: str
+        self.subject_alternative_names = subject_alternative_names  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyClusterRequestApiServerCustomCertSans, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.action is not None:
+            result['action'] = self.action
+        if self.subject_alternative_names is not None:
+            result['subject_alternative_names'] = self.subject_alternative_names
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('action') is not None:
+            self.action = m.get('action')
+        if m.get('subject_alternative_names') is not None:
+            self.subject_alternative_names = m.get('subject_alternative_names')
+        return self
+
+
 class ModifyClusterRequestOperationPolicyClusterAutoUpgrade(TeaModel):
     def __init__(self, channel=None, enabled=None):
         self.channel = channel  # type: str
@@ -18044,12 +18073,13 @@ class ModifyClusterRequestSystemEventsLogging(TeaModel):
 
 
 class ModifyClusterRequest(TeaModel):
-    def __init__(self, access_control_list=None, api_server_eip=None, api_server_eip_id=None, cluster_name=None,
-                 deletion_protection=None, enable_rrsa=None, ingress_domain_rebinding=None, ingress_loadbalancer_id=None,
-                 instance_deletion_protection=None, maintenance_window=None, operation_policy=None, resource_group_id=None,
-                 system_events_logging=None):
+    def __init__(self, access_control_list=None, api_server_custom_cert_sans=None, api_server_eip=None,
+                 api_server_eip_id=None, cluster_name=None, deletion_protection=None, enable_rrsa=None,
+                 ingress_domain_rebinding=None, ingress_loadbalancer_id=None, instance_deletion_protection=None, maintenance_window=None,
+                 operation_policy=None, resource_group_id=None, system_events_logging=None):
         # The network access control list (ACL) of the SLB instance associated with the API server if the cluster is a registered cluster.
         self.access_control_list = access_control_list  # type: list[str]
+        self.api_server_custom_cert_sans = api_server_custom_cert_sans  # type: ModifyClusterRequestApiServerCustomCertSans
         # Specifies whether to associate an elastic IP address (EIP) with the cluster API server. This enables Internet access for the cluster. Valid values:
         # 
         # *   `true`: associates an EIP with the cluster API server.
@@ -18098,6 +18128,8 @@ class ModifyClusterRequest(TeaModel):
         self.system_events_logging = system_events_logging  # type: ModifyClusterRequestSystemEventsLogging
 
     def validate(self):
+        if self.api_server_custom_cert_sans:
+            self.api_server_custom_cert_sans.validate()
         if self.maintenance_window:
             self.maintenance_window.validate()
         if self.operation_policy:
@@ -18113,6 +18145,8 @@ class ModifyClusterRequest(TeaModel):
         result = dict()
         if self.access_control_list is not None:
             result['access_control_list'] = self.access_control_list
+        if self.api_server_custom_cert_sans is not None:
+            result['api_server_custom_cert_sans'] = self.api_server_custom_cert_sans.to_map()
         if self.api_server_eip is not None:
             result['api_server_eip'] = self.api_server_eip
         if self.api_server_eip_id is not None:
@@ -18143,6 +18177,9 @@ class ModifyClusterRequest(TeaModel):
         m = m or dict()
         if m.get('access_control_list') is not None:
             self.access_control_list = m.get('access_control_list')
+        if m.get('api_server_custom_cert_sans') is not None:
+            temp_model = ModifyClusterRequestApiServerCustomCertSans()
+            self.api_server_custom_cert_sans = temp_model.from_map(m['api_server_custom_cert_sans'])
         if m.get('api_server_eip') is not None:
             self.api_server_eip = m.get('api_server_eip')
         if m.get('api_server_eip_id') is not None:
