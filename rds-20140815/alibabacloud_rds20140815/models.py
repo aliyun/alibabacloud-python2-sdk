@@ -648,10 +648,11 @@ class AllocateReadWriteSplittingConnectionResponse(TeaModel):
 
 
 class AttachWhitelistTemplateToInstanceRequest(TeaModel):
-    def __init__(self, ins_name=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
-                 template_id=None):
+    def __init__(self, ins_name=None, region_id=None, resource_group_id=None, resource_owner_account=None,
+                 resource_owner_id=None, template_id=None):
         # The name of the instance.
         self.ins_name = ins_name  # type: str
+        self.region_id = region_id  # type: str
         # The ID of the resource group. For more information about resource groups, see Resource groups.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
@@ -670,6 +671,8 @@ class AttachWhitelistTemplateToInstanceRequest(TeaModel):
         result = dict()
         if self.ins_name is not None:
             result['InsName'] = self.ins_name
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         if self.resource_group_id is not None:
             result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
@@ -684,6 +687,8 @@ class AttachWhitelistTemplateToInstanceRequest(TeaModel):
         m = m or dict()
         if m.get('InsName') is not None:
             self.ins_name = m.get('InsName')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         if m.get('ResourceGroupId') is not None:
             self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
@@ -4045,11 +4050,11 @@ class CreateDBInstanceRequest(TeaModel):
         # *   **true**: performs a dry run but does not perform the actual request. The system checks items such as the request parameters, request format, service limits, and available resources.
         # *   **false** (default): performs a dry run and performs the actual request. If the request passes the dry run, the instance is created.
         self.dry_run = dry_run  # type: bool
-        # The ID of the key that is used to encrypt data on standard SSDs or ESSDs in the region of the instance. If you specify the EncryptionKey parameter, cloud disk encryption is automatically enabled. In this case, you must also specify the **RoleARN** parameter. Cloud disk encryption cannot be disabled after it is enabled.
+        # The ID of the key that was used to encrypt the disk in the region where the disk is deployed. If this parameter is specified, disk encryption is enabled and you must also specify the **RoleARN** parameter. Disk encryption cannot be disabled after it is enabled.
         # 
-        # You can obtain the ID of the key from the Key Management Service (KMS) console. You can also create a key. For more information, see [Create a CMK](~~181610~~).
+        # You can obtain the ID of the key in the Key Management Service (KMS) console or create a key. For more information, see [Create a CMK](~~181610~~).
         # 
-        # >  This parameter is optional when you create an ApsaraDB RDS for PostgreSQL instance. You need to only specify the **RoleARN** parameter to create an instance that has cloud disk encryption enabled by using the obtained key ID.
+        # >  This parameter is optional when you create an instance that runs MySQL, PostgreSQL, or SQL Server. You need to only specify the **RoleARN** parameter to create an instance that has cloud disk encryption enabled by using the obtained key ID.
         self.encryption_key = encryption_key  # type: str
         # The database engine of the instance. Valid values:
         # 
@@ -4691,11 +4696,11 @@ class CreateDBInstanceShrinkRequest(TeaModel):
         # *   **true**: performs a dry run but does not perform the actual request. The system checks items such as the request parameters, request format, service limits, and available resources.
         # *   **false** (default): performs a dry run and performs the actual request. If the request passes the dry run, the instance is created.
         self.dry_run = dry_run  # type: bool
-        # The ID of the key that is used to encrypt data on standard SSDs or ESSDs in the region of the instance. If you specify the EncryptionKey parameter, cloud disk encryption is automatically enabled. In this case, you must also specify the **RoleARN** parameter. Cloud disk encryption cannot be disabled after it is enabled.
+        # The ID of the key that was used to encrypt the disk in the region where the disk is deployed. If this parameter is specified, disk encryption is enabled and you must also specify the **RoleARN** parameter. Disk encryption cannot be disabled after it is enabled.
         # 
-        # You can obtain the ID of the key from the Key Management Service (KMS) console. You can also create a key. For more information, see [Create a CMK](~~181610~~).
+        # You can obtain the ID of the key in the Key Management Service (KMS) console or create a key. For more information, see [Create a CMK](~~181610~~).
         # 
-        # >  This parameter is optional when you create an ApsaraDB RDS for PostgreSQL instance. You need to only specify the **RoleARN** parameter to create an instance that has cloud disk encryption enabled by using the obtained key ID.
+        # >  This parameter is optional when you create an instance that runs MySQL, PostgreSQL, or SQL Server. You need to only specify the **RoleARN** parameter to create an instance that has cloud disk encryption enabled by using the obtained key ID.
         self.encryption_key = encryption_key  # type: str
         # The database engine of the instance. Valid values:
         # 
@@ -6070,10 +6075,10 @@ class CreateDBInstanceForRebuildResponse(TeaModel):
 
 
 class CreateDBNodesRequestDBNode(TeaModel):
-    def __init__(self, class_code=None, vsw_id=None, zone_id=None):
+    def __init__(self, class_code=None, vswitch_id=None, zone_id=None):
         # The specification information of the node.
         self.class_code = class_code  # type: str
-        self.vsw_id = vsw_id  # type: str
+        self.vswitch_id = vswitch_id  # type: str
         # The zone ID of the node.
         self.zone_id = zone_id  # type: str
 
@@ -6088,8 +6093,8 @@ class CreateDBNodesRequestDBNode(TeaModel):
         result = dict()
         if self.class_code is not None:
             result['classCode'] = self.class_code
-        if self.vsw_id is not None:
-            result['vswId'] = self.vsw_id
+        if self.vswitch_id is not None:
+            result['vswitchId'] = self.vswitch_id
         if self.zone_id is not None:
             result['zoneId'] = self.zone_id
         return result
@@ -6098,8 +6103,8 @@ class CreateDBNodesRequestDBNode(TeaModel):
         m = m or dict()
         if m.get('classCode') is not None:
             self.class_code = m.get('classCode')
-        if m.get('vswId') is not None:
-            self.vsw_id = m.get('vswId')
+        if m.get('vswitchId') is not None:
+            self.vswitch_id = m.get('vswitchId')
         if m.get('zoneId') is not None:
             self.zone_id = m.get('zoneId')
         return self
@@ -7127,18 +7132,18 @@ class CreateGADInstanceRequestUnitNode(TeaModel):
         # *   The name can contain letters, digits, underscores (\_), and hyphens (-) and must start with a letter.
         # *   The name cannot start with `http://` or `https://`.
         # 
-        # **N** specifies unit node N. The value of N is an integer that ranges from **1 to 10**. You can create up to 10 unit nodes in a global active database cluster.
+        # **N** in this parameter specifies the Nth unit node. The value of N is an integer within the range of **1 to 10**. You can create up to 10 unit nodes in a global active database cluster.
         self.dbinstance_description = dbinstance_description  # type: str
-        # The storage capacity of the unit node that you want to create. Unit: GB. The storage capacity increases at a step size of 5 GB. For more information, see [Primary ApsaraDB RDS instance types](~~26312~~). You can also call the [DescribeAvailableResource](~~134039~~) operation to query the storage capacity range that is supported for a specified instance type in a region.
+        # The storage capacity of the unit node that you want to create. Unit: GB You can adjust the storage capacity in increments of 5 GB. For more information, see [Primary ApsaraDB RDS instance types](~~26312~~). You can also call the DescribeAvailableResource operation to query the storage capacity range that is supported by the new instance type.
         # 
-        # **N** specifies unit node N. The value of N is an integer that ranges from **1 to 10**. You can create up to 10 unit nodes in a global active database cluster.
+        # **N** in this parameter specifies the Nth unit node. The value of N is an integer within the range of **1 to 10**. You can create up to 10 unit nodes in a global active database cluster.
         self.dbinstance_storage = dbinstance_storage  # type: long
         # The storage type of the instance. Valid values:
         # 
         # *   **local_ssd**: local SSD. This is the recommended storage type.
         # *   **cloud_ssd**: standard SSD. This storage type is not recommended. Standard SSDs are no longer available for purchase in some Alibaba Cloud regions.
         # *   **cloud_essd**: enhanced SSD (ESSD) of performance level 1 (PL1).
-        # *   **cloud_essd2**: ESSD of PL2
+        # *   **cloud_essd2**: ESSD of PL2.
         # *   **cloud_essd3**: ESSD of PL3.
         # 
         # The default value of this parameter is determined by the instance type specified by the **DBInstanceClass** parameter.
@@ -7146,9 +7151,9 @@ class CreateGADInstanceRequestUnitNode(TeaModel):
         # *   If the instance type specifies the local SSD storage type, the default value of this parameter is **local_ssd**.
         # *   If the instance type specifies the cloud disk storage type, the default value of this parameter is **cloud_essd**.
         self.dbinstance_storage_type = dbinstance_storage_type  # type: str
-        # The instance type of the unit node that you want to create. For more information, see [Primary ApsaraDB RDS instance types](~~26312~~). You can call the [DescribeAvailableResource](~~134039~~) operation to query the available instance types in a region.
+        # The instance type of the unit node that you want to create. For more information, see [Primary ApsaraDB RDS instance types](~~26312~~). You can call the DescribeAvailableResource operation to query the available instance types in a region.
         # 
-        # **N** specifies unit node N. The value of N is an integer that ranges from **1 to 10**. You can create up to 10 unit nodes in a global active database cluster.
+        # **N** in this parameter specifies the Nth unit node. The value of N is an integer within the range of **1 to 10**. You can create up to 10 unit nodes in a global active database cluster.
         self.db_instance_class = db_instance_class  # type: str
         # The conflict resolution policy based on which Data Transmission Service (DTS) responds to primary key conflicts during data synchronization to the unit node that you want to create. Valid values:
         # 
@@ -7156,7 +7161,7 @@ class CreateGADInstanceRequestUnitNode(TeaModel):
         # *   **interrupt**: DTS stops the synchronization task, reports an error, and then exits.
         # *   **ignore**: DTS hides the conflicting primary key on the node.
         # 
-        # **N** specifies unit node N. The value of N is an integer that ranges from **1 to 10**. You can create up to 10 unit nodes in a global active database cluster.
+        # **N** in this parameter specifies the Nth unit node. The value of N is an integer within the range of **1 to 10**. You can create up to 10 unit nodes in a global active database cluster.
         self.dts_conflict = dts_conflict  # type: str
         # The specifications of the data synchronization task for the unit node that you want to create. Valid values:
         # 
@@ -7167,11 +7172,11 @@ class CreateGADInstanceRequestUnitNode(TeaModel):
         # 
         # >  For more information, see [Specifications of data synchronization tasks](~~26605~~).
         # 
-        # **N** specifies unit node N. The value of N is an integer that ranges from **1 to 10**. You can create up to 10 unit nodes in a global active database cluster.
+        # **N** in this parameter specifies the Nth unit node. The value of N is an integer within the range of **1 to 10**. You can create up to 10 unit nodes in a global active database cluster.
         self.dts_instance_class = dts_instance_class  # type: str
         # The database engine of the unit node that you want to create. Set the value to **MySQL**.
         # 
-        # **N** specifies unit node N. The value of N is an integer that ranges from **1 to 10**. You can create up to 10 unit nodes in a global active database cluster.
+        # **N** in this parameter specifies the Nth unit node. The value of N is an integer within the range of **1 to 10**. You can create up to 10 unit nodes in a global active database cluster.
         self.engine = engine  # type: str
         # The database engine version of the unit node that you want to create. Valid values:
         # 
@@ -7180,7 +7185,7 @@ class CreateGADInstanceRequestUnitNode(TeaModel):
         # *   **5.6**\
         # *   **5.5**\
         # 
-        # **N** specifies unit node N. The value of N is an integer that ranges from **1 to 10**. You can create up to 10 unit nodes in a global active database cluster.
+        # **N** in this parameter specifies the Nth unit node. The value of N is an integer within the range of **1 to 10**. You can create up to 10 unit nodes in a global active database cluster.
         self.engine_version = engine_version  # type: str
         # The billing method of the unit node that you want to create. Valid values:
         # 
@@ -7189,44 +7194,44 @@ class CreateGADInstanceRequestUnitNode(TeaModel):
         # 
         # >  The system automatically generates a purchase order and completes the payment. You do not need to manually confirm the purchase order or complete the payment.
         # 
-        # **N** specifies unit node N. The value of N is an integer that ranges from **1 to 10**. You can create up to 10 unit nodes in a global active database cluster.
+        # **N** in this parameter specifies the Nth unit node. The value of N is an integer within the range of **1 to 10**. You can create up to 10 unit nodes in a global active database cluster.
         self.pay_type = pay_type  # type: str
-        # The region ID of the unit node that you want to create. You can call the [DescribeRegions](~~26243~~) operation to query the most recent region list.
+        # The region ID of the unit node that you want to create. You can call the DescribeRegions operation to query the most recent region list.
         # 
-        # **N** specifies unit node N. The value of N is an integer that ranges from **1 to 10**. You can create up to 10 unit nodes in a global active database cluster.
+        # **N** in this parameter specifies the Nth unit node. The value of N is an integer within the range of **1 to 10**. You can create up to 10 unit nodes in a global active database cluster.
         self.region_id = region_id  # type: str
-        # The IP address whitelist of the unit node that you want to create. For more information, see [IP address whitelist](~~43185~~). If you want to add more than one entry to the IP address whitelist, separate the entries with commas (,). Each entry must be unique. The IP address whitelist can contain up to 1,000 entries. The entries in the IP address whitelist must be in one of the following formats:
+        # The [IP address whitelist](~~43185~~) of the unit node that you want to create. If you want to add more than one entry to the IP address whitelist, separate the entries with commas (,). Each entry must be unique. The IP address whitelist can contain up to 1,000 entries. The entries in the IP address whitelist must be in one of the following formats:
         # 
         # *   IP addresses, such as `10.10.10.10`.
-        # *   CIDR blocks, such as `10.10.10.10/24`. In this example, **24** indicates that the prefix of the IP address is 24 bits in length. You can replace 24 with a value within the range of **1 to 32**.
+        # *   CIDR blocks, such as `10.10.10.10/24`. In this example, **24** indicates that the prefix of the IP address in the whitelist is 24 bits in length. You can replace 24 with a value within the range of **1 to 32**.
         # 
-        # **N** specifies unit node N. The value of N is an integer that ranges from **1 to 10**. You can create up to 10 unit nodes in a global active database cluster.
+        # **N** in this parameter specifies the Nth unit node. The value of N is an integer within the range of **1 to 10**. You can create up to 10 unit nodes in a global active database cluster.
         self.security_iplist = security_iplist  # type: str
         # The vSwitch ID of the unit node that you want to create.
         # 
-        # **N** specifies unit node N. The value of N is an integer that ranges from **1 to 10**. You can create up to 10 unit nodes in a global active database cluster.
+        # **N** in this parameter specifies the Nth unit node. The value of N is an integer within the range of **1 to 10**. You can create up to 10 unit nodes in a global active database cluster.
         self.v_switch_id = v_switch_id  # type: str
         # The virtual private cloud (VPC) ID of the unit node that you want to create.
         # 
-        # **N** specifies unit node N. The value of N is an integer that ranges from **1 to 10**. You can create up to 10 unit nodes in a global active database cluster.
+        # **N** in this parameter specifies the Nth unit node. The value of N is an integer within the range of **1 to 10**. You can create up to 10 unit nodes in a global active database cluster.
         self.vpc_id = vpc_id  # type: str
-        # The zone ID of the unit node that you want to create. You can call the [DescribeRegions](~~26243~~) operation to query the ID of the zone.
+        # The zone ID of the unit node that you want to create. You can call the DescribeRegions operation to query the zone ID.
         # 
-        # **N** specifies unit node N. The value of N is an integer that ranges from **1 to 10**. You can create up to 10 unit nodes in a global active database cluster.
+        # **N** in this parameter specifies the Nth unit node. The value of N is an integer within the range of **1 to 10**. You can create up to 10 unit nodes in a global active database cluster.
         self.zone_id = zone_id  # type: str
-        # The zone ID of the secondary node of the unit node that you want to create. You can call the [DescribeRegions](~~26243~~) operation to query the ID of the zone.
+        # The zone ID of the secondary node of the unit node that you want to create. You can call the DescribeRegions operation to query the ID of the zone.
         # 
         # *   If the value of this parameter is the same as the **zone ID** of the unit node that you want to create, the single-zone deployment method is used.
         # *   If the value of this parameter is different from the **zone ID** of the unit node that you want to create, the multiple-zone deployment method is used.
         # 
-        # **N** specifies unit node N. The value of N is an integer that ranges from **1 to 10**. You can create up to 10 unit nodes in a global active database cluster.
+        # **N** in this parameter specifies the Nth unit node. The value of N is an integer within the range of **1 to 10**. You can create up to 10 unit nodes in a global active database cluster.
         self.zone_idslave_1 = zone_idslave_1  # type: str
-        # The zone ID of the logger node of the unit node that you want to create. You can call the [DescribeRegions](~~26243~~) operation to query the ID of the zone.
+        # The zone ID of the logger node of the unit node that you want to create. You can call the DescribeRegions operation to query the ID of the zone.
         # 
         # *   If the value of this parameter is the same as the **zone ID** of the unit node that you want to create, the single-zone deployment method is used.
         # *   If the value of this parameter is different from the **zone ID** of the unit node that you want to create, the multiple-zone deployment method is used.
         # 
-        # **N** specifies unit node N. The value of N is an integer that ranges from **1 to 10**. You can create up to 10 unit nodes in a global active database cluster.
+        # **N** in this parameter specifies the Nth unit node. The value of N is an integer within the range of **1 to 10**. You can create up to 10 unit nodes in a global active database cluster.
         self.zone_idslave_2 = zone_idslave_2  # type: str
 
     def validate(self):
@@ -7313,16 +7318,16 @@ class CreateGADInstanceRequest(TeaModel):
     def __init__(self, central_dbinstance_id=None, central_rds_dts_admin_account=None,
                  central_rds_dts_admin_password=None, central_region_id=None, dblist=None, description=None, resource_group_id=None, tag=None,
                  unit_node=None):
-        # The ID of the primary instance. You can call the [DescribeDBInstances](~~26232~~) operation to query the instance ID. The primary instance serves as the central node of the global active database cluster.
+        # The ID of the primary instance. You can call the DescribeDBInstances operation to query the instance ID. The primary instance serves as the central node of the global active database cluster.
         # 
-        # > *   A primary instance can serve as the central node only of a single global active database cluster.
-        # > *   Only a primary instance that is created in one of the following regions can serve as the central node of a global active database cluster: China (Hangzhou), China (Shanghai), China (Qingdao), China (Beijing), China (Zhangjiakou), China (Shenzhen), and China (Chengdu).
+        # > *   A primary instance can serve only as the central node of a single global active database cluster.
+        # > *   The primary instance can serve as the central node of the global active database cluster only in the following regions: China (Hangzhou), China (Shanghai), China (Qingdao), China (Beijing), China (Zhangjiakou), China (Shenzhen), and China (Chengdu).
         self.central_dbinstance_id = central_dbinstance_id  # type: str
-        # The username of the privileged account of the central node. You can call the [DescribeAccounts](~~26265~~) operation to query the privileged account of the central node.
+        # The username of the privileged account of the central node. You can call the DescribeAccounts operation to query the privileged account of the central node.
         self.central_rds_dts_admin_account = central_rds_dts_admin_account  # type: str
         # The password of the privileged account of the central node.
         self.central_rds_dts_admin_password = central_rds_dts_admin_password  # type: str
-        # The region ID of the central node. You can call the [DescribeRegions](~~26243~~) operation to query the most recent region list.
+        # The region ID of the central node. You can call the DescribeRegions operation to query the most recent region list.
         self.central_region_id = central_region_id  # type: str
         # A JSON array that consists of the information about a specified database on the central node. All database information that you specify in this array is synchronized to the unit nodes of the global active database cluster. The JSON array contains the following fields:
         # 
@@ -13317,8 +13322,8 @@ class DescribeActiveOperationTasksResponse(TeaModel):
 
 
 class DescribeAllWhitelistTemplateRequest(TeaModel):
-    def __init__(self, fuzzy_search=None, max_records_per_page=None, page_numbers=None, resource_group_id=None,
-                 resource_owner_account=None, resource_owner_id=None, template_name=None):
+    def __init__(self, fuzzy_search=None, max_records_per_page=None, page_numbers=None, region_id=None,
+                 resource_group_id=None, resource_owner_account=None, resource_owner_id=None, template_name=None):
         # Specifies whether to enable fuzzy search. Valid values:
         # 
         # *   **true**\
@@ -13328,6 +13333,7 @@ class DescribeAllWhitelistTemplateRequest(TeaModel):
         self.max_records_per_page = max_records_per_page  # type: int
         # The page number.
         self.page_numbers = page_numbers  # type: int
+        self.region_id = region_id  # type: str
         # The resource group ID. For more information about resource groups, see related documentation.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
@@ -13350,6 +13356,8 @@ class DescribeAllWhitelistTemplateRequest(TeaModel):
             result['MaxRecordsPerPage'] = self.max_records_per_page
         if self.page_numbers is not None:
             result['PageNumbers'] = self.page_numbers
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         if self.resource_group_id is not None:
             result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
@@ -13368,6 +13376,8 @@ class DescribeAllWhitelistTemplateRequest(TeaModel):
             self.max_records_per_page = m.get('MaxRecordsPerPage')
         if m.get('PageNumbers') is not None:
             self.page_numbers = m.get('PageNumbers')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         if m.get('ResourceGroupId') is not None:
             self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
@@ -13761,7 +13771,7 @@ class DescribeAvailableClassesRequest(TeaModel):
         # 
         # > If you want to query the price of a read-only instance, you must specify this parameter.
         self.commodity_code = commodity_code  # type: str
-        # The instance ID. You can call the [DescribeDBInstances](~~610396~~) operation to query the instance ID.
+        # The instance ID. You can call the DescribeDBInstances operation to query the instance ID.
         self.dbinstance_id = dbinstance_id  # type: str
         # The storage type of the instance. Valid values:
         # 
@@ -13807,12 +13817,12 @@ class DescribeAvailableClassesRequest(TeaModel):
         self.instance_charge_type = instance_charge_type  # type: str
         # The type of the order. Set the value to **BUY**\
         self.order_type = order_type  # type: str
-        # The region ID of the instance. You can call the [DescribeDBInstanceAttribute](~~610394~~) operation to query the region ID of the instance.
+        # The region ID of the instance. You can call the DescribeDBInstanceAttribute operation to query the region ID of the instance.
         self.region_id = region_id  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The zone ID of the instance. You can call the [DescribeDBInstanceAttribute](~~610394~~) operation to query the zone ID of the instance.
+        # The zone ID of the instance. You can call the DescribeDBInstanceAttribute operation to query the zone ID of the instance.
         # 
-        # >  If the DescribeDBInstanceAttribute operation returns multiple zones, you must specify only one of the returned zones. For example, if the DescribeDBInstanceAttribute operation returns `cn-hangzhou-MAZ9(g,h)`, you can set this parameter to `cn-hangzhou-g` or `cn-hangzhou-h`.
+        # > If the DescribeDBInstanceAttribute operation returns multiple zones, you must specify only one of the returned zones.`` For example, if the DescribeDBInstanceAttribute operation returns `cn-hangzhou-MAZ9(g,h)`, you can set this parameter to `cn-hangzhou-g` or cn-hangzhou-h.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -14576,10 +14586,10 @@ class DescribeAvailableZonesRequest(TeaModel):
         # 
         #     **Note**ApsaraDB RDS for MariaDB does not support serverless instances.
         self.engine_version = engine_version  # type: str
-        # The region ID. You can call the [DescribeRegions](~~610399~~) operation to query the most recent region list.
+        # The region ID. You can call the DescribeRegions operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The zone ID of the instance. If the instance spans more than one zone, the value of this parameter contains an `MAZ` part, such as `cn-hangzhou-MAZ6(b,f)` and `cn-hangzhou-MAZ5(b,e,f)`. You can call the [DescribeRegions](~~26243~~) operation to query the most recent zone list.
+        # The zone ID. If the instance spans more than one zone, the value of this parameter contains an `MAZ` part, such as `cn-hangzhou-MAZ6(b,f)` and `cn-hangzhou-MAZ5(b,e,f)`. You can call the DescribeRegions operation to query the most recent zone list.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -31245,7 +31255,7 @@ class DescribeGadInstancesRequest(TeaModel):
 class DescribeGadInstancesResponseBodyGadInstancesGadInstanceMembers(TeaModel):
     def __init__(self, dbinstance_id=None, dts_instance=None, engine=None, engine_version=None, region_id=None,
                  resource_group_id=None, role=None, status=None):
-        # The node ID.
+        # The ID of the node.
         self.dbinstance_id = dbinstance_id  # type: str
         # A JSON array that consists of the details about the Data Transmission Service (DTS) synchronization task.
         # 
@@ -31257,13 +31267,13 @@ class DescribeGadInstancesResponseBodyGadInstancesGadInstanceMembers(TeaModel):
         self.engine = engine  # type: str
         # The database engine version that is run by the node.
         self.engine_version = engine_version  # type: str
-        # The ID of the region in which the node resides.
+        # The ID of the region where the node resides.
         self.region_id = region_id  # type: str
-        # The ID of the resource group.
+        # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
-        # The node type. Valid values:
+        # The type of the node. Valid values:
         # 
-        # *   **CENTRAL**: The node is the central node. Each global active database cluster has only one central node. All unit nodes synchronize data from the central node.
+        # *   **CENTRAL**: The node is a central node. Each global active database cluster has only one central node. All unit nodes synchronize data from the central node.
         # *   **UNIT**: The node is a unit node. Each global active database cluster can have up to 10 unit nodes. All unit nodes synchronize data from the central node.
         self.role = role  # type: str
         # The node status. Valid values:
@@ -31325,7 +31335,7 @@ class DescribeGadInstancesResponseBodyGadInstances(TeaModel):
                  modification_time=None, service=None, status=None):
         # The time when the global active database cluster was created. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
         self.creation_time = creation_time  # type: str
-        # The cluster name.
+        # The name of the cluster.
         self.description = description  # type: str
         # The information about each node in the cluster.
         self.gad_instance_members = gad_instance_members  # type: list[DescribeGadInstancesResponseBodyGadInstancesGadInstanceMembers]
@@ -31337,7 +31347,7 @@ class DescribeGadInstancesResponseBodyGadInstances(TeaModel):
         # 
         # >  The value of this parameter is fixed as **mysql**.
         self.service = service  # type: str
-        # The cluster status. Valid values:
+        # The status of the cluster. Valid values:
         # 
         # *   **activation**: The cluster is running.
         # *   **creating**: The cluster is being created.
@@ -33849,9 +33859,11 @@ class DescribeInstanceKeywordsResponse(TeaModel):
 
 
 class DescribeInstanceLinkedWhitelistTemplateRequest(TeaModel):
-    def __init__(self, ins_name=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None):
+    def __init__(self, ins_name=None, region_id=None, resource_group_id=None, resource_owner_account=None,
+                 resource_owner_id=None):
         # The instance name.
         self.ins_name = ins_name  # type: str
+        self.region_id = region_id  # type: str
         # The resource group ID. You can leave this parameter empty.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
@@ -33868,6 +33880,8 @@ class DescribeInstanceLinkedWhitelistTemplateRequest(TeaModel):
         result = dict()
         if self.ins_name is not None:
             result['InsName'] = self.ins_name
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         if self.resource_group_id is not None:
             result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
@@ -33880,6 +33894,8 @@ class DescribeInstanceLinkedWhitelistTemplateRequest(TeaModel):
         m = m or dict()
         if m.get('InsName') is not None:
             self.ins_name = m.get('InsName')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         if m.get('ResourceGroupId') is not None:
             self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
@@ -34087,14 +34103,23 @@ class DescribeKmsAssociateResourcesRequest(TeaModel):
     def __init__(self, client_token=None, kms_resource_id=None, kms_resource_region_id=None,
                  kms_resource_type=None, kms_resource_user=None, owner_account=None, owner_id=None, region_id=None,
                  resource_group_id=None, resource_owner_account=None, resource_owner_id=None):
+        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests.
+        # 
+        # The token can contain only ASCII characters and cannot exceed 64 characters in length.
         self.client_token = client_token  # type: str
+        # The ID of the KMS resource. Only key IDs are supported.
         self.kms_resource_id = kms_resource_id  # type: str
+        # The ID of the region to which the KMS resource belongs.
         self.kms_resource_region_id = kms_resource_region_id  # type: str
+        # The type of the KMS resource. Only key is supported.
         self.kms_resource_type = kms_resource_type  # type: str
+        # The ID of the Alibaba Cloud account to which the KMS resource belongs.
         self.kms_resource_user = kms_resource_user  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: str
+        # The region ID. You can call the DescribeRegions operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -34161,9 +34186,29 @@ class DescribeKmsAssociateResourcesRequest(TeaModel):
 
 class DescribeKmsAssociateResourcesResponseBodyAssociateDBInstances(TeaModel):
     def __init__(self, dbinstance_name=None, engine=None, key_used_by=None, status=None):
+        # The instance ID.
         self.dbinstance_name = dbinstance_name  # type: str
+        # The database engine. Valid values:
+        # 
+        # *   **MySQL**\
+        # *   **SQLServer**\
+        # *   **PostgreSQL**\
         self.engine = engine  # type: str
+        # The way in which the key is used. Return values:
+        # 
+        # *   **DiskEncryption**: cloud disk encryption
+        # *   **TDE**: transparent data encryption
         self.key_used_by = key_used_by  # type: str
+        # The state of the instance. Valid values:
+        # 
+        # *   **CREATING**: The instance is being created.
+        # *   **ACTIVATION**: The instance is running.
+        # *   **DELETING**: The instance is being deleted.
+        # *   **RESTARTING**: The instance is being restarted.
+        # *   **INS_MAINTAINING**: The configuration of the instance is being changed.
+        # *   **INS_MAINTAINING**: The instance is being maintained.
+        # *   **BACKUP_RECOVERING**: The instance is being restored.
+        # *   **NET_MODIFYING**: The network type of the instance is being changed.
         self.status = status  # type: str
 
     def validate(self):
@@ -34200,8 +34245,14 @@ class DescribeKmsAssociateResourcesResponseBodyAssociateDBInstances(TeaModel):
 
 class DescribeKmsAssociateResourcesResponseBody(TeaModel):
     def __init__(self, associate_dbinstances=None, associate_status=None, request_id=None):
+        # The information about the associated ApsaraDB RDS instance.
         self.associate_dbinstances = associate_dbinstances  # type: list[DescribeKmsAssociateResourcesResponseBodyAssociateDBInstances]
+        # Indicates whether an associated RDS instance exists.
+        # 
+        # - **true**: Yes
+        # - **false**: No
         self.associate_status = associate_status  # type: bool
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -42825,7 +42876,7 @@ class DescribeSecretsRequest(TeaModel):
         self.page_size = page_size  # type: long
         # The region ID. You can call the DescribeDBInstanceAttribute operation to query the region ID.
         self.region_id = region_id  # type: str
-        # The ID of the resource group where the instance is located.
+        # The ID of the resource group to which the instance belongs.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -45905,8 +45956,9 @@ class DescribeVSwitchesResponse(TeaModel):
 
 
 class DescribeWhitelistTemplateRequest(TeaModel):
-    def __init__(self, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
+    def __init__(self, region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
                  template_id=None):
+        self.region_id = region_id  # type: str
         # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
@@ -45923,6 +45975,8 @@ class DescribeWhitelistTemplateRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         if self.resource_group_id is not None:
             result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
@@ -45935,6 +45989,8 @@ class DescribeWhitelistTemplateRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         if m.get('ResourceGroupId') is not None:
             self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
@@ -46129,8 +46185,9 @@ class DescribeWhitelistTemplateResponse(TeaModel):
 
 
 class DescribeWhitelistTemplateLinkedInstanceRequest(TeaModel):
-    def __init__(self, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
+    def __init__(self, region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
                  template_id=None):
+        self.region_id = region_id  # type: str
         # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
@@ -46147,6 +46204,8 @@ class DescribeWhitelistTemplateLinkedInstanceRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         if self.resource_group_id is not None:
             result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
@@ -46159,6 +46218,8 @@ class DescribeWhitelistTemplateLinkedInstanceRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         if m.get('ResourceGroupId') is not None:
             self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
@@ -46527,10 +46588,11 @@ class DetachGadInstanceMemberResponse(TeaModel):
 
 
 class DetachWhitelistTemplateToInstanceRequest(TeaModel):
-    def __init__(self, ins_name=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
-                 template_id=None):
+    def __init__(self, ins_name=None, region_id=None, resource_group_id=None, resource_owner_account=None,
+                 resource_owner_id=None, template_id=None):
         # The instance name.
         self.ins_name = ins_name  # type: str
+        self.region_id = region_id  # type: str
         # The resource group ID. For more information about resource groups, see Resource groups.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
@@ -46549,6 +46611,8 @@ class DetachWhitelistTemplateToInstanceRequest(TeaModel):
         result = dict()
         if self.ins_name is not None:
             result['InsName'] = self.ins_name
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         if self.resource_group_id is not None:
             result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
@@ -46563,6 +46627,8 @@ class DetachWhitelistTemplateToInstanceRequest(TeaModel):
         m = m or dict()
         if m.get('InsName') is not None:
             self.ins_name = m.get('InsName')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         if m.get('ResourceGroupId') is not None:
             self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
@@ -47853,11 +47919,8 @@ class ListClassesResponseBodyItems(TeaModel):
         # 
         # *   Unit: cents (USD).
         # 
-        # > 
-        # 
-        # *   If you set **CommodityCode** to a value that indicates the pay-as-you-go billing method, the ReferencePrice parameter specifies the hourly fee that you must pay.
-        # 
-        # *   If you set **CommodityCode** to a value that indicates the subscription billing method, the ReferencePrice parameter specifies the monthly fee that you must pay.
+        # > *   If you set **CommodityCode** to a value that indicates the pay-as-you-go billing method, the ReferencePrice parameter specifies the hourly fee that you must pay.
+        # > *   If you set **CommodityCode** to a value that indicates the subscription billing method, the ReferencePrice parameter specifies the monthly fee that you must pay.
         self.reference_price = reference_price  # type: str
 
     def validate(self):
@@ -54636,7 +54699,7 @@ class ModifyDBProxyEndpointRequest(TeaModel):
                  db_endpoint_type=None, owner_id=None, read_only_instance_distribution_type=None,
                  read_only_instance_max_delay_time=None, read_only_instance_weight=None, region_id=None, resource_owner_account=None,
                  resource_owner_id=None):
-        # The features that you want to enable for the proxy endpoint. If you specify more than one feature, separate the features with semicolons (;). Format: `Feature 1:Status;Feature 2:Status;...`. Do not add a semicolon (;) at the end of the last value.
+        # The features that you want to enable for the proxy endpoint. If you specify more than one feature, separate the features with semicolons (;). Format: `Feature 1:Status;Feature 2:Status;...`. Do not add a semicolon (;) at the end of the value.
         # 
         # Valid feature values:
         # 
@@ -54649,16 +54712,16 @@ class ModifyDBProxyEndpointRequest(TeaModel):
         # *   **1**: enabled
         # *   **0**: disabled
         # 
-        # > If the instance runs PostgreSQL, you can enable only the read/write splitting feature, which is specified by **ReadWriteSpliting**.
+        # >  If the instance runs PostgreSQL, you can enable only the read/write splitting feature, which is specified by **ReadWriteSpliting**.
         self.config_dbproxy_features = config_dbproxy_features  # type: str
         # The instance ID. You can call the DescribeDBInstances operation to query the instance ID.
         self.dbinstance_id = dbinstance_id  # type: str
-        # The proxy endpoint ID. You can call the DescribeDBProxyEndpoint operation to query the proxy endpoint ID.
+        # The ID of the proxy endpoint. You can call the DescribeDBProxyEndpoint operation to query the proxy endpoint ID.
         # 
         # > *   If the instance runs MySQL and you set **DbEndpointOperator** to **Delete** or **Modify**, you must specify DBProxyEndpointId.
         # > *   If the instance runs PostgreSQL and you set **DbEndpointOperator** to **Delete**, **Modify**, or **Create**, you must specify DBProxyEndpointId.
         self.dbproxy_endpoint_id = dbproxy_endpoint_id  # type: str
-        # A reserved parameter. You do not need to specify this parameter.
+        # A deprecated parameter. You do not need to specify this parameter.
         self.dbproxy_engine_type = dbproxy_engine_type  # type: str
         # The description of the proxy terminal.
         self.db_endpoint_aliases = db_endpoint_aliases  # type: str
@@ -58157,7 +58220,7 @@ class ModifyTaskInfoResponse(TeaModel):
 
 
 class ModifyWhitelistTemplateRequest(TeaModel):
-    def __init__(self, ip_whitelist=None, resource_group_id=None, resource_owner_account=None,
+    def __init__(self, ip_whitelist=None, region_id=None, resource_group_id=None, resource_owner_account=None,
                  resource_owner_id=None, template_id=None, template_name=None):
         # The IP addresses in an IP address whitelist. Separate multiple IP addresses with commas (,). Each IP address in the IP address whitelist must be unique. The entries in the IP address whitelist must be in one of the following formats:
         # 
@@ -58166,6 +58229,7 @@ class ModifyWhitelistTemplateRequest(TeaModel):
         # 
         # > : A maximum of 1,000 IP addresses or CIDR blocks can be added for each instance. If you want to add a large number of IP addresses, we recommend that you merge them into CIDR blocks, such as 10.23.XX.XX/24.
         self.ip_whitelist = ip_whitelist  # type: str
+        self.region_id = region_id  # type: str
         # The resource group ID. For more information about resource groups, see related documentation.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
@@ -58186,6 +58250,8 @@ class ModifyWhitelistTemplateRequest(TeaModel):
         result = dict()
         if self.ip_whitelist is not None:
             result['IpWhitelist'] = self.ip_whitelist
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         if self.resource_group_id is not None:
             result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
@@ -58202,6 +58268,8 @@ class ModifyWhitelistTemplateRequest(TeaModel):
         m = m or dict()
         if m.get('IpWhitelist') is not None:
             self.ip_whitelist = m.get('IpWhitelist')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         if m.get('ResourceGroupId') is not None:
             self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
@@ -59568,11 +59636,8 @@ class RecoveryDBInstanceRequest(TeaModel):
         self.dbinstance_class = dbinstance_class  # type: str
         # The ID of the original instance.
         # 
-        # > 
-        # 
-        # *   If you specify BackupId, you do not need to specify this parameter.
-        # 
-        # *   If you specify RestoreTime, you must also specify this parameter.
+        # > *   If you specify BackupId, you do not need to specify this parameter.
+        # > *   If you specify RestoreTime, you must also specify this parameter.
         self.dbinstance_id = dbinstance_id  # type: str
         # The storage capacity of the new instance. Unit: GB. For more information, see [Instance types](~~26312~~).
         # 
@@ -63532,9 +63597,9 @@ class UpgradeDBInstanceMajorVersionRequest(TeaModel):
         # 
         # If the original instance resides in the classic network, you must migrate the instance to a VPC before you call this operation. For more information about how to view or change the network type of an instance, see [Change the network type of an ApsaraDB RDS for PostgreSQL instance](~~96761~~).
         self.instance_network_type = instance_network_type  # type: str
-        # The billing method of the new instance. Set the value to Postpaid.
+        # The billing method. Set the value to Postpaid.
         # 
-        # > For more information about how to change the billing method of an instance after the upgrade, see [Change the billing method of an instance from pay-as-you-go to subscription](~~96743~~).
+        # >  For more information about how to change the billing method of an instance after the upgrade, see [Change the billing method of an instance from pay-as-you-go to subscription](~~96743~~).
         self.pay_type = pay_type  # type: str
         # A reserved parameter. You do not need to specify this parameter.
         self.period = period  # type: str
@@ -63548,18 +63613,13 @@ class UpgradeDBInstanceMajorVersionRequest(TeaModel):
         # *   true
         # *   false Before you perform an upgrade, we recommend that you set this parameter to false to test whether the new major engine version is compatible with your workloads.
         # 
-        # > 
-        # 
-        # *   If you set this parameter to true, you must take note of the following information:
-        # 
-        #     *   After the switchover is complete, you cannot roll your workloads back to the original instance. Proceed with caution.
-        #     *   During the switchover, the original instance processes only read requests. We recommend that you perform the switchover during off-peak hours.
-        #     *   If read-only instances are attached to the original instance, you can set this parameter only to false. In this case, the read-only instances that are attached to the original instance cannot be cloned. After the upgrade is complete, you must create read-only instances for the new instance.
-        # 
-        # *   If you set this parameter to false, you must take note of the following information:
-        # 
-        #     *   The data migration does not interrupt your workloads on the original instance.
-        #     *   After data is migrated to the new instance, you must update the endpoint configuration on your application. This update requires you to replace the endpoint of the original instance with the endpoint of the new instance. For more information about how to view the endpoint of an instance, see [View and change the internal and public endpoints and port numbers of an ApsaraDB RDS for PostgreSQL instance](~~96788~~).
+        # > *   If you set this parameter to true, you must take note of the following information:
+        # > *   After the switchover is complete, you cannot roll your workloads back to the original instance. Proceed with caution.
+        # > *   During the switchover, the original instance processes only read requests. We recommend that you perform the switchover during off-peak hours.
+        # > *   If read-only instances are attached to the original instance, you can set this parameter only to false. In this case, the read-only instances that are attached to the original instance cannot be cloned. After the upgrade is complete, you must create read-only instances for the new instance.
+        # > *   If you set this parameter to false, you must take note of the following information:
+        # > *   The data migration does not interrupt your workloads on the original instance.
+        # > *   After data is migrated to the new instance, you must update the endpoint configuration on your application. This update requires you to replace the endpoint of the original instance with the endpoint of the new instance. For more information about how to view the endpoint of an instance, see [View and change the internal and public endpoints and port numbers of an ApsaraDB RDS for PostgreSQL instance](~~96788~~).
         self.switch_over = switch_over  # type: str
         # A reserved parameter. You do not need to specify this parameter.
         self.switch_time = switch_time  # type: str
