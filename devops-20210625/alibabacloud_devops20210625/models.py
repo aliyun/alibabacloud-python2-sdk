@@ -13255,7 +13255,10 @@ class GetApplicationRequest(TeaModel):
 
 
 class GetApplicationResponseBody(TeaModel):
-    def __init__(self, creator_account_id=None, description=None, gmt_create=None, name=None, request_id=None):
+    def __init__(self, app_template_display_name=None, app_template_name=None, creator_account_id=None,
+                 description=None, gmt_create=None, name=None, request_id=None):
+        self.app_template_display_name = app_template_display_name  # type: str
+        self.app_template_name = app_template_name  # type: str
         self.creator_account_id = creator_account_id  # type: str
         self.description = description  # type: str
         self.gmt_create = gmt_create  # type: str
@@ -13271,6 +13274,10 @@ class GetApplicationResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.app_template_display_name is not None:
+            result['appTemplateDisplayName'] = self.app_template_display_name
+        if self.app_template_name is not None:
+            result['appTemplateName'] = self.app_template_name
         if self.creator_account_id is not None:
             result['creatorAccountId'] = self.creator_account_id
         if self.description is not None:
@@ -13285,6 +13292,10 @@ class GetApplicationResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('appTemplateDisplayName') is not None:
+            self.app_template_display_name = m.get('appTemplateDisplayName')
+        if m.get('appTemplateName') is not None:
+            self.app_template_name = m.get('appTemplateName')
         if m.get('creatorAccountId') is not None:
             self.creator_account_id = m.get('creatorAccountId')
         if m.get('description') is not None:
