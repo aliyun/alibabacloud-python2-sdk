@@ -132,36 +132,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.check_result_with_options(request, runtime)
 
-    def delete_picture_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.delete_pic_after_query):
-            query['DeletePicAfterQuery'] = request.delete_pic_after_query
-        if not UtilClient.is_unset(request.transaction_id):
-            query['TransactionId'] = request.transaction_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DeletePicture',
-            version='2022-08-09',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            cloudauth_intl_20220809_models.DeletePictureResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def delete_picture(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.delete_picture_with_options(request, runtime)
-
     def delete_verify_result_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -729,8 +699,6 @@ class Client(OpenApiClient):
             query['DocType'] = request.doc_type
         if not UtilClient.is_unset(request.face_picture_url):
             query['FacePictureUrl'] = request.face_picture_url
-        if not UtilClient.is_unset(request.flow_type):
-            query['FlowType'] = request.flow_type
         if not UtilClient.is_unset(request.id_face_quality):
             query['IdFaceQuality'] = request.id_face_quality
         if not UtilClient.is_unset(request.id_spoof):
@@ -745,14 +713,8 @@ class Client(OpenApiClient):
             query['MetaInfo'] = request.meta_info
         if not UtilClient.is_unset(request.ocr):
             query['Ocr'] = request.ocr
-        if not UtilClient.is_unset(request.operation_mode):
-            query['OperationMode'] = request.operation_mode
-        if not UtilClient.is_unset(request.pages):
-            query['Pages'] = request.pages
         if not UtilClient.is_unset(request.product_code):
             query['ProductCode'] = request.product_code
-        if not UtilClient.is_unset(request.product_config):
-            query['ProductConfig'] = request.product_config
         if not UtilClient.is_unset(request.product_flow):
             query['ProductFlow'] = request.product_flow
         if not UtilClient.is_unset(request.return_url):
@@ -761,8 +723,8 @@ class Client(OpenApiClient):
             query['SceneCode'] = request.scene_code
         if not UtilClient.is_unset(request.security_level):
             query['SecurityLevel'] = request.security_level
-        if not UtilClient.is_unset(request.service_level):
-            query['ServiceLevel'] = request.service_level
+        if not UtilClient.is_unset(request.style_config):
+            query['StyleConfig'] = request.style_config
         body = {}
         if not UtilClient.is_unset(request.face_picture_base_64):
             body['FacePictureBase64'] = request.face_picture_base_64

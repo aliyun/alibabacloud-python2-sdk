@@ -368,142 +368,6 @@ class CheckResultResponse(TeaModel):
         return self
 
 
-class DeletePictureRequest(TeaModel):
-    def __init__(self, delete_pic_after_query=None, transaction_id=None):
-        self.delete_pic_after_query = delete_pic_after_query  # type: str
-        self.transaction_id = transaction_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DeletePictureRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.delete_pic_after_query is not None:
-            result['DeletePicAfterQuery'] = self.delete_pic_after_query
-        if self.transaction_id is not None:
-            result['TransactionId'] = self.transaction_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('DeletePicAfterQuery') is not None:
-            self.delete_pic_after_query = m.get('DeletePicAfterQuery')
-        if m.get('TransactionId') is not None:
-            self.transaction_id = m.get('TransactionId')
-        return self
-
-
-class DeletePictureResponseBodyResult(TeaModel):
-    def __init__(self, delete_result=None, transaction_id=None):
-        self.delete_result = delete_result  # type: str
-        self.transaction_id = transaction_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DeletePictureResponseBodyResult, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.delete_result is not None:
-            result['DeleteResult'] = self.delete_result
-        if self.transaction_id is not None:
-            result['TransactionId'] = self.transaction_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('DeleteResult') is not None:
-            self.delete_result = m.get('DeleteResult')
-        if m.get('TransactionId') is not None:
-            self.transaction_id = m.get('TransactionId')
-        return self
-
-
-class DeletePictureResponseBody(TeaModel):
-    def __init__(self, code=None, message=None, request_id=None, result=None):
-        self.code = code  # type: str
-        self.message = message  # type: str
-        # Id of the request
-        self.request_id = request_id  # type: str
-        self.result = result  # type: DeletePictureResponseBodyResult
-
-    def validate(self):
-        if self.result:
-            self.result.validate()
-
-    def to_map(self):
-        _map = super(DeletePictureResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.message is not None:
-            result['Message'] = self.message
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.result is not None:
-            result['Result'] = self.result.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('Result') is not None:
-            temp_model = DeletePictureResponseBodyResult()
-            self.result = temp_model.from_map(m['Result'])
-        return self
-
-
-class DeletePictureResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: DeletePictureResponseBody
-
-    def validate(self):
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(DeletePictureResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = DeletePictureResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class DeleteVerifyResultRequest(TeaModel):
     def __init__(self, delete_after_query=None, delete_type=None, transaction_id=None):
         self.delete_after_query = delete_after_query  # type: str
@@ -3590,10 +3454,9 @@ class Id2MetaVerifyIntlResponse(TeaModel):
 
 class InitializeRequest(TeaModel):
     def __init__(self, authorize=None, callback_token=None, callback_url=None, crop=None, doc_scan_mode=None,
-                 doc_type=None, face_picture_base_64=None, face_picture_url=None, flow_type=None, id_face_quality=None,
-                 id_spoof=None, language_config=None, merchant_biz_id=None, merchant_user_id=None, meta_info=None, ocr=None,
-                 operation_mode=None, pages=None, product_code=None, product_config=None, product_flow=None, return_url=None,
-                 scene_code=None, security_level=None, service_level=None):
+                 doc_type=None, face_picture_base_64=None, face_picture_url=None, id_face_quality=None, id_spoof=None,
+                 language_config=None, merchant_biz_id=None, merchant_user_id=None, meta_info=None, ocr=None, product_code=None,
+                 product_flow=None, return_url=None, scene_code=None, security_level=None, style_config=None):
         self.authorize = authorize  # type: str
         self.callback_token = callback_token  # type: str
         self.callback_url = callback_url  # type: str
@@ -3602,7 +3465,6 @@ class InitializeRequest(TeaModel):
         self.doc_type = doc_type  # type: str
         self.face_picture_base_64 = face_picture_base_64  # type: str
         self.face_picture_url = face_picture_url  # type: str
-        self.flow_type = flow_type  # type: str
         self.id_face_quality = id_face_quality  # type: str
         self.id_spoof = id_spoof  # type: str
         self.language_config = language_config  # type: str
@@ -3611,15 +3473,12 @@ class InitializeRequest(TeaModel):
         self.meta_info = meta_info  # type: str
         # OCR。
         self.ocr = ocr  # type: str
-        self.operation_mode = operation_mode  # type: str
-        self.pages = pages  # type: str
         self.product_code = product_code  # type: str
-        self.product_config = product_config  # type: str
         self.product_flow = product_flow  # type: str
         self.return_url = return_url  # type: str
         self.scene_code = scene_code  # type: str
         self.security_level = security_level  # type: str
-        self.service_level = service_level  # type: str
+        self.style_config = style_config  # type: str
 
     def validate(self):
         pass
@@ -3646,8 +3505,6 @@ class InitializeRequest(TeaModel):
             result['FacePictureBase64'] = self.face_picture_base_64
         if self.face_picture_url is not None:
             result['FacePictureUrl'] = self.face_picture_url
-        if self.flow_type is not None:
-            result['FlowType'] = self.flow_type
         if self.id_face_quality is not None:
             result['IdFaceQuality'] = self.id_face_quality
         if self.id_spoof is not None:
@@ -3662,14 +3519,8 @@ class InitializeRequest(TeaModel):
             result['MetaInfo'] = self.meta_info
         if self.ocr is not None:
             result['Ocr'] = self.ocr
-        if self.operation_mode is not None:
-            result['OperationMode'] = self.operation_mode
-        if self.pages is not None:
-            result['Pages'] = self.pages
         if self.product_code is not None:
             result['ProductCode'] = self.product_code
-        if self.product_config is not None:
-            result['ProductConfig'] = self.product_config
         if self.product_flow is not None:
             result['ProductFlow'] = self.product_flow
         if self.return_url is not None:
@@ -3678,8 +3529,8 @@ class InitializeRequest(TeaModel):
             result['SceneCode'] = self.scene_code
         if self.security_level is not None:
             result['SecurityLevel'] = self.security_level
-        if self.service_level is not None:
-            result['ServiceLevel'] = self.service_level
+        if self.style_config is not None:
+            result['StyleConfig'] = self.style_config
         return result
 
     def from_map(self, m=None):
@@ -3700,8 +3551,6 @@ class InitializeRequest(TeaModel):
             self.face_picture_base_64 = m.get('FacePictureBase64')
         if m.get('FacePictureUrl') is not None:
             self.face_picture_url = m.get('FacePictureUrl')
-        if m.get('FlowType') is not None:
-            self.flow_type = m.get('FlowType')
         if m.get('IdFaceQuality') is not None:
             self.id_face_quality = m.get('IdFaceQuality')
         if m.get('IdSpoof') is not None:
@@ -3716,14 +3565,8 @@ class InitializeRequest(TeaModel):
             self.meta_info = m.get('MetaInfo')
         if m.get('Ocr') is not None:
             self.ocr = m.get('Ocr')
-        if m.get('OperationMode') is not None:
-            self.operation_mode = m.get('OperationMode')
-        if m.get('Pages') is not None:
-            self.pages = m.get('Pages')
         if m.get('ProductCode') is not None:
             self.product_code = m.get('ProductCode')
-        if m.get('ProductConfig') is not None:
-            self.product_config = m.get('ProductConfig')
         if m.get('ProductFlow') is not None:
             self.product_flow = m.get('ProductFlow')
         if m.get('ReturnUrl') is not None:
@@ -3732,8 +3575,8 @@ class InitializeRequest(TeaModel):
             self.scene_code = m.get('SceneCode')
         if m.get('SecurityLevel') is not None:
             self.security_level = m.get('SecurityLevel')
-        if m.get('ServiceLevel') is not None:
-            self.service_level = m.get('ServiceLevel')
+        if m.get('StyleConfig') is not None:
+            self.style_config = m.get('StyleConfig')
         return self
 
 
