@@ -2807,6 +2807,32 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_vod_domain_real_time_byte_hit_rate_data_with_options(request, runtime)
 
+    def describe_vod_domain_real_time_detail_data_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeVodDomainRealTimeDetailData',
+            version='2017-03-21',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            vod_20170321_models.DescribeVodDomainRealTimeDetailDataResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_vod_domain_real_time_detail_data(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_vod_domain_real_time_detail_data_with_options(request, runtime)
+
     def describe_vod_domain_real_time_http_code_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}

@@ -1,3 +1,7 @@
+2024-04-25 Version: 1.7.0
+- Support API DescribeVodDomainRealTimeDetailData.
+
+
 2024-04-25 Version: 1.6.0
 - Support API DescribeVodDomainBpsDataByLayer.
 - Support API DescribeVodDomainHitRateData.
