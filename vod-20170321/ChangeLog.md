@@ -1,3 +1,16 @@
+2024-04-25 Version: 1.6.0
+- Support API DescribeVodDomainBpsDataByLayer.
+- Support API DescribeVodDomainHitRateData.
+- Support API DescribeVodDomainRealTimeBpsData.
+- Support API DescribeVodDomainRealTimeByteHitRateData.
+- Support API DescribeVodDomainRealTimeHttpCodeData.
+- Support API DescribeVodDomainRealTimeQpsData.
+- Support API DescribeVodDomainRealTimeReqHitRateData.
+- Support API DescribeVodDomainRealTimeTrafficData.
+- Support API DescribeVodDomainReqHitRateData.
+- Support API DescribeVodRangeDataByLocateAndIspService.
+
+
 2024-04-11 Version: 1.5.0
 - Support API DescribeVodMediaPlayData.
 - Update API DeleteAttachedMedia: update param MediaIds.
