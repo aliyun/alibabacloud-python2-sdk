@@ -1707,6 +1707,8 @@ class Client(OpenApiClient):
             query['ResourceOwnerId'] = request.resource_owner_id
         if not UtilClient.is_unset(request.secondary_cidr_block):
             query['SecondaryCidrBlock'] = request.secondary_cidr_block
+        if not UtilClient.is_unset(request.secondary_cidr_mask):
+            query['SecondaryCidrMask'] = request.secondary_cidr_mask
         if not UtilClient.is_unset(request.vpc_id):
             query['VpcId'] = request.vpc_id
         req = open_api_models.OpenApiRequest(
@@ -6092,6 +6094,8 @@ class Client(OpenApiClient):
             query['DryRun'] = request.dry_run
         if not UtilClient.is_unset(request.enable_ipv_6):
             query['EnableIpv6'] = request.enable_ipv_6
+        if not UtilClient.is_unset(request.ipv_4cidr_mask):
+            query['Ipv4CidrMask'] = request.ipv_4cidr_mask
         if not UtilClient.is_unset(request.ipv_4ipam_pool_id):
             query['Ipv4IpamPoolId'] = request.ipv_4ipam_pool_id
         if not UtilClient.is_unset(request.ipv_6cidr_block):

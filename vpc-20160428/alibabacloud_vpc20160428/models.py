@@ -4063,7 +4063,7 @@ class AssociateRouteTablesWithVpcGatewayEndpointResponse(TeaModel):
 class AssociateVpcCidrBlockRequest(TeaModel):
     def __init__(self, ipv_6cidr_block=None, ip_version=None, ipam_pool_id=None, ipv_6isp=None, owner_account=None,
                  owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None,
-                 secondary_cidr_block=None, vpc_id=None):
+                 secondary_cidr_block=None, secondary_cidr_mask=None, vpc_id=None):
         # The IPv6 CIDR block to be added.
         # 
         # >  You must and can specify only one of **SecondaryCidrBlock** and **Ipv6CidrBlock**.
@@ -4104,6 +4104,7 @@ class AssociateVpcCidrBlockRequest(TeaModel):
         # 
         # >  You must and can specify only one of **SecondaryCidrBlock** and **Ipv6CidrBlock**.
         self.secondary_cidr_block = secondary_cidr_block  # type: str
+        self.secondary_cidr_mask = secondary_cidr_mask  # type: int
         # The ID of the VPC to which you want to add a secondary CIDR block.
         self.vpc_id = vpc_id  # type: str
 
@@ -4136,6 +4137,8 @@ class AssociateVpcCidrBlockRequest(TeaModel):
             result['ResourceOwnerId'] = self.resource_owner_id
         if self.secondary_cidr_block is not None:
             result['SecondaryCidrBlock'] = self.secondary_cidr_block
+        if self.secondary_cidr_mask is not None:
+            result['SecondaryCidrMask'] = self.secondary_cidr_mask
         if self.vpc_id is not None:
             result['VpcId'] = self.vpc_id
         return result
@@ -4162,6 +4165,8 @@ class AssociateVpcCidrBlockRequest(TeaModel):
             self.resource_owner_id = m.get('ResourceOwnerId')
         if m.get('SecondaryCidrBlock') is not None:
             self.secondary_cidr_block = m.get('SecondaryCidrBlock')
+        if m.get('SecondaryCidrMask') is not None:
+            self.secondary_cidr_mask = m.get('SecondaryCidrMask')
         if m.get('VpcId') is not None:
             self.vpc_id = m.get('VpcId')
         return self
@@ -17297,8 +17302,9 @@ class CreateVpcRequestTag(TeaModel):
 
 class CreateVpcRequest(TeaModel):
     def __init__(self, cidr_block=None, client_token=None, description=None, dry_run=None, enable_ipv_6=None,
-                 ipv_4ipam_pool_id=None, ipv_6cidr_block=None, ipv_6isp=None, owner_account=None, owner_id=None, region_id=None,
-                 resource_group_id=None, resource_owner_account=None, resource_owner_id=None, tag=None, user_cidr=None, vpc_name=None):
+                 ipv_4cidr_mask=None, ipv_4ipam_pool_id=None, ipv_6cidr_block=None, ipv_6isp=None, owner_account=None,
+                 owner_id=None, region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
+                 tag=None, user_cidr=None, vpc_name=None):
         # The CIDR block of the VPC.
         # 
         # *   You can specify one of the following CIDR blocks or their subsets as the primary IPv4 CIDR block of the VPC: 192.168.0.0/16, 172.16.0.0/12, and 10.0.0.0/8. These CIDR blocks are standard private CIDR blocks as defined by Request for Comments (RFC) documents. The subnet mask must be 8 to 28 bits in length.
@@ -17324,6 +17330,7 @@ class CreateVpcRequest(TeaModel):
         # *   **false** (default)
         # *   **true**\
         self.enable_ipv_6 = enable_ipv_6  # type: bool
+        self.ipv_4cidr_mask = ipv_4cidr_mask  # type: int
         # The ID of the IP Address Manager (IPAM) pool of the IPv4 type.
         self.ipv_4ipam_pool_id = ipv_4ipam_pool_id  # type: str
         # The IPv6 CIDR block of the VPC.
@@ -17382,6 +17389,8 @@ class CreateVpcRequest(TeaModel):
             result['DryRun'] = self.dry_run
         if self.enable_ipv_6 is not None:
             result['EnableIpv6'] = self.enable_ipv_6
+        if self.ipv_4cidr_mask is not None:
+            result['Ipv4CidrMask'] = self.ipv_4cidr_mask
         if self.ipv_4ipam_pool_id is not None:
             result['Ipv4IpamPoolId'] = self.ipv_4ipam_pool_id
         if self.ipv_6cidr_block is not None:
@@ -17422,6 +17431,8 @@ class CreateVpcRequest(TeaModel):
             self.dry_run = m.get('DryRun')
         if m.get('EnableIpv6') is not None:
             self.enable_ipv_6 = m.get('EnableIpv6')
+        if m.get('Ipv4CidrMask') is not None:
+            self.ipv_4cidr_mask = m.get('Ipv4CidrMask')
         if m.get('Ipv4IpamPoolId') is not None:
             self.ipv_4ipam_pool_id = m.get('Ipv4IpamPoolId')
         if m.get('Ipv6CidrBlock') is not None:
@@ -50906,7 +50917,9 @@ class DescribeVpcAttributeResponseBody(TeaModel):
         # *   **Deleted**\
         # *   **Pending**\
         self.dhcp_options_set_status = dhcp_options_set_status  # type: str
-        # 是否开启IPv6。
+        # Indicates whether the VPC enables IPv6 .
+        # - true
+        # - false
         self.enabled_ipv_6 = enabled_ipv_6  # type: bool
         # The ID of the IPv4 gateway.
         self.ipv_4gateway_id = ipv_4gateway_id  # type: str
