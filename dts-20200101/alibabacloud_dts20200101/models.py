@@ -4978,9 +4978,11 @@ class CreateMigrationJobResponse(TeaModel):
 
 
 class CreateReverseDtsJobRequest(TeaModel):
-    def __init__(self, dts_job_id=None, resource_group_id=None):
+    def __init__(self, dts_job_id=None, resource_group_id=None, shard_password=None, shard_username=None):
         self.dts_job_id = dts_job_id  # type: str
         self.resource_group_id = resource_group_id  # type: str
+        self.shard_password = shard_password  # type: str
+        self.shard_username = shard_username  # type: str
 
     def validate(self):
         pass
@@ -4995,6 +4997,10 @@ class CreateReverseDtsJobRequest(TeaModel):
             result['DtsJobId'] = self.dts_job_id
         if self.resource_group_id is not None:
             result['ResourceGroupId'] = self.resource_group_id
+        if self.shard_password is not None:
+            result['ShardPassword'] = self.shard_password
+        if self.shard_username is not None:
+            result['ShardUsername'] = self.shard_username
         return result
 
     def from_map(self, m=None):
@@ -5003,6 +5009,10 @@ class CreateReverseDtsJobRequest(TeaModel):
             self.dts_job_id = m.get('DtsJobId')
         if m.get('ResourceGroupId') is not None:
             self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('ShardPassword') is not None:
+            self.shard_password = m.get('ShardPassword')
+        if m.get('ShardUsername') is not None:
+            self.shard_username = m.get('ShardUsername')
         return self
 
 
@@ -31851,8 +31861,8 @@ class ModifyDtsJobDuLimitResponse(TeaModel):
 class ModifyDtsJobEndpointRequest(TeaModel):
     def __init__(self, aliyun_uid=None, database=None, dry_run=None, dts_instance_id=None, dts_job_id=None,
                  endpoint=None, endpoint_instance_id=None, endpoint_instance_type=None, endpoint_ip=None,
-                 endpoint_port=None, password=None, region_id=None, resource_group_id=None, role_name=None, shard_password=None,
-                 shard_username=None, synchronization_direction=None, username=None):
+                 endpoint_port=None, endpoint_region_id=None, password=None, region_id=None, resource_group_id=None,
+                 role_name=None, shard_password=None, shard_username=None, synchronization_direction=None, username=None):
         self.aliyun_uid = aliyun_uid  # type: str
         self.database = database  # type: str
         self.dry_run = dry_run  # type: bool
@@ -31863,6 +31873,7 @@ class ModifyDtsJobEndpointRequest(TeaModel):
         self.endpoint_instance_type = endpoint_instance_type  # type: str
         self.endpoint_ip = endpoint_ip  # type: str
         self.endpoint_port = endpoint_port  # type: str
+        self.endpoint_region_id = endpoint_region_id  # type: str
         self.password = password  # type: str
         self.region_id = region_id  # type: str
         self.resource_group_id = resource_group_id  # type: str
@@ -31901,6 +31912,8 @@ class ModifyDtsJobEndpointRequest(TeaModel):
             result['EndpointIp'] = self.endpoint_ip
         if self.endpoint_port is not None:
             result['EndpointPort'] = self.endpoint_port
+        if self.endpoint_region_id is not None:
+            result['EndpointRegionId'] = self.endpoint_region_id
         if self.password is not None:
             result['Password'] = self.password
         if self.region_id is not None:
@@ -31941,6 +31954,8 @@ class ModifyDtsJobEndpointRequest(TeaModel):
             self.endpoint_ip = m.get('EndpointIp')
         if m.get('EndpointPort') is not None:
             self.endpoint_port = m.get('EndpointPort')
+        if m.get('EndpointRegionId') is not None:
+            self.endpoint_region_id = m.get('EndpointRegionId')
         if m.get('Password') is not None:
             self.password = m.get('Password')
         if m.get('RegionId') is not None:
