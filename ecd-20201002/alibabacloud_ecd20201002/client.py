@@ -662,6 +662,8 @@ class Client(OpenApiClient):
             query['SessionId'] = request.session_id
         if not UtilClient.is_unset(request.session_token):
             query['SessionToken'] = request.session_token
+        if not UtilClient.is_unset(request.uuid):
+            query['Uuid'] = request.uuid
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1003,7 +1005,7 @@ class Client(OpenApiClient):
 
     def start_desktops_with_options(self, request, runtime):
         """
-        The ID of the client.
+        The cloud computers that you want to start must be in the Stopped state. After you call this operation, the cloud computers enter the Running state.
         
 
         @param request: StartDesktopsRequest
@@ -1030,6 +1032,8 @@ class Client(OpenApiClient):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.session_id):
             query['SessionId'] = request.session_id
+        if not UtilClient.is_unset(request.uuid):
+            query['Uuid'] = request.uuid
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1051,7 +1055,7 @@ class Client(OpenApiClient):
 
     def start_desktops(self, request):
         """
-        The ID of the client.
+        The cloud computers that you want to start must be in the Stopped state. After you call this operation, the cloud computers enter the Running state.
         
 
         @param request: StartDesktopsRequest
@@ -1105,7 +1109,7 @@ class Client(OpenApiClient):
 
     def stop_desktops_with_options(self, request, runtime):
         """
-        The cloud desktops that you want to stop by calling this operation must be in the Running state. If the call is successful, the cloud desktops enter the Stopped state.
+        The cloud computers that you want to stop must be in the Running state. After you call this operation, the cloud computers enter the Stopped state.
         
 
         @param request: StopDesktopsRequest
@@ -1155,7 +1159,7 @@ class Client(OpenApiClient):
 
     def stop_desktops(self, request):
         """
-        The cloud desktops that you want to stop by calling this operation must be in the Running state. If the call is successful, the cloud desktops enter the Stopped state.
+        The cloud computers that you want to stop must be in the Running state. After you call this operation, the cloud computers enter the Stopped state.
         
 
         @param request: StopDesktopsRequest
