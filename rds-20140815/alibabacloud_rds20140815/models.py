@@ -3895,7 +3895,7 @@ class CreateDBInstanceRequest(TeaModel):
                  serverless_config=None, storage_auto_scale=None, storage_threshold=None, storage_upper_bound=None,
                  system_dbcharset=None, tag=None, target_dedicated_host_id_for_log=None, target_dedicated_host_id_for_master=None,
                  target_dedicated_host_id_for_slave=None, target_minor_version=None, used_time=None, user_backup_id=None, vpcid=None, v_switch_id=None,
-                 zone_id=None, zone_id_slave_1=None, zone_id_slave_2=None):
+                 whitelist_template_list=None, zone_id=None, zone_id_slave_1=None, zone_id_slave_2=None):
         # The number of ApsaraDB RDS for MySQL instances that you want to create. The parameter takes effect only when you create multiple ApsaraDB RDS for MySQL instances at a time by using a single request.
         # 
         # Valid values: **1** to **20**. Default value: **1**.
@@ -4226,6 +4226,7 @@ class CreateDBInstanceRequest(TeaModel):
         # *   If you set **InstanceNetworkType** to **VPC**, you must also specify this parameter.
         # *   If you specify the ZoneSlaveId1 parameter, you must specify the IDs of two vSwitches for this parameter and separate the IDs with a comma (,).
         self.v_switch_id = v_switch_id  # type: str
+        self.whitelist_template_list = whitelist_template_list  # type: str
         # The zone ID of the primary instance.
         # 
         # *   If you specify a virtual private cloud (VPC) and a vSwitch, you must specify the ID of the zone to which the specified vSwitch belongs. Otherwise, the instance cannot be created.
@@ -4362,6 +4363,8 @@ class CreateDBInstanceRequest(TeaModel):
             result['VPCId'] = self.vpcid
         if self.v_switch_id is not None:
             result['VSwitchId'] = self.v_switch_id
+        if self.whitelist_template_list is not None:
+            result['WhitelistTemplateList'] = self.whitelist_template_list
         if self.zone_id is not None:
             result['ZoneId'] = self.zone_id
         if self.zone_id_slave_1 is not None:
@@ -4480,6 +4483,8 @@ class CreateDBInstanceRequest(TeaModel):
             self.vpcid = m.get('VPCId')
         if m.get('VSwitchId') is not None:
             self.v_switch_id = m.get('VSwitchId')
+        if m.get('WhitelistTemplateList') is not None:
+            self.whitelist_template_list = m.get('WhitelistTemplateList')
         if m.get('ZoneId') is not None:
             self.zone_id = m.get('ZoneId')
         if m.get('ZoneIdSlave1') is not None:
@@ -4541,7 +4546,7 @@ class CreateDBInstanceShrinkRequest(TeaModel):
                  serverless_config_shrink=None, storage_auto_scale=None, storage_threshold=None, storage_upper_bound=None,
                  system_dbcharset=None, tag=None, target_dedicated_host_id_for_log=None, target_dedicated_host_id_for_master=None,
                  target_dedicated_host_id_for_slave=None, target_minor_version=None, used_time=None, user_backup_id=None, vpcid=None, v_switch_id=None,
-                 zone_id=None, zone_id_slave_1=None, zone_id_slave_2=None):
+                 whitelist_template_list=None, zone_id=None, zone_id_slave_1=None, zone_id_slave_2=None):
         # The number of ApsaraDB RDS for MySQL instances that you want to create. The parameter takes effect only when you create multiple ApsaraDB RDS for MySQL instances at a time by using a single request.
         # 
         # Valid values: **1** to **20**. Default value: **1**.
@@ -4872,6 +4877,7 @@ class CreateDBInstanceShrinkRequest(TeaModel):
         # *   If you set **InstanceNetworkType** to **VPC**, you must also specify this parameter.
         # *   If you specify the ZoneSlaveId1 parameter, you must specify the IDs of two vSwitches for this parameter and separate the IDs with a comma (,).
         self.v_switch_id = v_switch_id  # type: str
+        self.whitelist_template_list = whitelist_template_list  # type: str
         # The zone ID of the primary instance.
         # 
         # *   If you specify a virtual private cloud (VPC) and a vSwitch, you must specify the ID of the zone to which the specified vSwitch belongs. Otherwise, the instance cannot be created.
@@ -5006,6 +5012,8 @@ class CreateDBInstanceShrinkRequest(TeaModel):
             result['VPCId'] = self.vpcid
         if self.v_switch_id is not None:
             result['VSwitchId'] = self.v_switch_id
+        if self.whitelist_template_list is not None:
+            result['WhitelistTemplateList'] = self.whitelist_template_list
         if self.zone_id is not None:
             result['ZoneId'] = self.zone_id
         if self.zone_id_slave_1 is not None:
@@ -5123,6 +5131,8 @@ class CreateDBInstanceShrinkRequest(TeaModel):
             self.vpcid = m.get('VPCId')
         if m.get('VSwitchId') is not None:
             self.v_switch_id = m.get('VSwitchId')
+        if m.get('WhitelistTemplateList') is not None:
+            self.whitelist_template_list = m.get('WhitelistTemplateList')
         if m.get('ZoneId') is not None:
             self.zone_id = m.get('ZoneId')
         if m.get('ZoneIdSlave1') is not None:
@@ -55055,7 +55065,7 @@ class ModifyDBProxyEndpointAddressResponse(TeaModel):
 class ModifyDBProxyInstanceRequest(TeaModel):
     def __init__(self, dbinstance_id=None, dbproxy_engine_type=None, dbproxy_instance_num=None,
                  dbproxy_instance_type=None, effective_specific_time=None, effective_time=None, owner_id=None, region_id=None,
-                 resource_owner_account=None, resource_owner_id=None):
+                 resource_owner_account=None, resource_owner_id=None, v_switch_ids=None):
         # The ID of the instance. You can call the [DescribeDBInstances](~~26232~~) operation to query the ID of the instance.
         self.dbinstance_id = dbinstance_id  # type: str
         # An internal parameter. You do not need to specify this parameter.
@@ -55083,6 +55093,7 @@ class ModifyDBProxyInstanceRequest(TeaModel):
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        self.v_switch_ids = v_switch_ids  # type: str
 
     def validate(self):
         pass
@@ -55113,6 +55124,8 @@ class ModifyDBProxyInstanceRequest(TeaModel):
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
+        if self.v_switch_ids is not None:
+            result['VSwitchIds'] = self.v_switch_ids
         return result
 
     def from_map(self, m=None):
@@ -55137,6 +55150,8 @@ class ModifyDBProxyInstanceRequest(TeaModel):
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('VSwitchIds') is not None:
+            self.v_switch_ids = m.get('VSwitchIds')
         return self
 
 
