@@ -6483,6 +6483,346 @@ class DescribeEventsResponse(TeaModel):
         return self
 
 
+class DescribeLensMonitorDisksRequest(TeaModel):
+    def __init__(self, disk_category=None, disk_ids=None, lens_tags=None, max_results=None, next_token=None,
+                 region_id=None):
+        # The type of the disk. Valid values:
+        # - cloud
+        # - cloud_efficiency
+        # - cloud_ssd
+        # - cloud_essd
+        # - cloud_auto
+        # - cloud_essd_entry
+        self.disk_category = disk_category  # type: str
+        # The list of disks.
+        self.disk_ids = disk_ids  # type: list[str]
+        # Lens event tag list to filter cloud disks that have experienced these event types within 24 hours. Valid values:
+        # 
+        # - NoSnapshot
+        # - BurstIOTriggered
+        # - CostOptimizationNeeded
+        # - DiskSpecNotMatchedWithInstance
+        # - DiskIONo4kAligned
+        # - DiskIOHang
+        # - InstanceIOPSExceedInstanceMaxLimit
+        # - InstanceBPSExceedInstanceMaxLimit
+        # - DiskIOPSExceedInstanceMaxLimit
+        # - DiskBPSExceedInstanceMaxLimit
+        # - DiskIOPSExceedDiskMaxLimit
+        # - DiskBPSExceedDiskMaxLimit
+        # - DiskSlowIOTriggerred
+        self.lens_tags = lens_tags  # type: list[str]
+        # The number of entries to return on each page. Valid values: 1 to 100. Default value: 10.
+        self.max_results = max_results  # type: int
+        # The token used to start the next query to retrieve more results.
+        # 
+        # >  This parameter is not required in the first query. If not all results are returned in one query, you can pass in the NextToken value returned in the previous query to perform the query again.
+        self.next_token = next_token  # type: str
+        # The region ID.
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeLensMonitorDisksRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.disk_category is not None:
+            result['DiskCategory'] = self.disk_category
+        if self.disk_ids is not None:
+            result['DiskIds'] = self.disk_ids
+        if self.lens_tags is not None:
+            result['LensTags'] = self.lens_tags
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DiskCategory') is not None:
+            self.disk_category = m.get('DiskCategory')
+        if m.get('DiskIds') is not None:
+            self.disk_ids = m.get('DiskIds')
+        if m.get('LensTags') is not None:
+            self.lens_tags = m.get('LensTags')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DescribeLensMonitorDisksResponseBodyDiskInfosTags(TeaModel):
+    def __init__(self, tag_key=None, tag_value=None):
+        # The tag key.
+        self.tag_key = tag_key  # type: str
+        # The tag value.
+        self.tag_value = tag_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeLensMonitorDisksResponseBodyDiskInfosTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.tag_key is not None:
+            result['TagKey'] = self.tag_key
+        if self.tag_value is not None:
+            result['TagValue'] = self.tag_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('TagKey') is not None:
+            self.tag_key = m.get('TagKey')
+        if m.get('TagValue') is not None:
+            self.tag_value = m.get('TagValue')
+        return self
+
+
+class DescribeLensMonitorDisksResponseBodyDiskInfos(TeaModel):
+    def __init__(self, bps=None, bursting_enabled=None, disk_category=None, disk_id=None, disk_name=None,
+                 disk_status=None, disk_type=None, iops=None, lens_tags=None, performance_level=None, provisioned_iops=None,
+                 region_id=None, size=None, tags=None, zone_id=None):
+        # The BPS.
+        self.bps = bps  # type: int
+        # Indicates whether the performance burst feature is enabled. Valid values:
+        # 
+        # *   true
+        # *   false
+        # 
+        # This parameter is available only if you set `DiskCategory` to `cloud_auto`. For more information, see [ESSD AutoPL disks](~~368372~~).
+        self.bursting_enabled = bursting_enabled  # type: bool
+        # The type of the disk. Valid values:
+        # - cloud
+        # - cloud_efficiency
+        # - cloud_ssd
+        # - cloud_essd
+        # - cloud_auto
+        # - cloud_essd_entry
+        self.disk_category = disk_category  # type: str
+        # The ID of the disk.
+        self.disk_id = disk_id  # type: str
+        # The name of the disk.
+        self.disk_name = disk_name  # type: str
+        # The disk status. Valid values:
+        # 
+        # - Available
+        # - Deleted
+        self.disk_status = disk_status  # type: str
+        # The disk type. Valid values:
+        # *   system: system disk
+        # *   data: data disk
+        self.disk_type = disk_type  # type: str
+        # The IOPS.
+        self.iops = iops  # type: int
+        # Lens tags of the disk.
+        self.lens_tags = lens_tags  # type: list[str]
+        # The new performance level of the ESSD. Valid values:
+        # 
+        # *   PL0: An ESSD can deliver up to 10,000 random read/write IOPS.
+        # *   PL1: An ESSD can deliver up to 50,000 random read/write IOPS.
+        # *   PL2: An ESSD can deliver up to 100,000 random read/write IOPS.
+        # *   PL3: An ESSD delivers up to 1,000,000 random read/write IOPS.
+        self.performance_level = performance_level  # type: str
+        # The provisioned read/write IOPS of the ESSD AutoPL disk. Valid values: 0 to min{50,000, 1,000 × Capacity - Baseline IOPS}
+        # 
+        # Baseline IOPS = min{1,800 + 50 × Capacity, 50,000}
+        # 
+        # >  This parameter is available only if the DiskCategory parameter is set to cloud_auto. For more information, see [ESSD AutoPL disks](https://www.alibabacloud.com/help/en/ecs/user-guide/essd-autopl-disks)
+        self.provisioned_iops = provisioned_iops  # type: int
+        # The region ID of the disk.
+        self.region_id = region_id  # type: str
+        # The size of the disk. Unit: GiB.
+        self.size = size  # type: int
+        # Tags of the disk.
+        self.tags = tags  # type: list[DescribeLensMonitorDisksResponseBodyDiskInfosTags]
+        # The ID of the zone.
+        self.zone_id = zone_id  # type: str
+
+    def validate(self):
+        if self.tags:
+            for k in self.tags:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeLensMonitorDisksResponseBodyDiskInfos, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bps is not None:
+            result['Bps'] = self.bps
+        if self.bursting_enabled is not None:
+            result['BurstingEnabled'] = self.bursting_enabled
+        if self.disk_category is not None:
+            result['DiskCategory'] = self.disk_category
+        if self.disk_id is not None:
+            result['DiskId'] = self.disk_id
+        if self.disk_name is not None:
+            result['DiskName'] = self.disk_name
+        if self.disk_status is not None:
+            result['DiskStatus'] = self.disk_status
+        if self.disk_type is not None:
+            result['DiskType'] = self.disk_type
+        if self.iops is not None:
+            result['Iops'] = self.iops
+        if self.lens_tags is not None:
+            result['LensTags'] = self.lens_tags
+        if self.performance_level is not None:
+            result['PerformanceLevel'] = self.performance_level
+        if self.provisioned_iops is not None:
+            result['ProvisionedIops'] = self.provisioned_iops
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.size is not None:
+            result['Size'] = self.size
+        result['Tags'] = []
+        if self.tags is not None:
+            for k in self.tags:
+                result['Tags'].append(k.to_map() if k else None)
+        if self.zone_id is not None:
+            result['ZoneId'] = self.zone_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Bps') is not None:
+            self.bps = m.get('Bps')
+        if m.get('BurstingEnabled') is not None:
+            self.bursting_enabled = m.get('BurstingEnabled')
+        if m.get('DiskCategory') is not None:
+            self.disk_category = m.get('DiskCategory')
+        if m.get('DiskId') is not None:
+            self.disk_id = m.get('DiskId')
+        if m.get('DiskName') is not None:
+            self.disk_name = m.get('DiskName')
+        if m.get('DiskStatus') is not None:
+            self.disk_status = m.get('DiskStatus')
+        if m.get('DiskType') is not None:
+            self.disk_type = m.get('DiskType')
+        if m.get('Iops') is not None:
+            self.iops = m.get('Iops')
+        if m.get('LensTags') is not None:
+            self.lens_tags = m.get('LensTags')
+        if m.get('PerformanceLevel') is not None:
+            self.performance_level = m.get('PerformanceLevel')
+        if m.get('ProvisionedIops') is not None:
+            self.provisioned_iops = m.get('ProvisionedIops')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Size') is not None:
+            self.size = m.get('Size')
+        self.tags = []
+        if m.get('Tags') is not None:
+            for k in m.get('Tags'):
+                temp_model = DescribeLensMonitorDisksResponseBodyDiskInfosTags()
+                self.tags.append(temp_model.from_map(k))
+        if m.get('ZoneId') is not None:
+            self.zone_id = m.get('ZoneId')
+        return self
+
+
+class DescribeLensMonitorDisksResponseBody(TeaModel):
+    def __init__(self, disk_infos=None, next_token=None, request_id=None, total_count=None):
+        # Cloud disk information list.
+        self.disk_infos = disk_infos  # type: list[DescribeLensMonitorDisksResponseBodyDiskInfos]
+        # A pagination token. It can be used in the next request to retrieve a new page of results.
+        self.next_token = next_token  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # The total number of entries returned.
+        self.total_count = total_count  # type: long
+
+    def validate(self):
+        if self.disk_infos:
+            for k in self.disk_infos:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeLensMonitorDisksResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['DiskInfos'] = []
+        if self.disk_infos is not None:
+            for k in self.disk_infos:
+                result['DiskInfos'].append(k.to_map() if k else None)
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.disk_infos = []
+        if m.get('DiskInfos') is not None:
+            for k in m.get('DiskInfos'):
+                temp_model = DescribeLensMonitorDisksResponseBodyDiskInfos()
+                self.disk_infos.append(temp_model.from_map(k))
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class DescribeLensMonitorDisksResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeLensMonitorDisksResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeLensMonitorDisksResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeLensMonitorDisksResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeLensServiceStatusResponseBody(TeaModel):
     def __init__(self, request_id=None, status=None):
         # The request ID.
