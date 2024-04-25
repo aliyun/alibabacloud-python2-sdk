@@ -64,6 +64,46 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.attach_application_2connector_with_options(request, runtime)
 
+    def create_client_user_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.department_id):
+            query['DepartmentId'] = request.department_id
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.email):
+            query['Email'] = request.email
+        if not UtilClient.is_unset(request.idp_config_id):
+            query['IdpConfigId'] = request.idp_config_id
+        if not UtilClient.is_unset(request.mobile_number):
+            query['MobileNumber'] = request.mobile_number
+        if not UtilClient.is_unset(request.password):
+            query['Password'] = request.password
+        if not UtilClient.is_unset(request.username):
+            query['Username'] = request.username
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateClientUser',
+            version='2023-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            csas_20230120_models.CreateClientUserResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_client_user(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_client_user_with_options(request, runtime)
+
     def create_dynamic_route_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -112,6 +152,36 @@ class Client(OpenApiClient):
     def create_dynamic_route(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_dynamic_route_with_options(request, runtime)
+
+    def create_idp_department_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.department_name):
+            query['DepartmentName'] = request.department_name
+        if not UtilClient.is_unset(request.idp_config_id):
+            query['IdpConfigId'] = request.idp_config_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateIdpDepartment',
+            version='2023-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            csas_20230120_models.CreateIdpDepartmentResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_idp_department(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_idp_department_with_options(request, runtime)
 
     def create_private_access_application_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -331,6 +401,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_user_group_with_options(request, runtime)
 
+    def delete_client_user_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteClientUser',
+            version='2023-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            csas_20230120_models.DeleteClientUserResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_client_user(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_client_user_with_options(request, runtime)
+
     def delete_dynamic_route_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -358,6 +456,36 @@ class Client(OpenApiClient):
     def delete_dynamic_route(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_dynamic_route_with_options(request, runtime)
+
+    def delete_idp_department_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.department_id):
+            query['DepartmentId'] = request.department_id
+        if not UtilClient.is_unset(request.idp_config_id):
+            query['IdpConfigId'] = request.idp_config_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteIdpDepartment',
+            version='2023-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            csas_20230120_models.DeleteIdpDepartmentResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_idp_department(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_idp_department_with_options(request, runtime)
 
     def delete_private_access_application_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -536,6 +664,54 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.detach_application_2connector_with_options(request, runtime)
 
+    def get_active_idp_config_with_options(self, runtime):
+        req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='GetActiveIdpConfig',
+            version='2023-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            csas_20230120_models.GetActiveIdpConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_active_idp_config(self):
+        runtime = util_models.RuntimeOptions()
+        return self.get_active_idp_config_with_options(runtime)
+
+    def get_client_user_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetClientUser',
+            version='2023-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            csas_20230120_models.GetClientUserResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_client_user(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_client_user_with_options(request, runtime)
+
     def get_dynamic_route_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
@@ -561,6 +737,32 @@ class Client(OpenApiClient):
     def get_dynamic_route(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_dynamic_route_with_options(request, runtime)
+
+    def get_idp_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetIdpConfig',
+            version='2023-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            csas_20230120_models.GetIdpConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_idp_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_idp_config_with_options(request, runtime)
 
     def get_private_access_application_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -744,6 +946,32 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_applications_for_private_access_tag_with_options(request, runtime)
 
+    def list_client_users_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListClientUsers',
+            version='2023-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            csas_20230120_models.ListClientUsersResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_client_users(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_client_users_with_options(request, runtime)
+
     def list_connectors_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
@@ -843,6 +1071,58 @@ class Client(OpenApiClient):
     def list_excessive_device_registration_applications(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_excessive_device_registration_applications_with_options(request, runtime)
+
+    def list_idp_configs_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListIdpConfigs',
+            version='2023-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            csas_20230120_models.ListIdpConfigsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_idp_configs(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_idp_configs_with_options(request, runtime)
+
+    def list_idp_departments_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListIdpDepartments',
+            version='2023-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            csas_20230120_models.ListIdpDepartmentsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_idp_departments(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_idp_departments_with_options(request, runtime)
 
     def list_polices_for_private_access_application_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1338,6 +1618,104 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_users_with_options(request, runtime)
 
+    def update_client_user_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.department_id):
+            query['DepartmentId'] = request.department_id
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.email):
+            query['Email'] = request.email
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.mobile_number):
+            query['MobileNumber'] = request.mobile_number
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateClientUser',
+            version='2023-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            csas_20230120_models.UpdateClientUserResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_client_user(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_client_user_with_options(request, runtime)
+
+    def update_client_user_password_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.password):
+            query['Password'] = request.password
+        if not UtilClient.is_unset(request.username):
+            query['Username'] = request.username
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateClientUserPassword',
+            version='2023-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            csas_20230120_models.UpdateClientUserPasswordResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_client_user_password(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_client_user_password_with_options(request, runtime)
+
+    def update_client_user_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateClientUserStatus',
+            version='2023-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            csas_20230120_models.UpdateClientUserStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_client_user_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_client_user_status_with_options(request, runtime)
+
     def update_dynamic_route_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -1423,6 +1801,38 @@ class Client(OpenApiClient):
     def update_excessive_device_registration_applications_status(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_excessive_device_registration_applications_status_with_options(request, runtime)
+
+    def update_idp_department_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.department_id):
+            query['DepartmentId'] = request.department_id
+        if not UtilClient.is_unset(request.department_name):
+            query['DepartmentName'] = request.department_name
+        if not UtilClient.is_unset(request.idp_config_id):
+            query['IdpConfigId'] = request.idp_config_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateIdpDepartment',
+            version='2023-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            csas_20230120_models.UpdateIdpDepartmentResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_idp_department(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_idp_department_with_options(request, runtime)
 
     def update_private_access_application_with_options(self, request, runtime):
         UtilClient.validate_model(request)
