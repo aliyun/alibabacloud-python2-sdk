@@ -1273,6 +1273,198 @@ class CreateVerifySettingResponse(TeaModel):
         return self
 
 
+class CredentialVerifyRequest(TeaModel):
+    def __init__(self, cert_num=None, cred_name=None, cred_type=None, identify_num=None, image_context=None,
+                 image_url=None, is_check=None, is_ocr=None, user_name=None):
+        self.cert_num = cert_num  # type: str
+        self.cred_name = cred_name  # type: str
+        self.cred_type = cred_type  # type: str
+        self.identify_num = identify_num  # type: str
+        self.image_context = image_context  # type: str
+        self.image_url = image_url  # type: str
+        self.is_check = is_check  # type: str
+        self.is_ocr = is_ocr  # type: str
+        self.user_name = user_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CredentialVerifyRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cert_num is not None:
+            result['CertNum'] = self.cert_num
+        if self.cred_name is not None:
+            result['CredName'] = self.cred_name
+        if self.cred_type is not None:
+            result['CredType'] = self.cred_type
+        if self.identify_num is not None:
+            result['IdentifyNum'] = self.identify_num
+        if self.image_context is not None:
+            result['ImageContext'] = self.image_context
+        if self.image_url is not None:
+            result['ImageUrl'] = self.image_url
+        if self.is_check is not None:
+            result['IsCheck'] = self.is_check
+        if self.is_ocr is not None:
+            result['IsOCR'] = self.is_ocr
+        if self.user_name is not None:
+            result['UserName'] = self.user_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CertNum') is not None:
+            self.cert_num = m.get('CertNum')
+        if m.get('CredName') is not None:
+            self.cred_name = m.get('CredName')
+        if m.get('CredType') is not None:
+            self.cred_type = m.get('CredType')
+        if m.get('IdentifyNum') is not None:
+            self.identify_num = m.get('IdentifyNum')
+        if m.get('ImageContext') is not None:
+            self.image_context = m.get('ImageContext')
+        if m.get('ImageUrl') is not None:
+            self.image_url = m.get('ImageUrl')
+        if m.get('IsCheck') is not None:
+            self.is_check = m.get('IsCheck')
+        if m.get('IsOCR') is not None:
+            self.is_ocr = m.get('IsOCR')
+        if m.get('UserName') is not None:
+            self.user_name = m.get('UserName')
+        return self
+
+
+class CredentialVerifyResponseBodyResultObject(TeaModel):
+    def __init__(self, ocr_info=None, result=None, risk_score=None, risk_tag=None, verify_detail=None,
+                 verify_result=None):
+        self.ocr_info = ocr_info  # type: str
+        self.result = result  # type: str
+        self.risk_score = risk_score  # type: dict[str, str]
+        self.risk_tag = risk_tag  # type: str
+        self.verify_detail = verify_detail  # type: str
+        self.verify_result = verify_result  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CredentialVerifyResponseBodyResultObject, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ocr_info is not None:
+            result['OcrInfo'] = self.ocr_info
+        if self.result is not None:
+            result['Result'] = self.result
+        if self.risk_score is not None:
+            result['RiskScore'] = self.risk_score
+        if self.risk_tag is not None:
+            result['RiskTag'] = self.risk_tag
+        if self.verify_detail is not None:
+            result['VerifyDetail'] = self.verify_detail
+        if self.verify_result is not None:
+            result['VerifyResult'] = self.verify_result
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('OcrInfo') is not None:
+            self.ocr_info = m.get('OcrInfo')
+        if m.get('Result') is not None:
+            self.result = m.get('Result')
+        if m.get('RiskScore') is not None:
+            self.risk_score = m.get('RiskScore')
+        if m.get('RiskTag') is not None:
+            self.risk_tag = m.get('RiskTag')
+        if m.get('VerifyDetail') is not None:
+            self.verify_detail = m.get('VerifyDetail')
+        if m.get('VerifyResult') is not None:
+            self.verify_result = m.get('VerifyResult')
+        return self
+
+
+class CredentialVerifyResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None, result_object=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.result_object = result_object  # type: CredentialVerifyResponseBodyResultObject
+
+    def validate(self):
+        if self.result_object:
+            self.result_object.validate()
+
+    def to_map(self):
+        _map = super(CredentialVerifyResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.result_object is not None:
+            result['ResultObject'] = self.result_object.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('ResultObject') is not None:
+            temp_model = CredentialVerifyResponseBodyResultObject()
+            self.result_object = temp_model.from_map(m['ResultObject'])
+        return self
+
+
+class CredentialVerifyResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CredentialVerifyResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CredentialVerifyResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CredentialVerifyResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeDeviceInfoRequest(TeaModel):
     def __init__(self, biz_type=None, current_page=None, device_id=None, expired_end_day=None,
                  expired_start_day=None, page_size=None, user_device_id=None):
