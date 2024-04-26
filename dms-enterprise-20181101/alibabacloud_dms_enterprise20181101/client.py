@@ -4525,6 +4525,66 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_table_dbtopology_with_options(request, runtime)
 
+    def get_table_design_project_flow_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.order_id):
+            query['OrderId'] = request.order_id
+        if not UtilClient.is_unset(request.tid):
+            query['Tid'] = request.tid
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetTableDesignProjectFlow',
+            version='2018-11-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dms_enterprise_20181101_models.GetTableDesignProjectFlowResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_table_design_project_flow(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_table_design_project_flow_with_options(request, runtime)
+
+    def get_table_design_project_info_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.order_id):
+            query['OrderId'] = request.order_id
+        if not UtilClient.is_unset(request.tid):
+            query['Tid'] = request.tid
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetTableDesignProjectInfo',
+            version='2018-11-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dms_enterprise_20181101_models.GetTableDesignProjectInfoResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_table_design_project_info(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_table_design_project_info_with_options(request, runtime)
+
     def get_table_topology_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
