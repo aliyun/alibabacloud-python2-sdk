@@ -19845,12 +19845,14 @@ class ListRdUsersResponse(TeaModel):
 
 
 class ListUserProdLogsRequest(TeaModel):
-    def __init__(self, region_id=None, source_log_code=None, source_prod_code=None):
+    def __init__(self, region_id=None, role_for=None, role_type=None, source_log_code=None, source_prod_code=None):
         # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
         # 
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
         # The log code.
         self.source_log_code = source_log_code  # type: str
         # The code of the cloud service.
@@ -19867,6 +19869,10 @@ class ListUserProdLogsRequest(TeaModel):
         result = dict()
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         if self.source_log_code is not None:
             result['SourceLogCode'] = self.source_log_code
         if self.source_prod_code is not None:
@@ -19877,6 +19883,10 @@ class ListUserProdLogsRequest(TeaModel):
         m = m or dict()
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         if m.get('SourceLogCode') is not None:
             self.source_log_code = m.get('SourceLogCode')
         if m.get('SourceProdCode') is not None:
@@ -20049,12 +20059,14 @@ class ListUserProdLogsResponse(TeaModel):
 
 
 class ListUsersByProdRequest(TeaModel):
-    def __init__(self, region_id=None, source_prod_code=None):
+    def __init__(self, region_id=None, role_for=None, role_type=None, source_prod_code=None):
         # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
         # 
         # *   cn-hangzhou: Your assets reside in regions in China.
         # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        self.role_for = role_for  # type: long
+        self.role_type = role_type  # type: int
         # The code of the cloud service.
         self.source_prod_code = source_prod_code  # type: str
 
@@ -20069,6 +20081,10 @@ class ListUsersByProdRequest(TeaModel):
         result = dict()
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.role_for is not None:
+            result['RoleFor'] = self.role_for
+        if self.role_type is not None:
+            result['RoleType'] = self.role_type
         if self.source_prod_code is not None:
             result['SourceProdCode'] = self.source_prod_code
         return result
@@ -20077,6 +20093,10 @@ class ListUsersByProdRequest(TeaModel):
         m = m or dict()
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RoleFor') is not None:
+            self.role_for = m.get('RoleFor')
+        if m.get('RoleType') is not None:
+            self.role_type = m.get('RoleType')
         if m.get('SourceProdCode') is not None:
             self.source_prod_code = m.get('SourceProdCode')
         return self
