@@ -7902,12 +7902,17 @@ class GetBatchMediaProducingJobResponseBodyEditingBatchJobSubJobList(TeaModel):
 
 
 class GetBatchMediaProducingJobResponseBodyEditingBatchJob(TeaModel):
-    def __init__(self, editing_config=None, extend=None, input_config=None, job_id=None, output_config=None,
-                 status=None, sub_job_list=None, user_data=None):
+    def __init__(self, complete_time=None, create_time=None, editing_config=None, extend=None, input_config=None,
+                 job_id=None, job_type=None, modified_time=None, output_config=None, status=None, sub_job_list=None,
+                 user_data=None):
+        self.complete_time = complete_time  # type: str
+        self.create_time = create_time  # type: str
         self.editing_config = editing_config  # type: str
         self.extend = extend  # type: str
         self.input_config = input_config  # type: str
         self.job_id = job_id  # type: str
+        self.job_type = job_type  # type: str
+        self.modified_time = modified_time  # type: str
         self.output_config = output_config  # type: str
         self.status = status  # type: str
         self.sub_job_list = sub_job_list  # type: list[GetBatchMediaProducingJobResponseBodyEditingBatchJobSubJobList]
@@ -7925,6 +7930,10 @@ class GetBatchMediaProducingJobResponseBodyEditingBatchJob(TeaModel):
             return _map
 
         result = dict()
+        if self.complete_time is not None:
+            result['CompleteTime'] = self.complete_time
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
         if self.editing_config is not None:
             result['EditingConfig'] = self.editing_config
         if self.extend is not None:
@@ -7933,6 +7942,10 @@ class GetBatchMediaProducingJobResponseBodyEditingBatchJob(TeaModel):
             result['InputConfig'] = self.input_config
         if self.job_id is not None:
             result['JobId'] = self.job_id
+        if self.job_type is not None:
+            result['JobType'] = self.job_type
+        if self.modified_time is not None:
+            result['ModifiedTime'] = self.modified_time
         if self.output_config is not None:
             result['OutputConfig'] = self.output_config
         if self.status is not None:
@@ -7947,6 +7960,10 @@ class GetBatchMediaProducingJobResponseBodyEditingBatchJob(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('CompleteTime') is not None:
+            self.complete_time = m.get('CompleteTime')
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
         if m.get('EditingConfig') is not None:
             self.editing_config = m.get('EditingConfig')
         if m.get('Extend') is not None:
@@ -7955,6 +7972,10 @@ class GetBatchMediaProducingJobResponseBodyEditingBatchJob(TeaModel):
             self.input_config = m.get('InputConfig')
         if m.get('JobId') is not None:
             self.job_id = m.get('JobId')
+        if m.get('JobType') is not None:
+            self.job_type = m.get('JobType')
+        if m.get('ModifiedTime') is not None:
+            self.modified_time = m.get('ModifiedTime')
         if m.get('OutputConfig') is not None:
             self.output_config = m.get('OutputConfig')
         if m.get('Status') is not None:
@@ -11970,10 +11991,11 @@ class GetLiveTranscodeTemplateResponse(TeaModel):
 
 
 class GetMediaInfoRequest(TeaModel):
-    def __init__(self, input_url=None, media_id=None, output_type=None):
+    def __init__(self, input_url=None, media_id=None, output_type=None, return_detailed_info=None):
         self.input_url = input_url  # type: str
         self.media_id = media_id  # type: str
         self.output_type = output_type  # type: str
+        self.return_detailed_info = return_detailed_info  # type: str
 
     def validate(self):
         pass
@@ -11990,6 +12012,8 @@ class GetMediaInfoRequest(TeaModel):
             result['MediaId'] = self.media_id
         if self.output_type is not None:
             result['OutputType'] = self.output_type
+        if self.return_detailed_info is not None:
+            result['ReturnDetailedInfo'] = self.return_detailed_info
         return result
 
     def from_map(self, m=None):
@@ -12000,19 +12024,100 @@ class GetMediaInfoRequest(TeaModel):
             self.media_id = m.get('MediaId')
         if m.get('OutputType') is not None:
             self.output_type = m.get('OutputType')
+        if m.get('ReturnDetailedInfo') is not None:
+            self.return_detailed_info = m.get('ReturnDetailedInfo')
+        return self
+
+
+class GetMediaInfoResponseBodyMediaInfoAiRoughDataStandardSmartTagJobResults(TeaModel):
+    def __init__(self, data=None, type=None):
+        self.data = data  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetMediaInfoResponseBodyMediaInfoAiRoughDataStandardSmartTagJobResults, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class GetMediaInfoResponseBodyMediaInfoAiRoughDataStandardSmartTagJob(TeaModel):
+    def __init__(self, ai_job_id=None, result_url=None, results=None, status=None):
+        self.ai_job_id = ai_job_id  # type: str
+        self.result_url = result_url  # type: str
+        self.results = results  # type: list[GetMediaInfoResponseBodyMediaInfoAiRoughDataStandardSmartTagJobResults]
+        self.status = status  # type: str
+
+    def validate(self):
+        if self.results:
+            for k in self.results:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetMediaInfoResponseBodyMediaInfoAiRoughDataStandardSmartTagJob, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ai_job_id is not None:
+            result['AiJobId'] = self.ai_job_id
+        if self.result_url is not None:
+            result['ResultUrl'] = self.result_url
+        result['Results'] = []
+        if self.results is not None:
+            for k in self.results:
+                result['Results'].append(k.to_map() if k else None)
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AiJobId') is not None:
+            self.ai_job_id = m.get('AiJobId')
+        if m.get('ResultUrl') is not None:
+            self.result_url = m.get('ResultUrl')
+        self.results = []
+        if m.get('Results') is not None:
+            for k in m.get('Results'):
+                temp_model = GetMediaInfoResponseBodyMediaInfoAiRoughDataStandardSmartTagJobResults()
+                self.results.append(temp_model.from_map(k))
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
         return self
 
 
 class GetMediaInfoResponseBodyMediaInfoAiRoughData(TeaModel):
-    def __init__(self, ai_category=None, ai_job_id=None, result=None, save_type=None, status=None):
+    def __init__(self, ai_category=None, ai_job_id=None, result=None, save_type=None, standard_smart_tag_job=None,
+                 status=None):
         self.ai_category = ai_category  # type: str
         self.ai_job_id = ai_job_id  # type: str
         self.result = result  # type: str
         self.save_type = save_type  # type: str
+        self.standard_smart_tag_job = standard_smart_tag_job  # type: GetMediaInfoResponseBodyMediaInfoAiRoughDataStandardSmartTagJob
         self.status = status  # type: str
 
     def validate(self):
-        pass
+        if self.standard_smart_tag_job:
+            self.standard_smart_tag_job.validate()
 
     def to_map(self):
         _map = super(GetMediaInfoResponseBodyMediaInfoAiRoughData, self).to_map()
@@ -12028,6 +12133,8 @@ class GetMediaInfoResponseBodyMediaInfoAiRoughData(TeaModel):
             result['Result'] = self.result
         if self.save_type is not None:
             result['SaveType'] = self.save_type
+        if self.standard_smart_tag_job is not None:
+            result['StandardSmartTagJob'] = self.standard_smart_tag_job.to_map()
         if self.status is not None:
             result['Status'] = self.status
         return result
@@ -12042,6 +12149,9 @@ class GetMediaInfoResponseBodyMediaInfoAiRoughData(TeaModel):
             self.result = m.get('Result')
         if m.get('SaveType') is not None:
             self.save_type = m.get('SaveType')
+        if m.get('StandardSmartTagJob') is not None:
+            temp_model = GetMediaInfoResponseBodyMediaInfoAiRoughDataStandardSmartTagJob()
+            self.standard_smart_tag_job = temp_model.from_map(m['StandardSmartTagJob'])
         if m.get('Status') is not None:
             self.status = m.get('Status')
         return self
@@ -20678,6 +20788,225 @@ class ListAvatarsResponse(TeaModel):
         return self
 
 
+class ListBatchMediaProducingJobsRequest(TeaModel):
+    def __init__(self, end_time=None, job_id=None, job_type=None, max_results=None, next_token=None, sort_by=None,
+                 start_time=None, status=None):
+        self.end_time = end_time  # type: str
+        self.job_id = job_id  # type: str
+        self.job_type = job_type  # type: str
+        self.max_results = max_results  # type: int
+        self.next_token = next_token  # type: str
+        self.sort_by = sort_by  # type: str
+        self.start_time = start_time  # type: str
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListBatchMediaProducingJobsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        if self.job_type is not None:
+            result['JobType'] = self.job_type
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.sort_by is not None:
+            result['SortBy'] = self.sort_by
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        if m.get('JobType') is not None:
+            self.job_type = m.get('JobType')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('SortBy') is not None:
+            self.sort_by = m.get('SortBy')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class ListBatchMediaProducingJobsResponseBodyEditingBatchJobList(TeaModel):
+    def __init__(self, complete_time=None, create_time=None, editing_config=None, extend=None, input_config=None,
+                 job_id=None, job_type=None, modified_time=None, output_config=None, status=None, user_data=None):
+        self.complete_time = complete_time  # type: str
+        self.create_time = create_time  # type: str
+        self.editing_config = editing_config  # type: str
+        self.extend = extend  # type: str
+        self.input_config = input_config  # type: str
+        self.job_id = job_id  # type: str
+        self.job_type = job_type  # type: str
+        self.modified_time = modified_time  # type: str
+        self.output_config = output_config  # type: str
+        self.status = status  # type: str
+        self.user_data = user_data  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListBatchMediaProducingJobsResponseBodyEditingBatchJobList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.complete_time is not None:
+            result['CompleteTime'] = self.complete_time
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.editing_config is not None:
+            result['EditingConfig'] = self.editing_config
+        if self.extend is not None:
+            result['Extend'] = self.extend
+        if self.input_config is not None:
+            result['InputConfig'] = self.input_config
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        if self.job_type is not None:
+            result['JobType'] = self.job_type
+        if self.modified_time is not None:
+            result['ModifiedTime'] = self.modified_time
+        if self.output_config is not None:
+            result['OutputConfig'] = self.output_config
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.user_data is not None:
+            result['UserData'] = self.user_data
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CompleteTime') is not None:
+            self.complete_time = m.get('CompleteTime')
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('EditingConfig') is not None:
+            self.editing_config = m.get('EditingConfig')
+        if m.get('Extend') is not None:
+            self.extend = m.get('Extend')
+        if m.get('InputConfig') is not None:
+            self.input_config = m.get('InputConfig')
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        if m.get('JobType') is not None:
+            self.job_type = m.get('JobType')
+        if m.get('ModifiedTime') is not None:
+            self.modified_time = m.get('ModifiedTime')
+        if m.get('OutputConfig') is not None:
+            self.output_config = m.get('OutputConfig')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('UserData') is not None:
+            self.user_data = m.get('UserData')
+        return self
+
+
+class ListBatchMediaProducingJobsResponseBody(TeaModel):
+    def __init__(self, editing_batch_job_list=None, max_results=None, next_token=None, request_id=None):
+        self.editing_batch_job_list = editing_batch_job_list  # type: list[ListBatchMediaProducingJobsResponseBodyEditingBatchJobList]
+        self.max_results = max_results  # type: int
+        self.next_token = next_token  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.editing_batch_job_list:
+            for k in self.editing_batch_job_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListBatchMediaProducingJobsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['EditingBatchJobList'] = []
+        if self.editing_batch_job_list is not None:
+            for k in self.editing_batch_job_list:
+                result['EditingBatchJobList'].append(k.to_map() if k else None)
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.editing_batch_job_list = []
+        if m.get('EditingBatchJobList') is not None:
+            for k in m.get('EditingBatchJobList'):
+                temp_model = ListBatchMediaProducingJobsResponseBodyEditingBatchJobList()
+                self.editing_batch_job_list.append(temp_model.from_map(k))
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ListBatchMediaProducingJobsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListBatchMediaProducingJobsResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListBatchMediaProducingJobsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListBatchMediaProducingJobsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListCustomTemplatesRequest(TeaModel):
     def __init__(self, name=None, order_by=None, page_number=None, page_size=None, subtype=None, template_id=None,
                  type=None):
@@ -25134,6 +25463,246 @@ class ListMediaMarksResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListMediaMarksResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListMediaProducingJobsRequest(TeaModel):
+    def __init__(self, end_time=None, job_type=None, keyword=None, master_job_id=None, max_results=None,
+                 next_token=None, sort_by=None, start_time=None, status=None):
+        self.end_time = end_time  # type: str
+        self.job_type = job_type  # type: str
+        self.keyword = keyword  # type: str
+        self.master_job_id = master_job_id  # type: str
+        self.max_results = max_results  # type: int
+        self.next_token = next_token  # type: str
+        self.sort_by = sort_by  # type: str
+        self.start_time = start_time  # type: str
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListMediaProducingJobsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.job_type is not None:
+            result['JobType'] = self.job_type
+        if self.keyword is not None:
+            result['Keyword'] = self.keyword
+        if self.master_job_id is not None:
+            result['MasterJobId'] = self.master_job_id
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.sort_by is not None:
+            result['SortBy'] = self.sort_by
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('JobType') is not None:
+            self.job_type = m.get('JobType')
+        if m.get('Keyword') is not None:
+            self.keyword = m.get('Keyword')
+        if m.get('MasterJobId') is not None:
+            self.master_job_id = m.get('MasterJobId')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('SortBy') is not None:
+            self.sort_by = m.get('SortBy')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class ListMediaProducingJobsResponseBodyMediaProducingJobList(TeaModel):
+    def __init__(self, clips_param=None, code=None, complete_time=None, create_time=None, duration=None, job_id=None,
+                 media_id=None, media_url=None, message=None, modified_time=None, project_id=None, status=None,
+                 template_id=None, user_data=None):
+        self.clips_param = clips_param  # type: str
+        self.code = code  # type: str
+        self.complete_time = complete_time  # type: str
+        self.create_time = create_time  # type: str
+        self.duration = duration  # type: float
+        self.job_id = job_id  # type: str
+        self.media_id = media_id  # type: str
+        self.media_url = media_url  # type: str
+        self.message = message  # type: str
+        self.modified_time = modified_time  # type: str
+        self.project_id = project_id  # type: str
+        self.status = status  # type: str
+        self.template_id = template_id  # type: str
+        self.user_data = user_data  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListMediaProducingJobsResponseBodyMediaProducingJobList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.clips_param is not None:
+            result['ClipsParam'] = self.clips_param
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.complete_time is not None:
+            result['CompleteTime'] = self.complete_time
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.duration is not None:
+            result['Duration'] = self.duration
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        if self.media_id is not None:
+            result['MediaId'] = self.media_id
+        if self.media_url is not None:
+            result['MediaURL'] = self.media_url
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.modified_time is not None:
+            result['ModifiedTime'] = self.modified_time
+        if self.project_id is not None:
+            result['ProjectId'] = self.project_id
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.template_id is not None:
+            result['TemplateId'] = self.template_id
+        if self.user_data is not None:
+            result['UserData'] = self.user_data
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClipsParam') is not None:
+            self.clips_param = m.get('ClipsParam')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('CompleteTime') is not None:
+            self.complete_time = m.get('CompleteTime')
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('Duration') is not None:
+            self.duration = m.get('Duration')
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        if m.get('MediaId') is not None:
+            self.media_id = m.get('MediaId')
+        if m.get('MediaURL') is not None:
+            self.media_url = m.get('MediaURL')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('ModifiedTime') is not None:
+            self.modified_time = m.get('ModifiedTime')
+        if m.get('ProjectId') is not None:
+            self.project_id = m.get('ProjectId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('TemplateId') is not None:
+            self.template_id = m.get('TemplateId')
+        if m.get('UserData') is not None:
+            self.user_data = m.get('UserData')
+        return self
+
+
+class ListMediaProducingJobsResponseBody(TeaModel):
+    def __init__(self, max_results=None, media_producing_job_list=None, next_token=None, request_id=None):
+        self.max_results = max_results  # type: str
+        self.media_producing_job_list = media_producing_job_list  # type: list[ListMediaProducingJobsResponseBodyMediaProducingJobList]
+        self.next_token = next_token  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.media_producing_job_list:
+            for k in self.media_producing_job_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListMediaProducingJobsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        result['MediaProducingJobList'] = []
+        if self.media_producing_job_list is not None:
+            for k in self.media_producing_job_list:
+                result['MediaProducingJobList'].append(k.to_map() if k else None)
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        self.media_producing_job_list = []
+        if m.get('MediaProducingJobList') is not None:
+            for k in m.get('MediaProducingJobList'):
+                temp_model = ListMediaProducingJobsResponseBodyMediaProducingJobList()
+                self.media_producing_job_list.append(temp_model.from_map(k))
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ListMediaProducingJobsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListMediaProducingJobsResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListMediaProducingJobsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListMediaProducingJobsResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -31572,7 +32141,7 @@ class RefreshUploadMediaResponse(TeaModel):
 class RegisterMediaInfoRequest(TeaModel):
     def __init__(self, business_type=None, cate_id=None, client_token=None, cover_url=None, description=None,
                  input_url=None, media_tags=None, media_type=None, overwrite=None, reference_id=None, register_config=None,
-                 title=None, user_data=None, workflow_id=None):
+                 smart_tag_template_id=None, title=None, user_data=None, workflow_id=None):
         self.business_type = business_type  # type: str
         self.cate_id = cate_id  # type: long
         self.client_token = client_token  # type: str
@@ -31584,6 +32153,7 @@ class RegisterMediaInfoRequest(TeaModel):
         self.overwrite = overwrite  # type: bool
         self.reference_id = reference_id  # type: str
         self.register_config = register_config  # type: str
+        self.smart_tag_template_id = smart_tag_template_id  # type: str
         self.title = title  # type: str
         self.user_data = user_data  # type: str
         self.workflow_id = workflow_id  # type: str
@@ -31619,6 +32189,8 @@ class RegisterMediaInfoRequest(TeaModel):
             result['ReferenceId'] = self.reference_id
         if self.register_config is not None:
             result['RegisterConfig'] = self.register_config
+        if self.smart_tag_template_id is not None:
+            result['SmartTagTemplateId'] = self.smart_tag_template_id
         if self.title is not None:
             result['Title'] = self.title
         if self.user_data is not None:
@@ -31651,6 +32223,8 @@ class RegisterMediaInfoRequest(TeaModel):
             self.reference_id = m.get('ReferenceId')
         if m.get('RegisterConfig') is not None:
             self.register_config = m.get('RegisterConfig')
+        if m.get('SmartTagTemplateId') is not None:
+            self.smart_tag_template_id = m.get('SmartTagTemplateId')
         if m.get('Title') is not None:
             self.title = m.get('Title')
         if m.get('UserData') is not None:
