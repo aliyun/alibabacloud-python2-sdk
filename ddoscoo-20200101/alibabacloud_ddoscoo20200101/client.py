@@ -2272,40 +2272,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_domain_qpslist_with_options(request, runtime)
 
-    def describe_domain_qps_with_cache_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.domain):
-            query['Domain'] = request.domain
-        if not UtilClient.is_unset(request.end_time):
-            query['EndTime'] = request.end_time
-        if not UtilClient.is_unset(request.resource_group_id):
-            query['ResourceGroupId'] = request.resource_group_id
-        if not UtilClient.is_unset(request.start_time):
-            query['StartTime'] = request.start_time
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeDomainQpsWithCache',
-            version='2020-01-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            ddoscoo_20200101_models.DescribeDomainQpsWithCacheResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_domain_qps_with_cache(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_domain_qps_with_cache_with_options(request, runtime)
-
     def describe_domain_resource_with_options(self, request, runtime):
         """
         You can call the DescribeDomainResource operation to query the configurations of the forwarding rules that you create for a website by page. The configurations include the domain name-related configurations, protocol-related configurations, HTTPS-related configurations, and configurations that are used to mitigate HTTP flood attacks.
@@ -2713,6 +2679,74 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.describe_elastic_bandwidth_spec_with_options(request, runtime)
+
+    def describe_elastic_qps_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.interval):
+            query['Interval'] = request.interval
+        if not UtilClient.is_unset(request.ip):
+            query['Ip'] = request.ip
+        if not UtilClient.is_unset(request.region):
+            query['Region'] = request.region
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeElasticQps',
+            version='2020-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ddoscoo_20200101_models.DescribeElasticQpsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_elastic_qps(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_elastic_qps_with_options(request, runtime)
+
+    def describe_elastic_qps_record_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.ip):
+            query['Ip'] = request.ip
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeElasticQpsRecord',
+            version='2020-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ddoscoo_20200101_models.DescribeElasticQpsRecordResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_elastic_qps_record(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_elastic_qps_record_with_options(request, runtime)
 
     def describe_headers_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -5532,6 +5566,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_elastic_biz_band_width_with_options(request, runtime)
 
+    def modify_elastic_biz_qps_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.mode):
+            query['Mode'] = request.mode
+        if not UtilClient.is_unset(request.ops_elastic_qps):
+            query['OpsElasticQps'] = request.ops_elastic_qps
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyElasticBizQps',
+            version='2020-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ddoscoo_20200101_models.ModifyElasticBizQpsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_elastic_biz_qps(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_elastic_biz_qps_with_options(request, runtime)
+
     def modify_full_log_ttl_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -5875,6 +5941,36 @@ class Client(OpenApiClient):
     def modify_port_auto_cc_status(self, request):
         runtime = util_models.RuntimeOptions()
         return self.modify_port_auto_cc_status_with_options(request, runtime)
+
+    def modify_qps_mode_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.mode):
+            query['Mode'] = request.mode
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyQpsMode',
+            version='2020-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ddoscoo_20200101_models.ModifyQpsModeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_qps_mode(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_qps_mode_with_options(request, runtime)
 
     def modify_scene_defense_policy_with_options(self, request, runtime):
         UtilClient.validate_model(request)
