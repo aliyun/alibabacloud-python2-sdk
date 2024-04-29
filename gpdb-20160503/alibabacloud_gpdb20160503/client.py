@@ -4785,6 +4785,8 @@ class Client(OpenApiClient):
             query['HybridSearch'] = request.hybrid_search
         if not UtilClient.is_unset(request.hybrid_search_args_shrink):
             query['HybridSearchArgs'] = request.hybrid_search_args_shrink
+        if not UtilClient.is_unset(request.include_metadata_fields):
+            query['IncludeMetadataFields'] = request.include_metadata_fields
         if not UtilClient.is_unset(request.include_values):
             query['IncludeValues'] = request.include_values
         if not UtilClient.is_unset(request.metrics):
@@ -4793,6 +4795,10 @@ class Client(OpenApiClient):
             query['Namespace'] = request.namespace
         if not UtilClient.is_unset(request.namespace_password):
             query['NamespacePassword'] = request.namespace_password
+        if not UtilClient.is_unset(request.offset):
+            query['Offset'] = request.offset
+        if not UtilClient.is_unset(request.order_by):
+            query['OrderBy'] = request.order_by
         if not UtilClient.is_unset(request.owner_id):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
@@ -4849,6 +4855,8 @@ class Client(OpenApiClient):
             query['HybridSearch'] = request.hybrid_search
         if not UtilClient.is_unset(request.hybrid_search_args_shrink):
             query['HybridSearchArgs'] = request.hybrid_search_args_shrink
+        if not UtilClient.is_unset(request.include_metadata_fields):
+            query['IncludeMetadataFields'] = request.include_metadata_fields
         if not UtilClient.is_unset(request.include_vector):
             query['IncludeVector'] = request.include_vector
         if not UtilClient.is_unset(request.metrics):

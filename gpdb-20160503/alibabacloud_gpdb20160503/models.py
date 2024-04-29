@@ -19304,18 +19304,21 @@ class PauseInstanceResponse(TeaModel):
 
 class QueryCollectionDataRequest(TeaModel):
     def __init__(self, collection=None, content=None, dbinstance_id=None, filter=None, hybrid_search=None,
-                 hybrid_search_args=None, include_values=None, metrics=None, namespace=None, namespace_password=None, owner_id=None,
-                 region_id=None, top_k=None, vector=None):
+                 hybrid_search_args=None, include_metadata_fields=None, include_values=None, metrics=None, namespace=None,
+                 namespace_password=None, offset=None, order_by=None, owner_id=None, region_id=None, top_k=None, vector=None):
         self.collection = collection  # type: str
         self.content = content  # type: str
         self.dbinstance_id = dbinstance_id  # type: str
         self.filter = filter  # type: str
         self.hybrid_search = hybrid_search  # type: str
         self.hybrid_search_args = hybrid_search_args  # type: dict[str, dict]
+        self.include_metadata_fields = include_metadata_fields  # type: str
         self.include_values = include_values  # type: bool
         self.metrics = metrics  # type: str
         self.namespace = namespace  # type: str
         self.namespace_password = namespace_password  # type: str
+        self.offset = offset  # type: int
+        self.order_by = order_by  # type: str
         self.owner_id = owner_id  # type: long
         self.region_id = region_id  # type: str
         self.top_k = top_k  # type: long
@@ -19342,6 +19345,8 @@ class QueryCollectionDataRequest(TeaModel):
             result['HybridSearch'] = self.hybrid_search
         if self.hybrid_search_args is not None:
             result['HybridSearchArgs'] = self.hybrid_search_args
+        if self.include_metadata_fields is not None:
+            result['IncludeMetadataFields'] = self.include_metadata_fields
         if self.include_values is not None:
             result['IncludeValues'] = self.include_values
         if self.metrics is not None:
@@ -19350,6 +19355,10 @@ class QueryCollectionDataRequest(TeaModel):
             result['Namespace'] = self.namespace
         if self.namespace_password is not None:
             result['NamespacePassword'] = self.namespace_password
+        if self.offset is not None:
+            result['Offset'] = self.offset
+        if self.order_by is not None:
+            result['OrderBy'] = self.order_by
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
@@ -19374,6 +19383,8 @@ class QueryCollectionDataRequest(TeaModel):
             self.hybrid_search = m.get('HybridSearch')
         if m.get('HybridSearchArgs') is not None:
             self.hybrid_search_args = m.get('HybridSearchArgs')
+        if m.get('IncludeMetadataFields') is not None:
+            self.include_metadata_fields = m.get('IncludeMetadataFields')
         if m.get('IncludeValues') is not None:
             self.include_values = m.get('IncludeValues')
         if m.get('Metrics') is not None:
@@ -19382,6 +19393,10 @@ class QueryCollectionDataRequest(TeaModel):
             self.namespace = m.get('Namespace')
         if m.get('NamespacePassword') is not None:
             self.namespace_password = m.get('NamespacePassword')
+        if m.get('Offset') is not None:
+            self.offset = m.get('Offset')
+        if m.get('OrderBy') is not None:
+            self.order_by = m.get('OrderBy')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
@@ -19395,18 +19410,21 @@ class QueryCollectionDataRequest(TeaModel):
 
 class QueryCollectionDataShrinkRequest(TeaModel):
     def __init__(self, collection=None, content=None, dbinstance_id=None, filter=None, hybrid_search=None,
-                 hybrid_search_args_shrink=None, include_values=None, metrics=None, namespace=None, namespace_password=None, owner_id=None,
-                 region_id=None, top_k=None, vector_shrink=None):
+                 hybrid_search_args_shrink=None, include_metadata_fields=None, include_values=None, metrics=None, namespace=None,
+                 namespace_password=None, offset=None, order_by=None, owner_id=None, region_id=None, top_k=None, vector_shrink=None):
         self.collection = collection  # type: str
         self.content = content  # type: str
         self.dbinstance_id = dbinstance_id  # type: str
         self.filter = filter  # type: str
         self.hybrid_search = hybrid_search  # type: str
         self.hybrid_search_args_shrink = hybrid_search_args_shrink  # type: str
+        self.include_metadata_fields = include_metadata_fields  # type: str
         self.include_values = include_values  # type: bool
         self.metrics = metrics  # type: str
         self.namespace = namespace  # type: str
         self.namespace_password = namespace_password  # type: str
+        self.offset = offset  # type: int
+        self.order_by = order_by  # type: str
         self.owner_id = owner_id  # type: long
         self.region_id = region_id  # type: str
         self.top_k = top_k  # type: long
@@ -19433,6 +19451,8 @@ class QueryCollectionDataShrinkRequest(TeaModel):
             result['HybridSearch'] = self.hybrid_search
         if self.hybrid_search_args_shrink is not None:
             result['HybridSearchArgs'] = self.hybrid_search_args_shrink
+        if self.include_metadata_fields is not None:
+            result['IncludeMetadataFields'] = self.include_metadata_fields
         if self.include_values is not None:
             result['IncludeValues'] = self.include_values
         if self.metrics is not None:
@@ -19441,6 +19461,10 @@ class QueryCollectionDataShrinkRequest(TeaModel):
             result['Namespace'] = self.namespace
         if self.namespace_password is not None:
             result['NamespacePassword'] = self.namespace_password
+        if self.offset is not None:
+            result['Offset'] = self.offset
+        if self.order_by is not None:
+            result['OrderBy'] = self.order_by
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
@@ -19465,6 +19489,8 @@ class QueryCollectionDataShrinkRequest(TeaModel):
             self.hybrid_search = m.get('HybridSearch')
         if m.get('HybridSearchArgs') is not None:
             self.hybrid_search_args_shrink = m.get('HybridSearchArgs')
+        if m.get('IncludeMetadataFields') is not None:
+            self.include_metadata_fields = m.get('IncludeMetadataFields')
         if m.get('IncludeValues') is not None:
             self.include_values = m.get('IncludeValues')
         if m.get('Metrics') is not None:
@@ -19473,6 +19499,10 @@ class QueryCollectionDataShrinkRequest(TeaModel):
             self.namespace = m.get('Namespace')
         if m.get('NamespacePassword') is not None:
             self.namespace_password = m.get('NamespacePassword')
+        if m.get('Offset') is not None:
+            self.offset = m.get('Offset')
+        if m.get('OrderBy') is not None:
+            self.order_by = m.get('OrderBy')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
@@ -19582,11 +19612,12 @@ class QueryCollectionDataResponseBodyMatches(TeaModel):
 
 
 class QueryCollectionDataResponseBody(TeaModel):
-    def __init__(self, matches=None, message=None, request_id=None, status=None):
+    def __init__(self, matches=None, message=None, request_id=None, status=None, total=None):
         self.matches = matches  # type: QueryCollectionDataResponseBodyMatches
         self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.status = status  # type: str
+        self.total = total  # type: int
 
     def validate(self):
         if self.matches:
@@ -19606,6 +19637,8 @@ class QueryCollectionDataResponseBody(TeaModel):
             result['RequestId'] = self.request_id
         if self.status is not None:
             result['Status'] = self.status
+        if self.total is not None:
+            result['Total'] = self.total
         return result
 
     def from_map(self, m=None):
@@ -19619,6 +19652,8 @@ class QueryCollectionDataResponseBody(TeaModel):
             self.request_id = m.get('RequestId')
         if m.get('Status') is not None:
             self.status = m.get('Status')
+        if m.get('Total') is not None:
+            self.total = m.get('Total')
         return self
 
 
@@ -19660,9 +19695,9 @@ class QueryCollectionDataResponse(TeaModel):
 
 class QueryContentRequest(TeaModel):
     def __init__(self, collection=None, content=None, dbinstance_id=None, file_name=None, file_url=None, filter=None,
-                 hybrid_search=None, hybrid_search_args=None, include_vector=None, metrics=None, namespace=None,
-                 namespace_password=None, owner_id=None, recall_window=None, region_id=None, rerank_factor=None, top_k=None,
-                 use_full_text_retrieval=None):
+                 hybrid_search=None, hybrid_search_args=None, include_metadata_fields=None, include_vector=None, metrics=None,
+                 namespace=None, namespace_password=None, owner_id=None, recall_window=None, region_id=None,
+                 rerank_factor=None, top_k=None, use_full_text_retrieval=None):
         self.collection = collection  # type: str
         self.content = content  # type: str
         self.dbinstance_id = dbinstance_id  # type: str
@@ -19671,6 +19706,7 @@ class QueryContentRequest(TeaModel):
         self.filter = filter  # type: str
         self.hybrid_search = hybrid_search  # type: str
         self.hybrid_search_args = hybrid_search_args  # type: dict[str, dict]
+        self.include_metadata_fields = include_metadata_fields  # type: str
         self.include_vector = include_vector  # type: bool
         self.metrics = metrics  # type: str
         self.namespace = namespace  # type: str
@@ -19707,6 +19743,8 @@ class QueryContentRequest(TeaModel):
             result['HybridSearch'] = self.hybrid_search
         if self.hybrid_search_args is not None:
             result['HybridSearchArgs'] = self.hybrid_search_args
+        if self.include_metadata_fields is not None:
+            result['IncludeMetadataFields'] = self.include_metadata_fields
         if self.include_vector is not None:
             result['IncludeVector'] = self.include_vector
         if self.metrics is not None:
@@ -19747,6 +19785,8 @@ class QueryContentRequest(TeaModel):
             self.hybrid_search = m.get('HybridSearch')
         if m.get('HybridSearchArgs') is not None:
             self.hybrid_search_args = m.get('HybridSearchArgs')
+        if m.get('IncludeMetadataFields') is not None:
+            self.include_metadata_fields = m.get('IncludeMetadataFields')
         if m.get('IncludeVector') is not None:
             self.include_vector = m.get('IncludeVector')
         if m.get('Metrics') is not None:
@@ -19772,9 +19812,9 @@ class QueryContentRequest(TeaModel):
 
 class QueryContentAdvanceRequest(TeaModel):
     def __init__(self, collection=None, content=None, dbinstance_id=None, file_name=None, file_url_object=None,
-                 filter=None, hybrid_search=None, hybrid_search_args=None, include_vector=None, metrics=None,
-                 namespace=None, namespace_password=None, owner_id=None, recall_window=None, region_id=None,
-                 rerank_factor=None, top_k=None, use_full_text_retrieval=None):
+                 filter=None, hybrid_search=None, hybrid_search_args=None, include_metadata_fields=None,
+                 include_vector=None, metrics=None, namespace=None, namespace_password=None, owner_id=None, recall_window=None,
+                 region_id=None, rerank_factor=None, top_k=None, use_full_text_retrieval=None):
         self.collection = collection  # type: str
         self.content = content  # type: str
         self.dbinstance_id = dbinstance_id  # type: str
@@ -19783,6 +19823,7 @@ class QueryContentAdvanceRequest(TeaModel):
         self.filter = filter  # type: str
         self.hybrid_search = hybrid_search  # type: str
         self.hybrid_search_args = hybrid_search_args  # type: dict[str, dict]
+        self.include_metadata_fields = include_metadata_fields  # type: str
         self.include_vector = include_vector  # type: bool
         self.metrics = metrics  # type: str
         self.namespace = namespace  # type: str
@@ -19819,6 +19860,8 @@ class QueryContentAdvanceRequest(TeaModel):
             result['HybridSearch'] = self.hybrid_search
         if self.hybrid_search_args is not None:
             result['HybridSearchArgs'] = self.hybrid_search_args
+        if self.include_metadata_fields is not None:
+            result['IncludeMetadataFields'] = self.include_metadata_fields
         if self.include_vector is not None:
             result['IncludeVector'] = self.include_vector
         if self.metrics is not None:
@@ -19859,6 +19902,8 @@ class QueryContentAdvanceRequest(TeaModel):
             self.hybrid_search = m.get('HybridSearch')
         if m.get('HybridSearchArgs') is not None:
             self.hybrid_search_args = m.get('HybridSearchArgs')
+        if m.get('IncludeMetadataFields') is not None:
+            self.include_metadata_fields = m.get('IncludeMetadataFields')
         if m.get('IncludeVector') is not None:
             self.include_vector = m.get('IncludeVector')
         if m.get('Metrics') is not None:
@@ -19884,9 +19929,9 @@ class QueryContentAdvanceRequest(TeaModel):
 
 class QueryContentShrinkRequest(TeaModel):
     def __init__(self, collection=None, content=None, dbinstance_id=None, file_name=None, file_url=None, filter=None,
-                 hybrid_search=None, hybrid_search_args_shrink=None, include_vector=None, metrics=None, namespace=None,
-                 namespace_password=None, owner_id=None, recall_window_shrink=None, region_id=None, rerank_factor=None, top_k=None,
-                 use_full_text_retrieval=None):
+                 hybrid_search=None, hybrid_search_args_shrink=None, include_metadata_fields=None, include_vector=None,
+                 metrics=None, namespace=None, namespace_password=None, owner_id=None, recall_window_shrink=None,
+                 region_id=None, rerank_factor=None, top_k=None, use_full_text_retrieval=None):
         self.collection = collection  # type: str
         self.content = content  # type: str
         self.dbinstance_id = dbinstance_id  # type: str
@@ -19895,6 +19940,7 @@ class QueryContentShrinkRequest(TeaModel):
         self.filter = filter  # type: str
         self.hybrid_search = hybrid_search  # type: str
         self.hybrid_search_args_shrink = hybrid_search_args_shrink  # type: str
+        self.include_metadata_fields = include_metadata_fields  # type: str
         self.include_vector = include_vector  # type: bool
         self.metrics = metrics  # type: str
         self.namespace = namespace  # type: str
@@ -19931,6 +19977,8 @@ class QueryContentShrinkRequest(TeaModel):
             result['HybridSearch'] = self.hybrid_search
         if self.hybrid_search_args_shrink is not None:
             result['HybridSearchArgs'] = self.hybrid_search_args_shrink
+        if self.include_metadata_fields is not None:
+            result['IncludeMetadataFields'] = self.include_metadata_fields
         if self.include_vector is not None:
             result['IncludeVector'] = self.include_vector
         if self.metrics is not None:
@@ -19971,6 +20019,8 @@ class QueryContentShrinkRequest(TeaModel):
             self.hybrid_search = m.get('HybridSearch')
         if m.get('HybridSearchArgs') is not None:
             self.hybrid_search_args_shrink = m.get('HybridSearchArgs')
+        if m.get('IncludeMetadataFields') is not None:
+            self.include_metadata_fields = m.get('IncludeMetadataFields')
         if m.get('IncludeVector') is not None:
             self.include_vector = m.get('IncludeVector')
         if m.get('Metrics') is not None:
