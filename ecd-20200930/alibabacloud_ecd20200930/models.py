@@ -6010,6 +6010,40 @@ class CreateDesktopsRequestDesktopTimers(TeaModel):
         return self
 
 
+class CreateDesktopsRequestMonthDesktopSetting(TeaModel):
+    def __init__(self, buyer_id=None, desktop_id=None, use_duration=None):
+        self.buyer_id = buyer_id  # type: long
+        self.desktop_id = desktop_id  # type: str
+        self.use_duration = use_duration  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDesktopsRequestMonthDesktopSetting, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.buyer_id is not None:
+            result['BuyerId'] = self.buyer_id
+        if self.desktop_id is not None:
+            result['DesktopId'] = self.desktop_id
+        if self.use_duration is not None:
+            result['UseDuration'] = self.use_duration
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BuyerId') is not None:
+            self.buyer_id = m.get('BuyerId')
+        if m.get('DesktopId') is not None:
+            self.desktop_id = m.get('DesktopId')
+        if m.get('UseDuration') is not None:
+            self.use_duration = m.get('UseDuration')
+        return self
+
+
 class CreateDesktopsRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
         # The key of the tag. You can specify 1 to 20 keys for a tag.
@@ -6125,9 +6159,10 @@ class CreateDesktopsRequestUserCommands(TeaModel):
 class CreateDesktopsRequest(TeaModel):
     def __init__(self, amount=None, auto_pay=None, auto_renew=None, bundle_id=None, bundle_models=None,
                  charge_type=None, desktop_member_ip=None, desktop_name=None, desktop_name_suffix=None, desktop_timers=None,
-                 directory_id=None, end_user_id=None, group_id=None, hostname=None, office_site_id=None, period=None,
-                 period_unit=None, policy_group_id=None, promotion_id=None, region_id=None, tag=None, user_assign_mode=None,
-                 user_commands=None, user_name=None, volume_encryption_enabled=None, volume_encryption_key=None, vpc_id=None):
+                 directory_id=None, end_user_id=None, group_id=None, hostname=None, month_desktop_setting=None,
+                 office_site_id=None, period=None, period_unit=None, policy_group_id=None, promotion_id=None, region_id=None,
+                 tag=None, user_assign_mode=None, user_commands=None, user_name=None, volume_encryption_enabled=None,
+                 volume_encryption_key=None, vpc_id=None):
         # The number of cloud computers that you want to create. Valid values: 1 to 300. Default value: 1.
         self.amount = amount  # type: int
         # Specifies whether to enable automatic payment.
@@ -6207,6 +6242,7 @@ class CreateDesktopsRequest(TeaModel):
         # *   `[begin_number,bits]`: the sequential number in the hostname. The `begin_number` value is the starting digit. Valid values of begin_number: 0 to 999999. Default value: 0. The `bits` value is the number of digits. Valid values: 1 to 6. Default value: 6.
         # *   `name_suffix`: the suffix of the hostname.
         self.hostname = hostname  # type: str
+        self.month_desktop_setting = month_desktop_setting  # type: CreateDesktopsRequestMonthDesktopSetting
         # The office network ID.
         self.office_site_id = office_site_id  # type: str
         # The subscription duration of the cloud desktop that you want to create. The unit is specified by the `PeriodUnit` parameter. This parameter takes effect and is required only when the `ChargeType` parameter is set to `PrePaid`.
@@ -6280,6 +6316,8 @@ class CreateDesktopsRequest(TeaModel):
             for k in self.desktop_timers:
                 if k:
                     k.validate()
+        if self.month_desktop_setting:
+            self.month_desktop_setting.validate()
         if self.tag:
             for k in self.tag:
                 if k:
@@ -6327,6 +6365,8 @@ class CreateDesktopsRequest(TeaModel):
             result['GroupId'] = self.group_id
         if self.hostname is not None:
             result['Hostname'] = self.hostname
+        if self.month_desktop_setting is not None:
+            result['MonthDesktopSetting'] = self.month_desktop_setting.to_map()
         if self.office_site_id is not None:
             result['OfficeSiteId'] = self.office_site_id
         if self.period is not None:
@@ -6395,6 +6435,9 @@ class CreateDesktopsRequest(TeaModel):
             self.group_id = m.get('GroupId')
         if m.get('Hostname') is not None:
             self.hostname = m.get('Hostname')
+        if m.get('MonthDesktopSetting') is not None:
+            temp_model = CreateDesktopsRequestMonthDesktopSetting()
+            self.month_desktop_setting = temp_model.from_map(m['MonthDesktopSetting'])
         if m.get('OfficeSiteId') is not None:
             self.office_site_id = m.get('OfficeSiteId')
         if m.get('Period') is not None:
@@ -13839,13 +13882,13 @@ class DescribeDesktopGroupsRequest(TeaModel):
     def __init__(self, bundle_id=None, desktop_group_id=None, desktop_group_name=None, end_user_ids=None,
                  excluded_end_user_ids=None, image_id=None, max_results=None, next_token=None, office_site_id=None, own_type=None,
                  period=None, period_unit=None, policy_group_id=None, protocol_type=None, region_id=None, status=None):
-        # The IDs of the desktop templates.
+        # The IDs of the cloud computer templates.
         self.bundle_id = bundle_id  # type: list[str]
-        # The desktop group ID.
+        # The ID of the cloud computer pool.
         self.desktop_group_id = desktop_group_id  # type: str
-        # The name of the desktop group that you want to query. Fuzzy search is supported.
+        # The name of the cloud computer pool to query. Fuzzy search is supported.
         self.desktop_group_name = desktop_group_name  # type: str
-        # The authorized users.
+        # The authorized user IDs of cloud computer pools.
         self.end_user_ids = end_user_ids  # type: list[str]
         # The authorized users that you want to exclude.
         self.excluded_end_user_ids = excluded_end_user_ids  # type: list[str]
@@ -13855,114 +13898,67 @@ class DescribeDesktopGroupsRequest(TeaModel):
         self.max_results = max_results  # type: int
         # The pagination token that is used in the next request to retrieve a new page of results. If the NextToken parameter is empty, no next page exists.
         self.next_token = next_token  # type: str
-        # The workspace ID of the desktop group that you want to query.
+        # The ID of the office network to which the cloud computer pool belongs.
         self.office_site_id = office_site_id  # type: str
-        # The desktop group type.
+        # The type of the cloud computer pool.
+        # 
+        # >  This parameter is not publicly available.
         # 
         # Valid values:
         # 
-        # *   0
-        # 
-        #     <!-- -->
-        # 
-        #     :
-        # 
-        #     <!-- -->
-        # 
-        #     personal desktop group
-        # 
-        #     <!-- -->
-        # 
-        # *   1
-        # 
-        #     <!-- -->
-        # 
-        #     :
-        # 
-        #     <!-- -->
-        # 
-        #     shared desktop group (multi-session)
-        # 
-        #     <!-- -->
+        # *   0: individual (single session)
+        # *   1: shared (multiple sessions)
         self.own_type = own_type  # type: long
-        # The validity period of the desktop group. The unit is specified by the PeriodUnit parameter.
+        # The subscription duration of the cloud computer pool. The unit is specified by the `PeriodUnit` parameter.
+        # 
+        # *   Valid values if the `PeriodUnit` parameter is set to `Month`:
+        # 
+        #     *   1
+        #     *   2
+        #     *   3
+        #     *   6
+        # 
+        # *   Valid values if the `PeriodUnit` parameter is set to `Year`:
+        # 
+        #     *   1
+        #     *   2
+        #     *   3
+        #     *   4
+        #     *   5
         self.period = period  # type: int
-        # The unit of the duration.
-        # 
-        # Valid values:
-        # 
-        # *   Month
-        # 
-        #     <!-- -->
-        # 
-        #     <!-- -->
-        # 
-        #     <!-- -->
-        # 
-        # *   Year
-        # 
-        #     <!-- -->
-        # 
-        #     <!-- -->
-        # 
-        #     <!-- -->
-        # 
-        # *   Day
-        # 
-        #     <!-- -->
-        # 
-        #     <!-- -->
-        # 
-        #     <!-- -->
+        # The unit of the subscription duration.
         self.period_unit = period_unit  # type: str
-        # The ID of the policy with which the desktop group is associated.
+        # The ID of the policy that you want to associate with the cloud computer pool.
         self.policy_group_id = policy_group_id  # type: str
-        # The protocol. Valid values:
-        # 
-        # *   ASP
-        # *   HDX
-        self.protocol_type = protocol_type  # type: str
-        # The region ID.
-        self.region_id = region_id  # type: str
-        # The payment status of the desktop group.
+        # The protocol type.
         # 
         # Valid values:
         # 
-        # *   0
+        # *   High-definition Experience (HDX)
         # 
         #     <!-- -->
         # 
-        #     :
+        #     <!-- -->
         # 
         #     <!-- -->
         # 
-        #     unpaid
+        # *   Adaptive Streaming Protocol (ASP)
         # 
         #     <!-- -->
         # 
-        # *   1
-        # 
         #     <!-- -->
         # 
-        #     :
-        # 
         #     <!-- -->
+        self.protocol_type = protocol_type  # type: str
+        # The region ID. You can call the [DescribeRegions](~~196646~~) operation to query the regions supported by WUYING Workspace.
+        self.region_id = region_id  # type: str
+        # The payment status of the cloud computer pool.
         # 
-        #     paid
+        # Valid values:
         # 
-        #     <!-- -->
-        # 
-        # *   2
-        # 
-        #     <!-- -->
-        # 
-        #     :
-        # 
-        #     <!-- -->
-        # 
-        #     overdue or expired
-        # 
-        #     <!-- -->
+        # *   0: unpaid
+        # *   1: paid
+        # *   2: overdue or expired
         self.status = status  # type: int
 
     def validate(self):
@@ -14047,7 +14043,75 @@ class DescribeDesktopGroupsRequest(TeaModel):
 
 class DescribeDesktopGroupsResponseBodyDesktopGroupsCountPerStatus(TeaModel):
     def __init__(self, count=None, status=None):
+        # The total number of cloud computers.
         self.count = count  # type: int
+        # The status of the cloud computer.
+        # 
+        # Valid values:
+        # 
+        # *   Stopped
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   Starting
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   Rebuilding
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   Running
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   Stopping
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   Expired
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   Deleted
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   Pending
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
         self.status = status  # type: str
 
     def validate(self):
@@ -14085,396 +14149,185 @@ class DescribeDesktopGroupsResponseBodyDesktopGroups(TeaModel):
                  policy_group_name=None, protocol_type=None, ratio_threshold=None, reset_type=None, status=None, stop_duration=None,
                  subnet_id=None, system_disk_category=None, system_disk_size=None, version=None,
                  volume_encryption_enabled=None, volume_encryption_key=None):
-        # The number of sessions that are allowed for each cloud desktop in the multi-session desktop group.
+        # The number of concurrent sessions that is allowed for each cloud computer pool in a multi-session cloud computer pool.
         self.bind_amount = bind_amount  # type: long
-        # The number of purchased cloud desktops. Valid values: 0 to 200.
+        # *   This parameter has different meanings based on the billing method of the cloud computer pool. For a subscription pool, this parameter specifies the number of cloud computers to purchase in the pool. Valid values: 0 to 200.
+        # *   For a pay-as-you-go pool, this parameter specifies the minimum number of cloud computers to create in the pool. Valid values: 0 to `MaxDesktopsCount`. Default value: 1.
         self.buy_desktops_count = buy_desktops_count  # type: int
-        # The remarks of the desktop group.
+        # The remarks.
         self.comments = comments  # type: str
-        # The maximum period of time during which the session is connected. When the specified maximum period of time is reached, the session is automatically disconnected. Unit: milliseconds. This parameter is required only for cloud desktops of the same desktop group.
+        # The maximum period of time during which a session is connected. When the specified maximum period of time is reached, the session is automatically disconnected. Unit: milliseconds.
         self.connect_duration = connect_duration  # type: long
+        # The number of cloud computers in each state.
         self.count_per_status = count_per_status  # type: list[DescribeDesktopGroupsResponseBodyDesktopGroupsCountPerStatus]
         # The number of vCPUs.
         self.cpu = cpu  # type: int
-        # The time when the desktop group was created.
+        # The time when the cloud computer pool was created.
         self.create_time = create_time  # type: str
-        # The ID of the Alibaba Cloud account that is used to create the desktop group.
+        # The Alibaba Cloud account that creates the cloud computer pool.
         self.creator = creator  # type: str
-        # The category of the data disk.
+        # The category of the user disk.
         # 
         # Valid values:
         # 
-        # *   cloud_efficiency
-        # 
-        #     <!-- -->
-        # 
-        #     :
-        # 
-        #     <!-- -->
-        # 
-        #     ultra disk
-        # 
-        #     <!-- -->
-        # 
-        # *   cloud_ssd
-        # 
-        #     <!-- -->
-        # 
-        #     :
-        # 
-        #     <!-- -->
-        # 
-        #     standard SSD
-        # 
-        #     <!-- -->
-        # 
-        # *   cloud_essd
-        # 
-        #     <!-- -->
-        # 
-        #     :
-        # 
-        #     <!-- -->
-        # 
-        #     ESSD
-        # 
-        #     <!-- -->
+        # *   cloud_efficiency: ultra disk
+        # *   cloud_ssd: standard SSD
+        # *   cloud_essd: enhanced SSD (ESSD)
         self.data_disk_category = data_disk_category  # type: str
-        # The size of the data disk. Unit: GiB.
+        # The user disk capacity. Unit: GiB.
         self.data_disk_size = data_disk_size  # type: str
+        # The number of cloud computers that are created.
         self.desktop_count = desktop_count  # type: int
-        # The ID of the desktop group.
+        # The ID of the cloud computer pool.
         self.desktop_group_id = desktop_group_id  # type: str
-        # The name of the desktop group.
+        # The name of the cloud computer pool.
         self.desktop_group_name = desktop_group_name  # type: str
+        # The cloud computer type. You can call the [DescribeDesktopTypes](~~188882~~) operation to query the IDs of the cloud computer types supported by WUYING Workspace.
         self.desktop_type = desktop_type  # type: str
-        # The number of end users that are authorized to use the desktop group.
+        # The number of users that are granted permissions to use the cloud computer pool.
         self.end_user_count = end_user_count  # type: int
-        # The time when the subscription cloud desktop expires.
+        # The time when the subscription cloud computer pool expires.
         self.expired_time = expired_time  # type: str
         # The number of GPUs.
         self.gpu_count = gpu_count  # type: float
+        # The version of the GPU driver.
         self.gpu_driver_version = gpu_driver_version  # type: str
         # The GPU memory.
         self.gpu_spec = gpu_spec  # type: str
-        # The maximum period of time during which the session is idle. When a session is idle, no inputs of keyboards or mouses are detected. When the specified maximum period of time is reached, the session is automatically disconnected. Unit: milliseconds. This parameter is required only for cloud desktops of the same desktop group.
+        # The period of time after which a session is closed. After an end user connects to a cloud computer, the session is established. If the system does not detect inputs from the keyboard or mouse within the specified period of time, the session is closed. Unit: milliseconds.
         self.idle_disconnect_duration = idle_disconnect_duration  # type: long
         # The ID of the image.
         self.image_id = image_id  # type: str
-        # The retention period of the cloud desktop after the end user is disconnected from the cloud desktop. Unit: milliseconds.
+        # The keep-alive duration of a session after the session is disconnected. Valid values: 180000 (3 minutes) to 345600000 (4 days). Unit: milliseconds. If you set this parameter to 0, the session is permanently retained after it is disconnected.
+        # 
+        # When a session is disconnected, take note of the following situations: If an end user does not resume the session within the specified duration, the session is closed and all unsaved data is cleared. If the end user resumes the session within the specified duration, the end user can continue to access data of the session.
         self.keep_duration = keep_duration  # type: long
-        # The load balancing policy of the multi-session desktop group.
+        # The load balancing policy of the multi-session cloud computer pool.
         # 
         # Valid values:
         # 
-        # *   0
-        # 
-        #     <!-- -->
-        # 
-        #     :
-        # 
-        #     <!-- -->
-        # 
-        #     depth first
-        # 
-        #     <!-- -->
-        # 
-        # *   1
-        # 
-        #     <!-- -->
-        # 
-        #     :
-        # 
-        #     <!-- -->
-        # 
-        #     breadth first
-        # 
-        #     <!-- -->
+        # *   0: depth-first
+        # *   1: breadth-first
         self.load_policy = load_policy  # type: long
-        # The maximum number of cloud desktops that the desktop group can contain.
+        # The maximum number of cloud computers that can be housed in the pay-as-you-go cloud computer pool.
         self.max_desktops_count = max_desktops_count  # type: int
         # The memory size. Unit: MiB.
         self.memory = memory  # type: long
-        # The minimum number of cloud desktops that the desktop group must contain.
+        # The maximum number of cloud computers that can be automatically created in the subscription cloud computer pool.
         self.min_desktops_count = min_desktops_count  # type: int
-        # The ID of the workspace.
+        # The name of the office network in which the cloud computer pool resides.
         self.office_site_id = office_site_id  # type: str
-        # The name of the workspace.
+        # The ID of the office network to which the cloud computer pool belongs.
         self.office_site_name = office_site_name  # type: str
-        # The account type of the workspace. Possible values: -simple: convenience account type. -ad_connector: enterprise Active Directory (AD) account.
+        # The account type of the office network.
         # 
         # Valid values:
         # 
-        # *   PERSONAL
-        # 
-        #     <!-- -->
-        # 
-        #     :
-        # 
-        #     <!-- -->
-        # 
-        #     personal account type
-        # 
-        #     <!-- -->
-        # 
-        #     .
-        # 
-        # *   SIMPLE
-        # 
-        #     <!-- -->
-        # 
-        #     :
-        # 
-        #     <!-- -->
-        # 
-        #     convenience account type
-        # 
-        #     <!-- -->
-        # 
-        #     .
-        # 
-        # *   AD_CONNECTOR:
-        # 
-        #     <!-- -->
-        # 
-        #     <!-- -->
-        # 
-        #     enterprise AD account type
-        # 
-        #     <!-- -->
-        # 
-        # *   RAM
-        # 
-        #     <!-- -->
-        # 
-        #     :
-        # 
-        #     <!-- -->
-        # 
-        #     Resource Access Management (RAM) account type
-        # 
-        #     <!-- -->
-        # 
-        #     .
+        # *   PERSONAL: individual office network
+        # *   SIMPLE: convenience office network
+        # *   AD_CONNECTOR: enterprise Active Directory (AD) office network
+        # *   RAM: Resource Access Management (RAM)-based office network
         self.office_site_type = office_site_type  # type: str
-        # The OS. Valid values:
+        # The OS.
+        # 
+        # Valid values:
+        # 
+        # *   Linux
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
         # 
         # *   Windows
-        # *   Linux
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
         self.os_type = os_type  # type: str
-        # The ID of the desktop template.
+        # The ID of the cloud computer template.
         self.own_bundle_id = own_bundle_id  # type: str
-        # The name of the desktop template.
+        # The name of the cloud computer template.
         self.own_bundle_name = own_bundle_name  # type: str
-        # The type of the desktop group.
+        # The type of the cloud computer pool.
         # 
         # Valid values:
         # 
-        # *   0
-        # 
-        #     <!-- -->
-        # 
-        #     :
-        # 
-        #     <!-- -->
-        # 
-        #     personal desktop group
-        # 
-        #     <!-- -->
-        # 
-        # *   1
-        # 
-        #     <!-- -->
-        # 
-        #     :
-        # 
-        #     <!-- -->
-        # 
-        #     shared desktop group (multi-session)
-        # 
-        #     <!-- -->
+        # *   0: individual (single session)
+        # *   1: shared (multiple sessions)
         self.own_type = own_type  # type: long
-        # The billing method of the desktop group.
+        # The billing method of the cloud computer pool.
         # 
         # Valid values:
         # 
-        # *   PostPaid
-        # 
-        #     <!-- -->
-        # 
-        #     :
-        # 
-        #     <!-- -->
-        # 
-        #     pay-as-you-go
-        # 
-        #     <!-- -->
-        # 
-        #     .
-        # 
-        # *   PrePaid
-        # 
-        #     <!-- -->
-        # 
-        #     :
-        # 
-        #     <!-- -->
-        # 
-        #     subscription
-        # 
-        #     <!-- -->
-        # 
-        #     .
+        # *   PostPaid: pay-as-you-go
+        # *   PrePaid: subscription
         self.pay_type = pay_type  # type: str
-        # The ID of the policy.
+        # The ID of the policy that is associated with the cloud computer pool.
         self.policy_group_id = policy_group_id  # type: str
-        # The name of the policy.
+        # The name of the policy that is associated with the cloud computer pool.
         self.policy_group_name = policy_group_name  # type: str
-        # The type of the protocol. Valid values:
+        # The protocol type.
+        # 
+        # Valid values:
+        # 
+        # *   HDX
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
         # 
         # *   ASP
-        # *   HDX
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
         self.protocol_type = protocol_type  # type: str
-        # The threshold for the ratio of connected sessions. This parameter is the condition that triggers auto scaling in a multi-session desktop group. `Ratio of connected sessions = Number of connected sessions/(Total number of cloud desktops × Maximum number of sessions allowed for each cloud desktop) × 100%`. When the specified threshold is reached, new cloud desktops are automatically created. When the specified threshold is not reached, idle cloud desktops are released.
+        # The threshold for the ratio of connected sessions. This parameter indicates the condition that triggers auto scaling in a multi-session cloud computer pool. The ratio of connected sessions is calculated by using the following formula:
+        # 
+        # `Ratio of connected sessions = Number of connected sessions/(Total number of cloud computers × Maximum number of sessions allowed for each cloud computer) × 100%`.
+        # 
+        # When the specified threshold is reached, new cloud computers are automatically created. When the specified threshold is not reached, idle cloud computers are released.
         self.ratio_threshold = ratio_threshold  # type: float
-        # Indicates which type of disk that is used by cloud desktops in the desktop group is reset.
+        # The disk reset type of the cloud computer pool.
         # 
         # Valid values:
         # 
-        # *   0
-        # 
-        #     <!-- -->
-        # 
-        #     :
-        # 
-        #     <!-- -->
-        # 
-        #     No disks are reset.
-        # 
-        #     <!-- -->
-        # 
-        # *   1
-        # 
-        #     <!-- -->
-        # 
-        #     :
-        # 
-        #     <!-- -->
-        # 
-        #     Only the system disk is reset.
-        # 
-        #     <!-- -->
-        # 
-        # *   2
-        # 
-        #     <!-- -->
-        # 
-        #     :
-        # 
-        #     <!-- -->
-        # 
-        #     Only the data disk is reset.
-        # 
-        #     <!-- -->
-        # 
-        # *   3
-        # 
-        #     <!-- -->
-        # 
-        #     :
-        # 
-        #     <!-- -->
-        # 
-        #     Both the system disk and data disk are reset.
-        # 
-        #     <!-- -->
+        # *   0: does not reset disks
+        # *   1: resets only the system disks
+        # *   2: resets only the user disks
+        # *   3: resets the system disks and user disks
         self.reset_type = reset_type  # type: long
-        # The payment status of the desktop group.
+        # The payment status of the cloud computer pool.
         # 
         # Valid values:
         # 
-        # *   0
-        # 
-        #     <!-- -->
-        # 
-        #     :
-        # 
-        #     <!-- -->
-        # 
-        #     unpaid
-        # 
-        #     <!-- -->
-        # 
-        # *   1
-        # 
-        #     <!-- -->
-        # 
-        #     :
-        # 
-        #     <!-- -->
-        # 
-        #     paid
-        # 
-        #     <!-- -->
-        # 
-        # *   2
-        # 
-        #     <!-- -->
-        # 
-        #     :
-        # 
-        #     <!-- -->
-        # 
-        #     overdue or expired
-        # 
-        #     <!-- -->
+        # *   0: unpaid
+        # *   1: paid
+        # *   2: overdue or expired
         self.status = status  # type: int
-        # The period of time before the idle cloud desktop enters the Stopped state. When the specified period of time is reached, the idle cloud desktop automatically enters the Stopped state. If an end user connects to a cloud desktop that is in the Stopped state, the cloud desktop automatically starts. Unit: milliseconds.
+        # The period of time after which an idle cloud computer is stopped. When the specified period of time is reached, the cloud computer is automatically stopped. If an end user connects to the stopped cloud computer, the cloud computer is automatically started. Unit: milliseconds.
         self.stop_duration = stop_duration  # type: long
+        # The ID of the subnet.
         self.subnet_id = subnet_id  # type: str
         # The category of the system disk.
         # 
         # Valid values:
         # 
-        # *   cloud_efficiency
-        # 
-        #     <!-- -->
-        # 
-        #     :
-        # 
-        #     <!-- -->
-        # 
-        #     ultra disk
-        # 
-        #     <!-- -->
-        # 
-        # *   cloud_ssd
-        # 
-        #     <!-- -->
-        # 
-        #     :
-        # 
-        #     <!-- -->
-        # 
-        #     standard SSD
-        # 
-        #     <!-- -->
-        # 
-        # *   cloud_essd
-        # 
-        #     <!-- -->
-        # 
-        #     :
-        # 
-        #     <!-- -->
-        # 
-        #     ESSD
-        # 
-        #     <!-- -->
+        # *   cloud_efficiency: ultra disk
+        # *   cloud_ssd: standard SSD
+        # *   cloud_essd: enhanced SSD (ESSD)
         self.system_disk_category = system_disk_category  # type: str
-        # The size of the system disk. Unit: GiB.
+        # The system disk capacity. Unit: GiB.
         self.system_disk_size = system_disk_size  # type: int
-        # The version number of the desktop group.
+        # The version number of the cloud computer pool.
         self.version = version  # type: int
         # Indicates whether disk encryption is enabled.
         self.volume_encryption_enabled = volume_encryption_enabled  # type: bool
@@ -14695,7 +14548,7 @@ class DescribeDesktopGroupsResponseBodyDesktopGroups(TeaModel):
 
 class DescribeDesktopGroupsResponseBody(TeaModel):
     def __init__(self, desktop_groups=None, next_token=None, request_id=None):
-        # Details of the desktop groups.
+        # The cloud computer pools.
         self.desktop_groups = desktop_groups  # type: list[DescribeDesktopGroupsResponseBodyDesktopGroups]
         # The returned value of NextToken is a pagination token, which can be used in the next request to retrieve a new page of results.
         self.next_token = next_token  # type: str
@@ -15546,7 +15399,9 @@ class DescribeDesktopOversoldUserGroupResponse(TeaModel):
 class DescribeDesktopSessionsRequest(TeaModel):
     def __init__(self, desktop_id=None, desktop_name=None, end_time=None, end_user_id=None, office_site_id=None,
                  page_number=None, page_size=None, region_id=None, session_status=None, start_time=None):
+        # The IDs of the cloud computers.
         self.desktop_id = desktop_id  # type: list[str]
+        # The name of the cloud computer.
         self.desktop_name = desktop_name  # type: str
         # The end of the time range to query.
         self.end_time = end_time  # type: str
@@ -19419,22 +19274,22 @@ class DescribeFlowStatisticResponse(TeaModel):
 class DescribeFotaPendingDesktopsRequest(TeaModel):
     def __init__(self, desktop_id=None, desktop_name=None, max_results=None, next_token=None, office_site_id=None,
                  region_id=None, task_uid=None):
-        # The cloud computer ID.
+        # The ID of the cloud computer.
         self.desktop_id = desktop_id  # type: str
-        # The cloud computer name.
+        # The name of the cloud computer.
         self.desktop_name = desktop_name  # type: str
         # The number of entries per page.
         # 
         # *   Valid values: 1 to 100.
         # *   Default value: 20.
         self.max_results = max_results  # type: int
-        # The pagination token that is used in the next request to retrieve a new page of results. If NextToken is empty, no next page exists.
+        # The pagination token that is used in the next request to retrieve a new page of results. You do not need to specify this parameter for the first request. You must specify the token that is obtained from the previous query as the value of `NextToken`.
         self.next_token = next_token  # type: str
-        # The office network ID. You can call the [DescribeOfficeSites](~~216071~~) operation to obtain the office network ID.
+        # The ID of the office network. You can call the [DescribeOfficeSites](~~216071~~) operation to obtain the value of this parameter.
         self.office_site_id = office_site_id  # type: str
-        # The region ID. You can call the [DescribeRegions](~~196646~~) operation to query the most recent region list.
+        # The region ID. You can call the [DescribeRegions](~~196646~~) operation to query the regions supported by WUYING Workspace.
         self.region_id = region_id  # type: str
-        # The ID of the image update task. You can call the DescribeFotaTasks operation to obtain the task ID.
+        # The ID of the image update task. You can call the [DescribeFotaTasks](~~437001~~) operation to obtain the value of this parameter.
         self.task_uid = task_uid  # type: str
 
     def validate(self):
@@ -19511,17 +19366,28 @@ class DescribeFotaPendingDesktopsResponseBodyFotaPendingDesktops(TeaModel):
                  office_site_id=None, sessions=None, status=None):
         # The current version of the image used by the cloud computer.
         self.current_app_version = current_app_version  # type: str
-        # The cloud computer ID.
+        # The ID of the cloud computer.
         self.desktop_id = desktop_id  # type: str
-        # The cloud computer name.
+        # The name of the cloud computer.
         self.desktop_name = desktop_name  # type: str
-        # The Firmware Over-The-Air (FOTA) update project of the cloud computer.
+        # > This parameter is not publicly available.
         self.fota_project = fota_project  # type: str
-        # The office network ID.
+        # The ID of the office network.
         self.office_site_id = office_site_id  # type: str
-        # The information about the connected sessions.
+        # The connected sessions.
         self.sessions = sessions  # type: list[DescribeFotaPendingDesktopsResponseBodyFotaPendingDesktopsSessions]
-        # The status.
+        # The status of the cloud computer.
+        # 
+        # Valid values:
+        # 
+        # *   0: The cloud computer is being created.
+        # *   1: The cloud computer is being started.
+        # *   2: The cloud computer is running.
+        # *   3: The cloud computer is being stopped.
+        # *   5: The cloud computer is stopped.
+        # *   6: The cloud computer expires.
+        # *   7: The cloud computer is deleted.
+        # *   9: Failed to create the cloud computer.
         self.status = status  # type: long
 
     def validate(self):
@@ -19580,7 +19446,7 @@ class DescribeFotaPendingDesktopsResponseBody(TeaModel):
     def __init__(self, code=None, fota_pending_desktops=None, message=None, next_token=None, request_id=None):
         # The response code.
         self.code = code  # type: str
-        # The cloud computers whose images can be but are not yet updated to the version that is described in an image update task (TaskUid).
+        # The cloud computers whose images can be and are pending to be updated to the version specified in `TaskUid`.
         self.fota_pending_desktops = fota_pending_desktops  # type: list[DescribeFotaPendingDesktopsResponseBodyFotaPendingDesktops]
         # The returned message.
         self.message = message  # type: str
@@ -22568,20 +22434,22 @@ class DescribeOfficeSitesResponseBodyOfficeSitesLogs(TeaModel):
 
 
 class DescribeOfficeSitesResponseBodyOfficeSites(TeaModel):
-    def __init__(self, adconnectors=None, ad_hostname=None, bandwidth=None, cen_attach_status=None, cen_id=None,
-                 cidr_block=None, cloud_box_office_site=None, creation_time=None, custom_security_group_id=None,
-                 desktop_access_type=None, desktop_count=None, desktop_vpc_endpoint=None, dns_address=None, dns_user_name=None,
-                 domain_name=None, domain_password=None, domain_user_name=None, enable_admin_access=None,
-                 enable_cross_desktop_access=None, enable_internet_access=None, file_system_ids=None, logs=None, mfa_enabled=None, name=None,
-                 need_verify_login_risk=None, need_verify_zero_device=None, network_package_id=None, office_site_id=None,
-                 office_site_type=None, ou_name=None, protocol_type=None, rds_license_address=None, rds_license_domain_name=None,
-                 rds_license_status=None, sso_enabled=None, sso_type=None, status=None, sub_dns_address=None, sub_domain_name=None,
-                 total_eds_count=None, total_eds_count_for_group=None, trust_password=None, v_switch_ids=None, vpc_id=None,
-                 vpc_type=None):
+    def __init__(self, adconnectors=None, ad_hostname=None, backup_dchostname=None, backup_dns=None, bandwidth=None,
+                 cen_attach_status=None, cen_id=None, cidr_block=None, cloud_box_office_site=None, creation_time=None,
+                 custom_security_group_id=None, desktop_access_type=None, desktop_count=None, desktop_vpc_endpoint=None, dns_address=None,
+                 dns_user_name=None, domain_name=None, domain_password=None, domain_user_name=None, enable_admin_access=None,
+                 enable_cross_desktop_access=None, enable_internet_access=None, enable_service_route=None, file_system_ids=None, logs=None,
+                 mfa_enabled=None, name=None, need_verify_login_risk=None, need_verify_zero_device=None,
+                 network_package_id=None, office_site_id=None, office_site_type=None, ou_name=None, protocol_type=None,
+                 rds_license_address=None, rds_license_domain_name=None, rds_license_status=None, sso_enabled=None, sso_type=None,
+                 status=None, sub_dns_address=None, sub_domain_name=None, total_eds_count=None,
+                 total_eds_count_for_group=None, trust_password=None, v_switch_ids=None, vpc_id=None, vpc_type=None):
         # The details of AD connectors.
         self.adconnectors = adconnectors  # type: list[DescribeOfficeSitesResponseBodyOfficeSitesADConnectors]
         # The hostname of the domain controller. The hostname must comply with Windows hostname naming convention.
         self.ad_hostname = ad_hostname  # type: str
+        self.backup_dchostname = backup_dchostname  # type: str
+        self.backup_dns = backup_dns  # type: str
         # The maximum public bandwidth value. Valid values: 0 to 1000.\
         # If you leave this parameter empty or set this parameter to 0, Internet access is not enabled.
         self.bandwidth = bandwidth  # type: int
@@ -22650,6 +22518,7 @@ class DescribeOfficeSitesResponseBodyOfficeSites(TeaModel):
         self.enable_cross_desktop_access = enable_cross_desktop_access  # type: bool
         # Indicates whether Internet access is enabled.
         self.enable_internet_access = enable_internet_access  # type: bool
+        self.enable_service_route = enable_service_route  # type: bool
         # An array of Apsara File Storage NAS (NAS) file system IDs.
         self.file_system_ids = file_system_ids  # type: list[str]
         # Details about registration logs.
@@ -22877,6 +22746,10 @@ class DescribeOfficeSitesResponseBodyOfficeSites(TeaModel):
                 result['ADConnectors'].append(k.to_map() if k else None)
         if self.ad_hostname is not None:
             result['AdHostname'] = self.ad_hostname
+        if self.backup_dchostname is not None:
+            result['BackupDCHostname'] = self.backup_dchostname
+        if self.backup_dns is not None:
+            result['BackupDns'] = self.backup_dns
         if self.bandwidth is not None:
             result['Bandwidth'] = self.bandwidth
         if self.cen_attach_status is not None:
@@ -22913,6 +22786,8 @@ class DescribeOfficeSitesResponseBodyOfficeSites(TeaModel):
             result['EnableCrossDesktopAccess'] = self.enable_cross_desktop_access
         if self.enable_internet_access is not None:
             result['EnableInternetAccess'] = self.enable_internet_access
+        if self.enable_service_route is not None:
+            result['EnableServiceRoute'] = self.enable_service_route
         if self.file_system_ids is not None:
             result['FileSystemIds'] = self.file_system_ids
         result['Logs'] = []
@@ -22976,6 +22851,10 @@ class DescribeOfficeSitesResponseBodyOfficeSites(TeaModel):
                 self.adconnectors.append(temp_model.from_map(k))
         if m.get('AdHostname') is not None:
             self.ad_hostname = m.get('AdHostname')
+        if m.get('BackupDCHostname') is not None:
+            self.backup_dchostname = m.get('BackupDCHostname')
+        if m.get('BackupDns') is not None:
+            self.backup_dns = m.get('BackupDns')
         if m.get('Bandwidth') is not None:
             self.bandwidth = m.get('Bandwidth')
         if m.get('CenAttachStatus') is not None:
@@ -23012,6 +22891,8 @@ class DescribeOfficeSitesResponseBodyOfficeSites(TeaModel):
             self.enable_cross_desktop_access = m.get('EnableCrossDesktopAccess')
         if m.get('EnableInternetAccess') is not None:
             self.enable_internet_access = m.get('EnableInternetAccess')
+        if m.get('EnableServiceRoute') is not None:
+            self.enable_service_route = m.get('EnableServiceRoute')
         if m.get('FileSystemIds') is not None:
             self.file_system_ids = m.get('FileSystemIds')
         self.logs = []
@@ -40151,7 +40032,7 @@ class RenewDesktopOversoldGroupResponse(TeaModel):
 
 class RenewDesktopsRequest(TeaModel):
     def __init__(self, auto_pay=None, desktop_id=None, period=None, period_unit=None, promotion_id=None,
-                 region_id=None):
+                 region_id=None, resource_type=None):
         # Specifies whether to enable the auto-payment feature.
         # 
         # Default value: true. Valid values:
@@ -40209,6 +40090,7 @@ class RenewDesktopsRequest(TeaModel):
         self.promotion_id = promotion_id  # type: str
         # The region ID. You can call the [DescribeRegions](~~196646~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        self.resource_type = resource_type  # type: str
 
     def validate(self):
         pass
@@ -40231,6 +40113,8 @@ class RenewDesktopsRequest(TeaModel):
             result['PromotionId'] = self.promotion_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
         return result
 
     def from_map(self, m=None):
@@ -40247,6 +40131,8 @@ class RenewDesktopsRequest(TeaModel):
             self.promotion_id = m.get('PromotionId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
         return self
 
 

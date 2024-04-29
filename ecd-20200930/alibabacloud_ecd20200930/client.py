@@ -1712,6 +1712,8 @@ class Client(OpenApiClient):
             query['GroupId'] = request.group_id
         if not UtilClient.is_unset(request.hostname):
             query['Hostname'] = request.hostname
+        if not UtilClient.is_unset(request.month_desktop_setting):
+            query['MonthDesktopSetting'] = request.month_desktop_setting
         if not UtilClient.is_unset(request.office_site_id):
             query['OfficeSiteId'] = request.office_site_id
         if not UtilClient.is_unset(request.period):
@@ -8340,6 +8342,8 @@ class Client(OpenApiClient):
             query['PromotionId'] = request.promotion_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_type):
+            query['ResourceType'] = request.resource_type
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
