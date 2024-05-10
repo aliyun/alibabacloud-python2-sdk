@@ -7452,11 +7452,12 @@ class DescribeInstanceResponseBodyResultAliwsDicts(TeaModel):
 
 
 class DescribeInstanceResponseBodyResultClientNodeConfiguration(TeaModel):
-    def __init__(self, amount=None, disk=None, disk_type=None, spec=None):
+    def __init__(self, amount=None, disk=None, disk_type=None, spec=None, spec_info=None):
         self.amount = amount  # type: int
         self.disk = disk  # type: int
         self.disk_type = disk_type  # type: str
         self.spec = spec  # type: str
+        self.spec_info = spec_info  # type: str
 
     def validate(self):
         pass
@@ -7475,6 +7476,8 @@ class DescribeInstanceResponseBodyResultClientNodeConfiguration(TeaModel):
             result['diskType'] = self.disk_type
         if self.spec is not None:
             result['spec'] = self.spec
+        if self.spec_info is not None:
+            result['specInfo'] = self.spec_info
         return result
 
     def from_map(self, m=None):
@@ -7487,6 +7490,8 @@ class DescribeInstanceResponseBodyResultClientNodeConfiguration(TeaModel):
             self.disk_type = m.get('diskType')
         if m.get('spec') is not None:
             self.spec = m.get('spec')
+        if m.get('specInfo') is not None:
+            self.spec_info = m.get('specInfo')
         return self
 
 
@@ -7530,12 +7535,13 @@ class DescribeInstanceResponseBodyResultDictList(TeaModel):
 
 
 class DescribeInstanceResponseBodyResultElasticDataNodeConfiguration(TeaModel):
-    def __init__(self, amount=None, disk=None, disk_encryption=None, disk_type=None, spec=None):
+    def __init__(self, amount=None, disk=None, disk_encryption=None, disk_type=None, spec=None, spec_info=None):
         self.amount = amount  # type: int
         self.disk = disk  # type: int
         self.disk_encryption = disk_encryption  # type: bool
         self.disk_type = disk_type  # type: str
         self.spec = spec  # type: str
+        self.spec_info = spec_info  # type: str
 
     def validate(self):
         pass
@@ -7556,6 +7562,8 @@ class DescribeInstanceResponseBodyResultElasticDataNodeConfiguration(TeaModel):
             result['diskType'] = self.disk_type
         if self.spec is not None:
             result['spec'] = self.spec
+        if self.spec_info is not None:
+            result['specInfo'] = self.spec_info
         return result
 
     def from_map(self, m=None):
@@ -7570,6 +7578,8 @@ class DescribeInstanceResponseBodyResultElasticDataNodeConfiguration(TeaModel):
             self.disk_type = m.get('diskType')
         if m.get('spec') is not None:
             self.spec = m.get('spec')
+        if m.get('specInfo') is not None:
+            self.spec_info = m.get('specInfo')
         return self
 
 
@@ -7613,10 +7623,11 @@ class DescribeInstanceResponseBodyResultIkHotDicts(TeaModel):
 
 
 class DescribeInstanceResponseBodyResultKibanaConfiguration(TeaModel):
-    def __init__(self, amount=None, disk=None, spec=None):
+    def __init__(self, amount=None, disk=None, spec=None, spec_info=None):
         self.amount = amount  # type: int
         self.disk = disk  # type: int
         self.spec = spec  # type: str
+        self.spec_info = spec_info  # type: str
 
     def validate(self):
         pass
@@ -7633,6 +7644,8 @@ class DescribeInstanceResponseBodyResultKibanaConfiguration(TeaModel):
             result['disk'] = self.disk
         if self.spec is not None:
             result['spec'] = self.spec
+        if self.spec_info is not None:
+            result['specInfo'] = self.spec_info
         return result
 
     def from_map(self, m=None):
@@ -7643,15 +7656,18 @@ class DescribeInstanceResponseBodyResultKibanaConfiguration(TeaModel):
             self.disk = m.get('disk')
         if m.get('spec') is not None:
             self.spec = m.get('spec')
+        if m.get('specInfo') is not None:
+            self.spec_info = m.get('specInfo')
         return self
 
 
 class DescribeInstanceResponseBodyResultMasterConfiguration(TeaModel):
-    def __init__(self, amount=None, disk=None, disk_type=None, spec=None):
+    def __init__(self, amount=None, disk=None, disk_type=None, spec=None, spec_info=None):
         self.amount = amount  # type: int
         self.disk = disk  # type: int
         self.disk_type = disk_type  # type: str
         self.spec = spec  # type: str
+        self.spec_info = spec_info  # type: str
 
     def validate(self):
         pass
@@ -7670,6 +7686,8 @@ class DescribeInstanceResponseBodyResultMasterConfiguration(TeaModel):
             result['diskType'] = self.disk_type
         if self.spec is not None:
             result['spec'] = self.spec
+        if self.spec_info is not None:
+            result['specInfo'] = self.spec_info
         return result
 
     def from_map(self, m=None):
@@ -7682,6 +7700,8 @@ class DescribeInstanceResponseBodyResultMasterConfiguration(TeaModel):
             self.disk_type = m.get('diskType')
         if m.get('spec') is not None:
             self.spec = m.get('spec')
+        if m.get('specInfo') is not None:
+            self.spec_info = m.get('specInfo')
         return self
 
 
@@ -7772,12 +7792,14 @@ class DescribeInstanceResponseBodyResultNetworkConfig(TeaModel):
 
 
 class DescribeInstanceResponseBodyResultNodeSpec(TeaModel):
-    def __init__(self, disk=None, disk_encryption=None, disk_type=None, performance_level=None, spec=None):
+    def __init__(self, disk=None, disk_encryption=None, disk_type=None, performance_level=None, spec=None,
+                 spec_info=None):
         self.disk = disk  # type: int
         self.disk_encryption = disk_encryption  # type: bool
         self.disk_type = disk_type  # type: str
         self.performance_level = performance_level  # type: str
         self.spec = spec  # type: str
+        self.spec_info = spec_info  # type: str
 
     def validate(self):
         pass
@@ -7798,6 +7820,8 @@ class DescribeInstanceResponseBodyResultNodeSpec(TeaModel):
             result['performanceLevel'] = self.performance_level
         if self.spec is not None:
             result['spec'] = self.spec
+        if self.spec_info is not None:
+            result['specInfo'] = self.spec_info
         return result
 
     def from_map(self, m=None):
@@ -7812,6 +7836,8 @@ class DescribeInstanceResponseBodyResultNodeSpec(TeaModel):
             self.performance_level = m.get('performanceLevel')
         if m.get('spec') is not None:
             self.spec = m.get('spec')
+        if m.get('specInfo') is not None:
+            self.spec_info = m.get('specInfo')
         return self
 
 
@@ -7884,12 +7910,13 @@ class DescribeInstanceResponseBodyResultTags(TeaModel):
 
 
 class DescribeInstanceResponseBodyResultWarmNodeConfiguration(TeaModel):
-    def __init__(self, amount=None, disk=None, disk_encryption=None, disk_type=None, spec=None):
+    def __init__(self, amount=None, disk=None, disk_encryption=None, disk_type=None, spec=None, spec_info=None):
         self.amount = amount  # type: int
         self.disk = disk  # type: int
         self.disk_encryption = disk_encryption  # type: bool
         self.disk_type = disk_type  # type: str
         self.spec = spec  # type: str
+        self.spec_info = spec_info  # type: str
 
     def validate(self):
         pass
@@ -7910,6 +7937,8 @@ class DescribeInstanceResponseBodyResultWarmNodeConfiguration(TeaModel):
             result['diskType'] = self.disk_type
         if self.spec is not None:
             result['spec'] = self.spec
+        if self.spec_info is not None:
+            result['specInfo'] = self.spec_info
         return result
 
     def from_map(self, m=None):
@@ -7924,6 +7953,8 @@ class DescribeInstanceResponseBodyResultWarmNodeConfiguration(TeaModel):
             self.disk_type = m.get('diskType')
         if m.get('spec') is not None:
             self.spec = m.get('spec')
+        if m.get('specInfo') is not None:
+            self.spec_info = m.get('specInfo')
         return self
 
 
@@ -7960,14 +7991,14 @@ class DescribeInstanceResponseBodyResult(TeaModel):
     def __init__(self, advanced_dedicate_master=None, advanced_setting=None, aliws_dicts=None,
                  client_node_configuration=None, created_at=None, dedicate_master=None, description=None, dict_list=None, domain=None,
                  elastic_data_node_configuration=None, enable_kibana_private_network=None, enable_kibana_public_network=None, enable_public=None,
-                 es_config=None, es_ipblacklist=None, es_ipwhitelist=None, es_version=None, extend_configs=None,
-                 have_client_node=None, have_kibana=None, ik_hot_dicts=None, instance_category=None, instance_id=None,
-                 is_new_deployment=None, kibana_configuration=None, kibana_domain=None, kibana_ipwhitelist=None, kibana_port=None,
-                 kibana_private_ipwhitelist=None, master_configuration=None, network_config=None, node_amount=None, node_spec=None,
-                 payment_type=None, port=None, postpaid_service_status=None, private_network_ip_white_list=None, protocol=None,
-                 public_domain=None, public_ip_whitelist=None, public_port=None, resource_group_id=None, service_vpc=None,
-                 status=None, synonyms_dicts=None, tags=None, updated_at=None, vpc_instance_id=None, warm_node=None,
-                 warm_node_configuration=None, zone_count=None, zone_infos=None):
+                 endtime=None, es_config=None, es_ipblacklist=None, es_ipwhitelist=None, es_version=None,
+                 extend_configs=None, have_client_node=None, have_kibana=None, ik_hot_dicts=None, instance_category=None,
+                 instance_id=None, is_new_deployment=None, kibana_configuration=None, kibana_domain=None,
+                 kibana_ipwhitelist=None, kibana_port=None, kibana_private_ipwhitelist=None, master_configuration=None,
+                 network_config=None, node_amount=None, node_spec=None, payment_type=None, port=None, postpaid_service_status=None,
+                 private_network_ip_white_list=None, protocol=None, public_domain=None, public_ip_whitelist=None, public_port=None,
+                 resource_group_id=None, service_vpc=None, status=None, synonyms_dicts=None, tags=None, updated_at=None,
+                 vpc_instance_id=None, warm_node=None, warm_node_configuration=None, zone_count=None, zone_infos=None):
         self.advanced_dedicate_master = advanced_dedicate_master  # type: bool
         self.advanced_setting = advanced_setting  # type: DescribeInstanceResponseBodyResultAdvancedSetting
         self.aliws_dicts = aliws_dicts  # type: list[DescribeInstanceResponseBodyResultAliwsDicts]
@@ -7981,6 +8012,7 @@ class DescribeInstanceResponseBodyResult(TeaModel):
         self.enable_kibana_private_network = enable_kibana_private_network  # type: bool
         self.enable_kibana_public_network = enable_kibana_public_network  # type: bool
         self.enable_public = enable_public  # type: bool
+        self.endtime = endtime  # type: long
         self.es_config = es_config  # type: dict[str, any]
         self.es_ipblacklist = es_ipblacklist  # type: list[str]
         self.es_ipwhitelist = es_ipwhitelist  # type: list[str]
@@ -8099,6 +8131,8 @@ class DescribeInstanceResponseBodyResult(TeaModel):
             result['enableKibanaPublicNetwork'] = self.enable_kibana_public_network
         if self.enable_public is not None:
             result['enablePublic'] = self.enable_public
+        if self.endtime is not None:
+            result['endtime'] = self.endtime
         if self.es_config is not None:
             result['esConfig'] = self.es_config
         if self.es_ipblacklist is not None:
@@ -8224,6 +8258,8 @@ class DescribeInstanceResponseBodyResult(TeaModel):
             self.enable_kibana_public_network = m.get('enableKibanaPublicNetwork')
         if m.get('enablePublic') is not None:
             self.enable_public = m.get('enablePublic')
+        if m.get('endtime') is not None:
+            self.endtime = m.get('endtime')
         if m.get('esConfig') is not None:
             self.es_config = m.get('esConfig')
         if m.get('esIPBlacklist') is not None:
@@ -18957,7 +18993,7 @@ class ListInstanceResponseBodyHeaders(TeaModel):
 
 
 class ListInstanceResponseBodyResultClientNodeConfiguration(TeaModel):
-    def __init__(self, amount=None, disk=None, disk_type=None, spec=None):
+    def __init__(self, amount=None, disk=None, disk_type=None, spec=None, spec_info=None):
         # The size of the node storage space. Unit: GB.
         self.amount = amount  # type: int
         # Specifies whether to enable disk encryption for the node. Valid values:
@@ -18973,6 +19009,7 @@ class ListInstanceResponseBodyResultClientNodeConfiguration(TeaModel):
         self.disk_type = disk_type  # type: str
         # The number of nodes.
         self.spec = spec  # type: str
+        self.spec_info = spec_info  # type: str
 
     def validate(self):
         pass
@@ -18991,6 +19028,8 @@ class ListInstanceResponseBodyResultClientNodeConfiguration(TeaModel):
             result['diskType'] = self.disk_type
         if self.spec is not None:
             result['spec'] = self.spec
+        if self.spec_info is not None:
+            result['specInfo'] = self.spec_info
         return result
 
     def from_map(self, m=None):
@@ -19003,11 +19042,13 @@ class ListInstanceResponseBodyResultClientNodeConfiguration(TeaModel):
             self.disk_type = m.get('diskType')
         if m.get('spec') is not None:
             self.spec = m.get('spec')
+        if m.get('specInfo') is not None:
+            self.spec_info = m.get('specInfo')
         return self
 
 
 class ListInstanceResponseBodyResultElasticDataNodeConfiguration(TeaModel):
-    def __init__(self, amount=None, disk=None, disk_encryption=None, disk_type=None, spec=None):
+    def __init__(self, amount=None, disk=None, disk_encryption=None, disk_type=None, spec=None, spec_info=None):
         # The number of nodes.
         self.amount = amount  # type: int
         # The size of the node storage space. Unit: GB.
@@ -19018,6 +19059,7 @@ class ListInstanceResponseBodyResultElasticDataNodeConfiguration(TeaModel):
         self.disk_type = disk_type  # type: str
         # The instance type of the node. For more information, see [Specifications](~~271718~~).
         self.spec = spec  # type: str
+        self.spec_info = spec_info  # type: str
 
     def validate(self):
         pass
@@ -19038,6 +19080,8 @@ class ListInstanceResponseBodyResultElasticDataNodeConfiguration(TeaModel):
             result['diskType'] = self.disk_type
         if self.spec is not None:
             result['spec'] = self.spec
+        if self.spec_info is not None:
+            result['specInfo'] = self.spec_info
         return result
 
     def from_map(self, m=None):
@@ -19052,11 +19096,13 @@ class ListInstanceResponseBodyResultElasticDataNodeConfiguration(TeaModel):
             self.disk_type = m.get('diskType')
         if m.get('spec') is not None:
             self.spec = m.get('spec')
+        if m.get('specInfo') is not None:
+            self.spec_info = m.get('specInfo')
         return self
 
 
 class ListInstanceResponseBodyResultKibanaConfiguration(TeaModel):
-    def __init__(self, amount=None, disk=None, disk_type=None, spec=None):
+    def __init__(self, amount=None, disk=None, disk_type=None, spec=None, spec_info=None):
         # The size of the node storage space. Unit: GB.
         self.amount = amount  # type: int
         # The storage type of the node. Only cloud_ssd(SSD cloud disk) is supported.
@@ -19065,6 +19111,7 @@ class ListInstanceResponseBodyResultKibanaConfiguration(TeaModel):
         self.disk_type = disk_type  # type: str
         # The number of nodes.
         self.spec = spec  # type: str
+        self.spec_info = spec_info  # type: str
 
     def validate(self):
         pass
@@ -19083,6 +19130,8 @@ class ListInstanceResponseBodyResultKibanaConfiguration(TeaModel):
             result['diskType'] = self.disk_type
         if self.spec is not None:
             result['spec'] = self.spec
+        if self.spec_info is not None:
+            result['specInfo'] = self.spec_info
         return result
 
     def from_map(self, m=None):
@@ -19095,11 +19144,13 @@ class ListInstanceResponseBodyResultKibanaConfiguration(TeaModel):
             self.disk_type = m.get('diskType')
         if m.get('spec') is not None:
             self.spec = m.get('spec')
+        if m.get('specInfo') is not None:
+            self.spec_info = m.get('specInfo')
         return self
 
 
 class ListInstanceResponseBodyResultMasterConfiguration(TeaModel):
-    def __init__(self, amount=None, disk=None, disk_type=None, spec=None):
+    def __init__(self, amount=None, disk=None, disk_type=None, spec=None, spec_info=None):
         # The network type. Only Virtual Private Cloud (VPC) is supported.
         self.amount = amount  # type: int
         # The vSwitch ID of the cluster.
@@ -19108,6 +19159,7 @@ class ListInstanceResponseBodyResultMasterConfiguration(TeaModel):
         self.disk_type = disk_type  # type: str
         # The zone where the cluster resides.
         self.spec = spec  # type: str
+        self.spec_info = spec_info  # type: str
 
     def validate(self):
         pass
@@ -19126,6 +19178,8 @@ class ListInstanceResponseBodyResultMasterConfiguration(TeaModel):
             result['diskType'] = self.disk_type
         if self.spec is not None:
             result['spec'] = self.spec
+        if self.spec_info is not None:
+            result['specInfo'] = self.spec_info
         return result
 
     def from_map(self, m=None):
@@ -19138,6 +19192,8 @@ class ListInstanceResponseBodyResultMasterConfiguration(TeaModel):
             self.disk_type = m.get('diskType')
         if m.get('spec') is not None:
             self.spec = m.get('spec')
+        if m.get('specInfo') is not None:
+            self.spec_info = m.get('specInfo')
         return self
 
 
@@ -19238,12 +19294,14 @@ class ListInstanceResponseBodyResultNetworkConfig(TeaModel):
 
 
 class ListInstanceResponseBodyResultNodeSpec(TeaModel):
-    def __init__(self, disk=None, disk_encryption=None, disk_type=None, performance_level=None, spec=None):
+    def __init__(self, disk=None, disk_encryption=None, disk_type=None, performance_level=None, spec=None,
+                 spec_info=None):
         self.disk = disk  # type: int
         self.disk_encryption = disk_encryption  # type: bool
         self.disk_type = disk_type  # type: str
         self.performance_level = performance_level  # type: str
         self.spec = spec  # type: str
+        self.spec_info = spec_info  # type: str
 
     def validate(self):
         pass
@@ -19264,6 +19322,8 @@ class ListInstanceResponseBodyResultNodeSpec(TeaModel):
             result['performanceLevel'] = self.performance_level
         if self.spec is not None:
             result['spec'] = self.spec
+        if self.spec_info is not None:
+            result['specInfo'] = self.spec_info
         return result
 
     def from_map(self, m=None):
@@ -19278,6 +19338,8 @@ class ListInstanceResponseBodyResultNodeSpec(TeaModel):
             self.performance_level = m.get('performanceLevel')
         if m.get('spec') is not None:
             self.spec = m.get('spec')
+        if m.get('specInfo') is not None:
+            self.spec_info = m.get('specInfo')
         return self
 
 
@@ -19314,7 +19376,7 @@ class ListInstanceResponseBodyResultTags(TeaModel):
 
 class ListInstanceResponseBodyResult(TeaModel):
     def __init__(self, advanced_dedicate_master=None, client_node_configuration=None, created_at=None,
-                 dedicate_master=None, description=None, elastic_data_node_configuration=None, es_version=None,
+                 dedicate_master=None, description=None, elastic_data_node_configuration=None, end_time=None, es_version=None,
                  extend_configs=None, instance_id=None, is_new_deployment=None, kibana_configuration=None,
                  kibana_ipwhitelist=None, kibana_private_ipwhitelist=None, master_configuration=None, network_config=None,
                  node_amount=None, node_spec=None, payment_type=None, postpaid_service_status=None,
@@ -19339,6 +19401,7 @@ class ListInstanceResponseBodyResult(TeaModel):
         self.description = description  # type: str
         # The configuration of Kibana nodes.
         self.elastic_data_node_configuration = elastic_data_node_configuration  # type: ListInstanceResponseBodyResultElasticDataNodeConfiguration
+        self.end_time = end_time  # type: long
         # The value of the tag.
         self.es_version = es_version  # type: str
         # The configurations of elastic data nodes.
@@ -19413,6 +19476,8 @@ class ListInstanceResponseBodyResult(TeaModel):
             result['description'] = self.description
         if self.elastic_data_node_configuration is not None:
             result['elasticDataNodeConfiguration'] = self.elastic_data_node_configuration.to_map()
+        if self.end_time is not None:
+            result['endTime'] = self.end_time
         if self.es_version is not None:
             result['esVersion'] = self.es_version
         if self.extend_configs is not None:
@@ -19475,6 +19540,8 @@ class ListInstanceResponseBodyResult(TeaModel):
         if m.get('elasticDataNodeConfiguration') is not None:
             temp_model = ListInstanceResponseBodyResultElasticDataNodeConfiguration()
             self.elastic_data_node_configuration = temp_model.from_map(m['elasticDataNodeConfiguration'])
+        if m.get('endTime') is not None:
+            self.end_time = m.get('endTime')
         if m.get('esVersion') is not None:
             self.es_version = m.get('esVersion')
         if m.get('extendConfigs') is not None:

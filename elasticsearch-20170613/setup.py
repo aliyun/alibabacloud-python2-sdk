@@ -25,7 +25,7 @@ from setuptools import setup, find_packages
 """
 setup module for alibabacloud_elasticsearch20170613_py2.
 
-Created on 23/04/2024
+Created on 10/05/2024
 
 @author: Alibaba Cloud SDK
 """
