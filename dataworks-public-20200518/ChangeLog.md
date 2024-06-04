@@ -1,3 +1,35 @@
+2024-06-04 Version: 3.4.0
+- Support API DsgDesensPlanAddOrUpdate.
+- Support API DsgDesensPlanDelete.
+- Support API DsgDesensPlanQueryList.
+- Support API DsgDesensPlanUpdateStatus.
+- Support API DsgPlatformQueryProjectsAndSchemaFromMeta.
+- Support API DsgQueryDefaultTemplates.
+- Support API DsgSceneAddOrUpdateScene.
+- Support API DsgSceneQuerySceneListByName.
+- Support API DsgScenedDeleteScene.
+- Support API DsgUserGroupAddOrUpdate.
+- Support API DsgUserGroupDelete.
+- Support API DsgUserGroupGetOdpsRoleGroups.
+- Support API DsgUserGroupQueryList.
+- Support API DsgUserGroupQueryUserList.
+- Support API DsgWhiteListAddOrUpdate.
+- Support API DsgWhiteListDeleteList.
+- Support API DsgWhiteListQueryList.
+- Update API CreateDIJob: update param ResourceSettings.
+- Update API CreateQualityEntity: update response param.
+- Update API CreateQualityRelativeNode: update response param.
+- Update API DeleteQualityEntity: update response param.
+- Update API DeleteQualityRelativeNode: update response param.
+- Update API GetDIJob: update response param.
+- Update API GetNode: update response param.
+- Update API GetNodeChildren: update response param.
+- Update API GetNodeParents: update response param.
+- Update API ListNodes: update response param.
+- Update API ListQualityResultsByRule: update response param.
+- Update API UpdateDIJob: update param ResourceSettings.
+
+
 2024-04-24 Version: 3.3.0
 - Support API AddRecognizeRule.
 - Support API DeleteRecognizeRule.

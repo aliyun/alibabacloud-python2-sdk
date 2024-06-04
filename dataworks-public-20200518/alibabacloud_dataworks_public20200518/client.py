@@ -15,9 +15,9 @@ from alibabacloud_openapi_util.client import Client as OpenApiUtilClient
 from alibabacloud_openplatform20191219.client import Client as OpenPlatformClient
 from alibabacloud_openplatform20191219 import models as open_platform_models
 from alibabacloud_oss_sdk import models as oss_models
+from alibabacloud_oss_sdk.client import Client as OSSClient
 from alibabacloud_tea_fileform import models as file_form_models
 from alibabacloud_oss_util import models as ossutil_models
-from alibabacloud_oss_sdk.client import Client as OSSClient
 
 
 class Client(OpenApiClient):
@@ -64,6 +64,16 @@ class Client(OpenApiClient):
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
     def abolish_data_service_api_with_options(self, request, runtime):
+        """
+        @summary Unpublishes a DataService Studio API.
+        
+
+        @param request: AbolishDataServiceApiRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AbolishDataServiceApiResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.api_id):
@@ -92,10 +102,28 @@ class Client(OpenApiClient):
         )
 
     def abolish_data_service_api(self, request):
+        """
+        @summary Unpublishes a DataService Studio API.
+        
+
+        @param request: AbolishDataServiceApiRequest
+
+        @return: AbolishDataServiceApiResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.abolish_data_service_api_with_options(request, runtime)
 
     def add_meta_collection_entity_with_options(self, request, runtime):
+        """
+        @summary Adds an entity to a collection.
+        
+
+        @param request: AddMetaCollectionEntityRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AddMetaCollectionEntityResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.collection_qualified_name):
@@ -124,12 +152,22 @@ class Client(OpenApiClient):
         )
 
     def add_meta_collection_entity(self, request):
+        """
+        @summary Adds an entity to a collection.
+        
+
+        @param request: AddMetaCollectionEntityRequest
+
+        @return: AddMetaCollectionEntityResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.add_meta_collection_entity_with_options(request, runtime)
 
     def add_project_member_to_role_with_options(self, request, runtime):
         """
-        The ID of the DataWorks workspace. You can call the [ListProjects](~~178393~~) operation to query the ID.
+        @summary For more information about how to add your Alibaba Cloud account or a RAM user as a member of a DataWorks workspace, see [Add a member to a DataWorks workspace](https://help.aliyun.com/document_detail/136941.html).
+        
+        @description The ID of the DataWorks workspace. You can call the [ListProjects](https://help.aliyun.com/document_detail/178393.html) operation to query the ID.
         
 
         @param request: AddProjectMemberToRoleRequest
@@ -169,7 +207,9 @@ class Client(OpenApiClient):
 
     def add_project_member_to_role(self, request):
         """
-        The ID of the DataWorks workspace. You can call the [ListProjects](~~178393~~) operation to query the ID.
+        @summary For more information about how to add your Alibaba Cloud account or a RAM user as a member of a DataWorks workspace, see [Add a member to a DataWorks workspace](https://help.aliyun.com/document_detail/136941.html).
+        
+        @description The ID of the DataWorks workspace. You can call the [ListProjects](https://help.aliyun.com/document_detail/178393.html) operation to query the ID.
         
 
         @param request: AddProjectMemberToRoleRequest
@@ -180,6 +220,16 @@ class Client(OpenApiClient):
         return self.add_project_member_to_role_with_options(request, runtime)
 
     def add_recognize_rule_with_options(self, request, runtime):
+        """
+        @summary 添加识别规则
+        
+
+        @param request: AddRecognizeRuleRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AddRecognizeRuleResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.account_name):
@@ -238,10 +288,28 @@ class Client(OpenApiClient):
         )
 
     def add_recognize_rule(self, request):
+        """
+        @summary 添加识别规则
+        
+
+        @param request: AddRecognizeRuleRequest
+
+        @return: AddRecognizeRuleResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.add_recognize_rule_with_options(request, runtime)
 
     def add_to_meta_category_with_options(self, request, runtime):
+        """
+        @summary Adds a metatable to a specified category.
+        
+
+        @param request: AddToMetaCategoryRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AddToMetaCategoryResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.category_id):
@@ -268,10 +336,26 @@ class Client(OpenApiClient):
         )
 
     def add_to_meta_category(self, request):
+        """
+        @summary Adds a metatable to a specified category.
+        
+
+        @param request: AddToMetaCategoryRequest
+
+        @return: AddToMetaCategoryResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.add_to_meta_category_with_options(request, runtime)
 
     def approve_permission_apply_order_with_options(self, request, runtime):
+        """
+
+        @param request: ApprovePermissionApplyOrderRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ApprovePermissionApplyOrderResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.approve_action):
@@ -300,10 +384,26 @@ class Client(OpenApiClient):
         )
 
     def approve_permission_apply_order(self, request):
+        """
+
+        @param request: ApprovePermissionApplyOrderRequest
+
+        @return: ApprovePermissionApplyOrderResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.approve_permission_apply_order_with_options(request, runtime)
 
     def callback_extension_with_options(self, request, runtime):
+        """
+        @summary 扩展程序回调接口
+        
+
+        @param request: CallbackExtensionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CallbackExtensionResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.check_message):
@@ -334,10 +434,28 @@ class Client(OpenApiClient):
         )
 
     def callback_extension(self, request):
+        """
+        @summary 扩展程序回调接口
+        
+
+        @param request: CallbackExtensionRequest
+
+        @return: CallbackExtensionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.callback_extension_with_options(request, runtime)
 
     def change_resource_manager_resource_group_with_options(self, request, runtime):
+        """
+        @summary The operation that you want to perform. Set the value to *ChangeResourceManagerResourceGroup**.
+        
+
+        @param request: ChangeResourceManagerResourceGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ChangeResourceManagerResourceGroupResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.resource_id):
@@ -366,10 +484,26 @@ class Client(OpenApiClient):
         )
 
     def change_resource_manager_resource_group(self, request):
+        """
+        @summary The operation that you want to perform. Set the value to *ChangeResourceManagerResourceGroup**.
+        
+
+        @param request: ChangeResourceManagerResourceGroupRequest
+
+        @return: ChangeResourceManagerResourceGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.change_resource_manager_resource_group_with_options(request, runtime)
 
     def check_file_deployment_with_options(self, request, runtime):
+        """
+
+        @param request: CheckFileDeploymentRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CheckFileDeploymentResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.check_detail_url):
@@ -398,10 +532,26 @@ class Client(OpenApiClient):
         )
 
     def check_file_deployment(self, request):
+        """
+
+        @param request: CheckFileDeploymentRequest
+
+        @return: CheckFileDeploymentResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.check_file_deployment_with_options(request, runtime)
 
     def check_meta_partition_with_options(self, request, runtime):
+        """
+        @summary The operation that you want to perform. Set the value to *CheckMetaPartition**.
+        
+
+        @param request: CheckMetaPartitionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CheckMetaPartitionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.cluster_id):
@@ -436,10 +586,28 @@ class Client(OpenApiClient):
         )
 
     def check_meta_partition(self, request):
+        """
+        @summary The operation that you want to perform. Set the value to *CheckMetaPartition**.
+        
+
+        @param request: CheckMetaPartitionRequest
+
+        @return: CheckMetaPartitionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.check_meta_partition_with_options(request, runtime)
 
     def check_meta_table_with_options(self, request, runtime):
+        """
+        @summary The operation that you want to perform. Set the value to *CheckMetaTable**.
+        
+
+        @param request: CheckMetaTableRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CheckMetaTableResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.cluster_id):
@@ -472,10 +640,28 @@ class Client(OpenApiClient):
         )
 
     def check_meta_table(self, request):
+        """
+        @summary The operation that you want to perform. Set the value to *CheckMetaTable**.
+        
+
+        @param request: CheckMetaTableRequest
+
+        @return: CheckMetaTableResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.check_meta_table_with_options(request, runtime)
 
     def create_baseline_with_options(self, request, runtime):
+        """
+        @summary 创建基线
+        
+
+        @param request: CreateBaselineRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateBaselineResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.alert_margin_threshold):
@@ -514,10 +700,26 @@ class Client(OpenApiClient):
         )
 
     def create_baseline(self, request):
+        """
+        @summary 创建基线
+        
+
+        @param request: CreateBaselineRequest
+
+        @return: CreateBaselineResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_baseline_with_options(request, runtime)
 
     def create_business_with_options(self, request, runtime):
+        """
+
+        @param request: CreateBusinessRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateBusinessResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.business_name):
@@ -552,12 +754,20 @@ class Client(OpenApiClient):
         )
 
     def create_business(self, request):
+        """
+
+        @param request: CreateBusinessRequest
+
+        @return: CreateBusinessResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_business_with_options(request, runtime)
 
     def create_connection_with_options(self, request, runtime):
         """
-        @deprecated
+        @deprecated OpenAPI CreateConnection is deprecated
+        
+        @summary 创建数据源
         
 
         @param request: CreateConnectionRequest
@@ -604,7 +814,9 @@ class Client(OpenApiClient):
 
     def create_connection(self, request):
         """
-        @deprecated
+        @deprecated OpenAPI CreateConnection is deprecated
+        
+        @summary 创建数据源
         
 
         @param request: CreateConnectionRequest
@@ -616,6 +828,16 @@ class Client(OpenApiClient):
         return self.create_connection_with_options(request, runtime)
 
     def create_dialarm_rule_with_options(self, tmp_req, runtime):
+        """
+        @summary 创建数据集成新版告警规则
+        
+
+        @param tmp_req: CreateDIAlarmRuleRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateDIAlarmRuleResponse
+        """
         UtilClient.validate_model(tmp_req)
         request = dataworks_public_20200518_models.CreateDIAlarmRuleShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
@@ -656,10 +878,28 @@ class Client(OpenApiClient):
         )
 
     def create_dialarm_rule(self, request):
+        """
+        @summary 创建数据集成新版告警规则
+        
+
+        @param request: CreateDIAlarmRuleRequest
+
+        @return: CreateDIAlarmRuleResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_dialarm_rule_with_options(request, runtime)
 
     def create_dijob_with_options(self, tmp_req, runtime):
+        """
+        @summary 创建数据集成新版解决方案任务
+        
+
+        @param tmp_req: CreateDIJobRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateDIJobResponse
+        """
         UtilClient.validate_model(tmp_req)
         request = dataworks_public_20200518_models.CreateDIJobShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
@@ -724,12 +964,20 @@ class Client(OpenApiClient):
         )
 
     def create_dijob(self, request):
+        """
+        @summary 创建数据集成新版解决方案任务
+        
+
+        @param request: CreateDIJobRequest
+
+        @return: CreateDIJobResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_dijob_with_options(request, runtime)
 
     def create_disync_task_with_options(self, request, runtime):
         """
-        DataWorks allows you to use only the CreateDISyncTask operation to create a batch synchronization node in Data Integration. To create a real-time synchronization node or a synchronization solution, you must first call the [GenerateDISyncTaskConfigForCreating](~~383463~~) operation to generate the ID of an asynchronous thread and call the [QueryDISyncTaskConfigProcessResult](~~383465~~) operation to obtain the asynchronously generated parameters based on the ID. Then, you can call the CreateDISyncTask operation and use the parameters as request parameters to create a real-time synchronization node or a synchronization solution in Data Integration.
+        @summary Creates a data synchronization task.
         
 
         @param request: CreateDISyncTaskRequest
@@ -773,7 +1021,7 @@ class Client(OpenApiClient):
 
     def create_disync_task(self, request):
         """
-        DataWorks allows you to use only the CreateDISyncTask operation to create a batch synchronization node in Data Integration. To create a real-time synchronization node or a synchronization solution, you must first call the [GenerateDISyncTaskConfigForCreating](~~383463~~) operation to generate the ID of an asynchronous thread and call the [QueryDISyncTaskConfigProcessResult](~~383465~~) operation to obtain the asynchronously generated parameters based on the ID. Then, you can call the CreateDISyncTask operation and use the parameters as request parameters to create a real-time synchronization node or a synchronization solution in Data Integration.
+        @summary Creates a data synchronization task.
         
 
         @param request: CreateDISyncTaskRequest
@@ -785,7 +1033,7 @@ class Client(OpenApiClient):
 
     def create_dag_complement_with_options(self, request, runtime):
         """
-        @deprecated
+        @deprecated OpenAPI CreateDagComplement is deprecated
         
 
         @param request: CreateDagComplementRequest
@@ -840,7 +1088,7 @@ class Client(OpenApiClient):
 
     def create_dag_complement(self, request):
         """
-        @deprecated
+        @deprecated OpenAPI CreateDagComplement is deprecated
         
 
         @param request: CreateDagComplementRequest
@@ -853,7 +1101,7 @@ class Client(OpenApiClient):
 
     def create_dag_test_with_options(self, request, runtime):
         """
-        @deprecated
+        @deprecated OpenAPI CreateDagTest is deprecated
         
 
         @param request: CreateDagTestRequest
@@ -896,7 +1144,7 @@ class Client(OpenApiClient):
 
     def create_dag_test(self, request):
         """
-        @deprecated
+        @deprecated OpenAPI CreateDagTest is deprecated
         
 
         @param request: CreateDagTestRequest
@@ -908,6 +1156,14 @@ class Client(OpenApiClient):
         return self.create_dag_test_with_options(request, runtime)
 
     def create_data_service_api_with_options(self, request, runtime):
+        """
+
+        @param request: CreateDataServiceApiRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateDataServiceApiResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.api_description):
@@ -968,10 +1224,26 @@ class Client(OpenApiClient):
         )
 
     def create_data_service_api(self, request):
+        """
+
+        @param request: CreateDataServiceApiRequest
+
+        @return: CreateDataServiceApiResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_data_service_api_with_options(request, runtime)
 
     def create_data_service_api_authority_with_options(self, request, runtime):
+        """
+        @summary Grants the access permissions on an API in DataService Studio.
+        
+
+        @param request: CreateDataServiceApiAuthorityRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateDataServiceApiAuthorityResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.api_id):
@@ -1004,10 +1276,28 @@ class Client(OpenApiClient):
         )
 
     def create_data_service_api_authority(self, request):
+        """
+        @summary Grants the access permissions on an API in DataService Studio.
+        
+
+        @param request: CreateDataServiceApiAuthorityRequest
+
+        @return: CreateDataServiceApiAuthorityResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_data_service_api_authority_with_options(request, runtime)
 
     def create_data_service_folder_with_options(self, request, runtime):
+        """
+        @summary Creates a folder in DataService Studio.
+        
+
+        @param request: CreateDataServiceFolderRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateDataServiceFolderResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.folder_name):
@@ -1040,10 +1330,28 @@ class Client(OpenApiClient):
         )
 
     def create_data_service_folder(self, request):
+        """
+        @summary Creates a folder in DataService Studio.
+        
+
+        @param request: CreateDataServiceFolderRequest
+
+        @return: CreateDataServiceFolderResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_data_service_folder_with_options(request, runtime)
 
     def create_data_service_group_with_options(self, request, runtime):
+        """
+        @summary Creates a business process.
+        
+
+        @param request: CreateDataServiceGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateDataServiceGroupResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.api_gateway_group_id):
@@ -1076,10 +1384,28 @@ class Client(OpenApiClient):
         )
 
     def create_data_service_group(self, request):
+        """
+        @summary Creates a business process.
+        
+
+        @param request: CreateDataServiceGroupRequest
+
+        @return: CreateDataServiceGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_data_service_group_with_options(request, runtime)
 
     def create_data_source_with_options(self, request, runtime):
+        """
+        @summary 创建数据源
+        
+
+        @param request: CreateDataSourceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateDataSourceResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.content):
@@ -1116,10 +1442,28 @@ class Client(OpenApiClient):
         )
 
     def create_data_source(self, request):
+        """
+        @summary 创建数据源
+        
+
+        @param request: CreateDataSourceRequest
+
+        @return: CreateDataSourceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_data_source_with_options(request, runtime)
 
     def create_export_migration_with_options(self, request, runtime):
+        """
+        @summary 新建导出任务
+        
+
+        @param request: CreateExportMigrationRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateExportMigrationResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.description):
@@ -1154,10 +1498,28 @@ class Client(OpenApiClient):
         )
 
     def create_export_migration(self, request):
+        """
+        @summary 新建导出任务
+        
+
+        @param request: CreateExportMigrationRequest
+
+        @return: CreateExportMigrationResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_export_migration_with_options(request, runtime)
 
     def create_file_with_options(self, request, runtime):
+        """
+        @summary Creates a file in DataStudio. You cannot call this operation to create files for Data Integration nodes.
+        
+
+        @param request: CreateFileRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateFileResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.advanced_settings):
@@ -1242,10 +1604,28 @@ class Client(OpenApiClient):
         )
 
     def create_file(self, request):
+        """
+        @summary Creates a file in DataStudio. You cannot call this operation to create files for Data Integration nodes.
+        
+
+        @param request: CreateFileRequest
+
+        @return: CreateFileResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_file_with_options(request, runtime)
 
     def create_folder_with_options(self, request, runtime):
+        """
+        @summary The operation that you want to perform. Set the value to *CreateFolder**.
+        
+
+        @param request: CreateFolderRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateFolderResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.folder_path):
@@ -1274,12 +1654,20 @@ class Client(OpenApiClient):
         )
 
     def create_folder(self, request):
+        """
+        @summary The operation that you want to perform. Set the value to *CreateFolder**.
+        
+
+        @param request: CreateFolderRequest
+
+        @return: CreateFolderResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_folder_with_options(request, runtime)
 
     def create_import_migration_with_options(self, request, runtime):
         """
-        The import package must be uploaded. Example of the upload method:
+        @description The import package must be uploaded. Example of the upload method:
         Config config = new Config();
         config.setAccessKeyId(accessId);
         config.setAccessKeySecret(accessKey);
@@ -1287,7 +1675,7 @@ class Client(OpenApiClient):
         config.setRegionId(regionId);
         Client client = new Client(config);
         CreateImportMigrationAdvanceRequest request = new CreateImportMigrationAdvanceRequest();
-        request.setName("test_migration_api\\_" + System.currentTimeMillis());
+        request.setName("test_migration_api_" + System.currentTimeMillis());
         request.setProjectId(123456L);
         request.setPackageType("DATAWORKS_MODEL");
         request.setPackageFileObject(new FileInputStream("/home/admin/Downloads/test.zip"));
@@ -1343,7 +1731,7 @@ class Client(OpenApiClient):
 
     def create_import_migration(self, request):
         """
-        The import package must be uploaded. Example of the upload method:
+        @description The import package must be uploaded. Example of the upload method:
         Config config = new Config();
         config.setAccessKeyId(accessId);
         config.setAccessKeySecret(accessKey);
@@ -1351,7 +1739,7 @@ class Client(OpenApiClient):
         config.setRegionId(regionId);
         Client client = new Client(config);
         CreateImportMigrationAdvanceRequest request = new CreateImportMigrationAdvanceRequest();
-        request.setName("test_migration_api\\_" + System.currentTimeMillis());
+        request.setName("test_migration_api_" + System.currentTimeMillis());
         request.setProjectId(123456L);
         request.setPackageType("DATAWORKS_MODEL");
         request.setPackageFileObject(new FileInputStream("/home/admin/Downloads/test.zip"));
@@ -1374,7 +1762,7 @@ class Client(OpenApiClient):
         security_token = self._credential.get_security_token()
         credential_type = self._credential.get_type()
         open_platform_endpoint = self._open_platform_endpoint
-        if UtilClient.is_unset(open_platform_endpoint):
+        if UtilClient.empty(open_platform_endpoint):
             open_platform_endpoint = 'openplatform.aliyuncs.com'
         if UtilClient.is_unset(credential_type):
             credential_type = 'access_key'
@@ -1394,12 +1782,13 @@ class Client(OpenApiClient):
         )
         auth_response = open_platform_models.AuthorizeFileUploadResponse()
         oss_config = oss_models.Config(
+            access_key_id=access_key_id,
             access_key_secret=access_key_secret,
             type='access_key',
             protocol=self._protocol,
             region_id=self._region_id
         )
-        oss_client = None
+        oss_client = OSSClient(oss_config)
         file_obj = file_form_models.FileField()
         oss_header = oss_models.PostObjectRequestHeader()
         upload_request = oss_models.PostObjectRequest()
@@ -1436,7 +1825,7 @@ class Client(OpenApiClient):
 
     def create_manual_dag_with_options(self, request, runtime):
         """
-        @deprecated
+        @deprecated OpenAPI CreateManualDag is deprecated
         
 
         @param request: CreateManualDagRequest
@@ -1485,7 +1874,7 @@ class Client(OpenApiClient):
 
     def create_manual_dag(self, request):
         """
-        @deprecated
+        @deprecated OpenAPI CreateManualDag is deprecated
         
 
         @param request: CreateManualDagRequest
@@ -1497,6 +1886,16 @@ class Client(OpenApiClient):
         return self.create_manual_dag_with_options(request, runtime)
 
     def create_meta_category_with_options(self, request, runtime):
+        """
+        @summary Creates a category.
+        
+
+        @param request: CreateMetaCategoryRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateMetaCategoryResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.comment):
@@ -1525,12 +1924,22 @@ class Client(OpenApiClient):
         )
 
     def create_meta_category(self, request):
+        """
+        @summary Creates a category.
+        
+
+        @param request: CreateMetaCategoryRequest
+
+        @return: CreateMetaCategoryResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_meta_category_with_options(request, runtime)
 
     def create_meta_collection_with_options(self, request, runtime):
         """
-        A category must belong to a data album.
+        @summary Collections are classified into various types. The names of collections of the same type must be different.
+        
+        @description A category must belong to a data album.
         You can create a category in a data album only after you create the data album. You can set the value of the parentQualifiedName parameter to the unique identifier of the data album to create the category.
         
 
@@ -1571,7 +1980,9 @@ class Client(OpenApiClient):
 
     def create_meta_collection(self, request):
         """
-        A category must belong to a data album.
+        @summary Collections are classified into various types. The names of collections of the same type must be different.
+        
+        @description A category must belong to a data album.
         You can create a category in a data album only after you create the data album. You can set the value of the parentQualifiedName parameter to the unique identifier of the data album to create the category.
         
 
@@ -1583,6 +1994,14 @@ class Client(OpenApiClient):
         return self.create_meta_collection_with_options(request, runtime)
 
     def create_permission_apply_order_with_options(self, request, runtime):
+        """
+
+        @param request: CreatePermissionApplyOrderRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreatePermissionApplyOrderResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.apply_object):
@@ -1621,10 +2040,26 @@ class Client(OpenApiClient):
         )
 
     def create_permission_apply_order(self, request):
+        """
+
+        @param request: CreatePermissionApplyOrderRequest
+
+        @return: CreatePermissionApplyOrderResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_permission_apply_order_with_options(request, runtime)
 
     def create_project_with_options(self, tmp_req, runtime):
+        """
+        @summary 创建项目
+        
+
+        @param tmp_req: CreateProjectRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateProjectResponse
+        """
         UtilClient.validate_model(tmp_req)
         request = dataworks_public_20200518_models.CreateProjectShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
@@ -1669,10 +2104,26 @@ class Client(OpenApiClient):
         )
 
     def create_project(self, request):
+        """
+        @summary 创建项目
+        
+
+        @param request: CreateProjectRequest
+
+        @return: CreateProjectResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_project_with_options(request, runtime)
 
     def create_project_member_with_options(self, request, runtime):
+        """
+
+        @param request: CreateProjectMemberRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateProjectMemberResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -1703,10 +2154,24 @@ class Client(OpenApiClient):
         )
 
     def create_project_member(self, request):
+        """
+
+        @param request: CreateProjectMemberRequest
+
+        @return: CreateProjectMemberResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_project_member_with_options(request, runtime)
 
     def create_quality_entity_with_options(self, request, runtime):
+        """
+
+        @param request: CreateQualityEntityRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateQualityEntityResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.entity_level):
@@ -1741,10 +2206,24 @@ class Client(OpenApiClient):
         )
 
     def create_quality_entity(self, request):
+        """
+
+        @param request: CreateQualityEntityRequest
+
+        @return: CreateQualityEntityResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_quality_entity_with_options(request, runtime)
 
     def create_quality_follower_with_options(self, request, runtime):
+        """
+
+        @param request: CreateQualityFollowerRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateQualityFollowerResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.alarm_mode):
@@ -1777,10 +2256,24 @@ class Client(OpenApiClient):
         )
 
     def create_quality_follower(self, request):
+        """
+
+        @param request: CreateQualityFollowerRequest
+
+        @return: CreateQualityFollowerResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_quality_follower_with_options(request, runtime)
 
     def create_quality_relative_node_with_options(self, request, runtime):
+        """
+
+        @param request: CreateQualityRelativeNodeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateQualityRelativeNodeResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.env_type):
@@ -1819,10 +2312,24 @@ class Client(OpenApiClient):
         )
 
     def create_quality_relative_node(self, request):
+        """
+
+        @param request: CreateQualityRelativeNodeRequest
+
+        @return: CreateQualityRelativeNodeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_quality_relative_node_with_options(request, runtime)
 
     def create_quality_rule_with_options(self, request, runtime):
+        """
+
+        @param request: CreateQualityRuleRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateQualityRuleResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.block_type):
@@ -1885,10 +2392,24 @@ class Client(OpenApiClient):
         )
 
     def create_quality_rule(self, request):
+        """
+
+        @param request: CreateQualityRuleRequest
+
+        @return: CreateQualityRuleResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_quality_rule_with_options(request, runtime)
 
     def create_remind_with_options(self, request, runtime):
+        """
+
+        @param request: CreateRemindRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateRemindResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.alert_interval):
@@ -1943,10 +2464,26 @@ class Client(OpenApiClient):
         )
 
     def create_remind(self, request):
+        """
+
+        @param request: CreateRemindRequest
+
+        @return: CreateRemindResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_remind_with_options(request, runtime)
 
     def create_resource_file_with_options(self, request, runtime):
+        """
+        @summary 支持用户指定自己的文件（比如jar，py，arhive，file等）创建数据开发资源文件
+        
+
+        @param request: CreateResourceFileRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateResourceFileResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.content):
@@ -1993,6 +2530,14 @@ class Client(OpenApiClient):
         )
 
     def create_resource_file(self, request):
+        """
+        @summary 支持用户指定自己的文件（比如jar，py，arhive，file等）创建数据开发资源文件
+        
+
+        @param request: CreateResourceFileRequest
+
+        @return: CreateResourceFileResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_resource_file_with_options(request, runtime)
 
@@ -2003,7 +2548,7 @@ class Client(OpenApiClient):
         security_token = self._credential.get_security_token()
         credential_type = self._credential.get_type()
         open_platform_endpoint = self._open_platform_endpoint
-        if UtilClient.is_unset(open_platform_endpoint):
+        if UtilClient.empty(open_platform_endpoint):
             open_platform_endpoint = 'openplatform.aliyuncs.com'
         if UtilClient.is_unset(credential_type):
             credential_type = 'access_key'
@@ -2023,12 +2568,13 @@ class Client(OpenApiClient):
         )
         auth_response = open_platform_models.AuthorizeFileUploadResponse()
         oss_config = oss_models.Config(
+            access_key_id=access_key_id,
             access_key_secret=access_key_secret,
             type='access_key',
             protocol=self._protocol,
             region_id=self._region_id
         )
-        oss_client = None
+        oss_client = OSSClient(oss_config)
         file_obj = file_form_models.FileField()
         oss_header = oss_models.PostObjectRequestHeader()
         upload_request = oss_models.PostObjectRequest()
@@ -2064,6 +2610,16 @@ class Client(OpenApiClient):
         return create_resource_file_resp
 
     def create_table_with_options(self, request, runtime):
+        """
+        @summary The operation that you want to perform. Set the value to *CreateTable**.
+        
+
+        @param request: CreateTableRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateTableResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.app_guid):
@@ -2128,10 +2684,28 @@ class Client(OpenApiClient):
         )
 
     def create_table(self, request):
+        """
+        @summary The operation that you want to perform. Set the value to *CreateTable**.
+        
+
+        @param request: CreateTableRequest
+
+        @return: CreateTableResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_table_with_options(request, runtime)
 
     def create_table_level_with_options(self, request, runtime):
+        """
+        @summary The ID of the DataWorks workspace.
+        
+
+        @param request: CreateTableLevelRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateTableLevelResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.description):
@@ -2162,10 +2736,28 @@ class Client(OpenApiClient):
         )
 
     def create_table_level(self, request):
+        """
+        @summary The ID of the DataWorks workspace.
+        
+
+        @param request: CreateTableLevelRequest
+
+        @return: CreateTableLevelResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_table_level_with_options(request, runtime)
 
     def create_table_theme_with_options(self, request, runtime):
+        """
+        @summary Creates a table folder. This API operation will be replaced soon. We recommend that you do not call this API operation.
+        
+
+        @param request: CreateTableThemeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateTableThemeResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.level):
@@ -2196,10 +2788,26 @@ class Client(OpenApiClient):
         )
 
     def create_table_theme(self, request):
+        """
+        @summary Creates a table folder. This API operation will be replaced soon. We recommend that you do not call this API operation.
+        
+
+        @param request: CreateTableThemeRequest
+
+        @return: CreateTableThemeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_table_theme_with_options(request, runtime)
 
     def create_udf_file_with_options(self, request, runtime):
+        """
+
+        @param request: CreateUdfFileRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateUdfFileResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.class_name):
@@ -2248,10 +2856,24 @@ class Client(OpenApiClient):
         )
 
     def create_udf_file(self, request):
+        """
+
+        @param request: CreateUdfFileRequest
+
+        @return: CreateUdfFileResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_udf_file_with_options(request, runtime)
 
     def delete_baseline_with_options(self, request, runtime):
+        """
+
+        @param request: DeleteBaselineRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteBaselineResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.baseline_id):
@@ -2278,10 +2900,24 @@ class Client(OpenApiClient):
         )
 
     def delete_baseline(self, request):
+        """
+
+        @param request: DeleteBaselineRequest
+
+        @return: DeleteBaselineResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_baseline_with_options(request, runtime)
 
     def delete_business_with_options(self, request, runtime):
+        """
+
+        @param request: DeleteBusinessRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteBusinessResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.business_id):
@@ -2310,12 +2946,20 @@ class Client(OpenApiClient):
         )
 
     def delete_business(self, request):
+        """
+
+        @param request: DeleteBusinessRequest
+
+        @return: DeleteBusinessResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_business_with_options(request, runtime)
 
     def delete_connection_with_options(self, request, runtime):
         """
-        @deprecated
+        @deprecated OpenAPI DeleteConnection is deprecated
+        
+        @summary 删除数据源
         
 
         @param request: DeleteConnectionRequest
@@ -2350,7 +2994,9 @@ class Client(OpenApiClient):
 
     def delete_connection(self, request):
         """
-        @deprecated
+        @deprecated OpenAPI DeleteConnection is deprecated
+        
+        @summary 删除数据源
         
 
         @param request: DeleteConnectionRequest
@@ -2362,6 +3008,16 @@ class Client(OpenApiClient):
         return self.delete_connection_with_options(request, runtime)
 
     def delete_dialarm_rule_with_options(self, request, runtime):
+        """
+        @summary 删除数据集成新版告警规则
+        
+
+        @param request: DeleteDIAlarmRuleRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteDIAlarmRuleResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.dialarm_rule_id):
@@ -2386,10 +3042,28 @@ class Client(OpenApiClient):
         )
 
     def delete_dialarm_rule(self, request):
+        """
+        @summary 删除数据集成新版告警规则
+        
+
+        @param request: DeleteDIAlarmRuleRequest
+
+        @return: DeleteDIAlarmRuleResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_dialarm_rule_with_options(request, runtime)
 
     def delete_dijob_with_options(self, request, runtime):
+        """
+        @summary 删除数据集成新版解决方案任务
+        
+
+        @param request: DeleteDIJobRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteDIJobResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.dijob_id):
@@ -2414,10 +3088,28 @@ class Client(OpenApiClient):
         )
 
     def delete_dijob(self, request):
+        """
+        @summary 删除数据集成新版解决方案任务
+        
+
+        @param request: DeleteDIJobRequest
+
+        @return: DeleteDIJobResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_dijob_with_options(request, runtime)
 
     def delete_disync_task_with_options(self, request, runtime):
+        """
+        @summary The operation that you want to perform.
+        
+
+        @param request: DeleteDISyncTaskRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteDISyncTaskResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.file_id):
@@ -2446,10 +3138,28 @@ class Client(OpenApiClient):
         )
 
     def delete_disync_task(self, request):
+        """
+        @summary The operation that you want to perform.
+        
+
+        @param request: DeleteDISyncTaskRequest
+
+        @return: DeleteDISyncTaskResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_disync_task_with_options(request, runtime)
 
     def delete_data_service_api_with_options(self, request, runtime):
+        """
+        @summary Deletes an API in DataService Studio.
+        
+
+        @param request: DeleteDataServiceApiRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteDataServiceApiResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.api_id):
@@ -2478,10 +3188,28 @@ class Client(OpenApiClient):
         )
 
     def delete_data_service_api(self, request):
+        """
+        @summary Deletes an API in DataService Studio.
+        
+
+        @param request: DeleteDataServiceApiRequest
+
+        @return: DeleteDataServiceApiResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_data_service_api_with_options(request, runtime)
 
     def delete_data_service_api_authority_with_options(self, request, runtime):
+        """
+        @summary Revokes the access permissions on an API.
+        
+
+        @param request: DeleteDataServiceApiAuthorityRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteDataServiceApiAuthorityResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.api_id):
@@ -2512,10 +3240,26 @@ class Client(OpenApiClient):
         )
 
     def delete_data_service_api_authority(self, request):
+        """
+        @summary Revokes the access permissions on an API.
+        
+
+        @param request: DeleteDataServiceApiAuthorityRequest
+
+        @return: DeleteDataServiceApiAuthorityResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_data_service_api_authority_with_options(request, runtime)
 
     def delete_data_source_with_options(self, request, runtime):
+        """
+
+        @param request: DeleteDataSourceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteDataSourceResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.data_source_id):
@@ -2540,10 +3284,26 @@ class Client(OpenApiClient):
         )
 
     def delete_data_source(self, request):
+        """
+
+        @param request: DeleteDataSourceRequest
+
+        @return: DeleteDataSourceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_data_source_with_options(request, runtime)
 
     def delete_file_with_options(self, request, runtime):
+        """
+        @summary The operation that you want to perform.
+        
+
+        @param request: DeleteFileRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteFileResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.file_id):
@@ -2572,10 +3332,26 @@ class Client(OpenApiClient):
         )
 
     def delete_file(self, request):
+        """
+        @summary The operation that you want to perform.
+        
+
+        @param request: DeleteFileRequest
+
+        @return: DeleteFileResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_file_with_options(request, runtime)
 
     def delete_folder_with_options(self, request, runtime):
+        """
+
+        @param request: DeleteFolderRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteFolderResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.folder_id):
@@ -2604,10 +3380,26 @@ class Client(OpenApiClient):
         )
 
     def delete_folder(self, request):
+        """
+
+        @param request: DeleteFolderRequest
+
+        @return: DeleteFolderResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_folder_with_options(request, runtime)
 
     def delete_from_meta_category_with_options(self, request, runtime):
+        """
+        @summary Removes a metatable from a specified category.
+        
+
+        @param request: DeleteFromMetaCategoryRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteFromMetaCategoryResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.category_id):
@@ -2634,10 +3426,28 @@ class Client(OpenApiClient):
         )
 
     def delete_from_meta_category(self, request):
+        """
+        @summary Removes a metatable from a specified category.
+        
+
+        @param request: DeleteFromMetaCategoryRequest
+
+        @return: DeleteFromMetaCategoryResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_from_meta_category_with_options(request, runtime)
 
     def delete_lineage_relation_with_options(self, request, runtime):
+        """
+        @summary 删除血缘, 支持删除用户自定义血缘关系
+        
+
+        @param request: DeleteLineageRelationRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteLineageRelationResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dest_entity_qualified_name):
@@ -2666,10 +3476,28 @@ class Client(OpenApiClient):
         )
 
     def delete_lineage_relation(self, request):
+        """
+        @summary 删除血缘, 支持删除用户自定义血缘关系
+        
+
+        @param request: DeleteLineageRelationRequest
+
+        @return: DeleteLineageRelationResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_lineage_relation_with_options(request, runtime)
 
     def delete_meta_category_with_options(self, request, runtime):
+        """
+        @summary Deletes a category.
+        
+
+        @param request: DeleteMetaCategoryRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteMetaCategoryResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -2692,10 +3520,28 @@ class Client(OpenApiClient):
         )
 
     def delete_meta_category(self, request):
+        """
+        @summary Deletes a category.
+        
+
+        @param request: DeleteMetaCategoryRequest
+
+        @return: DeleteMetaCategoryResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_meta_category_with_options(request, runtime)
 
     def delete_meta_collection_with_options(self, request, runtime):
+        """
+        @summary The operation that you want to perform. Set the value to *DeleteMetaCollection**.
+        
+
+        @param request: DeleteMetaCollectionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteMetaCollectionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.qualified_name):
@@ -2720,10 +3566,28 @@ class Client(OpenApiClient):
         )
 
     def delete_meta_collection(self, request):
+        """
+        @summary The operation that you want to perform. Set the value to *DeleteMetaCollection**.
+        
+
+        @param request: DeleteMetaCollectionRequest
+
+        @return: DeleteMetaCollectionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_meta_collection_with_options(request, runtime)
 
     def delete_meta_collection_entity_with_options(self, request, runtime):
+        """
+        @summary The operation that you want to perform. Set the value to *DeleteMetaCollectionEntity**.
+        
+
+        @param request: DeleteMetaCollectionEntityRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteMetaCollectionEntityResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.collection_qualified_name):
@@ -2750,10 +3614,26 @@ class Client(OpenApiClient):
         )
 
     def delete_meta_collection_entity(self, request):
+        """
+        @summary The operation that you want to perform. Set the value to *DeleteMetaCollectionEntity**.
+        
+
+        @param request: DeleteMetaCollectionEntityRequest
+
+        @return: DeleteMetaCollectionEntityResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_meta_collection_entity_with_options(request, runtime)
 
     def delete_project_member_with_options(self, request, runtime):
+        """
+
+        @param request: DeleteProjectMemberRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteProjectMemberResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.project_id):
@@ -2780,10 +3660,24 @@ class Client(OpenApiClient):
         )
 
     def delete_project_member(self, request):
+        """
+
+        @param request: DeleteProjectMemberRequest
+
+        @return: DeleteProjectMemberResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_project_member_with_options(request, runtime)
 
     def delete_quality_entity_with_options(self, request, runtime):
+        """
+
+        @param request: DeleteQualityEntityRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteQualityEntityResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.entity_id):
@@ -2814,12 +3708,18 @@ class Client(OpenApiClient):
         )
 
     def delete_quality_entity(self, request):
+        """
+
+        @param request: DeleteQualityEntityRequest
+
+        @return: DeleteQualityEntityResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_quality_entity_with_options(request, runtime)
 
     def delete_quality_follower_with_options(self, request, runtime):
         """
-        In Data Quality, you must configure monitoring rules based on a partition filter expression. Data Quality uses these rules to detect changes in source data and dirty data generated during the process of extract, transformation, load (ETL). Thereby, Data Quality automatically blocks the nodes that involve dirty data to stop dirty data from spreading downstream. This prevents nodes from producing unexpected dirty data that affects normal use and business decisions. You can go to the Manage Subscriptions page to add subscribers for a partition filter expression. When the monitoring rule described by the partition filter expression is triggered, the subscribers can receive notifications and troubleshoot errors in a timely manner. For more information, see [Configure monitoring rules for MaxCompute](~~73690~~).
+        @description In Data Quality, you must configure monitoring rules based on a partition filter expression. Data Quality uses these rules to detect changes in source data and dirty data generated during the process of extract, transformation, load (ETL). Thereby, Data Quality automatically blocks the nodes that involve dirty data to stop dirty data from spreading downstream. This prevents nodes from producing unexpected dirty data that affects normal use and business decisions. You can go to the Manage Subscriptions page to add subscribers for a partition filter expression. When the monitoring rule described by the partition filter expression is triggered, the subscribers can receive notifications and troubleshoot errors in a timely manner. For more information, see [Configure monitoring rules for MaxCompute](https://help.aliyun.com/document_detail/73690.html).
         
 
         @param request: DeleteQualityFollowerRequest
@@ -2857,7 +3757,7 @@ class Client(OpenApiClient):
 
     def delete_quality_follower(self, request):
         """
-        In Data Quality, you must configure monitoring rules based on a partition filter expression. Data Quality uses these rules to detect changes in source data and dirty data generated during the process of extract, transformation, load (ETL). Thereby, Data Quality automatically blocks the nodes that involve dirty data to stop dirty data from spreading downstream. This prevents nodes from producing unexpected dirty data that affects normal use and business decisions. You can go to the Manage Subscriptions page to add subscribers for a partition filter expression. When the monitoring rule described by the partition filter expression is triggered, the subscribers can receive notifications and troubleshoot errors in a timely manner. For more information, see [Configure monitoring rules for MaxCompute](~~73690~~).
+        @description In Data Quality, you must configure monitoring rules based on a partition filter expression. Data Quality uses these rules to detect changes in source data and dirty data generated during the process of extract, transformation, load (ETL). Thereby, Data Quality automatically blocks the nodes that involve dirty data to stop dirty data from spreading downstream. This prevents nodes from producing unexpected dirty data that affects normal use and business decisions. You can go to the Manage Subscriptions page to add subscribers for a partition filter expression. When the monitoring rule described by the partition filter expression is triggered, the subscribers can receive notifications and troubleshoot errors in a timely manner. For more information, see [Configure monitoring rules for MaxCompute](https://help.aliyun.com/document_detail/73690.html).
         
 
         @param request: DeleteQualityFollowerRequest
@@ -2868,6 +3768,14 @@ class Client(OpenApiClient):
         return self.delete_quality_follower_with_options(request, runtime)
 
     def delete_quality_relative_node_with_options(self, request, runtime):
+        """
+
+        @param request: DeleteQualityRelativeNodeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteQualityRelativeNodeResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.env_type):
@@ -2906,10 +3814,24 @@ class Client(OpenApiClient):
         )
 
     def delete_quality_relative_node(self, request):
+        """
+
+        @param request: DeleteQualityRelativeNodeRequest
+
+        @return: DeleteQualityRelativeNodeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_quality_relative_node_with_options(request, runtime)
 
     def delete_quality_rule_with_options(self, request, runtime):
+        """
+
+        @param request: DeleteQualityRuleRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteQualityRuleResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.project_id):
@@ -2938,10 +3860,26 @@ class Client(OpenApiClient):
         )
 
     def delete_quality_rule(self, request):
+        """
+
+        @param request: DeleteQualityRuleRequest
+
+        @return: DeleteQualityRuleResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_quality_rule_with_options(request, runtime)
 
     def delete_recognize_rule_with_options(self, request, runtime):
+        """
+        @summary 删除识别规则
+        
+
+        @param request: DeleteRecognizeRuleRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteRecognizeRuleResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.sensitive_id):
@@ -2968,10 +3906,28 @@ class Client(OpenApiClient):
         )
 
     def delete_recognize_rule(self, request):
+        """
+        @summary 删除识别规则
+        
+
+        @param request: DeleteRecognizeRuleRequest
+
+        @return: DeleteRecognizeRuleResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_recognize_rule_with_options(request, runtime)
 
     def delete_remind_with_options(self, request, runtime):
+        """
+        @summary Deletes a custom alert rule.
+        
+
+        @param request: DeleteRemindRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteRemindResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.remind_id):
@@ -2996,10 +3952,26 @@ class Client(OpenApiClient):
         )
 
     def delete_remind(self, request):
+        """
+        @summary Deletes a custom alert rule.
+        
+
+        @param request: DeleteRemindRequest
+
+        @return: DeleteRemindResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_remind_with_options(request, runtime)
 
     def delete_table_with_options(self, request, runtime):
+        """
+
+        @param request: DeleteTableRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteTableResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.app_guid):
@@ -3032,10 +4004,24 @@ class Client(OpenApiClient):
         )
 
     def delete_table(self, request):
+        """
+
+        @param request: DeleteTableRequest
+
+        @return: DeleteTableResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_table_with_options(request, runtime)
 
     def delete_table_level_with_options(self, request, runtime):
+        """
+
+        @param request: DeleteTableLevelRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteTableLevelResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.level_id):
@@ -3062,10 +4048,24 @@ class Client(OpenApiClient):
         )
 
     def delete_table_level(self, request):
+        """
+
+        @param request: DeleteTableLevelRequest
+
+        @return: DeleteTableLevelResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_table_level_with_options(request, runtime)
 
     def delete_table_theme_with_options(self, request, runtime):
+        """
+
+        @param request: DeleteTableThemeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteTableThemeResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.project_id):
@@ -3092,10 +4092,26 @@ class Client(OpenApiClient):
         )
 
     def delete_table_theme(self, request):
+        """
+
+        @param request: DeleteTableThemeRequest
+
+        @return: DeleteTableThemeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_table_theme_with_options(request, runtime)
 
     def deploy_disync_task_with_options(self, request, runtime):
+        """
+        @summary The operation that you want to perform. Set the value to *DeployDISyncTask**.
+        
+
+        @param request: DeployDISyncTaskRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeployDISyncTaskResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.file_id):
@@ -3124,10 +4140,26 @@ class Client(OpenApiClient):
         )
 
     def deploy_disync_task(self, request):
+        """
+        @summary The operation that you want to perform. Set the value to *DeployDISyncTask**.
+        
+
+        @param request: DeployDISyncTaskRequest
+
+        @return: DeployDISyncTaskResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.deploy_disync_task_with_options(request, runtime)
 
     def deploy_file_with_options(self, request, runtime):
+        """
+
+        @param request: DeployFileRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeployFileResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.comment):
@@ -3160,10 +4192,24 @@ class Client(OpenApiClient):
         )
 
     def deploy_file(self, request):
+        """
+
+        @param request: DeployFileRequest
+
+        @return: DeployFileResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.deploy_file_with_options(request, runtime)
 
     def desensitize_data_with_options(self, request, runtime):
+        """
+
+        @param request: DesensitizeDataRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DesensitizeDataResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -3186,10 +4232,314 @@ class Client(OpenApiClient):
         )
 
     def desensitize_data(self, request):
+        """
+
+        @param request: DesensitizeDataRequest
+
+        @return: DesensitizeDataResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.desensitize_data_with_options(request, runtime)
 
+    def dsg_desens_plan_add_or_update_with_options(self, tmp_req, runtime):
+        """
+        @summary 新增或编辑脱敏规则
+        
+
+        @param tmp_req: DsgDesensPlanAddOrUpdateRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DsgDesensPlanAddOrUpdateResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20200518_models.DsgDesensPlanAddOrUpdateShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.desens_rules):
+            request.desens_rules_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.desens_rules, 'DesensRules', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.desens_rules_shrink):
+            query['DesensRules'] = request.desens_rules_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DsgDesensPlanAddOrUpdate',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.DsgDesensPlanAddOrUpdateResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def dsg_desens_plan_add_or_update(self, request):
+        """
+        @summary 新增或编辑脱敏规则
+        
+
+        @param request: DsgDesensPlanAddOrUpdateRequest
+
+        @return: DsgDesensPlanAddOrUpdateResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.dsg_desens_plan_add_or_update_with_options(request, runtime)
+
+    def dsg_desens_plan_delete_with_options(self, tmp_req, runtime):
+        """
+        @summary 删除脱敏规则
+        
+
+        @param tmp_req: DsgDesensPlanDeleteRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DsgDesensPlanDeleteResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20200518_models.DsgDesensPlanDeleteShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.ids):
+            request.ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ids, 'Ids', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.ids_shrink):
+            query['Ids'] = request.ids_shrink
+        if not UtilClient.is_unset(request.scene_code):
+            query['SceneCode'] = request.scene_code
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DsgDesensPlanDelete',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.DsgDesensPlanDeleteResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def dsg_desens_plan_delete(self, request):
+        """
+        @summary 删除脱敏规则
+        
+
+        @param request: DsgDesensPlanDeleteRequest
+
+        @return: DsgDesensPlanDeleteResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.dsg_desens_plan_delete_with_options(request, runtime)
+
+    def dsg_desens_plan_query_list_with_options(self, request, runtime):
+        """
+        @summary 查询脱敏规则列表
+        
+
+        @param request: DsgDesensPlanQueryListRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DsgDesensPlanQueryListResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DsgDesensPlanQueryList',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.DsgDesensPlanQueryListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def dsg_desens_plan_query_list(self, request):
+        """
+        @summary 查询脱敏规则列表
+        
+
+        @param request: DsgDesensPlanQueryListRequest
+
+        @return: DsgDesensPlanQueryListResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.dsg_desens_plan_query_list_with_options(request, runtime)
+
+    def dsg_desens_plan_update_status_with_options(self, tmp_req, runtime):
+        """
+        @summary 修改脱敏规则生效状态
+        
+
+        @param tmp_req: DsgDesensPlanUpdateStatusRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DsgDesensPlanUpdateStatusResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20200518_models.DsgDesensPlanUpdateStatusShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.ids):
+            request.ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ids, 'Ids', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.ids_shrink):
+            query['Ids'] = request.ids_shrink
+        if not UtilClient.is_unset(request.scene_code):
+            query['SceneCode'] = request.scene_code
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DsgDesensPlanUpdateStatus',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.DsgDesensPlanUpdateStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def dsg_desens_plan_update_status(self, request):
+        """
+        @summary 修改脱敏规则生效状态
+        
+
+        @param request: DsgDesensPlanUpdateStatusRequest
+
+        @return: DsgDesensPlanUpdateStatusResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.dsg_desens_plan_update_status_with_options(request, runtime)
+
+    def dsg_platform_query_projects_and_schema_from_meta_with_options(self, request, runtime):
+        """
+        @summary 查询引擎实例列表
+        
+
+        @param request: DsgPlatformQueryProjectsAndSchemaFromMetaRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DsgPlatformQueryProjectsAndSchemaFromMetaResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DsgPlatformQueryProjectsAndSchemaFromMeta',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.DsgPlatformQueryProjectsAndSchemaFromMetaResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def dsg_platform_query_projects_and_schema_from_meta(self, request):
+        """
+        @summary 查询引擎实例列表
+        
+
+        @param request: DsgPlatformQueryProjectsAndSchemaFromMetaRequest
+
+        @return: DsgPlatformQueryProjectsAndSchemaFromMetaResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.dsg_platform_query_projects_and_schema_from_meta_with_options(request, runtime)
+
+    def dsg_query_default_templates_with_options(self, request, runtime):
+        """
+        @summary 查询能够选择的敏感类型模版列表
+        
+
+        @param request: DsgQueryDefaultTemplatesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DsgQueryDefaultTemplatesResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DsgQueryDefaultTemplates',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.DsgQueryDefaultTemplatesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def dsg_query_default_templates(self, request):
+        """
+        @summary 查询能够选择的敏感类型模版列表
+        
+
+        @param request: DsgQueryDefaultTemplatesRequest
+
+        @return: DsgQueryDefaultTemplatesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.dsg_query_default_templates_with_options(request, runtime)
+
     def dsg_query_sens_result_with_options(self, request, runtime):
+        """
+        @summary 识别结果查询
+        
+
+        @param request: DsgQuerySensResultRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DsgQuerySensResultResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.col):
@@ -3242,10 +4592,26 @@ class Client(OpenApiClient):
         )
 
     def dsg_query_sens_result(self, request):
+        """
+        @summary 识别结果查询
+        
+
+        @param request: DsgQuerySensResultRequest
+
+        @return: DsgQuerySensResultResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.dsg_query_sens_result_with_options(request, runtime)
 
     def dsg_run_sens_identify_with_options(self, tmp_req, runtime):
+        """
+
+        @param tmp_req: DsgRunSensIdentifyRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DsgRunSensIdentifyResponse
+        """
         UtilClient.validate_model(tmp_req)
         request = dataworks_public_20200518_models.DsgRunSensIdentifyShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
@@ -3276,10 +4642,170 @@ class Client(OpenApiClient):
         )
 
     def dsg_run_sens_identify(self, request):
+        """
+
+        @param request: DsgRunSensIdentifyRequest
+
+        @return: DsgRunSensIdentifyResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.dsg_run_sens_identify_with_options(request, runtime)
 
+    def dsg_scene_add_or_update_scene_with_options(self, tmp_req, runtime):
+        """
+        @summary 新增或编辑二级场景
+        
+
+        @param tmp_req: DsgSceneAddOrUpdateSceneRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DsgSceneAddOrUpdateSceneResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20200518_models.DsgSceneAddOrUpdateSceneShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.scenes):
+            request.scenes_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.scenes, 'scenes', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.scenes_shrink):
+            query['scenes'] = request.scenes_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DsgSceneAddOrUpdateScene',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.DsgSceneAddOrUpdateSceneResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def dsg_scene_add_or_update_scene(self, request):
+        """
+        @summary 新增或编辑二级场景
+        
+
+        @param request: DsgSceneAddOrUpdateSceneRequest
+
+        @return: DsgSceneAddOrUpdateSceneResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.dsg_scene_add_or_update_scene_with_options(request, runtime)
+
+    def dsg_scene_query_scene_list_by_name_with_options(self, request, runtime):
+        """
+        @summary 查询场景列表
+        
+
+        @param request: DsgSceneQuerySceneListByNameRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DsgSceneQuerySceneListByNameResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DsgSceneQuerySceneListByName',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.DsgSceneQuerySceneListByNameResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def dsg_scene_query_scene_list_by_name(self, request):
+        """
+        @summary 查询场景列表
+        
+
+        @param request: DsgSceneQuerySceneListByNameRequest
+
+        @return: DsgSceneQuerySceneListByNameResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.dsg_scene_query_scene_list_by_name_with_options(request, runtime)
+
+    def dsg_scened_delete_scene_with_options(self, tmp_req, runtime):
+        """
+        @summary 删除二级场景
+        
+
+        @param tmp_req: DsgScenedDeleteSceneRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DsgScenedDeleteSceneResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20200518_models.DsgScenedDeleteSceneShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.ids):
+            request.ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ids, 'Ids', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.ids_shrink):
+            query['Ids'] = request.ids_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DsgScenedDeleteScene',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.DsgScenedDeleteSceneResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def dsg_scened_delete_scene(self, request):
+        """
+        @summary 删除二级场景
+        
+
+        @param request: DsgScenedDeleteSceneRequest
+
+        @return: DsgScenedDeleteSceneResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.dsg_scened_delete_scene_with_options(request, runtime)
+
     def dsg_stop_sens_identify_with_options(self, request, runtime):
+        """
+        @summary 识别任务停止
+        
+
+        @param request: DsgStopSensIdentifyRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DsgStopSensIdentifyResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.job_id):
@@ -3306,10 +4832,394 @@ class Client(OpenApiClient):
         )
 
     def dsg_stop_sens_identify(self, request):
+        """
+        @summary 识别任务停止
+        
+
+        @param request: DsgStopSensIdentifyRequest
+
+        @return: DsgStopSensIdentifyResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.dsg_stop_sens_identify_with_options(request, runtime)
 
+    def dsg_user_group_add_or_update_with_options(self, tmp_req, runtime):
+        """
+        @summary 新增或编辑用户组
+        
+
+        @param tmp_req: DsgUserGroupAddOrUpdateRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DsgUserGroupAddOrUpdateResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20200518_models.DsgUserGroupAddOrUpdateShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.user_groups):
+            request.user_groups_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.user_groups, 'UserGroups', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.user_groups_shrink):
+            query['UserGroups'] = request.user_groups_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DsgUserGroupAddOrUpdate',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.DsgUserGroupAddOrUpdateResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def dsg_user_group_add_or_update(self, request):
+        """
+        @summary 新增或编辑用户组
+        
+
+        @param request: DsgUserGroupAddOrUpdateRequest
+
+        @return: DsgUserGroupAddOrUpdateResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.dsg_user_group_add_or_update_with_options(request, runtime)
+
+    def dsg_user_group_delete_with_options(self, tmp_req, runtime):
+        """
+        @summary 删除用户组
+        
+
+        @param tmp_req: DsgUserGroupDeleteRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DsgUserGroupDeleteResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20200518_models.DsgUserGroupDeleteShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.ids):
+            request.ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ids, 'Ids', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.ids_shrink):
+            query['Ids'] = request.ids_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DsgUserGroupDelete',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.DsgUserGroupDeleteResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def dsg_user_group_delete(self, request):
+        """
+        @summary 删除用户组
+        
+
+        @param request: DsgUserGroupDeleteRequest
+
+        @return: DsgUserGroupDeleteResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.dsg_user_group_delete_with_options(request, runtime)
+
+    def dsg_user_group_get_odps_role_groups_with_options(self, request, runtime):
+        """
+
+        @param request: DsgUserGroupGetOdpsRoleGroupsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DsgUserGroupGetOdpsRoleGroupsResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DsgUserGroupGetOdpsRoleGroups',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.DsgUserGroupGetOdpsRoleGroupsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def dsg_user_group_get_odps_role_groups(self, request):
+        """
+
+        @param request: DsgUserGroupGetOdpsRoleGroupsRequest
+
+        @return: DsgUserGroupGetOdpsRoleGroupsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.dsg_user_group_get_odps_role_groups_with_options(request, runtime)
+
+    def dsg_user_group_query_list_with_options(self, request, runtime):
+        """
+        @summary 查询用户组列表
+        
+
+        @param request: DsgUserGroupQueryListRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DsgUserGroupQueryListResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DsgUserGroupQueryList',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.DsgUserGroupQueryListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def dsg_user_group_query_list(self, request):
+        """
+        @summary 查询用户组列表
+        
+
+        @param request: DsgUserGroupQueryListRequest
+
+        @return: DsgUserGroupQueryListResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.dsg_user_group_query_list_with_options(request, runtime)
+
+    def dsg_user_group_query_user_list_with_options(self, runtime):
+        """
+        @summary 查询当前用户列表
+        
+
+        @param request: DsgUserGroupQueryUserListRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DsgUserGroupQueryUserListResponse
+        """
+        req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='DsgUserGroupQueryUserList',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.DsgUserGroupQueryUserListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def dsg_user_group_query_user_list(self):
+        """
+        @summary 查询当前用户列表
+        
+
+        @return: DsgUserGroupQueryUserListResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.dsg_user_group_query_user_list_with_options(runtime)
+
+    def dsg_white_list_add_or_update_with_options(self, tmp_req, runtime):
+        """
+        @summary 新增或编辑脱敏白名单
+        
+
+        @param tmp_req: DsgWhiteListAddOrUpdateRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DsgWhiteListAddOrUpdateResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20200518_models.DsgWhiteListAddOrUpdateShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.white_lists):
+            request.white_lists_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.white_lists, 'WhiteLists', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.white_lists_shrink):
+            query['WhiteLists'] = request.white_lists_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DsgWhiteListAddOrUpdate',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.DsgWhiteListAddOrUpdateResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def dsg_white_list_add_or_update(self, request):
+        """
+        @summary 新增或编辑脱敏白名单
+        
+
+        @param request: DsgWhiteListAddOrUpdateRequest
+
+        @return: DsgWhiteListAddOrUpdateResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.dsg_white_list_add_or_update_with_options(request, runtime)
+
+    def dsg_white_list_delete_list_with_options(self, tmp_req, runtime):
+        """
+        @summary 删除脱敏白名单
+        
+
+        @param tmp_req: DsgWhiteListDeleteListRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DsgWhiteListDeleteListResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20200518_models.DsgWhiteListDeleteListShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.ids):
+            request.ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ids, 'Ids', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.ids_shrink):
+            query['Ids'] = request.ids_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DsgWhiteListDeleteList',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.DsgWhiteListDeleteListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def dsg_white_list_delete_list(self, request):
+        """
+        @summary 删除脱敏白名单
+        
+
+        @param request: DsgWhiteListDeleteListRequest
+
+        @return: DsgWhiteListDeleteListResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.dsg_white_list_delete_list_with_options(request, runtime)
+
+    def dsg_white_list_query_list_with_options(self, request, runtime):
+        """
+        @summary 查询脱敏白名单
+        
+
+        @param request: DsgWhiteListQueryListRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DsgWhiteListQueryListResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DsgWhiteListQueryList',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.DsgWhiteListQueryListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def dsg_white_list_query_list(self, request):
+        """
+        @summary 查询脱敏白名单
+        
+
+        @param request: DsgWhiteListQueryListRequest
+
+        @return: DsgWhiteListQueryListResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.dsg_white_list_query_list_with_options(request, runtime)
+
     def edit_recognize_rule_with_options(self, request, runtime):
+        """
+        @summary 修改识别规则
+        
+
+        @param request: EditRecognizeRuleRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: EditRecognizeRuleResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.account_name):
@@ -3370,10 +5280,26 @@ class Client(OpenApiClient):
         )
 
     def edit_recognize_rule(self, request):
+        """
+        @summary 修改识别规则
+        
+
+        @param request: EditRecognizeRuleRequest
+
+        @return: EditRecognizeRuleResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.edit_recognize_rule_with_options(request, runtime)
 
     def establish_relation_table_to_business_with_options(self, request, runtime):
+        """
+
+        @param request: EstablishRelationTableToBusinessRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: EstablishRelationTableToBusinessResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.business_id):
@@ -3406,10 +5332,24 @@ class Client(OpenApiClient):
         )
 
     def establish_relation_table_to_business(self, request):
+        """
+
+        @param request: EstablishRelationTableToBusinessRequest
+
+        @return: EstablishRelationTableToBusinessResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.establish_relation_table_to_business_with_options(request, runtime)
 
     def export_data_sources_with_options(self, request, runtime):
+        """
+
+        @param request: ExportDataSourcesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ExportDataSourcesResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -3432,12 +5372,21 @@ class Client(OpenApiClient):
         )
 
     def export_data_sources(self, request):
+        """
+
+        @param request: ExportDataSourcesRequest
+
+        @return: ExportDataSourcesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.export_data_sources_with_options(request, runtime)
 
     def generate_disync_task_config_for_creating_with_options(self, request, runtime):
         """
-        The operation that you want to perform.
+        @summary DataWorks allows you to use only the [CreateDISyncTask](https://help.aliyun.com/document_detail/278725.html) operation to create a batch synchronization node in Data Integration. To create a real-time synchronization node or a synchronization solution, you must first call the [GenerateDISyncTaskConfigForCreating](https://help.aliyun.com/document_detail/383463.html) operation to generate the ID of an asynchronous thread and call the [QueryDISyncTaskConfigProcessResult](https://help.aliyun.com/document_detail/383465.html) operation to obtain the asynchronously generated parameters based on the ID. Then, you can call the [CreateDISyncTask](https://help.aliyun.com/document_detail/278725.html) operation and use the parameters as request parameters to create a real-time synchronization node or a synchronization solution in Data Integration.
+        DataWorks allows you to create real-time synchronization nodes and synchronization solutions in Data Integration only in asynchronous mode.
+        
+        @description The operation that you want to perform.
         
 
         @param request: GenerateDISyncTaskConfigForCreatingRequest
@@ -3477,7 +5426,10 @@ class Client(OpenApiClient):
 
     def generate_disync_task_config_for_creating(self, request):
         """
-        The operation that you want to perform.
+        @summary DataWorks allows you to use only the [CreateDISyncTask](https://help.aliyun.com/document_detail/278725.html) operation to create a batch synchronization node in Data Integration. To create a real-time synchronization node or a synchronization solution, you must first call the [GenerateDISyncTaskConfigForCreating](https://help.aliyun.com/document_detail/383463.html) operation to generate the ID of an asynchronous thread and call the [QueryDISyncTaskConfigProcessResult](https://help.aliyun.com/document_detail/383465.html) operation to obtain the asynchronously generated parameters based on the ID. Then, you can call the [CreateDISyncTask](https://help.aliyun.com/document_detail/278725.html) operation and use the parameters as request parameters to create a real-time synchronization node or a synchronization solution in Data Integration.
+        DataWorks allows you to create real-time synchronization nodes and synchronization solutions in Data Integration only in asynchronous mode.
+        
+        @description The operation that you want to perform.
         
 
         @param request: GenerateDISyncTaskConfigForCreatingRequest
@@ -3489,7 +5441,9 @@ class Client(OpenApiClient):
 
     def generate_disync_task_config_for_updating_with_options(self, request, runtime):
         """
-        The operation that you want to perform.
+        @summary DataWorks allows you to use only the [UpdateDISyncTask](https://help.aliyun.com/document_detail/289109.html) operation to update a batch synchronization node in Data Integration. To update a real-time synchronization node or a synchronization solution, you must first call the GenerateDISyncTaskConfigForUpdating operation to generate the ID of an asynchronous thread and call the [QueryDISyncTaskConfigProcessResult](https://help.aliyun.com/document_detail/383465.html) operation to obtain the asynchronously generated parameters based on the ID. Then, you can call the UpdateDISyncTask operation and use the parameters as request parameters to update a real-time synchronization node or a synchronization solution in Data Integration. DataWorks allows you to update real-time synchronization nodes and synchronization solutions in Data Integration only in asynchronous mode.
+        
+        @description The operation that you want to perform.
         
 
         @param request: GenerateDISyncTaskConfigForUpdatingRequest
@@ -3531,7 +5485,9 @@ class Client(OpenApiClient):
 
     def generate_disync_task_config_for_updating(self, request):
         """
-        The operation that you want to perform.
+        @summary DataWorks allows you to use only the [UpdateDISyncTask](https://help.aliyun.com/document_detail/289109.html) operation to update a batch synchronization node in Data Integration. To update a real-time synchronization node or a synchronization solution, you must first call the GenerateDISyncTaskConfigForUpdating operation to generate the ID of an asynchronous thread and call the [QueryDISyncTaskConfigProcessResult](https://help.aliyun.com/document_detail/383465.html) operation to obtain the asynchronously generated parameters based on the ID. Then, you can call the UpdateDISyncTask operation and use the parameters as request parameters to update a real-time synchronization node or a synchronization solution in Data Integration. DataWorks allows you to update real-time synchronization nodes and synchronization solutions in Data Integration only in asynchronous mode.
+        
+        @description The operation that you want to perform.
         
 
         @param request: GenerateDISyncTaskConfigForUpdatingRequest
@@ -3542,6 +5498,16 @@ class Client(OpenApiClient):
         return self.generate_disync_task_config_for_updating_with_options(request, runtime)
 
     def get_alert_message_with_options(self, request, runtime):
+        """
+        @summary 获取告警信息
+        
+
+        @param request: GetAlertMessageRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetAlertMessageResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.alert_id):
@@ -3566,10 +5532,28 @@ class Client(OpenApiClient):
         )
 
     def get_alert_message(self, request):
+        """
+        @summary 获取告警信息
+        
+
+        @param request: GetAlertMessageRequest
+
+        @return: GetAlertMessageResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_alert_message_with_options(request, runtime)
 
     def get_baseline_with_options(self, request, runtime):
+        """
+        @summary 根据基线id查询基线
+        
+
+        @param request: GetBaselineRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetBaselineResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.baseline_id):
@@ -3596,10 +5580,26 @@ class Client(OpenApiClient):
         )
 
     def get_baseline(self, request):
+        """
+        @summary 根据基线id查询基线
+        
+
+        @param request: GetBaselineRequest
+
+        @return: GetBaselineResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_baseline_with_options(request, runtime)
 
     def get_baseline_config_with_options(self, request, runtime):
+        """
+
+        @param request: GetBaselineConfigRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetBaselineConfigResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.baseline_id):
@@ -3624,10 +5624,26 @@ class Client(OpenApiClient):
         )
 
     def get_baseline_config(self, request):
+        """
+
+        @param request: GetBaselineConfigRequest
+
+        @return: GetBaselineConfigResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_baseline_config_with_options(request, runtime)
 
     def get_baseline_key_path_with_options(self, request, runtime):
+        """
+        @summary The information about the events that are associated with the instance.
+        
+
+        @param request: GetBaselineKeyPathRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetBaselineKeyPathResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.baseline_id):
@@ -3656,10 +5672,28 @@ class Client(OpenApiClient):
         )
 
     def get_baseline_key_path(self, request):
+        """
+        @summary The information about the events that are associated with the instance.
+        
+
+        @param request: GetBaselineKeyPathRequest
+
+        @return: GetBaselineKeyPathResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_baseline_key_path_with_options(request, runtime)
 
     def get_baseline_status_with_options(self, request, runtime):
+        """
+        @summary Queries the details of a baseline instance.
+        
+
+        @param request: GetBaselineStatusRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetBaselineStatusResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.baseline_id):
@@ -3688,10 +5722,26 @@ class Client(OpenApiClient):
         )
 
     def get_baseline_status(self, request):
+        """
+        @summary Queries the details of a baseline instance.
+        
+
+        @param request: GetBaselineStatusRequest
+
+        @return: GetBaselineStatusResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_baseline_status_with_options(request, runtime)
 
     def get_business_with_options(self, request, runtime):
+        """
+
+        @param request: GetBusinessRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetBusinessResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.business_id):
@@ -3720,10 +5770,26 @@ class Client(OpenApiClient):
         )
 
     def get_business(self, request):
+        """
+
+        @param request: GetBusinessRequest
+
+        @return: GetBusinessResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_business_with_options(request, runtime)
 
     def get_ddljob_status_with_options(self, request, runtime):
+        """
+        @summary Queries the status of a table creation, update, or deletion task.
+        
+
+        @param request: GetDDLJobStatusRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetDDLJobStatusResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -3746,10 +5812,28 @@ class Client(OpenApiClient):
         )
 
     def get_ddljob_status(self, request):
+        """
+        @summary Queries the status of a table creation, update, or deletion task.
+        
+
+        @param request: GetDDLJobStatusRequest
+
+        @return: GetDDLJobStatusResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_ddljob_status_with_options(request, runtime)
 
     def get_dialarm_rule_with_options(self, request, runtime):
+        """
+        @summary 查询数据集成新版告警规则
+        
+
+        @param request: GetDIAlarmRuleRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetDIAlarmRuleResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.dialarm_rule_id):
@@ -3774,10 +5858,28 @@ class Client(OpenApiClient):
         )
 
     def get_dialarm_rule(self, request):
+        """
+        @summary 查询数据集成新版告警规则
+        
+
+        @param request: GetDIAlarmRuleRequest
+
+        @return: GetDIAlarmRuleResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_dialarm_rule_with_options(request, runtime)
 
     def get_dijob_with_options(self, request, runtime):
+        """
+        @summary 查询数据集成新版解决方案任务
+        
+
+        @param request: GetDIJobRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetDIJobResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.dijob_id):
@@ -3804,10 +5906,28 @@ class Client(OpenApiClient):
         )
 
     def get_dijob(self, request):
+        """
+        @summary 查询数据集成新版解决方案任务
+        
+
+        @param request: GetDIJobRequest
+
+        @return: GetDIJobResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_dijob_with_options(request, runtime)
 
     def get_disync_instance_info_with_options(self, request, runtime):
+        """
+        @summary The operation that you want to perform. Set the value to *GetDISyncInstanceInfo**.
+        
+
+        @param request: GetDISyncInstanceInfoRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetDISyncInstanceInfoResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.file_id):
@@ -3836,10 +5956,28 @@ class Client(OpenApiClient):
         )
 
     def get_disync_instance_info(self, request):
+        """
+        @summary The operation that you want to perform. Set the value to *GetDISyncInstanceInfo**.
+        
+
+        @param request: GetDISyncInstanceInfoRequest
+
+        @return: GetDISyncInstanceInfoResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_disync_instance_info_with_options(request, runtime)
 
     def get_disync_task_with_options(self, request, runtime):
+        """
+        @summary The operation that you want to perform. Set the value to *GetDISyncTask**.
+        
+
+        @param request: GetDISyncTaskRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetDISyncTaskResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.file_id):
@@ -3868,21 +6006,34 @@ class Client(OpenApiClient):
         )
 
     def get_disync_task(self, request):
+        """
+        @summary The operation that you want to perform. Set the value to *GetDISyncTask**.
+        
+
+        @param request: GetDISyncTaskRequest
+
+        @return: GetDISyncTaskResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_disync_task_with_options(request, runtime)
 
     def get_dag_with_options(self, request, runtime):
         """
-        Supported DAG types:
-        *   MANUAL: the DAG for a manually triggered workflow.
-        *   SMOKE_TEST: the DAG for a smoke testing workflow.
-        *   SUPPLY_DATA: the DAG for a data backfill instance.
-        *   BUSINESS_PROCESS_DAG: the DAG for a one-time workflow.
+        @summary Queries the details of a directed acyclic graph (DAG) based on the ID of the DAG.
+        You can call the GetDag operation to query the details of the DAG for a manually triggered
+        workflow, a manually triggered node, or a data backfill instance. However, you cannot
+        query the details of the DAG for an auto triggered node or an auto triggered workflow.
+        
+        @description Supported DAG types:
+        MANUAL: the DAG for a manually triggered workflow.
+        SMOKE_TEST: the DAG for a smoke testing workflow.
+        SUPPLY_DATA: the DAG for a data backfill instance.
+        BUSINESS_PROCESS_DAG: the DAG for a one-time workflow.
         Supported DAG states:
-        *   CREATED: The DAG is created.
-        *   RUNNING: The DAG is running.
-        *   FAILURE: The DAG fails to run.
-        *   SUCCESS: The DAG successfully runs.
+        CREATED: The DAG is created.
+        RUNNING: The DAG is running.
+        FAILURE: The DAG fails to run.
+        SUCCESS: The DAG successfully runs.
         
 
         @param request: GetDagRequest
@@ -3918,16 +6069,21 @@ class Client(OpenApiClient):
 
     def get_dag(self, request):
         """
-        Supported DAG types:
-        *   MANUAL: the DAG for a manually triggered workflow.
-        *   SMOKE_TEST: the DAG for a smoke testing workflow.
-        *   SUPPLY_DATA: the DAG for a data backfill instance.
-        *   BUSINESS_PROCESS_DAG: the DAG for a one-time workflow.
+        @summary Queries the details of a directed acyclic graph (DAG) based on the ID of the DAG.
+        You can call the GetDag operation to query the details of the DAG for a manually triggered
+        workflow, a manually triggered node, or a data backfill instance. However, you cannot
+        query the details of the DAG for an auto triggered node or an auto triggered workflow.
+        
+        @description Supported DAG types:
+        MANUAL: the DAG for a manually triggered workflow.
+        SMOKE_TEST: the DAG for a smoke testing workflow.
+        SUPPLY_DATA: the DAG for a data backfill instance.
+        BUSINESS_PROCESS_DAG: the DAG for a one-time workflow.
         Supported DAG states:
-        *   CREATED: The DAG is created.
-        *   RUNNING: The DAG is running.
-        *   FAILURE: The DAG fails to run.
-        *   SUCCESS: The DAG successfully runs.
+        CREATED: The DAG is created.
+        RUNNING: The DAG is running.
+        FAILURE: The DAG fails to run.
+        SUCCESS: The DAG successfully runs.
         
 
         @param request: GetDagRequest
@@ -3938,6 +6094,16 @@ class Client(OpenApiClient):
         return self.get_dag_with_options(request, runtime)
 
     def get_data_service_api_with_options(self, request, runtime):
+        """
+        @summary Queries the details of a DataService Studio API in the development state.
+        
+
+        @param request: GetDataServiceApiRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetDataServiceApiResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.api_id):
@@ -3966,10 +6132,26 @@ class Client(OpenApiClient):
         )
 
     def get_data_service_api(self, request):
+        """
+        @summary Queries the details of a DataService Studio API in the development state.
+        
+
+        @param request: GetDataServiceApiRequest
+
+        @return: GetDataServiceApiResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_data_service_api_with_options(request, runtime)
 
     def get_data_service_api_test_with_options(self, request, runtime):
+        """
+
+        @param request: GetDataServiceApiTestRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetDataServiceApiTestResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -3992,10 +6174,26 @@ class Client(OpenApiClient):
         )
 
     def get_data_service_api_test(self, request):
+        """
+
+        @param request: GetDataServiceApiTestRequest
+
+        @return: GetDataServiceApiTestResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_data_service_api_test_with_options(request, runtime)
 
     def get_data_service_application_with_options(self, request, runtime):
+        """
+        @summary Queries the details of an application.
+        
+
+        @param request: GetDataServiceApplicationRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetDataServiceApplicationResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.application_id):
@@ -4024,10 +6222,28 @@ class Client(OpenApiClient):
         )
 
     def get_data_service_application(self, request):
+        """
+        @summary Queries the details of an application.
+        
+
+        @param request: GetDataServiceApplicationRequest
+
+        @return: GetDataServiceApplicationResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_data_service_application_with_options(request, runtime)
 
     def get_data_service_folder_with_options(self, request, runtime):
+        """
+        @summary Queries a folder.
+        
+
+        @param request: GetDataServiceFolderRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetDataServiceFolderResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.folder_id):
@@ -4056,10 +6272,28 @@ class Client(OpenApiClient):
         )
 
     def get_data_service_folder(self, request):
+        """
+        @summary Queries a folder.
+        
+
+        @param request: GetDataServiceFolderRequest
+
+        @return: GetDataServiceFolderResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_data_service_folder_with_options(request, runtime)
 
     def get_data_service_group_with_options(self, request, runtime):
+        """
+        @summary Queries a business process.
+        
+
+        @param request: GetDataServiceGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetDataServiceGroupResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.group_id):
@@ -4088,10 +6322,28 @@ class Client(OpenApiClient):
         )
 
     def get_data_service_group(self, request):
+        """
+        @summary Queries a business process.
+        
+
+        @param request: GetDataServiceGroupRequest
+
+        @return: GetDataServiceGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_data_service_group_with_options(request, runtime)
 
     def get_data_service_published_api_with_options(self, request, runtime):
+        """
+        @summary Queries the information about a DataService Studio API in the published state.
+        
+
+        @param request: GetDataServicePublishedApiRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetDataServicePublishedApiResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.api_id):
@@ -4120,10 +6372,28 @@ class Client(OpenApiClient):
         )
 
     def get_data_service_published_api(self, request):
+        """
+        @summary Queries the information about a DataService Studio API in the published state.
+        
+
+        @param request: GetDataServicePublishedApiRequest
+
+        @return: GetDataServicePublishedApiResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_data_service_published_api_with_options(request, runtime)
 
     def get_data_source_meta_with_options(self, request, runtime):
+        """
+        @summary The operation that you want to perform. Set the value to *GetDataSourceMeta**.
+        
+
+        @param request: GetDataSourceMetaRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetDataSourceMetaResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.datasource_name):
@@ -4156,10 +6426,28 @@ class Client(OpenApiClient):
         )
 
     def get_data_source_meta(self, request):
+        """
+        @summary The operation that you want to perform. Set the value to *GetDataSourceMeta**.
+        
+
+        @param request: GetDataSourceMetaRequest
+
+        @return: GetDataSourceMetaResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_data_source_meta_with_options(request, runtime)
 
     def get_deployment_with_options(self, request, runtime):
+        """
+        @summary Queries the details of a deployment task.
+        
+
+        @param request: GetDeploymentRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetDeploymentResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.deployment_id):
@@ -4188,10 +6476,28 @@ class Client(OpenApiClient):
         )
 
     def get_deployment(self, request):
+        """
+        @summary Queries the details of a deployment task.
+        
+
+        @param request: GetDeploymentRequest
+
+        @return: GetDeploymentResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_deployment_with_options(request, runtime)
 
     def get_extension_with_options(self, request, runtime):
+        """
+        @summary 获取开放平台扩展程序详情
+        
+
+        @param request: GetExtensionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetExtensionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.extension_code):
@@ -4216,10 +6522,26 @@ class Client(OpenApiClient):
         )
 
     def get_extension(self, request):
+        """
+        @summary 获取开放平台扩展程序详情
+        
+
+        @param request: GetExtensionRequest
+
+        @return: GetExtensionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_extension_with_options(request, runtime)
 
     def get_file_with_options(self, request, runtime):
+        """
+
+        @param request: GetFileRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetFileResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.file_id):
@@ -4250,10 +6572,24 @@ class Client(OpenApiClient):
         )
 
     def get_file(self, request):
+        """
+
+        @param request: GetFileRequest
+
+        @return: GetFileResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_file_with_options(request, runtime)
 
     def get_file_type_statistic_with_options(self, request, runtime):
+        """
+
+        @param request: GetFileTypeStatisticRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetFileTypeStatisticResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.project_env):
@@ -4280,10 +6616,24 @@ class Client(OpenApiClient):
         )
 
     def get_file_type_statistic(self, request):
+        """
+
+        @param request: GetFileTypeStatisticRequest
+
+        @return: GetFileTypeStatisticResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_file_type_statistic_with_options(request, runtime)
 
     def get_file_version_with_options(self, request, runtime):
+        """
+
+        @param request: GetFileVersionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetFileVersionResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.file_id):
@@ -4314,10 +6664,24 @@ class Client(OpenApiClient):
         )
 
     def get_file_version(self, request):
+        """
+
+        @param request: GetFileVersionRequest
+
+        @return: GetFileVersionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_file_version_with_options(request, runtime)
 
     def get_folder_with_options(self, request, runtime):
+        """
+
+        @param request: GetFolderRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetFolderResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.folder_id):
@@ -4348,10 +6712,26 @@ class Client(OpenApiClient):
         )
 
     def get_folder(self, request):
+        """
+
+        @param request: GetFolderRequest
+
+        @return: GetFolderResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_folder_with_options(request, runtime)
 
     def get_ideevent_detail_with_options(self, request, runtime):
+        """
+        @summary Queries the data snapshot of an extension point based on the ID of an open message when the related extension point event is triggered.
+        
+
+        @param request: GetIDEEventDetailRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetIDEEventDetailResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.message_id):
@@ -4378,10 +6758,26 @@ class Client(OpenApiClient):
         )
 
     def get_ideevent_detail(self, request):
+        """
+        @summary Queries the data snapshot of an extension point based on the ID of an open message when the related extension point event is triggered.
+        
+
+        @param request: GetIDEEventDetailRequest
+
+        @return: GetIDEEventDetailResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_ideevent_detail_with_options(request, runtime)
 
     def get_instance_with_options(self, request, runtime):
+        """
+
+        @param request: GetInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetInstanceResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.instance_id):
@@ -4408,12 +6804,18 @@ class Client(OpenApiClient):
         )
 
     def get_instance(self, request):
+        """
+
+        @param request: GetInstanceRequest
+
+        @return: GetInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_instance_with_options(request, runtime)
 
     def get_instance_consume_time_rank_with_options(self, request, runtime):
         """
-        @deprecated
+        @deprecated OpenAPI GetInstanceConsumeTimeRank is deprecated
         
 
         @param request: GetInstanceConsumeTimeRankRequest
@@ -4450,7 +6852,7 @@ class Client(OpenApiClient):
 
     def get_instance_consume_time_rank(self, request):
         """
-        @deprecated
+        @deprecated OpenAPI GetInstanceConsumeTimeRank is deprecated
         
 
         @param request: GetInstanceConsumeTimeRankRequest
@@ -4463,7 +6865,7 @@ class Client(OpenApiClient):
 
     def get_instance_count_trend_with_options(self, request, runtime):
         """
-        @deprecated
+        @deprecated OpenAPI GetInstanceCountTrend is deprecated
         
 
         @param request: GetInstanceCountTrendRequest
@@ -4502,7 +6904,7 @@ class Client(OpenApiClient):
 
     def get_instance_count_trend(self, request):
         """
-        @deprecated
+        @deprecated OpenAPI GetInstanceCountTrend is deprecated
         
 
         @param request: GetInstanceCountTrendRequest
@@ -4515,7 +6917,7 @@ class Client(OpenApiClient):
 
     def get_instance_error_rank_with_options(self, request, runtime):
         """
-        @deprecated
+        @deprecated OpenAPI GetInstanceErrorRank is deprecated
         
 
         @param request: GetInstanceErrorRankRequest
@@ -4550,7 +6952,7 @@ class Client(OpenApiClient):
 
     def get_instance_error_rank(self, request):
         """
-        @deprecated
+        @deprecated OpenAPI GetInstanceErrorRank is deprecated
         
 
         @param request: GetInstanceErrorRankRequest
@@ -4563,7 +6965,9 @@ class Client(OpenApiClient):
 
     def get_instance_log_with_options(self, request, runtime):
         """
-        You may not obtain the instance logs that were generated more than seven days ago.
+        @summary Queries the logs of an instance.
+        
+        @description You may not obtain the instance logs that were generated more than seven days ago.
         
 
         @param request: GetInstanceLogRequest
@@ -4601,7 +7005,9 @@ class Client(OpenApiClient):
 
     def get_instance_log(self, request):
         """
-        You may not obtain the instance logs that were generated more than seven days ago.
+        @summary Queries the logs of an instance.
+        
+        @description You may not obtain the instance logs that were generated more than seven days ago.
         
 
         @param request: GetInstanceLogRequest
@@ -4613,7 +7019,7 @@ class Client(OpenApiClient):
 
     def get_instance_status_count_with_options(self, request, runtime):
         """
-        @deprecated
+        @deprecated OpenAPI GetInstanceStatusCount is deprecated
         
 
         @param request: GetInstanceStatusCountRequest
@@ -4652,7 +7058,7 @@ class Client(OpenApiClient):
 
     def get_instance_status_count(self, request):
         """
-        @deprecated
+        @deprecated OpenAPI GetInstanceStatusCount is deprecated
         
 
         @param request: GetInstanceStatusCountRequest
@@ -4664,6 +7070,14 @@ class Client(OpenApiClient):
         return self.get_instance_status_count_with_options(request, runtime)
 
     def get_instance_status_statistic_with_options(self, request, runtime):
+        """
+
+        @param request: GetInstanceStatusStatisticRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetInstanceStatusStatisticResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.biz_date):
@@ -4698,12 +7112,18 @@ class Client(OpenApiClient):
         )
 
     def get_instance_status_statistic(self, request):
+        """
+
+        @param request: GetInstanceStatusStatisticRequest
+
+        @return: GetInstanceStatusStatisticResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_instance_status_statistic_with_options(request, runtime)
 
     def get_manual_dag_instances_with_options(self, request, runtime):
         """
-        @deprecated
+        @deprecated OpenAPI GetManualDagInstances is deprecated
         
 
         @param request: GetManualDagInstancesRequest
@@ -4742,7 +7162,7 @@ class Client(OpenApiClient):
 
     def get_manual_dag_instances(self, request):
         """
-        @deprecated
+        @deprecated OpenAPI GetManualDagInstances is deprecated
         
 
         @param request: GetManualDagInstancesRequest
@@ -4754,6 +7174,16 @@ class Client(OpenApiClient):
         return self.get_manual_dag_instances_with_options(request, runtime)
 
     def get_meta_category_with_options(self, request, runtime):
+        """
+        @summary Queries a category tree.
+        
+
+        @param request: GetMetaCategoryRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetMetaCategoryResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.page_num):
@@ -4782,10 +7212,28 @@ class Client(OpenApiClient):
         )
 
     def get_meta_category(self, request):
+        """
+        @summary Queries a category tree.
+        
+
+        @param request: GetMetaCategoryRequest
+
+        @return: GetMetaCategoryResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_meta_category_with_options(request, runtime)
 
     def get_meta_collection_detail_with_options(self, request, runtime):
+        """
+        @summary Queries the details of a collection.
+        
+
+        @param request: GetMetaCollectionDetailRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetMetaCollectionDetailResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.qualified_name):
@@ -4810,10 +7258,28 @@ class Client(OpenApiClient):
         )
 
     def get_meta_collection_detail(self, request):
+        """
+        @summary Queries the details of a collection.
+        
+
+        @param request: GetMetaCollectionDetailRequest
+
+        @return: GetMetaCollectionDetailResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_meta_collection_detail_with_options(request, runtime)
 
     def get_meta_column_lineage_with_options(self, request, runtime):
+        """
+        @summary Queries the lineage of a field in a metatable.
+        
+
+        @param request: GetMetaColumnLineageRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetMetaColumnLineageResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.cluster_id):
@@ -4854,12 +7320,22 @@ class Client(OpenApiClient):
         )
 
     def get_meta_column_lineage(self, request):
+        """
+        @summary Queries the lineage of a field in a metatable.
+        
+
+        @param request: GetMetaColumnLineageRequest
+
+        @return: GetMetaColumnLineageResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_meta_column_lineage_with_options(request, runtime)
 
     def get_meta_dbinfo_with_options(self, request, runtime):
         """
-        The ID of the EMR cluster. This parameter is required only if you set the DataSourceType parameter to emr.
+        @summary The ID of the compute engine instance. Specify the ID in the Engine type.Engine name format.
+        
+        @description The ID of the EMR cluster. This parameter is required only if you set the DataSourceType parameter to emr.
         You can log on to the [EMR console](https://emr.console.aliyun.com/?spm=a2c4g.11186623.0.0.965cc5c2GeiHet#/cn-hangzhou) to obtain the ID of the EMR cluster.
         
 
@@ -4892,7 +7368,9 @@ class Client(OpenApiClient):
 
     def get_meta_dbinfo(self, request):
         """
-        The ID of the EMR cluster. This parameter is required only if you set the DataSourceType parameter to emr.
+        @summary The ID of the compute engine instance. Specify the ID in the Engine type.Engine name format.
+        
+        @description The ID of the EMR cluster. This parameter is required only if you set the DataSourceType parameter to emr.
         You can log on to the [EMR console](https://emr.console.aliyun.com/?spm=a2c4g.11186623.0.0.965cc5c2GeiHet#/cn-hangzhou) to obtain the ID of the EMR cluster.
         
 
@@ -4904,6 +7382,16 @@ class Client(OpenApiClient):
         return self.get_meta_dbinfo_with_options(request, runtime)
 
     def get_meta_dbtable_list_with_options(self, request, runtime):
+        """
+        @summary The operation that you want to perform. Set the value to *GetMetaDBTableList**.
+        
+
+        @param request: GetMetaDBTableListRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetMetaDBTableListResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.app_guid):
@@ -4938,12 +7426,20 @@ class Client(OpenApiClient):
         )
 
     def get_meta_dbtable_list(self, request):
+        """
+        @summary The operation that you want to perform. Set the value to *GetMetaDBTableList**.
+        
+
+        @param request: GetMetaDBTableListRequest
+
+        @return: GetMetaDBTableListResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_meta_dbtable_list_with_options(request, runtime)
 
     def get_meta_table_basic_info_with_options(self, request, runtime):
         """
-        ***\
+        @summary Queries the basic information about a metatable.
         
 
         @param request: GetMetaTableBasicInfoRequest
@@ -4975,7 +7471,7 @@ class Client(OpenApiClient):
 
     def get_meta_table_basic_info(self, request):
         """
-        ***\
+        @summary Queries the basic information about a metatable.
         
 
         @param request: GetMetaTableBasicInfoRequest
@@ -4986,6 +7482,16 @@ class Client(OpenApiClient):
         return self.get_meta_table_basic_info_with_options(request, runtime)
 
     def get_meta_table_change_log_with_options(self, request, runtime):
+        """
+        @summary The operation that you want to perform. Set the value to *GetMetaTableChangeLog**.
+        
+
+        @param request: GetMetaTableChangeLogRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetMetaTableChangeLogResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.change_type):
@@ -5022,10 +7528,28 @@ class Client(OpenApiClient):
         )
 
     def get_meta_table_change_log(self, request):
+        """
+        @summary The operation that you want to perform. Set the value to *GetMetaTableChangeLog**.
+        
+
+        @param request: GetMetaTableChangeLogRequest
+
+        @return: GetMetaTableChangeLogResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_meta_table_change_log_with_options(request, runtime)
 
     def get_meta_table_column_with_options(self, request, runtime):
+        """
+        @summary The operation that you want to perform. Set the value to *GetMetaTableColumn**.
+        
+
+        @param request: GetMetaTableColumnRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetMetaTableColumnResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -5048,10 +7572,28 @@ class Client(OpenApiClient):
         )
 
     def get_meta_table_column(self, request):
+        """
+        @summary The operation that you want to perform. Set the value to *GetMetaTableColumn**.
+        
+
+        @param request: GetMetaTableColumnRequest
+
+        @return: GetMetaTableColumnResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_meta_table_column_with_options(request, runtime)
 
     def get_meta_table_full_info_with_options(self, request, runtime):
+        """
+        @summary Queries the complete information about a metatable, including information about fields in the metatable.
+        
+
+        @param request: GetMetaTableFullInfoRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetMetaTableFullInfoResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -5074,10 +7616,28 @@ class Client(OpenApiClient):
         )
 
     def get_meta_table_full_info(self, request):
+        """
+        @summary Queries the complete information about a metatable, including information about fields in the metatable.
+        
+
+        @param request: GetMetaTableFullInfoRequest
+
+        @return: GetMetaTableFullInfoResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_meta_table_full_info_with_options(request, runtime)
 
     def get_meta_table_intro_wiki_with_options(self, request, runtime):
+        """
+        @summary Queries the instructions on how to use a metatable.
+        
+
+        @param request: GetMetaTableIntroWikiRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetMetaTableIntroWikiResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.table_guid):
@@ -5104,10 +7664,28 @@ class Client(OpenApiClient):
         )
 
     def get_meta_table_intro_wiki(self, request):
+        """
+        @summary Queries the instructions on how to use a metatable.
+        
+
+        @param request: GetMetaTableIntroWikiRequest
+
+        @return: GetMetaTableIntroWikiResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_meta_table_intro_wiki_with_options(request, runtime)
 
     def get_meta_table_lineage_with_options(self, request, runtime):
+        """
+        @summary The operation that you want to perform. Set the value to *GetMetaTableLineage**.
+        
+
+        @param request: GetMetaTableLineageRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetMetaTableLineageResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.cluster_id):
@@ -5146,10 +7724,28 @@ class Client(OpenApiClient):
         )
 
     def get_meta_table_lineage(self, request):
+        """
+        @summary The operation that you want to perform. Set the value to *GetMetaTableLineage**.
+        
+
+        @param request: GetMetaTableLineageRequest
+
+        @return: GetMetaTableLineageResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_meta_table_lineage_with_options(request, runtime)
 
     def get_meta_table_list_by_category_with_options(self, request, runtime):
+        """
+        @summary Queries metatables in a specified category.
+        
+
+        @param request: GetMetaTableListByCategoryRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetMetaTableListByCategoryResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -5172,10 +7768,26 @@ class Client(OpenApiClient):
         )
 
     def get_meta_table_list_by_category(self, request):
+        """
+        @summary Queries metatables in a specified category.
+        
+
+        @param request: GetMetaTableListByCategoryRequest
+
+        @return: GetMetaTableListByCategoryResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_meta_table_list_by_category_with_options(request, runtime)
 
     def get_meta_table_output_with_options(self, request, runtime):
+        """
+
+        @param request: GetMetaTableOutputRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetMetaTableOutputResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.end_date):
@@ -5210,12 +7822,20 @@ class Client(OpenApiClient):
         )
 
     def get_meta_table_output(self, request):
+        """
+
+        @param request: GetMetaTableOutputRequest
+
+        @return: GetMetaTableOutputResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_meta_table_output_with_options(request, runtime)
 
     def get_meta_table_partition_with_options(self, tmp_req, runtime):
         """
-        The operation that you want to perform. Set the value to *GetMetaTablePartition**.
+        @summary Queries the partitions of a metatable.
+        
+        @description You can call this operation to query only the partitions of a metatable in a MaxCompute or E-MapReduce (EMR) compute engine instance.
         
 
         @param tmp_req: GetMetaTablePartitionRequest
@@ -5267,7 +7887,9 @@ class Client(OpenApiClient):
 
     def get_meta_table_partition(self, request):
         """
-        The operation that you want to perform. Set the value to *GetMetaTablePartition**.
+        @summary Queries the partitions of a metatable.
+        
+        @description You can call this operation to query only the partitions of a metatable in a MaxCompute or E-MapReduce (EMR) compute engine instance.
         
 
         @param request: GetMetaTablePartitionRequest
@@ -5278,6 +7900,16 @@ class Client(OpenApiClient):
         return self.get_meta_table_partition_with_options(request, runtime)
 
     def get_meta_table_producing_tasks_with_options(self, request, runtime):
+        """
+        @summary 获取Table的产出任务列表
+        
+
+        @param request: GetMetaTableProducingTasksRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetMetaTableProducingTasksResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.cluster_id):
@@ -5312,10 +7944,28 @@ class Client(OpenApiClient):
         )
 
     def get_meta_table_producing_tasks(self, request):
+        """
+        @summary 获取Table的产出任务列表
+        
+
+        @param request: GetMetaTableProducingTasksRequest
+
+        @return: GetMetaTableProducingTasksResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_meta_table_producing_tasks_with_options(request, runtime)
 
     def get_meta_table_theme_level_with_options(self, request, runtime):
+        """
+        @summary Queries information about table folders and table levels.
+        
+
+        @param request: GetMetaTableThemeLevelRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetMetaTableThemeLevelResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -5338,10 +7988,26 @@ class Client(OpenApiClient):
         )
 
     def get_meta_table_theme_level(self, request):
+        """
+        @summary Queries information about table folders and table levels.
+        
+
+        @param request: GetMetaTableThemeLevelRequest
+
+        @return: GetMetaTableThemeLevelResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_meta_table_theme_level_with_options(request, runtime)
 
     def get_migration_process_with_options(self, request, runtime):
+        """
+
+        @param request: GetMigrationProcessRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetMigrationProcessResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.migration_id):
@@ -5368,10 +8034,26 @@ class Client(OpenApiClient):
         )
 
     def get_migration_process(self, request):
+        """
+
+        @param request: GetMigrationProcessRequest
+
+        @return: GetMigrationProcessResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_migration_process_with_options(request, runtime)
 
     def get_migration_summary_with_options(self, request, runtime):
+        """
+        @summary Queries the information about a migration task.
+        
+
+        @param request: GetMigrationSummaryRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetMigrationSummaryResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.migration_id):
@@ -5398,10 +8080,28 @@ class Client(OpenApiClient):
         )
 
     def get_migration_summary(self, request):
+        """
+        @summary Queries the information about a migration task.
+        
+
+        @param request: GetMigrationSummaryRequest
+
+        @return: GetMigrationSummaryResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_migration_summary_with_options(request, runtime)
 
     def get_node_with_options(self, request, runtime):
+        """
+        @summary Indicates whether the request is successful.
+        
+
+        @param request: GetNodeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetNodeResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.node_id):
@@ -5428,10 +8128,26 @@ class Client(OpenApiClient):
         )
 
     def get_node(self, request):
+        """
+        @summary Indicates whether the request is successful.
+        
+
+        @param request: GetNodeRequest
+
+        @return: GetNodeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_node_with_options(request, runtime)
 
     def get_node_children_with_options(self, request, runtime):
+        """
+
+        @param request: GetNodeChildrenRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetNodeChildrenResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.node_id):
@@ -5458,10 +8174,26 @@ class Client(OpenApiClient):
         )
 
     def get_node_children(self, request):
+        """
+
+        @param request: GetNodeChildrenRequest
+
+        @return: GetNodeChildrenResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_node_children_with_options(request, runtime)
 
     def get_node_code_with_options(self, request, runtime):
+        """
+        @summary Queries the code of a node.
+        
+
+        @param request: GetNodeCodeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetNodeCodeResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.node_id):
@@ -5488,12 +8220,20 @@ class Client(OpenApiClient):
         )
 
     def get_node_code(self, request):
+        """
+        @summary Queries the code of a node.
+        
+
+        @param request: GetNodeCodeRequest
+
+        @return: GetNodeCodeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_node_code_with_options(request, runtime)
 
     def get_node_on_baseline_with_options(self, request, runtime):
         """
-        @deprecated
+        @deprecated OpenAPI GetNodeOnBaseline is deprecated
         
 
         @param request: GetNodeOnBaselineRequest
@@ -5528,7 +8268,7 @@ class Client(OpenApiClient):
 
     def get_node_on_baseline(self, request):
         """
-        @deprecated
+        @deprecated OpenAPI GetNodeOnBaseline is deprecated
         
 
         @param request: GetNodeOnBaselineRequest
@@ -5540,6 +8280,16 @@ class Client(OpenApiClient):
         return self.get_node_on_baseline_with_options(request, runtime)
 
     def get_node_parents_with_options(self, request, runtime):
+        """
+        @summary Queries the ancestor nodes of a node.
+        
+
+        @param request: GetNodeParentsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetNodeParentsResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.node_id):
@@ -5566,12 +8316,20 @@ class Client(OpenApiClient):
         )
 
     def get_node_parents(self, request):
+        """
+        @summary Queries the ancestor nodes of a node.
+        
+
+        @param request: GetNodeParentsRequest
+
+        @return: GetNodeParentsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_node_parents_with_options(request, runtime)
 
     def get_node_type_list_info_with_options(self, request, runtime):
         """
-        @deprecated
+        @deprecated OpenAPI GetNodeTypeListInfo is deprecated
         
 
         @param request: GetNodeTypeListInfoRequest
@@ -5616,7 +8374,7 @@ class Client(OpenApiClient):
 
     def get_node_type_list_info(self, request):
         """
-        @deprecated
+        @deprecated OpenAPI GetNodeTypeListInfo is deprecated
         
 
         @param request: GetNodeTypeListInfoRequest
@@ -5628,6 +8386,14 @@ class Client(OpenApiClient):
         return self.get_node_type_list_info_with_options(request, runtime)
 
     def get_op_risk_data_with_options(self, request, runtime):
+        """
+
+        @param request: GetOpRiskDataRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetOpRiskDataResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -5650,10 +8416,24 @@ class Client(OpenApiClient):
         )
 
     def get_op_risk_data(self, request):
+        """
+
+        @param request: GetOpRiskDataRequest
+
+        @return: GetOpRiskDataResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_op_risk_data_with_options(request, runtime)
 
     def get_op_sensitive_data_with_options(self, request, runtime):
+        """
+
+        @param request: GetOpSensitiveDataRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetOpSensitiveDataResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -5676,10 +8456,26 @@ class Client(OpenApiClient):
         )
 
     def get_op_sensitive_data(self, request):
+        """
+
+        @param request: GetOpSensitiveDataRequest
+
+        @return: GetOpSensitiveDataResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_op_sensitive_data_with_options(request, runtime)
 
     def get_option_value_for_project_with_options(self, request, runtime):
+        """
+        @summary The operation that you want to perform. Set the value to *GetOptionValueForProject**.
+        
+
+        @param request: GetOptionValueForProjectRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetOptionValueForProjectResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.extension_code):
@@ -5706,10 +8502,28 @@ class Client(OpenApiClient):
         )
 
     def get_option_value_for_project(self, request):
+        """
+        @summary The operation that you want to perform. Set the value to *GetOptionValueForProject**.
+        
+
+        @param request: GetOptionValueForProjectRequest
+
+        @return: GetOptionValueForProjectResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_option_value_for_project_with_options(request, runtime)
 
     def get_permission_apply_order_detail_with_options(self, request, runtime):
+        """
+        @summary Queries the details about a permission request order.
+        
+
+        @param request: GetPermissionApplyOrderDetailRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetPermissionApplyOrderDetailResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.flow_id):
@@ -5734,10 +8548,28 @@ class Client(OpenApiClient):
         )
 
     def get_permission_apply_order_detail(self, request):
+        """
+        @summary Queries the details about a permission request order.
+        
+
+        @param request: GetPermissionApplyOrderDetailRequest
+
+        @return: GetPermissionApplyOrderDetailResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_permission_apply_order_detail_with_options(request, runtime)
 
     def get_project_with_options(self, request, runtime):
+        """
+        @summary 查询工作空间详情
+        
+
+        @param request: GetProjectRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetProjectResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.project_id):
@@ -5764,12 +8596,22 @@ class Client(OpenApiClient):
         )
 
     def get_project(self, request):
+        """
+        @summary 查询工作空间详情
+        
+
+        @param request: GetProjectRequest
+
+        @return: GetProjectResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_project_with_options(request, runtime)
 
     def get_project_detail_with_options(self, request, runtime):
         """
-        @deprecated
+        @deprecated OpenAPI GetProjectDetail is deprecated
+        
+        @summary 查询工作空间详情
         
 
         @param request: GetProjectDetailRequest
@@ -5804,7 +8646,9 @@ class Client(OpenApiClient):
 
     def get_project_detail(self, request):
         """
-        @deprecated
+        @deprecated OpenAPI GetProjectDetail is deprecated
+        
+        @summary 查询工作空间详情
         
 
         @param request: GetProjectDetailRequest
@@ -5816,6 +8660,14 @@ class Client(OpenApiClient):
         return self.get_project_detail_with_options(request, runtime)
 
     def get_quality_entity_with_options(self, request, runtime):
+        """
+
+        @param request: GetQualityEntityRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetQualityEntityResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.env_type):
@@ -5848,10 +8700,24 @@ class Client(OpenApiClient):
         )
 
     def get_quality_entity(self, request):
+        """
+
+        @param request: GetQualityEntityRequest
+
+        @return: GetQualityEntityResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_quality_entity_with_options(request, runtime)
 
     def get_quality_follower_with_options(self, request, runtime):
+        """
+
+        @param request: GetQualityFollowerRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetQualityFollowerResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.entity_id):
@@ -5880,10 +8746,24 @@ class Client(OpenApiClient):
         )
 
     def get_quality_follower(self, request):
+        """
+
+        @param request: GetQualityFollowerRequest
+
+        @return: GetQualityFollowerResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_quality_follower_with_options(request, runtime)
 
     def get_quality_rule_with_options(self, request, runtime):
+        """
+
+        @param request: GetQualityRuleRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetQualityRuleResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.project_id):
@@ -5912,10 +8792,29 @@ class Client(OpenApiClient):
         )
 
     def get_quality_rule(self, request):
+        """
+
+        @param request: GetQualityRuleRequest
+
+        @return: GetQualityRuleResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_quality_rule_with_options(request, runtime)
 
     def get_remind_with_options(self, request, runtime):
+        """
+        @summary Queries the details of a custom alert rule.
+        
+        @description ## Debugging
+        [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=dataworks-public\\&api=GetRemind\\&type=RPC\\&version=2020-05-18)
+        
+
+        @param request: GetRemindRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetRemindResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.remind_id):
@@ -5940,10 +8839,29 @@ class Client(OpenApiClient):
         )
 
     def get_remind(self, request):
+        """
+        @summary Queries the details of a custom alert rule.
+        
+        @description ## Debugging
+        [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=dataworks-public\\&api=GetRemind\\&type=RPC\\&version=2020-05-18)
+        
+
+        @param request: GetRemindRequest
+
+        @return: GetRemindResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_remind_with_options(request, runtime)
 
     def get_sensitive_data_with_options(self, request, runtime):
+        """
+
+        @param request: GetSensitiveDataRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetSensitiveDataResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -5966,12 +8884,18 @@ class Client(OpenApiClient):
         )
 
     def get_sensitive_data(self, request):
+        """
+
+        @param request: GetSensitiveDataRequest
+
+        @return: GetSensitiveDataResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_sensitive_data_with_options(request, runtime)
 
     def get_success_instance_trend_with_options(self, request, runtime):
         """
-        @deprecated
+        @deprecated OpenAPI GetSuccessInstanceTrend is deprecated
         
 
         @param request: GetSuccessInstanceTrendRequest
@@ -6006,7 +8930,7 @@ class Client(OpenApiClient):
 
     def get_success_instance_trend(self, request):
         """
-        @deprecated
+        @deprecated OpenAPI GetSuccessInstanceTrend is deprecated
         
 
         @param request: GetSuccessInstanceTrendRequest
@@ -6019,7 +8943,7 @@ class Client(OpenApiClient):
 
     def get_topic_with_options(self, request, runtime):
         """
-        ***\
+        @description ***\
         
 
         @param request: GetTopicRequest
@@ -6053,7 +8977,7 @@ class Client(OpenApiClient):
 
     def get_topic(self, request):
         """
-        ***\
+        @description ***\
         
 
         @param request: GetTopicRequest
@@ -6064,6 +8988,14 @@ class Client(OpenApiClient):
         return self.get_topic_with_options(request, runtime)
 
     def get_topic_influence_with_options(self, request, runtime):
+        """
+
+        @param request: GetTopicInfluenceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetTopicInfluenceResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.topic_id):
@@ -6088,14 +9020,20 @@ class Client(OpenApiClient):
         )
 
     def get_topic_influence(self, request):
+        """
+
+        @param request: GetTopicInfluenceRequest
+
+        @return: GetTopicInfluenceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_topic_influence_with_options(request, runtime)
 
     def import_data_sources_with_options(self, request, runtime):
         """
-        You can import self-managed data sources or data sources that are exported from other Dataworks workspaces to a specified DataWorks workspace.
-        *   To import a self-managed data source to DataWorks, the data source type must be supported by DataWorks. For more information about the types of data sources supported by DataWorks, see [Supported data stores](~~181656~~).
-        *   For more information about how to export data sources from DataWorks workspaces to on-premises devices, see [ExportDataSources](~~279570~~).
+        @description You can import self-managed data sources or data sources that are exported from other Dataworks workspaces to a specified DataWorks workspace.
+        To import a self-managed data source to DataWorks, the data source type must be supported by DataWorks. For more information about the types of data sources supported by DataWorks, see [Supported data stores](https://help.aliyun.com/document_detail/181656.html).
+        For more information about how to export data sources from DataWorks workspaces to on-premises devices, see [ExportDataSources](https://help.aliyun.com/document_detail/279570.html).
         
 
         @param request: ImportDataSourcesRequest
@@ -6131,9 +9069,9 @@ class Client(OpenApiClient):
 
     def import_data_sources(self, request):
         """
-        You can import self-managed data sources or data sources that are exported from other Dataworks workspaces to a specified DataWorks workspace.
-        *   To import a self-managed data source to DataWorks, the data source type must be supported by DataWorks. For more information about the types of data sources supported by DataWorks, see [Supported data stores](~~181656~~).
-        *   For more information about how to export data sources from DataWorks workspaces to on-premises devices, see [ExportDataSources](~~279570~~).
+        @description You can import self-managed data sources or data sources that are exported from other Dataworks workspaces to a specified DataWorks workspace.
+        To import a self-managed data source to DataWorks, the data source type must be supported by DataWorks. For more information about the types of data sources supported by DataWorks, see [Supported data stores](https://help.aliyun.com/document_detail/181656.html).
+        For more information about how to export data sources from DataWorks workspaces to on-premises devices, see [ExportDataSources](https://help.aliyun.com/document_detail/279570.html).
         
 
         @param request: ImportDataSourcesRequest
@@ -6144,6 +9082,14 @@ class Client(OpenApiClient):
         return self.import_data_sources_with_options(request, runtime)
 
     def list_alert_messages_with_options(self, request, runtime):
+        """
+
+        @param request: ListAlertMessagesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListAlertMessagesResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.alert_methods):
@@ -6184,10 +9130,24 @@ class Client(OpenApiClient):
         )
 
     def list_alert_messages(self, request):
+        """
+
+        @param request: ListAlertMessagesRequest
+
+        @return: ListAlertMessagesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_alert_messages_with_options(request, runtime)
 
     def list_baseline_configs_with_options(self, request, runtime):
+        """
+
+        @param request: ListBaselineConfigsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListBaselineConfigsResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.baseline_types):
@@ -6226,10 +9186,26 @@ class Client(OpenApiClient):
         )
 
     def list_baseline_configs(self, request):
+        """
+
+        @param request: ListBaselineConfigsRequest
+
+        @return: ListBaselineConfigsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_baseline_configs_with_options(request, runtime)
 
     def list_baseline_statuses_with_options(self, request, runtime):
+        """
+        @summary Queries baseline instances.
+        
+
+        @param request: ListBaselineStatusesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListBaselineStatusesResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.baseline_types):
@@ -6272,10 +9248,28 @@ class Client(OpenApiClient):
         )
 
     def list_baseline_statuses(self, request):
+        """
+        @summary Queries baseline instances.
+        
+
+        @param request: ListBaselineStatusesRequest
+
+        @return: ListBaselineStatusesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_baseline_statuses_with_options(request, runtime)
 
     def list_baselines_with_options(self, request, runtime):
+        """
+        @summary 查询基线列表
+        
+
+        @param request: ListBaselinesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListBaselinesResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.baseline_types):
@@ -6314,10 +9308,28 @@ class Client(OpenApiClient):
         )
 
     def list_baselines(self, request):
+        """
+        @summary 查询基线列表
+        
+
+        @param request: ListBaselinesRequest
+
+        @return: ListBaselinesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_baselines_with_options(request, runtime)
 
     def list_business_with_options(self, request, runtime):
+        """
+        @summary Queries workflows.
+        
+
+        @param request: ListBusinessRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListBusinessResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.keyword):
@@ -6350,10 +9362,28 @@ class Client(OpenApiClient):
         )
 
     def list_business(self, request):
+        """
+        @summary Queries workflows.
+        
+
+        @param request: ListBusinessRequest
+
+        @return: ListBusinessResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_business_with_options(request, runtime)
 
     def list_calc_engines_with_options(self, request, runtime):
+        """
+        @summary Queries compute engine instances.
+        
+
+        @param request: ListCalcEnginesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListCalcEnginesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.calc_engine_type):
@@ -6388,12 +9418,22 @@ class Client(OpenApiClient):
         )
 
     def list_calc_engines(self, request):
+        """
+        @summary Queries compute engine instances.
+        
+
+        @param request: ListCalcEnginesRequest
+
+        @return: ListCalcEnginesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_calc_engines_with_options(request, runtime)
 
     def list_connections_with_options(self, request, runtime):
         """
-        @deprecated
+        @deprecated OpenAPI ListConnections is deprecated
+        
+        @summary 查询数据源
         
 
         @param request: ListConnectionsRequest
@@ -6426,7 +9466,9 @@ class Client(OpenApiClient):
 
     def list_connections(self, request):
         """
-        @deprecated
+        @deprecated OpenAPI ListConnections is deprecated
+        
+        @summary 查询数据源
         
 
         @param request: ListConnectionsRequest
@@ -6438,6 +9480,16 @@ class Client(OpenApiClient):
         return self.list_connections_with_options(request, runtime)
 
     def list_dialarm_rules_with_options(self, request, runtime):
+        """
+        @summary 查询数据集成新版告警规则列表
+        
+
+        @param request: ListDIAlarmRulesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListDIAlarmRulesResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.dijob_id):
@@ -6466,10 +9518,28 @@ class Client(OpenApiClient):
         )
 
     def list_dialarm_rules(self, request):
+        """
+        @summary 查询数据集成新版告警规则列表
+        
+
+        @param request: ListDIAlarmRulesRequest
+
+        @return: ListDIAlarmRulesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_dialarm_rules_with_options(request, runtime)
 
     def list_dijobs_with_options(self, request, runtime):
+        """
+        @summary 查询数据集成新版解决方案任务列表
+        
+
+        @param request: ListDIJobsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListDIJobsResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.destination_data_source_type):
@@ -6504,12 +9574,20 @@ class Client(OpenApiClient):
         )
 
     def list_dijobs(self, request):
+        """
+        @summary 查询数据集成新版解决方案任务列表
+        
+
+        @param request: ListDIJobsRequest
+
+        @return: ListDIJobsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_dijobs_with_options(request, runtime)
 
     def list_diproject_config_with_options(self, request, runtime):
         """
-        DataWorks allows you to set the default global configuration for only the processing rules of DDL messages in sync solutions. After you configure the *processing rules of DDL messages** in sync solutions, the configuration is set as the default global configuration and applies to all real-time sync nodes. You can also modify the **processing rules of DDL messages** based on your business requirements. For more information, see [Sync solutions](~~199008~~).
+        @description DataWorks allows you to set the default global configuration for only the processing rules of DDL messages in sync solutions. After you configure the *processing rules of DDL messages** in sync solutions, the configuration is set as the default global configuration and applies to all real-time sync nodes. You can also modify the **processing rules of DDL messages** based on your business requirements. For more information, see [Sync solutions](https://help.aliyun.com/document_detail/199008.html).
         
 
         @param request: ListDIProjectConfigRequest
@@ -6547,7 +9625,7 @@ class Client(OpenApiClient):
 
     def list_diproject_config(self, request):
         """
-        DataWorks allows you to set the default global configuration for only the processing rules of DDL messages in sync solutions. After you configure the *processing rules of DDL messages** in sync solutions, the configuration is set as the default global configuration and applies to all real-time sync nodes. You can also modify the **processing rules of DDL messages** based on your business requirements. For more information, see [Sync solutions](~~199008~~).
+        @description DataWorks allows you to set the default global configuration for only the processing rules of DDL messages in sync solutions. After you configure the *processing rules of DDL messages** in sync solutions, the configuration is set as the default global configuration and applies to all real-time sync nodes. You can also modify the **processing rules of DDL messages** based on your business requirements. For more information, see [Sync solutions](https://help.aliyun.com/document_detail/199008.html).
         
 
         @param request: ListDIProjectConfigRequest
@@ -6559,7 +9637,18 @@ class Client(OpenApiClient):
 
     def list_dags_with_options(self, request, runtime):
         """
-        The operation that you want to perform. Set the value to *ListDags**.
+        @summary Supported DAG types:
+        MANUAL: the DAG for a manually triggered workflow.
+        SMOKE_TEST: the DAG for a smoke testing workflow.
+        SUPPLY_DATA: the DAG for a data backfill instance.
+        BUSINESS_PROCESS_DAG: the DAG for a one-time workflow.
+        Supported DAG states:
+        CREATED: The DAG is created.
+        RUNNING: The DAG is running.
+        FAILURE: The DAG fails to run.
+        SUCCESS: The DAG successfully runs.
+        
+        @description The operation that you want to perform. Set the value to *ListDags**.
         
 
         @param request: ListDagsRequest
@@ -6595,7 +9684,18 @@ class Client(OpenApiClient):
 
     def list_dags(self, request):
         """
-        The operation that you want to perform. Set the value to *ListDags**.
+        @summary Supported DAG types:
+        MANUAL: the DAG for a manually triggered workflow.
+        SMOKE_TEST: the DAG for a smoke testing workflow.
+        SUPPLY_DATA: the DAG for a data backfill instance.
+        BUSINESS_PROCESS_DAG: the DAG for a one-time workflow.
+        Supported DAG states:
+        CREATED: The DAG is created.
+        RUNNING: The DAG is running.
+        FAILURE: The DAG fails to run.
+        SUCCESS: The DAG successfully runs.
+        
+        @description The operation that you want to perform. Set the value to *ListDags**.
         
 
         @param request: ListDagsRequest
@@ -6606,6 +9706,16 @@ class Client(OpenApiClient):
         return self.list_dags_with_options(request, runtime)
 
     def list_data_service_api_authorities_with_options(self, request, runtime):
+        """
+        @summary Queries the APIs on which other users are granted the access permissions.
+        
+
+        @param request: ListDataServiceApiAuthoritiesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListDataServiceApiAuthoritiesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.page_number):
@@ -6640,10 +9750,28 @@ class Client(OpenApiClient):
         )
 
     def list_data_service_api_authorities(self, request):
+        """
+        @summary Queries the APIs on which other users are granted the access permissions.
+        
+
+        @param request: ListDataServiceApiAuthoritiesRequest
+
+        @return: ListDataServiceApiAuthoritiesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_data_service_api_authorities_with_options(request, runtime)
 
     def list_data_service_api_test_with_options(self, request, runtime):
+        """
+        @summary Queries the test records of a DataService Studio API. This API operation allows you to query only the test records that are generated within the last month.
+        
+
+        @param request: ListDataServiceApiTestRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListDataServiceApiTestResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -6666,10 +9794,28 @@ class Client(OpenApiClient):
         )
 
     def list_data_service_api_test(self, request):
+        """
+        @summary Queries the test records of a DataService Studio API. This API operation allows you to query only the test records that are generated within the last month.
+        
+
+        @param request: ListDataServiceApiTestRequest
+
+        @return: ListDataServiceApiTestResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_data_service_api_test_with_options(request, runtime)
 
     def list_data_service_apis_with_options(self, request, runtime):
+        """
+        @summary Queries the information about APIs in the development state.
+        
+
+        @param request: ListDataServiceApisRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListDataServiceApisResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.api_name_keyword):
@@ -6706,10 +9852,28 @@ class Client(OpenApiClient):
         )
 
     def list_data_service_apis(self, request):
+        """
+        @summary Queries the information about APIs in the development state.
+        
+
+        @param request: ListDataServiceApisRequest
+
+        @return: ListDataServiceApisResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_data_service_apis_with_options(request, runtime)
 
     def list_data_service_applications_with_options(self, request, runtime):
+        """
+        @summary Queries the basic information of applications.
+        
+
+        @param request: ListDataServiceApplicationsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListDataServiceApplicationsResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.page_number):
@@ -6740,10 +9904,28 @@ class Client(OpenApiClient):
         )
 
     def list_data_service_applications(self, request):
+        """
+        @summary Queries the basic information of applications.
+        
+
+        @param request: ListDataServiceApplicationsRequest
+
+        @return: ListDataServiceApplicationsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_data_service_applications_with_options(request, runtime)
 
     def list_data_service_authorized_apis_with_options(self, request, runtime):
+        """
+        @summary Queries the APIs that you are authorized to access.
+        
+
+        @param request: ListDataServiceAuthorizedApisRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListDataServiceAuthorizedApisResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.page_number):
@@ -6778,10 +9960,28 @@ class Client(OpenApiClient):
         )
 
     def list_data_service_authorized_apis(self, request):
+        """
+        @summary Queries the APIs that you are authorized to access.
+        
+
+        @param request: ListDataServiceAuthorizedApisRequest
+
+        @return: ListDataServiceAuthorizedApisResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_data_service_authorized_apis_with_options(request, runtime)
 
     def list_data_service_folders_with_options(self, request, runtime):
+        """
+        @summary Queries folders.
+        
+
+        @param request: ListDataServiceFoldersRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListDataServiceFoldersResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.folder_name_keyword):
@@ -6816,10 +10016,28 @@ class Client(OpenApiClient):
         )
 
     def list_data_service_folders(self, request):
+        """
+        @summary Queries folders.
+        
+
+        @param request: ListDataServiceFoldersRequest
+
+        @return: ListDataServiceFoldersResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_data_service_folders_with_options(request, runtime)
 
     def list_data_service_groups_with_options(self, request, runtime):
+        """
+        @summary Queries business processes.
+        
+
+        @param request: ListDataServiceGroupsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListDataServiceGroupsResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.group_name_keyword):
@@ -6852,10 +10070,28 @@ class Client(OpenApiClient):
         )
 
     def list_data_service_groups(self, request):
+        """
+        @summary Queries business processes.
+        
+
+        @param request: ListDataServiceGroupsRequest
+
+        @return: ListDataServiceGroupsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_data_service_groups_with_options(request, runtime)
 
     def list_data_service_published_apis_with_options(self, request, runtime):
+        """
+        @summary Queries the information about APIs in the published state.
+        
+
+        @param request: ListDataServicePublishedApisRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListDataServicePublishedApisResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.api_name_keyword):
@@ -6892,10 +10128,28 @@ class Client(OpenApiClient):
         )
 
     def list_data_service_published_apis(self, request):
+        """
+        @summary Queries the information about APIs in the published state.
+        
+
+        @param request: ListDataServicePublishedApisRequest
+
+        @return: ListDataServicePublishedApisResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_data_service_published_apis_with_options(request, runtime)
 
     def list_data_sources_with_options(self, request, runtime):
+        """
+        @summary 查询数据源
+        
+
+        @param request: ListDataSourcesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListDataSourcesResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -6918,10 +10172,28 @@ class Client(OpenApiClient):
         )
 
     def list_data_sources(self, request):
+        """
+        @summary 查询数据源
+        
+
+        @param request: ListDataSourcesRequest
+
+        @return: ListDataSourcesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_data_sources_with_options(request, runtime)
 
     def list_deployments_with_options(self, request, runtime):
+        """
+        @summary 查询发布包列表
+        
+
+        @param request: ListDeploymentsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListDeploymentsResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.creator):
@@ -6964,10 +10236,28 @@ class Client(OpenApiClient):
         )
 
     def list_deployments(self, request):
+        """
+        @summary 查询发布包列表
+        
+
+        @param request: ListDeploymentsRequest
+
+        @return: ListDeploymentsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_deployments_with_options(request, runtime)
 
     def list_enabled_extensions_for_project_with_options(self, request, runtime):
+        """
+        @summary The operation that you want to perform. Set the value to *ListEnabledExtensionsForProject**.
+        
+
+        @param request: ListEnabledExtensionsForProjectRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListEnabledExtensionsForProjectResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.event_code):
@@ -6996,10 +10286,28 @@ class Client(OpenApiClient):
         )
 
     def list_enabled_extensions_for_project(self, request):
+        """
+        @summary The operation that you want to perform. Set the value to *ListEnabledExtensionsForProject**.
+        
+
+        @param request: ListEnabledExtensionsForProjectRequest
+
+        @return: ListEnabledExtensionsForProjectResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_enabled_extensions_for_project_with_options(request, runtime)
 
     def list_entities_by_tags_with_options(self, tmp_req, runtime):
+        """
+        @summary List entities by tags
+        
+
+        @param tmp_req: ListEntitiesByTagsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListEntitiesByTagsResponse
+        """
         UtilClient.validate_model(tmp_req)
         request = dataworks_public_20200518_models.ListEntitiesByTagsShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
@@ -7026,10 +10334,28 @@ class Client(OpenApiClient):
         )
 
     def list_entities_by_tags(self, request):
+        """
+        @summary List entities by tags
+        
+
+        @param request: ListEntitiesByTagsRequest
+
+        @return: ListEntitiesByTagsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_entities_by_tags_with_options(request, runtime)
 
     def list_entity_tags_with_options(self, request, runtime):
+        """
+        @summary List entity tags by given qualified name
+        
+
+        @param request: ListEntityTagsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListEntityTagsResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -7052,10 +10378,28 @@ class Client(OpenApiClient):
         )
 
     def list_entity_tags(self, request):
+        """
+        @summary List entity tags by given qualified name
+        
+
+        @param request: ListEntityTagsRequest
+
+        @return: ListEntityTagsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_entity_tags_with_options(request, runtime)
 
     def list_extensions_with_options(self, request, runtime):
+        """
+        @summary The operation that you want to perform. Set the value to *ListExtensions**.
+        
+
+        @param request: ListExtensionsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListExtensionsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.page_number):
@@ -7082,10 +10426,26 @@ class Client(OpenApiClient):
         )
 
     def list_extensions(self, request):
+        """
+        @summary The operation that you want to perform. Set the value to *ListExtensions**.
+        
+
+        @param request: ListExtensionsRequest
+
+        @return: ListExtensionsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_extensions_with_options(request, runtime)
 
     def list_file_type_with_options(self, request, runtime):
+        """
+
+        @param request: ListFileTypeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListFileTypeResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.keyword):
@@ -7120,10 +10480,24 @@ class Client(OpenApiClient):
         )
 
     def list_file_type(self, request):
+        """
+
+        @param request: ListFileTypeRequest
+
+        @return: ListFileTypeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_file_type_with_options(request, runtime)
 
     def list_file_versions_with_options(self, request, runtime):
+        """
+
+        @param request: ListFileVersionsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListFileVersionsResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.file_id):
@@ -7156,10 +10530,24 @@ class Client(OpenApiClient):
         )
 
     def list_file_versions(self, request):
+        """
+
+        @param request: ListFileVersionsRequest
+
+        @return: ListFileVersionsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_file_versions_with_options(request, runtime)
 
     def list_files_with_options(self, request, runtime):
+        """
+
+        @param request: ListFilesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListFilesResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.exact_file_name):
@@ -7210,10 +10598,24 @@ class Client(OpenApiClient):
         )
 
     def list_files(self, request):
+        """
+
+        @param request: ListFilesRequest
+
+        @return: ListFilesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_files_with_options(request, runtime)
 
     def list_folders_with_options(self, request, runtime):
+        """
+
+        @param request: ListFoldersRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListFoldersResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.page_number):
@@ -7246,10 +10648,26 @@ class Client(OpenApiClient):
         )
 
     def list_folders(self, request):
+        """
+
+        @param request: ListFoldersRequest
+
+        @return: ListFoldersResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_folders_with_options(request, runtime)
 
     def list_inner_nodes_with_options(self, request, runtime):
+        """
+        @summary The operation that you want to perform. Set the value to *ListInnerNodes**.
+        
+
+        @param request: ListInnerNodesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListInnerNodesResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.node_name):
@@ -7286,10 +10704,26 @@ class Client(OpenApiClient):
         )
 
     def list_inner_nodes(self, request):
+        """
+        @summary The operation that you want to perform. Set the value to *ListInnerNodes**.
+        
+
+        @param request: ListInnerNodesRequest
+
+        @return: ListInnerNodesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_inner_nodes_with_options(request, runtime)
 
     def list_instance_amount_with_options(self, request, runtime):
+        """
+
+        @param request: ListInstanceAmountRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListInstanceAmountResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.begin_date):
@@ -7318,10 +10752,26 @@ class Client(OpenApiClient):
         )
 
     def list_instance_amount(self, request):
+        """
+
+        @param request: ListInstanceAmountRequest
+
+        @return: ListInstanceAmountResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_instance_amount_with_options(request, runtime)
 
     def list_instance_history_with_options(self, request, runtime):
+        """
+        @summary The operation that you want to perform. Set the value to *ListInstanceHistory**.
+        
+
+        @param request: ListInstanceHistoryRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListInstanceHistoryResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.instance_id):
@@ -7348,10 +10798,28 @@ class Client(OpenApiClient):
         )
 
     def list_instance_history(self, request):
+        """
+        @summary The operation that you want to perform. Set the value to *ListInstanceHistory**.
+        
+
+        @param request: ListInstanceHistoryRequest
+
+        @return: ListInstanceHistoryResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_instance_history_with_options(request, runtime)
 
     def list_instances_with_options(self, request, runtime):
+        """
+        @summary The ID of the directed acyclic graph (DAG). You can set this parameter to the value of the DagId parameter returned by the [RunCycleDagNodes](https://help.aliyun.com/document_detail/212961.html), [RunSmokeTest](https://help.aliyun.com/document_detail/212949.html), or [RunManualDagNodes](https://help.aliyun.com/document_detail/212830.html) operation based on your business requirements. The RunManualDagNodes operation is used to backfill data, the RunSmokeTest operation is used to perform smoke testing, and the RunManualDagNodes operation is used to run nodes in a manually triggered workflow.
+        
+
+        @param request: ListInstancesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListInstancesResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.begin_bizdate):
@@ -7404,10 +10872,28 @@ class Client(OpenApiClient):
         )
 
     def list_instances(self, request):
+        """
+        @summary The ID of the directed acyclic graph (DAG). You can set this parameter to the value of the DagId parameter returned by the [RunCycleDagNodes](https://help.aliyun.com/document_detail/212961.html), [RunSmokeTest](https://help.aliyun.com/document_detail/212949.html), or [RunManualDagNodes](https://help.aliyun.com/document_detail/212830.html) operation based on your business requirements. The RunManualDagNodes operation is used to backfill data, the RunSmokeTest operation is used to perform smoke testing, and the RunManualDagNodes operation is used to run nodes in a manually triggered workflow.
+        
+
+        @param request: ListInstancesRequest
+
+        @return: ListInstancesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_instances_with_options(request, runtime)
 
     def list_lineage_with_options(self, request, runtime):
+        """
+        @summary 查询血缘V2, 支持各种实体的血缘查询
+        
+
+        @param request: ListLineageRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListLineageResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.direction):
@@ -7440,10 +10926,26 @@ class Client(OpenApiClient):
         )
 
     def list_lineage(self, request):
+        """
+        @summary 查询血缘V2, 支持各种实体的血缘查询
+        
+
+        @param request: ListLineageRequest
+
+        @return: ListLineageResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_lineage_with_options(request, runtime)
 
     def list_manual_dag_instances_with_options(self, request, runtime):
+        """
+
+        @param request: ListManualDagInstancesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListManualDagInstancesResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.dag_id):
@@ -7472,10 +10974,26 @@ class Client(OpenApiClient):
         )
 
     def list_manual_dag_instances(self, request):
+        """
+
+        @param request: ListManualDagInstancesRequest
+
+        @return: ListManualDagInstancesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_manual_dag_instances_with_options(request, runtime)
 
     def list_meta_collection_entities_with_options(self, request, runtime):
+        """
+        @summary Queries the entities in a collection.
+        
+
+        @param request: ListMetaCollectionEntitiesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListMetaCollectionEntitiesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.collection_qualified_name):
@@ -7508,12 +11026,22 @@ class Client(OpenApiClient):
         )
 
     def list_meta_collection_entities(self, request):
+        """
+        @summary Queries the entities in a collection.
+        
+
+        @param request: ListMetaCollectionEntitiesRequest
+
+        @return: ListMetaCollectionEntitiesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_meta_collection_entities_with_options(request, runtime)
 
     def list_meta_collections_with_options(self, request, runtime):
         """
-        You can configure only one of the Creator, Administrator, and Follower parameters.
+        @summary Queries information about collections. Collections include data albums that are displayed on the DataMap page and categories that are created in the data albums. You can call this API operation to query collections by type.
+        
+        @description The type can be ALBUM or ALBUM_CATEGORY. ALBUM indicates data albums. ALBUM_CATEGORY indicates categories.
         
 
         @param request: ListMetaCollectionsRequest
@@ -7563,7 +11091,9 @@ class Client(OpenApiClient):
 
     def list_meta_collections(self, request):
         """
-        You can configure only one of the Creator, Administrator, and Follower parameters.
+        @summary Queries information about collections. Collections include data albums that are displayed on the DataMap page and categories that are created in the data albums. You can call this API operation to query collections by type.
+        
+        @description The type can be ALBUM or ALBUM_CATEGORY. ALBUM indicates data albums. ALBUM_CATEGORY indicates categories.
         
 
         @param request: ListMetaCollectionsRequest
@@ -7574,6 +11104,14 @@ class Client(OpenApiClient):
         return self.list_meta_collections_with_options(request, runtime)
 
     def list_meta_dbwith_options(self, request, runtime):
+        """
+
+        @param request: ListMetaDBRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListMetaDBResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -7596,10 +11134,26 @@ class Client(OpenApiClient):
         )
 
     def list_meta_db(self, request):
+        """
+
+        @param request: ListMetaDBRequest
+
+        @return: ListMetaDBResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_meta_dbwith_options(request, runtime)
 
     def list_migrations_with_options(self, request, runtime):
+        """
+        @summary The operation that you want to perform. Set the value to *ListMigrations**.
+        
+
+        @param request: ListMigrationsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListMigrationsResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.migration_type):
@@ -7632,12 +11186,20 @@ class Client(OpenApiClient):
         )
 
     def list_migrations(self, request):
+        """
+        @summary The operation that you want to perform. Set the value to *ListMigrations**.
+        
+
+        @param request: ListMigrationsRequest
+
+        @return: ListMigrationsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_migrations_with_options(request, runtime)
 
     def list_node_iowith_options(self, request, runtime):
         """
-        @deprecated
+        @deprecated OpenAPI ListNodeIO is deprecated
         
 
         @param request: ListNodeIORequest
@@ -7676,7 +11238,7 @@ class Client(OpenApiClient):
 
     def list_node_io(self, request):
         """
-        @deprecated
+        @deprecated OpenAPI ListNodeIO is deprecated
         
 
         @param request: ListNodeIORequest
@@ -7688,6 +11250,14 @@ class Client(OpenApiClient):
         return self.list_node_iowith_options(request, runtime)
 
     def list_node_input_or_output_with_options(self, request, runtime):
+        """
+
+        @param request: ListNodeInputOrOutputRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListNodeInputOrOutputResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.io_type):
@@ -7716,10 +11286,26 @@ class Client(OpenApiClient):
         )
 
     def list_node_input_or_output(self, request):
+        """
+
+        @param request: ListNodeInputOrOutputRequest
+
+        @return: ListNodeInputOrOutputResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_node_input_or_output_with_options(request, runtime)
 
     def list_nodes_with_options(self, request, runtime):
+        """
+        @summary The ID of the workspace.
+        
+
+        @param request: ListNodesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListNodesResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.biz_name):
@@ -7760,10 +11346,26 @@ class Client(OpenApiClient):
         )
 
     def list_nodes(self, request):
+        """
+        @summary The ID of the workspace.
+        
+
+        @param request: ListNodesRequest
+
+        @return: ListNodesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_nodes_with_options(request, runtime)
 
     def list_nodes_by_baseline_with_options(self, request, runtime):
+        """
+
+        @param request: ListNodesByBaselineRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListNodesByBaselineResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.baseline_id):
@@ -7788,10 +11390,24 @@ class Client(OpenApiClient):
         )
 
     def list_nodes_by_baseline(self, request):
+        """
+
+        @param request: ListNodesByBaselineRequest
+
+        @return: ListNodesByBaselineResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_nodes_by_baseline_with_options(request, runtime)
 
     def list_nodes_by_output_with_options(self, request, runtime):
+        """
+
+        @param request: ListNodesByOutputRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListNodesByOutputResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.outputs):
@@ -7818,10 +11434,24 @@ class Client(OpenApiClient):
         )
 
     def list_nodes_by_output(self, request):
+        """
+
+        @param request: ListNodesByOutputRequest
+
+        @return: ListNodesByOutputResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_nodes_by_output_with_options(request, runtime)
 
     def list_permission_apply_orders_with_options(self, request, runtime):
+        """
+
+        @param request: ListPermissionApplyOrdersRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListPermissionApplyOrdersResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.end_time):
@@ -7866,12 +11496,18 @@ class Client(OpenApiClient):
         )
 
     def list_permission_apply_orders(self, request):
+        """
+
+        @param request: ListPermissionApplyOrdersRequest
+
+        @return: ListPermissionApplyOrdersResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_permission_apply_orders_with_options(request, runtime)
 
     def list_program_type_count_with_options(self, request, runtime):
         """
-        @deprecated
+        @deprecated OpenAPI ListProgramTypeCount is deprecated
         
 
         @param request: ListProgramTypeCountRequest
@@ -7908,7 +11544,7 @@ class Client(OpenApiClient):
 
     def list_program_type_count(self, request):
         """
-        @deprecated
+        @deprecated OpenAPI ListProgramTypeCount is deprecated
         
 
         @param request: ListProgramTypeCountRequest
@@ -7921,7 +11557,7 @@ class Client(OpenApiClient):
 
     def list_project_ids_with_options(self, request, runtime):
         """
-        For example, an Alibaba Cloud account can assume the developer, O&M engineer, or workspace administrator role in a workspace. For more information, see [Manage members and roles](~~136941~~).
+        @description For example, an Alibaba Cloud account can assume the developer, O&M engineer, or workspace administrator role in a workspace. For more information, see [Manage members and roles](https://help.aliyun.com/document_detail/136941.html).
         
 
         @param request: ListProjectIdsRequest
@@ -7955,7 +11591,7 @@ class Client(OpenApiClient):
 
     def list_project_ids(self, request):
         """
-        For example, an Alibaba Cloud account can assume the developer, O&M engineer, or workspace administrator role in a workspace. For more information, see [Manage members and roles](~~136941~~).
+        @description For example, an Alibaba Cloud account can assume the developer, O&M engineer, or workspace administrator role in a workspace. For more information, see [Manage members and roles](https://help.aliyun.com/document_detail/136941.html).
         
 
         @param request: ListProjectIdsRequest
@@ -7966,6 +11602,16 @@ class Client(OpenApiClient):
         return self.list_project_ids_with_options(request, runtime)
 
     def list_project_members_with_options(self, request, runtime):
+        """
+        @summary Queries members in a DataWorks workspace.
+        
+
+        @param request: ListProjectMembersRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListProjectMembersResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.page_number):
@@ -7994,10 +11640,31 @@ class Client(OpenApiClient):
         )
 
     def list_project_members(self, request):
+        """
+        @summary Queries members in a DataWorks workspace.
+        
+
+        @param request: ListProjectMembersRequest
+
+        @return: ListProjectMembersResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_project_members_with_options(request, runtime)
 
     def list_project_roles_with_options(self, request, runtime):
+        """
+        @summary A topic is added to describe how to call the ListProjectRoles operation to query all roles in a workspace.
+        
+        @description ## Debugging
+        [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=dataworks-public\\&api=ListProjectRoles\\&type=RPC\\&version=2020-05-18)
+        
+
+        @param request: ListProjectRolesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListProjectRolesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.project_id):
@@ -8022,10 +11689,31 @@ class Client(OpenApiClient):
         )
 
     def list_project_roles(self, request):
+        """
+        @summary A topic is added to describe how to call the ListProjectRoles operation to query all roles in a workspace.
+        
+        @description ## Debugging
+        [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=dataworks-public\\&api=ListProjectRoles\\&type=RPC\\&version=2020-05-18)
+        
+
+        @param request: ListProjectRolesRequest
+
+        @return: ListProjectRolesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_project_roles_with_options(request, runtime)
 
     def list_projects_with_options(self, tmp_req, runtime):
+        """
+        @summary 查询工作空间
+        
+
+        @param tmp_req: ListProjectsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListProjectsResponse
+        """
         UtilClient.validate_model(tmp_req)
         request = dataworks_public_20200518_models.ListProjectsShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
@@ -8060,12 +11748,20 @@ class Client(OpenApiClient):
         )
 
     def list_projects(self, request):
+        """
+        @summary 查询工作空间
+        
+
+        @param request: ListProjectsRequest
+
+        @return: ListProjectsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_projects_with_options(request, runtime)
 
     def list_quality_results_by_entity_with_options(self, request, runtime):
         """
-        ***\
+        @description ***\
         
 
         @param request: ListQualityResultsByEntityRequest
@@ -8111,7 +11807,7 @@ class Client(OpenApiClient):
 
     def list_quality_results_by_entity(self, request):
         """
-        ***\
+        @description ***\
         
 
         @param request: ListQualityResultsByEntityRequest
@@ -8122,6 +11818,14 @@ class Client(OpenApiClient):
         return self.list_quality_results_by_entity_with_options(request, runtime)
 
     def list_quality_results_by_rule_with_options(self, request, runtime):
+        """
+
+        @param request: ListQualityResultsByRuleRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListQualityResultsByRuleResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.end_date):
@@ -8158,10 +11862,24 @@ class Client(OpenApiClient):
         )
 
     def list_quality_results_by_rule(self, request):
+        """
+
+        @param request: ListQualityResultsByRuleRequest
+
+        @return: ListQualityResultsByRuleResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_quality_results_by_rule_with_options(request, runtime)
 
     def list_quality_rules_with_options(self, request, runtime):
+        """
+
+        @param request: ListQualityRulesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListQualityRulesResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.entity_id):
@@ -8194,10 +11912,24 @@ class Client(OpenApiClient):
         )
 
     def list_quality_rules(self, request):
+        """
+
+        @param request: ListQualityRulesRequest
+
+        @return: ListQualityRulesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_quality_rules_with_options(request, runtime)
 
     def list_ref_disync_tasks_with_options(self, request, runtime):
+        """
+
+        @param request: ListRefDISyncTasksRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListRefDISyncTasksResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.datasource_name):
@@ -8232,10 +11964,26 @@ class Client(OpenApiClient):
         )
 
     def list_ref_disync_tasks(self, request):
+        """
+
+        @param request: ListRefDISyncTasksRequest
+
+        @return: ListRefDISyncTasksResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_ref_disync_tasks_with_options(request, runtime)
 
     def list_reminds_with_options(self, request, runtime):
+        """
+        @summary Queries custom alert rules.
+        
+
+        @param request: ListRemindsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListRemindsResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.alert_target):
@@ -8272,10 +12020,28 @@ class Client(OpenApiClient):
         )
 
     def list_reminds(self, request):
+        """
+        @summary Queries custom alert rules.
+        
+
+        @param request: ListRemindsRequest
+
+        @return: ListRemindsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_reminds_with_options(request, runtime)
 
     def list_resource_groups_with_options(self, tmp_req, runtime):
+        """
+        @summary 查询资源组
+        
+
+        @param tmp_req: ListResourceGroupsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListResourceGroupsResponse
+        """
         UtilClient.validate_model(tmp_req)
         request = dataworks_public_20200518_models.ListResourceGroupsShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
@@ -8312,10 +12078,28 @@ class Client(OpenApiClient):
         )
 
     def list_resource_groups(self, request):
+        """
+        @summary 查询资源组
+        
+
+        @param request: ListResourceGroupsRequest
+
+        @return: ListResourceGroupsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_resource_groups_with_options(request, runtime)
 
     def list_shift_personnels_with_options(self, request, runtime):
+        """
+        @summary The operation that you want to perform. Set the value to *ListShiftPersonnels**.
+        
+
+        @param request: ListShiftPersonnelsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListShiftPersonnelsResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.begin_time):
@@ -8348,10 +12132,28 @@ class Client(OpenApiClient):
         )
 
     def list_shift_personnels(self, request):
+        """
+        @summary The operation that you want to perform. Set the value to *ListShiftPersonnels**.
+        
+
+        @param request: ListShiftPersonnelsRequest
+
+        @return: ListShiftPersonnelsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_shift_personnels_with_options(request, runtime)
 
     def list_shift_schedules_with_options(self, request, runtime):
+        """
+        @summary The operation that you want to perform. Set the value to *ListShiftSchedules**.
+        
+
+        @param request: ListShiftSchedulesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListShiftSchedulesResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.owner):
@@ -8382,10 +12184,28 @@ class Client(OpenApiClient):
         )
 
     def list_shift_schedules(self, request):
+        """
+        @summary The operation that you want to perform. Set the value to *ListShiftSchedules**.
+        
+
+        @param request: ListShiftSchedulesRequest
+
+        @return: ListShiftSchedulesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_shift_schedules_with_options(request, runtime)
 
     def list_success_instance_amount_with_options(self, request, runtime):
+        """
+        @summary Queries the trend of the number of auto triggered node instances that are successfully run every hour on the hour of the current day.
+        
+
+        @param request: ListSuccessInstanceAmountRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListSuccessInstanceAmountResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.project_id):
@@ -8410,10 +12230,28 @@ class Client(OpenApiClient):
         )
 
     def list_success_instance_amount(self, request):
+        """
+        @summary Queries the trend of the number of auto triggered node instances that are successfully run every hour on the hour of the current day.
+        
+
+        @param request: ListSuccessInstanceAmountRequest
+
+        @return: ListSuccessInstanceAmountResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_success_instance_amount_with_options(request, runtime)
 
     def list_table_level_with_options(self, request, runtime):
+        """
+        @summary Queries table levels. This API operation will be replaced soon. We recommend that you do not call this API operation.
+        
+
+        @param request: ListTableLevelRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListTableLevelResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -8436,10 +12274,28 @@ class Client(OpenApiClient):
         )
 
     def list_table_level(self, request):
+        """
+        @summary Queries table levels. This API operation will be replaced soon. We recommend that you do not call this API operation.
+        
+
+        @param request: ListTableLevelRequest
+
+        @return: ListTableLevelResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_table_level_with_options(request, runtime)
 
     def list_table_theme_with_options(self, request, runtime):
+        """
+        @summary Queries table folders. This API operation will be replaced soon. We recommend that you do not call this API operation.
+        
+
+        @param request: ListTableThemeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListTableThemeResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -8462,10 +12318,28 @@ class Client(OpenApiClient):
         )
 
     def list_table_theme(self, request):
+        """
+        @summary Queries table folders. This API operation will be replaced soon. We recommend that you do not call this API operation.
+        
+
+        @param request: ListTableThemeRequest
+
+        @return: ListTableThemeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_table_theme_with_options(request, runtime)
 
     def list_topics_with_options(self, request, runtime):
+        """
+        @summary Queries events.
+        
+
+        @param request: ListTopicsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListTopicsResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.begin_time):
@@ -8506,10 +12380,29 @@ class Client(OpenApiClient):
         )
 
     def list_topics(self, request):
+        """
+        @summary Queries events.
+        
+
+        @param request: ListTopicsRequest
+
+        @return: ListTopicsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_topics_with_options(request, runtime)
 
     def mount_directory_with_options(self, request, runtime):
+        """
+        @summary The ID of the directory that you want to add to the left-side navigation pane of DataAnalysis. This parameter is used together with the TargetType parameter.
+        For example, if you set the TargetType parameter to META_ALBUM, you must set the TargetId parameter to the ID of the related data album. You can call the [ListMetaCollections](https://help.aliyun.com/document_detail/469938.html) operation to obtain the ID of the data album. The ID is indicated by the QualifiedName parameter.
+        
+
+        @param request: MountDirectoryRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: MountDirectoryResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.target_id):
@@ -8538,10 +12431,29 @@ class Client(OpenApiClient):
         )
 
     def mount_directory(self, request):
+        """
+        @summary The ID of the directory that you want to add to the left-side navigation pane of DataAnalysis. This parameter is used together with the TargetType parameter.
+        For example, if you set the TargetType parameter to META_ALBUM, you must set the TargetId parameter to the ID of the related data album. You can call the [ListMetaCollections](https://help.aliyun.com/document_detail/469938.html) operation to obtain the ID of the data album. The ID is indicated by the QualifiedName parameter.
+        
+
+        @param request: MountDirectoryRequest
+
+        @return: MountDirectoryResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.mount_directory_with_options(request, runtime)
 
     def offline_node_with_options(self, request, runtime):
+        """
+        @summary The operation that you want to perform. Set the value to *OfflineNode**.
+        
+
+        @param request: OfflineNodeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: OfflineNodeResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.node_id):
@@ -8568,10 +12480,26 @@ class Client(OpenApiClient):
         )
 
     def offline_node(self, request):
+        """
+        @summary The operation that you want to perform. Set the value to *OfflineNode**.
+        
+
+        @param request: OfflineNodeRequest
+
+        @return: OfflineNodeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.offline_node_with_options(request, runtime)
 
     def publish_data_service_api_with_options(self, request, runtime):
+        """
+
+        @param request: PublishDataServiceApiRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: PublishDataServiceApiResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.api_id):
@@ -8600,12 +12528,21 @@ class Client(OpenApiClient):
         )
 
     def publish_data_service_api(self, request):
+        """
+
+        @param request: PublishDataServiceApiRequest
+
+        @return: PublishDataServiceApiResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.publish_data_service_api_with_options(request, runtime)
 
     def query_disync_task_config_process_result_with_options(self, request, runtime):
         """
-        The operation that you want to perform.
+        @summary DataWorks allows you to call only the [CreateDISyncTask](https://help.aliyun.com/document_detail/278725.html) or [UpdateDISyncTask](https://help.aliyun.com/document_detail/289109.html) operation to create or update a batch synchronization node in Data Integration. To create or update a real-time synchronization node or a synchronization solution, you must first call the GenerateDISyncTaskConfigForCreating or GenerateDISyncTaskConfigForUpdating operation to generate the ID of an asynchronous thread and call the [QueryDISyncTaskConfigProcessResult](https://help.aliyun.com/document_detail/383465.html) operation to obtain the asynchronously generated parameters based on the ID. Then, you can call the CreateDISyncTask or UpdateDISyncTask operation and use the parameters as request parameters to create or update a real-time synchronization node or a synchronization solution.
+        DataWorks allows you to create or update real-time synchronization nodes and synchronization solutions in Data Integration only in asynchronous mode.
+        
+        @description The operation that you want to perform.
         
 
         @param request: QueryDISyncTaskConfigProcessResultRequest
@@ -8643,7 +12580,10 @@ class Client(OpenApiClient):
 
     def query_disync_task_config_process_result(self, request):
         """
-        The operation that you want to perform.
+        @summary DataWorks allows you to call only the [CreateDISyncTask](https://help.aliyun.com/document_detail/278725.html) or [UpdateDISyncTask](https://help.aliyun.com/document_detail/289109.html) operation to create or update a batch synchronization node in Data Integration. To create or update a real-time synchronization node or a synchronization solution, you must first call the GenerateDISyncTaskConfigForCreating or GenerateDISyncTaskConfigForUpdating operation to generate the ID of an asynchronous thread and call the [QueryDISyncTaskConfigProcessResult](https://help.aliyun.com/document_detail/383465.html) operation to obtain the asynchronously generated parameters based on the ID. Then, you can call the CreateDISyncTask or UpdateDISyncTask operation and use the parameters as request parameters to create or update a real-time synchronization node or a synchronization solution.
+        DataWorks allows you to create or update real-time synchronization nodes and synchronization solutions in Data Integration only in asynchronous mode.
+        
+        @description The operation that you want to perform.
         
 
         @param request: QueryDISyncTaskConfigProcessResultRequest
@@ -8654,6 +12594,16 @@ class Client(OpenApiClient):
         return self.query_disync_task_config_process_result_with_options(request, runtime)
 
     def query_default_template_with_options(self, request, runtime):
+        """
+        @summary 获取模版列表
+        
+
+        @param request: QueryDefaultTemplateRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: QueryDefaultTemplateResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.tenant_id):
@@ -8678,10 +12628,28 @@ class Client(OpenApiClient):
         )
 
     def query_default_template(self, request):
+        """
+        @summary 获取模版列表
+        
+
+        @param request: QueryDefaultTemplateRequest
+
+        @return: QueryDefaultTemplateResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.query_default_template_with_options(request, runtime)
 
     def query_public_model_engine_with_options(self, request, runtime):
+        """
+        @summary 建模平台弹外的公共处理
+        
+
+        @param request: QueryPublicModelEngineRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: QueryPublicModelEngineResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.project_id):
@@ -8708,10 +12676,28 @@ class Client(OpenApiClient):
         )
 
     def query_public_model_engine(self, request):
+        """
+        @summary 建模平台弹外的公共处理
+        
+
+        @param request: QueryPublicModelEngineRequest
+
+        @return: QueryPublicModelEngineResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.query_public_model_engine_with_options(request, runtime)
 
     def query_recognize_data_by_rule_type_with_options(self, request, runtime):
+        """
+        @summary 获取识别规则类型数据
+        
+
+        @param request: QueryRecognizeDataByRuleTypeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: QueryRecognizeDataByRuleTypeResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.recognize_rules_type):
@@ -8738,10 +12724,28 @@ class Client(OpenApiClient):
         )
 
     def query_recognize_data_by_rule_type(self, request):
+        """
+        @summary 获取识别规则类型数据
+        
+
+        @param request: QueryRecognizeDataByRuleTypeRequest
+
+        @return: QueryRecognizeDataByRuleTypeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.query_recognize_data_by_rule_type_with_options(request, runtime)
 
     def query_recognize_rule_detail_with_options(self, request, runtime):
+        """
+        @summary 查询识别规则详情
+        
+
+        @param request: QueryRecognizeRuleDetailRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: QueryRecognizeRuleDetailResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.sensitive_name):
@@ -8768,10 +12772,28 @@ class Client(OpenApiClient):
         )
 
     def query_recognize_rule_detail(self, request):
+        """
+        @summary 查询识别规则详情
+        
+
+        @param request: QueryRecognizeRuleDetailRequest
+
+        @return: QueryRecognizeRuleDetailResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.query_recognize_rule_detail_with_options(request, runtime)
 
     def query_recognize_rules_type_with_options(self, runtime):
+        """
+        @summary 获取识别规则类型
+        
+
+        @param request: QueryRecognizeRulesTypeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: QueryRecognizeRulesTypeResponse
+        """
         req = open_api_models.OpenApiRequest()
         params = open_api_models.Params(
             action='QueryRecognizeRulesType',
@@ -8790,10 +12812,26 @@ class Client(OpenApiClient):
         )
 
     def query_recognize_rules_type(self):
+        """
+        @summary 获取识别规则类型
+        
+
+        @return: QueryRecognizeRulesTypeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.query_recognize_rules_type_with_options(runtime)
 
     def query_sens_classification_with_options(self, request, runtime):
+        """
+        @summary 获取分类
+        
+
+        @param request: QuerySensClassificationRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: QuerySensClassificationResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.template_id):
@@ -8820,10 +12858,28 @@ class Client(OpenApiClient):
         )
 
     def query_sens_classification(self, request):
+        """
+        @summary 获取分类
+        
+
+        @param request: QuerySensClassificationRequest
+
+        @return: QuerySensClassificationResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.query_sens_classification_with_options(request, runtime)
 
     def query_sens_level_with_options(self, request, runtime):
+        """
+        @summary 获取分级
+        
+
+        @param request: QuerySensLevelRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: QuerySensLevelResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.template_id):
@@ -8850,10 +12906,28 @@ class Client(OpenApiClient):
         )
 
     def query_sens_level(self, request):
+        """
+        @summary 获取分级
+        
+
+        @param request: QuerySensLevelRequest
+
+        @return: QuerySensLevelResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.query_sens_level_with_options(request, runtime)
 
     def query_sens_node_info_with_options(self, request, runtime):
+        """
+        @summary 获取敏感字段
+        
+
+        @param request: QuerySensNodeInfoRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: QuerySensNodeInfoResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.node_id):
@@ -8890,10 +12964,28 @@ class Client(OpenApiClient):
         )
 
     def query_sens_node_info(self, request):
+        """
+        @summary 获取敏感字段
+        
+
+        @param request: QuerySensNodeInfoRequest
+
+        @return: QuerySensNodeInfoResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.query_sens_node_info_with_options(request, runtime)
 
     def register_lineage_relation_with_options(self, tmp_req, runtime):
+        """
+        @summary 注册实体关系，支持用户注册自定义的实体关系
+        
+
+        @param tmp_req: RegisterLineageRelationRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RegisterLineageRelationResponse
+        """
         UtilClient.validate_model(tmp_req)
         request = dataworks_public_20200518_models.RegisterLineageRelationShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
@@ -8922,10 +13014,28 @@ class Client(OpenApiClient):
         )
 
     def register_lineage_relation(self, request):
+        """
+        @summary 注册实体关系，支持用户注册自定义的实体关系
+        
+
+        @param request: RegisterLineageRelationRequest
+
+        @return: RegisterLineageRelationResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.register_lineage_relation_with_options(request, runtime)
 
     def remove_entity_tags_with_options(self, tmp_req, runtime):
+        """
+        @summary Remove entity tags by given qualified name and tag keys
+        
+
+        @param tmp_req: RemoveEntityTagsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RemoveEntityTagsResponse
+        """
         UtilClient.validate_model(tmp_req)
         request = dataworks_public_20200518_models.RemoveEntityTagsShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
@@ -8958,10 +13068,26 @@ class Client(OpenApiClient):
         )
 
     def remove_entity_tags(self, request):
+        """
+        @summary Remove entity tags by given qualified name and tag keys
+        
+
+        @param request: RemoveEntityTagsRequest
+
+        @return: RemoveEntityTagsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.remove_entity_tags_with_options(request, runtime)
 
     def remove_project_member_from_role_with_options(self, request, runtime):
+        """
+
+        @param request: RemoveProjectMemberFromRoleRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RemoveProjectMemberFromRoleResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.project_id):
@@ -8990,10 +13116,26 @@ class Client(OpenApiClient):
         )
 
     def remove_project_member_from_role(self, request):
+        """
+
+        @param request: RemoveProjectMemberFromRoleRequest
+
+        @return: RemoveProjectMemberFromRoleResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.remove_project_member_from_role_with_options(request, runtime)
 
     def restart_instance_with_options(self, request, runtime):
+        """
+        @summary Restarts an instance.
+        
+
+        @param request: RestartInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RestartInstanceResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.instance_id):
@@ -9020,10 +13162,28 @@ class Client(OpenApiClient):
         )
 
     def restart_instance(self, request):
+        """
+        @summary Restarts an instance.
+        
+
+        @param request: RestartInstanceRequest
+
+        @return: RestartInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.restart_instance_with_options(request, runtime)
 
     def resume_instance_with_options(self, request, runtime):
+        """
+        @summary Resumes a suspended instance.
+        
+
+        @param request: ResumeInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ResumeInstanceResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.instance_id):
@@ -9050,10 +13210,28 @@ class Client(OpenApiClient):
         )
 
     def resume_instance(self, request):
+        """
+        @summary Resumes a suspended instance.
+        
+
+        @param request: ResumeInstanceRequest
+
+        @return: ResumeInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.resume_instance_with_options(request, runtime)
 
     def revoke_column_permission_with_options(self, request, runtime):
+        """
+        @summary The ID of the region where the MaxCompute project that contains the destination fields resides. For example, the ID of the China (Shanghai) region is cn-shanghai, and that of the China (Zhangjiakou) region is cn-zhangjiakou. The system automatically determines the value of this parameter based on the endpoint used to call the operation.
+        
+
+        @param request: RevokeColumnPermissionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RevokeColumnPermissionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.columns):
@@ -9088,10 +13266,26 @@ class Client(OpenApiClient):
         )
 
     def revoke_column_permission(self, request):
+        """
+        @summary The ID of the region where the MaxCompute project that contains the destination fields resides. For example, the ID of the China (Shanghai) region is cn-shanghai, and that of the China (Zhangjiakou) region is cn-zhangjiakou. The system automatically determines the value of this parameter based on the endpoint used to call the operation.
+        
+
+        @param request: RevokeColumnPermissionRequest
+
+        @return: RevokeColumnPermissionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.revoke_column_permission_with_options(request, runtime)
 
     def revoke_table_permission_with_options(self, request, runtime):
+        """
+
+        @param request: RevokeTablePermissionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RevokeTablePermissionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.actions):
@@ -9126,12 +13320,18 @@ class Client(OpenApiClient):
         )
 
     def revoke_table_permission(self, request):
+        """
+
+        @param request: RevokeTablePermissionRequest
+
+        @return: RevokeTablePermissionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.revoke_table_permission_with_options(request, runtime)
 
     def run_cycle_dag_nodes_with_options(self, request, runtime):
         """
-        For more information about data backfill, see [Backfill data](~~137937~~).
+        @description For more information about data backfill, see [Backfill data](https://help.aliyun.com/document_detail/137937.html).
         
 
         @param request: RunCycleDagNodesRequest
@@ -9193,7 +13393,7 @@ class Client(OpenApiClient):
 
     def run_cycle_dag_nodes(self, request):
         """
-        For more information about data backfill, see [Backfill data](~~137937~~).
+        @description For more information about data backfill, see [Backfill data](https://help.aliyun.com/document_detail/137937.html).
         
 
         @param request: RunCycleDagNodesRequest
@@ -9204,6 +13404,16 @@ class Client(OpenApiClient):
         return self.run_cycle_dag_nodes_with_options(request, runtime)
 
     def run_manual_dag_nodes_with_options(self, request, runtime):
+        """
+        @summary The region ID. For example, the ID of the China (Shanghai) region is cn-shanghai, and that of the China (Zhangjiakou) region is cn-zhangjiakou. The system automatically determines the value of this parameter based on the endpoint used to call the operation.
+        
+
+        @param request: RunManualDagNodesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RunManualDagNodesResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.biz_date):
@@ -9248,10 +13458,26 @@ class Client(OpenApiClient):
         )
 
     def run_manual_dag_nodes(self, request):
+        """
+        @summary The region ID. For example, the ID of the China (Shanghai) region is cn-shanghai, and that of the China (Zhangjiakou) region is cn-zhangjiakou. The system automatically determines the value of this parameter based on the endpoint used to call the operation.
+        
+
+        @param request: RunManualDagNodesRequest
+
+        @return: RunManualDagNodesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.run_manual_dag_nodes_with_options(request, runtime)
 
     def run_smoke_test_with_options(self, request, runtime):
+        """
+
+        @param request: RunSmokeTestRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RunSmokeTestResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.bizdate):
@@ -9284,10 +13510,24 @@ class Client(OpenApiClient):
         )
 
     def run_smoke_test(self, request):
+        """
+
+        @param request: RunSmokeTestRequest
+
+        @return: RunSmokeTestResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.run_smoke_test_with_options(request, runtime)
 
     def run_trigger_node_with_options(self, request, runtime):
+        """
+
+        @param request: RunTriggerNodeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RunTriggerNodeResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.app_id):
@@ -9318,10 +13558,26 @@ class Client(OpenApiClient):
         )
 
     def run_trigger_node(self, request):
+        """
+
+        @param request: RunTriggerNodeRequest
+
+        @return: RunTriggerNodeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.run_trigger_node_with_options(request, runtime)
 
     def save_data_service_api_test_result_with_options(self, request, runtime):
+        """
+        @summary 保存api测试结果
+        
+
+        @param request: SaveDataServiceApiTestResultRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: SaveDataServiceApiTestResultResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.api_id):
@@ -9354,10 +13610,26 @@ class Client(OpenApiClient):
         )
 
     def save_data_service_api_test_result(self, request):
+        """
+        @summary 保存api测试结果
+        
+
+        @param request: SaveDataServiceApiTestResultRequest
+
+        @return: SaveDataServiceApiTestResultResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.save_data_service_api_test_result_with_options(request, runtime)
 
     def scan_sensitive_data_with_options(self, request, runtime):
+        """
+
+        @param request: ScanSensitiveDataRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ScanSensitiveDataResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -9380,12 +13652,20 @@ class Client(OpenApiClient):
         )
 
     def scan_sensitive_data(self, request):
+        """
+
+        @param request: ScanSensitiveDataRequest
+
+        @return: ScanSensitiveDataResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.scan_sensitive_data_with_options(request, runtime)
 
     def search_meta_tables_with_options(self, request, runtime):
         """
-        The operation that you want to perform. Set the value to *SearchMetaTables**.
+        @summary For more information about the example on how to use the SearchMetaTables operation, see [Examples of DataWorks API operations](https://developer.aliyun.com/article/780879?groupCode=dataworks).
+        
+        @description The operation that you want to perform. Set the value to *SearchMetaTables**.
         
 
         @param request: SearchMetaTablesRequest
@@ -9433,7 +13713,9 @@ class Client(OpenApiClient):
 
     def search_meta_tables(self, request):
         """
-        The operation that you want to perform. Set the value to *SearchMetaTables**.
+        @summary For more information about the example on how to use the SearchMetaTables operation, see [Examples of DataWorks API operations](https://developer.aliyun.com/article/780879?groupCode=dataworks).
+        
+        @description The operation that you want to perform. Set the value to *SearchMetaTables**.
         
 
         @param request: SearchMetaTablesRequest
@@ -9445,7 +13727,7 @@ class Client(OpenApiClient):
 
     def search_nodes_by_output_with_options(self, request, runtime):
         """
-        @deprecated
+        @deprecated OpenAPI SearchNodesByOutput is deprecated
         
 
         @param request: SearchNodesByOutputRequest
@@ -9482,7 +13764,7 @@ class Client(OpenApiClient):
 
     def search_nodes_by_output(self, request):
         """
-        @deprecated
+        @deprecated OpenAPI SearchNodesByOutput is deprecated
         
 
         @param request: SearchNodesByOutputRequest
@@ -9495,7 +13777,7 @@ class Client(OpenApiClient):
 
     def set_data_source_share_with_options(self, request, runtime):
         """
-        @deprecated
+        @deprecated OpenAPI SetDataSourceShare is deprecated
         
 
         @param request: SetDataSourceShareRequest
@@ -9538,7 +13820,7 @@ class Client(OpenApiClient):
 
     def set_data_source_share(self, request):
         """
-        @deprecated
+        @deprecated OpenAPI SetDataSourceShare is deprecated
         
 
         @param request: SetDataSourceShareRequest
@@ -9550,6 +13832,16 @@ class Client(OpenApiClient):
         return self.set_data_source_share_with_options(request, runtime)
 
     def set_entity_tags_with_options(self, tmp_req, runtime):
+        """
+        @summary Set entity tags by given qualified name and tags
+        
+
+        @param tmp_req: SetEntityTagsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: SetEntityTagsResponse
+        """
         UtilClient.validate_model(tmp_req)
         request = dataworks_public_20200518_models.SetEntityTagsShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
@@ -9582,10 +13874,28 @@ class Client(OpenApiClient):
         )
 
     def set_entity_tags(self, request):
+        """
+        @summary Set entity tags by given qualified name and tags
+        
+
+        @param request: SetEntityTagsRequest
+
+        @return: SetEntityTagsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.set_entity_tags_with_options(request, runtime)
 
     def set_success_instance_with_options(self, request, runtime):
+        """
+        @summary The operation that you want to perform. Set the value to *SetSuccessInstance**.
+        
+
+        @param request: SetSuccessInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: SetSuccessInstanceResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.instance_id):
@@ -9612,10 +13922,28 @@ class Client(OpenApiClient):
         )
 
     def set_success_instance(self, request):
+        """
+        @summary The operation that you want to perform. Set the value to *SetSuccessInstance**.
+        
+
+        @param request: SetSuccessInstanceRequest
+
+        @return: SetSuccessInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.set_success_instance_with_options(request, runtime)
 
     def start_dijob_with_options(self, tmp_req, runtime):
+        """
+        @summary 启动数据集成新版解决方案任务
+        
+
+        @param tmp_req: StartDIJobRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: StartDIJobResponse
+        """
         UtilClient.validate_model(tmp_req)
         request = dataworks_public_20200518_models.StartDIJobShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
@@ -9648,10 +13976,28 @@ class Client(OpenApiClient):
         )
 
     def start_dijob(self, request):
+        """
+        @summary 启动数据集成新版解决方案任务
+        
+
+        @param request: StartDIJobRequest
+
+        @return: StartDIJobResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.start_dijob_with_options(request, runtime)
 
     def start_disync_instance_with_options(self, request, runtime):
+        """
+        @summary The operation that you want to perform.
+        
+
+        @param request: StartDISyncInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: StartDISyncInstanceResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.file_id):
@@ -9682,10 +14028,26 @@ class Client(OpenApiClient):
         )
 
     def start_disync_instance(self, request):
+        """
+        @summary The operation that you want to perform.
+        
+
+        @param request: StartDISyncInstanceRequest
+
+        @return: StartDISyncInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.start_disync_instance_with_options(request, runtime)
 
     def start_migration_with_options(self, request, runtime):
+        """
+
+        @param request: StartMigrationRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: StartMigrationResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.migration_id):
@@ -9712,10 +14074,26 @@ class Client(OpenApiClient):
         )
 
     def start_migration(self, request):
+        """
+
+        @param request: StartMigrationRequest
+
+        @return: StartMigrationResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.start_migration_with_options(request, runtime)
 
     def stop_dijob_with_options(self, request, runtime):
+        """
+        @summary 停止数据集成新版解决方案任务
+        
+
+        @param request: StopDIJobRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: StopDIJobResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.dijob_id):
@@ -9740,10 +14118,28 @@ class Client(OpenApiClient):
         )
 
     def stop_dijob(self, request):
+        """
+        @summary 停止数据集成新版解决方案任务
+        
+
+        @param request: StopDIJobRequest
+
+        @return: StopDIJobResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.stop_dijob_with_options(request, runtime)
 
     def stop_disync_instance_with_options(self, request, runtime):
+        """
+        @summary The operation that you want to perform.
+        
+
+        @param request: StopDISyncInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: StopDISyncInstanceResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.file_id):
@@ -9772,10 +14168,26 @@ class Client(OpenApiClient):
         )
 
     def stop_disync_instance(self, request):
+        """
+        @summary The operation that you want to perform.
+        
+
+        @param request: StopDISyncInstanceRequest
+
+        @return: StopDISyncInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.stop_disync_instance_with_options(request, runtime)
 
     def stop_instance_with_options(self, request, runtime):
+        """
+
+        @param request: StopInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: StopInstanceResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.instance_id):
@@ -9802,10 +14214,26 @@ class Client(OpenApiClient):
         )
 
     def stop_instance(self, request):
+        """
+
+        @param request: StopInstanceRequest
+
+        @return: StopInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.stop_instance_with_options(request, runtime)
 
     def submit_data_service_api_with_options(self, request, runtime):
+        """
+        @summary 发布APi
+        
+
+        @param request: SubmitDataServiceApiRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: SubmitDataServiceApiResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.api_id):
@@ -9834,10 +14262,28 @@ class Client(OpenApiClient):
         )
 
     def submit_data_service_api(self, request):
+        """
+        @summary 发布APi
+        
+
+        @param request: SubmitDataServiceApiRequest
+
+        @return: SubmitDataServiceApiResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.submit_data_service_api_with_options(request, runtime)
 
     def submit_file_with_options(self, request, runtime):
+        """
+        @summary The operation that you want to perform. Set the value to *SubmitFile**.
+        
+
+        @param request: SubmitFileRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: SubmitFileResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.comment):
@@ -9870,10 +14316,28 @@ class Client(OpenApiClient):
         )
 
     def submit_file(self, request):
+        """
+        @summary The operation that you want to perform. Set the value to *SubmitFile**.
+        
+
+        @param request: SubmitFileRequest
+
+        @return: SubmitFileResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.submit_file_with_options(request, runtime)
 
     def suspend_instance_with_options(self, request, runtime):
+        """
+        @summary Suspends an instance.
+        
+
+        @param request: SuspendInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: SuspendInstanceResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.instance_id):
@@ -9900,10 +14364,28 @@ class Client(OpenApiClient):
         )
 
     def suspend_instance(self, request):
+        """
+        @summary Suspends an instance.
+        
+
+        @param request: SuspendInstanceRequest
+
+        @return: SuspendInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.suspend_instance_with_options(request, runtime)
 
     def terminate_disync_instance_with_options(self, request, runtime):
+        """
+        @summary The operation that you want to perform. Set the value to *TerminateDISyncInstance**.
+        
+
+        @param request: TerminateDISyncInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: TerminateDISyncInstanceResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.file_id):
@@ -9932,10 +14414,28 @@ class Client(OpenApiClient):
         )
 
     def terminate_disync_instance(self, request):
+        """
+        @summary The operation that you want to perform. Set the value to *TerminateDISyncInstance**.
+        
+
+        @param request: TerminateDISyncInstanceRequest
+
+        @return: TerminateDISyncInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.terminate_disync_instance_with_options(request, runtime)
 
     def test_data_service_api_with_options(self, request, runtime):
+        """
+        @summary Tests a DataService Studio API in asynchronous mode. You can call the GetDataServiceApiTest operation to query the test result.
+        
+
+        @param request: TestDataServiceApiRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: TestDataServiceApiResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.api_id):
@@ -9972,10 +14472,26 @@ class Client(OpenApiClient):
         )
 
     def test_data_service_api(self, request):
+        """
+        @summary Tests a DataService Studio API in asynchronous mode. You can call the GetDataServiceApiTest operation to query the test result.
+        
+
+        @param request: TestDataServiceApiRequest
+
+        @return: TestDataServiceApiResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.test_data_service_api_with_options(request, runtime)
 
     def test_network_connection_with_options(self, request, runtime):
+        """
+
+        @param request: TestNetworkConnectionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: TestNetworkConnectionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.datasource_name):
@@ -10006,10 +14522,24 @@ class Client(OpenApiClient):
         )
 
     def test_network_connection(self, request):
+        """
+
+        @param request: TestNetworkConnectionRequest
+
+        @return: TestNetworkConnectionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.test_network_connection_with_options(request, runtime)
 
     def top_ten_elapsed_time_instance_with_options(self, request, runtime):
+        """
+
+        @param request: TopTenElapsedTimeInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: TopTenElapsedTimeInstanceResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.project_id):
@@ -10034,10 +14564,24 @@ class Client(OpenApiClient):
         )
 
     def top_ten_elapsed_time_instance(self, request):
+        """
+
+        @param request: TopTenElapsedTimeInstanceRequest
+
+        @return: TopTenElapsedTimeInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.top_ten_elapsed_time_instance_with_options(request, runtime)
 
     def top_ten_error_times_instance_with_options(self, request, runtime):
+        """
+
+        @param request: TopTenErrorTimesInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: TopTenErrorTimesInstanceResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.project_id):
@@ -10062,10 +14606,26 @@ class Client(OpenApiClient):
         )
 
     def top_ten_error_times_instance(self, request):
+        """
+
+        @param request: TopTenErrorTimesInstanceRequest
+
+        @return: TopTenErrorTimesInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.top_ten_error_times_instance_with_options(request, runtime)
 
     def umount_directory_with_options(self, request, runtime):
+        """
+        @summary 将数据专辑从数据分析的左侧导航目录移除（卸载）
+        
+
+        @param request: UmountDirectoryRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UmountDirectoryResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.target_id):
@@ -10094,10 +14654,28 @@ class Client(OpenApiClient):
         )
 
     def umount_directory(self, request):
+        """
+        @summary 将数据专辑从数据分析的左侧导航目录移除（卸载）
+        
+
+        @param request: UmountDirectoryRequest
+
+        @return: UmountDirectoryResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.umount_directory_with_options(request, runtime)
 
     def update_baseline_with_options(self, tmp_req, runtime):
+        """
+        @summary 更新基线
+        
+
+        @param tmp_req: UpdateBaselineRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateBaselineResponse
+        """
         UtilClient.validate_model(tmp_req)
         request = dataworks_public_20200518_models.UpdateBaselineShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
@@ -10152,10 +14730,28 @@ class Client(OpenApiClient):
         )
 
     def update_baseline(self, request):
+        """
+        @summary 更新基线
+        
+
+        @param request: UpdateBaselineRequest
+
+        @return: UpdateBaselineResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_baseline_with_options(request, runtime)
 
     def update_business_with_options(self, request, runtime):
+        """
+        @summary Updates a workflow.
+        
+
+        @param request: UpdateBusinessRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateBusinessResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.business_id):
@@ -10190,12 +14786,20 @@ class Client(OpenApiClient):
         )
 
     def update_business(self, request):
+        """
+        @summary Updates a workflow.
+        
+
+        @param request: UpdateBusinessRequest
+
+        @return: UpdateBusinessResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_business_with_options(request, runtime)
 
     def update_connection_with_options(self, request, runtime):
         """
-        @deprecated
+        @deprecated OpenAPI UpdateConnection is deprecated
         
 
         @param request: UpdateConnectionRequest
@@ -10238,7 +14842,7 @@ class Client(OpenApiClient):
 
     def update_connection(self, request):
         """
-        @deprecated
+        @deprecated OpenAPI UpdateConnection is deprecated
         
 
         @param request: UpdateConnectionRequest
@@ -10250,6 +14854,16 @@ class Client(OpenApiClient):
         return self.update_connection_with_options(request, runtime)
 
     def update_dialarm_rule_with_options(self, tmp_req, runtime):
+        """
+        @summary 更新数据集成新版告警规则
+        
+
+        @param tmp_req: UpdateDIAlarmRuleRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateDIAlarmRuleResponse
+        """
         UtilClient.validate_model(tmp_req)
         request = dataworks_public_20200518_models.UpdateDIAlarmRuleShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
@@ -10290,10 +14904,28 @@ class Client(OpenApiClient):
         )
 
     def update_dialarm_rule(self, request):
+        """
+        @summary 更新数据集成新版告警规则
+        
+
+        @param request: UpdateDIAlarmRuleRequest
+
+        @return: UpdateDIAlarmRuleResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_dialarm_rule_with_options(request, runtime)
 
     def update_dijob_with_options(self, tmp_req, runtime):
+        """
+        @summary 更新数据集成新版解决方案任务
+        
+
+        @param tmp_req: UpdateDIJobRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateDIJobResponse
+        """
         UtilClient.validate_model(tmp_req)
         request = dataworks_public_20200518_models.UpdateDIJobShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
@@ -10338,12 +14970,22 @@ class Client(OpenApiClient):
         )
 
     def update_dijob(self, request):
+        """
+        @summary 更新数据集成新版解决方案任务
+        
+
+        @param request: UpdateDIJobRequest
+
+        @return: UpdateDIJobResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_dijob_with_options(request, runtime)
 
     def update_diproject_config_with_options(self, request, runtime):
         """
-        The operation that you want to perform. Set the value to *UpdateDIProjectConfig**.
+        @summary DataWorks allows you to specify a default global configuration only for the processing rules of DDL messages in synchronization solutions. After you configure the *processing rules of DDL messages** in synchronization solutions, the configuration is used as the default global configuration and applies to all real-time synchronization nodes in the solutions. You can modify the **processing rules of DDL messages** based on your business requirements. For more information about how to configure a synchronization solution, see [Synchronization solutions](https://help.aliyun.com/document_detail/199008.html).
+        
+        @description The operation that you want to perform. Set the value to *UpdateDIProjectConfig**.
         
 
         @param request: UpdateDIProjectConfigRequest
@@ -10383,7 +15025,9 @@ class Client(OpenApiClient):
 
     def update_diproject_config(self, request):
         """
-        The operation that you want to perform. Set the value to *UpdateDIProjectConfig**.
+        @summary DataWorks allows you to specify a default global configuration only for the processing rules of DDL messages in synchronization solutions. After you configure the *processing rules of DDL messages** in synchronization solutions, the configuration is used as the default global configuration and applies to all real-time synchronization nodes in the solutions. You can modify the **processing rules of DDL messages** based on your business requirements. For more information about how to configure a synchronization solution, see [Synchronization solutions](https://help.aliyun.com/document_detail/199008.html).
+        
+        @description The operation that you want to perform. Set the value to *UpdateDIProjectConfig**.
         
 
         @param request: UpdateDIProjectConfigRequest
@@ -10394,6 +15038,14 @@ class Client(OpenApiClient):
         return self.update_diproject_config_with_options(request, runtime)
 
     def update_disync_task_with_options(self, request, runtime):
+        """
+
+        @param request: UpdateDISyncTaskRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateDISyncTaskResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.file_id):
@@ -10426,10 +15078,26 @@ class Client(OpenApiClient):
         )
 
     def update_disync_task(self, request):
+        """
+
+        @param request: UpdateDISyncTaskRequest
+
+        @return: UpdateDISyncTaskResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_disync_task_with_options(request, runtime)
 
     def update_data_service_api_with_options(self, request, runtime):
+        """
+        @summary Updates the information about an API in the development state in DataService Studio.
+        
+
+        @param request: UpdateDataServiceApiRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateDataServiceApiResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.api_description):
@@ -10480,10 +15148,26 @@ class Client(OpenApiClient):
         )
 
     def update_data_service_api(self, request):
+        """
+        @summary Updates the information about an API in the development state in DataService Studio.
+        
+
+        @param request: UpdateDataServiceApiRequest
+
+        @return: UpdateDataServiceApiResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_data_service_api_with_options(request, runtime)
 
     def update_data_source_with_options(self, request, runtime):
+        """
+
+        @param request: UpdateDataSourceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateDataSourceResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.content):
@@ -10516,12 +15200,18 @@ class Client(OpenApiClient):
         )
 
     def update_data_source(self, request):
+        """
+
+        @param request: UpdateDataSourceRequest
+
+        @return: UpdateDataSourceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_data_source_with_options(request, runtime)
 
     def update_file_with_options(self, request, runtime):
         """
-        When you debug or call this operation, you must specify new values for the specified parameters to ensure that the values are different from the original configurations of the file. For example, if the original value of a parameter is A, you must change the value of this parameter to B before you commit the node. If you set the parameter to A, an exception that indicates invalid data occurs.
+        @description When you debug or call this operation, you must specify new values for the specified parameters to ensure that the values are different from the original configurations of the file. For example, if the original value of a parameter is A, you must change the value of this parameter to B before you commit the node. If you set the parameter to A, an exception that indicates invalid data occurs.
         
 
         @param request: UpdateFileRequest
@@ -10613,7 +15303,7 @@ class Client(OpenApiClient):
 
     def update_file(self, request):
         """
-        When you debug or call this operation, you must specify new values for the specified parameters to ensure that the values are different from the original configurations of the file. For example, if the original value of a parameter is A, you must change the value of this parameter to B before you commit the node. If you set the parameter to A, an exception that indicates invalid data occurs.
+        @description When you debug or call this operation, you must specify new values for the specified parameters to ensure that the values are different from the original configurations of the file. For example, if the original value of a parameter is A, you must change the value of this parameter to B before you commit the node. If you set the parameter to A, an exception that indicates invalid data occurs.
         
 
         @param request: UpdateFileRequest
@@ -10624,6 +15314,14 @@ class Client(OpenApiClient):
         return self.update_file_with_options(request, runtime)
 
     def update_folder_with_options(self, request, runtime):
+        """
+
+        @param request: UpdateFolderRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateFolderResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.folder_id):
@@ -10654,10 +15352,26 @@ class Client(OpenApiClient):
         )
 
     def update_folder(self, request):
+        """
+
+        @param request: UpdateFolderRequest
+
+        @return: UpdateFolderResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_folder_with_options(request, runtime)
 
     def update_ideevent_result_with_options(self, request, runtime):
+        """
+        @summary The operation that you want to perform.
+        
+
+        @param request: UpdateIDEEventResultRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateIDEEventResultResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.check_result):
@@ -10688,10 +15402,28 @@ class Client(OpenApiClient):
         )
 
     def update_ideevent_result(self, request):
+        """
+        @summary The operation that you want to perform.
+        
+
+        @param request: UpdateIDEEventResultRequest
+
+        @return: UpdateIDEEventResultResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_ideevent_result_with_options(request, runtime)
 
     def update_meta_category_with_options(self, request, runtime):
+        """
+        @summary Updates a category.
+        
+
+        @param request: UpdateMetaCategoryRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateMetaCategoryResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.category_id):
@@ -10720,12 +15452,22 @@ class Client(OpenApiClient):
         )
 
     def update_meta_category(self, request):
+        """
+        @summary Updates a category.
+        
+
+        @param request: UpdateMetaCategoryRequest
+
+        @return: UpdateMetaCategoryResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_meta_category_with_options(request, runtime)
 
     def update_meta_collection_with_options(self, request, runtime):
         """
-        You must configure at least one of the Name and Comment parameters when you update a collection.
+        @summary Only the name and comment of a collection can be updated.
+        
+        @description You must configure at least one of the Name and Comment parameters when you update a collection.
         
 
         @param request: UpdateMetaCollectionRequest
@@ -10763,7 +15505,9 @@ class Client(OpenApiClient):
 
     def update_meta_collection(self, request):
         """
-        You must configure at least one of the Name and Comment parameters when you update a collection.
+        @summary Only the name and comment of a collection can be updated.
+        
+        @description You must configure at least one of the Name and Comment parameters when you update a collection.
         
 
         @param request: UpdateMetaCollectionRequest
@@ -10774,6 +15518,16 @@ class Client(OpenApiClient):
         return self.update_meta_collection_with_options(request, runtime)
 
     def update_meta_table_with_options(self, request, runtime):
+        """
+        @summary Updates the metadata information about a table.
+        
+
+        @param request: UpdateMetaTableRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateMetaTableResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.caption):
@@ -10820,10 +15574,28 @@ class Client(OpenApiClient):
         )
 
     def update_meta_table(self, request):
+        """
+        @summary Updates the metadata information about a table.
+        
+
+        @param request: UpdateMetaTableRequest
+
+        @return: UpdateMetaTableResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_meta_table_with_options(request, runtime)
 
     def update_meta_table_intro_wiki_with_options(self, request, runtime):
+        """
+        @summary Updates the instructions on how to use a metatable. If no instruction on how to use the metatable is available, the instructions that are specified by calling this operation are added.
+        
+
+        @param request: UpdateMetaTableIntroWikiRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateMetaTableIntroWikiResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.table_guid):
@@ -10852,10 +15624,26 @@ class Client(OpenApiClient):
         )
 
     def update_meta_table_intro_wiki(self, request):
+        """
+        @summary Updates the instructions on how to use a metatable. If no instruction on how to use the metatable is available, the instructions that are specified by calling this operation are added.
+        
+
+        @param request: UpdateMetaTableIntroWikiRequest
+
+        @return: UpdateMetaTableIntroWikiResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_meta_table_intro_wiki_with_options(request, runtime)
 
     def update_node_owner_with_options(self, request, runtime):
+        """
+
+        @param request: UpdateNodeOwnerRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateNodeOwnerResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.node_id):
@@ -10884,10 +15672,24 @@ class Client(OpenApiClient):
         )
 
     def update_node_owner(self, request):
+        """
+
+        @param request: UpdateNodeOwnerRequest
+
+        @return: UpdateNodeOwnerResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_node_owner_with_options(request, runtime)
 
     def update_node_run_mode_with_options(self, request, runtime):
+        """
+
+        @param request: UpdateNodeRunModeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateNodeRunModeResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.node_id):
@@ -10916,10 +15718,24 @@ class Client(OpenApiClient):
         )
 
     def update_node_run_mode(self, request):
+        """
+
+        @param request: UpdateNodeRunModeRequest
+
+        @return: UpdateNodeRunModeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_node_run_mode_with_options(request, runtime)
 
     def update_quality_follower_with_options(self, request, runtime):
+        """
+
+        @param request: UpdateQualityFollowerRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateQualityFollowerResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.alarm_mode):
@@ -10952,10 +15768,24 @@ class Client(OpenApiClient):
         )
 
     def update_quality_follower(self, request):
+        """
+
+        @param request: UpdateQualityFollowerRequest
+
+        @return: UpdateQualityFollowerResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_quality_follower_with_options(request, runtime)
 
     def update_quality_rule_with_options(self, request, runtime):
+        """
+
+        @param request: UpdateQualityRuleRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateQualityRuleResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.block_type):
@@ -11022,10 +15852,24 @@ class Client(OpenApiClient):
         )
 
     def update_quality_rule(self, request):
+        """
+
+        @param request: UpdateQualityRuleRequest
+
+        @return: UpdateQualityRuleResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_quality_rule_with_options(request, runtime)
 
     def update_remind_with_options(self, request, runtime):
+        """
+
+        @param request: UpdateRemindRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateRemindResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.alert_interval):
@@ -11084,10 +15928,26 @@ class Client(OpenApiClient):
         )
 
     def update_remind(self, request):
+        """
+
+        @param request: UpdateRemindRequest
+
+        @return: UpdateRemindResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_remind_with_options(request, runtime)
 
     def update_table_with_options(self, request, runtime):
+        """
+        @summary The operation that you want to perform. Set the value to *UpdateTable**.
+        
+
+        @param request: UpdateTableRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateTableResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.app_guid):
@@ -11152,10 +16012,26 @@ class Client(OpenApiClient):
         )
 
     def update_table(self, request):
+        """
+        @summary The operation that you want to perform. Set the value to *UpdateTable**.
+        
+
+        @param request: UpdateTableRequest
+
+        @return: UpdateTableResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_table_with_options(request, runtime)
 
     def update_table_add_column_with_options(self, request, runtime):
+        """
+
+        @param request: UpdateTableAddColumnRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateTableAddColumnResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.table_guid):
@@ -11184,10 +16060,24 @@ class Client(OpenApiClient):
         )
 
     def update_table_add_column(self, request):
+        """
+
+        @param request: UpdateTableAddColumnRequest
+
+        @return: UpdateTableAddColumnResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_table_add_column_with_options(request, runtime)
 
     def update_table_level_with_options(self, request, runtime):
+        """
+
+        @param request: UpdateTableLevelRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateTableLevelResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.description):
@@ -11220,10 +16110,24 @@ class Client(OpenApiClient):
         )
 
     def update_table_level(self, request):
+        """
+
+        @param request: UpdateTableLevelRequest
+
+        @return: UpdateTableLevelResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_table_level_with_options(request, runtime)
 
     def update_table_model_info_with_options(self, request, runtime):
+        """
+
+        @param request: UpdateTableModelInfoRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateTableModelInfoResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.first_level_theme_id):
@@ -11256,10 +16160,24 @@ class Client(OpenApiClient):
         )
 
     def update_table_model_info(self, request):
+        """
+
+        @param request: UpdateTableModelInfoRequest
+
+        @return: UpdateTableModelInfoResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_table_model_info_with_options(request, runtime)
 
     def update_table_theme_with_options(self, request, runtime):
+        """
+
+        @param request: UpdateTableThemeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateTableThemeResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.name):
@@ -11288,10 +16206,24 @@ class Client(OpenApiClient):
         )
 
     def update_table_theme(self, request):
+        """
+
+        @param request: UpdateTableThemeRequest
+
+        @return: UpdateTableThemeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_table_theme_with_options(request, runtime)
 
     def update_udf_file_with_options(self, request, runtime):
+        """
+
+        @param request: UpdateUdfFileRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateUdfFileResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.class_name):
@@ -11338,10 +16270,26 @@ class Client(OpenApiClient):
         )
 
     def update_udf_file(self, request):
+        """
+
+        @param request: UpdateUdfFileRequest
+
+        @return: UpdateUdfFileResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_udf_file_with_options(request, runtime)
 
     def update_workbench_event_result_with_options(self, request, runtime):
+        """
+        @summary 更新运维中心扩展程序的回调结果
+        
+
+        @param request: UpdateWorkbenchEventResultRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateWorkbenchEventResultResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.check_result):
@@ -11372,5 +16320,13 @@ class Client(OpenApiClient):
         )
 
     def update_workbench_event_result(self, request):
+        """
+        @summary 更新运维中心扩展程序的回调结果
+        
+
+        @param request: UpdateWorkbenchEventResultRequest
+
+        @return: UpdateWorkbenchEventResultResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_workbench_event_result_with_options(request, runtime)
