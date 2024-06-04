@@ -33,6 +33,19 @@ class Client(OpenApiClient):
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
     def activate_zones_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary Restores nodes in disabled zones. This operation is available only for multi-zone Elasticsearch clusters.
+        
+
+        @param request: ActivateZonesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ActivateZonesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -59,11 +72,30 @@ class Client(OpenApiClient):
         )
 
     def activate_zones(self, instance_id, request):
+        """
+        @summary Restores nodes in disabled zones. This operation is available only for multi-zone Elasticsearch clusters.
+        
+
+        @param request: ActivateZonesRequest
+
+        @return: ActivateZonesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.activate_zones_with_options(instance_id, request, headers, runtime)
 
     def add_connectable_cluster_with_options(self, instance_id, request, headers, runtime):
+        """
+
+        @param request: AddConnectableClusterRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AddConnectableClusterResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -90,11 +122,30 @@ class Client(OpenApiClient):
         )
 
     def add_connectable_cluster(self, instance_id, request):
+        """
+
+        @param request: AddConnectableClusterRequest
+
+        @return: AddConnectableClusterResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.add_connectable_cluster_with_options(instance_id, request, headers, runtime)
 
     def add_snapshot_repo_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary Call the AddSnapshotRepo to create a reference repository when configuring a cross-cluster OSS repository.
+        
+
+        @param request: AddSnapshotRepoRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AddSnapshotRepoResponse
+        """
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             headers=headers,
@@ -117,11 +168,32 @@ class Client(OpenApiClient):
         )
 
     def add_snapshot_repo(self, instance_id, request):
+        """
+        @summary Call the AddSnapshotRepo to create a reference repository when configuring a cross-cluster OSS repository.
+        
+
+        @param request: AddSnapshotRepoRequest
+
+        @return: AddSnapshotRepoResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.add_snapshot_repo_with_options(instance_id, request, headers, runtime)
 
     def cancel_deletion_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary Restores an Elasticsearch cluster that is frozen after it is released.
+        
+
+        @param request: CancelDeletionRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CancelDeletionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -147,11 +219,32 @@ class Client(OpenApiClient):
         )
 
     def cancel_deletion(self, instance_id, request):
+        """
+        @summary Restores an Elasticsearch cluster that is frozen after it is released.
+        
+
+        @param request: CancelDeletionRequest
+
+        @return: CancelDeletionResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.cancel_deletion_with_options(instance_id, request, headers, runtime)
 
     def cancel_logstash_deletion_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary Restores a Logstash cluster that is frozen after it is released.
+        
+
+        @param request: CancelLogstashDeletionRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CancelLogstashDeletionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -177,11 +270,30 @@ class Client(OpenApiClient):
         )
 
     def cancel_logstash_deletion(self, instance_id, request):
+        """
+        @summary Restores a Logstash cluster that is frozen after it is released.
+        
+
+        @param request: CancelLogstashDeletionRequest
+
+        @return: CancelLogstashDeletionResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.cancel_logstash_deletion_with_options(instance_id, request, headers, runtime)
 
     def cancel_task_with_options(self, instance_id, request, headers, runtime):
+        """
+
+        @param request: CancelTaskRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CancelTaskResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -209,11 +321,30 @@ class Client(OpenApiClient):
         )
 
     def cancel_task(self, instance_id, request):
+        """
+
+        @param request: CancelTaskRequest
+
+        @return: CancelTaskResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.cancel_task_with_options(instance_id, request, headers, runtime)
 
     def capacity_plan_with_options(self, request, headers, runtime):
+        """
+        @summary 容量规划
+        
+
+        @param request: CapacityPlanRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CapacityPlanResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.complex_query_available):
@@ -245,11 +376,32 @@ class Client(OpenApiClient):
         )
 
     def capacity_plan(self, request):
+        """
+        @summary 容量规划
+        
+
+        @param request: CapacityPlanRequest
+
+        @return: CapacityPlanResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.capacity_plan_with_options(request, headers, runtime)
 
     def close_diagnosis_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary 关闭实例的智能运维功能
+        
+
+        @param request: CloseDiagnosisRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CloseDiagnosisResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -277,11 +429,30 @@ class Client(OpenApiClient):
         )
 
     def close_diagnosis(self, instance_id, request):
+        """
+        @summary 关闭实例的智能运维功能
+        
+
+        @param request: CloseDiagnosisRequest
+
+        @return: CloseDiagnosisResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.close_diagnosis_with_options(instance_id, request, headers, runtime)
 
     def close_https_with_options(self, instance_id, request, headers, runtime):
+        """
+
+        @param request: CloseHttpsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CloseHttpsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -307,11 +478,30 @@ class Client(OpenApiClient):
         )
 
     def close_https(self, instance_id, request):
+        """
+
+        @param request: CloseHttpsRequest
+
+        @return: CloseHttpsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.close_https_with_options(instance_id, request, headers, runtime)
 
     def close_managed_index_with_options(self, instance_id, index, request, headers, runtime):
+        """
+        @summary 关闭索引托管
+        
+
+        @param request: CloseManagedIndexRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CloseManagedIndexResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -337,11 +527,32 @@ class Client(OpenApiClient):
         )
 
     def close_managed_index(self, instance_id, index, request):
+        """
+        @summary 关闭索引托管
+        
+
+        @param request: CloseManagedIndexRequest
+
+        @return: CloseManagedIndexResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.close_managed_index_with_options(instance_id, index, request, headers, runtime)
 
     def create_collector_with_options(self, request, headers, runtime):
+        """
+        @summary 创建收集器
+        
+
+        @param request: CreateCollectorRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateCollectorResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -385,11 +596,32 @@ class Client(OpenApiClient):
         )
 
     def create_collector(self, request):
+        """
+        @summary 创建收集器
+        
+
+        @param request: CreateCollectorRequest
+
+        @return: CreateCollectorResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.create_collector_with_options(request, headers, runtime)
 
     def create_component_index_with_options(self, instance_id, name, request, headers, runtime):
+        """
+        @summary 创建Elasticsearch组合模板
+        
+
+        @param request: CreateComponentIndexRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateComponentIndexResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.meta):
@@ -417,11 +649,32 @@ class Client(OpenApiClient):
         )
 
     def create_component_index(self, instance_id, name, request):
+        """
+        @summary 创建Elasticsearch组合模板
+        
+
+        @param request: CreateComponentIndexRequest
+
+        @return: CreateComponentIndexResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.create_component_index_with_options(instance_id, name, request, headers, runtime)
 
     def create_data_stream_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary 创建数据流
+        
+
+        @param request: CreateDataStreamRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateDataStreamResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -448,11 +701,32 @@ class Client(OpenApiClient):
         )
 
     def create_data_stream(self, instance_id, request):
+        """
+        @summary 创建数据流
+        
+
+        @param request: CreateDataStreamRequest
+
+        @return: CreateDataStreamResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.create_data_stream_with_options(instance_id, request, headers, runtime)
 
     def create_ilmpolicy_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary 创建索引生命周期策略
+        
+
+        @param request: CreateILMPolicyRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateILMPolicyResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -479,11 +753,32 @@ class Client(OpenApiClient):
         )
 
     def create_ilmpolicy(self, instance_id, request):
+        """
+        @summary 创建索引生命周期策略
+        
+
+        @param request: CreateILMPolicyRequest
+
+        @return: CreateILMPolicyResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.create_ilmpolicy_with_options(instance_id, request, headers, runtime)
 
     def create_index_template_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary 创建索引模版
+        
+
+        @param request: CreateIndexTemplateRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateIndexTemplateResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -523,11 +818,32 @@ class Client(OpenApiClient):
         )
 
     def create_index_template(self, instance_id, request):
+        """
+        @summary 创建索引模版
+        
+
+        @param request: CreateIndexTemplateRequest
+
+        @return: CreateIndexTemplateResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.create_index_template_with_options(instance_id, request, headers, runtime)
 
     def create_logstash_with_options(self, request, headers, runtime):
+        """
+        @summary 创建logstash实例
+        
+
+        @param request: CreateLogstashRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateLogstashResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -571,11 +887,32 @@ class Client(OpenApiClient):
         )
 
     def create_logstash(self, request):
+        """
+        @summary 创建logstash实例
+        
+
+        @param request: CreateLogstashRequest
+
+        @return: CreateLogstashResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.create_logstash_with_options(request, headers, runtime)
 
     def create_pipelines_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary 创建Logstash管道任务
+        
+
+        @param request: CreatePipelinesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreatePipelinesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -604,11 +941,30 @@ class Client(OpenApiClient):
         )
 
     def create_pipelines(self, instance_id, request):
+        """
+        @summary 创建Logstash管道任务
+        
+
+        @param request: CreatePipelinesRequest
+
+        @return: CreatePipelinesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.create_pipelines_with_options(instance_id, request, headers, runtime)
 
     def create_snapshot_with_options(self, instance_id, request, headers, runtime):
+        """
+
+        @param request: CreateSnapshotRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateSnapshotResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -635,13 +991,21 @@ class Client(OpenApiClient):
         )
 
     def create_snapshot(self, instance_id, request):
+        """
+
+        @param request: CreateSnapshotRequest
+
+        @return: CreateSnapshotResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.create_snapshot_with_options(instance_id, request, headers, runtime)
 
     def create_vpc_endpoint_with_options(self, instance_id, request, headers, runtime):
         """
-        5FFD9ED4-C2EC-4E89-B22B-1ACB6FE1D\\\\*\\*\
+        @summary 创建私网链接VPC终端节点
+        
+        @description 5FFD9ED4-C2EC-4E89-B22B-1ACB6FE1D\\\\*\\*\
         
 
         @param request: CreateVpcEndpointRequest
@@ -687,7 +1051,9 @@ class Client(OpenApiClient):
 
     def create_vpc_endpoint(self, instance_id, request):
         """
-        5FFD9ED4-C2EC-4E89-B22B-1ACB6FE1D\\\\*\\*\
+        @summary 创建私网链接VPC终端节点
+        
+        @description 5FFD9ED4-C2EC-4E89-B22B-1ACB6FE1D\\\\*\\*\
         
 
         @param request: CreateVpcEndpointRequest
@@ -699,6 +1065,19 @@ class Client(OpenApiClient):
         return self.create_vpc_endpoint_with_options(instance_id, request, headers, runtime)
 
     def deactivate_zones_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary Call deactivatezones to offline part of the zone when multiple zones are available. And you need to migrate the nodes in the offline zone to other zones.
+        
+
+        @param request: DeactivateZonesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeactivateZonesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -725,11 +1104,32 @@ class Client(OpenApiClient):
         )
 
     def deactivate_zones(self, instance_id, request):
+        """
+        @summary Call deactivatezones to offline part of the zone when multiple zones are available. And you need to migrate the nodes in the offline zone to other zones.
+        
+
+        @param request: DeactivateZonesRequest
+
+        @return: DeactivateZonesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.deactivate_zones_with_options(instance_id, request, headers, runtime)
 
     def delete_collector_with_options(self, res_id, request, headers, runtime):
+        """
+        @summary Deletes a shipper.
+        
+
+        @param request: DeleteCollectorRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteCollectorResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -755,11 +1155,30 @@ class Client(OpenApiClient):
         )
 
     def delete_collector(self, res_id, request):
+        """
+        @summary Deletes a shipper.
+        
+
+        @param request: DeleteCollectorRequest
+
+        @return: DeleteCollectorResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.delete_collector_with_options(res_id, request, headers, runtime)
 
     def delete_component_index_with_options(self, instance_id, name, headers, runtime):
+        """
+        @summary 删除组合索引模板
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteComponentIndexResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -780,11 +1199,28 @@ class Client(OpenApiClient):
         )
 
     def delete_component_index(self, instance_id, name):
+        """
+        @summary 删除组合索引模板
+        
+
+        @return: DeleteComponentIndexResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.delete_component_index_with_options(instance_id, name, headers, runtime)
 
     def delete_connected_cluster_with_options(self, instance_id, request, headers, runtime):
+        """
+
+        @param request: DeleteConnectedClusterRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteConnectedClusterResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -812,11 +1248,30 @@ class Client(OpenApiClient):
         )
 
     def delete_connected_cluster(self, instance_id, request):
+        """
+
+        @param request: DeleteConnectedClusterRequest
+
+        @return: DeleteConnectedClusterResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.delete_connected_cluster_with_options(instance_id, request, headers, runtime)
 
     def delete_data_stream_with_options(self, instance_id, data_stream, request, headers, runtime):
+        """
+        @summary 删除数据流
+        
+
+        @param request: DeleteDataStreamRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteDataStreamResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -842,11 +1297,30 @@ class Client(OpenApiClient):
         )
 
     def delete_data_stream(self, instance_id, data_stream, request):
+        """
+        @summary 删除数据流
+        
+
+        @param request: DeleteDataStreamRequest
+
+        @return: DeleteDataStreamResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.delete_data_stream_with_options(instance_id, data_stream, request, headers, runtime)
 
     def delete_data_task_with_options(self, instance_id, request, headers, runtime):
+        """
+
+        @param request: DeleteDataTaskRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteDataTaskResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -874,11 +1348,28 @@ class Client(OpenApiClient):
         )
 
     def delete_data_task(self, instance_id, request):
+        """
+
+        @param request: DeleteDataTaskRequest
+
+        @return: DeleteDataTaskResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.delete_data_task_with_options(instance_id, request, headers, runtime)
 
     def delete_deprecated_template_with_options(self, instance_id, name, headers, runtime):
+        """
+        @summary 删除历史索引模板
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteDeprecatedTemplateResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -899,11 +1390,26 @@ class Client(OpenApiClient):
         )
 
     def delete_deprecated_template(self, instance_id, name):
+        """
+        @summary 删除历史索引模板
+        
+
+        @return: DeleteDeprecatedTemplateResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.delete_deprecated_template_with_options(instance_id, name, headers, runtime)
 
     def delete_ilmpolicy_with_options(self, instance_id, policy_name, headers, runtime):
+        """
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteILMPolicyResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -924,11 +1430,26 @@ class Client(OpenApiClient):
         )
 
     def delete_ilmpolicy(self, instance_id, policy_name):
+        """
+
+        @return: DeleteILMPolicyResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.delete_ilmpolicy_with_options(instance_id, policy_name, headers, runtime)
 
     def delete_index_template_with_options(self, instance_id, index_template, headers, runtime):
+        """
+        @summary 删除ES集群索引模版
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteIndexTemplateResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -949,11 +1470,28 @@ class Client(OpenApiClient):
         )
 
     def delete_index_template(self, instance_id, index_template):
+        """
+        @summary 删除ES集群索引模版
+        
+
+        @return: DeleteIndexTemplateResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.delete_index_template_with_options(instance_id, index_template, headers, runtime)
 
     def delete_instance_with_options(self, instance_id, request, headers, runtime):
+        """
+
+        @param request: DeleteInstanceRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteInstanceResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -981,13 +1519,21 @@ class Client(OpenApiClient):
         )
 
     def delete_instance(self, instance_id, request):
+        """
+
+        @param request: DeleteInstanceRequest
+
+        @return: DeleteInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.delete_instance_with_options(instance_id, request, headers, runtime)
 
     def delete_logstash_with_options(self, instance_id, request, headers, runtime):
         """
-        Before you call this operation, take note of the following information: After the cluster is released, the physical resources used by the cluster are reclaimed. The data stored in the cluster is deleted and cannot be recovered. The disks attached to the nodes in the cluster and the snapshots created for the cluster are released.
+        @summary Releases a Logstash cluster.
+        
+        @description Before you call this operation, take note of the following information: After the cluster is released, the physical resources used by the cluster are reclaimed. The data stored in the cluster is deleted and cannot be recovered. The disks attached to the nodes in the cluster and the snapshots created for the cluster are released.
         
 
         @param request: DeleteLogstashRequest
@@ -1027,7 +1573,9 @@ class Client(OpenApiClient):
 
     def delete_logstash(self, instance_id, request):
         """
-        Before you call this operation, take note of the following information: After the cluster is released, the physical resources used by the cluster are reclaimed. The data stored in the cluster is deleted and cannot be recovered. The disks attached to the nodes in the cluster and the snapshots created for the cluster are released.
+        @summary Releases a Logstash cluster.
+        
+        @description Before you call this operation, take note of the following information: After the cluster is released, the physical resources used by the cluster are reclaimed. The data stored in the cluster is deleted and cannot be recovered. The disks attached to the nodes in the cluster and the snapshots created for the cluster are released.
         
 
         @param request: DeleteLogstashRequest
@@ -1039,6 +1587,19 @@ class Client(OpenApiClient):
         return self.delete_logstash_with_options(instance_id, request, headers, runtime)
 
     def delete_pipelines_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary Deletes a pipeline that is configured for a Logstash cluster.
+        
+
+        @param request: DeletePipelinesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeletePipelinesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -1066,11 +1627,30 @@ class Client(OpenApiClient):
         )
 
     def delete_pipelines(self, instance_id, request):
+        """
+        @summary Deletes a pipeline that is configured for a Logstash cluster.
+        
+
+        @param request: DeletePipelinesRequest
+
+        @return: DeletePipelinesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.delete_pipelines_with_options(instance_id, request, headers, runtime)
 
     def delete_snapshot_repo_with_options(self, instance_id, request, headers, runtime):
+        """
+
+        @param request: DeleteSnapshotRepoRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteSnapshotRepoResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -1098,11 +1678,30 @@ class Client(OpenApiClient):
         )
 
     def delete_snapshot_repo(self, instance_id, request):
+        """
+
+        @param request: DeleteSnapshotRepoRequest
+
+        @return: DeleteSnapshotRepoResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.delete_snapshot_repo_with_options(instance_id, request, headers, runtime)
 
     def delete_vpc_endpoint_with_options(self, instance_id, endpoint_id, request, headers, runtime):
+        """
+        @summary 删除服务账号vpc下的终端节点
+        
+
+        @param request: DeleteVpcEndpointRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteVpcEndpointResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -1128,13 +1727,23 @@ class Client(OpenApiClient):
         )
 
     def delete_vpc_endpoint(self, instance_id, endpoint_id, request):
+        """
+        @summary 删除服务账号vpc下的终端节点
+        
+
+        @param request: DeleteVpcEndpointRequest
+
+        @return: DeleteVpcEndpointResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.delete_vpc_endpoint_with_options(instance_id, endpoint_id, request, headers, runtime)
 
     def describe_ack_operator_with_options(self, cluster_id, headers, runtime):
         """
-        > Before you install a shipper on an ACK cluster, you can call this operation to query the installation status of ES-operator for the ACK cluster.
+        @summary Queries the information of ES-operator that is installed for a specified Container Service for Kubernetes (ACK) cluster.
+        
+        @description > Before you install a shipper on an ACK cluster, you can call this operation to query the installation status of ES-operator for the ACK cluster.
         
 
         @type headers: dict
@@ -1165,7 +1774,9 @@ class Client(OpenApiClient):
 
     def describe_ack_operator(self, cluster_id):
         """
-        > Before you install a shipper on an ACK cluster, you can call this operation to query the installation status of ES-operator for the ACK cluster.
+        @summary Queries the information of ES-operator that is installed for a specified Container Service for Kubernetes (ACK) cluster.
+        
+        @description > Before you install a shipper on an ACK cluster, you can call this operation to query the installation status of ES-operator for the ACK cluster.
         
 
         @return: DescribeAckOperatorResponse
@@ -1175,6 +1786,17 @@ class Client(OpenApiClient):
         return self.describe_ack_operator_with_options(cluster_id, headers, runtime)
 
     def describe_apm_with_options(self, instance_id, headers, runtime):
+        """
+        @summary DescribeApm
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeApmResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1195,11 +1817,28 @@ class Client(OpenApiClient):
         )
 
     def describe_apm(self, instance_id):
+        """
+        @summary DescribeApm
+        
+
+        @return: DescribeApmResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.describe_apm_with_options(instance_id, headers, runtime)
 
     def describe_collector_with_options(self, res_id, headers, runtime):
+        """
+        @summary Queries the details of a shipper.
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeCollectorResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1220,11 +1859,28 @@ class Client(OpenApiClient):
         )
 
     def describe_collector(self, res_id):
+        """
+        @summary Queries the details of a shipper.
+        
+
+        @return: DescribeCollectorResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.describe_collector_with_options(res_id, headers, runtime)
 
     def describe_component_index_with_options(self, instance_id, name, headers, runtime):
+        """
+        @summary 查看组合索引模板详情
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeComponentIndexResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1245,11 +1901,28 @@ class Client(OpenApiClient):
         )
 
     def describe_component_index(self, instance_id, name):
+        """
+        @summary 查看组合索引模板详情
+        
+
+        @return: DescribeComponentIndexResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.describe_component_index_with_options(instance_id, name, headers, runtime)
 
     def describe_connectable_clusters_with_options(self, instance_id, request, headers, runtime):
+        """
+
+        @param request: DescribeConnectableClustersRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeConnectableClustersResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.already_set_items):
@@ -1275,11 +1948,28 @@ class Client(OpenApiClient):
         )
 
     def describe_connectable_clusters(self, instance_id, request):
+        """
+
+        @param request: DescribeConnectableClustersRequest
+
+        @return: DescribeConnectableClustersResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.describe_connectable_clusters_with_options(instance_id, request, headers, runtime)
 
     def describe_deprecated_template_with_options(self, instance_id, name, headers, runtime):
+        """
+        @summary DescribeDeprecatedTemplate
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDeprecatedTemplateResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1300,11 +1990,28 @@ class Client(OpenApiClient):
         )
 
     def describe_deprecated_template(self, instance_id, name):
+        """
+        @summary DescribeDeprecatedTemplate
+        
+
+        @return: DescribeDeprecatedTemplateResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.describe_deprecated_template_with_options(instance_id, name, headers, runtime)
 
     def describe_diagnose_report_with_options(self, instance_id, report_id, request, headers, runtime):
+        """
+
+        @param request: DescribeDiagnoseReportRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDiagnoseReportResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.lang):
@@ -1330,11 +2037,28 @@ class Client(OpenApiClient):
         )
 
     def describe_diagnose_report(self, instance_id, report_id, request):
+        """
+
+        @param request: DescribeDiagnoseReportRequest
+
+        @return: DescribeDiagnoseReportResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.describe_diagnose_report_with_options(instance_id, report_id, request, headers, runtime)
 
     def describe_diagnosis_settings_with_options(self, instance_id, request, headers, runtime):
+        """
+
+        @param request: DescribeDiagnosisSettingsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDiagnosisSettingsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.lang):
@@ -1360,11 +2084,28 @@ class Client(OpenApiClient):
         )
 
     def describe_diagnosis_settings(self, instance_id, request):
+        """
+
+        @param request: DescribeDiagnosisSettingsRequest
+
+        @return: DescribeDiagnosisSettingsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.describe_diagnosis_settings_with_options(instance_id, request, headers, runtime)
 
     def describe_dynamic_settings_with_options(self, instance_id, headers, runtime):
+        """
+        @summary 获取集群动态指标
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDynamicSettingsResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1385,16 +2126,24 @@ class Client(OpenApiClient):
         )
 
     def describe_dynamic_settings(self, instance_id):
+        """
+        @summary 获取集群动态指标
+        
+
+        @return: DescribeDynamicSettingsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.describe_dynamic_settings_with_options(instance_id, headers, runtime)
 
     def describe_elasticsearch_health_with_options(self, instance_id, headers, runtime):
         """
-        An Elasticsearch cluster can be in a health state indicated by one of the following colors:
-        *   GREEN: Primary shards and replica shards for the primary shards are normally allocated.
-        *   YELLOW: Primary shards are normally allocated, but replica shards for the primary shards are not normally allocated.
-        *   RED: Primary shards are not normally allocated.
+        @summary Queries the health status of an Elasticsearch cluster.
+        
+        @description An Elasticsearch cluster can be in a health state indicated by one of the following colors:
+        GREEN: Primary shards and replica shards for the primary shards are normally allocated.
+        YELLOW: Primary shards are normally allocated, but replica shards for the primary shards are not normally allocated.
+        RED: Primary shards are not normally allocated.
         
 
         @type headers: dict
@@ -1425,10 +2174,12 @@ class Client(OpenApiClient):
 
     def describe_elasticsearch_health(self, instance_id):
         """
-        An Elasticsearch cluster can be in a health state indicated by one of the following colors:
-        *   GREEN: Primary shards and replica shards for the primary shards are normally allocated.
-        *   YELLOW: Primary shards are normally allocated, but replica shards for the primary shards are not normally allocated.
-        *   RED: Primary shards are not normally allocated.
+        @summary Queries the health status of an Elasticsearch cluster.
+        
+        @description An Elasticsearch cluster can be in a health state indicated by one of the following colors:
+        GREEN: Primary shards and replica shards for the primary shards are normally allocated.
+        YELLOW: Primary shards are normally allocated, but replica shards for the primary shards are not normally allocated.
+        RED: Primary shards are not normally allocated.
         
 
         @return: DescribeElasticsearchHealthResponse
@@ -1438,6 +2189,15 @@ class Client(OpenApiClient):
         return self.describe_elasticsearch_health_with_options(instance_id, headers, runtime)
 
     def describe_ilmpolicy_with_options(self, instance_id, policy_name, headers, runtime):
+        """
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeILMPolicyResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1458,11 +2218,24 @@ class Client(OpenApiClient):
         )
 
     def describe_ilmpolicy(self, instance_id, policy_name):
+        """
+
+        @return: DescribeILMPolicyResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.describe_ilmpolicy_with_options(instance_id, policy_name, headers, runtime)
 
     def describe_index_template_with_options(self, instance_id, index_template, headers, runtime):
+        """
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeIndexTemplateResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1483,11 +2256,26 @@ class Client(OpenApiClient):
         )
 
     def describe_index_template(self, instance_id, index_template):
+        """
+
+        @return: DescribeIndexTemplateResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.describe_index_template_with_options(instance_id, index_template, headers, runtime)
 
     def describe_instance_with_options(self, instance_id, headers, runtime):
+        """
+        @summary The name of the dictionary file.
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeInstanceResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1508,11 +2296,28 @@ class Client(OpenApiClient):
         )
 
     def describe_instance(self, instance_id):
+        """
+        @summary The name of the dictionary file.
+        
+
+        @return: DescribeInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.describe_instance_with_options(instance_id, headers, runtime)
 
     def describe_kibana_settings_with_options(self, instance_id, headers, runtime):
+        """
+        @summary 获取Elasticsearch集群Kibana节点settings配置
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeKibanaSettingsResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1533,11 +2338,28 @@ class Client(OpenApiClient):
         )
 
     def describe_kibana_settings(self, instance_id):
+        """
+        @summary 获取Elasticsearch集群Kibana节点settings配置
+        
+
+        @return: DescribeKibanaSettingsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.describe_kibana_settings_with_options(instance_id, headers, runtime)
 
     def describe_logstash_with_options(self, instance_id, headers, runtime):
+        """
+        @summary 查看Logstash实例详情
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeLogstashResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1558,11 +2380,26 @@ class Client(OpenApiClient):
         )
 
     def describe_logstash(self, instance_id):
+        """
+        @summary 查看Logstash实例详情
+        
+
+        @return: DescribeLogstashResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.describe_logstash_with_options(instance_id, headers, runtime)
 
     def describe_pipeline_with_options(self, instance_id, pipeline_id, headers, runtime):
+        """
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribePipelineResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1583,11 +2420,28 @@ class Client(OpenApiClient):
         )
 
     def describe_pipeline(self, instance_id, pipeline_id):
+        """
+
+        @return: DescribePipelineResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.describe_pipeline_with_options(instance_id, pipeline_id, headers, runtime)
 
     def describe_pipeline_management_config_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary Queries the management configurations of pipelines in a Logstash cluster.
+        
+
+        @param request: DescribePipelineManagementConfigRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribePipelineManagementConfigResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -1613,11 +2467,28 @@ class Client(OpenApiClient):
         )
 
     def describe_pipeline_management_config(self, instance_id, request):
+        """
+        @summary Queries the management configurations of pipelines in a Logstash cluster.
+        
+
+        @param request: DescribePipelineManagementConfigRequest
+
+        @return: DescribePipelineManagementConfigResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.describe_pipeline_management_config_with_options(instance_id, request, headers, runtime)
 
     def describe_regions_with_options(self, headers, runtime):
+        """
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeRegionsResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1638,11 +2509,24 @@ class Client(OpenApiClient):
         )
 
     def describe_regions(self):
+        """
+
+        @return: DescribeRegionsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.describe_regions_with_options(headers, runtime)
 
     def describe_snapshot_setting_with_options(self, instance_id, headers, runtime):
+        """
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeSnapshotSettingResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1663,11 +2547,24 @@ class Client(OpenApiClient):
         )
 
     def describe_snapshot_setting(self, instance_id):
+        """
+
+        @return: DescribeSnapshotSettingResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.describe_snapshot_setting_with_options(instance_id, headers, runtime)
 
     def describe_templates_with_options(self, instance_id, headers, runtime):
+        """
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeTemplatesResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1688,11 +2585,26 @@ class Client(OpenApiClient):
         )
 
     def describe_templates(self, instance_id):
+        """
+
+        @return: DescribeTemplatesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.describe_templates_with_options(instance_id, headers, runtime)
 
     def describe_xpack_monitor_config_with_options(self, instance_id, headers, runtime):
+        """
+        @summary Queries the configurations of the X-Pack Monitoring feature of a Logstash cluster.
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeXpackMonitorConfigResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1713,11 +2625,30 @@ class Client(OpenApiClient):
         )
 
     def describe_xpack_monitor_config(self, instance_id):
+        """
+        @summary Queries the configurations of the X-Pack Monitoring feature of a Logstash cluster.
+        
+
+        @return: DescribeXpackMonitorConfigResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.describe_xpack_monitor_config_with_options(instance_id, headers, runtime)
 
     def diagnose_instance_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary 触发ES实例智能诊断
+        
+
+        @param request: DiagnoseInstanceRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DiagnoseInstanceResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -1753,11 +2684,30 @@ class Client(OpenApiClient):
         )
 
     def diagnose_instance(self, instance_id, request):
+        """
+        @summary 触发ES实例智能诊断
+        
+
+        @param request: DiagnoseInstanceRequest
+
+        @return: DiagnoseInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.diagnose_instance_with_options(instance_id, request, headers, runtime)
 
     def disable_kibana_pvl_network_with_options(self, instance_id, headers, runtime):
+        """
+        @summary 关闭kibana私网
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DisableKibanaPvlNetworkResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1778,11 +2728,30 @@ class Client(OpenApiClient):
         )
 
     def disable_kibana_pvl_network(self, instance_id):
+        """
+        @summary 关闭kibana私网
+        
+
+        @return: DisableKibanaPvlNetworkResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.disable_kibana_pvl_network_with_options(instance_id, headers, runtime)
 
     def enable_kibana_pvl_network_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary 开启v3 kibana私网
+        
+
+        @param request: EnableKibanaPvlNetworkRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: EnableKibanaPvlNetworkResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.endpoint_name):
@@ -1814,11 +2783,32 @@ class Client(OpenApiClient):
         )
 
     def enable_kibana_pvl_network(self, instance_id, request):
+        """
+        @summary 开启v3 kibana私网
+        
+
+        @param request: EnableKibanaPvlNetworkRequest
+
+        @return: EnableKibanaPvlNetworkResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.enable_kibana_pvl_network_with_options(instance_id, request, headers, runtime)
 
     def estimated_logstash_restart_time_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary Queries the estimated time that is required to restart a Logstash cluster.
+        
+
+        @param request: EstimatedLogstashRestartTimeRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: EstimatedLogstashRestartTimeResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.force):
@@ -1845,11 +2835,32 @@ class Client(OpenApiClient):
         )
 
     def estimated_logstash_restart_time(self, instance_id, request):
+        """
+        @summary Queries the estimated time that is required to restart a Logstash cluster.
+        
+
+        @param request: EstimatedLogstashRestartTimeRequest
+
+        @return: EstimatedLogstashRestartTimeResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.estimated_logstash_restart_time_with_options(instance_id, request, headers, runtime)
 
     def estimated_restart_time_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary Queries the estimated time that is required to restart an Elasticsearch cluster.
+        
+
+        @param request: EstimatedRestartTimeRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: EstimatedRestartTimeResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.force):
@@ -1876,11 +2887,32 @@ class Client(OpenApiClient):
         )
 
     def estimated_restart_time(self, instance_id, request):
+        """
+        @summary Queries the estimated time that is required to restart an Elasticsearch cluster.
+        
+
+        @param request: EstimatedRestartTimeRequest
+
+        @return: EstimatedRestartTimeResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.estimated_restart_time_with_options(instance_id, request, headers, runtime)
 
     def get_cluster_data_information_with_options(self, request, headers, runtime):
+        """
+        @summary Call GetClusterDataInformation to obtain the data information about the cluster.
+        
+
+        @param request: GetClusterDataInformationRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetClusterDataInformationResponse
+        """
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             headers=headers,
@@ -1903,11 +2935,28 @@ class Client(OpenApiClient):
         )
 
     def get_cluster_data_information(self, request):
+        """
+        @summary Call GetClusterDataInformation to obtain the data information about the cluster.
+        
+
+        @param request: GetClusterDataInformationRequest
+
+        @return: GetClusterDataInformationResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_cluster_data_information_with_options(request, headers, runtime)
 
     def get_elastictask_with_options(self, instance_id, headers, runtime):
+        """
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetElastictaskResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1928,11 +2977,28 @@ class Client(OpenApiClient):
         )
 
     def get_elastictask(self, instance_id):
+        """
+
+        @return: GetElastictaskResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_elastictask_with_options(instance_id, headers, runtime)
 
     def get_emon_grafana_alerts_with_options(self, project_id, request, headers, runtime):
+        """
+        @summary 获取高级监控报警自定义Grafana监控报警项
+        
+
+        @param request: GetEmonGrafanaAlertsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetEmonGrafanaAlertsResponse
+        """
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             headers=headers,
@@ -1955,11 +3021,32 @@ class Client(OpenApiClient):
         )
 
     def get_emon_grafana_alerts(self, project_id, request):
+        """
+        @summary 获取高级监控报警自定义Grafana监控报警项
+        
+
+        @param request: GetEmonGrafanaAlertsRequest
+
+        @return: GetEmonGrafanaAlertsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_emon_grafana_alerts_with_options(project_id, request, headers, runtime)
 
     def get_emon_grafana_dashboards_with_options(self, project_id, request, headers, runtime):
+        """
+        @summary 获取高级监控报警自定义Grafana监控大盘列表
+        
+
+        @param request: GetEmonGrafanaDashboardsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetEmonGrafanaDashboardsResponse
+        """
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             headers=headers,
@@ -1982,11 +3069,30 @@ class Client(OpenApiClient):
         )
 
     def get_emon_grafana_dashboards(self, project_id, request):
+        """
+        @summary 获取高级监控报警自定义Grafana监控大盘列表
+        
+
+        @param request: GetEmonGrafanaDashboardsRequest
+
+        @return: GetEmonGrafanaDashboardsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_emon_grafana_dashboards_with_options(project_id, request, headers, runtime)
 
     def get_emon_monitor_data_with_options(self, project_id, request, headers, runtime):
+        """
+
+        @param request: GetEmonMonitorDataRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetEmonMonitorDataResponse
+        """
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             headers=headers,
@@ -2009,11 +3115,28 @@ class Client(OpenApiClient):
         )
 
     def get_emon_monitor_data(self, project_id, request):
+        """
+
+        @param request: GetEmonMonitorDataRequest
+
+        @return: GetEmonMonitorDataResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_emon_monitor_data_with_options(project_id, request, headers, runtime)
 
     def get_open_store_usage_with_options(self, instance_id, headers, runtime):
+        """
+        @summary 统计OpenStore实例的存储容量和使用情况
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetOpenStoreUsageResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -2034,11 +3157,30 @@ class Client(OpenApiClient):
         )
 
     def get_open_store_usage(self, instance_id):
+        """
+        @summary 统计OpenStore实例的存储容量和使用情况
+        
+
+        @return: GetOpenStoreUsageResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_open_store_usage_with_options(instance_id, headers, runtime)
 
     def get_region_configuration_with_options(self, request, headers, runtime):
+        """
+        @summary The maximum number of nodes.
+        
+
+        @param request: GetRegionConfigurationRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetRegionConfigurationResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.zone_id):
@@ -2064,11 +3206,30 @@ class Client(OpenApiClient):
         )
 
     def get_region_configuration(self, request):
+        """
+        @summary The maximum number of nodes.
+        
+
+        @param request: GetRegionConfigurationRequest
+
+        @return: GetRegionConfigurationResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_region_configuration_with_options(request, headers, runtime)
 
     def get_regional_instance_config_with_options(self, headers, runtime):
+        """
+        @summary 实例区域商品化配置
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetRegionalInstanceConfigResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -2089,11 +3250,30 @@ class Client(OpenApiClient):
         )
 
     def get_regional_instance_config(self):
+        """
+        @summary 实例区域商品化配置
+        
+
+        @return: GetRegionalInstanceConfigResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_regional_instance_config_with_options(headers, runtime)
 
     def get_suggest_shrinkable_nodes_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary ES集群可缩容节点
+        
+
+        @param request: GetSuggestShrinkableNodesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetSuggestShrinkableNodesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.count):
@@ -2123,11 +3303,32 @@ class Client(OpenApiClient):
         )
 
     def get_suggest_shrinkable_nodes(self, instance_id, request):
+        """
+        @summary ES集群可缩容节点
+        
+
+        @param request: GetSuggestShrinkableNodesRequest
+
+        @return: GetSuggestShrinkableNodesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_suggest_shrinkable_nodes_with_options(instance_id, request, headers, runtime)
 
     def get_transferable_nodes_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary 获取可数据迁移节点
+        
+
+        @param request: GetTransferableNodesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetTransferableNodesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.count):
@@ -2155,13 +3356,23 @@ class Client(OpenApiClient):
         )
 
     def get_transferable_nodes(self, instance_id, request):
+        """
+        @summary 获取可数据迁移节点
+        
+
+        @param request: GetTransferableNodesRequest
+
+        @return: GetTransferableNodesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_transferable_nodes_with_options(instance_id, request, headers, runtime)
 
     def initialize_operation_role_with_options(self, request, headers, runtime):
         """
-        > Before you perform auto scaling for a cluster at the China site (aliyun.com) or you use shippers to collect logs, you must create a service-linked role.
+        @summary Creates a service-linked role.
+        
+        @description > Before you perform auto scaling for a cluster at the China site (aliyun.com) or you use shippers to collect logs, you must create a service-linked role.
         
 
         @param request: InitializeOperationRoleRequest
@@ -2200,7 +3411,9 @@ class Client(OpenApiClient):
 
     def initialize_operation_role(self, request):
         """
-        > Before you perform auto scaling for a cluster at the China site (aliyun.com) or you use shippers to collect logs, you must create a service-linked role.
+        @summary Creates a service-linked role.
+        
+        @description > Before you perform auto scaling for a cluster at the China site (aliyun.com) or you use shippers to collect logs, you must create a service-linked role.
         
 
         @param request: InitializeOperationRoleRequest
@@ -2213,7 +3426,9 @@ class Client(OpenApiClient):
 
     def install_ack_operator_with_options(self, cluster_id, request, headers, runtime):
         """
-        > Before you install a shipper for an ACK cluster, you must call this operation to install ES-operator for the cluster.
+        @summary Installs ES-operator for a Container Service for Kubernetes (ACK) cluster.
+        
+        @description > Before you install a shipper for an ACK cluster, you must call this operation to install ES-operator for the cluster.
         
 
         @param request: InstallAckOperatorRequest
@@ -2252,7 +3467,9 @@ class Client(OpenApiClient):
 
     def install_ack_operator(self, cluster_id, request):
         """
-        > Before you install a shipper for an ACK cluster, you must call this operation to install ES-operator for the cluster.
+        @summary Installs ES-operator for a Container Service for Kubernetes (ACK) cluster.
+        
+        @description > Before you install a shipper for an ACK cluster, you must call this operation to install ES-operator for the cluster.
         
 
         @param request: InstallAckOperatorRequest
@@ -2264,6 +3481,19 @@ class Client(OpenApiClient):
         return self.install_ack_operator_with_options(cluster_id, request, headers, runtime)
 
     def install_kibana_system_plugin_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary Call InstallKibanaSystemPlugin to install the Kibana plug-in. The Kibana specification must be 2-Core 4 GB or higher.
+        
+
+        @param request: InstallKibanaSystemPluginRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: InstallKibanaSystemPluginResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -2290,13 +3520,23 @@ class Client(OpenApiClient):
         )
 
     def install_kibana_system_plugin(self, instance_id, request):
+        """
+        @summary Call InstallKibanaSystemPlugin to install the Kibana plug-in. The Kibana specification must be 2-Core 4 GB or higher.
+        
+
+        @param request: InstallKibanaSystemPluginRequest
+
+        @return: InstallKibanaSystemPluginResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.install_kibana_system_plugin_with_options(instance_id, request, headers, runtime)
 
     def install_logstash_system_plugin_with_options(self, instance_id, request, headers, runtime):
         """
-        ls-cn-oew1qbgl\\\\*\\*\\*\
+        @summary The returned data also contains *Headers** parameters, indicating that header information is returned.
+        
+        @description ls-cn-oew1qbgl\\\\*\\*\\*\
         
 
         @param request: InstallLogstashSystemPluginRequest
@@ -2335,7 +3575,9 @@ class Client(OpenApiClient):
 
     def install_logstash_system_plugin(self, instance_id, request):
         """
-        ls-cn-oew1qbgl\\\\*\\*\\*\
+        @summary The returned data also contains *Headers** parameters, indicating that header information is returned.
+        
+        @description ls-cn-oew1qbgl\\\\*\\*\\*\
         
 
         @param request: InstallLogstashSystemPluginRequest
@@ -2347,6 +3589,19 @@ class Client(OpenApiClient):
         return self.install_logstash_system_plugin_with_options(instance_id, request, headers, runtime)
 
     def install_system_plugin_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary Call InstallSystemPlugin to install a system preset plug-in.
+        
+
+        @param request: InstallSystemPluginRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: InstallSystemPluginResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -2373,11 +3628,32 @@ class Client(OpenApiClient):
         )
 
     def install_system_plugin(self, instance_id, request):
+        """
+        @summary Call InstallSystemPlugin to install a system preset plug-in.
+        
+
+        @param request: InstallSystemPluginRequest
+
+        @return: InstallSystemPluginResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.install_system_plugin_with_options(instance_id, request, headers, runtime)
 
     def install_user_plugins_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary Installs custom plug-ins that are uploaded to the Elasticsearch console.
+        
+
+        @param request: InstallUserPluginsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: InstallUserPluginsResponse
+        """
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             headers=headers,
@@ -2400,11 +3676,30 @@ class Client(OpenApiClient):
         )
 
     def install_user_plugins(self, instance_id, request):
+        """
+        @summary Installs custom plug-ins that are uploaded to the Elasticsearch console.
+        
+
+        @param request: InstallUserPluginsRequest
+
+        @return: InstallUserPluginsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.install_user_plugins_with_options(instance_id, request, headers, runtime)
 
     def interrupt_elasticsearch_task_with_options(self, instance_id, request, headers, runtime):
+        """
+
+        @param request: InterruptElasticsearchTaskRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: InterruptElasticsearchTaskResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -2430,11 +3725,30 @@ class Client(OpenApiClient):
         )
 
     def interrupt_elasticsearch_task(self, instance_id, request):
+        """
+
+        @param request: InterruptElasticsearchTaskRequest
+
+        @return: InterruptElasticsearchTaskResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.interrupt_elasticsearch_task_with_options(instance_id, request, headers, runtime)
 
     def interrupt_logstash_task_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary After the task is suspended, the Logstash cluster is in the suspended state.
+        
+
+        @param request: InterruptLogstashTaskRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: InterruptLogstashTaskResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -2460,11 +3774,32 @@ class Client(OpenApiClient):
         )
 
     def interrupt_logstash_task(self, instance_id, request):
+        """
+        @summary After the task is suspended, the Logstash cluster is in the suspended state.
+        
+
+        @param request: InterruptLogstashTaskRequest
+
+        @return: InterruptLogstashTaskResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.interrupt_logstash_task_with_options(instance_id, request, headers, runtime)
 
     def list_ack_clusters_with_options(self, request, headers, runtime):
+        """
+        @summary Queries a list of Container Service for Kubernetes (ACK) clusters.
+        
+
+        @param request: ListAckClustersRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListAckClustersResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.page):
@@ -2494,13 +3829,23 @@ class Client(OpenApiClient):
         )
 
     def list_ack_clusters(self, request):
+        """
+        @summary Queries a list of Container Service for Kubernetes (ACK) clusters.
+        
+
+        @param request: ListAckClustersRequest
+
+        @return: ListAckClustersResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_ack_clusters_with_options(request, headers, runtime)
 
     def list_ack_namespaces_with_options(self, cluster_id, request, headers, runtime):
         """
-        > When you install a shipper on an ACK cluster, you must specify a namespace. You can call this operation to query all namespaces in the ACK cluster, and select a namespace based on your business requirements.
+        @summary Queries all namespaces in a specified Container Service for Kubernetes (ACK) cluster.
+        
+        @description > When you install a shipper on an ACK cluster, you must specify a namespace. You can call this operation to query all namespaces in the ACK cluster, and select a namespace based on your business requirements.
         
 
         @param request: ListAckNamespacesRequest
@@ -2540,7 +3885,9 @@ class Client(OpenApiClient):
 
     def list_ack_namespaces(self, cluster_id, request):
         """
-        > When you install a shipper on an ACK cluster, you must specify a namespace. You can call this operation to query all namespaces in the ACK cluster, and select a namespace based on your business requirements.
+        @summary Queries all namespaces in a specified Container Service for Kubernetes (ACK) cluster.
+        
+        @description > When you install a shipper on an ACK cluster, you must specify a namespace. You can call this operation to query all namespaces in the ACK cluster, and select a namespace based on your business requirements.
         
 
         @param request: ListAckNamespacesRequest
@@ -2552,6 +3899,19 @@ class Client(OpenApiClient):
         return self.list_ack_namespaces_with_options(cluster_id, request, headers, runtime)
 
     def list_action_records_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary 变更记录 变更详情
+        
+
+        @param request: ListActionRecordsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListActionRecordsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.action_names):
@@ -2591,11 +3951,32 @@ class Client(OpenApiClient):
         )
 
     def list_action_records(self, instance_id, request):
+        """
+        @summary 变更记录 变更详情
+        
+
+        @param request: ListActionRecordsRequest
+
+        @return: ListActionRecordsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_action_records_with_options(instance_id, request, headers, runtime)
 
     def list_all_node_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary es-cn-tl32cpgwa002l\\\\*\\*\\*\
+        
+
+        @param request: ListAllNodeRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListAllNodeResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.extended):
@@ -2621,11 +4002,32 @@ class Client(OpenApiClient):
         )
 
     def list_all_node(self, instance_id, request):
+        """
+        @summary es-cn-tl32cpgwa002l\\\\*\\*\\*\
+        
+
+        @param request: ListAllNodeRequest
+
+        @return: ListAllNodeResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_all_node_with_options(instance_id, request, headers, runtime)
 
     def list_alternative_snapshot_repos_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary 实例可添加的OSS引用仓库
+        
+
+        @param request: ListAlternativeSnapshotReposRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListAlternativeSnapshotReposResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.already_set_items):
@@ -2651,11 +4053,32 @@ class Client(OpenApiClient):
         )
 
     def list_alternative_snapshot_repos(self, instance_id, request):
+        """
+        @summary 实例可添加的OSS引用仓库
+        
+
+        @param request: ListAlternativeSnapshotReposRequest
+
+        @return: ListAlternativeSnapshotReposResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_alternative_snapshot_repos_with_options(instance_id, request, headers, runtime)
 
     def list_apm_with_options(self, request, headers, runtime):
+        """
+        @summary ListApm
+        
+
+        @param request: ListApmRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListApmResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.description):
@@ -2689,11 +4112,30 @@ class Client(OpenApiClient):
         )
 
     def list_apm(self, request):
+        """
+        @summary ListApm
+        
+
+        @param request: ListApmRequest
+
+        @return: ListApmResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_apm_with_options(request, headers, runtime)
 
     def list_available_es_instance_ids_with_options(self, instance_id, headers, runtime):
+        """
+        @summary Queries the Elasticsearch clusters that can be associated with a Logstash cluster when you configure the X-Pack Monitoring feature for the Logstash cluster.
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListAvailableEsInstanceIdsResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -2714,11 +4156,30 @@ class Client(OpenApiClient):
         )
 
     def list_available_es_instance_ids(self, instance_id):
+        """
+        @summary Queries the Elasticsearch clusters that can be associated with a Logstash cluster when you configure the X-Pack Monitoring feature for the Logstash cluster.
+        
+
+        @return: ListAvailableEsInstanceIdsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_available_es_instance_ids_with_options(instance_id, headers, runtime)
 
     def list_collectors_with_options(self, request, headers, runtime):
+        """
+        @summary Queries shippers.
+        
+
+        @param request: ListCollectorsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListCollectorsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.instance_id):
@@ -2754,11 +4215,32 @@ class Client(OpenApiClient):
         )
 
     def list_collectors(self, request):
+        """
+        @summary Queries shippers.
+        
+
+        @param request: ListCollectorsRequest
+
+        @return: ListCollectorsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_collectors_with_options(request, headers, runtime)
 
     def list_component_indices_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary ES集群组合索引列表
+        
+
+        @param request: ListComponentIndicesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListComponentIndicesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.name):
@@ -2788,11 +4270,30 @@ class Client(OpenApiClient):
         )
 
     def list_component_indices(self, instance_id, request):
+        """
+        @summary ES集群组合索引列表
+        
+
+        @param request: ListComponentIndicesRequest
+
+        @return: ListComponentIndicesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_component_indices_with_options(instance_id, request, headers, runtime)
 
     def list_connected_clusters_with_options(self, instance_id, headers, runtime):
+        """
+        @summary 获取与当前实例进行网络互通的实例列表
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListConnectedClustersResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -2813,11 +4314,28 @@ class Client(OpenApiClient):
         )
 
     def list_connected_clusters(self, instance_id):
+        """
+        @summary 获取与当前实例进行网络互通的实例列表
+        
+
+        @return: ListConnectedClustersResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_connected_clusters_with_options(instance_id, headers, runtime)
 
     def list_data_streams_with_options(self, instance_id, request, headers, runtime):
+        """
+
+        @param request: ListDataStreamsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListDataStreamsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.is_managed):
@@ -2845,11 +4363,26 @@ class Client(OpenApiClient):
         )
 
     def list_data_streams(self, instance_id, request):
+        """
+
+        @param request: ListDataStreamsRequest
+
+        @return: ListDataStreamsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_data_streams_with_options(instance_id, request, headers, runtime)
 
     def list_data_tasks_with_options(self, instance_id, headers, runtime):
+        """
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListDataTasksResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -2870,11 +4403,28 @@ class Client(OpenApiClient):
         )
 
     def list_data_tasks(self, instance_id):
+        """
+
+        @return: ListDataTasksResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_data_tasks_with_options(instance_id, headers, runtime)
 
     def list_default_collector_configurations_with_options(self, request, headers, runtime):
+        """
+        @summary Queries the default configuration files of shippers.
+        
+
+        @param request: ListDefaultCollectorConfigurationsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListDefaultCollectorConfigurationsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.res_type):
@@ -2904,11 +4454,32 @@ class Client(OpenApiClient):
         )
 
     def list_default_collector_configurations(self, request):
+        """
+        @summary Queries the default configuration files of shippers.
+        
+
+        @param request: ListDefaultCollectorConfigurationsRequest
+
+        @return: ListDefaultCollectorConfigurationsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_default_collector_configurations_with_options(request, headers, runtime)
 
     def list_deprecated_templates_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary ListDeprecatedTemplates
+        
+
+        @param request: ListDeprecatedTemplatesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListDeprecatedTemplatesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.name):
@@ -2938,11 +4509,32 @@ class Client(OpenApiClient):
         )
 
     def list_deprecated_templates(self, instance_id, request):
+        """
+        @summary ListDeprecatedTemplates
+        
+
+        @param request: ListDeprecatedTemplatesRequest
+
+        @return: ListDeprecatedTemplatesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_deprecated_templates_with_options(instance_id, request, headers, runtime)
 
     def list_diagnose_indices_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary Queries the indexes for health diagnosis performed on an Elasticsearch cluster.
+        
+
+        @param request: ListDiagnoseIndicesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListDiagnoseIndicesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.lang):
@@ -2968,11 +4560,32 @@ class Client(OpenApiClient):
         )
 
     def list_diagnose_indices(self, instance_id, request):
+        """
+        @summary Queries the indexes for health diagnosis performed on an Elasticsearch cluster.
+        
+
+        @param request: ListDiagnoseIndicesRequest
+
+        @return: ListDiagnoseIndicesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_diagnose_indices_with_options(instance_id, request, headers, runtime)
 
     def list_diagnose_report_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary 获取集群诊断报告列表
+        
+
+        @param request: ListDiagnoseReportRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListDiagnoseReportResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.detail):
@@ -3010,11 +4623,32 @@ class Client(OpenApiClient):
         )
 
     def list_diagnose_report(self, instance_id, request):
+        """
+        @summary 获取集群诊断报告列表
+        
+
+        @param request: ListDiagnoseReportRequest
+
+        @return: ListDiagnoseReportResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_diagnose_report_with_options(instance_id, request, headers, runtime)
 
     def list_diagnose_report_ids_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary Queries the IDs of the historical intelligent O&M reports of an Elasticsearch cluster.
+        
+
+        @param request: ListDiagnoseReportIdsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListDiagnoseReportIdsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.end_time):
@@ -3050,11 +4684,32 @@ class Client(OpenApiClient):
         )
 
     def list_diagnose_report_ids(self, instance_id, request):
+        """
+        @summary Queries the IDs of the historical intelligent O&M reports of an Elasticsearch cluster.
+        
+
+        @param request: ListDiagnoseReportIdsRequest
+
+        @return: ListDiagnoseReportIdsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_diagnose_report_ids_with_options(instance_id, request, headers, runtime)
 
     def list_diagnosis_items_with_options(self, request, headers, runtime):
+        """
+        @summary The diagnostic item is used to check whether data write requests of a cluster are accumulated. If data write requests are accumulated, a bulk rejection occurs. This may cause data loss and severely consume system resources.
+        
+
+        @param request: ListDiagnosisItemsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListDiagnosisItemsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.lang):
@@ -3080,11 +4735,30 @@ class Client(OpenApiClient):
         )
 
     def list_diagnosis_items(self, request):
+        """
+        @summary The diagnostic item is used to check whether data write requests of a cluster are accumulated. If data write requests are accumulated, a bulk rejection occurs. This may cause data loss and severely consume system resources.
+        
+
+        @param request: ListDiagnosisItemsRequest
+
+        @return: ListDiagnosisItemsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_diagnosis_items_with_options(request, headers, runtime)
 
     def list_dict_information_with_options(self, instance_id, request, headers, runtime):
+        """
+
+        @param request: ListDictInformationRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListDictInformationResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.analyzer_type):
@@ -3114,11 +4788,30 @@ class Client(OpenApiClient):
         )
 
     def list_dict_information(self, instance_id, request):
+        """
+
+        @param request: ListDictInformationRequest
+
+        @return: ListDictInformationResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_dict_information_with_options(instance_id, request, headers, runtime)
 
     def list_dicts_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary Queries the details of a specified type of dictionary.
+        
+
+        @param request: ListDictsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListDictsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.analyzer_type):
@@ -3146,13 +4839,21 @@ class Client(OpenApiClient):
         )
 
     def list_dicts(self, instance_id, request):
+        """
+        @summary Queries the details of a specified type of dictionary.
+        
+
+        @param request: ListDictsRequest
+
+        @return: ListDictsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_dicts_with_options(instance_id, request, headers, runtime)
 
     def list_ecs_instances_with_options(self, request, headers, runtime):
         """
-        *Important** To call this operation, you must create the Aliyun Elasticsearch AccessingOOSRole and the system service role AliyunOOSAccessingECS 4ESRole to Elasticsearch the service account to obtain the ECS access permissions of the primary account. For more information, see [Collect ECS service logs](~~146446~~).
+        @description *Important** To call this operation, you must create the Aliyun Elasticsearch AccessingOOSRole and the system service role AliyunOOSAccessingECS 4ESRole to Elasticsearch the service account to obtain the ECS access permissions of the primary account. For more information, see [Collect ECS service logs](https://help.aliyun.com/document_detail/146446.html).
         
 
         @param request: ListEcsInstancesRequest
@@ -3200,7 +4901,7 @@ class Client(OpenApiClient):
 
     def list_ecs_instances(self, request):
         """
-        *Important** To call this operation, you must create the Aliyun Elasticsearch AccessingOOSRole and the system service role AliyunOOSAccessingECS 4ESRole to Elasticsearch the service account to obtain the ECS access permissions of the primary account. For more information, see [Collect ECS service logs](~~146446~~).
+        @description *Important** To call this operation, you must create the Aliyun Elasticsearch AccessingOOSRole and the system service role AliyunOOSAccessingECS 4ESRole to Elasticsearch the service account to obtain the ECS access permissions of the primary account. For more information, see [Collect ECS service logs](https://help.aliyun.com/document_detail/146446.html).
         
 
         @param request: ListEcsInstancesRequest
@@ -3212,6 +4913,17 @@ class Client(OpenApiClient):
         return self.list_ecs_instances_with_options(request, headers, runtime)
 
     def list_extendfiles_with_options(self, instance_id, headers, runtime):
+        """
+        @summary Queries the driver files of a Logstash cluster.
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListExtendfilesResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -3232,11 +4944,28 @@ class Client(OpenApiClient):
         )
 
     def list_extendfiles(self, instance_id):
+        """
+        @summary Queries the driver files of a Logstash cluster.
+        
+
+        @return: ListExtendfilesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_extendfiles_with_options(instance_id, headers, runtime)
 
     def list_ilmpolicies_with_options(self, instance_id, request, headers, runtime):
+        """
+
+        @param request: ListILMPoliciesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListILMPoliciesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.policy_name):
@@ -3262,11 +4991,28 @@ class Client(OpenApiClient):
         )
 
     def list_ilmpolicies(self, instance_id, request):
+        """
+
+        @param request: ListILMPoliciesRequest
+
+        @return: ListILMPoliciesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_ilmpolicies_with_options(instance_id, request, headers, runtime)
 
     def list_index_templates_with_options(self, instance_id, request, headers, runtime):
+        """
+
+        @param request: ListIndexTemplatesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListIndexTemplatesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.index_template):
@@ -3296,11 +5042,30 @@ class Client(OpenApiClient):
         )
 
     def list_index_templates(self, instance_id, request):
+        """
+
+        @param request: ListIndexTemplatesRequest
+
+        @return: ListIndexTemplatesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_index_templates_with_options(instance_id, request, headers, runtime)
 
     def list_instance_with_options(self, request, headers, runtime):
+        """
+        @summary 查询Elasticsearch实例列表
+        
+
+        @param request: ListInstanceRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListInstanceResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.description):
@@ -3346,11 +5111,32 @@ class Client(OpenApiClient):
         )
 
     def list_instance(self, request):
+        """
+        @summary 查询Elasticsearch实例列表
+        
+
+        @param request: ListInstanceRequest
+
+        @return: ListInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_instance_with_options(request, headers, runtime)
 
     def list_instance_history_events_with_options(self, tmp_req, headers, runtime):
+        """
+        @summary 集群触发的硬件运维事件列表
+        
+
+        @param tmp_req: ListInstanceHistoryEventsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListInstanceHistoryEventsResponse
+        """
         UtilClient.validate_model(tmp_req)
         request = elasticsearch_20170613_models.ListInstanceHistoryEventsShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
@@ -3409,11 +5195,32 @@ class Client(OpenApiClient):
         )
 
     def list_instance_history_events(self, request):
+        """
+        @summary 集群触发的硬件运维事件列表
+        
+
+        @param request: ListInstanceHistoryEventsRequest
+
+        @return: ListInstanceHistoryEventsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_instance_history_events_with_options(request, headers, runtime)
 
     def list_instance_indices_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary 获取当前实例先特定的索引列表
+        
+
+        @param request: ListInstanceIndicesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListInstanceIndicesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.all):
@@ -3449,11 +5256,32 @@ class Client(OpenApiClient):
         )
 
     def list_instance_indices(self, instance_id, request):
+        """
+        @summary 获取当前实例先特定的索引列表
+        
+
+        @param request: ListInstanceIndicesRequest
+
+        @return: ListInstanceIndicesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_instance_indices_with_options(instance_id, request, headers, runtime)
 
     def list_kibana_plugins_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary Queries a list of Kibana plug-ins.
+        
+
+        @param request: ListKibanaPluginsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListKibanaPluginsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.page):
@@ -3481,11 +5309,30 @@ class Client(OpenApiClient):
         )
 
     def list_kibana_plugins(self, instance_id, request):
+        """
+        @summary Queries a list of Kibana plug-ins.
+        
+
+        @param request: ListKibanaPluginsRequest
+
+        @return: ListKibanaPluginsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_kibana_plugins_with_options(instance_id, request, headers, runtime)
 
     def list_kibana_pvl_network_with_options(self, instance_id, headers, runtime):
+        """
+        @summary 查询kibana私网连接信息
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListKibanaPvlNetworkResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -3506,11 +5353,30 @@ class Client(OpenApiClient):
         )
 
     def list_kibana_pvl_network(self, instance_id):
+        """
+        @summary 查询kibana私网连接信息
+        
+
+        @return: ListKibanaPvlNetworkResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_kibana_pvl_network_with_options(instance_id, headers, runtime)
 
     def list_logstash_with_options(self, request, headers, runtime):
+        """
+        @summary Logstash集群列表
+        
+
+        @param request: ListLogstashRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListLogstashResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.description):
@@ -3548,11 +5414,32 @@ class Client(OpenApiClient):
         )
 
     def list_logstash(self, request):
+        """
+        @summary Logstash集群列表
+        
+
+        @param request: ListLogstashRequest
+
+        @return: ListLogstashResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_logstash_with_options(request, headers, runtime)
 
     def list_logstash_log_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary 获取Logstash日志
+        
+
+        @param request: ListLogstashLogRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListLogstashLogResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.begin_time):
@@ -3588,11 +5475,32 @@ class Client(OpenApiClient):
         )
 
     def list_logstash_log(self, instance_id, request):
+        """
+        @summary 获取Logstash日志
+        
+
+        @param request: ListLogstashLogRequest
+
+        @return: ListLogstashLogResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_logstash_log_with_options(instance_id, request, headers, runtime)
 
     def list_logstash_plugins_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary Logstash插件列表
+        
+
+        @param request: ListLogstashPluginsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListLogstashPluginsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.name):
@@ -3624,11 +5532,32 @@ class Client(OpenApiClient):
         )
 
     def list_logstash_plugins(self, instance_id, request):
+        """
+        @summary Logstash插件列表
+        
+
+        @param request: ListLogstashPluginsRequest
+
+        @return: ListLogstashPluginsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_logstash_plugins_with_options(instance_id, request, headers, runtime)
 
     def list_nodes_with_options(self, res_id, request, headers, runtime):
+        """
+        @summary Queries the statuses of Elastic Compute Service (ECS) instances on which a shipper is installed.
+        
+
+        @param request: ListNodesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListNodesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.ecs_instance_ids):
@@ -3662,11 +5591,30 @@ class Client(OpenApiClient):
         )
 
     def list_nodes(self, res_id, request):
+        """
+        @summary Queries the statuses of Elastic Compute Service (ECS) instances on which a shipper is installed.
+        
+
+        @param request: ListNodesRequest
+
+        @return: ListNodesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_nodes_with_options(res_id, request, headers, runtime)
 
     def list_pipeline_with_options(self, instance_id, request, headers, runtime):
+        """
+
+        @param request: ListPipelineRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListPipelineResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.page):
@@ -3696,11 +5644,30 @@ class Client(OpenApiClient):
         )
 
     def list_pipeline(self, instance_id, request):
+        """
+
+        @param request: ListPipelineRequest
+
+        @return: ListPipelineResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_pipeline_with_options(instance_id, request, headers, runtime)
 
     def list_pipeline_ids_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary The error message returned.
+        
+
+        @param request: ListPipelineIdsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListPipelineIdsResponse
+        """
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             headers=headers,
@@ -3723,11 +5690,32 @@ class Client(OpenApiClient):
         )
 
     def list_pipeline_ids(self, instance_id, request):
+        """
+        @summary The error message returned.
+        
+
+        @param request: ListPipelineIdsRequest
+
+        @return: ListPipelineIdsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_pipeline_ids_with_options(instance_id, request, headers, runtime)
 
     def list_plugins_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary ES系统插件列表
+        
+
+        @param request: ListPluginsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListPluginsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.name):
@@ -3759,11 +5747,32 @@ class Client(OpenApiClient):
         )
 
     def list_plugins(self, instance_id, request):
+        """
+        @summary ES系统插件列表
+        
+
+        @param request: ListPluginsRequest
+
+        @return: ListPluginsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_plugins_with_options(instance_id, request, headers, runtime)
 
     def list_search_log_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary 查看Elasticsearch集群各种类型的日志
+        
+
+        @param request: ListSearchLogRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListSearchLogResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.begin_time):
@@ -3799,13 +5808,23 @@ class Client(OpenApiClient):
         )
 
     def list_search_log(self, instance_id, request):
+        """
+        @summary 查看Elasticsearch集群各种类型的日志
+        
+
+        @param request: ListSearchLogRequest
+
+        @return: ListSearchLogResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_search_log_with_options(instance_id, request, headers, runtime)
 
     def list_shard_recoveries_with_options(self, instance_id, request, headers, runtime):
         """
-        > The restoration of a shard is a process of synchronizing data from a primary shard to a replica shard. After the restoration is complete, the replica shard is available for data searches.
+        @summary Queries the information about shards that are being restored or shards that are restored. By default, this operation returns only the information about shards that are being restored after you call this operation.
+        
+        @description > The restoration of a shard is a process of synchronizing data from a primary shard to a replica shard. After the restoration is complete, the replica shard is available for data searches.
         
 
         @param request: ListShardRecoveriesRequest
@@ -3843,7 +5862,9 @@ class Client(OpenApiClient):
 
     def list_shard_recoveries(self, instance_id, request):
         """
-        > The restoration of a shard is a process of synchronizing data from a primary shard to a replica shard. After the restoration is complete, the replica shard is available for data searches.
+        @summary Queries the information about shards that are being restored or shards that are restored. By default, this operation returns only the information about shards that are being restored after you call this operation.
+        
+        @description > The restoration of a shard is a process of synchronizing data from a primary shard to a replica shard. After the restoration is complete, the replica shard is available for data searches.
         
 
         @param request: ListShardRecoveriesRequest
@@ -3855,6 +5876,17 @@ class Client(OpenApiClient):
         return self.list_shard_recoveries_with_options(instance_id, request, headers, runtime)
 
     def list_snapshot_repos_by_instance_id_with_options(self, instance_id, headers, runtime):
+        """
+        @summary 获取跨集群索引仓库列表
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListSnapshotReposByInstanceIdResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -3875,11 +5907,30 @@ class Client(OpenApiClient):
         )
 
     def list_snapshot_repos_by_instance_id(self, instance_id):
+        """
+        @summary 获取跨集群索引仓库列表
+        
+
+        @return: ListSnapshotReposByInstanceIdResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_snapshot_repos_by_instance_id_with_options(instance_id, headers, runtime)
 
     def list_tag_resources_with_options(self, request, headers, runtime):
+        """
+        @summary 查看资源和标签关系
+        
+
+        @param request: ListTagResourcesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListTagResourcesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.next_token):
@@ -3915,11 +5966,32 @@ class Client(OpenApiClient):
         )
 
     def list_tag_resources(self, request):
+        """
+        @summary 查看资源和标签关系
+        
+
+        @param request: ListTagResourcesRequest
+
+        @return: ListTagResourcesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_tag_resources_with_options(request, headers, runtime)
 
     def list_tags_with_options(self, request, headers, runtime):
+        """
+        @summary 查看所有已常见的标签
+        
+
+        @param request: ListTagsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListTagsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.page_size):
@@ -3947,11 +6019,32 @@ class Client(OpenApiClient):
         )
 
     def list_tags(self, request):
+        """
+        @summary 查看所有已常见的标签
+        
+
+        @param request: ListTagsRequest
+
+        @return: ListTagsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_tags_with_options(request, headers, runtime)
 
     def list_vpc_endpoints_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary Queries the statuses of endpoints in the virtual private cloud (VPC) within the Elasticsearch service account.
+        
+
+        @param request: ListVpcEndpointsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListVpcEndpointsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.page):
@@ -3979,16 +6072,26 @@ class Client(OpenApiClient):
         )
 
     def list_vpc_endpoints(self, instance_id, request):
+        """
+        @summary Queries the statuses of endpoints in the virtual private cloud (VPC) within the Elasticsearch service account.
+        
+
+        @param request: ListVpcEndpointsRequest
+
+        @return: ListVpcEndpointsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_vpc_endpoints_with_options(instance_id, request, headers, runtime)
 
     def migrate_to_other_zone_with_options(self, instance_id, request, headers, runtime):
         """
-        If the specifications in your zone are insufficient, you can upgrade your instance to nodes in another zone. Before calling this interface, you must ensure that:
-        *   The error message returned because the current account is in a zone that has sufficient resources.
-        After migrating nodes with current specifications to another zone, you need to manually [upgrade cluster](~~96650~~) because the cluster will not be upgraded during the migration process. Therefore, select a zone with sufficient resources to avoid cluster upgrade failure. We recommend that you choose new zones that are in lower alphabetical order. For example, for cn-hangzhou-e and cn-hangzhou-h zones, choose cn-hangzhou-h first.
-        *   The cluster is in the healthy state.
+        @summary Call the MigrateToOtherZone to migrate the nodes in the specified zone to the destination zone.
+        
+        @description If the specifications in your zone are insufficient, you can upgrade your instance to nodes in another zone. Before calling this interface, you must ensure that:
+        The error message returned because the current account is in a zone that has sufficient resources.
+        After migrating nodes with current specifications to another zone, you need to manually [upgrade cluster](https://help.aliyun.com/document_detail/96650.html) because the cluster will not be upgraded during the migration process. Therefore, select a zone with sufficient resources to avoid cluster upgrade failure. We recommend that you choose new zones that are in lower alphabetical order. For example, for cn-hangzhou-e and cn-hangzhou-h zones, choose cn-hangzhou-h first.
+        The cluster is in the healthy state.
         Can be passed`  GET _cat/health?v  `command to view the health status of the cluster.
         
 
@@ -4028,10 +6131,12 @@ class Client(OpenApiClient):
 
     def migrate_to_other_zone(self, instance_id, request):
         """
-        If the specifications in your zone are insufficient, you can upgrade your instance to nodes in another zone. Before calling this interface, you must ensure that:
-        *   The error message returned because the current account is in a zone that has sufficient resources.
-        After migrating nodes with current specifications to another zone, you need to manually [upgrade cluster](~~96650~~) because the cluster will not be upgraded during the migration process. Therefore, select a zone with sufficient resources to avoid cluster upgrade failure. We recommend that you choose new zones that are in lower alphabetical order. For example, for cn-hangzhou-e and cn-hangzhou-h zones, choose cn-hangzhou-h first.
-        *   The cluster is in the healthy state.
+        @summary Call the MigrateToOtherZone to migrate the nodes in the specified zone to the destination zone.
+        
+        @description If the specifications in your zone are insufficient, you can upgrade your instance to nodes in another zone. Before calling this interface, you must ensure that:
+        The error message returned because the current account is in a zone that has sufficient resources.
+        After migrating nodes with current specifications to another zone, you need to manually [upgrade cluster](https://help.aliyun.com/document_detail/96650.html) because the cluster will not be upgraded during the migration process. Therefore, select a zone with sufficient resources to avoid cluster upgrade failure. We recommend that you choose new zones that are in lower alphabetical order. For example, for cn-hangzhou-e and cn-hangzhou-h zones, choose cn-hangzhou-h first.
+        The cluster is in the healthy state.
         Can be passed`  GET _cat/health?v  `command to view the health status of the cluster.
         
 
@@ -4044,6 +6149,19 @@ class Client(OpenApiClient):
         return self.migrate_to_other_zone_with_options(instance_id, request, headers, runtime)
 
     def modify_deploy_machine_with_options(self, res_id, request, headers, runtime):
+        """
+        @summary Changes the Elastic Compute Service (ECS) instances on which a shipper is installed.
+        
+
+        @param request: ModifyDeployMachineRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyDeployMachineResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -4070,11 +6188,30 @@ class Client(OpenApiClient):
         )
 
     def modify_deploy_machine(self, res_id, request):
+        """
+        @summary Changes the Elastic Compute Service (ECS) instances on which a shipper is installed.
+        
+
+        @param request: ModifyDeployMachineRequest
+
+        @return: ModifyDeployMachineResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.modify_deploy_machine_with_options(res_id, request, headers, runtime)
 
     def modify_elastictask_with_options(self, instance_id, request, headers, runtime):
+        """
+
+        @param request: ModifyElastictaskRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyElastictaskResponse
+        """
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             headers=headers,
@@ -4097,13 +6234,35 @@ class Client(OpenApiClient):
         )
 
     def modify_elastictask(self, instance_id, request):
+        """
+
+        @param request: ModifyElastictaskRequest
+
+        @return: ModifyElastictaskResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.modify_elastictask_with_options(instance_id, request, headers, runtime)
 
     def modify_instance_maintain_time_with_options(self, instance_id, request, headers, runtime):
         """
-        es-cn-n6w1o1x0w001c\\\\*\\*\\*\
+        @summary ## RequestBody
+        You must also specify the following parameters in the RequestBody parameter to specify the maintenance window information.
+        | Parameter | Type | Required | Example | Description |
+        | --------- | ---- | -------- | ------- | ----------- |
+        | maintainStartTime | String | No | 02:00Z | The start time of the maintenance window. Specify the time in the HH:mmZ format. The time must be in UTC. |
+        | maintainEndTime | String | No | 06:00Z | The end time of the maintenance window. Specify the time in the HH:mmZ format. The time must be displayed in UTC. |
+        | openMaintainTime | boolean | Yes | true | Specifies whether to enable the maintenance window feature. Only *true** is supported, indicating that the feature is enabled. |
+        Examples:
+        ```
+        {
+        "openMaintainTime": true,
+        "maintainStartTime": "03:00Z",
+        "maintainEndTime": "04:00Z"
+        }
+        ```
+        
+        @description es-cn-n6w1o1x0w001c\\\\*\\*\\*\
         
 
         @param request: ModifyInstanceMaintainTimeRequest
@@ -4142,7 +6301,23 @@ class Client(OpenApiClient):
 
     def modify_instance_maintain_time(self, instance_id, request):
         """
-        es-cn-n6w1o1x0w001c\\\\*\\*\\*\
+        @summary ## RequestBody
+        You must also specify the following parameters in the RequestBody parameter to specify the maintenance window information.
+        | Parameter | Type | Required | Example | Description |
+        | --------- | ---- | -------- | ------- | ----------- |
+        | maintainStartTime | String | No | 02:00Z | The start time of the maintenance window. Specify the time in the HH:mmZ format. The time must be in UTC. |
+        | maintainEndTime | String | No | 06:00Z | The end time of the maintenance window. Specify the time in the HH:mmZ format. The time must be displayed in UTC. |
+        | openMaintainTime | boolean | Yes | true | Specifies whether to enable the maintenance window feature. Only *true** is supported, indicating that the feature is enabled. |
+        Examples:
+        ```
+        {
+        "openMaintainTime": true,
+        "maintainStartTime": "03:00Z",
+        "maintainEndTime": "04:00Z"
+        }
+        ```
+        
+        @description es-cn-n6w1o1x0w001c\\\\*\\*\\*\
         
 
         @param request: ModifyInstanceMaintainTimeRequest
@@ -4155,7 +6330,12 @@ class Client(OpenApiClient):
 
     def modify_white_ips_with_options(self, instance_id, request, headers, runtime):
         """
-        The ID of the cluster.
+        @summary >  If you want to add an IP address whitelist, you can set the modifyMode parameter only to Cover. If you set this parameter to Delete or Append, you can only update an IP address whitelist.
+        If you set the modifyMode parameter to Cover and leave the ips parameter empty, the system deletes the specified whitelist. If the whitelist specified by using the groupName parameter does not exist, the system creates such a whitelist.
+        If you set the modifyMode parameter to Delete, at least one IP address must be retained for the specified whitelist.
+        If you set the modifyMode parameter to Append, you must make sure that the specified whitelist exists. Otherwise, the system reports the NotFound error.
+        
+        @description The ID of the cluster.
         
 
         @param request: ModifyWhiteIpsRequest
@@ -4205,7 +6385,12 @@ class Client(OpenApiClient):
 
     def modify_white_ips(self, instance_id, request):
         """
-        The ID of the cluster.
+        @summary >  If you want to add an IP address whitelist, you can set the modifyMode parameter only to Cover. If you set this parameter to Delete or Append, you can only update an IP address whitelist.
+        If you set the modifyMode parameter to Cover and leave the ips parameter empty, the system deletes the specified whitelist. If the whitelist specified by using the groupName parameter does not exist, the system creates such a whitelist.
+        If you set the modifyMode parameter to Delete, at least one IP address must be retained for the specified whitelist.
+        If you set the modifyMode parameter to Append, you must make sure that the specified whitelist exists. Otherwise, the system reports the NotFound error.
+        
+        @description The ID of the cluster.
         
 
         @param request: ModifyWhiteIpsRequest
@@ -4217,6 +6402,19 @@ class Client(OpenApiClient):
         return self.modify_white_ips_with_options(instance_id, request, headers, runtime)
 
     def move_resource_group_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary Migrates an Elasticsearch cluster to a specified resource group.
+        
+
+        @param request: MoveResourceGroupRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: MoveResourceGroupResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -4243,11 +6441,30 @@ class Client(OpenApiClient):
         )
 
     def move_resource_group(self, instance_id, request):
+        """
+        @summary Migrates an Elasticsearch cluster to a specified resource group.
+        
+
+        @param request: MoveResourceGroupRequest
+
+        @return: MoveResourceGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.move_resource_group_with_options(instance_id, request, headers, runtime)
 
     def open_diagnosis_with_options(self, instance_id, request, headers, runtime):
+        """
+
+        @param request: OpenDiagnosisRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: OpenDiagnosisResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -4275,13 +6492,19 @@ class Client(OpenApiClient):
         )
 
     def open_diagnosis(self, instance_id, request):
+        """
+
+        @param request: OpenDiagnosisRequest
+
+        @return: OpenDiagnosisResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.open_diagnosis_with_options(instance_id, request, headers, runtime)
 
     def open_https_with_options(self, instance_id, request, headers, runtime):
         """
-        >  To ensure data security, we recommend that you enable HTTPS.
+        @description >  To ensure data security, we recommend that you enable HTTPS.
         
 
         @param request: OpenHttpsRequest
@@ -4319,7 +6542,7 @@ class Client(OpenApiClient):
 
     def open_https(self, instance_id, request):
         """
-        >  To ensure data security, we recommend that you enable HTTPS.
+        @description >  To ensure data security, we recommend that you enable HTTPS.
         
 
         @param request: OpenHttpsRequest
@@ -4331,6 +6554,17 @@ class Client(OpenApiClient):
         return self.open_https_with_options(instance_id, request, headers, runtime)
 
     def post_emon_try_alarm_rule_with_options(self, project_id, alarm_group_id, request, headers, runtime):
+        """
+
+        @param request: PostEmonTryAlarmRuleRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: PostEmonTryAlarmRuleResponse
+        """
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             headers=headers,
@@ -4353,11 +6587,28 @@ class Client(OpenApiClient):
         )
 
     def post_emon_try_alarm_rule(self, project_id, alarm_group_id, request):
+        """
+
+        @param request: PostEmonTryAlarmRuleRequest
+
+        @return: PostEmonTryAlarmRuleResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.post_emon_try_alarm_rule_with_options(project_id, alarm_group_id, request, headers, runtime)
 
     def recommend_templates_with_options(self, instance_id, request, headers, runtime):
+        """
+
+        @param request: RecommendTemplatesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RecommendTemplatesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.usage_scenario):
@@ -4383,11 +6634,30 @@ class Client(OpenApiClient):
         )
 
     def recommend_templates(self, instance_id, request):
+        """
+
+        @param request: RecommendTemplatesRequest
+
+        @return: RecommendTemplatesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.recommend_templates_with_options(instance_id, request, headers, runtime)
 
     def reinstall_collector_with_options(self, res_id, request, headers, runtime):
+        """
+        @summary Installs a shipper that failed to be installed when you create the shipper.
+        
+
+        @param request: ReinstallCollectorRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ReinstallCollectorResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -4414,11 +6684,30 @@ class Client(OpenApiClient):
         )
 
     def reinstall_collector(self, res_id, request):
+        """
+        @summary Installs a shipper that failed to be installed when you create the shipper.
+        
+
+        @param request: ReinstallCollectorRequest
+
+        @return: ReinstallCollectorResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.reinstall_collector_with_options(res_id, request, headers, runtime)
 
     def remove_apm_with_options(self, instance_id, headers, runtime):
+        """
+        @summary RemoveApm
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RemoveApmResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -4439,11 +6728,30 @@ class Client(OpenApiClient):
         )
 
     def remove_apm(self, instance_id):
+        """
+        @summary RemoveApm
+        
+
+        @return: RemoveApmResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.remove_apm_with_options(instance_id, headers, runtime)
 
     def renew_instance_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary Call RenewInstance to renew a subscription instance.
+        
+
+        @param request: RenewInstanceRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RenewInstanceResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -4470,11 +6778,32 @@ class Client(OpenApiClient):
         )
 
     def renew_instance(self, instance_id, request):
+        """
+        @summary Call RenewInstance to renew a subscription instance.
+        
+
+        @param request: RenewInstanceRequest
+
+        @return: RenewInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.renew_instance_with_options(instance_id, request, headers, runtime)
 
     def renew_logstash_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary Renews a Logstash cluster.
+        
+
+        @param request: RenewLogstashRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RenewLogstashResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -4501,11 +6830,32 @@ class Client(OpenApiClient):
         )
 
     def renew_logstash(self, instance_id, request):
+        """
+        @summary Renews a Logstash cluster.
+        
+
+        @param request: RenewLogstashRequest
+
+        @return: RenewLogstashResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.renew_logstash_with_options(instance_id, request, headers, runtime)
 
     def restart_collector_with_options(self, res_id, request, headers, runtime):
+        """
+        @summary Restarts a shipper.
+        
+
+        @param request: RestartCollectorRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RestartCollectorResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -4531,13 +6881,23 @@ class Client(OpenApiClient):
         )
 
     def restart_collector(self, res_id, request):
+        """
+        @summary Restarts a shipper.
+        
+
+        @param request: RestartCollectorRequest
+
+        @return: RestartCollectorResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.restart_collector_with_options(res_id, request, headers, runtime)
 
     def restart_instance_with_options(self, instance_id, request, headers, runtime):
         """
-        >  After the instance is restarted, the instance enters the activating state. After the instance is restarted, its status changes to active. Alibaba Cloud Elasticsearch supports restarting a single node. Restarting a node can be divided into normal restart and blue-green restart.
+        @summary You can call this operation to restart a specified Elasticsearch instance.
+        
+        @description >  After the instance is restarted, the instance enters the activating state. After the instance is restarted, its status changes to active. Alibaba Cloud Elasticsearch supports restarting a single node. Restarting a node can be divided into normal restart and blue-green restart.
         
 
         @param request: RestartInstanceRequest
@@ -4578,7 +6938,9 @@ class Client(OpenApiClient):
 
     def restart_instance(self, instance_id, request):
         """
-        >  After the instance is restarted, the instance enters the activating state. After the instance is restarted, its status changes to active. Alibaba Cloud Elasticsearch supports restarting a single node. Restarting a node can be divided into normal restart and blue-green restart.
+        @summary You can call this operation to restart a specified Elasticsearch instance.
+        
+        @description >  After the instance is restarted, the instance enters the activating state. After the instance is restarted, its status changes to active. Alibaba Cloud Elasticsearch supports restarting a single node. Restarting a node can be divided into normal restart and blue-green restart.
         
 
         @param request: RestartInstanceRequest
@@ -4590,6 +6952,19 @@ class Client(OpenApiClient):
         return self.restart_instance_with_options(instance_id, request, headers, runtime)
 
     def restart_logstash_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary 重启Logstash集群
+        
+
+        @param request: RestartLogstashRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RestartLogstashResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -4629,11 +7004,30 @@ class Client(OpenApiClient):
         )
 
     def restart_logstash(self, instance_id, request):
+        """
+        @summary 重启Logstash集群
+        
+
+        @param request: RestartLogstashRequest
+
+        @return: RestartLogstashResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.restart_logstash_with_options(instance_id, request, headers, runtime)
 
     def resume_elasticsearch_task_with_options(self, instance_id, request, headers, runtime):
+        """
+
+        @param request: ResumeElasticsearchTaskRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ResumeElasticsearchTaskResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -4659,11 +7053,30 @@ class Client(OpenApiClient):
         )
 
     def resume_elasticsearch_task(self, instance_id, request):
+        """
+
+        @param request: ResumeElasticsearchTaskRequest
+
+        @return: ResumeElasticsearchTaskResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.resume_elasticsearch_task_with_options(instance_id, request, headers, runtime)
 
     def resume_logstash_task_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary Resumes a change task of a Logstash cluster. After the task is resumed, the Logstash cluster is in the activating state.
+        
+
+        @param request: ResumeLogstashTaskRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ResumeLogstashTaskResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -4689,11 +7102,32 @@ class Client(OpenApiClient):
         )
 
     def resume_logstash_task(self, instance_id, request):
+        """
+        @summary Resumes a change task of a Logstash cluster. After the task is resumed, the Logstash cluster is in the activating state.
+        
+
+        @param request: ResumeLogstashTaskRequest
+
+        @return: ResumeLogstashTaskResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.resume_logstash_task_with_options(instance_id, request, headers, runtime)
 
     def rollover_data_stream_with_options(self, instance_id, data_stream, request, headers, runtime):
+        """
+        @summary 滚动数据流，生成新索引
+        
+
+        @param request: RolloverDataStreamRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RolloverDataStreamResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -4719,11 +7153,32 @@ class Client(OpenApiClient):
         )
 
     def rollover_data_stream(self, instance_id, data_stream, request):
+        """
+        @summary 滚动数据流，生成新索引
+        
+
+        @param request: RolloverDataStreamRequest
+
+        @return: RolloverDataStreamResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.rollover_data_stream_with_options(instance_id, data_stream, request, headers, runtime)
 
     def run_pipelines_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary Runs pipelines in a Logstash cluster.
+        
+
+        @param request: RunPipelinesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RunPipelinesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -4750,11 +7205,32 @@ class Client(OpenApiClient):
         )
 
     def run_pipelines(self, instance_id, request):
+        """
+        @summary Runs pipelines in a Logstash cluster.
+        
+
+        @param request: RunPipelinesRequest
+
+        @return: RunPipelinesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.run_pipelines_with_options(instance_id, request, headers, runtime)
 
     def shrink_node_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary ES集群缩节点
+        
+
+        @param request: ShrinkNodeRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ShrinkNodeResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -4787,11 +7263,30 @@ class Client(OpenApiClient):
         )
 
     def shrink_node(self, instance_id, request):
+        """
+        @summary ES集群缩节点
+        
+
+        @param request: ShrinkNodeRequest
+
+        @return: ShrinkNodeResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.shrink_node_with_options(instance_id, request, headers, runtime)
 
     def start_apm_with_options(self, instance_id, headers, runtime):
+        """
+        @summary StartApm
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: StartApmResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -4812,11 +7307,30 @@ class Client(OpenApiClient):
         )
 
     def start_apm(self, instance_id):
+        """
+        @summary StartApm
+        
+
+        @return: StartApmResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.start_apm_with_options(instance_id, headers, runtime)
 
     def start_collector_with_options(self, res_id, request, headers, runtime):
+        """
+        @summary Starts a collector to collect data.
+        
+
+        @param request: StartCollectorRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: StartCollectorResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -4842,11 +7356,30 @@ class Client(OpenApiClient):
         )
 
     def start_collector(self, res_id, request):
+        """
+        @summary Starts a collector to collect data.
+        
+
+        @param request: StartCollectorRequest
+
+        @return: StartCollectorResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.start_collector_with_options(res_id, request, headers, runtime)
 
     def stop_apm_with_options(self, instance_id, headers, runtime):
+        """
+        @summary StopApm
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: StopApmResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -4867,11 +7400,30 @@ class Client(OpenApiClient):
         )
 
     def stop_apm(self, instance_id):
+        """
+        @summary StopApm
+        
+
+        @return: StopApmResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.stop_apm_with_options(instance_id, headers, runtime)
 
     def stop_collector_with_options(self, res_id, request, headers, runtime):
+        """
+        @summary Stops a shipper.
+        
+
+        @param request: StopCollectorRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: StopCollectorResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -4897,11 +7449,32 @@ class Client(OpenApiClient):
         )
 
     def stop_collector(self, res_id, request):
+        """
+        @summary Stops a shipper.
+        
+
+        @param request: StopCollectorRequest
+
+        @return: StopCollectorResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.stop_collector_with_options(res_id, request, headers, runtime)
 
     def stop_pipelines_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary Stops pipelines in a Logstash cluster.
+        
+
+        @param request: StopPipelinesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: StopPipelinesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -4928,11 +7501,32 @@ class Client(OpenApiClient):
         )
 
     def stop_pipelines(self, instance_id, request):
+        """
+        @summary Stops pipelines in a Logstash cluster.
+        
+
+        @param request: StopPipelinesRequest
+
+        @return: StopPipelinesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.stop_pipelines_with_options(instance_id, request, headers, runtime)
 
     def tag_resources_with_options(self, request, headers, runtime):
+        """
+        @summary The information about the clusters and tags.
+        
+
+        @param request: TagResourcesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: TagResourcesResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.resource_ids):
@@ -4962,11 +7556,32 @@ class Client(OpenApiClient):
         )
 
     def tag_resources(self, request):
+        """
+        @summary The information about the clusters and tags.
+        
+
+        @param request: TagResourcesRequest
+
+        @return: TagResourcesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.tag_resources_with_options(request, headers, runtime)
 
     def transfer_node_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary 缩节点，数据迁移
+        
+
+        @param request: TransferNodeRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: TransferNodeResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -4995,11 +7610,32 @@ class Client(OpenApiClient):
         )
 
     def transfer_node(self, instance_id, request):
+        """
+        @summary 缩节点，数据迁移
+        
+
+        @param request: TransferNodeRequest
+
+        @return: TransferNodeResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.transfer_node_with_options(instance_id, request, headers, runtime)
 
     def trigger_network_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary 开关ES集群及Kibana节点公私网访问
+        
+
+        @param request: TriggerNetworkRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: TriggerNetworkResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -5033,11 +7669,32 @@ class Client(OpenApiClient):
         )
 
     def trigger_network(self, instance_id, request):
+        """
+        @summary 开关ES集群及Kibana节点公私网访问
+        
+
+        @param request: TriggerNetworkRequest
+
+        @return: TriggerNetworkResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.trigger_network_with_options(instance_id, request, headers, runtime)
 
     def uninstall_kibana_plugin_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary Call the UninstallKibanaPlugin to uninstall the Kibana plug-in.
+        
+
+        @param request: UninstallKibanaPluginRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UninstallKibanaPluginResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -5064,11 +7721,32 @@ class Client(OpenApiClient):
         )
 
     def uninstall_kibana_plugin(self, instance_id, request):
+        """
+        @summary Call the UninstallKibanaPlugin to uninstall the Kibana plug-in.
+        
+
+        @param request: UninstallKibanaPluginRequest
+
+        @return: UninstallKibanaPluginResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.uninstall_kibana_plugin_with_options(instance_id, request, headers, runtime)
 
     def uninstall_logstash_plugin_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary 卸载Logstash实例已安装的插件
+        
+
+        @param request: UninstallLogstashPluginRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UninstallLogstashPluginResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -5095,11 +7773,32 @@ class Client(OpenApiClient):
         )
 
     def uninstall_logstash_plugin(self, instance_id, request):
+        """
+        @summary 卸载Logstash实例已安装的插件
+        
+
+        @param request: UninstallLogstashPluginRequest
+
+        @return: UninstallLogstashPluginResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.uninstall_logstash_plugin_with_options(instance_id, request, headers, runtime)
 
     def uninstall_plugin_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary Call UninstallPlugin to uninstall the preset plug-in.
+        
+
+        @param request: UninstallPluginRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UninstallPluginResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -5128,16 +7827,26 @@ class Client(OpenApiClient):
         )
 
     def uninstall_plugin(self, instance_id, request):
+        """
+        @summary Call UninstallPlugin to uninstall the preset plug-in.
+        
+
+        @param request: UninstallPluginRequest
+
+        @return: UninstallPluginResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.uninstall_plugin_with_options(instance_id, request, headers, runtime)
 
     def untag_resources_with_options(self, request, headers, runtime):
         """
-        When you call this operation, take note of the following items:
-        *   You can only delete user tags.
+        @summary 删除ES集群实例的用户可见标签
+        
+        @description When you call this operation, take note of the following items:
+        You can only delete user tags.
         > User labels are manually added to instances by users. A system Tag is a tag that Alibaba Cloud services add to instances. System labels are divided into visible labels and invisible labels.
-        *   If you delete a resource tag relationship that is not associated with any resources, you must delete the tags.
+        If you delete a resource tag relationship that is not associated with any resources, you must delete the tags.
         
 
         @param request: UntagResourcesRequest
@@ -5182,10 +7891,12 @@ class Client(OpenApiClient):
 
     def untag_resources(self, request):
         """
-        When you call this operation, take note of the following items:
-        *   You can only delete user tags.
+        @summary 删除ES集群实例的用户可见标签
+        
+        @description When you call this operation, take note of the following items:
+        You can only delete user tags.
         > User labels are manually added to instances by users. A system Tag is a tag that Alibaba Cloud services add to instances. System labels are divided into visible labels and invisible labels.
-        *   If you delete a resource tag relationship that is not associated with any resources, you must delete the tags.
+        If you delete a resource tag relationship that is not associated with any resources, you must delete the tags.
         
 
         @param request: UntagResourcesRequest
@@ -5198,7 +7909,9 @@ class Client(OpenApiClient):
 
     def update_admin_password_with_options(self, instance_id, request, headers, runtime):
         """
-        5A2CFF0E-5718-45B5-9D4D-70B3FF\\\\*\\*\\*\
+        @summary 修改ES集群密码
+        
+        @description 5A2CFF0E-5718-45B5-9D4D-70B3FF\\\\*\\*\\*\
         
 
         @param request: UpdateAdminPasswordRequest
@@ -5240,7 +7953,9 @@ class Client(OpenApiClient):
 
     def update_admin_password(self, instance_id, request):
         """
-        5A2CFF0E-5718-45B5-9D4D-70B3FF\\\\*\\*\\*\
+        @summary 修改ES集群密码
+        
+        @description 5A2CFF0E-5718-45B5-9D4D-70B3FF\\\\*\\*\\*\
         
 
         @param request: UpdateAdminPasswordRequest
@@ -5252,6 +7967,19 @@ class Client(OpenApiClient):
         return self.update_admin_password_with_options(instance_id, request, headers, runtime)
 
     def update_advanced_setting_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary Call UpdateAdvancedSetting to change the garbage collector configuration for the specified instance.
+        
+
+        @param request: UpdateAdvancedSettingRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateAdvancedSettingResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -5278,16 +8006,26 @@ class Client(OpenApiClient):
         )
 
     def update_advanced_setting(self, instance_id, request):
+        """
+        @summary Call UpdateAdvancedSetting to change the garbage collector configuration for the specified instance.
+        
+
+        @param request: UpdateAdvancedSettingRequest
+
+        @return: UpdateAdvancedSettingResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_advanced_setting_with_options(instance_id, request, headers, runtime)
 
     def update_aliws_dict_with_options(self, instance_id, request, headers, runtime):
         """
-        Before you call this operation, take note of the following items:
-        *   Elasticsearch V5.X clusters do not support the analysis-aliws plug-in.
-        *   If the dictionary file is stored in an Object Storage Service (OSS) bucket, you must make sure that the access control list (ACL) of the bucket is public read.
-        *   If you do not set sourceType to ORIGIN for an uploaded dictionary file, the file will be deleted after you call this operation.
+        @summary Updates the dictionary file of the analysis-aliws plug-in.
+        
+        @description Before you call this operation, take note of the following items:
+        Elasticsearch V5.X clusters do not support the analysis-aliws plug-in.
+        If the dictionary file is stored in an Object Storage Service (OSS) bucket, you must make sure that the access control list (ACL) of the bucket is public read.
+        If you do not set sourceType to ORIGIN for an uploaded dictionary file, the file will be deleted after you call this operation.
         
 
         @param request: UpdateAliwsDictRequest
@@ -5326,10 +8064,12 @@ class Client(OpenApiClient):
 
     def update_aliws_dict(self, instance_id, request):
         """
-        Before you call this operation, take note of the following items:
-        *   Elasticsearch V5.X clusters do not support the analysis-aliws plug-in.
-        *   If the dictionary file is stored in an Object Storage Service (OSS) bucket, you must make sure that the access control list (ACL) of the bucket is public read.
-        *   If you do not set sourceType to ORIGIN for an uploaded dictionary file, the file will be deleted after you call this operation.
+        @summary Updates the dictionary file of the analysis-aliws plug-in.
+        
+        @description Before you call this operation, take note of the following items:
+        Elasticsearch V5.X clusters do not support the analysis-aliws plug-in.
+        If the dictionary file is stored in an Object Storage Service (OSS) bucket, you must make sure that the access control list (ACL) of the bucket is public read.
+        If you do not set sourceType to ORIGIN for an uploaded dictionary file, the file will be deleted after you call this operation.
         
 
         @param request: UpdateAliwsDictRequest
@@ -5341,6 +8081,19 @@ class Client(OpenApiClient):
         return self.update_aliws_dict_with_options(instance_id, request, headers, runtime)
 
     def update_apm_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary 修改APM实规格配置
+        
+
+        @param request: UpdateApmRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateApmResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.description):
@@ -5374,13 +8127,23 @@ class Client(OpenApiClient):
         )
 
     def update_apm(self, instance_id, request):
+        """
+        @summary 修改APM实规格配置
+        
+
+        @param request: UpdateApmRequest
+
+        @return: UpdateApmResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_apm_with_options(instance_id, request, headers, runtime)
 
     def update_black_ips_with_options(self, instance_id, request, headers, runtime):
         """
-        @deprecated
+        @deprecated OpenAPI UpdateBlackIps is deprecated
+        
+        @summary 修改ES实例访问黑名单，已废弃
         
 
         @param request: UpdateBlackIpsRequest
@@ -5419,7 +8182,9 @@ class Client(OpenApiClient):
 
     def update_black_ips(self, instance_id, request):
         """
-        @deprecated
+        @deprecated OpenAPI UpdateBlackIps is deprecated
+        
+        @summary 修改ES实例访问黑名单，已废弃
         
 
         @param request: UpdateBlackIpsRequest
@@ -5432,6 +8197,19 @@ class Client(OpenApiClient):
         return self.update_black_ips_with_options(instance_id, request, headers, runtime)
 
     def update_collector_with_options(self, res_id, request, headers, runtime):
+        """
+        @summary Updates the configurations of a shipper.
+        
+
+        @param request: UpdateCollectorRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateCollectorResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -5458,11 +8236,32 @@ class Client(OpenApiClient):
         )
 
     def update_collector(self, res_id, request):
+        """
+        @summary Updates the configurations of a shipper.
+        
+
+        @param request: UpdateCollectorRequest
+
+        @return: UpdateCollectorResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_collector_with_options(res_id, request, headers, runtime)
 
     def update_collector_name_with_options(self, res_id, request, headers, runtime):
+        """
+        @summary Changes the name of a shipper.
+        
+
+        @param request: UpdateCollectorNameRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateCollectorNameResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -5489,11 +8288,32 @@ class Client(OpenApiClient):
         )
 
     def update_collector_name(self, res_id, request):
+        """
+        @summary Changes the name of a shipper.
+        
+
+        @param request: UpdateCollectorNameRequest
+
+        @return: UpdateCollectorNameResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_collector_name_with_options(res_id, request, headers, runtime)
 
     def update_component_index_with_options(self, instance_id, name, request, headers, runtime):
+        """
+        @summary 修改ES集群动态索引
+        
+
+        @param request: UpdateComponentIndexRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateComponentIndexResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.meta):
@@ -5521,11 +8341,32 @@ class Client(OpenApiClient):
         )
 
     def update_component_index(self, instance_id, name, request):
+        """
+        @summary 修改ES集群动态索引
+        
+
+        @param request: UpdateComponentIndexRequest
+
+        @return: UpdateComponentIndexResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_component_index_with_options(instance_id, name, request, headers, runtime)
 
     def update_description_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary 修改elasticsearch实例名称名称
+        
+
+        @param request: UpdateDescriptionRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateDescriptionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -5555,11 +8396,32 @@ class Client(OpenApiClient):
         )
 
     def update_description(self, instance_id, request):
+        """
+        @summary 修改elasticsearch实例名称名称
+        
+
+        @param request: UpdateDescriptionRequest
+
+        @return: UpdateDescriptionResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_description_with_options(instance_id, request, headers, runtime)
 
     def update_diagnosis_settings_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary Call UpdateDiagnosisSettings to update the instance of intelligent operation&maintenance (O&M) scene settings.
+        
+
+        @param request: UpdateDiagnosisSettingsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateDiagnosisSettingsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -5588,15 +8450,25 @@ class Client(OpenApiClient):
         )
 
     def update_diagnosis_settings(self, instance_id, request):
+        """
+        @summary Call UpdateDiagnosisSettings to update the instance of intelligent operation&maintenance (O&M) scene settings.
+        
+
+        @param request: UpdateDiagnosisSettingsRequest
+
+        @return: UpdateDiagnosisSettingsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_diagnosis_settings_with_options(instance_id, request, headers, runtime)
 
     def update_dict_with_options(self, instance_id, request, headers, runtime):
         """
-        Before you call this operation, take note of the following items:
-        *   If the dictionary file is stored in an Object Storage Service (OSS) bucket, you must make sure that the access control list (ACL) of the bucket is public read.
-        *   If you do not set sourceType to ORIGIN for an uploaded dictionary file, the file will be deleted after you call this operation.
+        @summary Updates a dictionary of an Elasticsearch cluster.
+        
+        @description Before you call this operation, take note of the following items:
+        If the dictionary file is stored in an Object Storage Service (OSS) bucket, you must make sure that the access control list (ACL) of the bucket is public read.
+        If you do not set sourceType to ORIGIN for an uploaded dictionary file, the file will be deleted after you call this operation.
         
 
         @param request: UpdateDictRequest
@@ -5635,9 +8507,11 @@ class Client(OpenApiClient):
 
     def update_dict(self, instance_id, request):
         """
-        Before you call this operation, take note of the following items:
-        *   If the dictionary file is stored in an Object Storage Service (OSS) bucket, you must make sure that the access control list (ACL) of the bucket is public read.
-        *   If you do not set sourceType to ORIGIN for an uploaded dictionary file, the file will be deleted after you call this operation.
+        @summary Updates a dictionary of an Elasticsearch cluster.
+        
+        @description Before you call this operation, take note of the following items:
+        If the dictionary file is stored in an Object Storage Service (OSS) bucket, you must make sure that the access control list (ACL) of the bucket is public read.
+        If you do not set sourceType to ORIGIN for an uploaded dictionary file, the file will be deleted after you call this operation.
         
 
         @param request: UpdateDictRequest
@@ -5649,6 +8523,19 @@ class Client(OpenApiClient):
         return self.update_dict_with_options(instance_id, request, headers, runtime)
 
     def update_dynamic_settings_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary 修改集群动态配置
+        
+
+        @param request: UpdateDynamicSettingsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateDynamicSettingsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -5679,11 +8566,30 @@ class Client(OpenApiClient):
         )
 
     def update_dynamic_settings(self, instance_id, request):
+        """
+        @summary 修改集群动态配置
+        
+
+        @param request: UpdateDynamicSettingsRequest
+
+        @return: UpdateDynamicSettingsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_dynamic_settings_with_options(instance_id, request, headers, runtime)
 
     def update_extend_config_with_options(self, instance_id, request, headers, runtime):
+        """
+
+        @param request: UpdateExtendConfigRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateExtendConfigResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -5710,13 +8616,21 @@ class Client(OpenApiClient):
         )
 
     def update_extend_config(self, instance_id, request):
+        """
+
+        @param request: UpdateExtendConfigRequest
+
+        @return: UpdateExtendConfigResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_extend_config_with_options(instance_id, request, headers, runtime)
 
     def update_extendfiles_with_options(self, instance_id, request, headers, runtime):
         """
-        When you call this operation, take note of the following items: You can call this operation only to delete the driver files that are uploaded to a Logstash cluster in the Alibaba Cloud Management Console. You can add or modify driver files only in the Alibaba Cloud Management Console.
+        @summary Updates the driver files of a Logstash cluster.
+        
+        @description When you call this operation, take note of the following items: You can call this operation only to delete the driver files that are uploaded to a Logstash cluster in the Alibaba Cloud Management Console. You can add or modify driver files only in the Alibaba Cloud Management Console.
         
 
         @param request: UpdateExtendfilesRequest
@@ -5755,7 +8669,9 @@ class Client(OpenApiClient):
 
     def update_extendfiles(self, instance_id, request):
         """
-        When you call this operation, take note of the following items: You can call this operation only to delete the driver files that are uploaded to a Logstash cluster in the Alibaba Cloud Management Console. You can add or modify driver files only in the Alibaba Cloud Management Console.
+        @summary Updates the driver files of a Logstash cluster.
+        
+        @description When you call this operation, take note of the following items: You can call this operation only to delete the driver files that are uploaded to a Logstash cluster in the Alibaba Cloud Management Console. You can add or modify driver files only in the Alibaba Cloud Management Console.
         
 
         @param request: UpdateExtendfilesRequest
@@ -5768,9 +8684,11 @@ class Client(OpenApiClient):
 
     def update_hot_ik_dicts_with_options(self, instance_id, request, headers, runtime):
         """
-        Before you call this operation, take note of the following items:
-        *   If the dictionary file is stored in an Object Storage Service (OSS) bucket, you must make sure that the access control list (ACL) of the bucket is public read.
-        *   If you do not set sourceType to ORIGIN for an uploaded dictionary file, the file will be deleted after you call this operation.
+        @summary Performs a rolling update for the IK dictionaries of an Elasticsearch cluster.
+        
+        @description Before you call this operation, take note of the following items:
+        If the dictionary file is stored in an Object Storage Service (OSS) bucket, you must make sure that the access control list (ACL) of the bucket is public read.
+        If you do not set sourceType to ORIGIN for an uploaded dictionary file, the file will be deleted after you call this operation.
         
 
         @param request: UpdateHotIkDictsRequest
@@ -5809,9 +8727,11 @@ class Client(OpenApiClient):
 
     def update_hot_ik_dicts(self, instance_id, request):
         """
-        Before you call this operation, take note of the following items:
-        *   If the dictionary file is stored in an Object Storage Service (OSS) bucket, you must make sure that the access control list (ACL) of the bucket is public read.
-        *   If you do not set sourceType to ORIGIN for an uploaded dictionary file, the file will be deleted after you call this operation.
+        @summary Performs a rolling update for the IK dictionaries of an Elasticsearch cluster.
+        
+        @description Before you call this operation, take note of the following items:
+        If the dictionary file is stored in an Object Storage Service (OSS) bucket, you must make sure that the access control list (ACL) of the bucket is public read.
+        If you do not set sourceType to ORIGIN for an uploaded dictionary file, the file will be deleted after you call this operation.
         
 
         @param request: UpdateHotIkDictsRequest
@@ -5823,6 +8743,19 @@ class Client(OpenApiClient):
         return self.update_hot_ik_dicts_with_options(instance_id, request, headers, runtime)
 
     def update_ilmpolicy_with_options(self, instance_id, policy_name, request, headers, runtime):
+        """
+        @summary 修改ES集群索引生命周期策略
+        
+
+        @param request: UpdateILMPolicyRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateILMPolicyResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -5849,11 +8782,32 @@ class Client(OpenApiClient):
         )
 
     def update_ilmpolicy(self, instance_id, policy_name, request):
+        """
+        @summary 修改ES集群索引生命周期策略
+        
+
+        @param request: UpdateILMPolicyRequest
+
+        @return: UpdateILMPolicyResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_ilmpolicy_with_options(instance_id, policy_name, request, headers, runtime)
 
     def update_index_template_with_options(self, instance_id, index_template, request, headers, runtime):
+        """
+        @summary 修改ES集群索引模版配置
+        
+
+        @param request: UpdateIndexTemplateRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateIndexTemplateResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -5880,13 +8834,23 @@ class Client(OpenApiClient):
         )
 
     def update_index_template(self, instance_id, index_template, request):
+        """
+        @summary 修改ES集群索引模版配置
+        
+
+        @param request: UpdateIndexTemplateRequest
+
+        @return: UpdateIndexTemplateResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_index_template_with_options(instance_id, index_template, request, headers, runtime)
 
     def update_instance_with_options(self, instance_id, request, headers, runtime):
         """
-        es-cn-n6w1ptcb30009\\\\*\\*\\*\
+        @summary 修改ES集群节点配置
+        
+        @description es-cn-n6w1ptcb30009\\\\*\\*\\*\
         
 
         @param request: UpdateInstanceRequest
@@ -5946,7 +8910,9 @@ class Client(OpenApiClient):
 
     def update_instance(self, instance_id, request):
         """
-        es-cn-n6w1ptcb30009\\\\*\\*\\*\
+        @summary 修改ES集群节点配置
+        
+        @description es-cn-n6w1ptcb30009\\\\*\\*\\*\
         
 
         @param request: UpdateInstanceRequest
@@ -5958,6 +8924,19 @@ class Client(OpenApiClient):
         return self.update_instance_with_options(instance_id, request, headers, runtime)
 
     def update_instance_charge_type_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary Call UpdateInstanceChargeType to change the billing method of a pay-as-you-go instance to subscription.
+        
+
+        @param request: UpdateInstanceChargeTypeRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateInstanceChargeTypeResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -5984,13 +8963,23 @@ class Client(OpenApiClient):
         )
 
     def update_instance_charge_type(self, instance_id, request):
+        """
+        @summary Call UpdateInstanceChargeType to change the billing method of a pay-as-you-go instance to subscription.
+        
+
+        @param request: UpdateInstanceChargeTypeRequest
+
+        @return: UpdateInstanceChargeTypeResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_instance_charge_type_with_options(instance_id, request, headers, runtime)
 
     def update_instance_settings_with_options(self, instance_id, request, headers, runtime):
         """
-        When you call this operation, take note of the following items:
+        @summary Call UpdateInstanceSettings to update the YML configuration of a specified instance.
+        
+        @description When you call this operation, take note of the following items:
         When the instance is in the activating, invalid, or inactive state, you cannot update the configuration.
         
 
@@ -6030,7 +9019,9 @@ class Client(OpenApiClient):
 
     def update_instance_settings(self, instance_id, request):
         """
-        When you call this operation, take note of the following items:
+        @summary Call UpdateInstanceSettings to update the YML configuration of a specified instance.
+        
+        @description When you call this operation, take note of the following items:
         When the instance is in the activating, invalid, or inactive state, you cannot update the configuration.
         
 
@@ -6043,6 +9034,19 @@ class Client(OpenApiClient):
         return self.update_instance_settings_with_options(instance_id, request, headers, runtime)
 
     def update_kibana_pvl_network_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary 更新kibana私网链接
+        
+
+        @param request: UpdateKibanaPvlNetworkRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateKibanaPvlNetworkResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.pvl_id):
@@ -6074,11 +9078,32 @@ class Client(OpenApiClient):
         )
 
     def update_kibana_pvl_network(self, instance_id, request):
+        """
+        @summary 更新kibana私网链接
+        
+
+        @param request: UpdateKibanaPvlNetworkRequest
+
+        @return: UpdateKibanaPvlNetworkResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_kibana_pvl_network_with_options(instance_id, request, headers, runtime)
 
     def update_kibana_settings_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary Call UpdateKibanaSettings to modify the Kibana configuration. Currently, you can only modify the Kibana language configuration.
+        
+
+        @param request: UpdateKibanaSettingsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateKibanaSettingsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -6105,17 +9130,27 @@ class Client(OpenApiClient):
         )
 
     def update_kibana_settings(self, instance_id, request):
+        """
+        @summary Call UpdateKibanaSettings to modify the Kibana configuration. Currently, you can only modify the Kibana language configuration.
+        
+
+        @param request: UpdateKibanaSettingsRequest
+
+        @return: UpdateKibanaSettingsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_kibana_settings_with_options(instance_id, request, headers, runtime)
 
     def update_kibana_white_ips_with_options(self, instance_id, request, headers, runtime):
         """
-        Before you call this operation, you must make sure that the cluster is not in the activating, invalid, or inactive state.
-        *   You can update an IP address whitelist by using the following parameters:
-        *   kibanaIPWhitelist
-        *   modifyMode and whiteIpGroup
-        *   You cannot specify private IP addresses for public IP address whitelists and cannot specify public IP addresses for private IP address whitelists.
+        @summary Updates an IP address whitelist for access to the Kibana console of a specified Elasticsearch cluster.
+        
+        @description    Before you call this operation, you must make sure that the cluster is not in the activating, invalid, or inactive state.
+        You can update an IP address whitelist by using the following parameters:
+        kibanaIPWhitelist
+        modifyMode and whiteIpGroup
+        You cannot specify private IP addresses for public IP address whitelists and cannot specify public IP addresses for private IP address whitelists.
         
 
         @param request: UpdateKibanaWhiteIpsRequest
@@ -6161,11 +9196,13 @@ class Client(OpenApiClient):
 
     def update_kibana_white_ips(self, instance_id, request):
         """
-        Before you call this operation, you must make sure that the cluster is not in the activating, invalid, or inactive state.
-        *   You can update an IP address whitelist by using the following parameters:
-        *   kibanaIPWhitelist
-        *   modifyMode and whiteIpGroup
-        *   You cannot specify private IP addresses for public IP address whitelists and cannot specify public IP addresses for private IP address whitelists.
+        @summary Updates an IP address whitelist for access to the Kibana console of a specified Elasticsearch cluster.
+        
+        @description    Before you call this operation, you must make sure that the cluster is not in the activating, invalid, or inactive state.
+        You can update an IP address whitelist by using the following parameters:
+        kibanaIPWhitelist
+        modifyMode and whiteIpGroup
+        You cannot specify private IP addresses for public IP address whitelists and cannot specify public IP addresses for private IP address whitelists.
         
 
         @param request: UpdateKibanaWhiteIpsRequest
@@ -6177,6 +9214,19 @@ class Client(OpenApiClient):
         return self.update_kibana_white_ips_with_options(instance_id, request, headers, runtime)
 
     def update_logstash_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary 修改Logstash节点规格磁盘配置
+        
+
+        @param request: UpdateLogstashRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateLogstashResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -6208,11 +9258,32 @@ class Client(OpenApiClient):
         )
 
     def update_logstash(self, instance_id, request):
+        """
+        @summary 修改Logstash节点规格磁盘配置
+        
+
+        @param request: UpdateLogstashRequest
+
+        @return: UpdateLogstashResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_logstash_with_options(instance_id, request, headers, runtime)
 
     def update_logstash_charge_type_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary Switches the billing method of a Logstash cluster from pay-as-you-go to subscription.
+        
+
+        @param request: UpdateLogstashChargeTypeRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateLogstashChargeTypeResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -6239,13 +9310,23 @@ class Client(OpenApiClient):
         )
 
     def update_logstash_charge_type(self, instance_id, request):
+        """
+        @summary Switches the billing method of a Logstash cluster from pay-as-you-go to subscription.
+        
+
+        @param request: UpdateLogstashChargeTypeRequest
+
+        @return: UpdateLogstashChargeTypeResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_logstash_charge_type_with_options(instance_id, request, headers, runtime)
 
     def update_logstash_description_with_options(self, instance_id, request, headers, runtime):
         """
-        When you call this operation, take note of the following items: You cannot change the name of a cluster that is in the activating, invalid, or inactive state.
+        @summary Changes the name of a specified Logstash cluster.
+        
+        @description When you call this operation, take note of the following items: You cannot change the name of a cluster that is in the activating, invalid, or inactive state.
         
 
         @param request: UpdateLogstashDescriptionRequest
@@ -6287,7 +9368,9 @@ class Client(OpenApiClient):
 
     def update_logstash_description(self, instance_id, request):
         """
-        When you call this operation, take note of the following items: You cannot change the name of a cluster that is in the activating, invalid, or inactive state.
+        @summary Changes the name of a specified Logstash cluster.
+        
+        @description When you call this operation, take note of the following items: You cannot change the name of a cluster that is in the activating, invalid, or inactive state.
         
 
         @param request: UpdateLogstashDescriptionRequest
@@ -6300,7 +9383,9 @@ class Client(OpenApiClient):
 
     def update_logstash_settings_with_options(self, instance_id, request, headers, runtime):
         """
-        When you call this operation, take note of the following items:
+        @summary Updates the configuration of a specified Logstash cluster.
+        
+        @description When you call this operation, take note of the following items:
         If the instance is in the Active (activating), Invalid (invalid), and Inactive (inactive) state, the information cannot be updated.
         
 
@@ -6340,7 +9425,9 @@ class Client(OpenApiClient):
 
     def update_logstash_settings(self, instance_id, request):
         """
-        When you call this operation, take note of the following items:
+        @summary Updates the configuration of a specified Logstash cluster.
+        
+        @description When you call this operation, take note of the following items:
         If the instance is in the Active (activating), Invalid (invalid), and Inactive (inactive) state, the information cannot be updated.
         
 
@@ -6353,6 +9440,19 @@ class Client(OpenApiClient):
         return self.update_logstash_settings_with_options(instance_id, request, headers, runtime)
 
     def update_pipeline_management_config_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary 修改Logstash管道配置
+        
+
+        @param request: UpdatePipelineManagementConfigRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdatePipelineManagementConfigResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -6390,11 +9490,32 @@ class Client(OpenApiClient):
         )
 
     def update_pipeline_management_config(self, instance_id, request):
+        """
+        @summary 修改Logstash管道配置
+        
+
+        @param request: UpdatePipelineManagementConfigRequest
+
+        @return: UpdatePipelineManagementConfigResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_pipeline_management_config_with_options(instance_id, request, headers, runtime)
 
     def update_pipelines_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary Updates a pipeline of a Logstash cluster.
+        
+
+        @param request: UpdatePipelinesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdatePipelinesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -6423,13 +9544,34 @@ class Client(OpenApiClient):
         )
 
     def update_pipelines(self, instance_id, request):
+        """
+        @summary Updates a pipeline of a Logstash cluster.
+        
+
+        @param request: UpdatePipelinesRequest
+
+        @return: UpdatePipelinesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_pipelines_with_options(instance_id, request, headers, runtime)
 
     def update_private_network_white_ips_with_options(self, instance_id, request, headers, runtime):
         """
-        >  In the following returned example, only the parameters in the returned data list are guaranteed to be included, and the parameters not mentioned are for reference only. For more information about the parameters, see [ListInstance](~~142230~~). You cannot force a dependency in a program to get these parameters.
+        @summary ## RequestBody
+        | Property | Type | Required | Example | Description |
+        | -------- | ---- | -------- | ------- | ----------- |
+        | privateNetworkIpWhiteList | List<String> | No | ["0.0.XX.XX","10.2.XX.XX","192.168.XX.XX/25"] | The list of IP address whitelists. This parameter is available if whiteIpGroup is left empty. The value of this parameter updates the IP address whitelist configurations in the Default whitelist group.
+        You cannot configure both privateNetworkIpWhiteList and whiteIpGroup. |
+        | whiteIpGroup | Object | No |  | You can update the whitelist configurations of an instance by using a whitelist group. You can update only one whitelist group.
+        You cannot configure both privateNetworkIpWhiteList and whiteIpGroup. |
+        | └ groupName | String | No | test_group_name | The group name of the whitelist group. This parameter is required if the whiteIpGroup parameter is optional. |
+        | └ ips | List<String> | No | ["0.0.0.0", "10.2.XX.XX"] | The list of IP addresses in the whitelist group. This parameter is required if the whiteIpGroup parameter is optional. |
+        > *Notice**  The addition and deletion of whitelist groups are implemented by calling modifyMode to Cover. Delete and Append cannot add or delete whitelist groups at the same time. You can only modify the IP address list in the whitelist group. Take note of the following items: - If the modifyMode parameter is set to Cover, the whitelist group is deleted if ips is empty. If groupName is not in the list of existing whitelist group names, a whitelist group is created.
+        - If the modifyMode parameter is set to Delete, you must retain at least one IP address for the deleted ips.
+        - If the modifyMode parameter is set to Append, make sure that the whitelist group name has been created. Otherwise, the NotFound error message appears.
+        
+        @description >  In the following returned example, only the parameters in the returned data list are guaranteed to be included, and the parameters not mentioned are for reference only. For more information about the parameters, see [ListInstance](https://help.aliyun.com/document_detail/142230.html). You cannot force a dependency in a program to get these parameters.
         
 
         @param request: UpdatePrivateNetworkWhiteIpsRequest
@@ -6470,7 +9612,20 @@ class Client(OpenApiClient):
 
     def update_private_network_white_ips(self, instance_id, request):
         """
-        >  In the following returned example, only the parameters in the returned data list are guaranteed to be included, and the parameters not mentioned are for reference only. For more information about the parameters, see [ListInstance](~~142230~~). You cannot force a dependency in a program to get these parameters.
+        @summary ## RequestBody
+        | Property | Type | Required | Example | Description |
+        | -------- | ---- | -------- | ------- | ----------- |
+        | privateNetworkIpWhiteList | List<String> | No | ["0.0.XX.XX","10.2.XX.XX","192.168.XX.XX/25"] | The list of IP address whitelists. This parameter is available if whiteIpGroup is left empty. The value of this parameter updates the IP address whitelist configurations in the Default whitelist group.
+        You cannot configure both privateNetworkIpWhiteList and whiteIpGroup. |
+        | whiteIpGroup | Object | No |  | You can update the whitelist configurations of an instance by using a whitelist group. You can update only one whitelist group.
+        You cannot configure both privateNetworkIpWhiteList and whiteIpGroup. |
+        | └ groupName | String | No | test_group_name | The group name of the whitelist group. This parameter is required if the whiteIpGroup parameter is optional. |
+        | └ ips | List<String> | No | ["0.0.0.0", "10.2.XX.XX"] | The list of IP addresses in the whitelist group. This parameter is required if the whiteIpGroup parameter is optional. |
+        > *Notice**  The addition and deletion of whitelist groups are implemented by calling modifyMode to Cover. Delete and Append cannot add or delete whitelist groups at the same time. You can only modify the IP address list in the whitelist group. Take note of the following items: - If the modifyMode parameter is set to Cover, the whitelist group is deleted if ips is empty. If groupName is not in the list of existing whitelist group names, a whitelist group is created.
+        - If the modifyMode parameter is set to Delete, you must retain at least one IP address for the deleted ips.
+        - If the modifyMode parameter is set to Append, make sure that the whitelist group name has been created. Otherwise, the NotFound error message appears.
+        
+        @description >  In the following returned example, only the parameters in the returned data list are guaranteed to be included, and the parameters not mentioned are for reference only. For more information about the parameters, see [ListInstance](https://help.aliyun.com/document_detail/142230.html). You cannot force a dependency in a program to get these parameters.
         
 
         @param request: UpdatePrivateNetworkWhiteIpsRequest
@@ -6483,7 +9638,9 @@ class Client(OpenApiClient):
 
     def update_public_network_with_options(self, instance_id, request, headers, runtime):
         """
-        When you call this operation, take note of the following items:
+        @summary Call UpdatePublicNetwork to open or close the public network address of the specified elasticsearch instance.
+        
+        @description When you call this operation, take note of the following items:
         When the instance is in the activating, invalid, or inactive state, its configuration cannot be updated.
         
 
@@ -6523,7 +9680,9 @@ class Client(OpenApiClient):
 
     def update_public_network(self, instance_id, request):
         """
-        When you call this operation, take note of the following items:
+        @summary Call UpdatePublicNetwork to open or close the public network address of the specified elasticsearch instance.
+        
+        @description When you call this operation, take note of the following items:
         When the instance is in the activating, invalid, or inactive state, its configuration cannot be updated.
         
 
@@ -6537,7 +9696,20 @@ class Client(OpenApiClient):
 
     def update_public_white_ips_with_options(self, instance_id, request, headers, runtime):
         """
-        >  In the following example, only the parameters in the returned data list are guaranteed to be included. The parameters that are not mentioned are for reference only. For more information about the parameters, see [ListInstance](~~142230~~). You cannot force a dependency in a program to get these parameters.
+        @summary ## RequestBody
+        | Property | Type | Required | Example | Description |
+        | -------- | ---- | -------- | ------- | ----------- |
+        | publicIpWhitelist | List<String> | Yes | ["0.0.0.0/0","0.0.0.0/1"] | The list of IP address whitelists. This parameter is available if whiteIpGroup is left empty. The value of this parameter updates the IP address whitelist configurations in the Default whitelist group.
+        You cannot configure both publicIpWhitelist and whiteIpGroup. |
+        | whiteIpGroup | Object | No |  | You can update the whitelist configurations of an instance by using a whitelist group. You can update only one whitelist group.
+        You cannot configure both publicIpWhitelist and whiteIpGroup. |
+        | └ groupName | String | No | test_group_name | The group name of the whitelist group. This parameter is required if the whiteIpGroup parameter is optional. |
+        | └ ips | List<String> | No | ["0.0.0.0", "10.2.XX.XX"] | The list of IP addresses in the whitelist group. This parameter is required if the whiteIpGroup parameter is optional. |
+        > *Notice**  The addition and deletion of whitelist groups are implemented by calling modifyMode to Cover. Delete and Append cannot add or delete whitelist groups at the same time. You can only modify the IP address list in the whitelist group. Take note of the following items: - If the modifyMode parameter is set to Cover, the whitelist group is deleted if ips is empty. If groupName is not in the list of existing whitelist group names, a whitelist group is created.
+        - If the modifyMode parameter is set to Delete, you must retain at least one IP address for the deleted ips.
+        - If the modifyMode parameter is set to Append, make sure that the whitelist group name has been created. Otherwise, the NotFound error message appears.
+        
+        @description >  In the following example, only the parameters in the returned data list are guaranteed to be included. The parameters that are not mentioned are for reference only. For more information about the parameters, see [ListInstance](https://help.aliyun.com/document_detail/142230.html). You cannot force a dependency in a program to get these parameters.
         
 
         @param request: UpdatePublicWhiteIpsRequest
@@ -6578,7 +9750,20 @@ class Client(OpenApiClient):
 
     def update_public_white_ips(self, instance_id, request):
         """
-        >  In the following example, only the parameters in the returned data list are guaranteed to be included. The parameters that are not mentioned are for reference only. For more information about the parameters, see [ListInstance](~~142230~~). You cannot force a dependency in a program to get these parameters.
+        @summary ## RequestBody
+        | Property | Type | Required | Example | Description |
+        | -------- | ---- | -------- | ------- | ----------- |
+        | publicIpWhitelist | List<String> | Yes | ["0.0.0.0/0","0.0.0.0/1"] | The list of IP address whitelists. This parameter is available if whiteIpGroup is left empty. The value of this parameter updates the IP address whitelist configurations in the Default whitelist group.
+        You cannot configure both publicIpWhitelist and whiteIpGroup. |
+        | whiteIpGroup | Object | No |  | You can update the whitelist configurations of an instance by using a whitelist group. You can update only one whitelist group.
+        You cannot configure both publicIpWhitelist and whiteIpGroup. |
+        | └ groupName | String | No | test_group_name | The group name of the whitelist group. This parameter is required if the whiteIpGroup parameter is optional. |
+        | └ ips | List<String> | No | ["0.0.0.0", "10.2.XX.XX"] | The list of IP addresses in the whitelist group. This parameter is required if the whiteIpGroup parameter is optional. |
+        > *Notice**  The addition and deletion of whitelist groups are implemented by calling modifyMode to Cover. Delete and Append cannot add or delete whitelist groups at the same time. You can only modify the IP address list in the whitelist group. Take note of the following items: - If the modifyMode parameter is set to Cover, the whitelist group is deleted if ips is empty. If groupName is not in the list of existing whitelist group names, a whitelist group is created.
+        - If the modifyMode parameter is set to Delete, you must retain at least one IP address for the deleted ips.
+        - If the modifyMode parameter is set to Append, make sure that the whitelist group name has been created. Otherwise, the NotFound error message appears.
+        
+        @description >  In the following example, only the parameters in the returned data list are guaranteed to be included. The parameters that are not mentioned are for reference only. For more information about the parameters, see [ListInstance](https://help.aliyun.com/document_detail/142230.html). You cannot force a dependency in a program to get these parameters.
         
 
         @param request: UpdatePublicWhiteIpsRequest
@@ -6590,6 +9775,19 @@ class Client(OpenApiClient):
         return self.update_public_white_ips_with_options(instance_id, request, headers, runtime)
 
     def update_read_write_policy_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary 更改ES集群高可用策略
+        
+
+        @param request: UpdateReadWritePolicyRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateReadWritePolicyResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -6616,11 +9814,32 @@ class Client(OpenApiClient):
         )
 
     def update_read_write_policy(self, instance_id, request):
+        """
+        @summary 更改ES集群高可用策略
+        
+
+        @param request: UpdateReadWritePolicyRequest
+
+        @return: UpdateReadWritePolicyResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_read_write_policy_with_options(instance_id, request, headers, runtime)
 
     def update_snapshot_setting_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary Call UpdateSnapshotSetting to update the data backup configuration of the specified instance.
+        
+
+        @param request: UpdateSnapshotSettingRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateSnapshotSettingResponse
+        """
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             headers=headers,
@@ -6643,15 +9862,25 @@ class Client(OpenApiClient):
         )
 
     def update_snapshot_setting(self, instance_id, request):
+        """
+        @summary Call UpdateSnapshotSetting to update the data backup configuration of the specified instance.
+        
+
+        @param request: UpdateSnapshotSettingRequest
+
+        @return: UpdateSnapshotSettingResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_snapshot_setting_with_options(instance_id, request, headers, runtime)
 
     def update_synonyms_dicts_with_options(self, instance_id, request, headers, runtime):
         """
-        Before you call this operation, take note of the following items:
-        *   If the dictionary file is stored in an Object Storage Service (OSS) bucket, you must make sure that the access control list (ACL) of the bucket is public read.
-        *   If you do not set sourceType to ORIGIN for an uploaded dictionary file, the file will be deleted after you call this operation.
+        @summary Updates the synonym dictionaries of an Elasticsearch cluster.
+        
+        @description Before you call this operation, take note of the following items:
+        If the dictionary file is stored in an Object Storage Service (OSS) bucket, you must make sure that the access control list (ACL) of the bucket is public read.
+        If you do not set sourceType to ORIGIN for an uploaded dictionary file, the file will be deleted after you call this operation.
         
 
         @param request: UpdateSynonymsDictsRequest
@@ -6690,9 +9919,11 @@ class Client(OpenApiClient):
 
     def update_synonyms_dicts(self, instance_id, request):
         """
-        Before you call this operation, take note of the following items:
-        *   If the dictionary file is stored in an Object Storage Service (OSS) bucket, you must make sure that the access control list (ACL) of the bucket is public read.
-        *   If you do not set sourceType to ORIGIN for an uploaded dictionary file, the file will be deleted after you call this operation.
+        @summary Updates the synonym dictionaries of an Elasticsearch cluster.
+        
+        @description Before you call this operation, take note of the following items:
+        If the dictionary file is stored in an Object Storage Service (OSS) bucket, you must make sure that the access control list (ACL) of the bucket is public read.
+        If you do not set sourceType to ORIGIN for an uploaded dictionary file, the file will be deleted after you call this operation.
         
 
         @param request: UpdateSynonymsDictsRequest
@@ -6704,6 +9935,17 @@ class Client(OpenApiClient):
         return self.update_synonyms_dicts_with_options(instance_id, request, headers, runtime)
 
     def update_template_with_options(self, instance_id, template_name, request, headers, runtime):
+        """
+
+        @param request: UpdateTemplateRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateTemplateResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -6730,13 +9972,24 @@ class Client(OpenApiClient):
         )
 
     def update_template(self, instance_id, template_name, request):
+        """
+
+        @param request: UpdateTemplateRequest
+
+        @return: UpdateTemplateResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_template_with_options(instance_id, template_name, request, headers, runtime)
 
     def update_white_ips_with_options(self, instance_id, request, headers, runtime):
         """
-        > For more information about the parameters displayed in the following sample code but not provided in the preceding tables, see [ListInstance](~~142230~~). You cannot force your program to obtain these parameters.
+        @summary >  If you want to add an IP address whitelist, you can set the modifyMode parameter only to Cover. If you set this parameter to Delete or Append, you can only update an IP address whitelist.
+        If you set the modifyMode parameter to Cover and leave the ips parameter empty, the system deletes the specified whitelist. If the whitelist specified by using the groupName parameter does not exist, the system creates such a whitelist.
+        If you set the modifyMode parameter to Delete, at least one IP address must be retained for the specified whitelist.
+        If you set the modifyMode parameter to Append, you must make sure that the specified whitelist exists. Otherwise, the system reports the NotFound error.
+        
+        @description > For more information about the parameters displayed in the following sample code but not provided in the preceding tables, see [ListInstance](https://help.aliyun.com/document_detail/142230.html). You cannot force your program to obtain these parameters.
         
 
         @param request: UpdateWhiteIpsRequest
@@ -6782,7 +10035,12 @@ class Client(OpenApiClient):
 
     def update_white_ips(self, instance_id, request):
         """
-        > For more information about the parameters displayed in the following sample code but not provided in the preceding tables, see [ListInstance](~~142230~~). You cannot force your program to obtain these parameters.
+        @summary >  If you want to add an IP address whitelist, you can set the modifyMode parameter only to Cover. If you set this parameter to Delete or Append, you can only update an IP address whitelist.
+        If you set the modifyMode parameter to Cover and leave the ips parameter empty, the system deletes the specified whitelist. If the whitelist specified by using the groupName parameter does not exist, the system creates such a whitelist.
+        If you set the modifyMode parameter to Delete, at least one IP address must be retained for the specified whitelist.
+        If you set the modifyMode parameter to Append, you must make sure that the specified whitelist exists. Otherwise, the system reports the NotFound error.
+        
+        @description > For more information about the parameters displayed in the following sample code but not provided in the preceding tables, see [ListInstance](https://help.aliyun.com/document_detail/142230.html). You cannot force your program to obtain these parameters.
         
 
         @param request: UpdateWhiteIpsRequest
@@ -6794,6 +10052,19 @@ class Client(OpenApiClient):
         return self.update_white_ips_with_options(instance_id, request, headers, runtime)
 
     def update_xpack_monitor_config_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary 修改Logstash实例的X-Pack监控报警配置。
+        
+
+        @param request: UpdateXpackMonitorConfigRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateXpackMonitorConfigResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -6829,13 +10100,23 @@ class Client(OpenApiClient):
         )
 
     def update_xpack_monitor_config(self, instance_id, request):
+        """
+        @summary 修改Logstash实例的X-Pack监控报警配置。
+        
+
+        @param request: UpdateXpackMonitorConfigRequest
+
+        @return: UpdateXpackMonitorConfigResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_xpack_monitor_config_with_options(instance_id, request, headers, runtime)
 
     def upgrade_engine_version_with_options(self, instance_id, request, headers, runtime):
         """
-        5A2CFF0E-5718-45B5-9D4D-70B3FF\\\\*\\*\\*\
+        @summary ES集群版本升级
+        
+        @description 5A2CFF0E-5718-45B5-9D4D-70B3FF\\\\*\\*\\*\
         
 
         @param request: UpgradeEngineVersionRequest
@@ -6881,7 +10162,9 @@ class Client(OpenApiClient):
 
     def upgrade_engine_version(self, instance_id, request):
         """
-        5A2CFF0E-5718-45B5-9D4D-70B3FF\\\\*\\*\\*\
+        @summary ES集群版本升级
+        
+        @description 5A2CFF0E-5718-45B5-9D4D-70B3FF\\\\*\\*\\*\
         
 
         @param request: UpgradeEngineVersionRequest
@@ -6894,7 +10177,9 @@ class Client(OpenApiClient):
 
     def validate_connection_with_options(self, instance_id, request, headers, runtime):
         """
-        > Before you enable the X-Pack Monitoring feature for a Logstash cluster, you must associate the Logstash cluster with an Elasticsearch cluster. This way, you can view the monitoring data of the Logstash cluster in the Kibana console of the Elasticsearch cluster.
+        @summary Tests the connectivity between a Logstash cluster and its associated Elasticsearch cluster when you configure the X-Pack Monitoring feature for the Logstash cluster.
+        
+        @description > Before you enable the X-Pack Monitoring feature for a Logstash cluster, you must associate the Logstash cluster with an Elasticsearch cluster. This way, you can view the monitoring data of the Logstash cluster in the Kibana console of the Elasticsearch cluster.
         
 
         @param request: ValidateConnectionRequest
@@ -6933,7 +10218,9 @@ class Client(OpenApiClient):
 
     def validate_connection(self, instance_id, request):
         """
-        > Before you enable the X-Pack Monitoring feature for a Logstash cluster, you must associate the Logstash cluster with an Elasticsearch cluster. This way, you can view the monitoring data of the Logstash cluster in the Kibana console of the Elasticsearch cluster.
+        @summary Tests the connectivity between a Logstash cluster and its associated Elasticsearch cluster when you configure the X-Pack Monitoring feature for the Logstash cluster.
+        
+        @description > Before you enable the X-Pack Monitoring feature for a Logstash cluster, you must associate the Logstash cluster with an Elasticsearch cluster. This way, you can view the monitoring data of the Logstash cluster in the Kibana console of the Elasticsearch cluster.
         
 
         @param request: ValidateConnectionRequest
@@ -6945,6 +10232,19 @@ class Client(OpenApiClient):
         return self.validate_connection_with_options(instance_id, request, headers, runtime)
 
     def validate_shrink_nodes_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary 校验缩节点合法性
+        
+
+        @param request: ValidateShrinkNodesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ValidateShrinkNodesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.count):
@@ -6975,11 +10275,30 @@ class Client(OpenApiClient):
         )
 
     def validate_shrink_nodes(self, instance_id, request):
+        """
+        @summary 校验缩节点合法性
+        
+
+        @param request: ValidateShrinkNodesRequest
+
+        @return: ValidateShrinkNodesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.validate_shrink_nodes_with_options(instance_id, request, headers, runtime)
 
     def validate_slr_permission_with_options(self, request, headers, runtime):
+        """
+
+        @param request: ValidateSlrPermissionRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ValidateSlrPermissionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -7007,11 +10326,30 @@ class Client(OpenApiClient):
         )
 
     def validate_slr_permission(self, request):
+        """
+
+        @param request: ValidateSlrPermissionRequest
+
+        @return: ValidateSlrPermissionResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.validate_slr_permission_with_options(request, headers, runtime)
 
     def validate_transferable_nodes_with_options(self, instance_id, request, headers, runtime):
+        """
+        @summary 缩节点校验数据迁移合法性
+        
+
+        @param request: ValidateTransferableNodesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ValidateTransferableNodesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.node_type):
@@ -7038,13 +10376,23 @@ class Client(OpenApiClient):
         )
 
     def validate_transferable_nodes(self, instance_id, request):
+        """
+        @summary 缩节点校验数据迁移合法性
+        
+
+        @param request: ValidateTransferableNodesRequest
+
+        @return: ValidateTransferableNodesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.validate_transferable_nodes_with_options(instance_id, request, headers, runtime)
 
     def create_instance_with_options(self, request, headers, runtime):
         """
-        The configurations of warm nodes.
+        @summary The configurations of dedicated master nodes.
+        
+        @description The configurations of warm nodes.
         
 
         @param request: CreateInstanceRequest
@@ -7118,7 +10466,9 @@ class Client(OpenApiClient):
 
     def create_instance(self, request):
         """
-        The configurations of warm nodes.
+        @summary The configurations of dedicated master nodes.
+        
+        @description The configurations of warm nodes.
         
 
         @param request: CreateInstanceRequest

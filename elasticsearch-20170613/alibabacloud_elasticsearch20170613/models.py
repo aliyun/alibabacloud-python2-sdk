@@ -5,9 +5,13 @@ from Tea.model import TeaModel
 
 class ClientNodeConfiguration(TeaModel):
     def __init__(self, amount=None, disk=None, disk_type=None, spec=None):
+        # This parameter is required.
         self.amount = amount  # type: long
+        # This parameter is required.
         self.disk = disk  # type: long
+        # This parameter is required.
         self.disk_type = disk_type  # type: str
+        # This parameter is required.
         self.spec = spec  # type: str
 
     def validate(self):
@@ -74,12 +78,14 @@ class CollectorDeployMachineMachines(TeaModel):
 class CollectorDeployMachine(TeaModel):
     def __init__(self, config_type=None, group_id=None, instance_id=None, machines=None, success_pods_count=None,
                  total_pods_count=None, type=None):
+        # This parameter is required.
         self.config_type = config_type  # type: str
         self.group_id = group_id  # type: str
         self.instance_id = instance_id  # type: str
         self.machines = machines  # type: list[CollectorDeployMachineMachines]
         self.success_pods_count = success_pods_count  # type: str
         self.total_pods_count = total_pods_count  # type: str
+        # This parameter is required.
         self.type = type  # type: str
 
     def validate(self):
@@ -137,12 +143,19 @@ class CollectorDeployMachine(TeaModel):
 class CollectorKibanaInstance(TeaModel):
     def __init__(self, config_type=None, host=None, instance_id=None, kibana_host=None, password=None, protocol=None,
                  user_name=None):
+        # This parameter is required.
         self.config_type = config_type  # type: str
+        # This parameter is required.
         self.host = host  # type: str
+        # This parameter is required.
         self.instance_id = instance_id  # type: str
+        # This parameter is required.
         self.kibana_host = kibana_host  # type: str
+        # This parameter is required.
         self.password = password  # type: str
+        # This parameter is required.
         self.protocol = protocol  # type: str
+        # This parameter is required.
         self.user_name = user_name  # type: str
 
     def validate(self):
@@ -192,13 +205,20 @@ class CollectorKibanaInstance(TeaModel):
 class CollectorTargetInstance(TeaModel):
     def __init__(self, config_type=None, enable_monitoring=None, hosts=None, instance_id=None, instance_type=None,
                  password=None, protocol=None, user_name=None):
+        # This parameter is required.
         self.config_type = config_type  # type: str
+        # This parameter is required.
         self.enable_monitoring = enable_monitoring  # type: bool
         self.hosts = hosts  # type: list[str]
+        # This parameter is required.
         self.instance_id = instance_id  # type: str
+        # This parameter is required.
         self.instance_type = instance_type  # type: str
+        # This parameter is required.
         self.password = password  # type: str
+        # This parameter is required.
         self.protocol = protocol  # type: str
+        # This parameter is required.
         self.user_name = user_name  # type: str
 
     def validate(self):
@@ -296,6 +316,7 @@ class ElasticDataNodeConfiguration(TeaModel):
         self.disk_encryption = disk_encryption  # type: bool
         self.disk_type = disk_type  # type: str
         self.performance_level = performance_level  # type: str
+        # This parameter is required.
         self.spec = spec  # type: str
 
     def validate(self):
@@ -751,6 +772,7 @@ class KibanaNodeConfiguration(TeaModel):
     def __init__(self, amount=None, disk=None, spec=None):
         self.amount = amount  # type: long
         self.disk = disk  # type: long
+        # This parameter is required.
         self.spec = spec  # type: str
 
     def validate(self):
@@ -1097,9 +1119,13 @@ class Logstash(TeaModel):
 
 class MasterNodeConfiguration(TeaModel):
     def __init__(self, amount=None, disk=None, disk_type=None, spec=None):
+        # This parameter is required.
         self.amount = amount  # type: long
+        # This parameter is required.
         self.disk = disk  # type: long
+        # This parameter is required.
         self.disk_type = disk_type  # type: str
+        # This parameter is required.
         self.spec = spec  # type: str
 
     def validate(self):
@@ -1408,6 +1434,7 @@ class NodeSpec(TeaModel):
         self.disk_encryption = disk_encryption  # type: bool
         self.disk_type = disk_type  # type: str
         self.performance_level = performance_level  # type: str
+        # This parameter is required.
         self.spec = spec  # type: str
 
     def validate(self):
@@ -1556,6 +1583,7 @@ class WarmNodeConfiguration(TeaModel):
         self.disk_encryption = disk_encryption  # type: bool
         self.disk_type = disk_type  # type: str
         self.performance_level = performance_level  # type: str
+        # This parameter is required.
         self.spec = spec  # type: str
 
     def validate(self):
@@ -2199,6 +2227,8 @@ class CancelTaskRequest(TeaModel):
         # A unique token generated by the client to guarantee the idempotency of the request. You can use the client to generate the value, but you must ensure that it is unique among different requests. The token can only contain ASCII characters and cannot exceed 64 characters in length.
         self.client_token = client_token  # type: str
         # The type of the data migration task. Set the value to MigrateData.
+        # 
+        # This parameter is required.
         self.task_type = task_type  # type: str
 
     def validate(self):
@@ -2970,7 +3000,9 @@ class CloseManagedIndexResponse(TeaModel):
 
 class CreateCollectorRequestConfigs(TeaModel):
     def __init__(self, content=None, file_name=None):
+        # This parameter is required.
         self.content = content  # type: str
+        # This parameter is required.
         self.file_name = file_name  # type: str
 
     def validate(self):
@@ -3001,12 +3033,19 @@ class CreateCollectorRequest(TeaModel):
     def __init__(self, collector_paths=None, configs=None, dry_run=None, extend_configs=None, name=None,
                  res_type=None, res_version=None, vpc_id=None, client_token=None):
         self.collector_paths = collector_paths  # type: list[str]
+        # This parameter is required.
         self.configs = configs  # type: list[CreateCollectorRequestConfigs]
+        # This parameter is required.
         self.dry_run = dry_run  # type: bool
+        # This parameter is required.
         self.extend_configs = extend_configs  # type: list[dict[str, any]]
+        # This parameter is required.
         self.name = name  # type: str
+        # This parameter is required.
         self.res_type = res_type  # type: str
+        # This parameter is required.
         self.res_version = res_version  # type: str
+        # This parameter is required.
         self.vpc_id = vpc_id  # type: str
         # The ID of the created crawer.
         self.client_token = client_token  # type: str
@@ -3544,9 +3583,12 @@ class CreateIndexTemplateRequest(TeaModel):
     def __init__(self, client_token=None, data_stream=None, ilm_policy=None, index_patterns=None,
                  index_template=None, priority=None, template=None):
         self.client_token = client_token  # type: str
+        # This parameter is required.
         self.data_stream = data_stream  # type: bool
         self.ilm_policy = ilm_policy  # type: str
+        # This parameter is required.
         self.index_patterns = index_patterns  # type: list[str]
+        # This parameter is required.
         self.index_template = index_template  # type: str
         self.priority = priority  # type: int
         self.template = template  # type: CreateIndexTemplateRequestTemplate
@@ -3665,8 +3707,11 @@ class CreateIndexTemplateResponse(TeaModel):
 class CreateLogstashRequestNetworkConfig(TeaModel):
     def __init__(self, type=None, vpc_id=None, vs_area=None, vswitch_id=None):
         self.type = type  # type: str
+        # This parameter is required.
         self.vpc_id = vpc_id  # type: str
+        # This parameter is required.
         self.vs_area = vs_area  # type: str
+        # This parameter is required.
         self.vswitch_id = vswitch_id  # type: str
 
     def validate(self):
@@ -3705,6 +3750,7 @@ class CreateLogstashRequestNodeSpec(TeaModel):
     def __init__(self, disk=None, disk_type=None, spec=None):
         self.disk = disk  # type: long
         self.disk_type = disk_type  # type: str
+        # This parameter is required.
         self.spec = spec  # type: str
 
     def validate(self):
@@ -3778,12 +3824,16 @@ class CreateLogstashRequest(TeaModel):
     def __init__(self, description=None, network_config=None, node_amount=None, node_spec=None, payment_info=None,
                  payment_type=None, resource_group_id=None, version=None, client_token=None):
         self.description = description  # type: str
+        # This parameter is required.
         self.network_config = network_config  # type: CreateLogstashRequestNetworkConfig
+        # This parameter is required.
         self.node_amount = node_amount  # type: int
+        # This parameter is required.
         self.node_spec = node_spec  # type: CreateLogstashRequestNodeSpec
         self.payment_info = payment_info  # type: CreateLogstashRequestPaymentInfo
         self.payment_type = payment_type  # type: str
         self.resource_group_id = resource_group_id  # type: str
+        # This parameter is required.
         self.version = version  # type: str
         self.client_token = client_token  # type: str
 
@@ -3919,8 +3969,10 @@ class CreatePipelinesRequestBody(TeaModel):
                  queue_check_point_writes=None, queue_max_bytes=None, queue_type=None, workers=None):
         self.batch_delay = batch_delay  # type: int
         self.batch_size = batch_size  # type: int
+        # This parameter is required.
         self.config = config  # type: str
         self.description = description  # type: str
+        # This parameter is required.
         self.pipeline_id = pipeline_id  # type: str
         self.queue_check_point_writes = queue_check_point_writes  # type: int
         self.queue_max_bytes = queue_max_bytes  # type: int
@@ -4089,6 +4141,8 @@ class CreatePipelinesResponse(TeaModel):
 class CreateSnapshotRequest(TeaModel):
     def __init__(self, client_token=None, body=None):
         # A unique token generated by the client to guarantee the idempotency of the request. You can use the client to generate the value, but you must ensure that it is unique among different requests. The token can only contain ASCII characters and cannot exceed 64 characters in length.
+        # 
+        # This parameter is required.
         self.client_token = client_token  # type: str
         self.body = body  # type: str
 
@@ -4601,6 +4655,8 @@ class DeleteConnectedClusterRequest(TeaModel):
         # A unique token generated by the client to guarantee the idempotency of the request. You can use the client to generate the value, but you must ensure that it is unique among different requests. The token can only contain ASCII characters and cannot exceed 64 characters in length.
         self.client_token = client_token  # type: str
         # The ID of the remote instance for which the network connection is established.
+        # 
+        # This parameter is required.
         self.connected_instance_id = connected_instance_id  # type: str
 
     def validate(self):
@@ -4789,8 +4845,12 @@ class DeleteDataStreamResponse(TeaModel):
 class DeleteDataTaskRequest(TeaModel):
     def __init__(self, client_token=None, task_id=None):
         # A unique token generated by the client to guarantee the idempotency of the request. You can use the client to generate the value, but you must ensure that it is unique among different requests. The token can only contain ASCII characters and cannot exceed 64 characters in length.
+        # 
+        # This parameter is required.
         self.client_token = client_token  # type: str
         # The ID of the index migration task.
+        # 
+        # This parameter is required.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -5177,7 +5237,7 @@ class DeleteLogstashRequest(TeaModel):
         # The type of the release operation. Valid values:
         # 
         # *   immediate: The cluster is immediately deleted when it is released. After the cluster is deleted, the data stored in the cluster is deleted, and the system removes the cluster from the Logstash cluster list.
-        # *   protective: The cluster is released 24 hours later. During the period of 24 hours, you can still find the cluster in the Logstash cluster list, and [restore the cluster](~~202205~~) or [immediately release the cluster](~~160591~~). After 24 hours elapse, the data stored in the cluster is deleted.
+        # *   protective: The cluster is released 24 hours later. During the period of 24 hours, you can still find the cluster in the Logstash cluster list, and [restore the cluster](https://help.aliyun.com/document_detail/202205.html) or [immediately release the cluster](https://help.aliyun.com/document_detail/160591.html). After 24 hours elapse, the data stored in the cluster is deleted.
         self.delete_type = delete_type  # type: str
 
     def validate(self):
@@ -5371,6 +5431,8 @@ class DeleteSnapshotRepoRequest(TeaModel):
         # A unique token generated by the client to guarantee the idempotency of the request. You can use the client to generate the value, but you must ensure that it is unique among different requests. The token can only contain ASCII characters and cannot exceed 64 characters in length.
         self.client_token = client_token  # type: str
         # Reference instance ID.
+        # 
+        # This parameter is required.
         self.repo_path = repo_path  # type: str
 
     def validate(self):
@@ -7988,7 +8050,7 @@ class DescribeInstanceResponseBodyResultZoneInfos(TeaModel):
 
 
 class DescribeInstanceResponseBodyResult(TeaModel):
-    def __init__(self, advanced_dedicate_master=None, advanced_setting=None, aliws_dicts=None,
+    def __init__(self, advanced_dedicate_master=None, advanced_setting=None, aliws_dicts=None, arch_type=None,
                  client_node_configuration=None, created_at=None, dedicate_master=None, description=None, dict_list=None, domain=None,
                  elastic_data_node_configuration=None, enable_kibana_private_network=None, enable_kibana_public_network=None, enable_public=None,
                  endtime=None, es_config=None, es_ipblacklist=None, es_ipwhitelist=None, es_version=None,
@@ -8002,6 +8064,7 @@ class DescribeInstanceResponseBodyResult(TeaModel):
         self.advanced_dedicate_master = advanced_dedicate_master  # type: bool
         self.advanced_setting = advanced_setting  # type: DescribeInstanceResponseBodyResultAdvancedSetting
         self.aliws_dicts = aliws_dicts  # type: list[DescribeInstanceResponseBodyResultAliwsDicts]
+        self.arch_type = arch_type  # type: str
         self.client_node_configuration = client_node_configuration  # type: DescribeInstanceResponseBodyResultClientNodeConfiguration
         self.created_at = created_at  # type: str
         self.dedicate_master = dedicate_master  # type: bool
@@ -8109,6 +8172,8 @@ class DescribeInstanceResponseBodyResult(TeaModel):
         if self.aliws_dicts is not None:
             for k in self.aliws_dicts:
                 result['aliwsDicts'].append(k.to_map() if k else None)
+        if self.arch_type is not None:
+            result['archType'] = self.arch_type
         if self.client_node_configuration is not None:
             result['clientNodeConfiguration'] = self.client_node_configuration.to_map()
         if self.created_at is not None:
@@ -8233,6 +8298,8 @@ class DescribeInstanceResponseBodyResult(TeaModel):
             for k in m.get('aliwsDicts'):
                 temp_model = DescribeInstanceResponseBodyResultAliwsDicts()
                 self.aliws_dicts.append(temp_model.from_map(k))
+        if m.get('archType') is not None:
+            self.arch_type = m.get('archType')
         if m.get('clientNodeConfiguration') is not None:
             temp_model = DescribeInstanceResponseBodyResultClientNodeConfiguration()
             self.client_node_configuration = temp_model.from_map(m['clientNodeConfiguration'])
@@ -9887,7 +9954,9 @@ class DisableKibanaPvlNetworkResponse(TeaModel):
 
 class EnableKibanaPvlNetworkRequestVSwitchIdsZone(TeaModel):
     def __init__(self, vswitch_id=None, zone_id=None):
+        # This parameter is required.
         self.vswitch_id = vswitch_id  # type: str
+        # This parameter is required.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -9916,9 +9985,13 @@ class EnableKibanaPvlNetworkRequestVSwitchIdsZone(TeaModel):
 
 class EnableKibanaPvlNetworkRequest(TeaModel):
     def __init__(self, endpoint_name=None, security_groups=None, v_switch_ids_zone=None, vpc_id=None):
+        # This parameter is required.
         self.endpoint_name = endpoint_name  # type: str
+        # This parameter is required.
         self.security_groups = security_groups  # type: list[str]
+        # This parameter is required.
         self.v_switch_ids_zone = v_switch_ids_zone  # type: list[EnableKibanaPvlNetworkRequestVSwitchIdsZone]
+        # This parameter is required.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -12536,10 +12609,14 @@ class GetRegionalInstanceConfigResponse(TeaModel):
 class GetSuggestShrinkableNodesRequest(TeaModel):
     def __init__(self, count=None, ignore_status=None, node_type=None):
         # The number of nodes that you want to remove.
+        # 
+        # This parameter is required.
         self.count = count  # type: int
         # Specifies whether to ignore the instance status. Default value: false.
         self.ignore_status = ignore_status  # type: bool
         # The type of removing nodes. WORKER indicates hot node and WORKER_WARM indicates warm node.
+        # 
+        # This parameter is required.
         self.node_type = node_type  # type: str
 
     def validate(self):
@@ -12679,8 +12756,12 @@ class GetSuggestShrinkableNodesResponse(TeaModel):
 class GetTransferableNodesRequest(TeaModel):
     def __init__(self, count=None, node_type=None):
         # The number of nodes to be migrated.
+        # 
+        # This parameter is required.
         self.count = count  # type: int
         # The type of nodes.**WORKER**represents a hot node,**WORKER_WARM** represents a warm node.
+        # 
+        # This parameter is required.
         self.node_type = node_type  # type: str
 
     def validate(self):
@@ -16408,11 +16489,15 @@ class ListDefaultCollectorConfigurationsRequest(TeaModel):
         # *   metricBeat
         # *   heartBeat
         # *   auditBeat
+        # 
+        # This parameter is required.
         self.res_type = res_type  # type: str
         # The shipper version. The shipper version varies based on the type of the machine on which the shipper is deployed. Valid values:
         # 
-        # *   ECS: 6.8.5\_with_community
-        # *   ACK: 6.8.13\_with_community
+        # *   ECS: 6.8.5_with_community
+        # *   ACK: 6.8.13_with_community
+        # 
+        # This parameter is required.
         self.res_version = res_version  # type: str
         # The type of the machine on which the shipper is deployed. If you do not configure this parameter, the default configuration files of shippers deployed on all types of machines are returned. Valid values:
         # 
@@ -16875,6 +16960,8 @@ class ListDiagnoseReportRequest(TeaModel):
         # SYSTEM
         self.detail = detail  # type: bool
         # 1
+        # 
+        # This parameter is required.
         self.end_time = end_time  # type: long
         # 1594569600000
         self.lang = lang  # type: str
@@ -16883,6 +16970,8 @@ class ListDiagnoseReportRequest(TeaModel):
         # true
         self.size = size  # type: int
         # 1595174399999
+        # 
+        # This parameter is required.
         self.start_time = start_time  # type: long
         # The ID of the request.
         self.trigger = trigger  # type: str
@@ -17208,6 +17297,8 @@ class ListDiagnoseReportResponse(TeaModel):
 class ListDiagnoseReportIdsRequest(TeaModel):
     def __init__(self, end_time=None, lang=None, page=None, size=None, start_time=None, trigger=None):
         # The end of the time range to query. The value must be a UNIX timestamp.
+        # 
+        # This parameter is required.
         self.end_time = end_time  # type: long
         # The language of the reports.
         self.lang = lang  # type: str
@@ -17216,6 +17307,8 @@ class ListDiagnoseReportIdsRequest(TeaModel):
         # The number of entries to return on each page. Valid values: 1 to 500. Default value: 10.
         self.size = size  # type: int
         # The beginning of the time range to query. The value must be a UNIX timestamp.
+        # 
+        # This parameter is required.
         self.start_time = start_time  # type: long
         # The method that is used to trigger health diagnostics. Valid values: SYSTEM, INNER, and USER.
         self.trigger = trigger  # type: str
@@ -17493,7 +17586,9 @@ class ListDiagnosisItemsResponse(TeaModel):
 class ListDictInformationRequest(TeaModel):
     def __init__(self, analyzer_type=None, bucket_name=None, key=None):
         self.analyzer_type = analyzer_type  # type: str
+        # This parameter is required.
         self.bucket_name = bucket_name  # type: str
+        # This parameter is required.
         self.key = key  # type: str
 
     def validate(self):
@@ -17669,6 +17764,8 @@ class ListDictsRequest(TeaModel):
         # *   IK_HOT: IK dictionary after a rolling update
         # *   SYNONYMS: synonym dictionary
         # *   ALIWS: Alibaba Cloud dictionary
+        # 
+        # This parameter is required.
         self.analyzer_type = analyzer_type  # type: str
         # The name of the dictionary file.
         self.name = name  # type: str
@@ -17862,13 +17959,13 @@ class ListEcsInstancesRequest(TeaModel):
     def __init__(self, ecs_instance_ids=None, ecs_instance_name=None, page=None, size=None, tags=None, vpc_id=None):
         # test
         self.ecs_instance_ids = ecs_instance_ids  # type: str
-        # \[{ "tagKey":"a","tagValue":"b"}]
+        # [{ "tagKey":"a","tagValue":"b"}]
         self.ecs_instance_name = ecs_instance_name  # type: str
         # 10
         self.page = page  # type: int
-        # \["i-bp13y63575oypr9d\*\*\*\*","i-bp1gyhphjaj73jsr\*\*\*\*"]
+        # ["i-bp13y63575oypr9d\\*\\*\\*\\*","i-bp1gyhphjaj73jsr\\*\\*\\*\\*"]
         self.size = size  # type: int
-        # vpc-bp16k1dvzxtmagcva\*\*\*\*\
+        # vpc-bp16k1dvzxtmagcva\\*\\*\\*\\*\
         self.tags = tags  # type: str
         # The ID of the request.
         self.vpc_id = vpc_id  # type: str
@@ -18130,7 +18227,7 @@ class ListEcsInstancesResponseBodyResultCollectors(TeaModel):
         self.owner_id = owner_id  # type: str
         # The time when the collector was updated.
         self.res_id = res_id  # type: str
-        # The version of the collector. If the machine type of the collector is ECS, only **6.8.5\_with_community** is supported.
+        # The version of the collector. If the machine type of the collector is ECS, only **6.8.5_with_community** is supported.
         self.res_type = res_type  # type: str
         # The time when the crawl collector was created.
         self.res_version = res_version  # type: str
@@ -18886,7 +18983,7 @@ class ListInstanceRequest(TeaModel):
         self.instance_category = instance_category  # type: str
         # postpaid
         self.instance_id = instance_id  # type: str
-        # \[{"tagKey":"key1","tagValue":"value1"}]
+        # [{"tagKey":"key1","tagValue":"value1"}]
         self.page = page  # type: int
         # Specifies whether to include dedicated master nodes. Valid values:
         # 
@@ -18895,7 +18992,7 @@ class ListInstanceRequest(TeaModel):
         self.payment_type = payment_type  # type: str
         # The ID of the request.
         self.resource_group_id = resource_group_id  # type: str
-        # vpc-bp16k1dvzxtmagcva\*\*\*\*\
+        # vpc-bp16k1dvzxtmagcva\\*\\*\\*\\*\
         self.size = size  # type: int
         # The header of the response.
         self.tags = tags  # type: str
@@ -19057,7 +19154,7 @@ class ListInstanceResponseBodyResultElasticDataNodeConfiguration(TeaModel):
         self.disk_encryption = disk_encryption  # type: bool
         # The configuration of dedicated master nodes.
         self.disk_type = disk_type  # type: str
-        # The instance type of the node. For more information, see [Specifications](~~271718~~).
+        # The instance type of the node. For more information, see [Specifications](https://help.aliyun.com/document_detail/271718.html).
         self.spec = spec  # type: str
         self.spec_info = spec_info  # type: str
 
@@ -19375,9 +19472,9 @@ class ListInstanceResponseBodyResultTags(TeaModel):
 
 
 class ListInstanceResponseBodyResult(TeaModel):
-    def __init__(self, advanced_dedicate_master=None, client_node_configuration=None, created_at=None,
-                 dedicate_master=None, description=None, elastic_data_node_configuration=None, end_time=None, es_version=None,
-                 extend_configs=None, instance_id=None, is_new_deployment=None, kibana_configuration=None,
+    def __init__(self, advanced_dedicate_master=None, arch_type=None, client_node_configuration=None,
+                 created_at=None, dedicate_master=None, description=None, elastic_data_node_configuration=None, end_time=None,
+                 es_version=None, extend_configs=None, instance_id=None, is_new_deployment=None, kibana_configuration=None,
                  kibana_ipwhitelist=None, kibana_private_ipwhitelist=None, master_configuration=None, network_config=None,
                  node_amount=None, node_spec=None, payment_type=None, postpaid_service_status=None,
                  private_network_ip_white_list=None, public_ip_whitelist=None, resource_group_id=None, service_vpc=None, status=None, tags=None,
@@ -19387,7 +19484,8 @@ class ListInstanceResponseBodyResult(TeaModel):
         # *   **prepaid**: subscription
         # *   **postpaid**: pay-as-you-go
         self.advanced_dedicate_master = advanced_dedicate_master  # type: bool
-        # The instance type of the node. For more information, see [Specifications](~~271718~~).
+        self.arch_type = arch_type  # type: str
+        # The instance type of the node. For more information, see [Specifications](https://help.aliyun.com/document_detail/271718.html).
         self.client_node_configuration = client_node_configuration  # type: ListInstanceResponseBodyResultClientNodeConfiguration
         # The status of the pay-as-you-go service that is overlaid on a subscription instance. Valid values:
         # 
@@ -19406,17 +19504,17 @@ class ListInstanceResponseBodyResult(TeaModel):
         self.es_version = es_version  # type: str
         # The configurations of elastic data nodes.
         self.extend_configs = extend_configs  # type: list[dict[str, any]]
-        # The instance type of the node. For more information, see [Specifications](~~271718~~).
+        # The instance type of the node. For more information, see [Specifications](https://help.aliyun.com/document_detail/271718.html).
         self.instance_id = instance_id  # type: str
         # The configuration of cluster extension parameters.
         self.is_new_deployment = is_new_deployment  # type: str
-        # The instance type of the node. For more information, see [Specifications](~~271718~~).
+        # The instance type of the node. For more information, see [Specifications](https://help.aliyun.com/document_detail/271718.html).
         self.kibana_configuration = kibana_configuration  # type: ListInstanceResponseBodyResultKibanaConfiguration
         self.kibana_ipwhitelist = kibana_ipwhitelist  # type: list[str]
         self.kibana_private_ipwhitelist = kibana_private_ipwhitelist  # type: list[str]
         # The VPC ID of the cluster.
         self.master_configuration = master_configuration  # type: ListInstanceResponseBodyResultMasterConfiguration
-        # The instance type of the node. For more information, see [Specifications](~~271718~~).
+        # The instance type of the node. For more information, see [Specifications](https://help.aliyun.com/document_detail/271718.html).
         self.network_config = network_config  # type: ListInstanceResponseBodyResultNetworkConfig
         # The ID of the resource group.
         self.node_amount = node_amount  # type: int
@@ -19466,6 +19564,8 @@ class ListInstanceResponseBodyResult(TeaModel):
         result = dict()
         if self.advanced_dedicate_master is not None:
             result['advancedDedicateMaster'] = self.advanced_dedicate_master
+        if self.arch_type is not None:
+            result['archType'] = self.arch_type
         if self.client_node_configuration is not None:
             result['clientNodeConfiguration'] = self.client_node_configuration.to_map()
         if self.created_at is not None:
@@ -19528,6 +19628,8 @@ class ListInstanceResponseBodyResult(TeaModel):
         m = m or dict()
         if m.get('advancedDedicateMaster') is not None:
             self.advanced_dedicate_master = m.get('advancedDedicateMaster')
+        if m.get('archType') is not None:
+            self.arch_type = m.get('archType')
         if m.get('clientNodeConfiguration') is not None:
             temp_model = ListInstanceResponseBodyResultClientNodeConfiguration()
             self.client_node_configuration = temp_model.from_map(m['clientNodeConfiguration'])
@@ -20750,15 +20852,15 @@ class ListKibanaPvlNetworkResponse(TeaModel):
 class ListLogstashRequest(TeaModel):
     def __init__(self, description=None, instance_id=None, page=None, resource_group_id=None, size=None, tags=None,
                  version=None):
-        # rg-acfm2h5vbzd\*\*\*\*\
+        # rg-acfm2h5vbzd\\*\\*\\*\\*\
         self.description = description  # type: str
-        # \[{"tagKey":"key1","tagValue":"value1"}]
+        # [{"tagKey":"key1","tagValue":"value1"}]
         self.instance_id = instance_id  # type: str
-        # ls-cn-n6w1o5jq\*\*\*\*\
+        # ls-cn-n6w1o5jq\\*\\*\\*\\*\
         self.page = page  # type: int
         # Details of the request header.
         self.resource_group_id = resource_group_id  # type: str
-        # 5.5.3\_with_X-Pack
+        # 5.5.3_with_X-Pack
         self.size = size  # type: int
         # The number of entries returned per page.
         self.tags = tags  # type: str
@@ -20972,7 +21074,7 @@ class ListLogstashResponseBodyResult(TeaModel):
         # The time when the instance was created.
         self.payment_type = payment_type  # type: str
         self.resource_group_id = resource_group_id  # type: str
-        # The version of the instance. Currently, only 6.7.0\_with_X-Pack and 7.4.0\_with_X-Pack are supported.
+        # The version of the instance. Currently, only 6.7.0_with_X-Pack and 7.4.0_with_X-Pack are supported.
         self.status = status  # type: str
         # The tag of the instance. Valid values:
         self.updated_at = updated_at  # type: str
@@ -21150,10 +21252,14 @@ class ListLogstashLogRequest(TeaModel):
         # The returned data.
         self.page = page  # type: int
         # 1
+        # 
+        # This parameter is required.
         self.query = query  # type: str
         # The severity level of the log entry. Including trace, debug, info, warn, error, etc. (GC logs have no level).
         self.size = size  # type: int
         # 1531910852074
+        # 
+        # This parameter is required.
         self.type = type  # type: str
 
     def validate(self):
@@ -22346,10 +22452,14 @@ class ListSearchLogRequest(TeaModel):
         # The header of the response.
         self.page = page  # type: int
         # 1
+        # 
+        # This parameter is required.
         self.query = query  # type: str
         # The number of entries returned per page.
         self.size = size  # type: int
         # 1531910852074
+        # 
+        # This parameter is required.
         self.type = type  # type: str
 
     def validate(self):
@@ -22887,13 +22997,15 @@ class ListTagResourcesRequest(TeaModel):
     def __init__(self, next_token=None, page=None, resource_ids=None, resource_type=None, size=None, tags=None):
         # The number of the returned page.
         self.next_token = next_token  # type: str
-        # 1d2db86sca4384811e0b5e8707e\*\*\*\*\*\*\
+        # 1d2db86sca4384811e0b5e8707e\\*\\*\\*\\*\\*\\*\
         self.page = page  # type: int
         # The ID of the request.
         self.resource_ids = resource_ids  # type: str
-        # \[{"key":"env","value","dev"},{"key":"dev", "value":"IT"}]
+        # [{"key":"env","value","dev"},{"key":"dev", "value":"IT"}]
+        # 
+        # This parameter is required.
         self.resource_type = resource_type  # type: str
-        # \["es-cn-aaa","es-cn-bbb"]
+        # ["es-cn-aaa","es-cn-bbb"]
         self.size = size  # type: int
         # The header of the response. This parameter is empty and is for reference only. You cannot force this parameter to be relied on in the program.
         # 
@@ -23459,6 +23571,8 @@ class MigrateToOtherZoneRequest(TeaModel):
     def __init__(self, body=None, dry_run=None):
         self.body = body  # type: str
         # Verify whether the zone node can be migrated. true indicates that the data is only verified and the migration task is not executed. false indicates that the migration task is executed after the verification is successful.
+        # 
+        # This parameter is required.
         self.dry_run = dry_run  # type: bool
 
     def validate(self):
@@ -24976,6 +25090,8 @@ class RecommendTemplatesRequest(TeaModel):
         # **\
         # 
         # ****\
+        # 
+        # This parameter is required.
         self.usage_scenario = usage_scenario  # type: str
 
     def validate(self):
@@ -26675,6 +26791,7 @@ class ShrinkNodeRequest(TeaModel):
         self.client_token = client_token  # type: str
         self.count = count  # type: int
         self.ignore_status = ignore_status  # type: bool
+        # This parameter is required.
         self.node_type = node_type  # type: str
 
     def validate(self):
@@ -27203,11 +27320,15 @@ class StopPipelinesResponse(TeaModel):
 class TagResourcesRequestTags(TeaModel):
     def __init__(self, key=None, value=None):
         # The returned object.
+        # 
+        # This parameter is required.
         self.key = key  # type: str
         # Indicates whether tags are added to the clusters. Valid values:
         # 
         # *   true
         # *   false
+        # 
+        # This parameter is required.
         self.value = value  # type: str
 
     def validate(self):
@@ -27237,10 +27358,16 @@ class TagResourcesRequestTags(TeaModel):
 class TagResourcesRequest(TeaModel):
     def __init__(self, resource_ids=None, resource_type=None, tags=None):
         # A tag.
+        # 
+        # This parameter is required.
         self.resource_ids = resource_ids  # type: list[str]
         # The request ID.
+        # 
+        # This parameter is required.
         self.resource_type = resource_type  # type: str
         # The value of the tag.
+        # 
+        # This parameter is required.
         self.tags = tags  # type: list[TagResourcesRequestTags]
 
     def validate(self):
@@ -27382,6 +27509,7 @@ class TransferNodeRequest(TeaModel):
     def __init__(self, body=None, client_token=None, node_type=None):
         self.body = body  # type: list[TransferNodeRequestBody]
         self.client_token = client_token  # type: str
+        # This parameter is required.
         self.node_type = node_type  # type: str
 
     def validate(self):
@@ -27487,8 +27615,11 @@ class TransferNodeResponse(TeaModel):
 
 class TriggerNetworkRequest(TeaModel):
     def __init__(self, action_type=None, network_type=None, node_type=None, client_token=None):
+        # This parameter is required.
         self.action_type = action_type  # type: str
+        # This parameter is required.
         self.network_type = network_type  # type: str
+        # This parameter is required.
         self.node_type = node_type  # type: str
         self.client_token = client_token  # type: str
 
@@ -29229,8 +29360,8 @@ class UpdateCollectorNameResponseBodyResult(TeaModel):
         self.res_type = res_type  # type: str
         # The version of the shipper. The version of a shipper depends on the type of the machine on which the shipper is deployed.
         # 
-        # *   Elastic Compute Service (ECS) instance: 6.8.5\_with_community
-        # *   Container Service for Kubernetes (ACK) cluster: 6.8.13\_with_community
+        # *   Elastic Compute Service (ECS) instance: 6.8.5_with_community
+        # *   Container Service for Kubernetes (ACK) cluster: 6.8.13_with_community
         self.res_version = res_version  # type: str
         # The status of the shipper. Valid values: activating and active.
         self.status = status  # type: str
@@ -31173,6 +31304,7 @@ class UpdateKibanaPvlNetworkRequest(TeaModel):
     def __init__(self, endpoint_name=None, security_groups=None, pvl_id=None):
         self.endpoint_name = endpoint_name  # type: str
         self.security_groups = security_groups  # type: list[str]
+        # This parameter is required.
         self.pvl_id = pvl_id  # type: str
 
     def validate(self):
@@ -32019,7 +32151,7 @@ class UpdateLogstashDescriptionResponse(TeaModel):
 class UpdateLogstashSettingsRequest(TeaModel):
     def __init__(self, body=None, client_token=None):
         self.body = body  # type: str
-        # 5A2CFF0E-5718-45B5-9D4D-70B3FF\*\*\*\*\
+        # 5A2CFF0E-5718-45B5-9D4D-70B3FF\\*\\*\\*\\*\
         self.client_token = client_token  # type: str
 
     def validate(self):
@@ -33895,6 +34027,8 @@ class ValidateShrinkNodesRequest(TeaModel):
         # 
         # *   true: can be scaled in
         # *   false: cannot be scaled in.
+        # 
+        # This parameter is required.
         self.node_type = node_type  # type: str
 
     def validate(self):
@@ -34005,6 +34139,7 @@ class ValidateShrinkNodesResponse(TeaModel):
 class ValidateSlrPermissionRequest(TeaModel):
     def __init__(self, client_token=None, rolename=None):
         self.client_token = client_token  # type: str
+        # This parameter is required.
         self.rolename = rolename  # type: str
 
     def validate(self):
@@ -34133,6 +34268,7 @@ class ValidateTransferableNodesRequestBody(TeaModel):
 class ValidateTransferableNodesRequest(TeaModel):
     def __init__(self, body=None, node_type=None):
         self.body = body  # type: list[ValidateTransferableNodesRequestBody]
+        # This parameter is required.
         self.node_type = node_type  # type: str
 
     def validate(self):
@@ -34269,12 +34405,16 @@ class CreateInstanceRequest(TeaModel):
         self.client_node_configuration = client_node_configuration  # type: ClientNodeConfiguration
         self.description = description  # type: str
         self.elastic_data_node_configuration = elastic_data_node_configuration  # type: ElasticDataNodeConfiguration
+        # This parameter is required.
         self.es_admin_password = es_admin_password  # type: str
+        # This parameter is required.
         self.es_version = es_version  # type: str
         self.instance_category = instance_category  # type: str
         self.kibana_configuration = kibana_configuration  # type: KibanaNodeConfiguration
         self.master_configuration = master_configuration  # type: MasterNodeConfiguration
+        # This parameter is required.
         self.network_config = network_config  # type: NetworkConfig
+        # This parameter is required.
         self.node_amount = node_amount  # type: int
         self.node_spec = node_spec  # type: NodeSpec
         self.payment_info = payment_info  # type: PaymentInfo
