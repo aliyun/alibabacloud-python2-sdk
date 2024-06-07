@@ -447,7 +447,7 @@ class Client(OpenApiClient):
 
     def change_resource_manager_resource_group_with_options(self, request, runtime):
         """
-        @summary The operation that you want to perform. Set the value to *ChangeResourceManagerResourceGroup**.
+        @summary Modifies the resource group that you specify when you activate DataWorks or purchase a DataWorks exclusive resource group.
         
 
         @param request: ChangeResourceManagerResourceGroupRequest
@@ -485,7 +485,7 @@ class Client(OpenApiClient):
 
     def change_resource_manager_resource_group(self, request):
         """
-        @summary The operation that you want to perform. Set the value to *ChangeResourceManagerResourceGroup**.
+        @summary Modifies the resource group that you specify when you activate DataWorks or purchase a DataWorks exclusive resource group.
         
 
         @param request: ChangeResourceManagerResourceGroupRequest
@@ -1937,10 +1937,9 @@ class Client(OpenApiClient):
 
     def create_meta_collection_with_options(self, request, runtime):
         """
-        @summary Collections are classified into various types. The names of collections of the same type must be different.
+        @summary Creates a collection.
         
-        @description A category must belong to a data album.
-        You can create a category in a data album only after you create the data album. You can set the value of the parentQualifiedName parameter to the unique identifier of the data album to create the category.
+        @description Collections are classified into various types. The names of collections of the same type must be different.
         
 
         @param request: CreateMetaCollectionRequest
@@ -1980,10 +1979,9 @@ class Client(OpenApiClient):
 
     def create_meta_collection(self, request):
         """
-        @summary Collections are classified into various types. The names of collections of the same type must be different.
+        @summary Creates a collection.
         
-        @description A category must belong to a data album.
-        You can create a category in a data album only after you create the data album. You can set the value of the parentQualifiedName parameter to the unique identifier of the data album to create the category.
+        @description Collections are classified into various types. The names of collections of the same type must be different.
         
 
         @param request: CreateMetaCollectionRequest
@@ -3533,7 +3531,7 @@ class Client(OpenApiClient):
 
     def delete_meta_collection_with_options(self, request, runtime):
         """
-        @summary The operation that you want to perform. Set the value to *DeleteMetaCollection**.
+        @summary Deletes a collection.
         
 
         @param request: DeleteMetaCollectionRequest
@@ -3567,7 +3565,7 @@ class Client(OpenApiClient):
 
     def delete_meta_collection(self, request):
         """
-        @summary The operation that you want to perform. Set the value to *DeleteMetaCollection**.
+        @summary Deletes a collection.
         
 
         @param request: DeleteMetaCollectionRequest
@@ -3579,7 +3577,7 @@ class Client(OpenApiClient):
 
     def delete_meta_collection_entity_with_options(self, request, runtime):
         """
-        @summary The operation that you want to perform. Set the value to *DeleteMetaCollectionEntity**.
+        @summary Deletes an entity from a collection.
         
 
         @param request: DeleteMetaCollectionEntityRequest
@@ -3615,7 +3613,7 @@ class Client(OpenApiClient):
 
     def delete_meta_collection_entity(self, request):
         """
-        @summary The operation that you want to perform. Set the value to *DeleteMetaCollectionEntity**.
+        @summary Deletes an entity from a collection.
         
 
         @param request: DeleteMetaCollectionEntityRequest
@@ -9807,7 +9805,7 @@ class Client(OpenApiClient):
 
     def list_data_service_apis_with_options(self, request, runtime):
         """
-        @summary Queries the information about APIs in the development state.
+        @summary Queries a list of APIs in the development state.
         
 
         @param request: ListDataServiceApisRequest
@@ -9853,7 +9851,7 @@ class Client(OpenApiClient):
 
     def list_data_service_apis(self, request):
         """
-        @summary Queries the information about APIs in the development state.
+        @summary Queries a list of APIs in the development state.
         
 
         @param request: ListDataServiceApisRequest
@@ -15465,9 +15463,9 @@ class Client(OpenApiClient):
 
     def update_meta_collection_with_options(self, request, runtime):
         """
-        @summary Only the name and comment of a collection can be updated.
+        @summary Updates a collection.
         
-        @description You must configure at least one of the Name and Comment parameters when you update a collection.
+        @description Only the name and comment of a collection can be updated.
         
 
         @param request: UpdateMetaCollectionRequest
@@ -15505,9 +15503,9 @@ class Client(OpenApiClient):
 
     def update_meta_collection(self, request):
         """
-        @summary Only the name and comment of a collection can be updated.
+        @summary Updates a collection.
         
-        @description You must configure at least one of the Name and Comment parameters when you update a collection.
+        @description Only the name and comment of a collection can be updated.
         
 
         @param request: UpdateMetaCollectionRequest
