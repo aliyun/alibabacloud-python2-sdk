@@ -49894,6 +49894,187 @@ class ListManualDagInstancesResponse(TeaModel):
         return self
 
 
+class ListMeasureDataRequest(TeaModel):
+    def __init__(self, component_code=None, domain_code=None, end_time=None, start_time=None):
+        # This parameter is required.
+        self.component_code = component_code  # type: str
+        # This parameter is required.
+        self.domain_code = domain_code  # type: str
+        # This parameter is required.
+        self.end_time = end_time  # type: long
+        # This parameter is required.
+        self.start_time = start_time  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListMeasureDataRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.component_code is not None:
+            result['ComponentCode'] = self.component_code
+        if self.domain_code is not None:
+            result['DomainCode'] = self.domain_code
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ComponentCode') is not None:
+            self.component_code = m.get('ComponentCode')
+        if m.get('DomainCode') is not None:
+            self.domain_code = m.get('DomainCode')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        return self
+
+
+class ListMeasureDataResponseBodyMeasureDatas(TeaModel):
+    def __init__(self, component_code=None, domain_code=None, end_time=None, start_time=None, usage=None):
+        self.component_code = component_code  # type: str
+        self.domain_code = domain_code  # type: str
+        self.end_time = end_time  # type: long
+        self.start_time = start_time  # type: long
+        self.usage = usage  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListMeasureDataResponseBodyMeasureDatas, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.component_code is not None:
+            result['ComponentCode'] = self.component_code
+        if self.domain_code is not None:
+            result['DomainCode'] = self.domain_code
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.usage is not None:
+            result['Usage'] = self.usage
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ComponentCode') is not None:
+            self.component_code = m.get('ComponentCode')
+        if m.get('DomainCode') is not None:
+            self.domain_code = m.get('DomainCode')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('Usage') is not None:
+            self.usage = m.get('Usage')
+        return self
+
+
+class ListMeasureDataResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_message=None, http_status_code=None, measure_datas=None,
+                 request_id=None, success=None):
+        self.error_code = error_code  # type: str
+        self.error_message = error_message  # type: str
+        self.http_status_code = http_status_code  # type: int
+        self.measure_datas = measure_datas  # type: list[ListMeasureDataResponseBodyMeasureDatas]
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.measure_datas:
+            for k in self.measure_datas:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListMeasureDataResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        result['MeasureDatas'] = []
+        if self.measure_datas is not None:
+            for k in self.measure_datas:
+                result['MeasureDatas'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        self.measure_datas = []
+        if m.get('MeasureDatas') is not None:
+            for k in m.get('MeasureDatas'):
+                temp_model = ListMeasureDataResponseBodyMeasureDatas()
+                self.measure_datas.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ListMeasureDataResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListMeasureDataResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListMeasureDataResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListMeasureDataResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListMetaCollectionEntitiesRequest(TeaModel):
     def __init__(self, collection_qualified_name=None, entity_type=None, keyword=None, next_token=None,
                  page_size=None):

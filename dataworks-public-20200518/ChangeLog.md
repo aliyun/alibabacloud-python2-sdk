@@ -1,3 +1,7 @@
+2024-06-07 Version: 3.5.0
+- Support API ListMeasureData.
+
+
 2024-06-07 Version: 3.4.1
 - Generated python2 2020-05-18 for dataworks-public.
 
