@@ -49,15 +49,21 @@ class AccessRequest(TeaModel):
 
 
 class Catalog(TeaModel):
-    def __init__(self, catalog_id=None, create_time=None, created_by=None, description=None, location_uri=None,
-                 owner=None, status=None, update_time=None):
+    def __init__(self, catalog_id=None, catalog_type=None, create_time=None, created_by=None, default_catalog=None,
+                 description=None, jdbc_enabled=None, location_uri=None, owner=None, status=None, storage_access_config=None,
+                 thrift_enabled=None, update_time=None):
         self.catalog_id = catalog_id  # type: str
+        self.catalog_type = catalog_type  # type: str
         self.create_time = create_time  # type: long
         self.created_by = created_by  # type: str
+        self.default_catalog = default_catalog  # type: bool
         self.description = description  # type: str
+        self.jdbc_enabled = jdbc_enabled  # type: bool
         self.location_uri = location_uri  # type: str
         self.owner = owner  # type: str
         self.status = status  # type: str
+        self.storage_access_config = storage_access_config  # type: str
+        self.thrift_enabled = thrift_enabled  # type: bool
         self.update_time = update_time  # type: long
 
     def validate(self):
@@ -71,18 +77,28 @@ class Catalog(TeaModel):
         result = dict()
         if self.catalog_id is not None:
             result['CatalogId'] = self.catalog_id
+        if self.catalog_type is not None:
+            result['CatalogType'] = self.catalog_type
         if self.create_time is not None:
             result['CreateTime'] = self.create_time
         if self.created_by is not None:
             result['CreatedBy'] = self.created_by
+        if self.default_catalog is not None:
+            result['DefaultCatalog'] = self.default_catalog
         if self.description is not None:
             result['Description'] = self.description
+        if self.jdbc_enabled is not None:
+            result['JdbcEnabled'] = self.jdbc_enabled
         if self.location_uri is not None:
             result['LocationUri'] = self.location_uri
         if self.owner is not None:
             result['Owner'] = self.owner
         if self.status is not None:
             result['Status'] = self.status
+        if self.storage_access_config is not None:
+            result['StorageAccessConfig'] = self.storage_access_config
+        if self.thrift_enabled is not None:
+            result['ThriftEnabled'] = self.thrift_enabled
         if self.update_time is not None:
             result['UpdateTime'] = self.update_time
         return result
@@ -91,29 +107,90 @@ class Catalog(TeaModel):
         m = m or dict()
         if m.get('CatalogId') is not None:
             self.catalog_id = m.get('CatalogId')
+        if m.get('CatalogType') is not None:
+            self.catalog_type = m.get('CatalogType')
         if m.get('CreateTime') is not None:
             self.create_time = m.get('CreateTime')
         if m.get('CreatedBy') is not None:
             self.created_by = m.get('CreatedBy')
+        if m.get('DefaultCatalog') is not None:
+            self.default_catalog = m.get('DefaultCatalog')
         if m.get('Description') is not None:
             self.description = m.get('Description')
+        if m.get('JdbcEnabled') is not None:
+            self.jdbc_enabled = m.get('JdbcEnabled')
         if m.get('LocationUri') is not None:
             self.location_uri = m.get('LocationUri')
         if m.get('Owner') is not None:
             self.owner = m.get('Owner')
         if m.get('Status') is not None:
             self.status = m.get('Status')
+        if m.get('StorageAccessConfig') is not None:
+            self.storage_access_config = m.get('StorageAccessConfig')
+        if m.get('ThriftEnabled') is not None:
+            self.thrift_enabled = m.get('ThriftEnabled')
         if m.get('UpdateTime') is not None:
             self.update_time = m.get('UpdateTime')
         return self
 
 
+class CatalogConnection(TeaModel):
+    def __init__(self, jdbc_password=None, jdbc_uri=None, jdbc_user_name=None, thrift_uri=None,
+                 vpc_connection_id=None):
+        self.jdbc_password = jdbc_password  # type: str
+        self.jdbc_uri = jdbc_uri  # type: str
+        self.jdbc_user_name = jdbc_user_name  # type: str
+        self.thrift_uri = thrift_uri  # type: str
+        self.vpc_connection_id = vpc_connection_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CatalogConnection, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.jdbc_password is not None:
+            result['JdbcPassword'] = self.jdbc_password
+        if self.jdbc_uri is not None:
+            result['JdbcUri'] = self.jdbc_uri
+        if self.jdbc_user_name is not None:
+            result['JdbcUserName'] = self.jdbc_user_name
+        if self.thrift_uri is not None:
+            result['ThriftUri'] = self.thrift_uri
+        if self.vpc_connection_id is not None:
+            result['VpcConnectionId'] = self.vpc_connection_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('JdbcPassword') is not None:
+            self.jdbc_password = m.get('JdbcPassword')
+        if m.get('JdbcUri') is not None:
+            self.jdbc_uri = m.get('JdbcUri')
+        if m.get('JdbcUserName') is not None:
+            self.jdbc_user_name = m.get('JdbcUserName')
+        if m.get('ThriftUri') is not None:
+            self.thrift_uri = m.get('ThriftUri')
+        if m.get('VpcConnectionId') is not None:
+            self.vpc_connection_id = m.get('VpcConnectionId')
+        return self
+
+
 class CatalogInput(TeaModel):
-    def __init__(self, catalog_id=None, description=None, location_uri=None, owner=None):
+    def __init__(self, catalog_id=None, catalog_type=None, description=None, jdbc_enabled=None, location_uri=None,
+                 owner=None, storage_access_config=None, thrift_enabled=None):
+        # This parameter is required.
         self.catalog_id = catalog_id  # type: str
+        self.catalog_type = catalog_type  # type: str
         self.description = description  # type: str
+        self.jdbc_enabled = jdbc_enabled  # type: bool
         self.location_uri = location_uri  # type: str
         self.owner = owner  # type: str
+        self.storage_access_config = storage_access_config  # type: str
+        self.thrift_enabled = thrift_enabled  # type: bool
 
     def validate(self):
         pass
@@ -126,24 +203,40 @@ class CatalogInput(TeaModel):
         result = dict()
         if self.catalog_id is not None:
             result['CatalogId'] = self.catalog_id
+        if self.catalog_type is not None:
+            result['CatalogType'] = self.catalog_type
         if self.description is not None:
             result['Description'] = self.description
+        if self.jdbc_enabled is not None:
+            result['JdbcEnabled'] = self.jdbc_enabled
         if self.location_uri is not None:
             result['LocationUri'] = self.location_uri
         if self.owner is not None:
             result['Owner'] = self.owner
+        if self.storage_access_config is not None:
+            result['StorageAccessConfig'] = self.storage_access_config
+        if self.thrift_enabled is not None:
+            result['ThriftEnabled'] = self.thrift_enabled
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('CatalogId') is not None:
             self.catalog_id = m.get('CatalogId')
+        if m.get('CatalogType') is not None:
+            self.catalog_type = m.get('CatalogType')
         if m.get('Description') is not None:
             self.description = m.get('Description')
+        if m.get('JdbcEnabled') is not None:
+            self.jdbc_enabled = m.get('JdbcEnabled')
         if m.get('LocationUri') is not None:
             self.location_uri = m.get('LocationUri')
         if m.get('Owner') is not None:
             self.owner = m.get('Owner')
+        if m.get('StorageAccessConfig') is not None:
+            self.storage_access_config = m.get('StorageAccessConfig')
+        if m.get('ThriftEnabled') is not None:
+            self.thrift_enabled = m.get('ThriftEnabled')
         return self
 
 
@@ -192,6 +285,230 @@ class CatalogSettings(TeaModel):
         m = m or dict()
         if m.get('Config') is not None:
             self.config = m.get('Config')
+        return self
+
+
+class CatalogVpcConnectionZones(TeaModel):
+    def __init__(self, ip=None, v_switch_id=None, zone_id=None):
+        self.ip = ip  # type: str
+        self.v_switch_id = v_switch_id  # type: str
+        self.zone_id = zone_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CatalogVpcConnectionZones, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ip is not None:
+            result['IP'] = self.ip
+        if self.v_switch_id is not None:
+            result['VSwitchId'] = self.v_switch_id
+        if self.zone_id is not None:
+            result['ZoneId'] = self.zone_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IP') is not None:
+            self.ip = m.get('IP')
+        if m.get('VSwitchId') is not None:
+            self.v_switch_id = m.get('VSwitchId')
+        if m.get('ZoneId') is not None:
+            self.zone_id = m.get('ZoneId')
+        return self
+
+
+class CatalogVpcConnection(TeaModel):
+    def __init__(self, catalog_id=None, connection_name=None, connection_status=None, creator=None,
+                 error_message=None, gmt_create=None, gmt_modified=None, jdbc_uri=None, modifier=None, owner=None, region_id=None,
+                 security_group_ids=None, thrift_uri=None, vpc_connection_id=None, vpc_id=None, zones=None):
+        self.catalog_id = catalog_id  # type: str
+        self.connection_name = connection_name  # type: str
+        self.connection_status = connection_status  # type: str
+        self.creator = creator  # type: long
+        self.error_message = error_message  # type: str
+        self.gmt_create = gmt_create  # type: str
+        self.gmt_modified = gmt_modified  # type: str
+        self.jdbc_uri = jdbc_uri  # type: str
+        self.modifier = modifier  # type: long
+        self.owner = owner  # type: long
+        self.region_id = region_id  # type: str
+        self.security_group_ids = security_group_ids  # type: list[str]
+        self.thrift_uri = thrift_uri  # type: str
+        self.vpc_connection_id = vpc_connection_id  # type: str
+        self.vpc_id = vpc_id  # type: str
+        self.zones = zones  # type: list[CatalogVpcConnectionZones]
+
+    def validate(self):
+        if self.zones:
+            for k in self.zones:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(CatalogVpcConnection, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.catalog_id is not None:
+            result['CatalogId'] = self.catalog_id
+        if self.connection_name is not None:
+            result['ConnectionName'] = self.connection_name
+        if self.connection_status is not None:
+            result['ConnectionStatus'] = self.connection_status
+        if self.creator is not None:
+            result['Creator'] = self.creator
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.gmt_create is not None:
+            result['GmtCreate'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['GmtModified'] = self.gmt_modified
+        if self.jdbc_uri is not None:
+            result['JdbcUri'] = self.jdbc_uri
+        if self.modifier is not None:
+            result['Modifier'] = self.modifier
+        if self.owner is not None:
+            result['Owner'] = self.owner
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.security_group_ids is not None:
+            result['SecurityGroupIds'] = self.security_group_ids
+        if self.thrift_uri is not None:
+            result['ThriftUri'] = self.thrift_uri
+        if self.vpc_connection_id is not None:
+            result['VpcConnectionId'] = self.vpc_connection_id
+        if self.vpc_id is not None:
+            result['VpcId'] = self.vpc_id
+        result['Zones'] = []
+        if self.zones is not None:
+            for k in self.zones:
+                result['Zones'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CatalogId') is not None:
+            self.catalog_id = m.get('CatalogId')
+        if m.get('ConnectionName') is not None:
+            self.connection_name = m.get('ConnectionName')
+        if m.get('ConnectionStatus') is not None:
+            self.connection_status = m.get('ConnectionStatus')
+        if m.get('Creator') is not None:
+            self.creator = m.get('Creator')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('GmtCreate') is not None:
+            self.gmt_create = m.get('GmtCreate')
+        if m.get('GmtModified') is not None:
+            self.gmt_modified = m.get('GmtModified')
+        if m.get('JdbcUri') is not None:
+            self.jdbc_uri = m.get('JdbcUri')
+        if m.get('Modifier') is not None:
+            self.modifier = m.get('Modifier')
+        if m.get('Owner') is not None:
+            self.owner = m.get('Owner')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('SecurityGroupIds') is not None:
+            self.security_group_ids = m.get('SecurityGroupIds')
+        if m.get('ThriftUri') is not None:
+            self.thrift_uri = m.get('ThriftUri')
+        if m.get('VpcConnectionId') is not None:
+            self.vpc_connection_id = m.get('VpcConnectionId')
+        if m.get('VpcId') is not None:
+            self.vpc_id = m.get('VpcId')
+        self.zones = []
+        if m.get('Zones') is not None:
+            for k in m.get('Zones'):
+                temp_model = CatalogVpcConnectionZones()
+                self.zones.append(temp_model.from_map(k))
+        return self
+
+
+class CatalogVpcConnectionInputZones(TeaModel):
+    def __init__(self, ip=None, v_switch_id=None, zone_id=None):
+        self.ip = ip  # type: str
+        self.v_switch_id = v_switch_id  # type: str
+        self.zone_id = zone_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CatalogVpcConnectionInputZones, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ip is not None:
+            result['IP'] = self.ip
+        if self.v_switch_id is not None:
+            result['VSwitchId'] = self.v_switch_id
+        if self.zone_id is not None:
+            result['ZoneId'] = self.zone_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IP') is not None:
+            self.ip = m.get('IP')
+        if m.get('VSwitchId') is not None:
+            self.v_switch_id = m.get('VSwitchId')
+        if m.get('ZoneId') is not None:
+            self.zone_id = m.get('ZoneId')
+        return self
+
+
+class CatalogVpcConnectionInput(TeaModel):
+    def __init__(self, connection_name=None, security_group_ids=None, vpc_id=None, zones=None):
+        self.connection_name = connection_name  # type: str
+        self.security_group_ids = security_group_ids  # type: list[str]
+        self.vpc_id = vpc_id  # type: str
+        self.zones = zones  # type: list[CatalogVpcConnectionInputZones]
+
+    def validate(self):
+        if self.zones:
+            for k in self.zones:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(CatalogVpcConnectionInput, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.connection_name is not None:
+            result['ConnectionName'] = self.connection_name
+        if self.security_group_ids is not None:
+            result['SecurityGroupIds'] = self.security_group_ids
+        if self.vpc_id is not None:
+            result['VpcId'] = self.vpc_id
+        result['Zones'] = []
+        if self.zones is not None:
+            for k in self.zones:
+                result['Zones'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConnectionName') is not None:
+            self.connection_name = m.get('ConnectionName')
+        if m.get('SecurityGroupIds') is not None:
+            self.security_group_ids = m.get('SecurityGroupIds')
+        if m.get('VpcId') is not None:
+            self.vpc_id = m.get('VpcId')
+        self.zones = []
+        if m.get('Zones') is not None:
+            for k in m.get('Zones'):
+                temp_model = CatalogVpcConnectionInputZones()
+                self.zones.append(temp_model.from_map(k))
         return self
 
 
@@ -2153,21 +2470,21 @@ class PrincipalPrivilegeSet(TeaModel):
                 l1 = []
                 for k1 in v:
                     l1.append(k1.to_map() if k1 else None)
-                result['groupPrivileges'][k] = l1
+                result['GroupPrivileges'][k] = l1
         result['RolePrivileges'] = {}
         if self.role_privileges is not None:
             for k, v in self.role_privileges.items():
                 l1 = []
                 for k1 in v:
                     l1.append(k1.to_map() if k1 else None)
-                result['rolePrivileges'][k] = l1
+                result['RolePrivileges'][k] = l1
         result['UserPrivileges'] = {}
         if self.user_privileges is not None:
             for k, v in self.user_privileges.items():
                 l1 = []
                 for k1 in v:
                     l1.append(k1.to_map() if k1 else None)
-                result['userPrivileges'][k] = l1
+                result['UserPrivileges'][k] = l1
         return result
 
     def from_map(self, m=None):
@@ -2203,7 +2520,9 @@ class PrincipalResourcePermissions(TeaModel):
     def __init__(self, accesses=None, delegate_accesses=None, meta_resource=None, principal=None):
         self.accesses = accesses  # type: list[str]
         self.delegate_accesses = delegate_accesses  # type: list[str]
+        # This parameter is required.
         self.meta_resource = meta_resource  # type: MetaResource
+        # This parameter is required.
         self.principal = principal  # type: Principal
 
     def validate(self):
@@ -3270,14 +3589,14 @@ class TableExtendedPrivileges(TeaModel):
                 l1 = []
                 for k1 in v:
                     l1.append(k1.to_map() if k1 else None)
-                result['rolePrivileges'][k] = l1
+                result['RolePrivileges'][k] = l1
         result['UserPrivileges'] = {}
         if self.user_privileges is not None:
             for k, v in self.user_privileges.items():
                 l1 = []
                 for k1 in v:
                     l1.append(k1.to_map() if k1 else None)
-                result['userPrivileges'][k] = l1
+                result['UserPrivileges'][k] = l1
         result['groupPrivileges'] = {}
         if self.group_privileges is not None:
             for k, v in self.group_privileges.items():
@@ -4488,9 +4807,6 @@ class AbortLockResponse(TeaModel):
         self.body = body  # type: AbortLockResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4652,9 +4968,6 @@ class BatchCreatePartitionsResponse(TeaModel):
         self.body = body  # type: BatchCreatePartitionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4790,9 +5103,6 @@ class BatchCreateTablesResponse(TeaModel):
         self.body = body  # type: BatchCreateTablesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4958,9 +5268,6 @@ class BatchDeletePartitionsResponse(TeaModel):
         self.body = body  # type: BatchDeletePartitionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5075,9 +5382,6 @@ class BatchDeleteTableVersionsResponse(TeaModel):
         self.body = body  # type: BatchDeleteTableVersionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5206,9 +5510,6 @@ class BatchDeleteTablesResponse(TeaModel):
         self.body = body  # type: BatchDeleteTablesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5314,7 +5615,7 @@ class BatchGetPartitionColumnStatisticsResponseBody(TeaModel):
                 l1 = []
                 for k1 in v:
                     l1.append(k1.to_map() if k1 else None)
-                result['partitionStatisticsMap'][k] = l1
+                result['PartitionStatisticsMap'][k] = l1
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.success is not None:
@@ -5349,9 +5650,6 @@ class BatchGetPartitionColumnStatisticsResponse(TeaModel):
         self.body = body  # type: BatchGetPartitionColumnStatisticsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5546,9 +5844,6 @@ class BatchGetPartitionsResponse(TeaModel):
         self.body = body  # type: BatchGetPartitionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5685,9 +5980,6 @@ class BatchGetTablesResponse(TeaModel):
         self.body = body  # type: BatchGetTablesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5722,6 +6014,7 @@ class BatchGrantPermissionsRequest(TeaModel):
         # catalogId
         self.catalog_id = catalog_id  # type: str
         self.grant_revoke_entries = grant_revoke_entries  # type: list[GrantRevokeEntry]
+        # This parameter is required.
         self.type = type  # type: str
 
     def validate(self):
@@ -5825,9 +6118,6 @@ class BatchGrantPermissionsResponse(TeaModel):
         self.body = body  # type: BatchGrantPermissionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5862,6 +6152,7 @@ class BatchRevokePermissionsRequest(TeaModel):
         # catalogId
         self.catalog_id = catalog_id  # type: str
         self.grant_revoke_entries = grant_revoke_entries  # type: list[GrantRevokeEntry]
+        # This parameter is required.
         self.type = type  # type: str
 
     def validate(self):
@@ -5965,9 +6256,6 @@ class BatchRevokePermissionsResponse(TeaModel):
         self.body = body  # type: BatchRevokePermissionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6103,9 +6391,6 @@ class BatchUpdatePartitionsResponse(TeaModel):
         self.body = body  # type: BatchUpdatePartitionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6246,9 +6531,6 @@ class BatchUpdateTablesResponse(TeaModel):
         self.body = body  # type: BatchUpdateTablesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6343,9 +6625,6 @@ class CancelQueryResponse(TeaModel):
         self.body = body  # type: CancelQueryResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6451,9 +6730,6 @@ class CheckPermissionsResponse(TeaModel):
         self.body = body  # type: CheckPermissionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6560,9 +6836,6 @@ class CreateCatalogResponse(TeaModel):
         self.body = body  # type: CreateCatalogResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6669,9 +6942,6 @@ class CreateDatabaseResponse(TeaModel):
         self.body = body  # type: CreateDatabaseResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6783,9 +7053,6 @@ class CreateFunctionResponse(TeaModel):
         self.body = body  # type: CreateFunctionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6905,9 +7172,6 @@ class CreateLockResponse(TeaModel):
         self.body = body  # type: CreateLockResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7042,9 +7306,6 @@ class CreatePartitionResponse(TeaModel):
         self.body = body  # type: CreatePartitionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7150,9 +7411,6 @@ class CreateRoleResponse(TeaModel):
         self.body = body  # type: CreateRoleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7264,9 +7522,6 @@ class CreateTableResponse(TeaModel):
         self.body = body  # type: CreateTableResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7299,6 +7554,8 @@ class CreateTableResponse(TeaModel):
 class DeleteCatalogRequest(TeaModel):
     def __init__(self, catalog_id=None, is_async=None):
         # CatalogId
+        # 
+        # This parameter is required.
         self.catalog_id = catalog_id  # type: str
         self.is_async = is_async  # type: bool
 
@@ -7381,9 +7638,6 @@ class DeleteCatalogResponse(TeaModel):
         self.body = body  # type: DeleteCatalogResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7503,9 +7757,6 @@ class DeleteDatabaseResponse(TeaModel):
         self.body = body  # type: DeleteDatabaseResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7615,9 +7866,6 @@ class DeleteFunctionResponse(TeaModel):
         self.body = body  # type: DeleteFunctionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7737,9 +7985,6 @@ class DeletePartitionResponse(TeaModel):
         self.body = body  # type: DeletePartitionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7905,9 +8150,6 @@ class DeletePartitionColumnStatisticsResponse(TeaModel):
         self.body = body  # type: DeletePartitionColumnStatisticsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8011,9 +8253,6 @@ class DeleteRoleResponse(TeaModel):
         self.body = body  # type: DeleteRoleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8123,9 +8362,6 @@ class DeleteTableResponse(TeaModel):
         self.body = body  # type: DeleteTableResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8279,9 +8515,6 @@ class DeleteTableColumnStatisticsResponse(TeaModel):
         self.body = body  # type: DeleteTableColumnStatisticsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8396,9 +8629,6 @@ class DeleteTableVersionResponse(TeaModel):
         self.body = body  # type: DeleteTableVersionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8430,6 +8660,7 @@ class DeleteTableVersionResponse(TeaModel):
 
 class DeregisterLocationRequest(TeaModel):
     def __init__(self, location_id=None):
+        # This parameter is required.
         self.location_id = location_id  # type: str
 
     def validate(self):
@@ -8533,9 +8764,6 @@ class DeregisterLocationResponse(TeaModel):
         self.body = body  # type: DeregisterLocationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8653,9 +8881,6 @@ class DescribeRegionsResponse(TeaModel):
         self.body = body  # type: DescribeRegionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8771,9 +8996,6 @@ class GetAsyncTaskStatusResponse(TeaModel):
         self.body = body  # type: GetAsyncTaskStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8885,9 +9107,6 @@ class GetCatalogResponse(TeaModel):
         self.body = body  # type: GetCatalogResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8998,9 +9217,6 @@ class GetCatalogSettingsResponse(TeaModel):
         self.body = body  # type: GetCatalogSettingsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9112,9 +9328,6 @@ class GetDatabaseResponse(TeaModel):
         self.body = body  # type: GetDatabaseResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9149,6 +9362,8 @@ class GetDatabaseProfileRequest(TeaModel):
         # CatalogId
         self.catalog_id = catalog_id  # type: str
         # DatabaseName
+        # 
+        # This parameter is required.
         self.database_name = database_name  # type: str
 
     def validate(self):
@@ -9232,9 +9447,6 @@ class GetDatabaseProfileResponse(TeaModel):
         self.body = body  # type: GetDatabaseProfileResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9351,9 +9563,6 @@ class GetFunctionResponse(TeaModel):
         self.body = body  # type: GetFunctionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9457,9 +9666,6 @@ class GetLifecycleRuleResponse(TeaModel):
         self.body = body  # type: GetLifecycleRuleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9571,9 +9777,6 @@ class GetLockResponse(TeaModel):
         self.body = body  # type: GetLockResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9695,9 +9898,6 @@ class GetPartitionResponse(TeaModel):
         self.body = body  # type: GetPartitionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9848,7 +10048,7 @@ class GetPartitionColumnStatisticsResponseBody(TeaModel):
                 l1 = []
                 for k1 in v:
                     l1.append(k1.to_map() if k1 else None)
-                result['partitionStatisticsMap'][k] = l1
+                result['PartitionStatisticsMap'][k] = l1
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.success is not None:
@@ -9883,9 +10083,6 @@ class GetPartitionColumnStatisticsResponse(TeaModel):
         self.body = body  # type: GetPartitionColumnStatisticsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10093,9 +10290,6 @@ class GetQueryResultResponse(TeaModel):
         self.body = body  # type: GetQueryResultResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10127,6 +10321,7 @@ class GetQueryResultResponse(TeaModel):
 
 class GetRegionStatusRequest(TeaModel):
     def __init__(self, region_id=None):
+        # This parameter is required.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -10237,9 +10432,6 @@ class GetRegionStatusResponse(TeaModel):
         self.body = body  # type: GetRegionStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10352,9 +10544,6 @@ class GetRoleResponse(TeaModel):
         self.body = body  # type: GetRoleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10386,6 +10575,7 @@ class GetRoleResponse(TeaModel):
 
 class GetServiceStatusRequest(TeaModel):
     def __init__(self, region_id=None):
+        # This parameter is required.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -10485,9 +10675,6 @@ class GetServiceStatusResponse(TeaModel):
         self.body = body  # type: GetServiceStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10604,9 +10791,6 @@ class GetTableResponse(TeaModel):
         self.body = body  # type: GetTableResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10773,9 +10957,6 @@ class GetTableColumnStatisticsResponse(TeaModel):
         self.body = body  # type: GetTableColumnStatisticsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10810,8 +10991,12 @@ class GetTableProfileRequest(TeaModel):
         # CatalogId
         self.catalog_id = catalog_id  # type: str
         # DatabaseName
+        # 
+        # This parameter is required.
         self.database_name = database_name  # type: str
         # TableName
+        # 
+        # This parameter is required.
         self.table_name = table_name  # type: str
 
     def validate(self):
@@ -10897,9 +11082,6 @@ class GetTableProfileResponse(TeaModel):
         self.body = body  # type: GetTableProfileResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11021,9 +11203,6 @@ class GetTableVersionResponse(TeaModel):
         self.body = body  # type: GetTableVersionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11056,12 +11235,17 @@ class GetTableVersionResponse(TeaModel):
 class GrantPermissionsRequest(TeaModel):
     def __init__(self, accesses=None, catalog_id=None, delegate_accesses=None, meta_resource=None, principal=None,
                  type=None):
+        # This parameter is required.
         self.accesses = accesses  # type: list[str]
         # CatalogId
         self.catalog_id = catalog_id  # type: str
+        # This parameter is required.
         self.delegate_accesses = delegate_accesses  # type: list[str]
+        # This parameter is required.
         self.meta_resource = meta_resource  # type: MetaResource
+        # This parameter is required.
         self.principal = principal  # type: Principal
+        # This parameter is required.
         self.type = type  # type: str
 
     def validate(self):
@@ -11159,9 +11343,6 @@ class GrantPermissionsResponse(TeaModel):
         self.body = body  # type: GrantPermissionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11279,9 +11460,6 @@ class GrantRoleToUsersResponse(TeaModel):
         self.body = body  # type: GrantRoleToUsersResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11313,7 +11491,9 @@ class GrantRoleToUsersResponse(TeaModel):
 
 class GrantRolesToUserRequest(TeaModel):
     def __init__(self, role_names=None, user=None):
+        # This parameter is required.
         self.role_names = role_names  # type: list[str]
+        # This parameter is required.
         self.user = user  # type: Principal
 
     def validate(self):
@@ -11392,9 +11572,6 @@ class GrantRolesToUserResponse(TeaModel):
         self.body = body  # type: GrantRolesToUserResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11522,9 +11699,6 @@ class ListCatalogsResponse(TeaModel):
         self.body = body  # type: ListCatalogsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11657,9 +11831,6 @@ class ListDatabasesResponse(TeaModel):
         self.body = body  # type: ListDatabasesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11791,9 +11962,6 @@ class ListFunctionNamesResponse(TeaModel):
         self.body = body  # type: ListFunctionNamesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11932,9 +12100,6 @@ class ListFunctionsResponse(TeaModel):
         self.body = body  # type: ListFunctionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12071,9 +12236,6 @@ class ListPartitionNamesResponse(TeaModel):
         self.body = body  # type: ListPartitionNamesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12238,9 +12400,6 @@ class ListPartitionsResponse(TeaModel):
         self.body = body  # type: ListPartitionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12276,8 +12435,7 @@ class ListPartitionsByExprResponse(TeaModel):
         self.status_code = status_code  # type: int
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
+        pass
 
     def to_map(self):
         _map = super(ListPartitionsByExprResponse, self).to_map()
@@ -12435,9 +12593,6 @@ class ListPartitionsByFilterResponse(TeaModel):
         self.body = body  # type: ListPartitionsByFilterResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12471,6 +12626,7 @@ class ListPartitionsProfileRequest(TeaModel):
     def __init__(self, catalog_id=None, database_name=None, page_number=None, page_size=None, partition_names=None,
                  table_name=None):
         self.catalog_id = catalog_id  # type: str
+        # This parameter is required.
         self.database_name = database_name  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
@@ -12521,6 +12677,7 @@ class ListPartitionsProfileShrinkRequest(TeaModel):
     def __init__(self, catalog_id=None, database_name=None, page_number=None, page_size=None,
                  partition_names_shrink=None, table_name=None):
         self.catalog_id = catalog_id  # type: str
+        # This parameter is required.
         self.database_name = database_name  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
@@ -12642,9 +12799,6 @@ class ListPartitionsProfileResponse(TeaModel):
         self.body = body  # type: ListPartitionsProfileResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12685,6 +12839,7 @@ class ListPermissionsRequest(TeaModel):
         self.next_page_token = next_page_token  # type: str
         self.page_size = page_size  # type: int
         self.principal = principal  # type: Principal
+        # This parameter is required.
         self.type = type  # type: str
 
     def validate(self):
@@ -12816,9 +12971,6 @@ class ListPermissionsResponse(TeaModel):
         self.body = body  # type: ListPermissionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12957,9 +13109,6 @@ class ListRoleUsersResponse(TeaModel):
         self.body = body  # type: ListRoleUsersResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13094,9 +13243,6 @@ class ListRolesResponse(TeaModel):
         self.body = body  # type: ListRolesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13233,9 +13379,6 @@ class ListTableNamesResponse(TeaModel):
         self.body = body  # type: ListTableNamesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13374,9 +13517,6 @@ class ListTableVersionsResponse(TeaModel):
         self.body = body  # type: ListTableVersionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13520,9 +13660,6 @@ class ListTablesResponse(TeaModel):
         self.body = body  # type: ListTablesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13663,9 +13800,6 @@ class ListUserRolesResponse(TeaModel):
         self.body = body  # type: ListUserRolesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13770,9 +13904,6 @@ class RefreshLockResponse(TeaModel):
         self.body = body  # type: RefreshLockResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13805,8 +13936,10 @@ class RefreshLockResponse(TeaModel):
 class RegisterLocationRequest(TeaModel):
     def __init__(self, inventory_collect_enabled=None, location=None, oss_log_collect_enabled=None, role_name=None):
         self.inventory_collect_enabled = inventory_collect_enabled  # type: bool
+        # This parameter is required.
         self.location = location  # type: str
         self.oss_log_collect_enabled = oss_log_collect_enabled  # type: bool
+        # This parameter is required.
         self.role_name = role_name  # type: str
 
     def validate(self):
@@ -13922,9 +14055,6 @@ class RegisterLocationResponse(TeaModel):
         self.body = body  # type: RegisterLocationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14047,9 +14177,6 @@ class RenamePartitionResponse(TeaModel):
         self.body = body  # type: RenamePartitionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14177,9 +14304,6 @@ class RenameTableResponse(TeaModel):
         self.body = body  # type: RenameTableResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14212,12 +14336,16 @@ class RenameTableResponse(TeaModel):
 class RevokePermissionsRequest(TeaModel):
     def __init__(self, accesses=None, catalog_id=None, delegate_accesses=None, meta_resource=None, principal=None,
                  type=None):
+        # This parameter is required.
         self.accesses = accesses  # type: list[str]
         # CatalogId
         self.catalog_id = catalog_id  # type: str
         self.delegate_accesses = delegate_accesses  # type: list[str]
+        # This parameter is required.
         self.meta_resource = meta_resource  # type: MetaResource
+        # This parameter is required.
         self.principal = principal  # type: Principal
+        # This parameter is required.
         self.type = type  # type: str
 
     def validate(self):
@@ -14315,9 +14443,6 @@ class RevokePermissionsResponse(TeaModel):
         self.body = body  # type: RevokePermissionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14434,9 +14559,6 @@ class RevokeRoleFromUsersResponse(TeaModel):
         self.body = body  # type: RevokeRoleFromUsersResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14468,7 +14590,9 @@ class RevokeRoleFromUsersResponse(TeaModel):
 
 class RevokeRolesFromUserRequest(TeaModel):
     def __init__(self, role_names=None, user=None):
+        # This parameter is required.
         self.role_names = role_names  # type: list[str]
+        # This parameter is required.
         self.user = user  # type: Principal
 
     def validate(self):
@@ -14547,9 +14671,6 @@ class RevokeRolesFromUserResponse(TeaModel):
         self.body = body  # type: RevokeRolesFromUserResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14581,6 +14702,7 @@ class RevokeRolesFromUserResponse(TeaModel):
 
 class RunMigrationWorkflowRequest(TeaModel):
     def __init__(self, instance_id=None):
+        # This parameter is required.
         self.instance_id = instance_id  # type: str
 
     def validate(self):
@@ -14644,9 +14766,6 @@ class RunMigrationWorkflowResponse(TeaModel):
         self.body = body  # type: RunMigrationWorkflowResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14951,9 +15070,6 @@ class SearchResponse(TeaModel):
         self.body = body  # type: SearchResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15342,9 +15458,6 @@ class SearchAcrossCatalogResponse(TeaModel):
         self.body = body  # type: SearchAcrossCatalogResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15376,6 +15489,7 @@ class SearchAcrossCatalogResponse(TeaModel):
 
 class StopMigrationWorkflowRequest(TeaModel):
     def __init__(self, instance_id=None):
+        # This parameter is required.
         self.instance_id = instance_id  # type: str
 
     def validate(self):
@@ -15434,9 +15548,6 @@ class StopMigrationWorkflowResponse(TeaModel):
         self.body = body  # type: StopMigrationWorkflowResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15541,9 +15652,6 @@ class SubmitQueryResponse(TeaModel):
         self.body = body  # type: SubmitQueryResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15648,9 +15756,6 @@ class UnLockResponse(TeaModel):
         self.body = body  # type: UnLockResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15683,6 +15788,8 @@ class UnLockResponse(TeaModel):
 class UpdateCatalogRequest(TeaModel):
     def __init__(self, catalog_input=None):
         # cataloginput
+        # 
+        # This parameter is required.
         self.catalog_input = catalog_input  # type: CatalogInput
 
     def validate(self):
@@ -15753,9 +15860,6 @@ class UpdateCatalogResponse(TeaModel):
         self.body = body  # type: UpdateCatalogResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15867,9 +15971,6 @@ class UpdateCatalogSettingsResponse(TeaModel):
         self.body = body  # type: UpdateCatalogSettingsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15981,9 +16082,6 @@ class UpdateDatabaseResponse(TeaModel):
         self.body = body  # type: UpdateDatabaseResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16100,9 +16198,6 @@ class UpdateFunctionResponse(TeaModel):
         self.body = body  # type: UpdateFunctionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16204,9 +16299,6 @@ class UpdatePartitionColumnStatisticsResponse(TeaModel):
         self.body = body  # type: UpdatePartitionColumnStatisticsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16239,12 +16331,17 @@ class UpdatePartitionColumnStatisticsResponse(TeaModel):
 class UpdatePermissionsRequest(TeaModel):
     def __init__(self, accesses=None, catalog_id=None, delegate_accesses=None, meta_resource=None, principal=None,
                  type=None):
+        # This parameter is required.
         self.accesses = accesses  # type: list[str]
         # CatalogId
         self.catalog_id = catalog_id  # type: str
+        # This parameter is required.
         self.delegate_accesses = delegate_accesses  # type: list[str]
+        # This parameter is required.
         self.meta_resource = meta_resource  # type: MetaResource
+        # This parameter is required.
         self.principal = principal  # type: Principal
+        # This parameter is required.
         self.type = type  # type: str
 
     def validate(self):
@@ -16342,9 +16439,6 @@ class UpdatePermissionsResponse(TeaModel):
         self.body = body  # type: UpdatePermissionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16377,6 +16471,7 @@ class UpdatePermissionsResponse(TeaModel):
 class UpdateRegisteredLocationRequest(TeaModel):
     def __init__(self, inventory_collect_enabled=None, location_id=None, oss_log_collect_enabled=None):
         self.inventory_collect_enabled = inventory_collect_enabled  # type: bool
+        # This parameter is required.
         self.location_id = location_id  # type: str
         self.oss_log_collect_enabled = oss_log_collect_enabled  # type: bool
 
@@ -16489,9 +16584,6 @@ class UpdateRegisteredLocationResponse(TeaModel):
         self.body = body  # type: UpdateRegisteredLocationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16603,9 +16695,6 @@ class UpdateRoleResponse(TeaModel):
         self.body = body  # type: UpdateRoleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16722,9 +16811,6 @@ class UpdateRoleUsersResponse(TeaModel):
         self.body = body  # type: UpdateRoleUsersResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16863,9 +16949,6 @@ class UpdateTableResponse(TeaModel):
         self.body = body  # type: UpdateTableResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16967,9 +17050,6 @@ class UpdateTableColumnStatisticsResponse(TeaModel):
         self.body = body  # type: UpdateTableColumnStatisticsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 

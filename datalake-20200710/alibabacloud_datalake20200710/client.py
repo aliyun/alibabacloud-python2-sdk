@@ -90,6 +90,19 @@ class Client(OpenApiClient):
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
     def abort_lock_with_options(self, request, headers, runtime):
+        """
+        @summary abort lock context with the lockid
+        
+
+        @param request: AbortLockRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AbortLockResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.lock_id):
@@ -115,11 +128,32 @@ class Client(OpenApiClient):
         )
 
     def abort_lock(self, request):
+        """
+        @summary abort lock context with the lockid
+        
+
+        @param request: AbortLockRequest
+
+        @return: AbortLockResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.abort_lock_with_options(request, headers, runtime)
 
     def batch_create_partitions_with_options(self, request, headers, runtime):
+        """
+        @summary 批量创建分区
+        
+
+        @param request: BatchCreatePartitionsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: BatchCreatePartitionsResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -155,11 +189,32 @@ class Client(OpenApiClient):
         )
 
     def batch_create_partitions(self, request):
+        """
+        @summary 批量创建分区
+        
+
+        @param request: BatchCreatePartitionsRequest
+
+        @return: BatchCreatePartitionsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.batch_create_partitions_with_options(request, headers, runtime)
 
     def batch_create_tables_with_options(self, request, headers, runtime):
+        """
+        @summary 批量创建表
+        
+
+        @param request: BatchCreateTablesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: BatchCreateTablesResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -191,11 +246,32 @@ class Client(OpenApiClient):
         )
 
     def batch_create_tables(self, request):
+        """
+        @summary 批量创建表
+        
+
+        @param request: BatchCreateTablesRequest
+
+        @return: BatchCreateTablesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.batch_create_tables_with_options(request, headers, runtime)
 
     def batch_delete_partitions_with_options(self, request, headers, runtime):
+        """
+        @summary batch delete partitions
+        
+
+        @param request: BatchDeletePartitionsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: BatchDeletePartitionsResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -229,11 +305,32 @@ class Client(OpenApiClient):
         )
 
     def batch_delete_partitions(self, request):
+        """
+        @summary batch delete partitions
+        
+
+        @param request: BatchDeletePartitionsRequest
+
+        @return: BatchDeletePartitionsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.batch_delete_partitions_with_options(request, headers, runtime)
 
     def batch_delete_table_versions_with_options(self, request, headers, runtime):
+        """
+        @summary BatchDeleteTableVersions
+        
+
+        @param request: BatchDeleteTableVersionsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: BatchDeleteTableVersionsResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -265,11 +362,32 @@ class Client(OpenApiClient):
         )
 
     def batch_delete_table_versions(self, request):
+        """
+        @summary BatchDeleteTableVersions
+        
+
+        @param request: BatchDeleteTableVersionsRequest
+
+        @return: BatchDeleteTableVersionsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.batch_delete_table_versions_with_options(request, headers, runtime)
 
     def batch_delete_tables_with_options(self, request, headers, runtime):
+        """
+        @summary BatchDeleteTables
+        
+
+        @param request: BatchDeleteTablesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: BatchDeleteTablesResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -301,11 +419,32 @@ class Client(OpenApiClient):
         )
 
     def batch_delete_tables(self, request):
+        """
+        @summary BatchDeleteTables
+        
+
+        @param request: BatchDeleteTablesRequest
+
+        @return: BatchDeleteTablesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.batch_delete_tables_with_options(request, headers, runtime)
 
     def batch_get_partition_column_statistics_with_options(self, request, headers, runtime):
+        """
+        @summary Batch Get Partition Column Statistics
+        
+
+        @param request: BatchGetPartitionColumnStatisticsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: BatchGetPartitionColumnStatisticsResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -339,11 +478,32 @@ class Client(OpenApiClient):
         )
 
     def batch_get_partition_column_statistics(self, request):
+        """
+        @summary Batch Get Partition Column Statistics
+        
+
+        @param request: BatchGetPartitionColumnStatisticsRequest
+
+        @return: BatchGetPartitionColumnStatisticsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.batch_get_partition_column_statistics_with_options(request, headers, runtime)
 
     def batch_get_partitions_with_options(self, request, headers, runtime):
+        """
+        @summary batch get partitions
+        
+
+        @param request: BatchGetPartitionsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: BatchGetPartitionsResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -377,11 +537,32 @@ class Client(OpenApiClient):
         )
 
     def batch_get_partitions(self, request):
+        """
+        @summary batch get partitions
+        
+
+        @param request: BatchGetPartitionsRequest
+
+        @return: BatchGetPartitionsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.batch_get_partitions_with_options(request, headers, runtime)
 
     def batch_get_tables_with_options(self, request, headers, runtime):
+        """
+        @summary batch get tables
+        
+
+        @param request: BatchGetTablesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: BatchGetTablesResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -411,11 +592,32 @@ class Client(OpenApiClient):
         )
 
     def batch_get_tables(self, request):
+        """
+        @summary batch get tables
+        
+
+        @param request: BatchGetTablesRequest
+
+        @return: BatchGetTablesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.batch_get_tables_with_options(request, headers, runtime)
 
     def batch_grant_permissions_with_options(self, request, headers, runtime):
+        """
+        @summary 批量授权
+        
+
+        @param request: BatchGrantPermissionsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: BatchGrantPermissionsResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -445,11 +647,32 @@ class Client(OpenApiClient):
         )
 
     def batch_grant_permissions(self, request):
+        """
+        @summary 批量授权
+        
+
+        @param request: BatchGrantPermissionsRequest
+
+        @return: BatchGrantPermissionsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.batch_grant_permissions_with_options(request, headers, runtime)
 
     def batch_revoke_permissions_with_options(self, request, headers, runtime):
+        """
+        @summary 批量取消授权
+        
+
+        @param request: BatchRevokePermissionsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: BatchRevokePermissionsResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -479,11 +702,32 @@ class Client(OpenApiClient):
         )
 
     def batch_revoke_permissions(self, request):
+        """
+        @summary 批量取消授权
+        
+
+        @param request: BatchRevokePermissionsRequest
+
+        @return: BatchRevokePermissionsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.batch_revoke_permissions_with_options(request, headers, runtime)
 
     def batch_update_partitions_with_options(self, request, headers, runtime):
+        """
+        @summary batch update partitions
+        
+
+        @param request: BatchUpdatePartitionsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: BatchUpdatePartitionsResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -515,11 +759,32 @@ class Client(OpenApiClient):
         )
 
     def batch_update_partitions(self, request):
+        """
+        @summary batch update partitions
+        
+
+        @param request: BatchUpdatePartitionsRequest
+
+        @return: BatchUpdatePartitionsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.batch_update_partitions_with_options(request, headers, runtime)
 
     def batch_update_tables_with_options(self, request, headers, runtime):
+        """
+        @summary 批量更新表
+        
+
+        @param request: BatchUpdateTablesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: BatchUpdateTablesResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -551,11 +816,32 @@ class Client(OpenApiClient):
         )
 
     def batch_update_tables(self, request):
+        """
+        @summary 批量更新表
+        
+
+        @param request: BatchUpdateTablesRequest
+
+        @return: BatchUpdateTablesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.batch_update_tables_with_options(request, headers, runtime)
 
     def cancel_query_with_options(self, request, headers, runtime):
+        """
+        @summary 取消查询任务
+        
+
+        @param request: CancelQueryRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CancelQueryResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.query_id):
@@ -581,11 +867,32 @@ class Client(OpenApiClient):
         )
 
     def cancel_query(self, request):
+        """
+        @summary 取消查询任务
+        
+
+        @param request: CancelQueryRequest
+
+        @return: CancelQueryResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.cancel_query_with_options(request, headers, runtime)
 
     def check_permissions_with_options(self, request, headers, runtime):
+        """
+        @summary Check permissions
+        
+
+        @param request: CheckPermissionsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CheckPermissionsResponse
+        """
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             headers=headers,
@@ -608,11 +915,32 @@ class Client(OpenApiClient):
         )
 
     def check_permissions(self, request):
+        """
+        @summary Check permissions
+        
+
+        @param request: CheckPermissionsRequest
+
+        @return: CheckPermissionsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.check_permissions_with_options(request, headers, runtime)
 
     def create_catalog_with_options(self, request, headers, runtime):
+        """
+        @summary 创建数据湖Catalog
+        
+
+        @param request: CreateCatalogRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateCatalogResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.catalog_input):
@@ -638,11 +966,32 @@ class Client(OpenApiClient):
         )
 
     def create_catalog(self, request):
+        """
+        @summary 创建数据湖Catalog
+        
+
+        @param request: CreateCatalogRequest
+
+        @return: CreateCatalogResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.create_catalog_with_options(request, headers, runtime)
 
     def create_database_with_options(self, request, headers, runtime):
+        """
+        @summary create database
+        
+
+        @param request: CreateDatabaseRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateDatabaseResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -670,11 +1019,32 @@ class Client(OpenApiClient):
         )
 
     def create_database(self, request):
+        """
+        @summary create database
+        
+
+        @param request: CreateDatabaseRequest
+
+        @return: CreateDatabaseResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.create_database_with_options(request, headers, runtime)
 
     def create_function_with_options(self, request, headers, runtime):
+        """
+        @summary Create function
+        
+
+        @param request: CreateFunctionRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateFunctionResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -704,11 +1074,32 @@ class Client(OpenApiClient):
         )
 
     def create_function(self, request):
+        """
+        @summary Create function
+        
+
+        @param request: CreateFunctionRequest
+
+        @return: CreateFunctionResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.create_function_with_options(request, headers, runtime)
 
     def create_lock_with_options(self, request, headers, runtime):
+        """
+        @summary create lock
+        
+
+        @param request: CreateLockRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateLockResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.lock_obj_list):
@@ -734,11 +1125,32 @@ class Client(OpenApiClient):
         )
 
     def create_lock(self, request):
+        """
+        @summary create lock
+        
+
+        @param request: CreateLockRequest
+
+        @return: CreateLockResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.create_lock_with_options(request, headers, runtime)
 
     def create_partition_with_options(self, request, headers, runtime):
+        """
+        @summary Create Partition
+        
+
+        @param request: CreatePartitionRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreatePartitionResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -774,11 +1186,32 @@ class Client(OpenApiClient):
         )
 
     def create_partition(self, request):
+        """
+        @summary Create Partition
+        
+
+        @param request: CreatePartitionRequest
+
+        @return: CreatePartitionResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.create_partition_with_options(request, headers, runtime)
 
     def create_role_with_options(self, request, headers, runtime):
+        """
+        @summary 创建数据糊角色
+        
+
+        @param request: CreateRoleRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateRoleResponse
+        """
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             headers=headers,
@@ -801,11 +1234,32 @@ class Client(OpenApiClient):
         )
 
     def create_role(self, request):
+        """
+        @summary 创建数据糊角色
+        
+
+        @param request: CreateRoleRequest
+
+        @return: CreateRoleResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.create_role_with_options(request, headers, runtime)
 
     def create_table_with_options(self, request, headers, runtime):
+        """
+        @summary Create tables
+        
+
+        @param request: CreateTableRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateTableResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -835,11 +1289,32 @@ class Client(OpenApiClient):
         )
 
     def create_table(self, request):
+        """
+        @summary Create tables
+        
+
+        @param request: CreateTableRequest
+
+        @return: CreateTableResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.create_table_with_options(request, headers, runtime)
 
     def delete_catalog_with_options(self, request, headers, runtime):
+        """
+        @summary Delete Catalog by catalogId
+        
+
+        @param request: DeleteCatalogRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteCatalogResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -867,11 +1342,32 @@ class Client(OpenApiClient):
         )
 
     def delete_catalog(self, request):
+        """
+        @summary Delete Catalog by catalogId
+        
+
+        @param request: DeleteCatalogRequest
+
+        @return: DeleteCatalogResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.delete_catalog_with_options(request, headers, runtime)
 
     def delete_database_with_options(self, request, headers, runtime):
+        """
+        @summary Delete database by catalogId and database name
+        
+
+        @param request: DeleteDatabaseRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteDatabaseResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.async):
@@ -903,11 +1399,32 @@ class Client(OpenApiClient):
         )
 
     def delete_database(self, request):
+        """
+        @summary Delete database by catalogId and database name
+        
+
+        @param request: DeleteDatabaseRequest
+
+        @return: DeleteDatabaseResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.delete_database_with_options(request, headers, runtime)
 
     def delete_function_with_options(self, request, headers, runtime):
+        """
+        @summary Delete function
+        
+
+        @param request: DeleteFunctionRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteFunctionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -937,11 +1454,32 @@ class Client(OpenApiClient):
         )
 
     def delete_function(self, request):
+        """
+        @summary Delete function
+        
+
+        @param request: DeleteFunctionRequest
+
+        @return: DeleteFunctionResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.delete_function_with_options(request, headers, runtime)
 
     def delete_partition_with_options(self, request, headers, runtime):
+        """
+        @summary delete partition
+        
+
+        @param request: DeletePartitionRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeletePartitionResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -975,11 +1513,32 @@ class Client(OpenApiClient):
         )
 
     def delete_partition(self, request):
+        """
+        @summary delete partition
+        
+
+        @param request: DeletePartitionRequest
+
+        @return: DeletePartitionResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.delete_partition_with_options(request, headers, runtime)
 
     def delete_partition_column_statistics_with_options(self, tmp_req, headers, runtime):
+        """
+        @summary DeletePartitionColumnStatistics
+        
+
+        @param tmp_req: DeletePartitionColumnStatisticsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeletePartitionColumnStatisticsResponse
+        """
         UtilClient.validate_model(tmp_req)
         request = data_lake_20200710_models.DeletePartitionColumnStatisticsShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
@@ -1019,11 +1578,32 @@ class Client(OpenApiClient):
         )
 
     def delete_partition_column_statistics(self, request):
+        """
+        @summary DeletePartitionColumnStatistics
+        
+
+        @param request: DeletePartitionColumnStatisticsRequest
+
+        @return: DeletePartitionColumnStatisticsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.delete_partition_column_statistics_with_options(request, headers, runtime)
 
     def delete_role_with_options(self, request, headers, runtime):
+        """
+        @summary 删除角色
+        
+
+        @param request: DeleteRoleRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteRoleResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.role_name):
@@ -1049,11 +1629,32 @@ class Client(OpenApiClient):
         )
 
     def delete_role(self, request):
+        """
+        @summary 删除角色
+        
+
+        @param request: DeleteRoleRequest
+
+        @return: DeleteRoleResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.delete_role_with_options(request, headers, runtime)
 
     def delete_table_with_options(self, request, headers, runtime):
+        """
+        @summary delete table
+        
+
+        @param request: DeleteTableRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteTableResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -1083,11 +1684,32 @@ class Client(OpenApiClient):
         )
 
     def delete_table(self, request):
+        """
+        @summary delete table
+        
+
+        @param request: DeleteTableRequest
+
+        @return: DeleteTableResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.delete_table_with_options(request, headers, runtime)
 
     def delete_table_column_statistics_with_options(self, tmp_req, headers, runtime):
+        """
+        @summary DeleteTableColumnStatistics
+        
+
+        @param tmp_req: DeleteTableColumnStatisticsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteTableColumnStatisticsResponse
+        """
         UtilClient.validate_model(tmp_req)
         request = data_lake_20200710_models.DeleteTableColumnStatisticsShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
@@ -1123,11 +1745,32 @@ class Client(OpenApiClient):
         )
 
     def delete_table_column_statistics(self, request):
+        """
+        @summary DeleteTableColumnStatistics
+        
+
+        @param request: DeleteTableColumnStatisticsRequest
+
+        @return: DeleteTableColumnStatisticsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.delete_table_column_statistics_with_options(request, headers, runtime)
 
     def delete_table_version_with_options(self, request, headers, runtime):
+        """
+        @summary delete table version
+        
+
+        @param request: DeleteTableVersionRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteTableVersionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -1159,11 +1802,32 @@ class Client(OpenApiClient):
         )
 
     def delete_table_version(self, request):
+        """
+        @summary delete table version
+        
+
+        @param request: DeleteTableVersionRequest
+
+        @return: DeleteTableVersionResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.delete_table_version_with_options(request, headers, runtime)
 
     def deregister_location_with_options(self, request, headers, runtime):
+        """
+        @summary 取消注册Location
+        
+
+        @param request: DeregisterLocationRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeregisterLocationResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.location_id):
@@ -1189,11 +1853,28 @@ class Client(OpenApiClient):
         )
 
     def deregister_location(self, request):
+        """
+        @summary 取消注册Location
+        
+
+        @param request: DeregisterLocationRequest
+
+        @return: DeregisterLocationResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.deregister_location_with_options(request, headers, runtime)
 
     def describe_regions_with_options(self, headers, runtime):
+        """
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeRegionsResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1214,11 +1895,28 @@ class Client(OpenApiClient):
         )
 
     def describe_regions(self):
+        """
+
+        @return: DescribeRegionsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.describe_regions_with_options(headers, runtime)
 
     def get_async_task_status_with_options(self, request, headers, runtime):
+        """
+        @summary GetAsyncTaskStatus
+        
+
+        @param request: GetAsyncTaskStatusRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetAsyncTaskStatusResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -1246,11 +1944,32 @@ class Client(OpenApiClient):
         )
 
     def get_async_task_status(self, request):
+        """
+        @summary GetAsyncTaskStatus
+        
+
+        @param request: GetAsyncTaskStatusRequest
+
+        @return: GetAsyncTaskStatusResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_async_task_status_with_options(request, headers, runtime)
 
     def get_catalog_with_options(self, request, headers, runtime):
+        """
+        @summary 获取Catalog
+        
+
+        @param request: GetCatalogRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetCatalogResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -1276,11 +1995,32 @@ class Client(OpenApiClient):
         )
 
     def get_catalog(self, request):
+        """
+        @summary 获取Catalog
+        
+
+        @param request: GetCatalogRequest
+
+        @return: GetCatalogResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_catalog_with_options(request, headers, runtime)
 
     def get_catalog_settings_with_options(self, request, headers, runtime):
+        """
+        @summary 获取数据湖配置
+        
+
+        @param request: GetCatalogSettingsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetCatalogSettingsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -1306,11 +2046,32 @@ class Client(OpenApiClient):
         )
 
     def get_catalog_settings(self, request):
+        """
+        @summary 获取数据湖配置
+        
+
+        @param request: GetCatalogSettingsRequest
+
+        @return: GetCatalogSettingsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_catalog_settings_with_options(request, headers, runtime)
 
     def get_database_with_options(self, request, headers, runtime):
+        """
+        @summary Get Database
+        
+
+        @param request: GetDatabaseRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetDatabaseResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -1338,11 +2099,32 @@ class Client(OpenApiClient):
         )
 
     def get_database(self, request):
+        """
+        @summary Get Database
+        
+
+        @param request: GetDatabaseRequest
+
+        @return: GetDatabaseResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_database_with_options(request, headers, runtime)
 
     def get_database_profile_with_options(self, request, headers, runtime):
+        """
+        @summary 获取库数据概览信息
+        
+
+        @param request: GetDatabaseProfileRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetDatabaseProfileResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -1370,11 +2152,32 @@ class Client(OpenApiClient):
         )
 
     def get_database_profile(self, request):
+        """
+        @summary 获取库数据概览信息
+        
+
+        @param request: GetDatabaseProfileRequest
+
+        @return: GetDatabaseProfileResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_database_profile_with_options(request, headers, runtime)
 
     def get_function_with_options(self, request, headers, runtime):
+        """
+        @summary Get Function
+        
+
+        @param request: GetFunctionRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetFunctionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -1404,11 +2207,32 @@ class Client(OpenApiClient):
         )
 
     def get_function(self, request):
+        """
+        @summary Get Function
+        
+
+        @param request: GetFunctionRequest
+
+        @return: GetFunctionResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_function_with_options(request, headers, runtime)
 
     def get_lifecycle_rule_with_options(self, request, headers, runtime):
+        """
+        @summary 获取生命周期规则
+        
+
+        @param request: GetLifecycleRuleRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetLifecycleRuleResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.biz_id):
@@ -1436,11 +2260,32 @@ class Client(OpenApiClient):
         )
 
     def get_lifecycle_rule(self, request):
+        """
+        @summary 获取生命周期规则
+        
+
+        @param request: GetLifecycleRuleRequest
+
+        @return: GetLifecycleRuleResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_lifecycle_rule_with_options(request, headers, runtime)
 
     def get_lock_with_options(self, request, headers, runtime):
+        """
+        @summary get lock status
+        
+
+        @param request: GetLockRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetLockResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.lock_id):
@@ -1466,11 +2311,32 @@ class Client(OpenApiClient):
         )
 
     def get_lock(self, request):
+        """
+        @summary get lock status
+        
+
+        @param request: GetLockRequest
+
+        @return: GetLockResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_lock_with_options(request, headers, runtime)
 
     def get_partition_with_options(self, request, headers, runtime):
+        """
+        @summary get partition
+        
+
+        @param request: GetPartitionRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetPartitionResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -1502,11 +2368,32 @@ class Client(OpenApiClient):
         )
 
     def get_partition(self, request):
+        """
+        @summary get partition
+        
+
+        @param request: GetPartitionRequest
+
+        @return: GetPartitionResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_partition_with_options(request, headers, runtime)
 
     def get_partition_column_statistics_with_options(self, tmp_req, headers, runtime):
+        """
+        @summary Batch Get Partition Column Statistics
+        
+
+        @param tmp_req: GetPartitionColumnStatisticsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetPartitionColumnStatisticsResponse
+        """
         UtilClient.validate_model(tmp_req)
         request = data_lake_20200710_models.GetPartitionColumnStatisticsShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
@@ -1546,11 +2433,32 @@ class Client(OpenApiClient):
         )
 
     def get_partition_column_statistics(self, request):
+        """
+        @summary Batch Get Partition Column Statistics
+        
+
+        @param request: GetPartitionColumnStatisticsRequest
+
+        @return: GetPartitionColumnStatisticsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_partition_column_statistics_with_options(request, headers, runtime)
 
     def get_query_result_with_options(self, request, headers, runtime):
+        """
+        @summary 获取查询结果
+        
+
+        @param request: GetQueryResultRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetQueryResultResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.page_number):
@@ -1580,11 +2488,30 @@ class Client(OpenApiClient):
         )
 
     def get_query_result(self, request):
+        """
+        @summary 获取查询结果
+        
+
+        @param request: GetQueryResultRequest
+
+        @return: GetQueryResultResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_query_result_with_options(request, headers, runtime)
 
     def get_region_status_with_options(self, request, headers, runtime):
+        """
+
+        @param request: GetRegionStatusRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetRegionStatusResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.region_id):
@@ -1610,11 +2537,30 @@ class Client(OpenApiClient):
         )
 
     def get_region_status(self, request):
+        """
+
+        @param request: GetRegionStatusRequest
+
+        @return: GetRegionStatusResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_region_status_with_options(request, headers, runtime)
 
     def get_role_with_options(self, request, headers, runtime):
+        """
+        @summary GetRole
+        
+
+        @param request: GetRoleRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetRoleResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.role_name):
@@ -1640,11 +2586,30 @@ class Client(OpenApiClient):
         )
 
     def get_role(self, request):
+        """
+        @summary GetRole
+        
+
+        @param request: GetRoleRequest
+
+        @return: GetRoleResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_role_with_options(request, headers, runtime)
 
     def get_service_status_with_options(self, request, headers, runtime):
+        """
+
+        @param request: GetServiceStatusRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetServiceStatusResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.region_id):
@@ -1670,11 +2635,30 @@ class Client(OpenApiClient):
         )
 
     def get_service_status(self, request):
+        """
+
+        @param request: GetServiceStatusRequest
+
+        @return: GetServiceStatusResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_service_status_with_options(request, headers, runtime)
 
     def get_table_with_options(self, request, headers, runtime):
+        """
+        @summary Get table
+        
+
+        @param request: GetTableRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetTableResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -1704,11 +2688,32 @@ class Client(OpenApiClient):
         )
 
     def get_table(self, request):
+        """
+        @summary Get table
+        
+
+        @param request: GetTableRequest
+
+        @return: GetTableResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_table_with_options(request, headers, runtime)
 
     def get_table_column_statistics_with_options(self, tmp_req, headers, runtime):
+        """
+        @summary An example of API
+        
+
+        @param tmp_req: GetTableColumnStatisticsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetTableColumnStatisticsResponse
+        """
         UtilClient.validate_model(tmp_req)
         request = data_lake_20200710_models.GetTableColumnStatisticsShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
@@ -1744,11 +2749,32 @@ class Client(OpenApiClient):
         )
 
     def get_table_column_statistics(self, request):
+        """
+        @summary An example of API
+        
+
+        @param request: GetTableColumnStatisticsRequest
+
+        @return: GetTableColumnStatisticsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_table_column_statistics_with_options(request, headers, runtime)
 
     def get_table_profile_with_options(self, request, headers, runtime):
+        """
+        @summary 获取表数据概况信息
+        
+
+        @param request: GetTableProfileRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetTableProfileResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -1778,11 +2804,32 @@ class Client(OpenApiClient):
         )
 
     def get_table_profile(self, request):
+        """
+        @summary 获取表数据概况信息
+        
+
+        @param request: GetTableProfileRequest
+
+        @return: GetTableProfileResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_table_profile_with_options(request, headers, runtime)
 
     def get_table_version_with_options(self, request, headers, runtime):
+        """
+        @summary Get table version
+        
+
+        @param request: GetTableVersionRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetTableVersionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -1814,11 +2861,32 @@ class Client(OpenApiClient):
         )
 
     def get_table_version(self, request):
+        """
+        @summary Get table version
+        
+
+        @param request: GetTableVersionRequest
+
+        @return: GetTableVersionResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_table_version_with_options(request, headers, runtime)
 
     def grant_permissions_with_options(self, request, headers, runtime):
+        """
+        @summary 赋予Principal资源的权限
+        
+
+        @param request: GrantPermissionsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GrantPermissionsResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.accesses):
@@ -1854,11 +2922,32 @@ class Client(OpenApiClient):
         )
 
     def grant_permissions(self, request):
+        """
+        @summary 赋予Principal资源的权限
+        
+
+        @param request: GrantPermissionsRequest
+
+        @return: GrantPermissionsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.grant_permissions_with_options(request, headers, runtime)
 
     def grant_role_to_users_with_options(self, request, headers, runtime):
+        """
+        @summary Grant 单个角色给一个或多个用户
+        
+
+        @param request: GrantRoleToUsersRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GrantRoleToUsersResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.role_name):
@@ -1886,11 +2975,32 @@ class Client(OpenApiClient):
         )
 
     def grant_role_to_users(self, request):
+        """
+        @summary Grant 单个角色给一个或多个用户
+        
+
+        @param request: GrantRoleToUsersRequest
+
+        @return: GrantRoleToUsersResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.grant_role_to_users_with_options(request, headers, runtime)
 
     def grant_roles_to_user_with_options(self, request, headers, runtime):
+        """
+        @summary Grant 一个或多个角色给一个用户
+        
+
+        @param request: GrantRolesToUserRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GrantRolesToUserResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.role_names):
@@ -1918,11 +3028,32 @@ class Client(OpenApiClient):
         )
 
     def grant_roles_to_user(self, request):
+        """
+        @summary Grant 一个或多个角色给一个用户
+        
+
+        @param request: GrantRolesToUserRequest
+
+        @return: GrantRolesToUserResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.grant_roles_to_user_with_options(request, headers, runtime)
 
     def list_catalogs_with_options(self, request, headers, runtime):
+        """
+        @summary ListCatalogs
+        
+
+        @param request: ListCatalogsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListCatalogsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.id_pattern):
@@ -1952,11 +3083,32 @@ class Client(OpenApiClient):
         )
 
     def list_catalogs(self, request):
+        """
+        @summary ListCatalogs
+        
+
+        @param request: ListCatalogsRequest
+
+        @return: ListCatalogsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_catalogs_with_options(request, headers, runtime)
 
     def list_databases_with_options(self, request, headers, runtime):
+        """
+        @summary Get Databases List
+        
+
+        @param request: ListDatabasesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListDatabasesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -1988,11 +3140,32 @@ class Client(OpenApiClient):
         )
 
     def list_databases(self, request):
+        """
+        @summary Get Databases List
+        
+
+        @param request: ListDatabasesRequest
+
+        @return: ListDatabasesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_databases_with_options(request, headers, runtime)
 
     def list_function_names_with_options(self, request, headers, runtime):
+        """
+        @summary list function names
+        
+
+        @param request: ListFunctionNamesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListFunctionNamesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -2026,11 +3199,32 @@ class Client(OpenApiClient):
         )
 
     def list_function_names(self, request):
+        """
+        @summary list function names
+        
+
+        @param request: ListFunctionNamesRequest
+
+        @return: ListFunctionNamesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_function_names_with_options(request, headers, runtime)
 
     def list_functions_with_options(self, request, headers, runtime):
+        """
+        @summary list functions
+        
+
+        @param request: ListFunctionsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListFunctionsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -2064,11 +3258,32 @@ class Client(OpenApiClient):
         )
 
     def list_functions(self, request):
+        """
+        @summary list functions
+        
+
+        @param request: ListFunctionsRequest
+
+        @return: ListFunctionsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_functions_with_options(request, headers, runtime)
 
     def list_partition_names_with_options(self, request, headers, runtime):
+        """
+        @summary partition names
+        
+
+        @param request: ListPartitionNamesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListPartitionNamesResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -2104,11 +3319,32 @@ class Client(OpenApiClient):
         )
 
     def list_partition_names(self, request):
+        """
+        @summary partition names
+        
+
+        @param request: ListPartitionNamesRequest
+
+        @return: ListPartitionNamesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_partition_names_with_options(request, headers, runtime)
 
     def list_partitions_with_options(self, request, headers, runtime):
+        """
+        @summary list partitions
+        
+
+        @param request: ListPartitionsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListPartitionsResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -2146,11 +3382,28 @@ class Client(OpenApiClient):
         )
 
     def list_partitions(self, request):
+        """
+        @summary list partitions
+        
+
+        @param request: ListPartitionsRequest
+
+        @return: ListPartitionsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_partitions_with_options(request, headers, runtime)
 
     def list_partitions_by_expr_with_options(self, headers, runtime):
+        """
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListPartitionsByExprResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -2171,11 +3424,28 @@ class Client(OpenApiClient):
         )
 
     def list_partitions_by_expr(self):
+        """
+
+        @return: ListPartitionsByExprResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_partitions_by_expr_with_options(headers, runtime)
 
     def list_partitions_by_filter_with_options(self, request, headers, runtime):
+        """
+        @summary list partitions by filter
+        
+
+        @param request: ListPartitionsByFilterRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListPartitionsByFilterResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -2213,11 +3483,32 @@ class Client(OpenApiClient):
         )
 
     def list_partitions_by_filter(self, request):
+        """
+        @summary list partitions by filter
+        
+
+        @param request: ListPartitionsByFilterRequest
+
+        @return: ListPartitionsByFilterResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_partitions_by_filter_with_options(request, headers, runtime)
 
     def list_partitions_profile_with_options(self, tmp_req, headers, runtime):
+        """
+        @summary 获取分区数据概况信息
+        
+
+        @param tmp_req: ListPartitionsProfileRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListPartitionsProfileResponse
+        """
         UtilClient.validate_model(tmp_req)
         request = data_lake_20200710_models.ListPartitionsProfileShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
@@ -2257,11 +3548,32 @@ class Client(OpenApiClient):
         )
 
     def list_partitions_profile(self, request):
+        """
+        @summary 获取分区数据概况信息
+        
+
+        @param request: ListPartitionsProfileRequest
+
+        @return: ListPartitionsProfileResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_partitions_profile_with_options(request, headers, runtime)
 
     def list_permissions_with_options(self, request, headers, runtime):
+        """
+        @summary 获取指定资源或指定Principal的权限信息
+        
+
+        @param request: ListPermissionsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListPermissionsResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -2301,11 +3613,32 @@ class Client(OpenApiClient):
         )
 
     def list_permissions(self, request):
+        """
+        @summary 获取指定资源或指定Principal的权限信息
+        
+
+        @param request: ListPermissionsRequest
+
+        @return: ListPermissionsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_permissions_with_options(request, headers, runtime)
 
     def list_role_users_with_options(self, request, headers, runtime):
+        """
+        @summary 查询用户角色列表
+        
+
+        @param request: ListRoleUsersRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListRoleUsersResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.next_page_token):
@@ -2337,11 +3670,32 @@ class Client(OpenApiClient):
         )
 
     def list_role_users(self, request):
+        """
+        @summary 查询用户角色列表
+        
+
+        @param request: ListRoleUsersRequest
+
+        @return: ListRoleUsersResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_role_users_with_options(request, headers, runtime)
 
     def list_roles_with_options(self, request, headers, runtime):
+        """
+        @summary ListRoles
+        
+
+        @param request: ListRolesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListRolesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.next_page_token):
@@ -2371,11 +3725,32 @@ class Client(OpenApiClient):
         )
 
     def list_roles(self, request):
+        """
+        @summary ListRoles
+        
+
+        @param request: ListRolesRequest
+
+        @return: ListRolesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_roles_with_options(request, headers, runtime)
 
     def list_table_names_with_options(self, request, headers, runtime):
+        """
+        @summary list table names
+        
+
+        @param request: ListTableNamesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListTableNamesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -2411,11 +3786,32 @@ class Client(OpenApiClient):
         )
 
     def list_table_names(self, request):
+        """
+        @summary list table names
+        
+
+        @param request: ListTableNamesRequest
+
+        @return: ListTableNamesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_table_names_with_options(request, headers, runtime)
 
     def list_table_versions_with_options(self, request, headers, runtime):
+        """
+        @summary List table versions
+        
+
+        @param request: ListTableVersionsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListTableVersionsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -2449,11 +3845,32 @@ class Client(OpenApiClient):
         )
 
     def list_table_versions(self, request):
+        """
+        @summary List table versions
+        
+
+        @param request: ListTableVersionsRequest
+
+        @return: ListTableVersionsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_table_versions_with_options(request, headers, runtime)
 
     def list_tables_with_options(self, request, headers, runtime):
+        """
+        @summary list tables
+        
+
+        @param request: ListTablesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListTablesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -2489,11 +3906,32 @@ class Client(OpenApiClient):
         )
 
     def list_tables(self, request):
+        """
+        @summary list tables
+        
+
+        @param request: ListTablesRequest
+
+        @return: ListTablesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_tables_with_options(request, headers, runtime)
 
     def list_user_roles_with_options(self, request, headers, runtime):
+        """
+        @summary 查询用户角色列表
+        
+
+        @param request: ListUserRolesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListUserRolesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.next_page_token):
@@ -2525,11 +3963,32 @@ class Client(OpenApiClient):
         )
 
     def list_user_roles(self, request):
+        """
+        @summary 查询用户角色列表
+        
+
+        @param request: ListUserRolesRequest
+
+        @return: ListUserRolesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_user_roles_with_options(request, headers, runtime)
 
     def refresh_lock_with_options(self, request, headers, runtime):
+        """
+        @summary refresh to keep the lock alive
+        
+
+        @param request: RefreshLockRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RefreshLockResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.lock_id):
@@ -2555,11 +4014,32 @@ class Client(OpenApiClient):
         )
 
     def refresh_lock(self, request):
+        """
+        @summary refresh to keep the lock alive
+        
+
+        @param request: RefreshLockRequest
+
+        @return: RefreshLockResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.refresh_lock_with_options(request, headers, runtime)
 
     def register_location_with_options(self, request, headers, runtime):
+        """
+        @summary 注册Location
+        
+
+        @param request: RegisterLocationRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RegisterLocationResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.inventory_collect_enabled):
@@ -2591,11 +4071,32 @@ class Client(OpenApiClient):
         )
 
     def register_location(self, request):
+        """
+        @summary 注册Location
+        
+
+        @param request: RegisterLocationRequest
+
+        @return: RegisterLocationResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.register_location_with_options(request, headers, runtime)
 
     def rename_partition_with_options(self, request, headers, runtime):
+        """
+        @summary rename partition
+        
+
+        @param request: RenamePartitionRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RenamePartitionResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -2629,11 +4130,32 @@ class Client(OpenApiClient):
         )
 
     def rename_partition(self, request):
+        """
+        @summary rename partition
+        
+
+        @param request: RenamePartitionRequest
+
+        @return: RenamePartitionResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.rename_partition_with_options(request, headers, runtime)
 
     def rename_table_with_options(self, request, headers, runtime):
+        """
+        @summary rename table
+        
+
+        @param request: RenameTableRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RenameTableResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -2667,11 +4189,32 @@ class Client(OpenApiClient):
         )
 
     def rename_table(self, request):
+        """
+        @summary rename table
+        
+
+        @param request: RenameTableRequest
+
+        @return: RenameTableResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.rename_table_with_options(request, headers, runtime)
 
     def revoke_permissions_with_options(self, request, headers, runtime):
+        """
+        @summary 取消Principal资源的权限
+        
+
+        @param request: RevokePermissionsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RevokePermissionsResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.accesses):
@@ -2707,11 +4250,32 @@ class Client(OpenApiClient):
         )
 
     def revoke_permissions(self, request):
+        """
+        @summary 取消Principal资源的权限
+        
+
+        @param request: RevokePermissionsRequest
+
+        @return: RevokePermissionsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.revoke_permissions_with_options(request, headers, runtime)
 
     def revoke_role_from_users_with_options(self, request, headers, runtime):
+        """
+        @summary 批量将该角色从这些用户中revoke
+        
+
+        @param request: RevokeRoleFromUsersRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RevokeRoleFromUsersResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.role_name):
@@ -2739,11 +4303,32 @@ class Client(OpenApiClient):
         )
 
     def revoke_role_from_users(self, request):
+        """
+        @summary 批量将该角色从这些用户中revoke
+        
+
+        @param request: RevokeRoleFromUsersRequest
+
+        @return: RevokeRoleFromUsersResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.revoke_role_from_users_with_options(request, headers, runtime)
 
     def revoke_roles_from_user_with_options(self, request, headers, runtime):
+        """
+        @summary 批量Revoke该用户的角色
+        
+
+        @param request: RevokeRolesFromUserRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RevokeRolesFromUserResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.role_names):
@@ -2771,11 +4356,32 @@ class Client(OpenApiClient):
         )
 
     def revoke_roles_from_user(self, request):
+        """
+        @summary 批量Revoke该用户的角色
+        
+
+        @param request: RevokeRolesFromUserRequest
+
+        @return: RevokeRolesFromUserResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.revoke_roles_from_user_with_options(request, headers, runtime)
 
     def run_migration_workflow_with_options(self, request, headers, runtime):
+        """
+        @summary 运行元数据迁移任务
+        
+
+        @param request: RunMigrationWorkflowRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RunMigrationWorkflowResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.instance_id):
@@ -2801,11 +4407,32 @@ class Client(OpenApiClient):
         )
 
     def run_migration_workflow(self, request):
+        """
+        @summary 运行元数据迁移任务
+        
+
+        @param request: RunMigrationWorkflowRequest
+
+        @return: RunMigrationWorkflowResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.run_migration_workflow_with_options(request, headers, runtime)
 
     def search_with_options(self, request, headers, runtime):
+        """
+        @summary DLF 元数据search
+        
+
+        @param request: SearchRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: SearchResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -2841,11 +4468,32 @@ class Client(OpenApiClient):
         )
 
     def search(self, request):
+        """
+        @summary DLF 元数据search
+        
+
+        @param request: SearchRequest
+
+        @return: SearchResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.search_with_options(request, headers, runtime)
 
     def search_across_catalog_with_options(self, request, headers, runtime):
+        """
+        @summary DLF 跨Catalog检索元数据
+        
+
+        @param request: SearchAcrossCatalogRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: SearchAcrossCatalogResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.catalog_ids):
@@ -2881,11 +4529,32 @@ class Client(OpenApiClient):
         )
 
     def search_across_catalog(self, request):
+        """
+        @summary DLF 跨Catalog检索元数据
+        
+
+        @param request: SearchAcrossCatalogRequest
+
+        @return: SearchAcrossCatalogResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.search_across_catalog_with_options(request, headers, runtime)
 
     def stop_migration_workflow_with_options(self, request, headers, runtime):
+        """
+        @summary 停止元数据迁移任务
+        
+
+        @param request: StopMigrationWorkflowRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: StopMigrationWorkflowResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.instance_id):
@@ -2911,11 +4580,30 @@ class Client(OpenApiClient):
         )
 
     def stop_migration_workflow(self, request):
+        """
+        @summary 停止元数据迁移任务
+        
+
+        @param request: StopMigrationWorkflowRequest
+
+        @return: StopMigrationWorkflowResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.stop_migration_workflow_with_options(request, headers, runtime)
 
     def submit_query_with_options(self, request, headers, runtime):
+        """
+
+        @param request: SubmitQueryRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: SubmitQueryResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -2945,11 +4633,30 @@ class Client(OpenApiClient):
         )
 
     def submit_query(self, request):
+        """
+
+        @param request: SubmitQueryRequest
+
+        @return: SubmitQueryResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.submit_query_with_options(request, headers, runtime)
 
     def un_lock_with_options(self, request, headers, runtime):
+        """
+        @summary unlock
+        
+
+        @param request: UnLockRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UnLockResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.lock_id):
@@ -2975,11 +4682,32 @@ class Client(OpenApiClient):
         )
 
     def un_lock(self, request):
+        """
+        @summary unlock
+        
+
+        @param request: UnLockRequest
+
+        @return: UnLockResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.un_lock_with_options(request, headers, runtime)
 
     def update_catalog_with_options(self, request, headers, runtime):
+        """
+        @summary 更新数据湖Catalog
+        
+
+        @param request: UpdateCatalogRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateCatalogResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.catalog_input):
@@ -3005,11 +4733,32 @@ class Client(OpenApiClient):
         )
 
     def update_catalog(self, request):
+        """
+        @summary 更新数据湖Catalog
+        
+
+        @param request: UpdateCatalogRequest
+
+        @return: UpdateCatalogResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_catalog_with_options(request, headers, runtime)
 
     def update_catalog_settings_with_options(self, request, headers, runtime):
+        """
+        @summary 获取数据湖配置
+        
+
+        @param request: UpdateCatalogSettingsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateCatalogSettingsResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -3037,11 +4786,32 @@ class Client(OpenApiClient):
         )
 
     def update_catalog_settings(self, request):
+        """
+        @summary 获取数据湖配置
+        
+
+        @param request: UpdateCatalogSettingsRequest
+
+        @return: UpdateCatalogSettingsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_catalog_settings_with_options(request, headers, runtime)
 
     def update_database_with_options(self, request, headers, runtime):
+        """
+        @summary Update database
+        
+
+        @param request: UpdateDatabaseRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateDatabaseResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -3071,11 +4841,32 @@ class Client(OpenApiClient):
         )
 
     def update_database(self, request):
+        """
+        @summary Update database
+        
+
+        @param request: UpdateDatabaseRequest
+
+        @return: UpdateDatabaseResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_database_with_options(request, headers, runtime)
 
     def update_function_with_options(self, request, headers, runtime):
+        """
+        @summary update function
+        
+
+        @param request: UpdateFunctionRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateFunctionResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.catalog_id):
@@ -3107,11 +4898,32 @@ class Client(OpenApiClient):
         )
 
     def update_function(self, request):
+        """
+        @summary update function
+        
+
+        @param request: UpdateFunctionRequest
+
+        @return: UpdateFunctionResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_function_with_options(request, headers, runtime)
 
     def update_partition_column_statistics_with_options(self, request, headers, runtime):
+        """
+        @summary update partition columnstatistics
+        
+
+        @param request: UpdatePartitionColumnStatisticsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdatePartitionColumnStatisticsResponse
+        """
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             headers=headers,
@@ -3134,11 +4946,32 @@ class Client(OpenApiClient):
         )
 
     def update_partition_column_statistics(self, request):
+        """
+        @summary update partition columnstatistics
+        
+
+        @param request: UpdatePartitionColumnStatisticsRequest
+
+        @return: UpdatePartitionColumnStatisticsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_partition_column_statistics_with_options(request, headers, runtime)
 
     def update_permissions_with_options(self, request, headers, runtime):
+        """
+        @summary 赋予Principal资源的权限
+        
+
+        @param request: UpdatePermissionsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdatePermissionsResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.accesses):
@@ -3174,11 +5007,32 @@ class Client(OpenApiClient):
         )
 
     def update_permissions(self, request):
+        """
+        @summary 赋予Principal资源的权限
+        
+
+        @param request: UpdatePermissionsRequest
+
+        @return: UpdatePermissionsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_permissions_with_options(request, headers, runtime)
 
     def update_registered_location_with_options(self, request, headers, runtime):
+        """
+        @summary 修改Location
+        
+
+        @param request: UpdateRegisteredLocationRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateRegisteredLocationResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.inventory_collect_enabled):
@@ -3208,11 +5062,32 @@ class Client(OpenApiClient):
         )
 
     def update_registered_location(self, request):
+        """
+        @summary 修改Location
+        
+
+        @param request: UpdateRegisteredLocationRequest
+
+        @return: UpdateRegisteredLocationResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_registered_location_with_options(request, headers, runtime)
 
     def update_role_with_options(self, request, headers, runtime):
+        """
+        @summary 更新角色
+        
+
+        @param request: UpdateRoleRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateRoleResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.role_input):
@@ -3240,11 +5115,32 @@ class Client(OpenApiClient):
         )
 
     def update_role(self, request):
+        """
+        @summary 更新角色
+        
+
+        @param request: UpdateRoleRequest
+
+        @return: UpdateRoleResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_role_with_options(request, headers, runtime)
 
     def update_role_users_with_options(self, request, headers, runtime):
+        """
+        @summary 更新Role中的Users
+        
+
+        @param request: UpdateRoleUsersRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateRoleUsersResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.role_name):
@@ -3272,11 +5168,32 @@ class Client(OpenApiClient):
         )
 
     def update_role_users(self, request):
+        """
+        @summary 更新Role中的Users
+        
+
+        @param request: UpdateRoleUsersRequest
+
+        @return: UpdateRoleUsersResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_role_users_with_options(request, headers, runtime)
 
     def update_table_with_options(self, request, headers, runtime):
+        """
+        @summary update table
+        
+
+        @param request: UpdateTableRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateTableResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.allow_partition_key_change):
@@ -3314,11 +5231,32 @@ class Client(OpenApiClient):
         )
 
     def update_table(self, request):
+        """
+        @summary update table
+        
+
+        @param request: UpdateTableRequest
+
+        @return: UpdateTableResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_table_with_options(request, headers, runtime)
 
     def update_table_column_statistics_with_options(self, request, headers, runtime):
+        """
+        @summary update table columnstatistics
+        
+
+        @param request: UpdateTableColumnStatisticsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateTableColumnStatisticsResponse
+        """
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             headers=headers,
@@ -3341,6 +5279,14 @@ class Client(OpenApiClient):
         )
 
     def update_table_column_statistics(self, request):
+        """
+        @summary update table columnstatistics
+        
+
+        @param request: UpdateTableColumnStatisticsRequest
+
+        @return: UpdateTableColumnStatisticsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_table_column_statistics_with_options(request, headers, runtime)
