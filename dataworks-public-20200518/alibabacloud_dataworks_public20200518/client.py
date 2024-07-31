@@ -165,9 +165,9 @@ class Client(OpenApiClient):
 
     def add_project_member_to_role_with_options(self, request, runtime):
         """
-        @summary For more information about how to add your Alibaba Cloud account or a RAM user as a member of a DataWorks workspace, see [Add a member to a DataWorks workspace](https://help.aliyun.com/document_detail/136941.html).
+        @summary Assigns a role to a member of a DataWorks workspace. Before you call this operation, you must add your account to a DataWorks workspace as a member.
         
-        @description The ID of the DataWorks workspace. You can call the [ListProjects](https://help.aliyun.com/document_detail/178393.html) operation to query the ID.
+        @description For information about how to add an account to a DataWorks workspace as a member, see [Manage members and roles](https://help.aliyun.com/document_detail/136941.html).
         
 
         @param request: AddProjectMemberToRoleRequest
@@ -207,9 +207,9 @@ class Client(OpenApiClient):
 
     def add_project_member_to_role(self, request):
         """
-        @summary For more information about how to add your Alibaba Cloud account or a RAM user as a member of a DataWorks workspace, see [Add a member to a DataWorks workspace](https://help.aliyun.com/document_detail/136941.html).
+        @summary Assigns a role to a member of a DataWorks workspace. Before you call this operation, you must add your account to a DataWorks workspace as a member.
         
-        @description The ID of the DataWorks workspace. You can call the [ListProjects](https://help.aliyun.com/document_detail/178393.html) operation to query the ID.
+        @description For information about how to add an account to a DataWorks workspace as a member, see [Manage members and roles](https://help.aliyun.com/document_detail/136941.html).
         
 
         @param request: AddProjectMemberToRoleRequest
@@ -221,7 +221,7 @@ class Client(OpenApiClient):
 
     def add_recognize_rule_with_options(self, request, runtime):
         """
-        @summary 添加识别规则
+        @summary Adds a sensitive field that is defined based on the category and sensitivity level of data in Data Security Guard.
         
 
         @param request: AddRecognizeRuleRequest
@@ -289,7 +289,7 @@ class Client(OpenApiClient):
 
     def add_recognize_rule(self, request):
         """
-        @summary 添加识别规则
+        @summary Adds a sensitive field that is defined based on the category and sensitivity level of data in Data Security Guard.
         
 
         @param request: AddRecognizeRuleRequest
@@ -349,6 +349,8 @@ class Client(OpenApiClient):
 
     def approve_permission_apply_order_with_options(self, request, runtime):
         """
+        @summary Processes a permission request order.
+        
 
         @param request: ApprovePermissionApplyOrderRequest
 
@@ -385,6 +387,8 @@ class Client(OpenApiClient):
 
     def approve_permission_apply_order(self, request):
         """
+        @summary Processes a permission request order.
+        
 
         @param request: ApprovePermissionApplyOrderRequest
 
@@ -395,7 +399,7 @@ class Client(OpenApiClient):
 
     def callback_extension_with_options(self, request, runtime):
         """
-        @summary 扩展程序回调接口
+        @summary Sends the processing result of an extension point event by an extension to DataWorks.
         
 
         @param request: CallbackExtensionRequest
@@ -435,7 +439,7 @@ class Client(OpenApiClient):
 
     def callback_extension(self, request):
         """
-        @summary 扩展程序回调接口
+        @summary Sends the processing result of an extension point event by an extension to DataWorks.
         
 
         @param request: CallbackExtensionRequest
@@ -447,7 +451,7 @@ class Client(OpenApiClient):
 
     def change_resource_manager_resource_group_with_options(self, request, runtime):
         """
-        @summary Modifies the resource group that you specify when you activate DataWorks or purchase a DataWorks exclusive resource group.
+        @summary Changes the resource group to which a resource belongs.
         
 
         @param request: ChangeResourceManagerResourceGroupRequest
@@ -485,7 +489,7 @@ class Client(OpenApiClient):
 
     def change_resource_manager_resource_group(self, request):
         """
-        @summary Modifies the resource group that you specify when you activate DataWorks or purchase a DataWorks exclusive resource group.
+        @summary Changes the resource group to which a resource belongs.
         
 
         @param request: ChangeResourceManagerResourceGroupRequest
@@ -497,6 +501,8 @@ class Client(OpenApiClient):
 
     def check_file_deployment_with_options(self, request, runtime):
         """
+        @summary Returns the check events of a file. After you commit your file that is created on the DataStudio page, the system checks the file and returns check events before the system deploys the file. You must determine whether the check can be continued based on the events. You can call this operation to return the check events for the file that you want to deploy to DataWorks.
+        
 
         @param request: CheckFileDeploymentRequest
 
@@ -533,6 +539,8 @@ class Client(OpenApiClient):
 
     def check_file_deployment(self, request):
         """
+        @summary Returns the check events of a file. After you commit your file that is created on the DataStudio page, the system checks the file and returns check events before the system deploys the file. You must determine whether the check can be continued based on the events. You can call this operation to return the check events for the file that you want to deploy to DataWorks.
+        
 
         @param request: CheckFileDeploymentRequest
 
@@ -543,7 +551,7 @@ class Client(OpenApiClient):
 
     def check_meta_partition_with_options(self, request, runtime):
         """
-        @summary The operation that you want to perform. Set the value to *CheckMetaPartition**.
+        @summary Checks whether a partition in a MaxCompute metatable exists.
         
 
         @param request: CheckMetaPartitionRequest
@@ -587,7 +595,7 @@ class Client(OpenApiClient):
 
     def check_meta_partition(self, request):
         """
-        @summary The operation that you want to perform. Set the value to *CheckMetaPartition**.
+        @summary Checks whether a partition in a MaxCompute metatable exists.
         
 
         @param request: CheckMetaPartitionRequest
@@ -599,7 +607,7 @@ class Client(OpenApiClient):
 
     def check_meta_table_with_options(self, request, runtime):
         """
-        @summary The operation that you want to perform. Set the value to *CheckMetaTable**.
+        @summary Checks whether a metatable exists.
         
 
         @param request: CheckMetaTableRequest
@@ -641,7 +649,7 @@ class Client(OpenApiClient):
 
     def check_meta_table(self, request):
         """
-        @summary The operation that you want to perform. Set the value to *CheckMetaTable**.
+        @summary Checks whether a metatable exists.
         
 
         @param request: CheckMetaTableRequest
@@ -653,7 +661,7 @@ class Client(OpenApiClient):
 
     def create_baseline_with_options(self, request, runtime):
         """
-        @summary 创建基线
+        @summary Creates a baseline.
         
 
         @param request: CreateBaselineRequest
@@ -701,7 +709,7 @@ class Client(OpenApiClient):
 
     def create_baseline(self, request):
         """
-        @summary 创建基线
+        @summary Creates a baseline.
         
 
         @param request: CreateBaselineRequest
@@ -767,7 +775,7 @@ class Client(OpenApiClient):
         """
         @deprecated OpenAPI CreateConnection is deprecated
         
-        @summary 创建数据源
+        @summary Adds a data source.
         
 
         @param request: CreateConnectionRequest
@@ -816,7 +824,7 @@ class Client(OpenApiClient):
         """
         @deprecated OpenAPI CreateConnection is deprecated
         
-        @summary 创建数据源
+        @summary Adds a data source.
         
 
         @param request: CreateConnectionRequest
@@ -829,7 +837,9 @@ class Client(OpenApiClient):
 
     def create_dialarm_rule_with_options(self, tmp_req, runtime):
         """
-        @summary 创建数据集成新版告警规则
+        @summary Creates an alert rule for a Data Integration task of a new version. Only the following type of task is supported: real-time data synchronization from a MySQL database to Hologres.
+        
+        @description You can configure alert rules only for tasks that can be used for real-time data synchronization.
         
 
         @param tmp_req: CreateDIAlarmRuleRequest
@@ -879,7 +889,9 @@ class Client(OpenApiClient):
 
     def create_dialarm_rule(self, request):
         """
-        @summary 创建数据集成新版告警规则
+        @summary Creates an alert rule for a Data Integration task of a new version. Only the following type of task is supported: real-time data synchronization from a MySQL database to Hologres.
+        
+        @description You can configure alert rules only for tasks that can be used for real-time data synchronization.
         
 
         @param request: CreateDIAlarmRuleRequest
@@ -891,7 +903,7 @@ class Client(OpenApiClient):
 
     def create_dijob_with_options(self, tmp_req, runtime):
         """
-        @summary 创建数据集成新版解决方案任务
+        @summary Creates a synchronization task of a new version in Data Integration. The following types of synchronization tasks are supported: real-time synchronization of all data in a MySQL database to Hologres and batch synchronization of all data in a MySQL database to Hive.
         
 
         @param tmp_req: CreateDIJobRequest
@@ -965,7 +977,7 @@ class Client(OpenApiClient):
 
     def create_dijob(self, request):
         """
-        @summary 创建数据集成新版解决方案任务
+        @summary Creates a synchronization task of a new version in Data Integration. The following types of synchronization tasks are supported: real-time synchronization of all data in a MySQL database to Hologres and batch synchronization of all data in a MySQL database to Hive.
         
 
         @param request: CreateDIJobRequest
@@ -1157,6 +1169,8 @@ class Client(OpenApiClient):
 
     def create_data_service_api_with_options(self, request, runtime):
         """
+        @summary Creates an API.
+        
 
         @param request: CreateDataServiceApiRequest
 
@@ -1225,6 +1239,8 @@ class Client(OpenApiClient):
 
     def create_data_service_api(self, request):
         """
+        @summary Creates an API.
+        
 
         @param request: CreateDataServiceApiRequest
 
@@ -1397,7 +1413,7 @@ class Client(OpenApiClient):
 
     def create_data_source_with_options(self, request, runtime):
         """
-        @summary 创建数据源
+        @summary Adds a data source to DataWorks.
         
 
         @param request: CreateDataSourceRequest
@@ -1443,7 +1459,7 @@ class Client(OpenApiClient):
 
     def create_data_source(self, request):
         """
-        @summary 创建数据源
+        @summary Adds a data source to DataWorks.
         
 
         @param request: CreateDataSourceRequest
@@ -1455,7 +1471,7 @@ class Client(OpenApiClient):
 
     def create_export_migration_with_options(self, request, runtime):
         """
-        @summary 新建导出任务
+        @summary Creates an export task. You can use this operation to create an export task but cannot use this operation to start the created export task.
         
 
         @param request: CreateExportMigrationRequest
@@ -1499,7 +1515,7 @@ class Client(OpenApiClient):
 
     def create_export_migration(self, request):
         """
-        @summary 新建导出任务
+        @summary Creates an export task. You can use this operation to create an export task but cannot use this operation to start the created export task.
         
 
         @param request: CreateExportMigrationRequest
@@ -1667,12 +1683,15 @@ class Client(OpenApiClient):
 
     def create_import_migration_with_options(self, request, runtime):
         """
+        @summary Creates an import task. The import task contains the import packages of data sources, nodes, and tables.
+        
         @description The import package must be uploaded. Example of the upload method:
         Config config = new Config();
         config.setAccessKeyId(accessId);
         config.setAccessKeySecret(accessKey);
         config.setEndpoint(popEndpoint);
         config.setRegionId(regionId);
+        
         Client client = new Client(config);
         CreateImportMigrationAdvanceRequest request = new CreateImportMigrationAdvanceRequest();
         request.setName("test_migration_api_" + System.currentTimeMillis());
@@ -1731,12 +1750,15 @@ class Client(OpenApiClient):
 
     def create_import_migration(self, request):
         """
+        @summary Creates an import task. The import task contains the import packages of data sources, nodes, and tables.
+        
         @description The import package must be uploaded. Example of the upload method:
         Config config = new Config();
         config.setAccessKeyId(accessId);
         config.setAccessKeySecret(accessKey);
         config.setEndpoint(popEndpoint);
         config.setRegionId(regionId);
+        
         Client client = new Client(config);
         CreateImportMigrationAdvanceRequest request = new CreateImportMigrationAdvanceRequest();
         request.setName("test_migration_api_" + System.currentTimeMillis());
@@ -1827,6 +1849,8 @@ class Client(OpenApiClient):
         """
         @deprecated OpenAPI CreateManualDag is deprecated
         
+        @summary Triggers a manually triggered workflow to run. Before you call this operation, make sure that the manually triggered workflow is committed and deployed. You can find the manually triggered workflow on the Operation Center page only after the manually triggered workflow is committed and deployed.
+        
 
         @param request: CreateManualDagRequest
 
@@ -1875,6 +1899,8 @@ class Client(OpenApiClient):
     def create_manual_dag(self, request):
         """
         @deprecated OpenAPI CreateManualDag is deprecated
+        
+        @summary Triggers a manually triggered workflow to run. Before you call this operation, make sure that the manually triggered workflow is committed and deployed. You can find the manually triggered workflow on the Operation Center page only after the manually triggered workflow is committed and deployed.
         
 
         @param request: CreateManualDagRequest
@@ -1993,6 +2019,8 @@ class Client(OpenApiClient):
 
     def create_permission_apply_order_with_options(self, request, runtime):
         """
+        @summary Creates a permission request order.
+        
 
         @param request: CreatePermissionApplyOrderRequest
 
@@ -2039,6 +2067,8 @@ class Client(OpenApiClient):
 
     def create_permission_apply_order(self, request):
         """
+        @summary Creates a permission request order.
+        
 
         @param request: CreatePermissionApplyOrderRequest
 
@@ -2049,7 +2079,7 @@ class Client(OpenApiClient):
 
     def create_project_with_options(self, tmp_req, runtime):
         """
-        @summary 创建项目
+        @summary Creates a DataWorks workspace.
         
 
         @param tmp_req: CreateProjectRequest
@@ -2103,7 +2133,7 @@ class Client(OpenApiClient):
 
     def create_project(self, request):
         """
-        @summary 创建项目
+        @summary Creates a DataWorks workspace.
         
 
         @param request: CreateProjectRequest
@@ -2115,6 +2145,8 @@ class Client(OpenApiClient):
 
     def create_project_member_with_options(self, request, runtime):
         """
+        @summary Adds a user to a DataWorks workspace.
+        
 
         @param request: CreateProjectMemberRequest
 
@@ -2153,6 +2185,8 @@ class Client(OpenApiClient):
 
     def create_project_member(self, request):
         """
+        @summary Adds a user to a DataWorks workspace.
+        
 
         @param request: CreateProjectMemberRequest
 
@@ -2163,6 +2197,8 @@ class Client(OpenApiClient):
 
     def create_quality_entity_with_options(self, request, runtime):
         """
+        @summary Creates a partition filter expression.
+        
 
         @param request: CreateQualityEntityRequest
 
@@ -2205,6 +2241,8 @@ class Client(OpenApiClient):
 
     def create_quality_entity(self, request):
         """
+        @summary Creates a partition filter expression.
+        
 
         @param request: CreateQualityEntityRequest
 
@@ -2215,6 +2253,8 @@ class Client(OpenApiClient):
 
     def create_quality_follower_with_options(self, request, runtime):
         """
+        @summary Creates a subscriber for a partition filter expression.
+        
 
         @param request: CreateQualityFollowerRequest
 
@@ -2255,6 +2295,8 @@ class Client(OpenApiClient):
 
     def create_quality_follower(self, request):
         """
+        @summary Creates a subscriber for a partition filter expression.
+        
 
         @param request: CreateQualityFollowerRequest
 
@@ -2265,6 +2307,8 @@ class Client(OpenApiClient):
 
     def create_quality_relative_node_with_options(self, request, runtime):
         """
+        @summary Associates a node with a partition filter expression.
+        
 
         @param request: CreateQualityRelativeNodeRequest
 
@@ -2311,6 +2355,8 @@ class Client(OpenApiClient):
 
     def create_quality_relative_node(self, request):
         """
+        @summary Associates a node with a partition filter expression.
+        
 
         @param request: CreateQualityRelativeNodeRequest
 
@@ -2321,6 +2367,8 @@ class Client(OpenApiClient):
 
     def create_quality_rule_with_options(self, request, runtime):
         """
+        @summary Creates a monitoring rule.
+        
 
         @param request: CreateQualityRuleRequest
 
@@ -2391,6 +2439,8 @@ class Client(OpenApiClient):
 
     def create_quality_rule(self, request):
         """
+        @summary Creates a monitoring rule.
+        
 
         @param request: CreateQualityRuleRequest
 
@@ -2401,6 +2451,8 @@ class Client(OpenApiClient):
 
     def create_remind_with_options(self, request, runtime):
         """
+        @summary Creates a custom alert rule.
+        
 
         @param request: CreateRemindRequest
 
@@ -2463,6 +2515,8 @@ class Client(OpenApiClient):
 
     def create_remind(self, request):
         """
+        @summary Creates a custom alert rule.
+        
 
         @param request: CreateRemindRequest
 
@@ -2609,7 +2663,7 @@ class Client(OpenApiClient):
 
     def create_table_with_options(self, request, runtime):
         """
-        @summary The operation that you want to perform. Set the value to *CreateTable**.
+        @summary Creates a MaxCompute table or view.
         
 
         @param request: CreateTableRequest
@@ -2683,7 +2737,7 @@ class Client(OpenApiClient):
 
     def create_table(self, request):
         """
-        @summary The operation that you want to perform. Set the value to *CreateTable**.
+        @summary Creates a MaxCompute table or view.
         
 
         @param request: CreateTableRequest
@@ -2695,7 +2749,7 @@ class Client(OpenApiClient):
 
     def create_table_level_with_options(self, request, runtime):
         """
-        @summary The ID of the DataWorks workspace.
+        @summary Creates a table level. This operation will be replaced soon. We recommend that you do not call this operation.
         
 
         @param request: CreateTableLevelRequest
@@ -2735,7 +2789,7 @@ class Client(OpenApiClient):
 
     def create_table_level(self, request):
         """
-        @summary The ID of the DataWorks workspace.
+        @summary Creates a table level. This operation will be replaced soon. We recommend that you do not call this operation.
         
 
         @param request: CreateTableLevelRequest
@@ -2747,7 +2801,7 @@ class Client(OpenApiClient):
 
     def create_table_theme_with_options(self, request, runtime):
         """
-        @summary Creates a table folder. This API operation will be replaced soon. We recommend that you do not call this API operation.
+        @summary Creates a table theme. This operation will be replaced soon. We recommend that you do not call this operation.
         
 
         @param request: CreateTableThemeRequest
@@ -2787,7 +2841,7 @@ class Client(OpenApiClient):
 
     def create_table_theme(self, request):
         """
-        @summary Creates a table folder. This API operation will be replaced soon. We recommend that you do not call this API operation.
+        @summary Creates a table theme. This operation will be replaced soon. We recommend that you do not call this operation.
         
 
         @param request: CreateTableThemeRequest
@@ -2865,6 +2919,8 @@ class Client(OpenApiClient):
 
     def delete_baseline_with_options(self, request, runtime):
         """
+        @summary Deletes a baseline based on its ID. You can delete a baseline only if the nodes in the baseline does not have ancestor nodes. You can call the UpdateBaseline operation to delete the relationships between the nodes and their ancestor nodes.
+        
 
         @param request: DeleteBaselineRequest
 
@@ -2899,6 +2955,8 @@ class Client(OpenApiClient):
 
     def delete_baseline(self, request):
         """
+        @summary Deletes a baseline based on its ID. You can delete a baseline only if the nodes in the baseline does not have ancestor nodes. You can call the UpdateBaseline operation to delete the relationships between the nodes and their ancestor nodes.
+        
 
         @param request: DeleteBaselineRequest
 
@@ -2957,7 +3015,7 @@ class Client(OpenApiClient):
         """
         @deprecated OpenAPI DeleteConnection is deprecated
         
-        @summary 删除数据源
+        @summary Removes a data source.
         
 
         @param request: DeleteConnectionRequest
@@ -2994,7 +3052,7 @@ class Client(OpenApiClient):
         """
         @deprecated OpenAPI DeleteConnection is deprecated
         
-        @summary 删除数据源
+        @summary Removes a data source.
         
 
         @param request: DeleteConnectionRequest
@@ -3007,7 +3065,9 @@ class Client(OpenApiClient):
 
     def delete_dialarm_rule_with_options(self, request, runtime):
         """
-        @summary 删除数据集成新版告警规则
+        @summary Deletes an alert rule for a Data Integration task of a new version. Only the following type of task is supported: real-time data synchronization from a MySQL database to Hologres.
+        
+        @description You can configure alert rules only for tasks whose MigrationType is set to RealtimeIncremental.
         
 
         @param request: DeleteDIAlarmRuleRequest
@@ -3041,7 +3101,9 @@ class Client(OpenApiClient):
 
     def delete_dialarm_rule(self, request):
         """
-        @summary 删除数据集成新版告警规则
+        @summary Deletes an alert rule for a Data Integration task of a new version. Only the following type of task is supported: real-time data synchronization from a MySQL database to Hologres.
+        
+        @description You can configure alert rules only for tasks whose MigrationType is set to RealtimeIncremental.
         
 
         @param request: DeleteDIAlarmRuleRequest
@@ -3053,7 +3115,7 @@ class Client(OpenApiClient):
 
     def delete_dijob_with_options(self, request, runtime):
         """
-        @summary 删除数据集成新版解决方案任务
+        @summary Deletes a Data Integration task of a new version. Only the following type of task is supported: real-time data synchronization from a MySQL database to Hologres.
         
 
         @param request: DeleteDIJobRequest
@@ -3087,7 +3149,7 @@ class Client(OpenApiClient):
 
     def delete_dijob(self, request):
         """
-        @summary 删除数据集成新版解决方案任务
+        @summary Deletes a Data Integration task of a new version. Only the following type of task is supported: real-time data synchronization from a MySQL database to Hologres.
         
 
         @param request: DeleteDIJobRequest
@@ -3099,7 +3161,9 @@ class Client(OpenApiClient):
 
     def delete_disync_task_with_options(self, request, runtime):
         """
-        @summary The operation that you want to perform.
+        @summary Deletes a synchronization task. You can call this operation to delete only a real-time synchronization task.
+        
+        @description If you want to delete a batch synchronization task, call the DeleteFile operation. For more information, see [Delete a synchronization task](https://help.aliyun.com/document_detail/321443.html).
         
 
         @param request: DeleteDISyncTaskRequest
@@ -3137,7 +3201,9 @@ class Client(OpenApiClient):
 
     def delete_disync_task(self, request):
         """
-        @summary The operation that you want to perform.
+        @summary Deletes a synchronization task. You can call this operation to delete only a real-time synchronization task.
+        
+        @description If you want to delete a batch synchronization task, call the DeleteFile operation. For more information, see [Delete a synchronization task](https://help.aliyun.com/document_detail/321443.html).
         
 
         @param request: DeleteDISyncTaskRequest
@@ -3251,6 +3317,8 @@ class Client(OpenApiClient):
 
     def delete_data_source_with_options(self, request, runtime):
         """
+        @summary Removes a data source.
+        
 
         @param request: DeleteDataSourceRequest
 
@@ -3283,6 +3351,8 @@ class Client(OpenApiClient):
 
     def delete_data_source(self, request):
         """
+        @summary Removes a data source.
+        
 
         @param request: DeleteDataSourceRequest
 
@@ -3293,7 +3363,7 @@ class Client(OpenApiClient):
 
     def delete_file_with_options(self, request, runtime):
         """
-        @summary The operation that you want to perform.
+        @summary Deletes a file from DataStudio. If the file has been committed, an asynchronous process is triggered to delete the file in the scheduling system. The value of the DeploymentId parameter returned is used to call the GetDeployment operation to poll the status of the asynchronous process.
         
 
         @param request: DeleteFileRequest
@@ -3331,7 +3401,7 @@ class Client(OpenApiClient):
 
     def delete_file(self, request):
         """
-        @summary The operation that you want to perform.
+        @summary Deletes a file from DataStudio. If the file has been committed, an asynchronous process is triggered to delete the file in the scheduling system. The value of the DeploymentId parameter returned is used to call the GetDeployment operation to poll the status of the asynchronous process.
         
 
         @param request: DeleteFileRequest
@@ -3389,7 +3459,7 @@ class Client(OpenApiClient):
 
     def delete_from_meta_category_with_options(self, request, runtime):
         """
-        @summary Removes a metatable from a specified category.
+        @summary Removes a table from a specified category.
         
 
         @param request: DeleteFromMetaCategoryRequest
@@ -3425,7 +3495,7 @@ class Client(OpenApiClient):
 
     def delete_from_meta_category(self, request):
         """
-        @summary Removes a metatable from a specified category.
+        @summary Removes a table from a specified category.
         
 
         @param request: DeleteFromMetaCategoryRequest
@@ -3437,7 +3507,9 @@ class Client(OpenApiClient):
 
     def delete_lineage_relation_with_options(self, request, runtime):
         """
-        @summary 删除血缘, 支持删除用户自定义血缘关系
+        @summary Deletes the lineage between entities. You can call this operation to delete only custom lineages that are registered by users.
+        
+        @description This operation is in the trial phase. Users who need to call this operation can apply for it. The users can call this operation after the administrator adds the users to the trial list.
         
 
         @param request: DeleteLineageRelationRequest
@@ -3475,7 +3547,9 @@ class Client(OpenApiClient):
 
     def delete_lineage_relation(self, request):
         """
-        @summary 删除血缘, 支持删除用户自定义血缘关系
+        @summary Deletes the lineage between entities. You can call this operation to delete only custom lineages that are registered by users.
+        
+        @description This operation is in the trial phase. Users who need to call this operation can apply for it. The users can call this operation after the administrator adds the users to the trial list.
         
 
         @param request: DeleteLineageRelationRequest
@@ -3625,6 +3699,8 @@ class Client(OpenApiClient):
 
     def delete_project_member_with_options(self, request, runtime):
         """
+        @summary Removes a user from a DataWorks workspace.
+        
 
         @param request: DeleteProjectMemberRequest
 
@@ -3659,6 +3735,8 @@ class Client(OpenApiClient):
 
     def delete_project_member(self, request):
         """
+        @summary Removes a user from a DataWorks workspace.
+        
 
         @param request: DeleteProjectMemberRequest
 
@@ -3669,6 +3747,8 @@ class Client(OpenApiClient):
 
     def delete_quality_entity_with_options(self, request, runtime):
         """
+        @summary Deletes a partition filter expression.
+        
 
         @param request: DeleteQualityEntityRequest
 
@@ -3707,6 +3787,8 @@ class Client(OpenApiClient):
 
     def delete_quality_entity(self, request):
         """
+        @summary Deletes a partition filter expression.
+        
 
         @param request: DeleteQualityEntityRequest
 
@@ -3717,7 +3799,9 @@ class Client(OpenApiClient):
 
     def delete_quality_follower_with_options(self, request, runtime):
         """
-        @description In Data Quality, you must configure monitoring rules based on a partition filter expression. Data Quality uses these rules to detect changes in source data and dirty data generated during the process of extract, transformation, load (ETL). Thereby, Data Quality automatically blocks the nodes that involve dirty data to stop dirty data from spreading downstream. This prevents nodes from producing unexpected dirty data that affects normal use and business decisions. You can go to the Manage Subscriptions page to add subscribers for a partition filter expression. When the monitoring rule described by the partition filter expression is triggered, the subscribers can receive notifications and troubleshoot errors in a timely manner. For more information, see [Configure monitoring rules for MaxCompute](https://help.aliyun.com/document_detail/73690.html).
+        @summary Deletes a subscriber of a partition filter expression.
+        
+        @description In Data Quality, you must configure monitoring rules based on a partition filter expression. Data Quality uses these rules to detect changes in source data and dirty data generated during the process of extract, transform, and load (ETL). This way, you can prevent tasks from producing unexpected dirty data that affects the smooth running of tasks and business decision-making. You can go to the Manage Subscriptions page to add subscribers for a partition filter expression. When the monitoring rule that is created based on the partition filter expression is triggered, the subscribers can receive notifications and troubleshoot errors at the earliest opportunity. For more information, see [Configure monitoring rules](https://help.aliyun.com/document_detail/73690.html).
         
 
         @param request: DeleteQualityFollowerRequest
@@ -3755,7 +3839,9 @@ class Client(OpenApiClient):
 
     def delete_quality_follower(self, request):
         """
-        @description In Data Quality, you must configure monitoring rules based on a partition filter expression. Data Quality uses these rules to detect changes in source data and dirty data generated during the process of extract, transformation, load (ETL). Thereby, Data Quality automatically blocks the nodes that involve dirty data to stop dirty data from spreading downstream. This prevents nodes from producing unexpected dirty data that affects normal use and business decisions. You can go to the Manage Subscriptions page to add subscribers for a partition filter expression. When the monitoring rule described by the partition filter expression is triggered, the subscribers can receive notifications and troubleshoot errors in a timely manner. For more information, see [Configure monitoring rules for MaxCompute](https://help.aliyun.com/document_detail/73690.html).
+        @summary Deletes a subscriber of a partition filter expression.
+        
+        @description In Data Quality, you must configure monitoring rules based on a partition filter expression. Data Quality uses these rules to detect changes in source data and dirty data generated during the process of extract, transform, and load (ETL). This way, you can prevent tasks from producing unexpected dirty data that affects the smooth running of tasks and business decision-making. You can go to the Manage Subscriptions page to add subscribers for a partition filter expression. When the monitoring rule that is created based on the partition filter expression is triggered, the subscribers can receive notifications and troubleshoot errors at the earliest opportunity. For more information, see [Configure monitoring rules](https://help.aliyun.com/document_detail/73690.html).
         
 
         @param request: DeleteQualityFollowerRequest
@@ -3823,6 +3909,8 @@ class Client(OpenApiClient):
 
     def delete_quality_rule_with_options(self, request, runtime):
         """
+        @summary Deletes a monitoring rule.
+        
 
         @param request: DeleteQualityRuleRequest
 
@@ -3859,6 +3947,8 @@ class Client(OpenApiClient):
 
     def delete_quality_rule(self, request):
         """
+        @summary Deletes a monitoring rule.
+        
 
         @param request: DeleteQualityRuleRequest
 
@@ -3869,7 +3959,7 @@ class Client(OpenApiClient):
 
     def delete_recognize_rule_with_options(self, request, runtime):
         """
-        @summary 删除识别规则
+        @summary Deletes sensitive field types.
         
 
         @param request: DeleteRecognizeRuleRequest
@@ -3905,7 +3995,7 @@ class Client(OpenApiClient):
 
     def delete_recognize_rule(self, request):
         """
-        @summary 删除识别规则
+        @summary Deletes sensitive field types.
         
 
         @param request: DeleteRecognizeRuleRequest
@@ -4013,6 +4103,8 @@ class Client(OpenApiClient):
 
     def delete_table_level_with_options(self, request, runtime):
         """
+        @summary Deletes a table level. This operation will be replaced soon. We recommend that you do not call this operation.
+        
 
         @param request: DeleteTableLevelRequest
 
@@ -4047,6 +4139,8 @@ class Client(OpenApiClient):
 
     def delete_table_level(self, request):
         """
+        @summary Deletes a table level. This operation will be replaced soon. We recommend that you do not call this operation.
+        
 
         @param request: DeleteTableLevelRequest
 
@@ -4057,6 +4151,8 @@ class Client(OpenApiClient):
 
     def delete_table_theme_with_options(self, request, runtime):
         """
+        @summary Deletes a table theme. This operation will be replaced soon. We recommend that you do not call this operation.
+        
 
         @param request: DeleteTableThemeRequest
 
@@ -4091,6 +4187,8 @@ class Client(OpenApiClient):
 
     def delete_table_theme(self, request):
         """
+        @summary Deletes a table theme. This operation will be replaced soon. We recommend that you do not call this operation.
+        
 
         @param request: DeleteTableThemeRequest
 
@@ -4101,7 +4199,7 @@ class Client(OpenApiClient):
 
     def deploy_disync_task_with_options(self, request, runtime):
         """
-        @summary The operation that you want to perform. Set the value to *DeployDISyncTask**.
+        @summary Deploys a real-time synchronization task.
         
 
         @param request: DeployDISyncTaskRequest
@@ -4139,7 +4237,7 @@ class Client(OpenApiClient):
 
     def deploy_disync_task(self, request):
         """
-        @summary The operation that you want to perform. Set the value to *DeployDISyncTask**.
+        @summary Deploys a real-time synchronization task.
         
 
         @param request: DeployDISyncTaskRequest
@@ -4151,6 +4249,8 @@ class Client(OpenApiClient):
 
     def deploy_file_with_options(self, request, runtime):
         """
+        @summary Deploys a file to the production environment.
+        
 
         @param request: DeployFileRequest
 
@@ -4191,6 +4291,8 @@ class Client(OpenApiClient):
 
     def deploy_file(self, request):
         """
+        @summary Deploys a file to the production environment.
+        
 
         @param request: DeployFileRequest
 
@@ -4201,6 +4303,8 @@ class Client(OpenApiClient):
 
     def desensitize_data_with_options(self, request, runtime):
         """
+        @summary Masks data.
+        
 
         @param request: DesensitizeDataRequest
 
@@ -4231,6 +4335,8 @@ class Client(OpenApiClient):
 
     def desensitize_data(self, request):
         """
+        @summary Masks data.
+        
 
         @param request: DesensitizeDataRequest
 
@@ -4241,7 +4347,7 @@ class Client(OpenApiClient):
 
     def dsg_desens_plan_add_or_update_with_options(self, tmp_req, runtime):
         """
-        @summary 新增或编辑脱敏规则
+        @summary Adds or modifies a data masking rule.
         
 
         @param tmp_req: DsgDesensPlanAddOrUpdateRequest
@@ -4279,7 +4385,7 @@ class Client(OpenApiClient):
 
     def dsg_desens_plan_add_or_update(self, request):
         """
-        @summary 新增或编辑脱敏规则
+        @summary Adds or modifies a data masking rule.
         
 
         @param request: DsgDesensPlanAddOrUpdateRequest
@@ -4291,7 +4397,7 @@ class Client(OpenApiClient):
 
     def dsg_desens_plan_delete_with_options(self, tmp_req, runtime):
         """
-        @summary 删除脱敏规则
+        @summary Deletes a data masking rule created in Data Security Guard.
         
 
         @param tmp_req: DsgDesensPlanDeleteRequest
@@ -4331,7 +4437,7 @@ class Client(OpenApiClient):
 
     def dsg_desens_plan_delete(self, request):
         """
-        @summary 删除脱敏规则
+        @summary Deletes a data masking rule created in Data Security Guard.
         
 
         @param request: DsgDesensPlanDeleteRequest
@@ -4343,7 +4449,7 @@ class Client(OpenApiClient):
 
     def dsg_desens_plan_query_list_with_options(self, request, runtime):
         """
-        @summary 查询脱敏规则列表
+        @summary Queries a list of data masking rules.
         
 
         @param request: DsgDesensPlanQueryListRequest
@@ -4375,7 +4481,7 @@ class Client(OpenApiClient):
 
     def dsg_desens_plan_query_list(self, request):
         """
-        @summary 查询脱敏规则列表
+        @summary Queries a list of data masking rules.
         
 
         @param request: DsgDesensPlanQueryListRequest
@@ -4387,7 +4493,7 @@ class Client(OpenApiClient):
 
     def dsg_desens_plan_update_status_with_options(self, tmp_req, runtime):
         """
-        @summary 修改脱敏规则生效状态
+        @summary Modifies the status of a data masking rule.
         
 
         @param tmp_req: DsgDesensPlanUpdateStatusRequest
@@ -4429,7 +4535,7 @@ class Client(OpenApiClient):
 
     def dsg_desens_plan_update_status(self, request):
         """
-        @summary 修改脱敏规则生效状态
+        @summary Modifies the status of a data masking rule.
         
 
         @param request: DsgDesensPlanUpdateStatusRequest
@@ -4441,7 +4547,7 @@ class Client(OpenApiClient):
 
     def dsg_platform_query_projects_and_schema_from_meta_with_options(self, request, runtime):
         """
-        @summary 查询引擎实例列表
+        @summary Queries a list of compute engines of different types in the current tenant.
         
 
         @param request: DsgPlatformQueryProjectsAndSchemaFromMetaRequest
@@ -4473,7 +4579,7 @@ class Client(OpenApiClient):
 
     def dsg_platform_query_projects_and_schema_from_meta(self, request):
         """
-        @summary 查询引擎实例列表
+        @summary Queries a list of compute engines of different types in the current tenant.
         
 
         @param request: DsgPlatformQueryProjectsAndSchemaFromMetaRequest
@@ -4485,7 +4591,7 @@ class Client(OpenApiClient):
 
     def dsg_query_default_templates_with_options(self, request, runtime):
         """
-        @summary 查询能够选择的敏感类型模版列表
+        @summary Queries a list of available sensitive field type templates and the data masking rules supported by the templates. You can refer to the response parameters of this operation to configure a data masking rule.
         
 
         @param request: DsgQueryDefaultTemplatesRequest
@@ -4517,7 +4623,7 @@ class Client(OpenApiClient):
 
     def dsg_query_default_templates(self, request):
         """
-        @summary 查询能够选择的敏感类型模版列表
+        @summary Queries a list of available sensitive field type templates and the data masking rules supported by the templates. You can refer to the response parameters of this operation to configure a data masking rule.
         
 
         @param request: DsgQueryDefaultTemplatesRequest
@@ -4529,7 +4635,12 @@ class Client(OpenApiClient):
 
     def dsg_query_sens_result_with_options(self, request, runtime):
         """
-        @summary 识别结果查询
+        @summary Queries the identification results of sensitive data.
+        
+        @description The query capability of the API operation is similar to the query feature in Data Security Guard in the DataWorks console. The API operation can be used to query the identification results of sensitive data of a tenant based on the association with the tenant ID.
+        You can search for a specific identification result based on filter conditions such as data source type and workspace.
+        You can sort the identification results of sensitive data of a tenant based on the values of a field in ascending or descending order.
+        This operation supports paged query.
         
 
         @param request: DsgQuerySensResultRequest
@@ -4591,7 +4702,12 @@ class Client(OpenApiClient):
 
     def dsg_query_sens_result(self, request):
         """
-        @summary 识别结果查询
+        @summary Queries the identification results of sensitive data.
+        
+        @description The query capability of the API operation is similar to the query feature in Data Security Guard in the DataWorks console. The API operation can be used to query the identification results of sensitive data of a tenant based on the association with the tenant ID.
+        You can search for a specific identification result based on filter conditions such as data source type and workspace.
+        You can sort the identification results of sensitive data of a tenant based on the values of a field in ascending or descending order.
+        This operation supports paged query.
         
 
         @param request: DsgQuerySensResultRequest
@@ -4603,6 +4719,8 @@ class Client(OpenApiClient):
 
     def dsg_run_sens_identify_with_options(self, tmp_req, runtime):
         """
+        @summary Starts a sensitive data identification task in Data Security Guard.
+        
 
         @param tmp_req: DsgRunSensIdentifyRequest
 
@@ -4641,6 +4759,8 @@ class Client(OpenApiClient):
 
     def dsg_run_sens_identify(self, request):
         """
+        @summary Starts a sensitive data identification task in Data Security Guard.
+        
 
         @param request: DsgRunSensIdentifyRequest
 
@@ -4651,7 +4771,7 @@ class Client(OpenApiClient):
 
     def dsg_scene_add_or_update_scene_with_options(self, tmp_req, runtime):
         """
-        @summary 新增或编辑二级场景
+        @summary Adds or modifies a level-2 data masking scenario.
         
 
         @param tmp_req: DsgSceneAddOrUpdateSceneRequest
@@ -4689,7 +4809,7 @@ class Client(OpenApiClient):
 
     def dsg_scene_add_or_update_scene(self, request):
         """
-        @summary 新增或编辑二级场景
+        @summary Adds or modifies a level-2 data masking scenario.
         
 
         @param request: DsgSceneAddOrUpdateSceneRequest
@@ -4701,7 +4821,7 @@ class Client(OpenApiClient):
 
     def dsg_scene_query_scene_list_by_name_with_options(self, request, runtime):
         """
-        @summary 查询场景列表
+        @summary Queries a list of data masking scenarios.
         
 
         @param request: DsgSceneQuerySceneListByNameRequest
@@ -4733,7 +4853,7 @@ class Client(OpenApiClient):
 
     def dsg_scene_query_scene_list_by_name(self, request):
         """
-        @summary 查询场景列表
+        @summary Queries a list of data masking scenarios.
         
 
         @param request: DsgSceneQuerySceneListByNameRequest
@@ -4745,7 +4865,7 @@ class Client(OpenApiClient):
 
     def dsg_scened_delete_scene_with_options(self, tmp_req, runtime):
         """
-        @summary 删除二级场景
+        @summary Deletes a level-2 data masking scenario created in Data Security Guard.
         
 
         @param tmp_req: DsgScenedDeleteSceneRequest
@@ -4783,7 +4903,7 @@ class Client(OpenApiClient):
 
     def dsg_scened_delete_scene(self, request):
         """
-        @summary 删除二级场景
+        @summary Deletes a level-2 data masking scenario created in Data Security Guard.
         
 
         @param request: DsgScenedDeleteSceneRequest
@@ -4795,7 +4915,7 @@ class Client(OpenApiClient):
 
     def dsg_stop_sens_identify_with_options(self, request, runtime):
         """
-        @summary 识别任务停止
+        @summary Stops a sensitive data identification task.
         
 
         @param request: DsgStopSensIdentifyRequest
@@ -4831,7 +4951,7 @@ class Client(OpenApiClient):
 
     def dsg_stop_sens_identify(self, request):
         """
-        @summary 识别任务停止
+        @summary Stops a sensitive data identification task.
         
 
         @param request: DsgStopSensIdentifyRequest
@@ -4843,7 +4963,7 @@ class Client(OpenApiClient):
 
     def dsg_user_group_add_or_update_with_options(self, tmp_req, runtime):
         """
-        @summary 新增或编辑用户组
+        @summary Adds or modifies a user group.
         
 
         @param tmp_req: DsgUserGroupAddOrUpdateRequest
@@ -4881,7 +5001,7 @@ class Client(OpenApiClient):
 
     def dsg_user_group_add_or_update(self, request):
         """
-        @summary 新增或编辑用户组
+        @summary Adds or modifies a user group.
         
 
         @param request: DsgUserGroupAddOrUpdateRequest
@@ -4893,7 +5013,7 @@ class Client(OpenApiClient):
 
     def dsg_user_group_delete_with_options(self, tmp_req, runtime):
         """
-        @summary 删除用户组
+        @summary Deletes a user group configured in Data Security Guard.
         
 
         @param tmp_req: DsgUserGroupDeleteRequest
@@ -4931,7 +5051,7 @@ class Client(OpenApiClient):
 
     def dsg_user_group_delete(self, request):
         """
-        @summary 删除用户组
+        @summary Deletes a user group configured in Data Security Guard.
         
 
         @param request: DsgUserGroupDeleteRequest
@@ -4943,6 +5063,8 @@ class Client(OpenApiClient):
 
     def dsg_user_group_get_odps_role_groups_with_options(self, request, runtime):
         """
+        @summary Queries a list of MaxCompute roles that can be selected by the members of a user group when the user group is created or modified by the tenant in Data Security Guard.
+        
 
         @param request: DsgUserGroupGetOdpsRoleGroupsRequest
 
@@ -4973,6 +5095,8 @@ class Client(OpenApiClient):
 
     def dsg_user_group_get_odps_role_groups(self, request):
         """
+        @summary Queries a list of MaxCompute roles that can be selected by the members of a user group when the user group is created or modified by the tenant in Data Security Guard.
+        
 
         @param request: DsgUserGroupGetOdpsRoleGroupsRequest
 
@@ -4983,7 +5107,7 @@ class Client(OpenApiClient):
 
     def dsg_user_group_query_list_with_options(self, request, runtime):
         """
-        @summary 查询用户组列表
+        @summary Queries a list of user groups in Data Security Guard.
         
 
         @param request: DsgUserGroupQueryListRequest
@@ -5015,7 +5139,7 @@ class Client(OpenApiClient):
 
     def dsg_user_group_query_list(self, request):
         """
-        @summary 查询用户组列表
+        @summary Queries a list of user groups in Data Security Guard.
         
 
         @param request: DsgUserGroupQueryListRequest
@@ -5027,7 +5151,7 @@ class Client(OpenApiClient):
 
     def dsg_user_group_query_user_list_with_options(self, runtime):
         """
-        @summary 查询当前用户列表
+        @summary Queries a list of users or roles of the current tenant.
         
 
         @param request: DsgUserGroupQueryUserListRequest
@@ -5055,7 +5179,7 @@ class Client(OpenApiClient):
 
     def dsg_user_group_query_user_list(self):
         """
-        @summary 查询当前用户列表
+        @summary Queries a list of users or roles of the current tenant.
         
 
         @return: DsgUserGroupQueryUserListResponse
@@ -5065,7 +5189,7 @@ class Client(OpenApiClient):
 
     def dsg_white_list_add_or_update_with_options(self, tmp_req, runtime):
         """
-        @summary 新增或编辑脱敏白名单
+        @summary Adds or modifies a data masking whitelist.
         
 
         @param tmp_req: DsgWhiteListAddOrUpdateRequest
@@ -5103,7 +5227,7 @@ class Client(OpenApiClient):
 
     def dsg_white_list_add_or_update(self, request):
         """
-        @summary 新增或编辑脱敏白名单
+        @summary Adds or modifies a data masking whitelist.
         
 
         @param request: DsgWhiteListAddOrUpdateRequest
@@ -5115,7 +5239,7 @@ class Client(OpenApiClient):
 
     def dsg_white_list_delete_list_with_options(self, tmp_req, runtime):
         """
-        @summary 删除脱敏白名单
+        @summary Deletes a data masking whitelist configured in Data Security Guard.
         
 
         @param tmp_req: DsgWhiteListDeleteListRequest
@@ -5153,7 +5277,7 @@ class Client(OpenApiClient):
 
     def dsg_white_list_delete_list(self, request):
         """
-        @summary 删除脱敏白名单
+        @summary Deletes a data masking whitelist configured in Data Security Guard.
         
 
         @param request: DsgWhiteListDeleteListRequest
@@ -5165,7 +5289,7 @@ class Client(OpenApiClient):
 
     def dsg_white_list_query_list_with_options(self, request, runtime):
         """
-        @summary 查询脱敏白名单
+        @summary Queries a data masking whitelist.
         
 
         @param request: DsgWhiteListQueryListRequest
@@ -5197,7 +5321,7 @@ class Client(OpenApiClient):
 
     def dsg_white_list_query_list(self, request):
         """
-        @summary 查询脱敏白名单
+        @summary Queries a data masking whitelist.
         
 
         @param request: DsgWhiteListQueryListRequest
@@ -5209,7 +5333,7 @@ class Client(OpenApiClient):
 
     def edit_recognize_rule_with_options(self, request, runtime):
         """
-        @summary 修改识别规则
+        @summary Edits a sensitive field that is defined based on the category and sensitivity level of data in Data Security Guard.
         
 
         @param request: EditRecognizeRuleRequest
@@ -5279,7 +5403,7 @@ class Client(OpenApiClient):
 
     def edit_recognize_rule(self, request):
         """
-        @summary 修改识别规则
+        @summary Edits a sensitive field that is defined based on the category and sensitivity level of data in Data Security Guard.
         
 
         @param request: EditRecognizeRuleRequest
@@ -5341,6 +5465,8 @@ class Client(OpenApiClient):
 
     def export_data_sources_with_options(self, request, runtime):
         """
+        @summary Exports a list of data sources.
+        
 
         @param request: ExportDataSourcesRequest
 
@@ -5371,6 +5497,8 @@ class Client(OpenApiClient):
 
     def export_data_sources(self, request):
         """
+        @summary Exports a list of data sources.
+        
 
         @param request: ExportDataSourcesRequest
 
@@ -5381,10 +5509,9 @@ class Client(OpenApiClient):
 
     def generate_disync_task_config_for_creating_with_options(self, request, runtime):
         """
-        @summary DataWorks allows you to use only the [CreateDISyncTask](https://help.aliyun.com/document_detail/278725.html) operation to create a batch synchronization node in Data Integration. To create a real-time synchronization node or a synchronization solution, you must first call the [GenerateDISyncTaskConfigForCreating](https://help.aliyun.com/document_detail/383463.html) operation to generate the ID of an asynchronous thread and call the [QueryDISyncTaskConfigProcessResult](https://help.aliyun.com/document_detail/383465.html) operation to obtain the asynchronously generated parameters based on the ID. Then, you can call the [CreateDISyncTask](https://help.aliyun.com/document_detail/278725.html) operation and use the parameters as request parameters to create a real-time synchronization node or a synchronization solution in Data Integration.
-        DataWorks allows you to create real-time synchronization nodes and synchronization solutions in Data Integration only in asynchronous mode.
+        @summary Generates an ID for an asynchronous thread that is used to create a synchronization task in Data Integration.
         
-        @description The operation that you want to perform.
+        @description DataWorks allows you to use the [CreateDISyncTask](https://help.aliyun.com/document_detail/278725.html) operation to directly create a batch synchronization task in Data Integration. To create a real-time synchronization task or another type of synchronization task, you must first call the [GenerateDISyncTaskConfigForCreating](https://help.aliyun.com/document_detail/383463.html) operation to generate the ID of an asynchronous thread and call the [QueryDISyncTaskConfigProcessResult](https://help.aliyun.com/document_detail/383465.html) operation to obtain the asynchronously generated parameters based on the ID. Then, you can use the parameters as request parameters of [CreateDISyncTask](https://help.aliyun.com/document_detail/278725.html) and call the [CreateDISyncTask](https://help.aliyun.com/document_detail/278725.html) operation to create a real-time synchronization task or another type of synchronization task. DataWorks allows you to create real-time synchronization tasks and other types of synchronization tasks in Data Integration only in asynchronous mode.
         
 
         @param request: GenerateDISyncTaskConfigForCreatingRequest
@@ -5424,10 +5551,9 @@ class Client(OpenApiClient):
 
     def generate_disync_task_config_for_creating(self, request):
         """
-        @summary DataWorks allows you to use only the [CreateDISyncTask](https://help.aliyun.com/document_detail/278725.html) operation to create a batch synchronization node in Data Integration. To create a real-time synchronization node or a synchronization solution, you must first call the [GenerateDISyncTaskConfigForCreating](https://help.aliyun.com/document_detail/383463.html) operation to generate the ID of an asynchronous thread and call the [QueryDISyncTaskConfigProcessResult](https://help.aliyun.com/document_detail/383465.html) operation to obtain the asynchronously generated parameters based on the ID. Then, you can call the [CreateDISyncTask](https://help.aliyun.com/document_detail/278725.html) operation and use the parameters as request parameters to create a real-time synchronization node or a synchronization solution in Data Integration.
-        DataWorks allows you to create real-time synchronization nodes and synchronization solutions in Data Integration only in asynchronous mode.
+        @summary Generates an ID for an asynchronous thread that is used to create a synchronization task in Data Integration.
         
-        @description The operation that you want to perform.
+        @description DataWorks allows you to use the [CreateDISyncTask](https://help.aliyun.com/document_detail/278725.html) operation to directly create a batch synchronization task in Data Integration. To create a real-time synchronization task or another type of synchronization task, you must first call the [GenerateDISyncTaskConfigForCreating](https://help.aliyun.com/document_detail/383463.html) operation to generate the ID of an asynchronous thread and call the [QueryDISyncTaskConfigProcessResult](https://help.aliyun.com/document_detail/383465.html) operation to obtain the asynchronously generated parameters based on the ID. Then, you can use the parameters as request parameters of [CreateDISyncTask](https://help.aliyun.com/document_detail/278725.html) and call the [CreateDISyncTask](https://help.aliyun.com/document_detail/278725.html) operation to create a real-time synchronization task or another type of synchronization task. DataWorks allows you to create real-time synchronization tasks and other types of synchronization tasks in Data Integration only in asynchronous mode.
         
 
         @param request: GenerateDISyncTaskConfigForCreatingRequest
@@ -5439,9 +5565,9 @@ class Client(OpenApiClient):
 
     def generate_disync_task_config_for_updating_with_options(self, request, runtime):
         """
-        @summary DataWorks allows you to use only the [UpdateDISyncTask](https://help.aliyun.com/document_detail/289109.html) operation to update a batch synchronization node in Data Integration. To update a real-time synchronization node or a synchronization solution, you must first call the GenerateDISyncTaskConfigForUpdating operation to generate the ID of an asynchronous thread and call the [QueryDISyncTaskConfigProcessResult](https://help.aliyun.com/document_detail/383465.html) operation to obtain the asynchronously generated parameters based on the ID. Then, you can call the UpdateDISyncTask operation and use the parameters as request parameters to update a real-time synchronization node or a synchronization solution in Data Integration. DataWorks allows you to update real-time synchronization nodes and synchronization solutions in Data Integration only in asynchronous mode.
+        @summary Generates the JSON for an asynchronous thread that is used to update a real-time synchronization task in Data Integration.
         
-        @description The operation that you want to perform.
+        @description DataWorks allows you to use only the [UpdateDISyncTask](https://help.aliyun.com/document_detail/289109.html) operation to update a batch synchronization task in Data Integration. To update a real-time synchronization task, you must first call the GenerateDISyncTaskConfigForUpdating operation to generate the ID of an asynchronous thread and call the [QueryDISyncTaskConfigProcessResult](https://help.aliyun.com/document_detail/383465.html) operation to obtain the asynchronously generated parameters based on the ID. Then, you can call the UpdateDISyncTask operation and use the parameters as request parameters to update a real-time synchronization task in Data Integration. DataWorks allows you to create or update real-time synchronization tasks in Data Integration only in asynchronous mode.
         
 
         @param request: GenerateDISyncTaskConfigForUpdatingRequest
@@ -5483,9 +5609,9 @@ class Client(OpenApiClient):
 
     def generate_disync_task_config_for_updating(self, request):
         """
-        @summary DataWorks allows you to use only the [UpdateDISyncTask](https://help.aliyun.com/document_detail/289109.html) operation to update a batch synchronization node in Data Integration. To update a real-time synchronization node or a synchronization solution, you must first call the GenerateDISyncTaskConfigForUpdating operation to generate the ID of an asynchronous thread and call the [QueryDISyncTaskConfigProcessResult](https://help.aliyun.com/document_detail/383465.html) operation to obtain the asynchronously generated parameters based on the ID. Then, you can call the UpdateDISyncTask operation and use the parameters as request parameters to update a real-time synchronization node or a synchronization solution in Data Integration. DataWorks allows you to update real-time synchronization nodes and synchronization solutions in Data Integration only in asynchronous mode.
+        @summary Generates the JSON for an asynchronous thread that is used to update a real-time synchronization task in Data Integration.
         
-        @description The operation that you want to perform.
+        @description DataWorks allows you to use only the [UpdateDISyncTask](https://help.aliyun.com/document_detail/289109.html) operation to update a batch synchronization task in Data Integration. To update a real-time synchronization task, you must first call the GenerateDISyncTaskConfigForUpdating operation to generate the ID of an asynchronous thread and call the [QueryDISyncTaskConfigProcessResult](https://help.aliyun.com/document_detail/383465.html) operation to obtain the asynchronously generated parameters based on the ID. Then, you can call the UpdateDISyncTask operation and use the parameters as request parameters to update a real-time synchronization task in Data Integration. DataWorks allows you to create or update real-time synchronization tasks in Data Integration only in asynchronous mode.
         
 
         @param request: GenerateDISyncTaskConfigForUpdatingRequest
@@ -5497,7 +5623,7 @@ class Client(OpenApiClient):
 
     def get_alert_message_with_options(self, request, runtime):
         """
-        @summary 获取告警信息
+        @summary Queries alert information based on the alert ID that is specified by the AlertId parameter.
         
 
         @param request: GetAlertMessageRequest
@@ -5531,7 +5657,7 @@ class Client(OpenApiClient):
 
     def get_alert_message(self, request):
         """
-        @summary 获取告警信息
+        @summary Queries alert information based on the alert ID that is specified by the AlertId parameter.
         
 
         @param request: GetAlertMessageRequest
@@ -5543,7 +5669,7 @@ class Client(OpenApiClient):
 
     def get_baseline_with_options(self, request, runtime):
         """
-        @summary 根据基线id查询基线
+        @summary Queries the information about a baseline based on its ID.
         
 
         @param request: GetBaselineRequest
@@ -5579,7 +5705,7 @@ class Client(OpenApiClient):
 
     def get_baseline(self, request):
         """
-        @summary 根据基线id查询基线
+        @summary Queries the information about a baseline based on its ID.
         
 
         @param request: GetBaselineRequest
@@ -5591,6 +5717,8 @@ class Client(OpenApiClient):
 
     def get_baseline_config_with_options(self, request, runtime):
         """
+        @summary Queries the configurations of a baseline.
+        
 
         @param request: GetBaselineConfigRequest
 
@@ -5623,6 +5751,8 @@ class Client(OpenApiClient):
 
     def get_baseline_config(self, request):
         """
+        @summary Queries the configurations of a baseline.
+        
 
         @param request: GetBaselineConfigRequest
 
@@ -5823,7 +5953,9 @@ class Client(OpenApiClient):
 
     def get_dialarm_rule_with_options(self, request, runtime):
         """
-        @summary 查询数据集成新版告警规则
+        @summary Queries the details of an alert rule for a Data Integration task of a new version. Only the following type of task is supported: real-time data synchronization from a MySQL database to Hologres.
+        
+        @description You can configure alert rules only for tasks that can be used for real-time data synchronization.
         
 
         @param request: GetDIAlarmRuleRequest
@@ -5857,7 +5989,9 @@ class Client(OpenApiClient):
 
     def get_dialarm_rule(self, request):
         """
-        @summary 查询数据集成新版告警规则
+        @summary Queries the details of an alert rule for a Data Integration task of a new version. Only the following type of task is supported: real-time data synchronization from a MySQL database to Hologres.
+        
+        @description You can configure alert rules only for tasks that can be used for real-time data synchronization.
         
 
         @param request: GetDIAlarmRuleRequest
@@ -5869,7 +6003,7 @@ class Client(OpenApiClient):
 
     def get_dijob_with_options(self, request, runtime):
         """
-        @summary 查询数据集成新版解决方案任务
+        @summary Queries the information about a new-version synchronization task created in Data Integration. The following types of synchronization tasks are supported: real-time synchronization of all data in a MySQL database to Hologres.
         
 
         @param request: GetDIJobRequest
@@ -5905,7 +6039,7 @@ class Client(OpenApiClient):
 
     def get_dijob(self, request):
         """
-        @summary 查询数据集成新版解决方案任务
+        @summary Queries the information about a new-version synchronization task created in Data Integration. The following types of synchronization tasks are supported: real-time synchronization of all data in a MySQL database to Hologres.
         
 
         @param request: GetDIJobRequest
@@ -5917,7 +6051,7 @@ class Client(OpenApiClient):
 
     def get_disync_instance_info_with_options(self, request, runtime):
         """
-        @summary The operation that you want to perform. Set the value to *GetDISyncInstanceInfo**.
+        @summary Queries the status of a real-time synchronization task or a data synchronization solution.
         
 
         @param request: GetDISyncInstanceInfoRequest
@@ -5955,7 +6089,7 @@ class Client(OpenApiClient):
 
     def get_disync_instance_info(self, request):
         """
-        @summary The operation that you want to perform. Set the value to *GetDISyncInstanceInfo**.
+        @summary Queries the status of a real-time synchronization task or a data synchronization solution.
         
 
         @param request: GetDISyncInstanceInfoRequest
@@ -5967,7 +6101,7 @@ class Client(OpenApiClient):
 
     def get_disync_task_with_options(self, request, runtime):
         """
-        @summary The operation that you want to perform. Set the value to *GetDISyncTask**.
+        @summary Queries the details of a real-time synchronization task or a data synchronization solution.
         
 
         @param request: GetDISyncTaskRequest
@@ -6005,7 +6139,7 @@ class Client(OpenApiClient):
 
     def get_disync_task(self, request):
         """
-        @summary The operation that you want to perform. Set the value to *GetDISyncTask**.
+        @summary Queries the details of a real-time synchronization task or a data synchronization solution.
         
 
         @param request: GetDISyncTaskRequest
@@ -6017,21 +6151,18 @@ class Client(OpenApiClient):
 
     def get_dag_with_options(self, request, runtime):
         """
-        @summary Queries the details of a directed acyclic graph (DAG) based on the ID of the DAG.
-        You can call the GetDag operation to query the details of the DAG for a manually triggered
-        workflow, a manually triggered node, or a data backfill instance. However, you cannot
-        query the details of the DAG for an auto triggered node or an auto triggered workflow.
+        @summary Queries the information about a directed acyclic graph (DAG). You can call the GetDag operation to query the information about the DAG for a manually triggered workflow, a manually triggered node, or a data backfill instance. However, you cannot query the information about the DAG for an auto triggered node or an auto triggered workflow.
         
         @description Supported DAG types:
-        MANUAL: the DAG for a manually triggered workflow.
-        SMOKE_TEST: the DAG for a smoke testing workflow.
-        SUPPLY_DATA: the DAG for a data backfill instance.
-        BUSINESS_PROCESS_DAG: the DAG for a one-time workflow.
+        MANUAL: DAG for a manually triggered workflow
+        SMOKE_TEST: DAG for a smoke testing workflow
+        SUPPLY_DATA: DAG for a data backfill instance
+        BUSINESS_PROCESS_DAG: DAG for a one-time workflow
         Supported DAG states:
-        CREATED: The DAG is created.
-        RUNNING: The DAG is running.
-        FAILURE: The DAG fails to run.
-        SUCCESS: The DAG successfully runs.
+        CREATED
+        RUNNING
+        FAILURE
+        SUCCESS
         
 
         @param request: GetDagRequest
@@ -6067,21 +6198,18 @@ class Client(OpenApiClient):
 
     def get_dag(self, request):
         """
-        @summary Queries the details of a directed acyclic graph (DAG) based on the ID of the DAG.
-        You can call the GetDag operation to query the details of the DAG for a manually triggered
-        workflow, a manually triggered node, or a data backfill instance. However, you cannot
-        query the details of the DAG for an auto triggered node or an auto triggered workflow.
+        @summary Queries the information about a directed acyclic graph (DAG). You can call the GetDag operation to query the information about the DAG for a manually triggered workflow, a manually triggered node, or a data backfill instance. However, you cannot query the information about the DAG for an auto triggered node or an auto triggered workflow.
         
         @description Supported DAG types:
-        MANUAL: the DAG for a manually triggered workflow.
-        SMOKE_TEST: the DAG for a smoke testing workflow.
-        SUPPLY_DATA: the DAG for a data backfill instance.
-        BUSINESS_PROCESS_DAG: the DAG for a one-time workflow.
+        MANUAL: DAG for a manually triggered workflow
+        SMOKE_TEST: DAG for a smoke testing workflow
+        SUPPLY_DATA: DAG for a data backfill instance
+        BUSINESS_PROCESS_DAG: DAG for a one-time workflow
         Supported DAG states:
-        CREATED: The DAG is created.
-        RUNNING: The DAG is running.
-        FAILURE: The DAG fails to run.
-        SUCCESS: The DAG successfully runs.
+        CREATED
+        RUNNING
+        FAILURE
+        SUCCESS
         
 
         @param request: GetDagRequest
@@ -6143,6 +6271,8 @@ class Client(OpenApiClient):
 
     def get_data_service_api_test_with_options(self, request, runtime):
         """
+        @summary Queries the test results of an API in DataService Studio.
+        
 
         @param request: GetDataServiceApiTestRequest
 
@@ -6173,6 +6303,8 @@ class Client(OpenApiClient):
 
     def get_data_service_api_test(self, request):
         """
+        @summary Queries the test results of an API in DataService Studio.
+        
 
         @param request: GetDataServiceApiTestRequest
 
@@ -6383,7 +6515,7 @@ class Client(OpenApiClient):
 
     def get_data_source_meta_with_options(self, request, runtime):
         """
-        @summary The operation that you want to perform. Set the value to *GetDataSourceMeta**.
+        @summary Queries the metadata of a specified data source.
         
 
         @param request: GetDataSourceMetaRequest
@@ -6425,7 +6557,7 @@ class Client(OpenApiClient):
 
     def get_data_source_meta(self, request):
         """
-        @summary The operation that you want to perform. Set the value to *GetDataSourceMeta**.
+        @summary Queries the metadata of a specified data source.
         
 
         @param request: GetDataSourceMetaRequest
@@ -6437,7 +6569,7 @@ class Client(OpenApiClient):
 
     def get_deployment_with_options(self, request, runtime):
         """
-        @summary Queries the details of a deployment task.
+        @summary Queries the information about a deployment package.
         
 
         @param request: GetDeploymentRequest
@@ -6475,7 +6607,7 @@ class Client(OpenApiClient):
 
     def get_deployment(self, request):
         """
-        @summary Queries the details of a deployment task.
+        @summary Queries the information about a deployment package.
         
 
         @param request: GetDeploymentRequest
@@ -6487,7 +6619,7 @@ class Client(OpenApiClient):
 
     def get_extension_with_options(self, request, runtime):
         """
-        @summary 获取开放平台扩展程序详情
+        @summary Queries the details of an extension.
         
 
         @param request: GetExtensionRequest
@@ -6521,7 +6653,7 @@ class Client(OpenApiClient):
 
     def get_extension(self, request):
         """
-        @summary 获取开放平台扩展程序详情
+        @summary Queries the details of an extension.
         
 
         @param request: GetExtensionRequest
@@ -6533,6 +6665,8 @@ class Client(OpenApiClient):
 
     def get_file_with_options(self, request, runtime):
         """
+        @summary Queries the information about a file.
+        
 
         @param request: GetFileRequest
 
@@ -6571,6 +6705,8 @@ class Client(OpenApiClient):
 
     def get_file(self, request):
         """
+        @summary Queries the information about a file.
+        
 
         @param request: GetFileRequest
 
@@ -6581,6 +6717,8 @@ class Client(OpenApiClient):
 
     def get_file_type_statistic_with_options(self, request, runtime):
         """
+        @summary Queries the distribution of node types.
+        
 
         @param request: GetFileTypeStatisticRequest
 
@@ -6615,6 +6753,8 @@ class Client(OpenApiClient):
 
     def get_file_type_statistic(self, request):
         """
+        @summary Queries the distribution of node types.
+        
 
         @param request: GetFileTypeStatisticRequest
 
@@ -6625,6 +6765,8 @@ class Client(OpenApiClient):
 
     def get_file_version_with_options(self, request, runtime):
         """
+        @summary Queries the information about a file version.
+        
 
         @param request: GetFileVersionRequest
 
@@ -6663,6 +6805,8 @@ class Client(OpenApiClient):
 
     def get_file_version(self, request):
         """
+        @summary Queries the information about a file version.
+        
 
         @param request: GetFileVersionRequest
 
@@ -6721,7 +6865,7 @@ class Client(OpenApiClient):
 
     def get_ideevent_detail_with_options(self, request, runtime):
         """
-        @summary Queries the data snapshot of an extension point based on the ID of an open message when the related extension point event is triggered.
+        @summary Queries the data snapshot of an extension point based on the ID of a message in DataWorks OpenEvent when the related extension point event is triggered.
         
 
         @param request: GetIDEEventDetailRequest
@@ -6757,7 +6901,7 @@ class Client(OpenApiClient):
 
     def get_ideevent_detail(self, request):
         """
-        @summary Queries the data snapshot of an extension point based on the ID of an open message when the related extension point event is triggered.
+        @summary Queries the data snapshot of an extension point based on the ID of a message in DataWorks OpenEvent when the related extension point event is triggered.
         
 
         @param request: GetIDEEventDetailRequest
@@ -6769,6 +6913,8 @@ class Client(OpenApiClient):
 
     def get_instance_with_options(self, request, runtime):
         """
+        @summary Queries the information about an instance.
+        
 
         @param request: GetInstanceRequest
 
@@ -6803,6 +6949,8 @@ class Client(OpenApiClient):
 
     def get_instance(self, request):
         """
+        @summary Queries the information about an instance.
+        
 
         @param request: GetInstanceRequest
 
@@ -6814,6 +6962,8 @@ class Client(OpenApiClient):
     def get_instance_consume_time_rank_with_options(self, request, runtime):
         """
         @deprecated OpenAPI GetInstanceConsumeTimeRank is deprecated
+        
+        @summary Queries the ranking of the running durations of instances.
         
 
         @param request: GetInstanceConsumeTimeRankRequest
@@ -6852,6 +7002,8 @@ class Client(OpenApiClient):
         """
         @deprecated OpenAPI GetInstanceConsumeTimeRank is deprecated
         
+        @summary Queries the ranking of the running durations of instances.
+        
 
         @param request: GetInstanceConsumeTimeRankRequest
 
@@ -6864,6 +7016,8 @@ class Client(OpenApiClient):
     def get_instance_count_trend_with_options(self, request, runtime):
         """
         @deprecated OpenAPI GetInstanceCountTrend is deprecated
+        
+        @summary Queries the quantity trend of auto triggered instances.
         
 
         @param request: GetInstanceCountTrendRequest
@@ -6904,6 +7058,8 @@ class Client(OpenApiClient):
         """
         @deprecated OpenAPI GetInstanceCountTrend is deprecated
         
+        @summary Queries the quantity trend of auto triggered instances.
+        
 
         @param request: GetInstanceCountTrendRequest
 
@@ -6916,6 +7072,8 @@ class Client(OpenApiClient):
     def get_instance_error_rank_with_options(self, request, runtime):
         """
         @deprecated OpenAPI GetInstanceErrorRank is deprecated
+        
+        @summary Queries the ranking of nodes on which errors occur within the last month.
         
 
         @param request: GetInstanceErrorRankRequest
@@ -6951,6 +7109,8 @@ class Client(OpenApiClient):
     def get_instance_error_rank(self, request):
         """
         @deprecated OpenAPI GetInstanceErrorRank is deprecated
+        
+        @summary Queries the ranking of nodes on which errors occur within the last month.
         
 
         @param request: GetInstanceErrorRankRequest
@@ -7019,6 +7179,8 @@ class Client(OpenApiClient):
         """
         @deprecated OpenAPI GetInstanceStatusCount is deprecated
         
+        @summary Queries the statistics of instances in different states.
+        
 
         @param request: GetInstanceStatusCountRequest
 
@@ -7058,6 +7220,8 @@ class Client(OpenApiClient):
         """
         @deprecated OpenAPI GetInstanceStatusCount is deprecated
         
+        @summary Queries the statistics of instances in different states.
+        
 
         @param request: GetInstanceStatusCountRequest
 
@@ -7069,6 +7233,8 @@ class Client(OpenApiClient):
 
     def get_instance_status_statistic_with_options(self, request, runtime):
         """
+        @summary Queries the number of instances that are in each state.
+        
 
         @param request: GetInstanceStatusStatisticRequest
 
@@ -7111,6 +7277,8 @@ class Client(OpenApiClient):
 
     def get_instance_status_statistic(self, request):
         """
+        @summary Queries the number of instances that are in each state.
+        
 
         @param request: GetInstanceStatusStatisticRequest
 
@@ -7122,6 +7290,8 @@ class Client(OpenApiClient):
     def get_manual_dag_instances_with_options(self, request, runtime):
         """
         @deprecated OpenAPI GetManualDagInstances is deprecated
+        
+        @summary Queries the information about instances in a manually triggered workflow.
         
 
         @param request: GetManualDagInstancesRequest
@@ -7162,6 +7332,8 @@ class Client(OpenApiClient):
         """
         @deprecated OpenAPI GetManualDagInstances is deprecated
         
+        @summary Queries the information about instances in a manually triggered workflow.
+        
 
         @param request: GetManualDagInstancesRequest
 
@@ -7173,7 +7345,7 @@ class Client(OpenApiClient):
 
     def get_meta_category_with_options(self, request, runtime):
         """
-        @summary Queries a category tree.
+        @summary Queries the information about a category tree.
         
 
         @param request: GetMetaCategoryRequest
@@ -7211,7 +7383,7 @@ class Client(OpenApiClient):
 
     def get_meta_category(self, request):
         """
-        @summary Queries a category tree.
+        @summary Queries the information about a category tree.
         
 
         @param request: GetMetaCategoryRequest
@@ -7223,7 +7395,7 @@ class Client(OpenApiClient):
 
     def get_meta_collection_detail_with_options(self, request, runtime):
         """
-        @summary Queries the details of a collection.
+        @summary Queries the information about a collection.
         
 
         @param request: GetMetaCollectionDetailRequest
@@ -7257,7 +7429,7 @@ class Client(OpenApiClient):
 
     def get_meta_collection_detail(self, request):
         """
-        @summary Queries the details of a collection.
+        @summary Queries the information about a collection.
         
 
         @param request: GetMetaCollectionDetailRequest
@@ -7331,7 +7503,7 @@ class Client(OpenApiClient):
 
     def get_meta_dbinfo_with_options(self, request, runtime):
         """
-        @summary The ID of the compute engine instance. Specify the ID in the Engine type.Engine name format.
+        @summary Queries the basic metadata information about a compute engine instance.
         
         @description The ID of the EMR cluster. This parameter is required only if you set the DataSourceType parameter to emr.
         You can log on to the [EMR console](https://emr.console.aliyun.com/?spm=a2c4g.11186623.0.0.965cc5c2GeiHet#/cn-hangzhou) to obtain the ID of the EMR cluster.
@@ -7366,7 +7538,7 @@ class Client(OpenApiClient):
 
     def get_meta_dbinfo(self, request):
         """
-        @summary The ID of the compute engine instance. Specify the ID in the Engine type.Engine name format.
+        @summary Queries the basic metadata information about a compute engine instance.
         
         @description The ID of the EMR cluster. This parameter is required only if you set the DataSourceType parameter to emr.
         You can log on to the [EMR console](https://emr.console.aliyun.com/?spm=a2c4g.11186623.0.0.965cc5c2GeiHet#/cn-hangzhou) to obtain the ID of the EMR cluster.
@@ -7381,7 +7553,7 @@ class Client(OpenApiClient):
 
     def get_meta_dbtable_list_with_options(self, request, runtime):
         """
-        @summary The operation that you want to perform. Set the value to *GetMetaDBTableList**.
+        @summary Queries metatables in a compute engine instance.
         
 
         @param request: GetMetaDBTableListRequest
@@ -7425,7 +7597,7 @@ class Client(OpenApiClient):
 
     def get_meta_dbtable_list(self, request):
         """
-        @summary The operation that you want to perform. Set the value to *GetMetaDBTableList**.
+        @summary Queries metatables in a compute engine instance.
         
 
         @param request: GetMetaDBTableListRequest
@@ -7481,7 +7653,9 @@ class Client(OpenApiClient):
 
     def get_meta_table_change_log_with_options(self, request, runtime):
         """
-        @summary The operation that you want to perform. Set the value to *GetMetaTableChangeLog**.
+        @summary Queries the change logs of a metatable.
+        
+        @description > This operation will be replaced soon. We recommend that you do not call this operation.
         
 
         @param request: GetMetaTableChangeLogRequest
@@ -7527,7 +7701,9 @@ class Client(OpenApiClient):
 
     def get_meta_table_change_log(self, request):
         """
-        @summary The operation that you want to perform. Set the value to *GetMetaTableChangeLog**.
+        @summary Queries the change logs of a metatable.
+        
+        @description > This operation will be replaced soon. We recommend that you do not call this operation.
         
 
         @param request: GetMetaTableChangeLogRequest
@@ -7539,7 +7715,7 @@ class Client(OpenApiClient):
 
     def get_meta_table_column_with_options(self, request, runtime):
         """
-        @summary The operation that you want to perform. Set the value to *GetMetaTableColumn**.
+        @summary Queries the field information of a metatable.
         
 
         @param request: GetMetaTableColumnRequest
@@ -7571,7 +7747,7 @@ class Client(OpenApiClient):
 
     def get_meta_table_column(self, request):
         """
-        @summary The operation that you want to perform. Set the value to *GetMetaTableColumn**.
+        @summary Queries the field information of a metatable.
         
 
         @param request: GetMetaTableColumnRequest
@@ -7627,7 +7803,7 @@ class Client(OpenApiClient):
 
     def get_meta_table_intro_wiki_with_options(self, request, runtime):
         """
-        @summary Queries the instructions on how to use a metatable.
+        @summary Queries the instructions on how to use a table.
         
 
         @param request: GetMetaTableIntroWikiRequest
@@ -7663,7 +7839,7 @@ class Client(OpenApiClient):
 
     def get_meta_table_intro_wiki(self, request):
         """
-        @summary Queries the instructions on how to use a metatable.
+        @summary Queries the instructions on how to use a table.
         
 
         @param request: GetMetaTableIntroWikiRequest
@@ -7675,7 +7851,7 @@ class Client(OpenApiClient):
 
     def get_meta_table_lineage_with_options(self, request, runtime):
         """
-        @summary The operation that you want to perform. Set the value to *GetMetaTableLineage**.
+        @summary Queries the lineage of a metatable.
         
 
         @param request: GetMetaTableLineageRequest
@@ -7723,7 +7899,7 @@ class Client(OpenApiClient):
 
     def get_meta_table_lineage(self, request):
         """
-        @summary The operation that you want to perform. Set the value to *GetMetaTableLineage**.
+        @summary Queries the lineage of a metatable.
         
 
         @param request: GetMetaTableLineageRequest
@@ -7779,6 +7955,8 @@ class Client(OpenApiClient):
 
     def get_meta_table_output_with_options(self, request, runtime):
         """
+        @summary Queries the output information of a metatable.
+        
 
         @param request: GetMetaTableOutputRequest
 
@@ -7821,6 +7999,8 @@ class Client(OpenApiClient):
 
     def get_meta_table_output(self, request):
         """
+        @summary Queries the output information of a metatable.
+        
 
         @param request: GetMetaTableOutputRequest
 
@@ -7831,9 +8011,9 @@ class Client(OpenApiClient):
 
     def get_meta_table_partition_with_options(self, tmp_req, runtime):
         """
-        @summary Queries the partitions of a metatable.
+        @summary Obtains a list of partitions in a metatable.
         
-        @description You can call this operation to query only the partitions of a metatable in a MaxCompute or E-MapReduce (EMR) compute engine instance.
+        @description You can call this operation to query only the partitions of a metatable in a MaxCompute or E-MapReduce (EMR) compute engine. If you query partitions of a metatable in an EMR compute engine, only DataLake clusters that use Data Lake Formation (DLF) to manage metadata and Hadoop clusters whose cluster version is earlier than 3.41.0 or 5.7.0 are supported.
         
 
         @param tmp_req: GetMetaTablePartitionRequest
@@ -7885,9 +8065,9 @@ class Client(OpenApiClient):
 
     def get_meta_table_partition(self, request):
         """
-        @summary Queries the partitions of a metatable.
+        @summary Obtains a list of partitions in a metatable.
         
-        @description You can call this operation to query only the partitions of a metatable in a MaxCompute or E-MapReduce (EMR) compute engine instance.
+        @description You can call this operation to query only the partitions of a metatable in a MaxCompute or E-MapReduce (EMR) compute engine. If you query partitions of a metatable in an EMR compute engine, only DataLake clusters that use Data Lake Formation (DLF) to manage metadata and Hadoop clusters whose cluster version is earlier than 3.41.0 or 5.7.0 are supported.
         
 
         @param request: GetMetaTablePartitionRequest
@@ -7955,7 +8135,7 @@ class Client(OpenApiClient):
 
     def get_meta_table_theme_level_with_options(self, request, runtime):
         """
-        @summary Queries information about table folders and table levels.
+        @summary Queries the information about the themes and levels of a metatable.
         
 
         @param request: GetMetaTableThemeLevelRequest
@@ -7987,7 +8167,7 @@ class Client(OpenApiClient):
 
     def get_meta_table_theme_level(self, request):
         """
-        @summary Queries information about table folders and table levels.
+        @summary Queries the information about the themes and levels of a metatable.
         
 
         @param request: GetMetaTableThemeLevelRequest
@@ -7999,6 +8179,8 @@ class Client(OpenApiClient):
 
     def get_migration_process_with_options(self, request, runtime):
         """
+        @summary Queries the progress of a migration task.
+        
 
         @param request: GetMigrationProcessRequest
 
@@ -8033,6 +8215,8 @@ class Client(OpenApiClient):
 
     def get_migration_process(self, request):
         """
+        @summary Queries the progress of a migration task.
+        
 
         @param request: GetMigrationProcessRequest
 
@@ -8139,6 +8323,8 @@ class Client(OpenApiClient):
 
     def get_node_children_with_options(self, request, runtime):
         """
+        @summary Queries a list of instances.
+        
 
         @param request: GetNodeChildrenRequest
 
@@ -8173,6 +8359,8 @@ class Client(OpenApiClient):
 
     def get_node_children(self, request):
         """
+        @summary Queries a list of instances.
+        
 
         @param request: GetNodeChildrenRequest
 
@@ -8233,6 +8421,8 @@ class Client(OpenApiClient):
         """
         @deprecated OpenAPI GetNodeOnBaseline is deprecated
         
+        @summary Queries the nodes associated with a baseline.
+        
 
         @param request: GetNodeOnBaselineRequest
 
@@ -8267,6 +8457,8 @@ class Client(OpenApiClient):
     def get_node_on_baseline(self, request):
         """
         @deprecated OpenAPI GetNodeOnBaseline is deprecated
+        
+        @summary Queries the nodes associated with a baseline.
         
 
         @param request: GetNodeOnBaselineRequest
@@ -8329,6 +8521,8 @@ class Client(OpenApiClient):
         """
         @deprecated OpenAPI GetNodeTypeListInfo is deprecated
         
+        @summary Queries the information about node types, including the code and name of a node type.
+        
 
         @param request: GetNodeTypeListInfoRequest
 
@@ -8374,6 +8568,8 @@ class Client(OpenApiClient):
         """
         @deprecated OpenAPI GetNodeTypeListInfo is deprecated
         
+        @summary Queries the information about node types, including the code and name of a node type.
+        
 
         @param request: GetNodeTypeListInfoRequest
 
@@ -8385,6 +8581,8 @@ class Client(OpenApiClient):
 
     def get_op_risk_data_with_options(self, request, runtime):
         """
+        @summary Queries the records that are generated on a specified date for access to the high-risk sensitive data in all the DataWorks workspaces of a tenant.
+        
 
         @param request: GetOpRiskDataRequest
 
@@ -8415,6 +8613,8 @@ class Client(OpenApiClient):
 
     def get_op_risk_data(self, request):
         """
+        @summary Queries the records that are generated on a specified date for access to the high-risk sensitive data in all the DataWorks workspaces of a tenant.
+        
 
         @param request: GetOpRiskDataRequest
 
@@ -8425,6 +8625,8 @@ class Client(OpenApiClient):
 
     def get_op_sensitive_data_with_options(self, request, runtime):
         """
+        @summary Queries the records that are generated on a specified date for access to sensitive data in all the DataWorks workspaces of a tenant.
+        
 
         @param request: GetOpSensitiveDataRequest
 
@@ -8455,6 +8657,8 @@ class Client(OpenApiClient):
 
     def get_op_sensitive_data(self, request):
         """
+        @summary Queries the records that are generated on a specified date for access to sensitive data in all the DataWorks workspaces of a tenant.
+        
 
         @param request: GetOpSensitiveDataRequest
 
@@ -8465,7 +8669,7 @@ class Client(OpenApiClient):
 
     def get_option_value_for_project_with_options(self, request, runtime):
         """
-        @summary The operation that you want to perform. Set the value to *GetOptionValueForProject**.
+        @summary Queries the option settings of an extension in a workspace.
         
 
         @param request: GetOptionValueForProjectRequest
@@ -8501,7 +8705,7 @@ class Client(OpenApiClient):
 
     def get_option_value_for_project(self, request):
         """
-        @summary The operation that you want to perform. Set the value to *GetOptionValueForProject**.
+        @summary Queries the option settings of an extension in a workspace.
         
 
         @param request: GetOptionValueForProjectRequest
@@ -8513,7 +8717,7 @@ class Client(OpenApiClient):
 
     def get_permission_apply_order_detail_with_options(self, request, runtime):
         """
-        @summary Queries the details about a permission request order.
+        @summary Queries the details of a permission request order.
         
 
         @param request: GetPermissionApplyOrderDetailRequest
@@ -8547,7 +8751,7 @@ class Client(OpenApiClient):
 
     def get_permission_apply_order_detail(self, request):
         """
-        @summary Queries the details about a permission request order.
+        @summary Queries the details of a permission request order.
         
 
         @param request: GetPermissionApplyOrderDetailRequest
@@ -8559,7 +8763,7 @@ class Client(OpenApiClient):
 
     def get_project_with_options(self, request, runtime):
         """
-        @summary 查询工作空间详情
+        @summary Queries the information about a DataWorks workspace.
         
 
         @param request: GetProjectRequest
@@ -8595,7 +8799,7 @@ class Client(OpenApiClient):
 
     def get_project(self, request):
         """
-        @summary 查询工作空间详情
+        @summary Queries the information about a DataWorks workspace.
         
 
         @param request: GetProjectRequest
@@ -8609,7 +8813,7 @@ class Client(OpenApiClient):
         """
         @deprecated OpenAPI GetProjectDetail is deprecated
         
-        @summary 查询工作空间详情
+        @summary Queries the information about a DataWorks workspace.
         
 
         @param request: GetProjectDetailRequest
@@ -8646,7 +8850,7 @@ class Client(OpenApiClient):
         """
         @deprecated OpenAPI GetProjectDetail is deprecated
         
-        @summary 查询工作空间详情
+        @summary Queries the information about a DataWorks workspace.
         
 
         @param request: GetProjectDetailRequest
@@ -8755,6 +8959,8 @@ class Client(OpenApiClient):
 
     def get_quality_rule_with_options(self, request, runtime):
         """
+        @summary Queries the information about a monitoring rule.
+        
 
         @param request: GetQualityRuleRequest
 
@@ -8791,6 +8997,8 @@ class Client(OpenApiClient):
 
     def get_quality_rule(self, request):
         """
+        @summary Queries the information about a monitoring rule.
+        
 
         @param request: GetQualityRuleRequest
 
@@ -8853,6 +9061,8 @@ class Client(OpenApiClient):
 
     def get_sensitive_data_with_options(self, request, runtime):
         """
+        @summary Queries the latest sensitive data in all the DataWorks workspaces of a tenant.
+        
 
         @param request: GetSensitiveDataRequest
 
@@ -8883,6 +9093,8 @@ class Client(OpenApiClient):
 
     def get_sensitive_data(self, request):
         """
+        @summary Queries the latest sensitive data in all the DataWorks workspaces of a tenant.
+        
 
         @param request: GetSensitiveDataRequest
 
@@ -8894,6 +9106,8 @@ class Client(OpenApiClient):
     def get_success_instance_trend_with_options(self, request, runtime):
         """
         @deprecated OpenAPI GetSuccessInstanceTrend is deprecated
+        
+        @summary Queries the statistics of instances in different periods of a day.
         
 
         @param request: GetSuccessInstanceTrendRequest
@@ -8930,6 +9144,8 @@ class Client(OpenApiClient):
         """
         @deprecated OpenAPI GetSuccessInstanceTrend is deprecated
         
+        @summary Queries the statistics of instances in different periods of a day.
+        
 
         @param request: GetSuccessInstanceTrendRequest
 
@@ -8941,6 +9157,8 @@ class Client(OpenApiClient):
 
     def get_topic_with_options(self, request, runtime):
         """
+        @summary Queries the information about an event.
+        
         @description ***\
         
 
@@ -8975,6 +9193,8 @@ class Client(OpenApiClient):
 
     def get_topic(self, request):
         """
+        @summary Queries the information about an event.
+        
         @description ***\
         
 
@@ -9029,9 +9249,11 @@ class Client(OpenApiClient):
 
     def import_data_sources_with_options(self, request, runtime):
         """
-        @description You can import self-managed data sources or data sources that are exported from other Dataworks workspaces to a specified DataWorks workspace.
-        To import a self-managed data source to DataWorks, the data source type must be supported by DataWorks. For more information about the types of data sources supported by DataWorks, see [Supported data stores](https://help.aliyun.com/document_detail/181656.html).
-        For more information about how to export data sources from DataWorks workspaces to on-premises devices, see [ExportDataSources](https://help.aliyun.com/document_detail/279570.html).
+        @summary Imports data sources from your on-premises machine to a specific DataWorks workspace.
+        
+        @description You can import self-managed data sources or data sources that are exported from other DataWorks workspaces to a specific DataWorks workspace.
+        To import a self-managed data source to a DataWorks workspace, the data source type must be supported by DataWorks. For more information about the types of data sources supported by DataWorks, see [Supported data stores](https://help.aliyun.com/document_detail/181656.html).
+        For more information about how to export data sources from DataWorks workspaces to your on-premises machine, see [ExportDataSources](https://help.aliyun.com/document_detail/279570.html).
         
 
         @param request: ImportDataSourcesRequest
@@ -9067,9 +9289,11 @@ class Client(OpenApiClient):
 
     def import_data_sources(self, request):
         """
-        @description You can import self-managed data sources or data sources that are exported from other Dataworks workspaces to a specified DataWorks workspace.
-        To import a self-managed data source to DataWorks, the data source type must be supported by DataWorks. For more information about the types of data sources supported by DataWorks, see [Supported data stores](https://help.aliyun.com/document_detail/181656.html).
-        For more information about how to export data sources from DataWorks workspaces to on-premises devices, see [ExportDataSources](https://help.aliyun.com/document_detail/279570.html).
+        @summary Imports data sources from your on-premises machine to a specific DataWorks workspace.
+        
+        @description You can import self-managed data sources or data sources that are exported from other DataWorks workspaces to a specific DataWorks workspace.
+        To import a self-managed data source to a DataWorks workspace, the data source type must be supported by DataWorks. For more information about the types of data sources supported by DataWorks, see [Supported data stores](https://help.aliyun.com/document_detail/181656.html).
+        For more information about how to export data sources from DataWorks workspaces to your on-premises machine, see [ExportDataSources](https://help.aliyun.com/document_detail/279570.html).
         
 
         @param request: ImportDataSourcesRequest
@@ -9081,6 +9305,8 @@ class Client(OpenApiClient):
 
     def list_alert_messages_with_options(self, request, runtime):
         """
+        @summary Queries a list of alerts.
+        
 
         @param request: ListAlertMessagesRequest
 
@@ -9129,6 +9355,8 @@ class Client(OpenApiClient):
 
     def list_alert_messages(self, request):
         """
+        @summary Queries a list of alerts.
+        
 
         @param request: ListAlertMessagesRequest
 
@@ -9139,6 +9367,8 @@ class Client(OpenApiClient):
 
     def list_baseline_configs_with_options(self, request, runtime):
         """
+        @summary Queries a list of baselines.
+        
 
         @param request: ListBaselineConfigsRequest
 
@@ -9185,6 +9415,8 @@ class Client(OpenApiClient):
 
     def list_baseline_configs(self, request):
         """
+        @summary Queries a list of baselines.
+        
 
         @param request: ListBaselineConfigsRequest
 
@@ -9195,7 +9427,7 @@ class Client(OpenApiClient):
 
     def list_baseline_statuses_with_options(self, request, runtime):
         """
-        @summary Queries baseline instances.
+        @summary Queries a list of baseline instances.
         
 
         @param request: ListBaselineStatusesRequest
@@ -9247,7 +9479,7 @@ class Client(OpenApiClient):
 
     def list_baseline_statuses(self, request):
         """
-        @summary Queries baseline instances.
+        @summary Queries a list of baseline instances.
         
 
         @param request: ListBaselineStatusesRequest
@@ -9259,7 +9491,7 @@ class Client(OpenApiClient):
 
     def list_baselines_with_options(self, request, runtime):
         """
-        @summary 查询基线列表
+        @summary Obtains a list of baselines.
         
 
         @param request: ListBaselinesRequest
@@ -9307,7 +9539,7 @@ class Client(OpenApiClient):
 
     def list_baselines(self, request):
         """
-        @summary 查询基线列表
+        @summary Obtains a list of baselines.
         
 
         @param request: ListBaselinesRequest
@@ -9319,7 +9551,7 @@ class Client(OpenApiClient):
 
     def list_business_with_options(self, request, runtime):
         """
-        @summary Queries workflows.
+        @summary Queries a list of workflows.
         
 
         @param request: ListBusinessRequest
@@ -9361,7 +9593,7 @@ class Client(OpenApiClient):
 
     def list_business(self, request):
         """
-        @summary Queries workflows.
+        @summary Queries a list of workflows.
         
 
         @param request: ListBusinessRequest
@@ -9373,7 +9605,7 @@ class Client(OpenApiClient):
 
     def list_calc_engines_with_options(self, request, runtime):
         """
-        @summary Queries compute engine instances.
+        @summary Queries a list of compute engines that are associated with a DataWorks workspace.
         
 
         @param request: ListCalcEnginesRequest
@@ -9417,7 +9649,7 @@ class Client(OpenApiClient):
 
     def list_calc_engines(self, request):
         """
-        @summary Queries compute engine instances.
+        @summary Queries a list of compute engines that are associated with a DataWorks workspace.
         
 
         @param request: ListCalcEnginesRequest
@@ -9427,11 +9659,99 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_calc_engines_with_options(request, runtime)
 
+    def list_cluster_configs_with_options(self, request, runtime):
+        """
+        @summary 列出集群的配置信息
+        
+
+        @param request: ListClusterConfigsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListClusterConfigsResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListClusterConfigs',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.ListClusterConfigsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_cluster_configs(self, request):
+        """
+        @summary 列出集群的配置信息
+        
+
+        @param request: ListClusterConfigsRequest
+
+        @return: ListClusterConfigsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_cluster_configs_with_options(request, runtime)
+
+    def list_clusters_with_options(self, request, runtime):
+        """
+        @summary 列出注册到 DataWorks 的集群的信息
+        
+
+        @param request: ListClustersRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListClustersResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListClusters',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.ListClustersResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_clusters(self, request):
+        """
+        @summary 列出注册到 DataWorks 的集群的信息
+        
+
+        @param request: ListClustersRequest
+
+        @return: ListClustersResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_clusters_with_options(request, runtime)
+
     def list_connections_with_options(self, request, runtime):
         """
         @deprecated OpenAPI ListConnections is deprecated
         
-        @summary 查询数据源
+        @summary Queries a list of data sources.
         
 
         @param request: ListConnectionsRequest
@@ -9466,7 +9786,7 @@ class Client(OpenApiClient):
         """
         @deprecated OpenAPI ListConnections is deprecated
         
-        @summary 查询数据源
+        @summary Queries a list of data sources.
         
 
         @param request: ListConnectionsRequest
@@ -9479,7 +9799,9 @@ class Client(OpenApiClient):
 
     def list_dialarm_rules_with_options(self, request, runtime):
         """
-        @summary 查询数据集成新版告警规则列表
+        @summary Queries a list of alert rules for a new-version synchronization task. The following type of task is supported: real-time data synchronization from a MySQL database to Hologres.
+        
+        @description You can configure alert rules only for tasks that can be used for real-time data synchronization.
         
 
         @param request: ListDIAlarmRulesRequest
@@ -9517,7 +9839,9 @@ class Client(OpenApiClient):
 
     def list_dialarm_rules(self, request):
         """
-        @summary 查询数据集成新版告警规则列表
+        @summary Queries a list of alert rules for a new-version synchronization task. The following type of task is supported: real-time data synchronization from a MySQL database to Hologres.
+        
+        @description You can configure alert rules only for tasks that can be used for real-time data synchronization.
         
 
         @param request: ListDIAlarmRulesRequest
@@ -9529,7 +9853,9 @@ class Client(OpenApiClient):
 
     def list_dijobs_with_options(self, request, runtime):
         """
-        @summary 查询数据集成新版解决方案任务列表
+        @summary Queries a list of new-version synchronization tasks. The following type of task is supported: real-time data synchronization from a MySQL database to Hologres.
+        
+        @description You can call this operation to obtain only the basic information about the tasks. If you want to obtain the details of a task, call the GetDIJob operation.
         
 
         @param request: ListDIJobsRequest
@@ -9573,7 +9899,9 @@ class Client(OpenApiClient):
 
     def list_dijobs(self, request):
         """
-        @summary 查询数据集成新版解决方案任务列表
+        @summary Queries a list of new-version synchronization tasks. The following type of task is supported: real-time data synchronization from a MySQL database to Hologres.
+        
+        @description You can call this operation to obtain only the basic information about the tasks. If you want to obtain the details of a task, call the GetDIJob operation.
         
 
         @param request: ListDIJobsRequest
@@ -9585,7 +9913,9 @@ class Client(OpenApiClient):
 
     def list_diproject_config_with_options(self, request, runtime):
         """
-        @description DataWorks allows you to set the default global configuration for only the processing rules of DDL messages in sync solutions. After you configure the *processing rules of DDL messages** in sync solutions, the configuration is set as the default global configuration and applies to all real-time sync nodes. You can also modify the **processing rules of DDL messages** based on your business requirements. For more information, see [Sync solutions](https://help.aliyun.com/document_detail/199008.html).
+        @summary Queries the default global configurations of synchronization solutions in a specified DataWorks workspace.
+        
+        @description DataWorks allows you to specify a default global configuration only for the processing rules of DDL messages in synchronization solutions. After you configure the *processing rules of DDL messages** in synchronization solutions, the configuration is used as the default global configuration and applies to all real-time synchronization tasks in the solutions. You can modify the **processing rules of DDL messages** based on your business requirements. For more information about how to configure a synchronization solution, see [Synchronization solutions](https://help.aliyun.com/document_detail/199008.html).
         
 
         @param request: ListDIProjectConfigRequest
@@ -9623,7 +9953,9 @@ class Client(OpenApiClient):
 
     def list_diproject_config(self, request):
         """
-        @description DataWorks allows you to set the default global configuration for only the processing rules of DDL messages in sync solutions. After you configure the *processing rules of DDL messages** in sync solutions, the configuration is set as the default global configuration and applies to all real-time sync nodes. You can also modify the **processing rules of DDL messages** based on your business requirements. For more information, see [Sync solutions](https://help.aliyun.com/document_detail/199008.html).
+        @summary Queries the default global configurations of synchronization solutions in a specified DataWorks workspace.
+        
+        @description DataWorks allows you to specify a default global configuration only for the processing rules of DDL messages in synchronization solutions. After you configure the *processing rules of DDL messages** in synchronization solutions, the configuration is used as the default global configuration and applies to all real-time synchronization tasks in the solutions. You can modify the **processing rules of DDL messages** based on your business requirements. For more information about how to configure a synchronization solution, see [Synchronization solutions](https://help.aliyun.com/document_detail/199008.html).
         
 
         @param request: ListDIProjectConfigRequest
@@ -9635,18 +9967,18 @@ class Client(OpenApiClient):
 
     def list_dags_with_options(self, request, runtime):
         """
-        @summary Supported DAG types:
-        MANUAL: the DAG for a manually triggered workflow.
-        SMOKE_TEST: the DAG for a smoke testing workflow.
-        SUPPLY_DATA: the DAG for a data backfill instance.
-        BUSINESS_PROCESS_DAG: the DAG for a one-time workflow.
+        @summary Queries the details of directed acyclic graphs (DAGs) for a single data backfill instance based on OpSeq.
+        
+        @description Supported DAG types:
+        MANUAL: DAG for a manually triggered workflow
+        SMOKE_TEST: DAG for a smoke testing workflow
+        SUPPLY_DATA: DAG for a data backfill instance
+        BUSINESS_PROCESS_DAG: DAG for a one-time workflow
         Supported DAG states:
         CREATED: The DAG is created.
         RUNNING: The DAG is running.
         FAILURE: The DAG fails to run.
-        SUCCESS: The DAG successfully runs.
-        
-        @description The operation that you want to perform. Set the value to *ListDags**.
+        SUCCESS: The DAG is successfully run.
         
 
         @param request: ListDagsRequest
@@ -9682,18 +10014,18 @@ class Client(OpenApiClient):
 
     def list_dags(self, request):
         """
-        @summary Supported DAG types:
-        MANUAL: the DAG for a manually triggered workflow.
-        SMOKE_TEST: the DAG for a smoke testing workflow.
-        SUPPLY_DATA: the DAG for a data backfill instance.
-        BUSINESS_PROCESS_DAG: the DAG for a one-time workflow.
+        @summary Queries the details of directed acyclic graphs (DAGs) for a single data backfill instance based on OpSeq.
+        
+        @description Supported DAG types:
+        MANUAL: DAG for a manually triggered workflow
+        SMOKE_TEST: DAG for a smoke testing workflow
+        SUPPLY_DATA: DAG for a data backfill instance
+        BUSINESS_PROCESS_DAG: DAG for a one-time workflow
         Supported DAG states:
         CREATED: The DAG is created.
         RUNNING: The DAG is running.
         FAILURE: The DAG fails to run.
-        SUCCESS: The DAG successfully runs.
-        
-        @description The operation that you want to perform. Set the value to *ListDags**.
+        SUCCESS: The DAG is successfully run.
         
 
         @param request: ListDagsRequest
@@ -9761,7 +10093,7 @@ class Client(OpenApiClient):
 
     def list_data_service_api_test_with_options(self, request, runtime):
         """
-        @summary Queries the test records of a DataService Studio API. This API operation allows you to query only the test records that are generated within the last month.
+        @summary Queries the test records of a DataService Studio API. This API operation allows you to query only the test records that are generated within the previous month.
         
 
         @param request: ListDataServiceApiTestRequest
@@ -9793,7 +10125,7 @@ class Client(OpenApiClient):
 
     def list_data_service_api_test(self, request):
         """
-        @summary Queries the test records of a DataService Studio API. This API operation allows you to query only the test records that are generated within the last month.
+        @summary Queries the test records of a DataService Studio API. This API operation allows you to query only the test records that are generated within the previous month.
         
 
         @param request: ListDataServiceApiTestRequest
@@ -10081,7 +10413,7 @@ class Client(OpenApiClient):
 
     def list_data_service_published_apis_with_options(self, request, runtime):
         """
-        @summary Queries the information about APIs in the published state.
+        @summary Queries a list of APIs in the published state.
         
 
         @param request: ListDataServicePublishedApisRequest
@@ -10127,7 +10459,7 @@ class Client(OpenApiClient):
 
     def list_data_service_published_apis(self, request):
         """
-        @summary Queries the information about APIs in the published state.
+        @summary Queries a list of APIs in the published state.
         
 
         @param request: ListDataServicePublishedApisRequest
@@ -10139,7 +10471,7 @@ class Client(OpenApiClient):
 
     def list_data_sources_with_options(self, request, runtime):
         """
-        @summary 查询数据源
+        @summary Queries the data sources added to a DataWorks workspace.
         
 
         @param request: ListDataSourcesRequest
@@ -10171,7 +10503,7 @@ class Client(OpenApiClient):
 
     def list_data_sources(self, request):
         """
-        @summary 查询数据源
+        @summary Queries the data sources added to a DataWorks workspace.
         
 
         @param request: ListDataSourcesRequest
@@ -10183,7 +10515,7 @@ class Client(OpenApiClient):
 
     def list_deployments_with_options(self, request, runtime):
         """
-        @summary 查询发布包列表
+        @summary Queries a list of deployment packages. This operation is equivalent to viewing a list of deployment packages on the Deployment Packages page of the DataWorks console.
         
 
         @param request: ListDeploymentsRequest
@@ -10235,7 +10567,7 @@ class Client(OpenApiClient):
 
     def list_deployments(self, request):
         """
-        @summary 查询发布包列表
+        @summary Queries a list of deployment packages. This operation is equivalent to viewing a list of deployment packages on the Deployment Packages page of the DataWorks console.
         
 
         @param request: ListDeploymentsRequest
@@ -10247,7 +10579,9 @@ class Client(OpenApiClient):
 
     def list_enabled_extensions_for_project_with_options(self, request, runtime):
         """
-        @summary The operation that you want to perform. Set the value to *ListEnabledExtensionsForProject**.
+        @summary Queries a list of built-in and custom extensions that are enabled in a workspace.
+        
+        @description For information about codes of extension point events, see [Development references: Extension point event codes](https://help.aliyun.com/document_detail/463357.html).
         
 
         @param request: ListEnabledExtensionsForProjectRequest
@@ -10285,7 +10619,9 @@ class Client(OpenApiClient):
 
     def list_enabled_extensions_for_project(self, request):
         """
-        @summary The operation that you want to perform. Set the value to *ListEnabledExtensionsForProject**.
+        @summary Queries a list of built-in and custom extensions that are enabled in a workspace.
+        
+        @description For information about codes of extension point events, see [Development references: Extension point event codes](https://help.aliyun.com/document_detail/463357.html).
         
 
         @param request: ListEnabledExtensionsForProjectRequest
@@ -10297,7 +10633,7 @@ class Client(OpenApiClient):
 
     def list_entities_by_tags_with_options(self, tmp_req, runtime):
         """
-        @summary List entities by tags
+        @summary Queries a list of entities by tag. Only entities of the maxcompute-table type are supported.
         
 
         @param tmp_req: ListEntitiesByTagsRequest
@@ -10333,7 +10669,7 @@ class Client(OpenApiClient):
 
     def list_entities_by_tags(self, request):
         """
-        @summary List entities by tags
+        @summary Queries a list of entities by tag. Only entities of the maxcompute-table type are supported.
         
 
         @param request: ListEntitiesByTagsRequest
@@ -10345,7 +10681,7 @@ class Client(OpenApiClient):
 
     def list_entity_tags_with_options(self, request, runtime):
         """
-        @summary List entity tags by given qualified name
+        @summary Queries a list of tags of an entity. Only entities of the maxcompute-table type are supported.
         
 
         @param request: ListEntityTagsRequest
@@ -10377,7 +10713,7 @@ class Client(OpenApiClient):
 
     def list_entity_tags(self, request):
         """
-        @summary List entity tags by given qualified name
+        @summary Queries a list of tags of an entity. Only entities of the maxcompute-table type are supported.
         
 
         @param request: ListEntityTagsRequest
@@ -10389,7 +10725,7 @@ class Client(OpenApiClient):
 
     def list_extensions_with_options(self, request, runtime):
         """
-        @summary The operation that you want to perform. Set the value to *ListExtensions**.
+        @summary Queries a list of extensions.
         
 
         @param request: ListExtensionsRequest
@@ -10425,7 +10761,7 @@ class Client(OpenApiClient):
 
     def list_extensions(self, request):
         """
-        @summary The operation that you want to perform. Set the value to *ListExtensions**.
+        @summary Queries a list of extensions.
         
 
         @param request: ListExtensionsRequest
@@ -10437,6 +10773,8 @@ class Client(OpenApiClient):
 
     def list_file_type_with_options(self, request, runtime):
         """
+        @summary Queries the information about node types, such as the code and name.
+        
 
         @param request: ListFileTypeRequest
 
@@ -10479,6 +10817,8 @@ class Client(OpenApiClient):
 
     def list_file_type(self, request):
         """
+        @summary Queries the information about node types, such as the code and name.
+        
 
         @param request: ListFileTypeRequest
 
@@ -10607,6 +10947,8 @@ class Client(OpenApiClient):
 
     def list_folders_with_options(self, request, runtime):
         """
+        @summary Queries a list of folders.
+        
 
         @param request: ListFoldersRequest
 
@@ -10647,6 +10989,8 @@ class Client(OpenApiClient):
 
     def list_folders(self, request):
         """
+        @summary Queries a list of folders.
+        
 
         @param request: ListFoldersRequest
 
@@ -10657,7 +11001,7 @@ class Client(OpenApiClient):
 
     def list_inner_nodes_with_options(self, request, runtime):
         """
-        @summary The operation that you want to perform. Set the value to *ListInnerNodes**.
+        @summary Queries information about inner nodes. For example, you can call this operation to query the inner nodes of a node group or a do-while node. You cannot call this operation to query the inner nodes of a PAI node.
         
 
         @param request: ListInnerNodesRequest
@@ -10703,7 +11047,7 @@ class Client(OpenApiClient):
 
     def list_inner_nodes(self, request):
         """
-        @summary The operation that you want to perform. Set the value to *ListInnerNodes**.
+        @summary Queries information about inner nodes. For example, you can call this operation to query the inner nodes of a node group or a do-while node. You cannot call this operation to query the inner nodes of a PAI node.
         
 
         @param request: ListInnerNodesRequest
@@ -10715,6 +11059,8 @@ class Client(OpenApiClient):
 
     def list_instance_amount_with_options(self, request, runtime):
         """
+        @summary Queries the trend of the number of auto triggered node instances within a specified period of time.
+        
 
         @param request: ListInstanceAmountRequest
 
@@ -10751,6 +11097,8 @@ class Client(OpenApiClient):
 
     def list_instance_amount(self, request):
         """
+        @summary Queries the trend of the number of auto triggered node instances within a specified period of time.
+        
 
         @param request: ListInstanceAmountRequest
 
@@ -10761,7 +11109,7 @@ class Client(OpenApiClient):
 
     def list_instance_history_with_options(self, request, runtime):
         """
-        @summary The operation that you want to perform. Set the value to *ListInstanceHistory**.
+        @summary Queries information about the historical records of all instances. One historical record is generated if an instance is rerun once.
         
 
         @param request: ListInstanceHistoryRequest
@@ -10797,7 +11145,7 @@ class Client(OpenApiClient):
 
     def list_instance_history(self, request):
         """
-        @summary The operation that you want to perform. Set the value to *ListInstanceHistory**.
+        @summary Queries information about the historical records of all instances. One historical record is generated if an instance is rerun once.
         
 
         @param request: ListInstanceHistoryRequest
@@ -10883,7 +11231,7 @@ class Client(OpenApiClient):
 
     def list_lineage_with_options(self, request, runtime):
         """
-        @summary 查询血缘V2, 支持各种实体的血缘查询
+        @summary Queries the ancestor or descendant lineage of an entity.
         
 
         @param request: ListLineageRequest
@@ -10925,7 +11273,7 @@ class Client(OpenApiClient):
 
     def list_lineage(self, request):
         """
-        @summary 查询血缘V2, 支持各种实体的血缘查询
+        @summary Queries the ancestor or descendant lineage of an entity.
         
 
         @param request: ListLineageRequest
@@ -10937,6 +11285,8 @@ class Client(OpenApiClient):
 
     def list_manual_dag_instances_with_options(self, request, runtime):
         """
+        @summary Queries the information about instances in a manually triggered workflow.
+        
 
         @param request: ListManualDagInstancesRequest
 
@@ -10973,6 +11323,8 @@ class Client(OpenApiClient):
 
     def list_manual_dag_instances(self, request):
         """
+        @summary Queries the information about instances in a manually triggered workflow.
+        
 
         @param request: ListManualDagInstancesRequest
 
@@ -11089,7 +11441,7 @@ class Client(OpenApiClient):
 
     def list_meta_collections_with_options(self, request, runtime):
         """
-        @summary Queries information about collections. Collections include data albums that are displayed on the DataMap page and categories that are created in the data albums. You can call this API operation to query collections by type.
+        @summary Queries information about collections. Collections include data albums that are displayed on the Data Map page and categories that are created in the data albums. You can call this API operation to query collections by type.
         
         @description The type can be ALBUM or ALBUM_CATEGORY. ALBUM indicates data albums. ALBUM_CATEGORY indicates categories.
         
@@ -11141,7 +11493,7 @@ class Client(OpenApiClient):
 
     def list_meta_collections(self, request):
         """
-        @summary Queries information about collections. Collections include data albums that are displayed on the DataMap page and categories that are created in the data albums. You can call this API operation to query collections by type.
+        @summary Queries information about collections. Collections include data albums that are displayed on the Data Map page and categories that are created in the data albums. You can call this API operation to query collections by type.
         
         @description The type can be ALBUM or ALBUM_CATEGORY. ALBUM indicates data albums. ALBUM_CATEGORY indicates categories.
         
@@ -11155,6 +11507,8 @@ class Client(OpenApiClient):
 
     def list_meta_dbwith_options(self, request, runtime):
         """
+        @summary Queries a list of metadatabases.
+        
 
         @param request: ListMetaDBRequest
 
@@ -11185,6 +11539,8 @@ class Client(OpenApiClient):
 
     def list_meta_db(self, request):
         """
+        @summary Queries a list of metadatabases.
+        
 
         @param request: ListMetaDBRequest
 
@@ -11195,7 +11551,7 @@ class Client(OpenApiClient):
 
     def list_migrations_with_options(self, request, runtime):
         """
-        @summary The operation that you want to perform. Set the value to *ListMigrations**.
+        @summary Queries a list of migration tasks.
         
 
         @param request: ListMigrationsRequest
@@ -11237,7 +11593,7 @@ class Client(OpenApiClient):
 
     def list_migrations(self, request):
         """
-        @summary The operation that you want to perform. Set the value to *ListMigrations**.
+        @summary Queries a list of migration tasks.
         
 
         @param request: ListMigrationsRequest
@@ -11250,6 +11606,8 @@ class Client(OpenApiClient):
     def list_node_iowith_options(self, request, runtime):
         """
         @deprecated OpenAPI ListNodeIO is deprecated
+        
+        @summary Queries the information about one level of ancestor or descendant nodes of a node.
         
 
         @param request: ListNodeIORequest
@@ -11290,6 +11648,8 @@ class Client(OpenApiClient):
         """
         @deprecated OpenAPI ListNodeIO is deprecated
         
+        @summary Queries the information about one level of ancestor or descendant nodes of a node.
+        
 
         @param request: ListNodeIORequest
 
@@ -11301,6 +11661,8 @@ class Client(OpenApiClient):
 
     def list_node_input_or_output_with_options(self, request, runtime):
         """
+        @summary Queries the input and output information about a node. Only the ancestor or descendant nodes at the nearest level can be queried each time.
+        
 
         @param request: ListNodeInputOrOutputRequest
 
@@ -11337,6 +11699,8 @@ class Client(OpenApiClient):
 
     def list_node_input_or_output(self, request):
         """
+        @summary Queries the input and output information about a node. Only the ancestor or descendant nodes at the nearest level can be queried each time.
+        
 
         @param request: ListNodeInputOrOutputRequest
 
@@ -11409,6 +11773,8 @@ class Client(OpenApiClient):
 
     def list_nodes_by_baseline_with_options(self, request, runtime):
         """
+        @summary Queries nodes in a baseline.
+        
 
         @param request: ListNodesByBaselineRequest
 
@@ -11441,6 +11807,8 @@ class Client(OpenApiClient):
 
     def list_nodes_by_baseline(self, request):
         """
+        @summary Queries nodes in a baseline.
+        
 
         @param request: ListNodesByBaselineRequest
 
@@ -11451,6 +11819,8 @@ class Client(OpenApiClient):
 
     def list_nodes_by_output_with_options(self, request, runtime):
         """
+        @summary Queries nodes based on the output of the nodes.
+        
 
         @param request: ListNodesByOutputRequest
 
@@ -11485,6 +11855,8 @@ class Client(OpenApiClient):
 
     def list_nodes_by_output(self, request):
         """
+        @summary Queries nodes based on the output of the nodes.
+        
 
         @param request: ListNodesByOutputRequest
 
@@ -11495,6 +11867,8 @@ class Client(OpenApiClient):
 
     def list_permission_apply_orders_with_options(self, request, runtime):
         """
+        @summary Queries a list of permission request orders.
+        
 
         @param request: ListPermissionApplyOrdersRequest
 
@@ -11547,6 +11921,8 @@ class Client(OpenApiClient):
 
     def list_permission_apply_orders(self, request):
         """
+        @summary Queries a list of permission request orders.
+        
 
         @param request: ListPermissionApplyOrdersRequest
 
@@ -11558,6 +11934,8 @@ class Client(OpenApiClient):
     def list_program_type_count_with_options(self, request, runtime):
         """
         @deprecated OpenAPI ListProgramTypeCount is deprecated
+        
+        @summary Queries the distribution of different types of nodes.
         
 
         @param request: ListProgramTypeCountRequest
@@ -11596,6 +11974,8 @@ class Client(OpenApiClient):
         """
         @deprecated OpenAPI ListProgramTypeCount is deprecated
         
+        @summary Queries the distribution of different types of nodes.
+        
 
         @param request: ListProgramTypeCountRequest
 
@@ -11607,7 +11987,9 @@ class Client(OpenApiClient):
 
     def list_project_ids_with_options(self, request, runtime):
         """
-        @description For example, an Alibaba Cloud account can assume the developer, O&M engineer, or workspace administrator role in a workspace. For more information, see [Manage members and roles](https://help.aliyun.com/document_detail/136941.html).
+        @summary Queries the IDs of the workspaces on which a specific Alibaba Cloud account or RAM user has permissions in a specific region.
+        
+        @description An Alibaba Cloud account can assume a role such as the developer, O\\&M engineer, or workspace administrator role in a workspace. For more information, see [Manage members and roles](https://help.aliyun.com/document_detail/136941.html).
         
 
         @param request: ListProjectIdsRequest
@@ -11641,7 +12023,9 @@ class Client(OpenApiClient):
 
     def list_project_ids(self, request):
         """
-        @description For example, an Alibaba Cloud account can assume the developer, O&M engineer, or workspace administrator role in a workspace. For more information, see [Manage members and roles](https://help.aliyun.com/document_detail/136941.html).
+        @summary Queries the IDs of the workspaces on which a specific Alibaba Cloud account or RAM user has permissions in a specific region.
+        
+        @description An Alibaba Cloud account can assume a role such as the developer, O\\&M engineer, or workspace administrator role in a workspace. For more information, see [Manage members and roles](https://help.aliyun.com/document_detail/136941.html).
         
 
         @param request: ListProjectIdsRequest
@@ -11653,7 +12037,7 @@ class Client(OpenApiClient):
 
     def list_project_members_with_options(self, request, runtime):
         """
-        @summary Queries members in a DataWorks workspace.
+        @summary Queries a list of existing members in a DataWorks workspace.
         
 
         @param request: ListProjectMembersRequest
@@ -11691,7 +12075,7 @@ class Client(OpenApiClient):
 
     def list_project_members(self, request):
         """
-        @summary Queries members in a DataWorks workspace.
+        @summary Queries a list of existing members in a DataWorks workspace.
         
 
         @param request: ListProjectMembersRequest
@@ -11703,7 +12087,7 @@ class Client(OpenApiClient):
 
     def list_project_roles_with_options(self, request, runtime):
         """
-        @summary A topic is added to describe how to call the ListProjectRoles operation to query all roles in a workspace.
+        @summary Queries a list of roles in a DataWorks workspace.
         
         @description ## Debugging
         [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=dataworks-public\\&api=ListProjectRoles\\&type=RPC\\&version=2020-05-18)
@@ -11740,7 +12124,7 @@ class Client(OpenApiClient):
 
     def list_project_roles(self, request):
         """
-        @summary A topic is added to describe how to call the ListProjectRoles operation to query all roles in a workspace.
+        @summary Queries a list of roles in a DataWorks workspace.
         
         @description ## Debugging
         [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=dataworks-public\\&api=ListProjectRoles\\&type=RPC\\&version=2020-05-18)
@@ -11755,7 +12139,7 @@ class Client(OpenApiClient):
 
     def list_projects_with_options(self, tmp_req, runtime):
         """
-        @summary 查询工作空间
+        @summary Queries a list of DataWorks workspaces of the tenant to which a user belongs.
         
 
         @param tmp_req: ListProjectsRequest
@@ -11799,7 +12183,7 @@ class Client(OpenApiClient):
 
     def list_projects(self, request):
         """
-        @summary 查询工作空间
+        @summary Queries a list of DataWorks workspaces of the tenant to which a user belongs.
         
 
         @param request: ListProjectsRequest
@@ -11811,6 +12195,8 @@ class Client(OpenApiClient):
 
     def list_quality_results_by_entity_with_options(self, request, runtime):
         """
+        @summary Queries a list of historical check results based on a partition filter expression.
+        
         @description ***\
         
 
@@ -11857,6 +12243,8 @@ class Client(OpenApiClient):
 
     def list_quality_results_by_entity(self, request):
         """
+        @summary Queries a list of historical check results based on a partition filter expression.
+        
         @description ***\
         
 
@@ -11869,6 +12257,8 @@ class Client(OpenApiClient):
 
     def list_quality_results_by_rule_with_options(self, request, runtime):
         """
+        @summary Queries monitoring results after the data quality of a data source or a compute engine is monitored based on monitoring rules.
+        
 
         @param request: ListQualityResultsByRuleRequest
 
@@ -11913,6 +12303,8 @@ class Client(OpenApiClient):
 
     def list_quality_results_by_rule(self, request):
         """
+        @summary Queries monitoring results after the data quality of a data source or a compute engine is monitored based on monitoring rules.
+        
 
         @param request: ListQualityResultsByRuleRequest
 
@@ -11923,6 +12315,8 @@ class Client(OpenApiClient):
 
     def list_quality_rules_with_options(self, request, runtime):
         """
+        @summary Queries monitoring rules based on a partition filter expression.
+        
 
         @param request: ListQualityRulesRequest
 
@@ -11963,6 +12357,8 @@ class Client(OpenApiClient):
 
     def list_quality_rules(self, request):
         """
+        @summary Queries monitoring rules based on a partition filter expression.
+        
 
         @param request: ListQualityRulesRequest
 
@@ -11973,6 +12369,8 @@ class Client(OpenApiClient):
 
     def list_ref_disync_tasks_with_options(self, request, runtime):
         """
+        @summary Queries synchronization tasks in Data Integration that use a specific data source.
+        
 
         @param request: ListRefDISyncTasksRequest
 
@@ -12015,6 +12413,8 @@ class Client(OpenApiClient):
 
     def list_ref_disync_tasks(self, request):
         """
+        @summary Queries synchronization tasks in Data Integration that use a specific data source.
+        
 
         @param request: ListRefDISyncTasksRequest
 
@@ -12025,7 +12425,7 @@ class Client(OpenApiClient):
 
     def list_reminds_with_options(self, request, runtime):
         """
-        @summary Queries custom alert rules.
+        @summary Queries a list of custom alert rules.
         
 
         @param request: ListRemindsRequest
@@ -12071,7 +12471,7 @@ class Client(OpenApiClient):
 
     def list_reminds(self, request):
         """
-        @summary Queries custom alert rules.
+        @summary Queries a list of custom alert rules.
         
 
         @param request: ListRemindsRequest
@@ -12083,7 +12483,7 @@ class Client(OpenApiClient):
 
     def list_resource_groups_with_options(self, tmp_req, runtime):
         """
-        @summary 查询资源组
+        @summary Queries a list of resource groups of a specific type.
         
 
         @param tmp_req: ListResourceGroupsRequest
@@ -12129,7 +12529,7 @@ class Client(OpenApiClient):
 
     def list_resource_groups(self, request):
         """
-        @summary 查询资源组
+        @summary Queries a list of resource groups of a specific type.
         
 
         @param request: ListResourceGroupsRequest
@@ -12141,7 +12541,7 @@ class Client(OpenApiClient):
 
     def list_shift_personnels_with_options(self, request, runtime):
         """
-        @summary The operation that you want to perform. Set the value to *ListShiftPersonnels**.
+        @summary Queries a list of on-duty engineers in a shift schedule.
         
 
         @param request: ListShiftPersonnelsRequest
@@ -12183,7 +12583,7 @@ class Client(OpenApiClient):
 
     def list_shift_personnels(self, request):
         """
-        @summary The operation that you want to perform. Set the value to *ListShiftPersonnels**.
+        @summary Queries a list of on-duty engineers in a shift schedule.
         
 
         @param request: ListShiftPersonnelsRequest
@@ -12195,7 +12595,7 @@ class Client(OpenApiClient):
 
     def list_shift_schedules_with_options(self, request, runtime):
         """
-        @summary The operation that you want to perform. Set the value to *ListShiftSchedules**.
+        @summary Queries a list of shift schedules in Operation Center.
         
 
         @param request: ListShiftSchedulesRequest
@@ -12235,7 +12635,7 @@ class Client(OpenApiClient):
 
     def list_shift_schedules(self, request):
         """
-        @summary The operation that you want to perform. Set the value to *ListShiftSchedules**.
+        @summary Queries a list of shift schedules in Operation Center.
         
 
         @param request: ListShiftSchedulesRequest
@@ -12293,7 +12693,7 @@ class Client(OpenApiClient):
 
     def list_table_level_with_options(self, request, runtime):
         """
-        @summary Queries table levels. This API operation will be replaced soon. We recommend that you do not call this API operation.
+        @summary Queries a list of table levels. This operation will be replaced soon. We recommend that you do not call this operation.
         
 
         @param request: ListTableLevelRequest
@@ -12325,7 +12725,7 @@ class Client(OpenApiClient):
 
     def list_table_level(self, request):
         """
-        @summary Queries table levels. This API operation will be replaced soon. We recommend that you do not call this API operation.
+        @summary Queries a list of table levels. This operation will be replaced soon. We recommend that you do not call this operation.
         
 
         @param request: ListTableLevelRequest
@@ -12337,7 +12737,7 @@ class Client(OpenApiClient):
 
     def list_table_theme_with_options(self, request, runtime):
         """
-        @summary Queries table folders. This API operation will be replaced soon. We recommend that you do not call this API operation.
+        @summary Queries a list of table themes. This operation will be replaced soon. We recommend that you do not call this operation.
         
 
         @param request: ListTableThemeRequest
@@ -12369,7 +12769,7 @@ class Client(OpenApiClient):
 
     def list_table_theme(self, request):
         """
-        @summary Queries table folders. This API operation will be replaced soon. We recommend that you do not call this API operation.
+        @summary Queries a list of table themes. This operation will be replaced soon. We recommend that you do not call this operation.
         
 
         @param request: ListTableThemeRequest
@@ -12443,8 +12843,7 @@ class Client(OpenApiClient):
 
     def mount_directory_with_options(self, request, runtime):
         """
-        @summary The ID of the directory that you want to add to the left-side navigation pane of DataAnalysis. This parameter is used together with the TargetType parameter.
-        For example, if you set the TargetType parameter to META_ALBUM, you must set the TargetId parameter to the ID of the related data album. You can call the [ListMetaCollections](https://help.aliyun.com/document_detail/469938.html) operation to obtain the ID of the data album. The ID is indicated by the QualifiedName parameter.
+        @summary Adds a directory to the left-side navigation pane of DataAnalysis.
         
 
         @param request: MountDirectoryRequest
@@ -12482,8 +12881,7 @@ class Client(OpenApiClient):
 
     def mount_directory(self, request):
         """
-        @summary The ID of the directory that you want to add to the left-side navigation pane of DataAnalysis. This parameter is used together with the TargetType parameter.
-        For example, if you set the TargetType parameter to META_ALBUM, you must set the TargetId parameter to the ID of the related data album. You can call the [ListMetaCollections](https://help.aliyun.com/document_detail/469938.html) operation to obtain the ID of the data album. The ID is indicated by the QualifiedName parameter.
+        @summary Adds a directory to the left-side navigation pane of DataAnalysis.
         
 
         @param request: MountDirectoryRequest
@@ -12495,7 +12893,7 @@ class Client(OpenApiClient):
 
     def offline_node_with_options(self, request, runtime):
         """
-        @summary The operation that you want to perform. Set the value to *OfflineNode**.
+        @summary Undeploys a node.
         
 
         @param request: OfflineNodeRequest
@@ -12531,7 +12929,7 @@ class Client(OpenApiClient):
 
     def offline_node(self, request):
         """
-        @summary The operation that you want to perform. Set the value to *OfflineNode**.
+        @summary Undeploys a node.
         
 
         @param request: OfflineNodeRequest
@@ -12543,6 +12941,8 @@ class Client(OpenApiClient):
 
     def publish_data_service_api_with_options(self, request, runtime):
         """
+        @summary Publishes an API.
+        
 
         @param request: PublishDataServiceApiRequest
 
@@ -12579,6 +12979,8 @@ class Client(OpenApiClient):
 
     def publish_data_service_api(self, request):
         """
+        @summary Publishes an API.
+        
 
         @param request: PublishDataServiceApiRequest
 
@@ -12589,10 +12991,9 @@ class Client(OpenApiClient):
 
     def query_disync_task_config_process_result_with_options(self, request, runtime):
         """
-        @summary DataWorks allows you to call only the [CreateDISyncTask](https://help.aliyun.com/document_detail/278725.html) or [UpdateDISyncTask](https://help.aliyun.com/document_detail/289109.html) operation to create or update a batch synchronization node in Data Integration. To create or update a real-time synchronization node or a synchronization solution, you must first call the GenerateDISyncTaskConfigForCreating or GenerateDISyncTaskConfigForUpdating operation to generate the ID of an asynchronous thread and call the [QueryDISyncTaskConfigProcessResult](https://help.aliyun.com/document_detail/383465.html) operation to obtain the asynchronously generated parameters based on the ID. Then, you can call the CreateDISyncTask or UpdateDISyncTask operation and use the parameters as request parameters to create or update a real-time synchronization node or a synchronization solution.
-        DataWorks allows you to create or update real-time synchronization nodes and synchronization solutions in Data Integration only in asynchronous mode.
+        @summary Queries the execution results of an asynchronous task.
         
-        @description The operation that you want to perform.
+        @description DataWorks allows you to call only the [CreateDISyncTask](https://help.aliyun.com/document_detail/278725.html) operation to create a batch synchronization task or the [UpdateDISyncTask](https://help.aliyun.com/document_detail/289109.html) operation to update a batch synchronization task in Data Integration. To create or update a real-time synchronization task, you must first call the [GenerateDISyncTaskConfigForCreating](https://help.aliyun.com/document_detail/383463.html) or [GenerateDISyncTaskConfigForUpdating](https://help.aliyun.com/document_detail/383464.html) operation to obtain the ID of an asynchronous thread and call the [QueryDISyncTaskConfigProcessResult](https://help.aliyun.com/document_detail/383465.html) operation to obtain the asynchronously generated parameters based on the ID. Then, you can call the CreateDISyncTask or UpdateDISyncTask operation and use the parameters as request parameters to create or update a real-time synchronization task. DataWorks allows you to create or update real-time synchronization tasks in Data Integration only in asynchronous mode.
         
 
         @param request: QueryDISyncTaskConfigProcessResultRequest
@@ -12630,10 +13031,9 @@ class Client(OpenApiClient):
 
     def query_disync_task_config_process_result(self, request):
         """
-        @summary DataWorks allows you to call only the [CreateDISyncTask](https://help.aliyun.com/document_detail/278725.html) or [UpdateDISyncTask](https://help.aliyun.com/document_detail/289109.html) operation to create or update a batch synchronization node in Data Integration. To create or update a real-time synchronization node or a synchronization solution, you must first call the GenerateDISyncTaskConfigForCreating or GenerateDISyncTaskConfigForUpdating operation to generate the ID of an asynchronous thread and call the [QueryDISyncTaskConfigProcessResult](https://help.aliyun.com/document_detail/383465.html) operation to obtain the asynchronously generated parameters based on the ID. Then, you can call the CreateDISyncTask or UpdateDISyncTask operation and use the parameters as request parameters to create or update a real-time synchronization node or a synchronization solution.
-        DataWorks allows you to create or update real-time synchronization nodes and synchronization solutions in Data Integration only in asynchronous mode.
+        @summary Queries the execution results of an asynchronous task.
         
-        @description The operation that you want to perform.
+        @description DataWorks allows you to call only the [CreateDISyncTask](https://help.aliyun.com/document_detail/278725.html) operation to create a batch synchronization task or the [UpdateDISyncTask](https://help.aliyun.com/document_detail/289109.html) operation to update a batch synchronization task in Data Integration. To create or update a real-time synchronization task, you must first call the [GenerateDISyncTaskConfigForCreating](https://help.aliyun.com/document_detail/383463.html) or [GenerateDISyncTaskConfigForUpdating](https://help.aliyun.com/document_detail/383464.html) operation to obtain the ID of an asynchronous thread and call the [QueryDISyncTaskConfigProcessResult](https://help.aliyun.com/document_detail/383465.html) operation to obtain the asynchronously generated parameters based on the ID. Then, you can call the CreateDISyncTask or UpdateDISyncTask operation and use the parameters as request parameters to create or update a real-time synchronization task. DataWorks allows you to create or update real-time synchronization tasks in Data Integration only in asynchronous mode.
         
 
         @param request: QueryDISyncTaskConfigProcessResultRequest
@@ -12645,7 +13045,7 @@ class Client(OpenApiClient):
 
     def query_default_template_with_options(self, request, runtime):
         """
-        @summary 获取模版列表
+        @summary Queries the default data category and data sensitivity level template defined by Data Security Guard.
         
 
         @param request: QueryDefaultTemplateRequest
@@ -12679,7 +13079,7 @@ class Client(OpenApiClient):
 
     def query_default_template(self, request):
         """
-        @summary 获取模版列表
+        @summary Queries the default data category and data sensitivity level template defined by Data Security Guard.
         
 
         @param request: QueryDefaultTemplateRequest
@@ -12691,7 +13091,11 @@ class Client(OpenApiClient):
 
     def query_public_model_engine_with_options(self, request, runtime):
         """
-        @summary 建模平台弹外的公共处理
+        @summary Queries information about objects that are created in Data Modeling by using fast modeling language (FML) statements.
+        
+        @description    Each time you call this API operation, you must use FML statements to query information about objects that are created in Data Modeling.
+        The information about the objects can be queried by page, except for data layers, business processes, and data domains. You can add an offset to the end of an FML statement. The num LIMIT num statement specifies the offset when the information about the objects is queried, and the number of pages to return each time. The offset value must be a multiple of the number of pages.
+        A maximum of 1,000 entries can be returned each time you call this API operation.
         
 
         @param request: QueryPublicModelEngineRequest
@@ -12727,7 +13131,11 @@ class Client(OpenApiClient):
 
     def query_public_model_engine(self, request):
         """
-        @summary 建模平台弹外的公共处理
+        @summary Queries information about objects that are created in Data Modeling by using fast modeling language (FML) statements.
+        
+        @description    Each time you call this API operation, you must use FML statements to query information about objects that are created in Data Modeling.
+        The information about the objects can be queried by page, except for data layers, business processes, and data domains. You can add an offset to the end of an FML statement. The num LIMIT num statement specifies the offset when the information about the objects is queried, and the number of pages to return each time. The offset value must be a multiple of the number of pages.
+        A maximum of 1,000 entries can be returned each time you call this API operation.
         
 
         @param request: QueryPublicModelEngineRequest
@@ -12739,7 +13147,7 @@ class Client(OpenApiClient):
 
     def query_recognize_data_by_rule_type_with_options(self, request, runtime):
         """
-        @summary 获取识别规则类型数据
+        @summary Queries the type of a sensitive data identification rule.
         
 
         @param request: QueryRecognizeDataByRuleTypeRequest
@@ -12775,7 +13183,7 @@ class Client(OpenApiClient):
 
     def query_recognize_data_by_rule_type(self, request):
         """
-        @summary 获取识别规则类型数据
+        @summary Queries the type of a sensitive data identification rule.
         
 
         @param request: QueryRecognizeDataByRuleTypeRequest
@@ -12787,7 +13195,7 @@ class Client(OpenApiClient):
 
     def query_recognize_rule_detail_with_options(self, request, runtime):
         """
-        @summary 查询识别规则详情
+        @summary Queries the details of a specified sensitive field in Data Security Guard.
         
 
         @param request: QueryRecognizeRuleDetailRequest
@@ -12823,7 +13231,7 @@ class Client(OpenApiClient):
 
     def query_recognize_rule_detail(self, request):
         """
-        @summary 查询识别规则详情
+        @summary Queries the details of a specified sensitive field in Data Security Guard.
         
 
         @param request: QueryRecognizeRuleDetailRequest
@@ -12835,7 +13243,7 @@ class Client(OpenApiClient):
 
     def query_recognize_rules_type_with_options(self, runtime):
         """
-        @summary 获取识别规则类型
+        @summary Queries the built-in sensitive data identification rule that is used to configure a sensitive field.
         
 
         @param request: QueryRecognizeRulesTypeRequest
@@ -12863,7 +13271,7 @@ class Client(OpenApiClient):
 
     def query_recognize_rules_type(self):
         """
-        @summary 获取识别规则类型
+        @summary Queries the built-in sensitive data identification rule that is used to configure a sensitive field.
         
 
         @return: QueryRecognizeRulesTypeResponse
@@ -12873,7 +13281,7 @@ class Client(OpenApiClient):
 
     def query_sens_classification_with_options(self, request, runtime):
         """
-        @summary 获取分类
+        @summary Queries data categories.
         
 
         @param request: QuerySensClassificationRequest
@@ -12909,7 +13317,7 @@ class Client(OpenApiClient):
 
     def query_sens_classification(self, request):
         """
-        @summary 获取分类
+        @summary Queries data categories.
         
 
         @param request: QuerySensClassificationRequest
@@ -12921,7 +13329,7 @@ class Client(OpenApiClient):
 
     def query_sens_level_with_options(self, request, runtime):
         """
-        @summary 获取分级
+        @summary Queries data sensitivity levels in Data Security Guard.
         
 
         @param request: QuerySensLevelRequest
@@ -12957,7 +13365,7 @@ class Client(OpenApiClient):
 
     def query_sens_level(self, request):
         """
-        @summary 获取分级
+        @summary Queries data sensitivity levels in Data Security Guard.
         
 
         @param request: QuerySensLevelRequest
@@ -12969,7 +13377,7 @@ class Client(OpenApiClient):
 
     def query_sens_node_info_with_options(self, request, runtime):
         """
-        @summary 获取敏感字段
+        @summary Queries sensitive data identification rules.
         
 
         @param request: QuerySensNodeInfoRequest
@@ -13015,7 +13423,7 @@ class Client(OpenApiClient):
 
     def query_sens_node_info(self, request):
         """
-        @summary 获取敏感字段
+        @summary Queries sensitive data identification rules.
         
 
         @param request: QuerySensNodeInfoRequest
@@ -13027,7 +13435,9 @@ class Client(OpenApiClient):
 
     def register_lineage_relation_with_options(self, tmp_req, runtime):
         """
-        @summary 注册实体关系，支持用户注册自定义的实体关系
+        @summary Registers the lineage between self-managed entities to DataWorks.
+        
+        @description This operation is in the trial phase. Users who need to call this operation can apply for it. The users can call this operation after the administrator adds the users to the trial list.
         
 
         @param tmp_req: RegisterLineageRelationRequest
@@ -13065,7 +13475,9 @@ class Client(OpenApiClient):
 
     def register_lineage_relation(self, request):
         """
-        @summary 注册实体关系，支持用户注册自定义的实体关系
+        @summary Registers the lineage between self-managed entities to DataWorks.
+        
+        @description This operation is in the trial phase. Users who need to call this operation can apply for it. The users can call this operation after the administrator adds the users to the trial list.
         
 
         @param request: RegisterLineageRelationRequest
@@ -13077,7 +13489,7 @@ class Client(OpenApiClient):
 
     def remove_entity_tags_with_options(self, tmp_req, runtime):
         """
-        @summary Remove entity tags by given qualified name and tag keys
+        @summary Removes tags from an entity. Only entities of the maxcompute-table type are supported.
         
 
         @param tmp_req: RemoveEntityTagsRequest
@@ -13119,7 +13531,7 @@ class Client(OpenApiClient):
 
     def remove_entity_tags(self, request):
         """
-        @summary Remove entity tags by given qualified name and tag keys
+        @summary Removes tags from an entity. Only entities of the maxcompute-table type are supported.
         
 
         @param request: RemoveEntityTagsRequest
@@ -13131,6 +13543,8 @@ class Client(OpenApiClient):
 
     def remove_project_member_from_role_with_options(self, request, runtime):
         """
+        @summary Removes a role from a user in a DataWorks workspace.
+        
 
         @param request: RemoveProjectMemberFromRoleRequest
 
@@ -13167,6 +13581,8 @@ class Client(OpenApiClient):
 
     def remove_project_member_from_role(self, request):
         """
+        @summary Removes a role from a user in a DataWorks workspace.
+        
 
         @param request: RemoveProjectMemberFromRoleRequest
 
@@ -13273,7 +13689,7 @@ class Client(OpenApiClient):
 
     def revoke_column_permission_with_options(self, request, runtime):
         """
-        @summary The ID of the region where the MaxCompute project that contains the destination fields resides. For example, the ID of the China (Shanghai) region is cn-shanghai, and that of the China (Zhangjiakou) region is cn-zhangjiakou. The system automatically determines the value of this parameter based on the endpoint used to call the operation.
+        @summary Revokes permissions on table fields from a user.
         
 
         @param request: RevokeColumnPermissionRequest
@@ -13317,7 +13733,7 @@ class Client(OpenApiClient):
 
     def revoke_column_permission(self, request):
         """
-        @summary The ID of the region where the MaxCompute project that contains the destination fields resides. For example, the ID of the China (Shanghai) region is cn-shanghai, and that of the China (Zhangjiakou) region is cn-zhangjiakou. The system automatically determines the value of this parameter based on the endpoint used to call the operation.
+        @summary Revokes permissions on table fields from a user.
         
 
         @param request: RevokeColumnPermissionRequest
@@ -13329,6 +13745,8 @@ class Client(OpenApiClient):
 
     def revoke_table_permission_with_options(self, request, runtime):
         """
+        @summary Revokes permissions on a table from a user.
+        
 
         @param request: RevokeTablePermissionRequest
 
@@ -13371,6 +13789,8 @@ class Client(OpenApiClient):
 
     def revoke_table_permission(self, request):
         """
+        @summary Revokes permissions on a table from a user.
+        
 
         @param request: RevokeTablePermissionRequest
 
@@ -13381,6 +13801,8 @@ class Client(OpenApiClient):
 
     def run_cycle_dag_nodes_with_options(self, request, runtime):
         """
+        @summary Creates a workflow to backfill data.
+        
         @description For more information about data backfill, see [Backfill data](https://help.aliyun.com/document_detail/137937.html).
         
 
@@ -13443,6 +13865,8 @@ class Client(OpenApiClient):
 
     def run_cycle_dag_nodes(self, request):
         """
+        @summary Creates a workflow to backfill data.
+        
         @description For more information about data backfill, see [Backfill data](https://help.aliyun.com/document_detail/137937.html).
         
 
@@ -13455,7 +13879,7 @@ class Client(OpenApiClient):
 
     def run_manual_dag_nodes_with_options(self, request, runtime):
         """
-        @summary The region ID. For example, the ID of the China (Shanghai) region is cn-shanghai, and that of the China (Zhangjiakou) region is cn-zhangjiakou. The system automatically determines the value of this parameter based on the endpoint used to call the operation.
+        @summary Runs nodes in a manually triggered workflow. Before you call this operation, make sure that the manually triggered workflow is committed and deployed. You can find a manually triggered workflow in Operation Center only after the manually triggered workflow is committed and deployed.
         
 
         @param request: RunManualDagNodesRequest
@@ -13509,7 +13933,7 @@ class Client(OpenApiClient):
 
     def run_manual_dag_nodes(self, request):
         """
-        @summary The region ID. For example, the ID of the China (Shanghai) region is cn-shanghai, and that of the China (Zhangjiakou) region is cn-zhangjiakou. The system automatically determines the value of this parameter based on the endpoint used to call the operation.
+        @summary Runs nodes in a manually triggered workflow. Before you call this operation, make sure that the manually triggered workflow is committed and deployed. You can find a manually triggered workflow in Operation Center only after the manually triggered workflow is committed and deployed.
         
 
         @param request: RunManualDagNodesRequest
@@ -13521,6 +13945,8 @@ class Client(OpenApiClient):
 
     def run_smoke_test_with_options(self, request, runtime):
         """
+        @summary Creates a workflow to perform smoke testing.
+        
 
         @param request: RunSmokeTestRequest
 
@@ -13561,6 +13987,8 @@ class Client(OpenApiClient):
 
     def run_smoke_test(self, request):
         """
+        @summary Creates a workflow to perform smoke testing.
+        
 
         @param request: RunSmokeTestRequest
 
@@ -13571,6 +13999,8 @@ class Client(OpenApiClient):
 
     def run_trigger_node_with_options(self, request, runtime):
         """
+        @summary Runs a manually triggered node.
+        
 
         @param request: RunTriggerNodeRequest
 
@@ -13609,6 +14039,8 @@ class Client(OpenApiClient):
 
     def run_trigger_node(self, request):
         """
+        @summary Runs a manually triggered node.
+        
 
         @param request: RunTriggerNodeRequest
 
@@ -13619,7 +14051,7 @@ class Client(OpenApiClient):
 
     def save_data_service_api_test_result_with_options(self, request, runtime):
         """
-        @summary 保存api测试结果
+        @summary Saves the test results of an API.
         
 
         @param request: SaveDataServiceApiTestResultRequest
@@ -13661,7 +14093,7 @@ class Client(OpenApiClient):
 
     def save_data_service_api_test_result(self, request):
         """
-        @summary 保存api测试结果
+        @summary Saves the test results of an API.
         
 
         @param request: SaveDataServiceApiTestResultRequest
@@ -13673,6 +14105,8 @@ class Client(OpenApiClient):
 
     def scan_sensitive_data_with_options(self, request, runtime):
         """
+        @summary Checks whether input data contains sensitive data.
+        
 
         @param request: ScanSensitiveDataRequest
 
@@ -13703,6 +14137,8 @@ class Client(OpenApiClient):
 
     def scan_sensitive_data(self, request):
         """
+        @summary Checks whether input data contains sensitive data.
+        
 
         @param request: ScanSensitiveDataRequest
 
@@ -13713,9 +14149,9 @@ class Client(OpenApiClient):
 
     def search_meta_tables_with_options(self, request, runtime):
         """
-        @summary For more information about the example on how to use the SearchMetaTables operation, see [Examples of DataWorks API operations](https://developer.aliyun.com/article/780879?groupCode=dataworks).
+        @summary Queries metatables based on specific conditions.
         
-        @description The operation that you want to perform. Set the value to *SearchMetaTables**.
+        @description You can call this operation to query only metatables in a MaxCompute or E-MapReduce (EMR) compute engine.
         
 
         @param request: SearchMetaTablesRequest
@@ -13763,9 +14199,9 @@ class Client(OpenApiClient):
 
     def search_meta_tables(self, request):
         """
-        @summary For more information about the example on how to use the SearchMetaTables operation, see [Examples of DataWorks API operations](https://developer.aliyun.com/article/780879?groupCode=dataworks).
+        @summary Queries metatables based on specific conditions.
         
-        @description The operation that you want to perform. Set the value to *SearchMetaTables**.
+        @description You can call this operation to query only metatables in a MaxCompute or E-MapReduce (EMR) compute engine.
         
 
         @param request: SearchMetaTablesRequest
@@ -13778,6 +14214,8 @@ class Client(OpenApiClient):
     def search_nodes_by_output_with_options(self, request, runtime):
         """
         @deprecated OpenAPI SearchNodesByOutput is deprecated
+        
+        @summary Queries a node based on the output.
         
 
         @param request: SearchNodesByOutputRequest
@@ -13816,6 +14254,8 @@ class Client(OpenApiClient):
         """
         @deprecated OpenAPI SearchNodesByOutput is deprecated
         
+        @summary Queries a node based on the output.
+        
 
         @param request: SearchNodesByOutputRequest
 
@@ -13828,6 +14268,8 @@ class Client(OpenApiClient):
     def set_data_source_share_with_options(self, request, runtime):
         """
         @deprecated OpenAPI SetDataSourceShare is deprecated
+        
+        @summary Shares a data source to a specific DataWorks workspace or a specific user.
         
 
         @param request: SetDataSourceShareRequest
@@ -13872,6 +14314,8 @@ class Client(OpenApiClient):
         """
         @deprecated OpenAPI SetDataSourceShare is deprecated
         
+        @summary Shares a data source to a specific DataWorks workspace or a specific user.
+        
 
         @param request: SetDataSourceShareRequest
 
@@ -13883,7 +14327,7 @@ class Client(OpenApiClient):
 
     def set_entity_tags_with_options(self, tmp_req, runtime):
         """
-        @summary Set entity tags by given qualified name and tags
+        @summary Configures tags for an entity. Only entities of the maxcompute-table type are supported.
         
 
         @param tmp_req: SetEntityTagsRequest
@@ -13925,7 +14369,7 @@ class Client(OpenApiClient):
 
     def set_entity_tags(self, request):
         """
-        @summary Set entity tags by given qualified name and tags
+        @summary Configures tags for an entity. Only entities of the maxcompute-table type are supported.
         
 
         @param request: SetEntityTagsRequest
@@ -13937,7 +14381,7 @@ class Client(OpenApiClient):
 
     def set_success_instance_with_options(self, request, runtime):
         """
-        @summary The operation that you want to perform. Set the value to *SetSuccessInstance**.
+        @summary Sets the state of a failed instance to successful.
         
 
         @param request: SetSuccessInstanceRequest
@@ -13973,7 +14417,7 @@ class Client(OpenApiClient):
 
     def set_success_instance(self, request):
         """
-        @summary The operation that you want to perform. Set the value to *SetSuccessInstance**.
+        @summary Sets the state of a failed instance to successful.
         
 
         @param request: SetSuccessInstanceRequest
@@ -13985,7 +14429,7 @@ class Client(OpenApiClient):
 
     def start_dijob_with_options(self, tmp_req, runtime):
         """
-        @summary 启动数据集成新版解决方案任务
+        @summary Starts a synchronization task of a new version. Only the following type of task is supported: real-time data synchronization from a MySQL database to Hologres.
         
 
         @param tmp_req: StartDIJobRequest
@@ -14027,7 +14471,7 @@ class Client(OpenApiClient):
 
     def start_dijob(self, request):
         """
-        @summary 启动数据集成新版解决方案任务
+        @summary Starts a synchronization task of a new version. Only the following type of task is supported: real-time data synchronization from a MySQL database to Hologres.
         
 
         @param request: StartDIJobRequest
@@ -14039,7 +14483,7 @@ class Client(OpenApiClient):
 
     def start_disync_instance_with_options(self, request, runtime):
         """
-        @summary The operation that you want to perform.
+        @summary Starts a real-time synchronization task or a synchronization solution.
         
 
         @param request: StartDISyncInstanceRequest
@@ -14079,7 +14523,7 @@ class Client(OpenApiClient):
 
     def start_disync_instance(self, request):
         """
-        @summary The operation that you want to perform.
+        @summary Starts a real-time synchronization task or a synchronization solution.
         
 
         @param request: StartDISyncInstanceRequest
@@ -14091,6 +14535,8 @@ class Client(OpenApiClient):
 
     def start_migration_with_options(self, request, runtime):
         """
+        @summary Starts a migration task.
+        
 
         @param request: StartMigrationRequest
 
@@ -14125,6 +14571,8 @@ class Client(OpenApiClient):
 
     def start_migration(self, request):
         """
+        @summary Starts a migration task.
+        
 
         @param request: StartMigrationRequest
 
@@ -14135,7 +14583,7 @@ class Client(OpenApiClient):
 
     def stop_dijob_with_options(self, request, runtime):
         """
-        @summary 停止数据集成新版解决方案任务
+        @summary Stops a new-version synchronization task. The following type of synchronization task is supported: real-time synchronization of all data in a MySQL database to Hologres.
         
 
         @param request: StopDIJobRequest
@@ -14169,7 +14617,7 @@ class Client(OpenApiClient):
 
     def stop_dijob(self, request):
         """
-        @summary 停止数据集成新版解决方案任务
+        @summary Stops a new-version synchronization task. The following type of synchronization task is supported: real-time synchronization of all data in a MySQL database to Hologres.
         
 
         @param request: StopDIJobRequest
@@ -14181,7 +14629,7 @@ class Client(OpenApiClient):
 
     def stop_disync_instance_with_options(self, request, runtime):
         """
-        @summary The operation that you want to perform.
+        @summary Stops a real-time synchronization task.
         
 
         @param request: StopDISyncInstanceRequest
@@ -14219,7 +14667,7 @@ class Client(OpenApiClient):
 
     def stop_disync_instance(self, request):
         """
-        @summary The operation that you want to perform.
+        @summary Stops a real-time synchronization task.
         
 
         @param request: StopDISyncInstanceRequest
@@ -14231,6 +14679,8 @@ class Client(OpenApiClient):
 
     def stop_instance_with_options(self, request, runtime):
         """
+        @summary Terminates an instance.
+        
 
         @param request: StopInstanceRequest
 
@@ -14265,6 +14715,8 @@ class Client(OpenApiClient):
 
     def stop_instance(self, request):
         """
+        @summary Terminates an instance.
+        
 
         @param request: StopInstanceRequest
 
@@ -14275,7 +14727,7 @@ class Client(OpenApiClient):
 
     def submit_data_service_api_with_options(self, request, runtime):
         """
-        @summary 发布APi
+        @summary Submits an API in DataService Studio.
         
 
         @param request: SubmitDataServiceApiRequest
@@ -14313,7 +14765,7 @@ class Client(OpenApiClient):
 
     def submit_data_service_api(self, request):
         """
-        @summary 发布APi
+        @summary Submits an API in DataService Studio.
         
 
         @param request: SubmitDataServiceApiRequest
@@ -14325,7 +14777,7 @@ class Client(OpenApiClient):
 
     def submit_file_with_options(self, request, runtime):
         """
-        @summary The operation that you want to perform. Set the value to *SubmitFile**.
+        @summary Commits a file to the development environment of the scheduling system to generate a task.
         
 
         @param request: SubmitFileRequest
@@ -14367,7 +14819,7 @@ class Client(OpenApiClient):
 
     def submit_file(self, request):
         """
-        @summary The operation that you want to perform. Set the value to *SubmitFile**.
+        @summary Commits a file to the development environment of the scheduling system to generate a task.
         
 
         @param request: SubmitFileRequest
@@ -14427,7 +14879,7 @@ class Client(OpenApiClient):
 
     def terminate_disync_instance_with_options(self, request, runtime):
         """
-        @summary The operation that you want to perform. Set the value to *TerminateDISyncInstance**.
+        @summary Undeploys a real-time synchronization task.
         
 
         @param request: TerminateDISyncInstanceRequest
@@ -14465,7 +14917,7 @@ class Client(OpenApiClient):
 
     def terminate_disync_instance(self, request):
         """
-        @summary The operation that you want to perform. Set the value to *TerminateDISyncInstance**.
+        @summary Undeploys a real-time synchronization task.
         
 
         @param request: TerminateDISyncInstanceRequest
@@ -14535,6 +14987,8 @@ class Client(OpenApiClient):
 
     def test_network_connection_with_options(self, request, runtime):
         """
+        @summary Tests the network connectivity between a data source and a resource group.
+        
 
         @param request: TestNetworkConnectionRequest
 
@@ -14573,6 +15027,8 @@ class Client(OpenApiClient):
 
     def test_network_connection(self, request):
         """
+        @summary Tests the network connectivity between a data source and a resource group.
+        
 
         @param request: TestNetworkConnectionRequest
 
@@ -14583,6 +15039,8 @@ class Client(OpenApiClient):
 
     def top_ten_elapsed_time_instance_with_options(self, request, runtime):
         """
+        @summary Queries the ranking of the running durations of instances.
+        
 
         @param request: TopTenElapsedTimeInstanceRequest
 
@@ -14615,6 +15073,8 @@ class Client(OpenApiClient):
 
     def top_ten_elapsed_time_instance(self, request):
         """
+        @summary Queries the ranking of the running durations of instances.
+        
 
         @param request: TopTenElapsedTimeInstanceRequest
 
@@ -14625,6 +15085,8 @@ class Client(OpenApiClient):
 
     def top_ten_error_times_instance_with_options(self, request, runtime):
         """
+        @summary Queries the ranking of nodes on which errors occur within the previous month.
+        
 
         @param request: TopTenErrorTimesInstanceRequest
 
@@ -14657,6 +15119,8 @@ class Client(OpenApiClient):
 
     def top_ten_error_times_instance(self, request):
         """
+        @summary Queries the ranking of nodes on which errors occur within the previous month.
+        
 
         @param request: TopTenErrorTimesInstanceRequest
 
@@ -14667,7 +15131,7 @@ class Client(OpenApiClient):
 
     def umount_directory_with_options(self, request, runtime):
         """
-        @summary 将数据专辑从数据分析的左侧导航目录移除（卸载）
+        @summary Removes a directory from the left-side navigation pane of DataAnalysis.
         
 
         @param request: UmountDirectoryRequest
@@ -14705,7 +15169,7 @@ class Client(OpenApiClient):
 
     def umount_directory(self, request):
         """
-        @summary 将数据专辑从数据分析的左侧导航目录移除（卸载）
+        @summary Removes a directory from the left-side navigation pane of DataAnalysis.
         
 
         @param request: UmountDirectoryRequest
@@ -14847,9 +15311,69 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.update_business_with_options(request, runtime)
 
+    def update_cluster_configs_with_options(self, tmp_req, runtime):
+        """
+        @summary 更新集群的配置信息
+        
+
+        @param tmp_req: UpdateClusterConfigsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateClusterConfigsResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20200518_models.UpdateClusterConfigsShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.config_values):
+            request.config_values_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.config_values, 'ConfigValues', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.config_type):
+            query['ConfigType'] = request.config_type
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        body = {}
+        if not UtilClient.is_unset(request.config_values_shrink):
+            body['ConfigValues'] = request.config_values_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateClusterConfigs',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.UpdateClusterConfigsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_cluster_configs(self, request):
+        """
+        @summary 更新集群的配置信息
+        
+
+        @param request: UpdateClusterConfigsRequest
+
+        @return: UpdateClusterConfigsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.update_cluster_configs_with_options(request, runtime)
+
     def update_connection_with_options(self, request, runtime):
         """
         @deprecated OpenAPI UpdateConnection is deprecated
+        
+        @summary Updates a data source.
         
 
         @param request: UpdateConnectionRequest
@@ -14894,6 +15418,8 @@ class Client(OpenApiClient):
         """
         @deprecated OpenAPI UpdateConnection is deprecated
         
+        @summary Updates a data source.
+        
 
         @param request: UpdateConnectionRequest
 
@@ -14905,7 +15431,9 @@ class Client(OpenApiClient):
 
     def update_dialarm_rule_with_options(self, tmp_req, runtime):
         """
-        @summary 更新数据集成新版告警规则
+        @summary Updates an alert rule for a new-version synchronization task. The following type of task is supported: real-time synchronization of all data in a MySQL database to Hologres.
+        
+        @description You can configure alert rules only for tasks that can be used for real-time data synchronization. You must update all fields in the alert rule.
         
 
         @param tmp_req: UpdateDIAlarmRuleRequest
@@ -14955,7 +15483,9 @@ class Client(OpenApiClient):
 
     def update_dialarm_rule(self, request):
         """
-        @summary 更新数据集成新版告警规则
+        @summary Updates an alert rule for a new-version synchronization task. The following type of task is supported: real-time synchronization of all data in a MySQL database to Hologres.
+        
+        @description You can configure alert rules only for tasks that can be used for real-time data synchronization. You must update all fields in the alert rule.
         
 
         @param request: UpdateDIAlarmRuleRequest
@@ -14967,7 +15497,7 @@ class Client(OpenApiClient):
 
     def update_dijob_with_options(self, tmp_req, runtime):
         """
-        @summary 更新数据集成新版解决方案任务
+        @summary Updates a new-version synchronization task. The following type of task is supported: real-time synchronization of all data in a MySQL database to Hologres.
         
 
         @param tmp_req: UpdateDIJobRequest
@@ -15021,7 +15551,7 @@ class Client(OpenApiClient):
 
     def update_dijob(self, request):
         """
-        @summary 更新数据集成新版解决方案任务
+        @summary Updates a new-version synchronization task. The following type of task is supported: real-time synchronization of all data in a MySQL database to Hologres.
         
 
         @param request: UpdateDIJobRequest
@@ -15033,9 +15563,9 @@ class Client(OpenApiClient):
 
     def update_diproject_config_with_options(self, request, runtime):
         """
-        @summary DataWorks allows you to specify a default global configuration only for the processing rules of DDL messages in synchronization solutions. After you configure the *processing rules of DDL messages** in synchronization solutions, the configuration is used as the default global configuration and applies to all real-time synchronization nodes in the solutions. You can modify the **processing rules of DDL messages** based on your business requirements. For more information about how to configure a synchronization solution, see [Synchronization solutions](https://help.aliyun.com/document_detail/199008.html).
+        @summary Modifies the default global configuration of synchronization solutions in a DataWorks workspace.
         
-        @description The operation that you want to perform. Set the value to *UpdateDIProjectConfig**.
+        @description DataWorks allows you to specify a default global configuration only for the processing rules of DDL messages in synchronization solutions. After you configure the *processing rules of DDL messages** in synchronization solutions, the configuration is used as the default global configuration and applies to all real-time synchronization tasks in the solutions. You can modify the **processing rules of DDL messages** based on your business requirements. For more information about how to configure a synchronization solution, see [Synchronization solutions](https://help.aliyun.com/document_detail/199008.html).
         
 
         @param request: UpdateDIProjectConfigRequest
@@ -15075,9 +15605,9 @@ class Client(OpenApiClient):
 
     def update_diproject_config(self, request):
         """
-        @summary DataWorks allows you to specify a default global configuration only for the processing rules of DDL messages in synchronization solutions. After you configure the *processing rules of DDL messages** in synchronization solutions, the configuration is used as the default global configuration and applies to all real-time synchronization nodes in the solutions. You can modify the **processing rules of DDL messages** based on your business requirements. For more information about how to configure a synchronization solution, see [Synchronization solutions](https://help.aliyun.com/document_detail/199008.html).
+        @summary Modifies the default global configuration of synchronization solutions in a DataWorks workspace.
         
-        @description The operation that you want to perform. Set the value to *UpdateDIProjectConfig**.
+        @description DataWorks allows you to specify a default global configuration only for the processing rules of DDL messages in synchronization solutions. After you configure the *processing rules of DDL messages** in synchronization solutions, the configuration is used as the default global configuration and applies to all real-time synchronization tasks in the solutions. You can modify the **processing rules of DDL messages** based on your business requirements. For more information about how to configure a synchronization solution, see [Synchronization solutions](https://help.aliyun.com/document_detail/199008.html).
         
 
         @param request: UpdateDIProjectConfigRequest
@@ -15089,6 +15619,8 @@ class Client(OpenApiClient):
 
     def update_disync_task_with_options(self, request, runtime):
         """
+        @summary Updates a data synchronization task.
+        
 
         @param request: UpdateDISyncTaskRequest
 
@@ -15129,6 +15661,8 @@ class Client(OpenApiClient):
 
     def update_disync_task(self, request):
         """
+        @summary Updates a data synchronization task.
+        
 
         @param request: UpdateDISyncTaskRequest
 
@@ -15211,6 +15745,8 @@ class Client(OpenApiClient):
 
     def update_data_source_with_options(self, request, runtime):
         """
+        @summary Updates a data source.
+        
 
         @param request: UpdateDataSourceRequest
 
@@ -15251,6 +15787,8 @@ class Client(OpenApiClient):
 
     def update_data_source(self, request):
         """
+        @summary Updates a data source.
+        
 
         @param request: UpdateDataSourceRequest
 
@@ -15261,6 +15799,8 @@ class Client(OpenApiClient):
 
     def update_file_with_options(self, request, runtime):
         """
+        @summary Updates a file.
+        
         @description When you debug or call this operation, you must specify new values for the specified parameters to ensure that the values are different from the original configurations of the file. For example, if the original value of a parameter is A, you must change the value of this parameter to B before you commit the node. If you set the parameter to A, an exception that indicates invalid data occurs.
         
 
@@ -15353,6 +15893,8 @@ class Client(OpenApiClient):
 
     def update_file(self, request):
         """
+        @summary Updates a file.
+        
         @description When you debug or call this operation, you must specify new values for the specified parameters to ensure that the values are different from the original configurations of the file. For example, if the original value of a parameter is A, you must change the value of this parameter to B before you commit the node. If you set the parameter to A, an exception that indicates invalid data occurs.
         
 
@@ -15365,6 +15907,8 @@ class Client(OpenApiClient):
 
     def update_folder_with_options(self, request, runtime):
         """
+        @summary Updates a folder.
+        
 
         @param request: UpdateFolderRequest
 
@@ -15403,6 +15947,8 @@ class Client(OpenApiClient):
 
     def update_folder(self, request):
         """
+        @summary Updates a folder.
+        
 
         @param request: UpdateFolderRequest
 
@@ -15413,7 +15959,7 @@ class Client(OpenApiClient):
 
     def update_ideevent_result_with_options(self, request, runtime):
         """
-        @summary The operation that you want to perform.
+        @summary Returns the check result of an extension point event to DataStudio after the extension point event is triggered during data development and checked by an extension.
         
 
         @param request: UpdateIDEEventResultRequest
@@ -15453,7 +15999,7 @@ class Client(OpenApiClient):
 
     def update_ideevent_result(self, request):
         """
-        @summary The operation that you want to perform.
+        @summary Returns the check result of an extension point event to DataStudio after the extension point event is triggered during data development and checked by an extension.
         
 
         @param request: UpdateIDEEventResultRequest
@@ -15515,7 +16061,7 @@ class Client(OpenApiClient):
 
     def update_meta_collection_with_options(self, request, runtime):
         """
-        @summary Updates a collection.
+        @summary Updates the name and comment of a collection.
         
         @description Only the name and comment of a collection can be updated.
         
@@ -15555,7 +16101,7 @@ class Client(OpenApiClient):
 
     def update_meta_collection(self, request):
         """
-        @summary Updates a collection.
+        @summary Updates the name and comment of a collection.
         
         @description Only the name and comment of a collection can be updated.
         
@@ -15637,7 +16183,7 @@ class Client(OpenApiClient):
 
     def update_meta_table_intro_wiki_with_options(self, request, runtime):
         """
-        @summary Updates the instructions on how to use a metatable. If no instruction on how to use the metatable is available, the instructions that are specified by calling this operation are added.
+        @summary Updates the instructions on how to use a table. If no instruction on how to use the table is available, the instructions that are configured by calling this operation are added.
         
 
         @param request: UpdateMetaTableIntroWikiRequest
@@ -15675,7 +16221,7 @@ class Client(OpenApiClient):
 
     def update_meta_table_intro_wiki(self, request):
         """
-        @summary Updates the instructions on how to use a metatable. If no instruction on how to use the metatable is available, the instructions that are specified by calling this operation are added.
+        @summary Updates the instructions on how to use a table. If no instruction on how to use the table is available, the instructions that are configured by calling this operation are added.
         
 
         @param request: UpdateMetaTableIntroWikiRequest
@@ -15687,6 +16233,8 @@ class Client(OpenApiClient):
 
     def update_node_owner_with_options(self, request, runtime):
         """
+        @summary Changes the owner of a node.
+        
 
         @param request: UpdateNodeOwnerRequest
 
@@ -15723,6 +16271,8 @@ class Client(OpenApiClient):
 
     def update_node_owner(self, request):
         """
+        @summary Changes the owner of a node.
+        
 
         @param request: UpdateNodeOwnerRequest
 
@@ -15733,6 +16283,8 @@ class Client(OpenApiClient):
 
     def update_node_run_mode_with_options(self, request, runtime):
         """
+        @summary Freezes or unfreezes a node.
+        
 
         @param request: UpdateNodeRunModeRequest
 
@@ -15769,6 +16321,8 @@ class Client(OpenApiClient):
 
     def update_node_run_mode(self, request):
         """
+        @summary Freezes or unfreezes a node.
+        
 
         @param request: UpdateNodeRunModeRequest
 
@@ -15779,6 +16333,8 @@ class Client(OpenApiClient):
 
     def update_quality_follower_with_options(self, request, runtime):
         """
+        @summary Updates a subscription relationship.
+        
 
         @param request: UpdateQualityFollowerRequest
 
@@ -15819,6 +16375,8 @@ class Client(OpenApiClient):
 
     def update_quality_follower(self, request):
         """
+        @summary Updates a subscription relationship.
+        
 
         @param request: UpdateQualityFollowerRequest
 
@@ -15829,6 +16387,8 @@ class Client(OpenApiClient):
 
     def update_quality_rule_with_options(self, request, runtime):
         """
+        @summary Updates a monitoring rule.
+        
 
         @param request: UpdateQualityRuleRequest
 
@@ -15903,6 +16463,8 @@ class Client(OpenApiClient):
 
     def update_quality_rule(self, request):
         """
+        @summary Updates a monitoring rule.
+        
 
         @param request: UpdateQualityRuleRequest
 
@@ -15913,6 +16475,8 @@ class Client(OpenApiClient):
 
     def update_remind_with_options(self, request, runtime):
         """
+        @summary Modifies a custom alert rule.
+        
 
         @param request: UpdateRemindRequest
 
@@ -15979,6 +16543,8 @@ class Client(OpenApiClient):
 
     def update_remind(self, request):
         """
+        @summary Modifies a custom alert rule.
+        
 
         @param request: UpdateRemindRequest
 
@@ -15989,7 +16555,7 @@ class Client(OpenApiClient):
 
     def update_table_with_options(self, request, runtime):
         """
-        @summary The operation that you want to perform. Set the value to *UpdateTable**.
+        @summary Updates a MaxCompute table.
         
 
         @param request: UpdateTableRequest
@@ -16063,7 +16629,7 @@ class Client(OpenApiClient):
 
     def update_table(self, request):
         """
-        @summary The operation that you want to perform. Set the value to *UpdateTable**.
+        @summary Updates a MaxCompute table.
         
 
         @param request: UpdateTableRequest
@@ -16075,6 +16641,8 @@ class Client(OpenApiClient):
 
     def update_table_add_column_with_options(self, request, runtime):
         """
+        @summary Updates the fields in a MaxCompute table.
+        
 
         @param request: UpdateTableAddColumnRequest
 
@@ -16111,6 +16679,8 @@ class Client(OpenApiClient):
 
     def update_table_add_column(self, request):
         """
+        @summary Updates the fields in a MaxCompute table.
+        
 
         @param request: UpdateTableAddColumnRequest
 
@@ -16121,6 +16691,8 @@ class Client(OpenApiClient):
 
     def update_table_level_with_options(self, request, runtime):
         """
+        @summary Updates a table level. This operation will be replaced soon. We recommend that you do not call this operation.
+        
 
         @param request: UpdateTableLevelRequest
 
@@ -16161,6 +16733,8 @@ class Client(OpenApiClient):
 
     def update_table_level(self, request):
         """
+        @summary Updates a table level. This operation will be replaced soon. We recommend that you do not call this operation.
+        
 
         @param request: UpdateTableLevelRequest
 
@@ -16171,6 +16745,8 @@ class Client(OpenApiClient):
 
     def update_table_model_info_with_options(self, request, runtime):
         """
+        @summary Modifies the information about a table, such as the table folder, level, and category.
+        
 
         @param request: UpdateTableModelInfoRequest
 
@@ -16211,6 +16787,8 @@ class Client(OpenApiClient):
 
     def update_table_model_info(self, request):
         """
+        @summary Modifies the information about a table, such as the table folder, level, and category.
+        
 
         @param request: UpdateTableModelInfoRequest
 
@@ -16221,6 +16799,8 @@ class Client(OpenApiClient):
 
     def update_table_theme_with_options(self, request, runtime):
         """
+        @summary Updates a table theme. This operation will be replaced soon. We recommend that you do not call this operation.
+        
 
         @param request: UpdateTableThemeRequest
 
@@ -16257,6 +16837,8 @@ class Client(OpenApiClient):
 
     def update_table_theme(self, request):
         """
+        @summary Updates a table theme. This operation will be replaced soon. We recommend that you do not call this operation.
+        
 
         @param request: UpdateTableThemeRequest
 
@@ -16331,7 +16913,7 @@ class Client(OpenApiClient):
 
     def update_workbench_event_result_with_options(self, request, runtime):
         """
-        @summary 更新运维中心扩展程序的回调结果
+        @summary Returns the processing result sent by an extension after a process in Operation Center is blocked by the extension.
         
 
         @param request: UpdateWorkbenchEventResultRequest
@@ -16371,7 +16953,7 @@ class Client(OpenApiClient):
 
     def update_workbench_event_result(self, request):
         """
-        @summary 更新运维中心扩展程序的回调结果
+        @summary Returns the processing result sent by an extension after a process in Operation Center is blocked by the extension.
         
 
         @param request: UpdateWorkbenchEventResultRequest
