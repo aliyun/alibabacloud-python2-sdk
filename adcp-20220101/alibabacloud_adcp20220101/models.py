@@ -3,13 +3,46 @@
 from Tea.model import TeaModel
 
 
+class Tag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(Tag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class AttachClusterToHubRequest(TeaModel):
     def __init__(self, attach_to_mesh=None, cluster_id=None, cluster_ids=None):
         # The operation that you want to perform. Set the value to **AttachClusterToHub**.
         self.attach_to_mesh = attach_to_mesh  # type: bool
         # The ID of the task.
+        # 
+        # This parameter is required.
         self.cluster_id = cluster_id  # type: str
         # The ID of the request.
+        # 
+        # This parameter is required.
         self.cluster_ids = cluster_ids  # type: str
 
     def validate(self):
@@ -118,9 +151,111 @@ class AttachClusterToHubResponse(TeaModel):
         return self
 
 
+class ChangeResourceGroupRequest(TeaModel):
+    def __init__(self, new_resource_group_id=None, resource_id=None, resource_type=None):
+        # The ID of the new resource group. You can view the available resource groups in the Resource Management console.
+        # 
+        # This parameter is required.
+        self.new_resource_group_id = new_resource_group_id  # type: str
+        # The ID of the resource. The value of this parameter varies with the resource type. For example, if you set ResourceType to cluster, this parameter specifies a cluster ID.
+        # 
+        # This parameter is required.
+        self.resource_id = resource_id  # type: str
+        # The resource type. Set the value to cluster.
+        self.resource_type = resource_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ChangeResourceGroupRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.new_resource_group_id is not None:
+            result['NewResourceGroupId'] = self.new_resource_group_id
+        if self.resource_id is not None:
+            result['ResourceId'] = self.resource_id
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('NewResourceGroupId') is not None:
+            self.new_resource_group_id = m.get('NewResourceGroupId')
+        if m.get('ResourceId') is not None:
+            self.resource_id = m.get('ResourceId')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        return self
+
+
+class ChangeResourceGroupResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        # Id of the request
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ChangeResourceGroupResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ChangeResourceGroupResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ChangeResourceGroupResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ChangeResourceGroupResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ChangeResourceGroupResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateHubClusterRequest(TeaModel):
     def __init__(self, api_server_public_eip=None, argo_server_enabled=None, audit_log_enabled=None,
-                 is_enterprise_security_group=None, name=None, price_limit=None, profile=None, region_id=None, resource_group_id=None,
+                 is_enterprise_security_group=None, name=None, price_limit=None, profile=None, region_id=None, resource_group_id=None, tag=None,
                  v_switches=None, vpc_id=None, workflow_schedule_mode=None):
         # Specifies whether to expose the API server to the Internet. Valid values:
         # 
@@ -151,12 +286,22 @@ class CreateHubClusterRequest(TeaModel):
         # Default value: `Default`.
         self.profile = profile  # type: str
         # The ID of the region. You can call the DescribeRegions operation to query available regions.
+        # 
+        # This parameter is required.
         self.region_id = region_id  # type: str
         # The Resource Group ID.
         self.resource_group_id = resource_group_id  # type: str
+        # The tags.
+        # 
+        # You can specify at most 20 tags in each call.
+        self.tag = tag  # type: list[Tag]
         # The ID of the vSwitch.
+        # 
+        # This parameter is required.
         self.v_switches = v_switches  # type: str
         # The ID of the virtual private cloud (VPC) to which the master instance belongs. You can call the DescribeVpcs operation to query available VPCs.
+        # 
+        # This parameter is required.
         self.vpc_id = vpc_id  # type: str
         # The scheduling mode of the workflow. This parameter takes effect only if Profile is set to XFlow. Valid values:
         # 
@@ -165,7 +310,10 @@ class CreateHubClusterRequest(TeaModel):
         self.workflow_schedule_mode = workflow_schedule_mode  # type: str
 
     def validate(self):
-        pass
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(CreateHubClusterRequest, self).to_map()
@@ -191,6 +339,10 @@ class CreateHubClusterRequest(TeaModel):
             result['RegionId'] = self.region_id
         if self.resource_group_id is not None:
             result['ResourceGroupID'] = self.resource_group_id
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         if self.v_switches is not None:
             result['VSwitches'] = self.v_switches
         if self.vpc_id is not None:
@@ -219,6 +371,135 @@ class CreateHubClusterRequest(TeaModel):
             self.region_id = m.get('RegionId')
         if m.get('ResourceGroupID') is not None:
             self.resource_group_id = m.get('ResourceGroupID')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = Tag()
+                self.tag.append(temp_model.from_map(k))
+        if m.get('VSwitches') is not None:
+            self.v_switches = m.get('VSwitches')
+        if m.get('VpcId') is not None:
+            self.vpc_id = m.get('VpcId')
+        if m.get('WorkflowScheduleMode') is not None:
+            self.workflow_schedule_mode = m.get('WorkflowScheduleMode')
+        return self
+
+
+class CreateHubClusterShrinkRequest(TeaModel):
+    def __init__(self, api_server_public_eip=None, argo_server_enabled=None, audit_log_enabled=None,
+                 is_enterprise_security_group=None, name=None, price_limit=None, profile=None, region_id=None, resource_group_id=None,
+                 tag_shrink=None, v_switches=None, vpc_id=None, workflow_schedule_mode=None):
+        # Specifies whether to expose the API server to the Internet. Valid values:
+        # 
+        # *   true: exposes the API server to the Internet.
+        # *   false: exposes the API server to the internal network.
+        self.api_server_public_eip = api_server_public_eip  # type: bool
+        # Specifies whether to enable the workflow instance UI. This parameter takes effect only if Profile is set to XFlow. Valid values:
+        # 
+        # *   true
+        # *   false
+        self.argo_server_enabled = argo_server_enabled  # type: bool
+        # Specifies whether to enable the audit log feature. Valid values:
+        # 
+        # *   true: enables the audit log feature.
+        # *   false: disables the audit log feature.
+        self.audit_log_enabled = audit_log_enabled  # type: bool
+        # Specifies whether to use an advanced security group.
+        self.is_enterprise_security_group = is_enterprise_security_group  # type: bool
+        # The name of the master instance.
+        self.name = name  # type: str
+        # The limit on the prices of containers in the workflow. This parameter takes effect only if the WorkflowScheduleMode parameter is set to cost-optimized.
+        self.price_limit = price_limit  # type: str
+        # The type of scenario for which the master instance is suitable. Valid values:
+        # 
+        # *   `Default`: The master instance is suitable for standard scenarios.
+        # *   `XFlow`: The master instance is suitable for workflow scenarios.
+        # 
+        # Default value: `Default`.
+        self.profile = profile  # type: str
+        # The ID of the region. You can call the DescribeRegions operation to query available regions.
+        # 
+        # This parameter is required.
+        self.region_id = region_id  # type: str
+        # The Resource Group ID.
+        self.resource_group_id = resource_group_id  # type: str
+        # The tags.
+        # 
+        # You can specify at most 20 tags in each call.
+        self.tag_shrink = tag_shrink  # type: str
+        # The ID of the vSwitch.
+        # 
+        # This parameter is required.
+        self.v_switches = v_switches  # type: str
+        # The ID of the virtual private cloud (VPC) to which the master instance belongs. You can call the DescribeVpcs operation to query available VPCs.
+        # 
+        # This parameter is required.
+        self.vpc_id = vpc_id  # type: str
+        # The scheduling mode of the workflow. This parameter takes effect only if Profile is set to XFlow. Valid values:
+        # 
+        # *   cost-optimized: cost-prioritized scheduling mode.
+        # *   stock-optimized: inventory-prioritized scheduling mode.
+        self.workflow_schedule_mode = workflow_schedule_mode  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateHubClusterShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.api_server_public_eip is not None:
+            result['ApiServerPublicEip'] = self.api_server_public_eip
+        if self.argo_server_enabled is not None:
+            result['ArgoServerEnabled'] = self.argo_server_enabled
+        if self.audit_log_enabled is not None:
+            result['AuditLogEnabled'] = self.audit_log_enabled
+        if self.is_enterprise_security_group is not None:
+            result['IsEnterpriseSecurityGroup'] = self.is_enterprise_security_group
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.price_limit is not None:
+            result['PriceLimit'] = self.price_limit
+        if self.profile is not None:
+            result['Profile'] = self.profile
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupID'] = self.resource_group_id
+        if self.tag_shrink is not None:
+            result['Tag'] = self.tag_shrink
+        if self.v_switches is not None:
+            result['VSwitches'] = self.v_switches
+        if self.vpc_id is not None:
+            result['VpcId'] = self.vpc_id
+        if self.workflow_schedule_mode is not None:
+            result['WorkflowScheduleMode'] = self.workflow_schedule_mode
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApiServerPublicEip') is not None:
+            self.api_server_public_eip = m.get('ApiServerPublicEip')
+        if m.get('ArgoServerEnabled') is not None:
+            self.argo_server_enabled = m.get('ArgoServerEnabled')
+        if m.get('AuditLogEnabled') is not None:
+            self.audit_log_enabled = m.get('AuditLogEnabled')
+        if m.get('IsEnterpriseSecurityGroup') is not None:
+            self.is_enterprise_security_group = m.get('IsEnterpriseSecurityGroup')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('PriceLimit') is not None:
+            self.price_limit = m.get('PriceLimit')
+        if m.get('Profile') is not None:
+            self.profile = m.get('Profile')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupID') is not None:
+            self.resource_group_id = m.get('ResourceGroupID')
+        if m.get('Tag') is not None:
+            self.tag_shrink = m.get('Tag')
         if m.get('VSwitches') is not None:
             self.v_switches = m.get('VSwitches')
         if m.get('VpcId') is not None:
@@ -304,6 +585,8 @@ class CreateHubClusterResponse(TeaModel):
 class DeleteHubClusterRequest(TeaModel):
     def __init__(self, cluster_id=None, force=None, retain_resources=None):
         # The ID of the master instance.
+        # 
+        # This parameter is required.
         self.cluster_id = cluster_id  # type: str
         # Specifies whether to forcefully delete the master instance in ACK One. Valid values:
         # 
@@ -346,6 +629,8 @@ class DeleteHubClusterRequest(TeaModel):
 class DeleteHubClusterShrinkRequest(TeaModel):
     def __init__(self, cluster_id=None, force=None, retain_resources_shrink=None):
         # The ID of the master instance.
+        # 
+        # This parameter is required.
         self.cluster_id = cluster_id  # type: str
         # Specifies whether to forcefully delete the master instance in ACK One. Valid values:
         # 
@@ -461,10 +746,14 @@ class DeleteHubClusterResponse(TeaModel):
 class DeletePolicyInstanceRequest(TeaModel):
     def __init__(self, cluster_id=None, cluster_ids=None, policy_name=None):
         # The ID of the master instance.
+        # 
+        # This parameter is required.
         self.cluster_id = cluster_id  # type: str
         # A array of JSON strings. The JSON strings in the array indicate the IDs of the associated clusters for which the policy is deleted.
         self.cluster_ids = cluster_ids  # type: list[str]
         # The name of the policy.
+        # 
+        # This parameter is required.
         self.policy_name = policy_name  # type: str
 
     def validate(self):
@@ -498,10 +787,14 @@ class DeletePolicyInstanceRequest(TeaModel):
 class DeletePolicyInstanceShrinkRequest(TeaModel):
     def __init__(self, cluster_id=None, cluster_ids_shrink=None, policy_name=None):
         # The ID of the master instance.
+        # 
+        # This parameter is required.
         self.cluster_id = cluster_id  # type: str
         # A array of JSON strings. The JSON strings in the array indicate the IDs of the associated clusters for which the policy is deleted.
         self.cluster_ids_shrink = cluster_ids_shrink  # type: str
         # The name of the policy.
+        # 
+        # This parameter is required.
         self.policy_name = policy_name  # type: str
 
     def validate(self):
@@ -596,8 +889,12 @@ class DeletePolicyInstanceResponse(TeaModel):
 class DeleteUserPermissionRequest(TeaModel):
     def __init__(self, cluster_id=None, user_id=None):
         # The ID of the master instance.
+        # 
+        # This parameter is required.
         self.cluster_id = cluster_id  # type: str
         # The ID of the RAM user.
+        # 
+        # This parameter is required.
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -688,8 +985,12 @@ class DeleteUserPermissionResponse(TeaModel):
 class DeployPolicyInstanceRequest(TeaModel):
     def __init__(self, cluster_id=None, cluster_ids=None, namespaces=None, policy_action=None, policy_name=None):
         # The ID of the master instance.
+        # 
+        # This parameter is required.
         self.cluster_id = cluster_id  # type: str
         # An array of JSON strings. The JSON strings in the array indicate the IDs of the associated clusters in which the policy instance is deployed.
+        # 
+        # This parameter is required.
         self.cluster_ids = cluster_ids  # type: list[str]
         # A list of namespaces.
         self.namespaces = namespaces  # type: list[str]
@@ -697,8 +998,12 @@ class DeployPolicyInstanceRequest(TeaModel):
         # 
         # *   deny: blocks deployments that match the policy.
         # *   warn: generates alerts for deployments that match the policy.
+        # 
+        # This parameter is required.
         self.policy_action = policy_action  # type: str
         # The name of the policy.
+        # 
+        # This parameter is required.
         self.policy_name = policy_name  # type: str
 
     def validate(self):
@@ -741,8 +1046,12 @@ class DeployPolicyInstanceShrinkRequest(TeaModel):
     def __init__(self, cluster_id=None, cluster_ids_shrink=None, namespaces_shrink=None, policy_action=None,
                  policy_name=None):
         # The ID of the master instance.
+        # 
+        # This parameter is required.
         self.cluster_id = cluster_id  # type: str
         # An array of JSON strings. The JSON strings in the array indicate the IDs of the associated clusters in which the policy instance is deployed.
+        # 
+        # This parameter is required.
         self.cluster_ids_shrink = cluster_ids_shrink  # type: str
         # A list of namespaces.
         self.namespaces_shrink = namespaces_shrink  # type: str
@@ -750,8 +1059,12 @@ class DeployPolicyInstanceShrinkRequest(TeaModel):
         # 
         # *   deny: blocks deployments that match the policy.
         # *   warn: generates alerts for deployments that match the policy.
+        # 
+        # This parameter is required.
         self.policy_action = policy_action  # type: str
         # The name of the policy.
+        # 
+        # This parameter is required.
         self.policy_name = policy_name  # type: str
 
     def validate(self):
@@ -854,6 +1167,8 @@ class DeployPolicyInstanceResponse(TeaModel):
 class DescribeHubClusterDetailsRequest(TeaModel):
     def __init__(self, cluster_id=None):
         # The ID of the master instance.
+        # 
+        # This parameter is required.
         self.cluster_id = cluster_id  # type: str
 
     def validate(self):
@@ -1110,9 +1425,38 @@ class DescribeHubClusterDetailsResponseBodyClusterClusterInfoMetaData(TeaModel):
         return self
 
 
+class DescribeHubClusterDetailsResponseBodyClusterClusterInfoTags(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeHubClusterDetailsResponseBodyClusterClusterInfoTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class DescribeHubClusterDetailsResponseBodyClusterClusterInfo(TeaModel):
     def __init__(self, cluster_id=None, cluster_spec=None, creation_time=None, error_message=None, meta_data=None,
-                 name=None, profile=None, region_id=None, resource_group_id=None, state=None, update_time=None,
+                 name=None, profile=None, region_id=None, resource_group_id=None, state=None, tags=None, update_time=None,
                  version=None):
         # The ID of the master instance.
         self.cluster_id = cluster_id  # type: str
@@ -1144,6 +1488,7 @@ class DescribeHubClusterDetailsResponseBodyClusterClusterInfo(TeaModel):
         # *   delete_failed: The master instance failed to be deleted.
         # *   deleted: The master instance is deleted.
         self.state = state  # type: str
+        self.tags = tags  # type: list[DescribeHubClusterDetailsResponseBodyClusterClusterInfoTags]
         # The time when the master instance was updated.
         self.update_time = update_time  # type: str
         # The version of the master instance.
@@ -1152,6 +1497,10 @@ class DescribeHubClusterDetailsResponseBodyClusterClusterInfo(TeaModel):
     def validate(self):
         if self.meta_data:
             self.meta_data.validate()
+        if self.tags:
+            for k in self.tags:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(DescribeHubClusterDetailsResponseBodyClusterClusterInfo, self).to_map()
@@ -1179,6 +1528,10 @@ class DescribeHubClusterDetailsResponseBodyClusterClusterInfo(TeaModel):
             result['ResourceGroupID'] = self.resource_group_id
         if self.state is not None:
             result['State'] = self.state
+        result['Tags'] = []
+        if self.tags is not None:
+            for k in self.tags:
+                result['Tags'].append(k.to_map() if k else None)
         if self.update_time is not None:
             result['UpdateTime'] = self.update_time
         if self.version is not None:
@@ -1208,6 +1561,11 @@ class DescribeHubClusterDetailsResponseBodyClusterClusterInfo(TeaModel):
             self.resource_group_id = m.get('ResourceGroupID')
         if m.get('State') is not None:
             self.state = m.get('State')
+        self.tags = []
+        if m.get('Tags') is not None:
+            for k in m.get('Tags'):
+                temp_model = DescribeHubClusterDetailsResponseBodyClusterClusterInfoTags()
+                self.tags.append(temp_model.from_map(k))
         if m.get('UpdateTime') is not None:
             self.update_time = m.get('UpdateTime')
         if m.get('Version') is not None:
@@ -1426,7 +1784,7 @@ class DescribeHubClusterDetailsResponseBodyClusterWorkflowConfigWorkflowUnitsVSw
         self.vswitch_id = vswitch_id  # type: str
         # The zone ID of the cluster.
         # 
-        # > You can call the [DescribeRegions](~~143074~~) operation to query the most recent zone list.
+        # > You can call the [DescribeRegions](https://help.aliyun.com/document_detail/143074.html) operation to query the most recent zone list.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -1457,7 +1815,7 @@ class DescribeHubClusterDetailsResponseBodyClusterWorkflowConfigWorkflowUnits(Te
     def __init__(self, region_id=None, v_switches=None, vpc_id=None):
         # The region ID of the cluster.
         # 
-        # >  You can call the [DescribeRegions](~~143074~~) operation to query the most recent region list.
+        # >  You can call the [DescribeRegions](https://help.aliyun.com/document_detail/143074.html) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         # The vSwitches.
         self.v_switches = v_switches  # type: list[DescribeHubClusterDetailsResponseBodyClusterWorkflowConfigWorkflowUnitsVSwitches]
@@ -1726,7 +2084,9 @@ class DescribeHubClusterDetailsResponse(TeaModel):
 
 class DescribeHubClusterKubeconfigRequest(TeaModel):
     def __init__(self, cluster_id=None, private_ip_address=None):
-        # The ID of the master instance.
+        # The cluster ID.
+        # 
+        # This parameter is required.
         self.cluster_id = cluster_id  # type: str
         # Specifies whether to obtain the kubeconfig file that is used to connect to the cluster over the internal network. Valid values:
         # 
@@ -1829,7 +2189,9 @@ class DescribeHubClusterKubeconfigResponse(TeaModel):
 
 class DescribeHubClusterLogsRequest(TeaModel):
     def __init__(self, cluster_id=None):
-        # The ID of the master instance.
+        # The ID of the Fleet instance. You can call the [DescribeHubClusters](https://help.aliyun.com/document_detail/424404.html) operation to query the created Fleet instances.
+        # 
+        # This parameter is required.
         self.cluster_id = cluster_id  # type: str
 
     def validate(self):
@@ -1854,13 +2216,17 @@ class DescribeHubClusterLogsRequest(TeaModel):
 
 class DescribeHubClusterLogsResponseBodyLogs(TeaModel):
     def __init__(self, cluster_id=None, cluster_log=None, creation_time=None, log_level=None):
-        # The ID of the master instance.
+        # The ID of the Fleet instance.
         self.cluster_id = cluster_id  # type: str
-        # A log of the master instance.
+        # The log of the Fleet instance.
         self.cluster_log = cluster_log  # type: str
-        # The time when the log was created. Format: <i>yyyy-mm-dd</i>t<i>hh:mm:ss</i>z (UTC time).
+        # The time when the log was created. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
         self.creation_time = creation_time  # type: str
-        # The severity level of the log. Valid values: - error: errors. - warn: warnings. - info: information.
+        # The log level. Valid values:
+        # 
+        # *   error
+        # *   warn
+        # *   info
         self.log_level = log_level  # type: str
 
     def validate(self):
@@ -1897,9 +2263,9 @@ class DescribeHubClusterLogsResponseBodyLogs(TeaModel):
 
 class DescribeHubClusterLogsResponseBody(TeaModel):
     def __init__(self, logs=None, request_id=None):
-        # Brief information about operation logs.
+        # The details of operations logs.
         self.logs = logs  # type: list[DescribeHubClusterLogsResponseBodyLogs]
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1971,14 +2337,19 @@ class DescribeHubClusterLogsResponse(TeaModel):
 
 
 class DescribeHubClustersRequest(TeaModel):
-    def __init__(self, profile=None, resource_group_id=None):
+    def __init__(self, profile=None, resource_group_id=None, tag=None):
         # The configurations of the cluster.
         self.profile = profile  # type: str
         # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
+        # The tags.
+        self.tag = tag  # type: list[Tag]
 
     def validate(self):
-        pass
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(DescribeHubClustersRequest, self).to_map()
@@ -1990,6 +2361,10 @@ class DescribeHubClustersRequest(TeaModel):
             result['Profile'] = self.profile
         if self.resource_group_id is not None:
             result['ResourceGroupId'] = self.resource_group_id
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
@@ -1998,6 +2373,48 @@ class DescribeHubClustersRequest(TeaModel):
             self.profile = m.get('Profile')
         if m.get('ResourceGroupId') is not None:
             self.resource_group_id = m.get('ResourceGroupId')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = Tag()
+                self.tag.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeHubClustersShrinkRequest(TeaModel):
+    def __init__(self, profile=None, resource_group_id=None, tag_shrink=None):
+        # The configurations of the cluster.
+        self.profile = profile  # type: str
+        # The resource group ID.
+        self.resource_group_id = resource_group_id  # type: str
+        # The tags.
+        self.tag_shrink = tag_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeHubClustersShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.profile is not None:
+            result['Profile'] = self.profile
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.tag_shrink is not None:
+            result['Tag'] = self.tag_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Profile') is not None:
+            self.profile = m.get('Profile')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('Tag') is not None:
+            self.tag_shrink = m.get('Tag')
         return self
 
 
@@ -2005,7 +2422,7 @@ class DescribeHubClustersResponseBodyClustersApiServer(TeaModel):
     def __init__(self, api_server_eip_id=None, enabled_public=None, load_balancer_id=None):
         # The elastic IP address (EIP) ID.
         self.api_server_eip_id = api_server_eip_id  # type: str
-        # Indicates whether public endpoint is enabled for the API server. Valid values:
+        # Indicates whether the public endpoint is enabled for the API server. Valid values:
         # 
         # *   true
         # *   false
@@ -2041,44 +2458,80 @@ class DescribeHubClustersResponseBodyClustersApiServer(TeaModel):
         return self
 
 
+class DescribeHubClustersResponseBodyClustersClusterInfoTags(TeaModel):
+    def __init__(self, key=None, value=None):
+        # The tag key.
+        self.key = key  # type: str
+        # The tag value.
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeHubClustersResponseBodyClustersClusterInfoTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class DescribeHubClustersResponseBodyClustersClusterInfo(TeaModel):
     def __init__(self, cluster_id=None, cluster_spec=None, creation_time=None, error_message=None, name=None,
-                 profile=None, region_id=None, resource_group_id=None, state=None, update_time=None, version=None):
+                 profile=None, region_id=None, resource_group_id=None, state=None, tags=None, update_time=None, version=None):
         # The cluster ID.
         self.cluster_id = cluster_id  # type: str
-        # The specification of the cluster.
+        # The specifications of the cluster.
         # 
-        # *   Only ack.pro.small is returned.
+        # *   Only ack.pro.small may be returned.
         self.cluster_spec = cluster_spec  # type: str
         # The time when the cluster was created.
         self.creation_time = creation_time  # type: str
         # The error message that is returned if the cluster failed to be created.
         self.error_message = error_message  # type: str
-        # The name of the cluster.
+        # The cluster name.
         self.name = name  # type: str
         # The configurations of the cluster.
         self.profile = profile  # type: str
         # The region ID.
         self.region_id = region_id  # type: str
-        # The ID of Resource Group.
+        # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
-        # The status of the cluster. Valid values:
+        # The state of the cluster. Valid values:
         # 
         # *   initial: The cluster is being initialized.
         # *   failed: The cluster failed to be created.
         # *   running: The cluster is running
-        # *   inactive: The cluster is pending.
+        # *   inactive: The cluster is not activated.
         # *   deleting: The cluster is being deleted.
         # *   delete_failed: The cluster failed to be deleted.
         # *   deleted: The cluster is deleted.
         self.state = state  # type: str
-        # The time when the cluster was last updated.
+        # The tags.
+        self.tags = tags  # type: list[DescribeHubClustersResponseBodyClustersClusterInfoTags]
+        # The time when the cluster was last modified.
         self.update_time = update_time  # type: str
-        # The Kubernetes version of the cluster.
+        # The version of the cluster.
         self.version = version  # type: str
 
     def validate(self):
-        pass
+        if self.tags:
+            for k in self.tags:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(DescribeHubClustersResponseBodyClustersClusterInfo, self).to_map()
@@ -2104,6 +2557,10 @@ class DescribeHubClustersResponseBodyClustersClusterInfo(TeaModel):
             result['ResourceGroupID'] = self.resource_group_id
         if self.state is not None:
             result['State'] = self.state
+        result['Tags'] = []
+        if self.tags is not None:
+            for k in self.tags:
+                result['Tags'].append(k.to_map() if k else None)
         if self.update_time is not None:
             result['UpdateTime'] = self.update_time
         if self.version is not None:
@@ -2130,6 +2587,11 @@ class DescribeHubClustersResponseBodyClustersClusterInfo(TeaModel):
             self.resource_group_id = m.get('ResourceGroupID')
         if m.get('State') is not None:
             self.state = m.get('State')
+        self.tags = []
+        if m.get('Tags') is not None:
+            for k in m.get('Tags'):
+                temp_model = DescribeHubClustersResponseBodyClustersClusterInfoTags()
+                self.tags.append(temp_model.from_map(k))
         if m.get('UpdateTime') is not None:
             self.update_time = m.get('UpdateTime')
         if m.get('Version') is not None:
@@ -2139,11 +2601,11 @@ class DescribeHubClustersResponseBodyClustersClusterInfo(TeaModel):
 
 class DescribeHubClustersResponseBodyClustersConditions(TeaModel):
     def __init__(self, message=None, reason=None, status=None, type=None):
-        # The error message that is returned.
+        # The error message returned.
         self.message = message  # type: str
         # The reason for the deletion condition.
         self.reason = reason  # type: str
-        # The status of the cluster that the deletion condition indicates. Valid values:
+        # The state of the cluster that the deletion condition indicates. Valid values:
         # 
         # *   True: The cluster cannot be deleted.
         # *   False: The cluster can be deleted.
@@ -2341,7 +2803,7 @@ class DescribeHubClustersResponseBodyClusters(TeaModel):
         self.cluster_info = cluster_info  # type: DescribeHubClustersResponseBodyClustersClusterInfo
         # The deletion conditions of the cluster.
         self.conditions = conditions  # type: list[DescribeHubClustersResponseBodyClustersConditions]
-        # The endpoint of the cluster.
+        # The endpoints of the cluster.
         self.endpoints = endpoints  # type: DescribeHubClustersResponseBodyClustersEndpoints
         # The logging configurations.
         self.log_config = log_config  # type: DescribeHubClustersResponseBodyClustersLogConfig
@@ -2498,6 +2960,8 @@ class DescribeHubClustersResponse(TeaModel):
 class DescribeManagedClustersRequest(TeaModel):
     def __init__(self, cluster_id=None):
         # The status of the association between the clusters and Service Mesh (ASM).
+        # 
+        # This parameter is required.
         self.cluster_id = cluster_id  # type: str
 
     def validate(self):
@@ -3083,6 +3547,8 @@ class DescribePolicyDetailsResponse(TeaModel):
 class DescribePolicyGovernanceInClusterRequest(TeaModel):
     def __init__(self, cluster_id=None):
         # The ID of the master instance.
+        # 
+        # This parameter is required.
         self.cluster_id = cluster_id  # type: str
 
     def validate(self):
@@ -3701,8 +4167,12 @@ class DescribePolicyGovernanceInClusterResponse(TeaModel):
 class DescribePolicyInstancesRequest(TeaModel):
     def __init__(self, cluster_id=None, policy_name=None):
         # The ID of the master instance.
+        # 
+        # This parameter is required.
         self.cluster_id = cluster_id  # type: str
         # The name of the policy.
+        # 
+        # This parameter is required.
         self.policy_name = policy_name  # type: str
 
     def validate(self):
@@ -3752,7 +4222,7 @@ class DescribePolicyInstancesResponseBodyPolicies(TeaModel):
         self.policy_parameters = policy_parameters  # type: dict[str, str]
         # The applicable scope of the policy instance.
         # 
-        # A value of \* indicates all namespaces. This is the default value.
+        # A value of \\* indicates all namespaces. This is the default value.
         # 
         # Multiple namespaces are separated by commas (,).
         self.policy_scope = policy_scope  # type: str
@@ -3895,6 +4365,8 @@ class DescribePolicyInstancesResponse(TeaModel):
 class DescribePolicyInstancesStatusRequest(TeaModel):
     def __init__(self, cluster_id=None):
         # The ID of the master instance.
+        # 
+        # This parameter is required.
         self.cluster_id = cluster_id  # type: str
 
     def validate(self):
@@ -3919,9 +4391,9 @@ class DescribePolicyInstancesStatusRequest(TeaModel):
 
 class DescribePolicyInstancesStatusResponseBodyPoliciesPolicyInstancesPolicyClusters(TeaModel):
     def __init__(self, cluster_id=None, status=None):
-        # The ID of the associated cluster.
+        # The cluster ID.
         self.cluster_id = cluster_id  # type: str
-        # The status of the deployment.
+        # The status of the policy deployment.
         self.status = status  # type: str
 
     def validate(self):
@@ -3957,9 +4429,9 @@ class DescribePolicyInstancesStatusResponseBodyPoliciesPolicyInstances(TeaModel)
         self.policy_clusters = policy_clusters  # type: list[DescribePolicyInstancesStatusResponseBodyPoliciesPolicyInstancesPolicyClusters]
         # The description of the policy.
         self.policy_description = policy_description  # type: str
-        # The number of policy instances that are deployed. If this parameter is empty, no policy instance is deployed.
+        # The number of policy instances that are deployed. If this parameter is left empty, no policy instance is deployed.
         self.policy_instances_count = policy_instances_count  # type: long
-        # The name of the policy.
+        # The policy name.
         self.policy_name = policy_name  # type: str
         # The severity level of the policy.
         self.policy_severity = policy_severity  # type: str
@@ -4016,7 +4488,7 @@ class DescribePolicyInstancesStatusResponseBodyPoliciesSeverityInfo(TeaModel):
     def __init__(self, severity_count=None, severity_type=None):
         # The number of policy instances.
         self.severity_count = severity_count  # type: str
-        # The severity level.
+        # The severity level of the policy.
         self.severity_type = severity_type  # type: str
 
     def validate(self):
@@ -4294,6 +4766,8 @@ class DescribeRegionsResponse(TeaModel):
 class DescribeUserPermissionsRequest(TeaModel):
     def __init__(self, user_id=None):
         # The ID of the RAM user that you want to query.
+        # 
+        # This parameter is required.
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -4447,8 +4921,12 @@ class DescribeUserPermissionsResponse(TeaModel):
 class DetachClusterFromHubRequest(TeaModel):
     def __init__(self, cluster_id=None, cluster_ids=None, detach_from_mesh=None):
         # The ID of the request.
+        # 
+        # This parameter is required.
         self.cluster_id = cluster_id  # type: str
         # The operation that you want to perform. Set the value to **DetachClusterFromHub**.
+        # 
+        # This parameter is required.
         self.cluster_ids = cluster_ids  # type: str
         # Example 1
         self.detach_from_mesh = detach_from_mesh  # type: bool
@@ -4561,23 +5039,41 @@ class DetachClusterFromHubResponse(TeaModel):
 class GrantUserPermissionRequest(TeaModel):
     def __init__(self, cluster_id=None, is_ram_role=None, namespace=None, role_name=None, role_type=None,
                  user_id=None):
-        # The ID of the cluster.
+        # The cluster ID.
+        # 
+        # This parameter is required.
         self.cluster_id = cluster_id  # type: str
         # The entity to which the permissions are granted. A value of `true` indicates that the permissions are granted to a RAM user. A value of `false` indicates that the permissions are granted to a RAM role.
         self.is_ram_role = is_ram_role  # type: bool
-        # The namespace to which the permissions are scoped. By default, this parameter is empty when you set RoleType to cluster.
-        self.namespace = namespace  # type: str
-        # The predefined role that you want to assign. Valid values:
+        # The name of the namespace.
         # 
-        # *   admin: the administrator role.
-        # *   dev: the developer role.
+        # *   If **RoleType** is set to **cluster**, you do not need to specify this parameter.
+        # *   This parameter is required if **RoleType** is set to **namespace**.
+        # *   If **RoleType** is set to **namespace** and **RoleName** is set to **gitops-dev**, this parameter is required and must be set to **argocd**.
+        self.namespace = namespace  # type: str
+        # The predefined role. Valid values:
+        # 
+        # *   admin: administrator
+        # *   dev: developer
+        # *   gitops-dev: GitOps developer. The parameter is available only for Fleet instances.
+        # 
+        # The value of RoleName and that of RoleType must meet the following requirements:
+        # 
+        # *   If **RoleType** is set to **cluster**, this parameter must be set to **admin**.
+        # *   If **RoleType** is set to **namespace**, this parameter must be set to **dev** or **gitops-dev**.
+        # 
+        # This parameter is required.
         self.role_name = role_name  # type: str
         # The authorization type. Valid values:
         # 
-        # *   cluster: specifies that the permissions are scoped to a master instance.
-        # *   namespace: specifies that the permissions are scoped to a namespace of a cluster.
+        # *   cluster: The permissions are granted to a cluster.
+        # *   namespace: The permissions are granted to a namespace of a cluster.
+        # 
+        # This parameter is required.
         self.role_type = role_type  # type: str
         # The ID of the RAM user or RAM role.
+        # 
+        # This parameter is required.
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -4695,12 +5191,16 @@ class GrantUserPermissionsRequestPermissions(TeaModel):
         # 
         # *   admin: the administrator role.
         # *   dev: the developer role.
+        # 
+        # This parameter is required.
         self.role_name = role_name  # type: str
         # The authorization type. Valid values:
         # 
         # *   cluster: specifies that the permissions are scoped to a master instance.
         # *   namespace: specifies that the permissions are scoped to a namespace of a cluster.
         # *   all-clusters: specifies that the permissions are scoped to all master instances.
+        # 
+        # This parameter is required.
         self.role_type = role_type  # type: str
 
     def validate(self):
@@ -4744,6 +5244,8 @@ class GrantUserPermissionsRequest(TeaModel):
         # The list of permissions that you want to grant to the RAM user.
         self.permissions = permissions  # type: list[GrantUserPermissionsRequestPermissions]
         # The ID of the RAM user.
+        # 
+        # This parameter is required.
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -4783,6 +5285,8 @@ class GrantUserPermissionsShrinkRequest(TeaModel):
         # The list of permissions that you want to grant to the RAM user.
         self.permissions_shrink = permissions_shrink  # type: str
         # The ID of the RAM user.
+        # 
+        # This parameter is required.
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -4905,6 +5409,8 @@ class UpdateHubClusterFeatureRequest(TeaModel):
         # *   false: disables the audit logging feature.
         self.audit_log_enabled = audit_log_enabled  # type: bool
         # The cluster ID.
+        # 
+        # This parameter is required.
         self.cluster_id = cluster_id  # type: str
         # Specifies whether to enable the deletion protection feature for the cluster. After you enable the deletion protection feature for the cluster, you cannot delete the cluster in the console or by calling the DeleteHubCluster operation. Valid values:
         # 
@@ -4927,7 +5433,7 @@ class UpdateHubClusterFeatureRequest(TeaModel):
         # *   true
         # *   false
         self.monitor_enabled = monitor_enabled  # type: bool
-        # The name of the master instance. The name must be 1 to 63 characters in length. It must start with a letter, and can contain letters, digits, underscores (\_), and hyphens (-).
+        # The name of the master instance. The name must be 1 to 63 characters in length. It must start with a letter, and can contain letters, digits, underscores (_), and hyphens (-).
         self.name = name  # type: str
         # The limit on the prices of containers in the workflow. This parameter takes effect only if the WorkflowScheduleMode parameter is set to cost-optimized.
         self.price_limit = price_limit  # type: str
@@ -5072,6 +5578,8 @@ class UpdateHubClusterFeatureShrinkRequest(TeaModel):
         # *   false: disables the audit logging feature.
         self.audit_log_enabled = audit_log_enabled  # type: bool
         # The cluster ID.
+        # 
+        # This parameter is required.
         self.cluster_id = cluster_id  # type: str
         # Specifies whether to enable the deletion protection feature for the cluster. After you enable the deletion protection feature for the cluster, you cannot delete the cluster in the console or by calling the DeleteHubCluster operation. Valid values:
         # 
@@ -5094,7 +5602,7 @@ class UpdateHubClusterFeatureShrinkRequest(TeaModel):
         # *   true
         # *   false
         self.monitor_enabled = monitor_enabled  # type: bool
-        # The name of the master instance. The name must be 1 to 63 characters in length. It must start with a letter, and can contain letters, digits, underscores (\_), and hyphens (-).
+        # The name of the master instance. The name must be 1 to 63 characters in length. It must start with a letter, and can contain letters, digits, underscores (_), and hyphens (-).
         self.name = name  # type: str
         # The limit on the prices of containers in the workflow. This parameter takes effect only if the WorkflowScheduleMode parameter is set to cost-optimized.
         self.price_limit = price_limit  # type: str
@@ -5268,6 +5776,8 @@ class UpdateHubClusterFeatureResponse(TeaModel):
 class UpdateUserPermissionRequest(TeaModel):
     def __init__(self, cluster_id=None, namespace=None, role_name=None, role_type=None, user_id=None):
         # The ID of the master instance.
+        # 
+        # This parameter is required.
         self.cluster_id = cluster_id  # type: str
         # The namespace to which the permissions are scoped. By default, this parameter is empty when you set RoleType to cluster.
         self.namespace = namespace  # type: str
@@ -5275,13 +5785,19 @@ class UpdateUserPermissionRequest(TeaModel):
         # 
         # *   admin: the administrator role.
         # *   dev: the developer role.
+        # 
+        # This parameter is required.
         self.role_name = role_name  # type: str
         # The authorization type. Valid values:
         # 
         # *   cluster: specifies that the permissions are scoped to a master instance.
         # *   namespace: specifies that the permissions are scoped to a namespace of a cluster.
+        # 
+        # This parameter is required.
         self.role_type = role_type  # type: str
         # The ID of the RAM user.
+        # 
+        # This parameter is required.
         self.user_id = user_id  # type: str
 
     def validate(self):
