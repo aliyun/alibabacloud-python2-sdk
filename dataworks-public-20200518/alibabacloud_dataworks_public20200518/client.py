@@ -1540,6 +1540,8 @@ class Client(OpenApiClient):
         body = {}
         if not UtilClient.is_unset(request.advanced_settings):
             body['AdvancedSettings'] = request.advanced_settings
+        if not UtilClient.is_unset(request.apply_schedule_immediately):
+            body['ApplyScheduleImmediately'] = request.apply_schedule_immediately
         if not UtilClient.is_unset(request.auto_parsing):
             body['AutoParsing'] = request.auto_parsing
         if not UtilClient.is_unset(request.auto_rerun_interval_millis):
@@ -3524,6 +3526,8 @@ class Client(OpenApiClient):
             query['DestEntityQualifiedName'] = request.dest_entity_qualified_name
         if not UtilClient.is_unset(request.relationship_guid):
             query['RelationshipGuid'] = request.relationship_guid
+        if not UtilClient.is_unset(request.relationship_type):
+            query['RelationshipType'] = request.relationship_type
         if not UtilClient.is_unset(request.src_entity_qualified_name):
             query['SrcEntityQualifiedName'] = request.src_entity_qualified_name
         req = open_api_models.OpenApiRequest(
@@ -12779,6 +12783,56 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_table_theme_with_options(request, runtime)
 
+    def list_tables_with_options(self, request, runtime):
+        """
+        @summary 分页获取租户下面的数据源类型粒度的表名称
+        
+
+        @param request: ListTablesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListTablesResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.data_source_type):
+            query['DataSourceType'] = request.data_source_type
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListTables',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.ListTablesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_tables(self, request):
+        """
+        @summary 分页获取租户下面的数据源类型粒度的表名称
+        
+
+        @param request: ListTablesRequest
+
+        @return: ListTablesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_tables_with_options(request, runtime)
+
     def list_topics_with_options(self, request, runtime):
         """
         @summary Queries events.
@@ -15814,6 +15868,8 @@ class Client(OpenApiClient):
         body = {}
         if not UtilClient.is_unset(request.advanced_settings):
             body['AdvancedSettings'] = request.advanced_settings
+        if not UtilClient.is_unset(request.apply_schedule_immediately):
+            body['ApplyScheduleImmediately'] = request.apply_schedule_immediately
         if not UtilClient.is_unset(request.auto_parsing):
             body['AutoParsing'] = request.auto_parsing
         if not UtilClient.is_unset(request.auto_rerun_interval_millis):

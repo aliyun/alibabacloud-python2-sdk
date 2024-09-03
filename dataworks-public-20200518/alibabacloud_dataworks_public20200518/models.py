@@ -168,9 +168,13 @@ class Entity(TeaModel):
 
 
 class LineageEntityVO(TeaModel):
-    def __init__(self, detail_url=None, name=None, parent_name=None, qualified_name=None):
+    def __init__(self, attributes=None, detail_url=None, entity_type=None, name=None, owner=None, parent_name=None,
+                 qualified_name=None):
+        self.attributes = attributes  # type: dict[str, str]
         self.detail_url = detail_url  # type: str
+        self.entity_type = entity_type  # type: str
         self.name = name  # type: str
+        self.owner = owner  # type: str
         self.parent_name = parent_name  # type: str
         self.qualified_name = qualified_name  # type: str
 
@@ -183,10 +187,16 @@ class LineageEntityVO(TeaModel):
             return _map
 
         result = dict()
+        if self.attributes is not None:
+            result['Attributes'] = self.attributes
         if self.detail_url is not None:
             result['DetailUrl'] = self.detail_url
+        if self.entity_type is not None:
+            result['EntityType'] = self.entity_type
         if self.name is not None:
             result['Name'] = self.name
+        if self.owner is not None:
+            result['Owner'] = self.owner
         if self.parent_name is not None:
             result['ParentName'] = self.parent_name
         if self.qualified_name is not None:
@@ -195,14 +205,79 @@ class LineageEntityVO(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Attributes') is not None:
+            self.attributes = m.get('Attributes')
         if m.get('DetailUrl') is not None:
             self.detail_url = m.get('DetailUrl')
+        if m.get('EntityType') is not None:
+            self.entity_type = m.get('EntityType')
         if m.get('Name') is not None:
             self.name = m.get('Name')
+        if m.get('Owner') is not None:
+            self.owner = m.get('Owner')
         if m.get('ParentName') is not None:
             self.parent_name = m.get('ParentName')
         if m.get('QualifiedName') is not None:
             self.qualified_name = m.get('QualifiedName')
+        return self
+
+
+class LineageRelationRegisterBulkVO(TeaModel):
+    def __init__(self, create_timestamp=None, dest_entities=None, relationship=None, src_entities=None):
+        self.create_timestamp = create_timestamp  # type: long
+        self.dest_entities = dest_entities  # type: list[LineageEntityVO]
+        self.relationship = relationship  # type: RelationshipVO
+        self.src_entities = src_entities  # type: list[LineageEntityVO]
+
+    def validate(self):
+        if self.dest_entities:
+            for k in self.dest_entities:
+                if k:
+                    k.validate()
+        if self.relationship:
+            self.relationship.validate()
+        if self.src_entities:
+            for k in self.src_entities:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(LineageRelationRegisterBulkVO, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.create_timestamp is not None:
+            result['CreateTimestamp'] = self.create_timestamp
+        result['DestEntities'] = []
+        if self.dest_entities is not None:
+            for k in self.dest_entities:
+                result['DestEntities'].append(k.to_map() if k else None)
+        if self.relationship is not None:
+            result['Relationship'] = self.relationship.to_map()
+        result['SrcEntities'] = []
+        if self.src_entities is not None:
+            for k in self.src_entities:
+                result['SrcEntities'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CreateTimestamp') is not None:
+            self.create_timestamp = m.get('CreateTimestamp')
+        self.dest_entities = []
+        if m.get('DestEntities') is not None:
+            for k in m.get('DestEntities'):
+                temp_model = LineageEntityVO()
+                self.dest_entities.append(temp_model.from_map(k))
+        if m.get('Relationship') is not None:
+            temp_model = RelationshipVO()
+            self.relationship = temp_model.from_map(m['Relationship'])
+        self.src_entities = []
+        if m.get('SrcEntities') is not None:
+            for k in m.get('SrcEntities'):
+                temp_model = LineageEntityVO()
+                self.src_entities.append(temp_model.from_map(k))
         return self
 
 
@@ -254,8 +329,10 @@ class LineageRelationRegisterVO(TeaModel):
 
 
 class RelationshipVO(TeaModel):
-    def __init__(self, type=None):
-        self.type = type  # type: str
+    def __init__(self, attributes=None, relationship_guid=None, relationship_type=None):
+        self.attributes = attributes  # type: dict[str, str]
+        self.relationship_guid = relationship_guid  # type: str
+        self.relationship_type = relationship_type  # type: str
 
     def validate(self):
         pass
@@ -266,14 +343,22 @@ class RelationshipVO(TeaModel):
             return _map
 
         result = dict()
-        if self.type is not None:
-            result['Type'] = self.type
+        if self.attributes is not None:
+            result['Attributes'] = self.attributes
+        if self.relationship_guid is not None:
+            result['RelationshipGuid'] = self.relationship_guid
+        if self.relationship_type is not None:
+            result['RelationshipType'] = self.relationship_type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Type') is not None:
-            self.type = m.get('Type')
+        if m.get('Attributes') is not None:
+            self.attributes = m.get('Attributes')
+        if m.get('RelationshipGuid') is not None:
+            self.relationship_guid = m.get('RelationshipGuid')
+        if m.get('RelationshipType') is not None:
+            self.relationship_type = m.get('RelationshipType')
         return self
 
 
@@ -5482,9 +5567,9 @@ class CreateExportMigrationResponse(TeaModel):
 
 
 class CreateFileRequest(TeaModel):
-    def __init__(self, advanced_settings=None, auto_parsing=None, auto_rerun_interval_millis=None,
-                 auto_rerun_times=None, connection_name=None, content=None, create_folder_if_not_exists=None, cron_express=None,
-                 cycle_type=None, dependent_node_id_list=None, dependent_type=None, end_effect_date=None,
+    def __init__(self, advanced_settings=None, apply_schedule_immediately=None, auto_parsing=None,
+                 auto_rerun_interval_millis=None, auto_rerun_times=None, connection_name=None, content=None, create_folder_if_not_exists=None,
+                 cron_express=None, cycle_type=None, dependent_node_id_list=None, dependent_type=None, end_effect_date=None,
                  file_description=None, file_folder_path=None, file_name=None, file_type=None,
                  ignore_parent_skip_running_property=None, input_list=None, input_parameters=None, output_parameters=None, owner=None, para_value=None,
                  project_id=None, project_identifier=None, rerun_mode=None, resource_group_id=None,
@@ -5495,6 +5580,7 @@ class CreateFileRequest(TeaModel):
         # 
         # The value of this parameter must be in the JSON format.
         self.advanced_settings = advanced_settings  # type: str
+        self.apply_schedule_immediately = apply_schedule_immediately  # type: bool
         # Specifies whether to enable the automatic parsing feature for the file. Valid values:
         # 
         # *   true
@@ -5648,6 +5734,8 @@ class CreateFileRequest(TeaModel):
         result = dict()
         if self.advanced_settings is not None:
             result['AdvancedSettings'] = self.advanced_settings
+        if self.apply_schedule_immediately is not None:
+            result['ApplyScheduleImmediately'] = self.apply_schedule_immediately
         if self.auto_parsing is not None:
             result['AutoParsing'] = self.auto_parsing
         if self.auto_rerun_interval_millis is not None:
@@ -5714,6 +5802,8 @@ class CreateFileRequest(TeaModel):
         m = m or dict()
         if m.get('AdvancedSettings') is not None:
             self.advanced_settings = m.get('AdvancedSettings')
+        if m.get('ApplyScheduleImmediately') is not None:
+            self.apply_schedule_immediately = m.get('ApplyScheduleImmediately')
         if m.get('AutoParsing') is not None:
             self.auto_parsing = m.get('AutoParsing')
         if m.get('AutoRerunIntervalMillis') is not None:
@@ -10971,13 +11061,15 @@ class DeleteFromMetaCategoryResponse(TeaModel):
 
 
 class DeleteLineageRelationRequest(TeaModel):
-    def __init__(self, dest_entity_qualified_name=None, relationship_guid=None, src_entity_qualified_name=None):
+    def __init__(self, dest_entity_qualified_name=None, relationship_guid=None, relationship_type=None,
+                 src_entity_qualified_name=None):
         # The unique identifier of the destination entity.
         # 
         # This parameter is required.
         self.dest_entity_qualified_name = dest_entity_qualified_name  # type: str
         # The unique identifier of the lineage.
         self.relationship_guid = relationship_guid  # type: str
+        self.relationship_type = relationship_type  # type: str
         # The unique identifier of the source entity.
         # 
         # This parameter is required.
@@ -10996,6 +11088,8 @@ class DeleteLineageRelationRequest(TeaModel):
             result['DestEntityQualifiedName'] = self.dest_entity_qualified_name
         if self.relationship_guid is not None:
             result['RelationshipGuid'] = self.relationship_guid
+        if self.relationship_type is not None:
+            result['RelationshipType'] = self.relationship_type
         if self.src_entity_qualified_name is not None:
             result['SrcEntityQualifiedName'] = self.src_entity_qualified_name
         return result
@@ -11006,6 +11100,8 @@ class DeleteLineageRelationRequest(TeaModel):
             self.dest_entity_qualified_name = m.get('DestEntityQualifiedName')
         if m.get('RelationshipGuid') is not None:
             self.relationship_guid = m.get('RelationshipGuid')
+        if m.get('RelationshipType') is not None:
+            self.relationship_type = m.get('RelationshipType')
         if m.get('SrcEntityQualifiedName') is not None:
             self.src_entity_qualified_name = m.get('SrcEntityQualifiedName')
         return self
@@ -22749,7 +22845,11 @@ class GetDISyncTaskResponse(TeaModel):
 
 class GetDagRequest(TeaModel):
     def __init__(self, dag_id=None, project_env=None):
-        # The DAG ID. You can set this parameter to the value of the DagId parameter returned by the CreateDagComplement, CreateTest, or CreateManualDag operation.
+        # The ID of the DAG. You can use one of the following method to obtain the ID:
+        # 
+        # *   Call the [RunCycleDagNodes](https://help.aliyun.com/document_detail/2780209.html) operation and obtain the value of the **Data** response parameter.
+        # *   Call the [RunSmokeTest](https://help.aliyun.com/document_detail/2780210.html) operation and obtain the value of the **Data** response parameter.
+        # *   Call the [RunManualDagNodes](https://help.aliyun.com/document_detail/2780218.html) operation and obtain the value of the **DagId** response parameter.
         # 
         # This parameter is required.
         self.dag_id = dag_id  # type: long
@@ -26946,10 +27046,12 @@ class GetFileResponseBodyDataNodeConfigurationOutputParameters(TeaModel):
 
 
 class GetFileResponseBodyDataNodeConfiguration(TeaModel):
-    def __init__(self, auto_rerun_interval_millis=None, auto_rerun_times=None, cron_express=None, cycle_type=None,
-                 dependent_node_id_list=None, dependent_type=None, end_effect_date=None, input_list=None, input_parameters=None,
-                 output_list=None, output_parameters=None, para_value=None, rerun_mode=None, resource_group_id=None,
-                 scheduler_type=None, start_effect_date=None, start_immediately=None, stop=None):
+    def __init__(self, apply_schedule_immediately=None, auto_rerun_interval_millis=None, auto_rerun_times=None,
+                 cron_express=None, cycle_type=None, dependent_node_id_list=None, dependent_type=None, end_effect_date=None,
+                 input_list=None, input_parameters=None, output_list=None, output_parameters=None, para_value=None,
+                 rerun_mode=None, resource_group_id=None, scheduler_type=None, start_effect_date=None, start_immediately=None,
+                 stop=None):
+        self.apply_schedule_immediately = apply_schedule_immediately  # type: str
         # The interval between automatic reruns after an error occurs. Unit: milliseconds.
         # 
         # This parameter corresponds to the Rerun Interval parameter that is displayed after the Auto Rerun upon Error check box is selected in the Schedule section of the Properties tab in the [DataWorks console](https://workbench.data.aliyun.com/console).
@@ -27054,6 +27156,8 @@ class GetFileResponseBodyDataNodeConfiguration(TeaModel):
             return _map
 
         result = dict()
+        if self.apply_schedule_immediately is not None:
+            result['ApplyScheduleImmediately'] = self.apply_schedule_immediately
         if self.auto_rerun_interval_millis is not None:
             result['AutoRerunIntervalMillis'] = self.auto_rerun_interval_millis
         if self.auto_rerun_times is not None:
@@ -27102,6 +27206,8 @@ class GetFileResponseBodyDataNodeConfiguration(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ApplyScheduleImmediately') is not None:
+            self.apply_schedule_immediately = m.get('ApplyScheduleImmediately')
         if m.get('AutoRerunIntervalMillis') is not None:
             self.auto_rerun_interval_millis = m.get('AutoRerunIntervalMillis')
         if m.get('AutoRerunTimes') is not None:
@@ -60099,6 +60205,232 @@ class ListTableThemeResponse(TeaModel):
         return self
 
 
+class ListTablesRequest(TeaModel):
+    def __init__(self, data_source_type=None, next_token=None, page_size=None):
+        # This parameter is required.
+        self.data_source_type = data_source_type  # type: str
+        self.next_token = next_token  # type: str
+        self.page_size = page_size  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListTablesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data_source_type is not None:
+            result['DataSourceType'] = self.data_source_type
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DataSourceType') is not None:
+            self.data_source_type = m.get('DataSourceType')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        return self
+
+
+class ListTablesResponseBodyDataTableEntityListEntityContent(TeaModel):
+    def __init__(self, data_source_qualified_name=None, data_source_unique_id=None, database_name=None,
+                 instance_id=None, project_name=None, table_name=None):
+        self.data_source_qualified_name = data_source_qualified_name  # type: str
+        self.data_source_unique_id = data_source_unique_id  # type: str
+        self.database_name = database_name  # type: str
+        self.instance_id = instance_id  # type: str
+        self.project_name = project_name  # type: str
+        self.table_name = table_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListTablesResponseBodyDataTableEntityListEntityContent, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data_source_qualified_name is not None:
+            result['DataSourceQualifiedName'] = self.data_source_qualified_name
+        if self.data_source_unique_id is not None:
+            result['DataSourceUniqueId'] = self.data_source_unique_id
+        if self.database_name is not None:
+            result['DatabaseName'] = self.database_name
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.project_name is not None:
+            result['ProjectName'] = self.project_name
+        if self.table_name is not None:
+            result['TableName'] = self.table_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DataSourceQualifiedName') is not None:
+            self.data_source_qualified_name = m.get('DataSourceQualifiedName')
+        if m.get('DataSourceUniqueId') is not None:
+            self.data_source_unique_id = m.get('DataSourceUniqueId')
+        if m.get('DatabaseName') is not None:
+            self.database_name = m.get('DatabaseName')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('ProjectName') is not None:
+            self.project_name = m.get('ProjectName')
+        if m.get('TableName') is not None:
+            self.table_name = m.get('TableName')
+        return self
+
+
+class ListTablesResponseBodyDataTableEntityList(TeaModel):
+    def __init__(self, entity_content=None, entity_qualified_name=None):
+        self.entity_content = entity_content  # type: ListTablesResponseBodyDataTableEntityListEntityContent
+        self.entity_qualified_name = entity_qualified_name  # type: str
+
+    def validate(self):
+        if self.entity_content:
+            self.entity_content.validate()
+
+    def to_map(self):
+        _map = super(ListTablesResponseBodyDataTableEntityList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.entity_content is not None:
+            result['EntityContent'] = self.entity_content.to_map()
+        if self.entity_qualified_name is not None:
+            result['EntityQualifiedName'] = self.entity_qualified_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EntityContent') is not None:
+            temp_model = ListTablesResponseBodyDataTableEntityListEntityContent()
+            self.entity_content = temp_model.from_map(m['EntityContent'])
+        if m.get('EntityQualifiedName') is not None:
+            self.entity_qualified_name = m.get('EntityQualifiedName')
+        return self
+
+
+class ListTablesResponseBodyData(TeaModel):
+    def __init__(self, next_token=None, table_entity_list=None, total=None):
+        self.next_token = next_token  # type: str
+        self.table_entity_list = table_entity_list  # type: list[ListTablesResponseBodyDataTableEntityList]
+        self.total = total  # type: long
+
+    def validate(self):
+        if self.table_entity_list:
+            for k in self.table_entity_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListTablesResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        result['TableEntityList'] = []
+        if self.table_entity_list is not None:
+            for k in self.table_entity_list:
+                result['TableEntityList'].append(k.to_map() if k else None)
+        if self.total is not None:
+            result['Total'] = self.total
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        self.table_entity_list = []
+        if m.get('TableEntityList') is not None:
+            for k in m.get('TableEntityList'):
+                temp_model = ListTablesResponseBodyDataTableEntityList()
+                self.table_entity_list.append(temp_model.from_map(k))
+        if m.get('Total') is not None:
+            self.total = m.get('Total')
+        return self
+
+
+class ListTablesResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: ListTablesResponseBodyData
+        # Id of the request
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(ListTablesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            temp_model = ListTablesResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ListTablesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListTablesResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListTablesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListTablesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListTopicsRequest(TeaModel):
     def __init__(self, begin_time=None, end_time=None, instance_id=None, node_id=None, owner=None, page_number=None,
                  page_size=None, topic_statuses=None, topic_types=None):
@@ -69961,7 +70293,7 @@ class UpdateDataSourceRequest(TeaModel):
     def __init__(self, content=None, data_source_id=None, description=None, env_type=None, status=None):
         # The details about the data source. You are not allowed to change the type of the data source. For example, you are not allowed to change the data source type from MaxCompute to MySQL. Examples of details of some common data sources:
         # 
-        # *   MaxCompute
+        # *   odps
         # 
         #         {
         #           "accessId": "xssssss",
@@ -69972,7 +70304,7 @@ class UpdateDataSourceRequest(TeaModel):
         #           "tag": "public"
         #         }
         # 
-        # *   MySQL
+        # *   mysql
         # 
         #         {
         #           "database": "xsaxsa",
@@ -69984,7 +70316,7 @@ class UpdateDataSourceRequest(TeaModel):
         #           "username": "xsaxsa"
         #         }
         # 
-        # *   RDS
+        # *   rds
         # 
         #         {
         #           "configType": 1,
@@ -69996,7 +70328,7 @@ class UpdateDataSourceRequest(TeaModel):
         #           "rdsOwnerId": "11111111"
         #         }
         # 
-        # *   OSS
+        # *   oss
         # 
         #         {
         #           "accessId": "sssssxx",
@@ -70006,7 +70338,7 @@ class UpdateDataSourceRequest(TeaModel):
         #           "tag": "public"
         #         }
         # 
-        # *   SQL Server
+        # *   sqlserver
         # 
         #         {
         #           "jdbcUrl": "jdbc:sqlserver://xsaxsa-xsaxsa.database.xxx.cn:123;DatabaseName=xsxs-xsxs",
@@ -70015,7 +70347,7 @@ class UpdateDataSourceRequest(TeaModel):
         #           "username": "sxaxacdacdd"
         #         }
         # 
-        # *   PolarDB
+        # *   polardb
         # 
         #         {
         #           "clusterId": "pc-sdadsadsa",
@@ -70027,7 +70359,7 @@ class UpdateDataSourceRequest(TeaModel):
         #           "username": "asdadsads"
         #         }
         # 
-        # *   Oracle
+        # *   oracle
         # 
         #         {
         #           "jdbcUrl": "jdbc:oracle:saaa:@xxxxx:1521:PROD",
@@ -70036,7 +70368,7 @@ class UpdateDataSourceRequest(TeaModel):
         #           "username": "sasfadfa"
         #         }
         # 
-        # *   MongoDB
+        # *   mongodb
         # 
         #         {
         #           "address": "[\\"xsaxxsa.mongodb.rds.aliyuncs.com:3717\\"]",
@@ -70046,7 +70378,7 @@ class UpdateDataSourceRequest(TeaModel):
         #           "username": "dsadsadas"
         #         }
         # 
-        # *   EMR
+        # *   emr
         # 
         #         {
         #           "accessId": "xsaxsa",
@@ -70062,7 +70394,7 @@ class UpdateDataSourceRequest(TeaModel):
         #           "emrProjectId": "FP-sdadsad"
         #         }
         # 
-        # *   PostgreSQL
+        # *   postgresql
         # 
         #         {
         #           "jdbcUrl": "jdbc:postgresql://xxxx:1921/ssss",
@@ -70071,7 +70403,7 @@ class UpdateDataSourceRequest(TeaModel):
         #           "username": "sdsasda"
         #         }
         # 
-        # *   AnalyticDB for MySQL
+        # *   analyticdb_for_mysql
         # 
         #         {
         #           "instanceId": "am-sadsada",
@@ -70081,7 +70413,7 @@ class UpdateDataSourceRequest(TeaModel):
         #           "connectionString": "am-xssxsxs.ads.aliyuncs.com:3306"
         #         }
         # 
-        # *   HybridDB for PostgreSQL
+        # *   hybriddb_for_postgresql
         # 
         #         {
         #           "connectionString": "gp-xsaxsaxa-master.gpdbmaster.rds.aliyuncs.com",
@@ -70093,7 +70425,7 @@ class UpdateDataSourceRequest(TeaModel):
         #           "username": "sadsad"
         #         }
         # 
-        # *   Hologres
+        # *   holo
         # 
         #         {
         #           "accessId": "xsaxsaxs",
@@ -70103,7 +70435,7 @@ class UpdateDataSourceRequest(TeaModel):
         #           "tag": "aliyun"
         #         }
         # 
-        # *   Kafka
+        # *   kafka
         # 
         #         {
         #           "instanceId": "xsax-cn-xsaxsa",
@@ -70242,19 +70574,20 @@ class UpdateDataSourceResponse(TeaModel):
 
 
 class UpdateFileRequest(TeaModel):
-    def __init__(self, advanced_settings=None, auto_parsing=None, auto_rerun_interval_millis=None,
-                 auto_rerun_times=None, connection_name=None, content=None, cron_express=None, cycle_type=None,
-                 dependent_node_id_list=None, dependent_type=None, end_effect_date=None, file_description=None, file_folder_path=None,
-                 file_id=None, file_name=None, ignore_parent_skip_running_property=None, input_list=None,
-                 input_parameters=None, output_list=None, output_parameters=None, owner=None, para_value=None, project_id=None,
-                 project_identifier=None, rerun_mode=None, resource_group_identifier=None, scheduler_type=None,
-                 start_effect_date=None, start_immediately=None, stop=None):
+    def __init__(self, advanced_settings=None, apply_schedule_immediately=None, auto_parsing=None,
+                 auto_rerun_interval_millis=None, auto_rerun_times=None, connection_name=None, content=None, cron_express=None,
+                 cycle_type=None, dependent_node_id_list=None, dependent_type=None, end_effect_date=None,
+                 file_description=None, file_folder_path=None, file_id=None, file_name=None,
+                 ignore_parent_skip_running_property=None, input_list=None, input_parameters=None, output_list=None, output_parameters=None, owner=None,
+                 para_value=None, project_id=None, project_identifier=None, rerun_mode=None, resource_group_identifier=None,
+                 scheduler_type=None, start_effect_date=None, start_immediately=None, stop=None):
         # The advanced configurations of the node.
         # 
         # This parameter is valid only for an EMR Spark Streaming node or an EMR Streaming SQL node. This parameter corresponds to the Advanced Settings tab of the node in the [DataWorks console](https://workbench.data.aliyun.com/console).
         # 
         # This parameter is configured in the JSON format.
         self.advanced_settings = advanced_settings  # type: str
+        self.apply_schedule_immediately = apply_schedule_immediately  # type: bool
         # Specifies whether the automatic parsing feature is enabled for the file. Valid values:
         # 
         # *   true: The automatic parsing feature is enabled for the file.
@@ -70400,6 +70733,8 @@ class UpdateFileRequest(TeaModel):
         result = dict()
         if self.advanced_settings is not None:
             result['AdvancedSettings'] = self.advanced_settings
+        if self.apply_schedule_immediately is not None:
+            result['ApplyScheduleImmediately'] = self.apply_schedule_immediately
         if self.auto_parsing is not None:
             result['AutoParsing'] = self.auto_parsing
         if self.auto_rerun_interval_millis is not None:
@@ -70464,6 +70799,8 @@ class UpdateFileRequest(TeaModel):
         m = m or dict()
         if m.get('AdvancedSettings') is not None:
             self.advanced_settings = m.get('AdvancedSettings')
+        if m.get('ApplyScheduleImmediately') is not None:
+            self.apply_schedule_immediately = m.get('ApplyScheduleImmediately')
         if m.get('AutoParsing') is not None:
             self.auto_parsing = m.get('AutoParsing')
         if m.get('AutoRerunIntervalMillis') is not None:
