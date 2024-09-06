@@ -3,6 +3,217 @@
 from Tea.model import TeaModel
 
 
+class ColumnMetadata(TeaModel):
+    def __init__(self, column_default=None, comment=None, data_type=None, is_case_sensitive=None, is_currency=None,
+                 is_primary_key=None, is_signed=None, max_length=None, name=None, nullable=None, precision=None, scale=None,
+                 schema_name=None, table_name=None, udt_name=None):
+        self.column_default = column_default  # type: str
+        self.comment = comment  # type: str
+        self.data_type = data_type  # type: str
+        self.is_case_sensitive = is_case_sensitive  # type: bool
+        self.is_currency = is_currency  # type: bool
+        self.is_primary_key = is_primary_key  # type: bool
+        self.is_signed = is_signed  # type: bool
+        self.max_length = max_length  # type: int
+        self.name = name  # type: str
+        self.nullable = nullable  # type: bool
+        self.precision = precision  # type: int
+        self.scale = scale  # type: int
+        self.schema_name = schema_name  # type: str
+        self.table_name = table_name  # type: str
+        self.udt_name = udt_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ColumnMetadata, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.column_default is not None:
+            result['ColumnDefault'] = self.column_default
+        if self.comment is not None:
+            result['Comment'] = self.comment
+        if self.data_type is not None:
+            result['DataType'] = self.data_type
+        if self.is_case_sensitive is not None:
+            result['IsCaseSensitive'] = self.is_case_sensitive
+        if self.is_currency is not None:
+            result['IsCurrency'] = self.is_currency
+        if self.is_primary_key is not None:
+            result['IsPrimaryKey'] = self.is_primary_key
+        if self.is_signed is not None:
+            result['IsSigned'] = self.is_signed
+        if self.max_length is not None:
+            result['MaxLength'] = self.max_length
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.nullable is not None:
+            result['Nullable'] = self.nullable
+        if self.precision is not None:
+            result['Precision'] = self.precision
+        if self.scale is not None:
+            result['Scale'] = self.scale
+        if self.schema_name is not None:
+            result['SchemaName'] = self.schema_name
+        if self.table_name is not None:
+            result['TableName'] = self.table_name
+        if self.udt_name is not None:
+            result['UdtName'] = self.udt_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ColumnDefault') is not None:
+            self.column_default = m.get('ColumnDefault')
+        if m.get('Comment') is not None:
+            self.comment = m.get('Comment')
+        if m.get('DataType') is not None:
+            self.data_type = m.get('DataType')
+        if m.get('IsCaseSensitive') is not None:
+            self.is_case_sensitive = m.get('IsCaseSensitive')
+        if m.get('IsCurrency') is not None:
+            self.is_currency = m.get('IsCurrency')
+        if m.get('IsPrimaryKey') is not None:
+            self.is_primary_key = m.get('IsPrimaryKey')
+        if m.get('IsSigned') is not None:
+            self.is_signed = m.get('IsSigned')
+        if m.get('MaxLength') is not None:
+            self.max_length = m.get('MaxLength')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Nullable') is not None:
+            self.nullable = m.get('Nullable')
+        if m.get('Precision') is not None:
+            self.precision = m.get('Precision')
+        if m.get('Scale') is not None:
+            self.scale = m.get('Scale')
+        if m.get('SchemaName') is not None:
+            self.schema_name = m.get('SchemaName')
+        if m.get('TableName') is not None:
+            self.table_name = m.get('TableName')
+        if m.get('UdtName') is not None:
+            self.udt_name = m.get('UdtName')
+        return self
+
+
+class Field(TeaModel):
+    def __init__(self, blob_value=None, boolean_value=None, double_value=None, is_null=None, long_value=None,
+                 string_value=None):
+        self.blob_value = blob_value  # type: str
+        self.boolean_value = boolean_value  # type: bool
+        self.double_value = double_value  # type: float
+        self.is_null = is_null  # type: bool
+        self.long_value = long_value  # type: long
+        self.string_value = string_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(Field, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.blob_value is not None:
+            result['BlobValue'] = self.blob_value
+        if self.boolean_value is not None:
+            result['BooleanValue'] = self.boolean_value
+        if self.double_value is not None:
+            result['DoubleValue'] = self.double_value
+        if self.is_null is not None:
+            result['IsNull'] = self.is_null
+        if self.long_value is not None:
+            result['LongValue'] = self.long_value
+        if self.string_value is not None:
+            result['StringValue'] = self.string_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BlobValue') is not None:
+            self.blob_value = m.get('BlobValue')
+        if m.get('BooleanValue') is not None:
+            self.boolean_value = m.get('BooleanValue')
+        if m.get('DoubleValue') is not None:
+            self.double_value = m.get('DoubleValue')
+        if m.get('IsNull') is not None:
+            self.is_null = m.get('IsNull')
+        if m.get('LongValue') is not None:
+            self.long_value = m.get('LongValue')
+        if m.get('StringValue') is not None:
+            self.string_value = m.get('StringValue')
+        return self
+
+
+class StatementData(TeaModel):
+    def __init__(self, created_at=None, database=None, id=None, parameters=None, secret_arn=None, sql=None, sqls=None,
+                 status=None, updated_at=None):
+        self.created_at = created_at  # type: str
+        self.database = database  # type: str
+        self.id = id  # type: str
+        self.parameters = parameters  # type: list[str]
+        self.secret_arn = secret_arn  # type: str
+        self.sql = sql  # type: str
+        self.sqls = sqls  # type: list[str]
+        self.status = status  # type: str
+        self.updated_at = updated_at  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(StatementData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.created_at is not None:
+            result['CreatedAt'] = self.created_at
+        if self.database is not None:
+            result['Database'] = self.database
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.parameters is not None:
+            result['Parameters'] = self.parameters
+        if self.secret_arn is not None:
+            result['SecretArn'] = self.secret_arn
+        if self.sql is not None:
+            result['Sql'] = self.sql
+        if self.sqls is not None:
+            result['Sqls'] = self.sqls
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.updated_at is not None:
+            result['UpdatedAt'] = self.updated_at
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CreatedAt') is not None:
+            self.created_at = m.get('CreatedAt')
+        if m.get('Database') is not None:
+            self.database = m.get('Database')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('Parameters') is not None:
+            self.parameters = m.get('Parameters')
+        if m.get('SecretArn') is not None:
+            self.secret_arn = m.get('SecretArn')
+        if m.get('Sql') is not None:
+            self.sql = m.get('Sql')
+        if m.get('Sqls') is not None:
+            self.sqls = m.get('Sqls')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('UpdatedAt') is not None:
+            self.updated_at = m.get('UpdatedAt')
+        return self
+
+
 class AllocateInstancePublicConnectionRequest(TeaModel):
     def __init__(self, address_type=None, connection_string_prefix=None, dbinstance_id=None, owner_id=None,
                  port=None, resource_owner_account=None, resource_owner_id=None):
@@ -16,13 +227,19 @@ class AllocateInstancePublicConnectionRequest(TeaModel):
         # The prefix of the endpoint.
         # 
         # Specify a prefix for the endpoint. Example: `gp-bp12ga6v69h86****`. In this example, the endpoint is `gp-bp12ga6v69h86****.gpdb.rds.aliyuncs.com`.
+        # 
+        # This parameter is required.
         self.connection_string_prefix = connection_string_prefix  # type: str
         # The ID of the instance.
         # 
-        # >  You can call the [DescribeDBInstances](~~86911~~) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         self.owner_id = owner_id  # type: long
         # The port number. Example: 5432.
+        # 
+        # This parameter is required.
         self.port = port  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -132,15 +349,200 @@ class AllocateInstancePublicConnectionResponse(TeaModel):
         return self
 
 
+class BindDBResourceGroupWithRoleRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, owner_id=None, resource_group_name=None, role_list=None):
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.owner_id = owner_id  # type: long
+        # The name of the resource group.
+        # 
+        # This parameter is required.
+        self.resource_group_name = resource_group_name  # type: str
+        # The roles.
+        # 
+        # This parameter is required.
+        self.role_list = role_list  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BindDBResourceGroupWithRoleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_group_name is not None:
+            result['ResourceGroupName'] = self.resource_group_name
+        if self.role_list is not None:
+            result['RoleList'] = self.role_list
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceGroupName') is not None:
+            self.resource_group_name = m.get('ResourceGroupName')
+        if m.get('RoleList') is not None:
+            self.role_list = m.get('RoleList')
+        return self
+
+
+class BindDBResourceGroupWithRoleShrinkRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, owner_id=None, resource_group_name=None, role_list_shrink=None):
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.owner_id = owner_id  # type: long
+        # The name of the resource group.
+        # 
+        # This parameter is required.
+        self.resource_group_name = resource_group_name  # type: str
+        # The roles.
+        # 
+        # This parameter is required.
+        self.role_list_shrink = role_list_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BindDBResourceGroupWithRoleShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_group_name is not None:
+            result['ResourceGroupName'] = self.resource_group_name
+        if self.role_list_shrink is not None:
+            result['RoleList'] = self.role_list_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceGroupName') is not None:
+            self.resource_group_name = m.get('ResourceGroupName')
+        if m.get('RoleList') is not None:
+            self.role_list_shrink = m.get('RoleList')
+        return self
+
+
+class BindDBResourceGroupWithRoleResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        # The request ID.
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BindDBResourceGroupWithRoleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class BindDBResourceGroupWithRoleResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: BindDBResourceGroupWithRoleResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(BindDBResourceGroupWithRoleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = BindDBResourceGroupWithRoleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CancelUploadDocumentJobRequest(TeaModel):
     def __init__(self, collection=None, dbinstance_id=None, job_id=None, namespace=None, namespace_password=None,
                  owner_id=None, region_id=None):
+        # The name of the document collection.
+        # 
+        # >  You can call the [CreateDocumentCollection](https://help.aliyun.com/document_detail/2618448.html) operation to create a document collection and call the [ListDocumentCollections](https://help.aliyun.com/document_detail/2618452.html) operation to query a list of document collections.
+        # 
+        # This parameter is required.
         self.collection = collection  # type: str
+        # The ID of the instance for which vector engine optimization is enabled.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
+        # The ID of the document upload job. You can call the `UploadDocumentAsync` operation to query the job ID.
+        # 
+        # This parameter is required.
         self.job_id = job_id  # type: str
+        # The name of the namespace. Default value: public.
+        # 
+        # >  You can call the CreateNamespace operation to create a namespace and call the ListNamespaces operation to query a list of namespaces.
         self.namespace = namespace  # type: str
+        # The password of the namespace.
+        # 
+        # >  The value of this parameter is specified when you call the CreateNamespace operation.
+        # 
+        # This parameter is required.
         self.namespace_password = namespace_password  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the instance.
+        # 
+        # This parameter is required.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -189,8 +591,14 @@ class CancelUploadDocumentJobRequest(TeaModel):
 
 class CancelUploadDocumentJobResponseBody(TeaModel):
     def __init__(self, message=None, request_id=None, status=None):
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The status of the operation. Valid values:
+        # 
+        # *   **success**\
+        # *   **fail**\
         self.status = status  # type: str
 
     def validate(self):
@@ -259,14 +667,37 @@ class CancelUploadDocumentJobResponse(TeaModel):
 
 class CancelUpsertCollectionDataJobRequest(TeaModel):
     def __init__(self, collection=None, dbinstance_id=None, job_id=None, namespace=None, namespace_password=None,
-                 owner_id=None, region_id=None):
+                 owner_id=None, region_id=None, workspace_id=None):
+        # The name of the collection.
+        # 
+        # >  You can call the [ListCollections](https://help.aliyun.com/document_detail/2401503.html) operation to query a list of collections.
+        # 
+        # This parameter is required.
         self.collection = collection  # type: str
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
         self.dbinstance_id = dbinstance_id  # type: str
+        # The ID of the vector data upload job. You can call the `UpsertCollectionDataAsync` operation to query the job ID.
+        # 
+        # This parameter is required.
         self.job_id = job_id  # type: str
+        # The name of the namespace. Default value: public.
+        # 
+        # >  You can call the CreateNamespace operation to create a namespace and call the ListNamespaces operation to query a list of namespaces.
         self.namespace = namespace  # type: str
+        # The password of the namespace.
+        # 
+        # >  The value of this parameter is specified when you call the CreateNamespace operation.
+        # 
+        # This parameter is required.
         self.namespace_password = namespace_password  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the instance.
+        # 
+        # This parameter is required.
         self.region_id = region_id  # type: str
+        self.workspace_id = workspace_id  # type: str
 
     def validate(self):
         pass
@@ -291,6 +722,8 @@ class CancelUpsertCollectionDataJobRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.workspace_id is not None:
+            result['WorkspaceId'] = self.workspace_id
         return result
 
     def from_map(self, m=None):
@@ -309,13 +742,21 @@ class CancelUpsertCollectionDataJobRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('WorkspaceId') is not None:
+            self.workspace_id = m.get('WorkspaceId')
         return self
 
 
 class CancelUpsertCollectionDataJobResponseBody(TeaModel):
     def __init__(self, message=None, request_id=None, status=None):
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The status of the operation. Valid values:
+        # 
+        # *   **success**\
+        # *   **fail**\
         self.status = status  # type: str
 
     def validate(self):
@@ -382,9 +823,372 @@ class CancelUpsertCollectionDataJobResponse(TeaModel):
         return self
 
 
+class CheckHadoopDataSourceRequest(TeaModel):
+    def __init__(self, check_dir=None, dbinstance_id=None, data_source_id=None, region_id=None):
+        # The Hadoop path that you want to check.
+        # 
+        # This parameter is required.
+        self.check_dir = check_dir  # type: str
+        # The instance ID.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        # The data source ID.
+        # 
+        # This parameter is required.
+        self.data_source_id = data_source_id  # type: str
+        # The region ID.
+        # 
+        # >  You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CheckHadoopDataSourceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.check_dir is not None:
+            result['CheckDir'] = self.check_dir
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.data_source_id is not None:
+            result['DataSourceId'] = self.data_source_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CheckDir') is not None:
+            self.check_dir = m.get('CheckDir')
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('DataSourceId') is not None:
+            self.data_source_id = m.get('DataSourceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class CheckHadoopDataSourceResponseBody(TeaModel):
+    def __init__(self, message=None, request_id=None, status=None):
+        # The returned message. If the service failed, an error message is returned. Otherwise, a pair of double quotation marks ("") is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # The status of the service. Valid values:
+        # 
+        # *   Running
+        # *   Failed
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CheckHadoopDataSourceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class CheckHadoopDataSourceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CheckHadoopDataSourceResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CheckHadoopDataSourceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CheckHadoopDataSourceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CheckHadoopNetConnectionRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, data_source_id=None, emr_instance_id=None, region_id=None):
+        # The instance ID.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.data_source_id = data_source_id  # type: str
+        # The E-MapReduce (EMR) Hadoop cluster ID.
+        self.emr_instance_id = emr_instance_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CheckHadoopNetConnectionRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.data_source_id is not None:
+            result['DataSourceId'] = self.data_source_id
+        if self.emr_instance_id is not None:
+            result['EmrInstanceId'] = self.emr_instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('DataSourceId') is not None:
+            self.data_source_id = m.get('DataSourceId')
+        if m.get('EmrInstanceId') is not None:
+            self.emr_instance_id = m.get('EmrInstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class CheckHadoopNetConnectionResponseBody(TeaModel):
+    def __init__(self, connection_message=None, connection_status=None, request_id=None):
+        # The returned message. If the connection failed, an error message is returned. Otherwise, a pair of double quotation marks ("") is returned.
+        self.connection_message = connection_message  # type: str
+        # The connection status. Valid values: Success and Failed.
+        self.connection_status = connection_status  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CheckHadoopNetConnectionResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.connection_message is not None:
+            result['ConnectionMessage'] = self.connection_message
+        if self.connection_status is not None:
+            result['ConnectionStatus'] = self.connection_status
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConnectionMessage') is not None:
+            self.connection_message = m.get('ConnectionMessage')
+        if m.get('ConnectionStatus') is not None:
+            self.connection_status = m.get('ConnectionStatus')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CheckHadoopNetConnectionResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CheckHadoopNetConnectionResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CheckHadoopNetConnectionResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CheckHadoopNetConnectionResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CheckJDBCSourceNetConnectionRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, data_source_id=None, jdbc_connection_string=None, region_id=None):
+        # The instance ID.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.data_source_id = data_source_id  # type: str
+        # The JDBC connection string.
+        self.jdbc_connection_string = jdbc_connection_string  # type: str
+        # The region ID of the instance.
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CheckJDBCSourceNetConnectionRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.data_source_id is not None:
+            result['DataSourceId'] = self.data_source_id
+        if self.jdbc_connection_string is not None:
+            result['JdbcConnectionString'] = self.jdbc_connection_string
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('DataSourceId') is not None:
+            self.data_source_id = m.get('DataSourceId')
+        if m.get('JdbcConnectionString') is not None:
+            self.jdbc_connection_string = m.get('JdbcConnectionString')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class CheckJDBCSourceNetConnectionResponseBody(TeaModel):
+    def __init__(self, connection_message=None, connection_status=None, request_id=None):
+        # The returned message. If the connection failed, an error message is returned. Otherwise, a pair of double quotation marks ("") is returned.
+        self.connection_message = connection_message  # type: str
+        # The connection status. Valid values:
+        # 
+        # *   Success
+        # *   Failed
+        self.connection_status = connection_status  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CheckJDBCSourceNetConnectionResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.connection_message is not None:
+            result['ConnectionMessage'] = self.connection_message
+        if self.connection_status is not None:
+            result['ConnectionStatus'] = self.connection_status
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConnectionMessage') is not None:
+            self.connection_message = m.get('ConnectionMessage')
+        if m.get('ConnectionStatus') is not None:
+            self.connection_status = m.get('ConnectionStatus')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CheckJDBCSourceNetConnectionResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CheckJDBCSourceNetConnectionResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CheckJDBCSourceNetConnectionResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CheckJDBCSourceNetConnectionResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CheckServiceLinkedRoleRequest(TeaModel):
     def __init__(self, region_id=None):
-        # The ID of the region. You can call the [DescribeRegions](~~86912~~) operation to query the most recent region list.
+        # The ID of the region. You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -481,26 +1285,33 @@ class CheckServiceLinkedRoleResponse(TeaModel):
 
 
 class CreateAccountRequest(TeaModel):
-    def __init__(self, account_description=None, account_name=None, account_password=None, dbinstance_id=None,
-                 database_name=None, owner_id=None, resource_group_id=None):
-        # The description of the privileged account.
+    def __init__(self, account_description=None, account_name=None, account_password=None, account_type=None,
+                 dbinstance_id=None, database_name=None, owner_id=None, resource_group_id=None):
+        # The description of the initial account.
         self.account_description = account_description  # type: str
-        # The name of the privileged account.
+        # The name of the initial account.
         # 
-        # *   The name can contain lowercase letters, digits, and underscores (\_).
+        # *   The name can contain lowercase letters, digits, and underscores (_).
         # *   The name must start with a lowercase letter and end with a lowercase letter or a digit.
         # *   The name cannot start with gp.
         # *   The name must be 2 to 16 characters in length.
-        self.account_name = account_name  # type: str
-        # The password of the privileged account.
         # 
+        # This parameter is required.
+        self.account_name = account_name  # type: str
+        # The password of the initial account.
         # *   The password must contain at least three of the following character types: uppercase letters, lowercase letters, digits, and special characters.
         # *   Special characters include `! @ # $ % ^ & * ( ) _ + - =`
         # *   The password must be 8 to 32 characters in length.
+        # 
+        # This parameter is required.
         self.account_password = account_password  # type: str
+        # The type of the initial account. Default value: Super, which specifies a privileged account. To create a standard account, set the value to Normal.
+        self.account_type = account_type  # type: str
         # The ID of the instance.
         # 
-        # >  You can call the [DescribeDBInstances](~~86911~~) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         # The name of the database.
         self.database_name = database_name  # type: str
@@ -523,6 +1334,8 @@ class CreateAccountRequest(TeaModel):
             result['AccountName'] = self.account_name
         if self.account_password is not None:
             result['AccountPassword'] = self.account_password
+        if self.account_type is not None:
+            result['AccountType'] = self.account_type
         if self.dbinstance_id is not None:
             result['DBInstanceId'] = self.dbinstance_id
         if self.database_name is not None:
@@ -541,6 +1354,8 @@ class CreateAccountRequest(TeaModel):
             self.account_name = m.get('AccountName')
         if m.get('AccountPassword') is not None:
             self.account_password = m.get('AccountPassword')
+        if m.get('AccountType') is not None:
+            self.account_type = m.get('AccountType')
         if m.get('DBInstanceId') is not None:
             self.dbinstance_id = m.get('DBInstanceId')
         if m.get('DatabaseName') is not None:
@@ -616,22 +1431,78 @@ class CreateAccountResponse(TeaModel):
 class CreateCollectionRequest(TeaModel):
     def __init__(self, collection=None, dbinstance_id=None, dimension=None, external_storage=None,
                  full_text_retrieval_fields=None, hnsw_m=None, manager_account=None, manager_account_password=None, metadata=None,
-                 metrics=None, namespace=None, owner_id=None, parser=None, pq_enable=None, region_id=None):
+                 metrics=None, namespace=None, owner_id=None, parser=None, pq_enable=None, region_id=None, workspace_id=None):
+        # The name of the collection that you want to create.
+        # 
+        # >  The name must comply with the naming conventions of PostgreSQL objects.
+        # 
+        # This parameter is required.
         self.collection = collection  # type: str
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the IDs of all AnalyticDB for PostgreSQL instances in a specific region.
         self.dbinstance_id = dbinstance_id  # type: str
+        # The number of vector dimensions.
+        # 
+        # >  If you specify this parameter, an index is created. When you call the [UpsertCollectionData](https://help.aliyun.com/document_detail/2401493.html) operation, make sure that the length of the Rows.Vector parameter is the same as the value of this parameter. If you do not specify this parameter, you can call the [CreateVectorIndex](https://help.aliyun.com/document_detail/2401499.html) operation to create an index.
         self.dimension = dimension  # type: long
+        # Specifies whether to use the memory mapping technology to create HNSW indexes. Valid values: 0 and 1. Default value: 0. We recommend that you set the value to 1 in scenarios that require upload speed but not data deletion.
+        # 
+        # > 
+        # 
+        # *   0: uses segmented paging storage to create indexes. This method uses the shared buffer of PostgreSQL for caching and supports the delete and update operations.
+        # 
+        # *   1: uses the memory mapping technology to create indexes. This method does not support the delete or update operation.
         self.external_storage = external_storage  # type: int
         self.full_text_retrieval_fields = full_text_retrieval_fields  # type: str
+        # The maximum number of neighbors for the Hierarchical Navigable Small World (HNSW) algorithm. Valid values: 1 to 1000. In most cases, this parameter is automatically configured based on the value of the Dimension parameter. You do not need to configure this parameter.
+        # 
+        # >  We recommend that you configure this parameter based on the value of the Dimension parameter.
+        # 
+        # *If you set Dimension to a value less than or equal to 384, set the value of HnswM to 16.
+        # 
+        # *If you set Dimension to a value greater than 384 and less than or equal to 768, set the value of HnswM to 32.
+        # 
+        # *If you set Dimension to a value greater than 768 and less than or equal to 1024, set the value of HnswM to 64.
+        # 
+        # *If you set Dimension to a value greater than 1024, set the value of HnswM to 128.
         self.hnsw_m = hnsw_m  # type: int
+        # This parameter is required.
         self.manager_account = manager_account  # type: str
+        # This parameter is required.
         self.manager_account_password = manager_account_password  # type: str
+        # The metadata of the vector data, which is a JSON string in the MAP format. The key specifies the field name, and the value specifies the data type.
+        # 
+        # > 
+        # 
+        # *   For information about the supported data types, see [Data types](https://help.aliyun.com/zh/analyticdb-for-postgresql/developer-reference/data-types-1/?spm=a2c4g.11186623.0.0.43e567a1C35QRD).
+        # 
+        # *   The money data type is not supported.
+        # 
+        # **\
+        # 
+        # **Warning**\
+        # Reserved fields such as id, vector, to_tsvector, and source cannot be used.
+        # 
+        # This parameter is required.
         self.metadata = metadata  # type: str
         self.metrics = metrics  # type: str
+        # The name of the namespace.
+        # 
+        # >  You can call the [CreateNamespace](https://help.aliyun.com/document_detail/2401495.html) operation to create a namespace and call the [ListNamespaces](https://help.aliyun.com/document_detail/2401502.html) operation to query a list of namespaces.
         self.namespace = namespace  # type: str
         self.owner_id = owner_id  # type: long
         self.parser = parser  # type: str
+        # Specifies whether to enable the product quantization (PQ) feature for index acceleration. We recommend that you enable this feature for more than 500,000 rows of data. Valid values:
+        # 
+        # *   0: no.
+        # *   1 (default): yes.
         self.pq_enable = pq_enable  # type: int
+        # The region ID of the instance.
+        # 
+        # This parameter is required.
         self.region_id = region_id  # type: str
+        self.workspace_id = workspace_id  # type: str
 
     def validate(self):
         pass
@@ -672,6 +1543,8 @@ class CreateCollectionRequest(TeaModel):
             result['PqEnable'] = self.pq_enable
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.workspace_id is not None:
+            result['WorkspaceId'] = self.workspace_id
         return result
 
     def from_map(self, m=None):
@@ -706,6 +1579,8 @@ class CreateCollectionRequest(TeaModel):
             self.pq_enable = m.get('PqEnable')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('WorkspaceId') is not None:
+            self.workspace_id = m.get('WorkspaceId')
         return self
 
 
@@ -713,6 +1588,10 @@ class CreateCollectionResponseBody(TeaModel):
     def __init__(self, message=None, request_id=None, status=None):
         self.message = message  # type: str
         self.request_id = request_id  # type: str
+        # The status of the operation. Valid values:
+        # 
+        # *   **success**\
+        # *   **fail**\
         self.status = status  # type: str
 
     def validate(self):
@@ -829,9 +1708,9 @@ class CreateDBInstanceRequest(TeaModel):
                  tag=None, used_time=None, vpcid=None, v_switch_id=None, vector_configuration_status=None, zone_id=None):
         # The ID of the backup set.
         # 
-        # >  You can call the [DescribeDataBackups](~~210093~~) operation to query the IDs of all backup sets in the instance.
+        # >  You can call the [DescribeDataBackups](https://help.aliyun.com/document_detail/210093.html) operation to query the IDs of all backup sets in the instance.
         self.backup_id = backup_id  # type: str
-        # The client token that is used to ensure the idempotence of the request. For more information, see [Ensure idempotence](~~327176~~).
+        # The client token that is used to ensure the idempotence of the request. For more information, see [Ensure idempotence](https://help.aliyun.com/document_detail/327176.html).
         self.client_token = client_token  # type: str
         # Specifies whether to load a sample dataset after the instance is created. Valid values:
         # 
@@ -847,7 +1726,7 @@ class CreateDBInstanceRequest(TeaModel):
         # 
         # > This parameter must be specified when you create an instance in elastic storage mode.
         self.dbinstance_category = dbinstance_category  # type: str
-        # The instance type of the instance. For information, see [Instance types](~~86942~~).
+        # The instance type of the instance. For information, see [Instance types](https://help.aliyun.com/document_detail/86942.html).
         # 
         # > This parameter must be specified when you create an instance in reserved storage mode.
         self.dbinstance_class = dbinstance_class  # type: str
@@ -864,6 +1743,8 @@ class CreateDBInstanceRequest(TeaModel):
         # - **Classic**: reserved storage mode.
         # 
         # > This parameter must be specified.
+        # 
+        # This parameter is required.
         self.dbinstance_mode = dbinstance_mode  # type: str
         self.enable_ssl = enable_ssl  # type: bool
         # The ID of the encryption key.
@@ -878,11 +1759,15 @@ class CreateDBInstanceRequest(TeaModel):
         # > Disk encryption cannot be disabled after it is enabled.
         self.encryption_type = encryption_type  # type: str
         # The database engine of the instance. Set the value to gpdb.
+        # 
+        # This parameter is required.
         self.engine = engine  # type: str
         # The version of the database engine. Valid values:
         # 
         # - 6.0
         # - 7.0
+        # 
+        # This parameter is required.
         self.engine_version = engine_version  # type: str
         # The wait time for the instance that has no traffic to become idle. Minimum value: 60. Default value: 600. Unit: seconds.
         # 
@@ -951,13 +1836,15 @@ class CreateDBInstanceRequest(TeaModel):
         # This parameter is no longer used.
         self.private_ip_address = private_ip_address  # type: str
         self.prod_type = prod_type  # type: str
-        # The ID of the region. You can call the [DescribeRegions](~~86912~~) operation to query the most recent region list.
+        # The ID of the region. You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list.
+        # 
+        # This parameter is required.
         self.region_id = region_id  # type: str
         # The ID of the resource group to which the instance belongs.
         self.resource_group_id = resource_group_id  # type: str
         # The IP address whitelist of the instance.
         # 
-        # A value of 127.0.0.1 specifies that no IP address is allowed for external access. You can call the [ModifySecurityIps](~~86928~~) operation to modify the IP address whitelist after you create an instance.
+        # A value of 127.0.0.1 denies access from any external IP address. You can call the [ModifySecurityIps](https://help.aliyun.com/document_detail/86928.html) operation to modify the IP address whitelist after you create an instance.
         self.security_iplist = security_iplist  # type: str
         # The performance level of ESSDs. Valid values:
         # 
@@ -996,7 +1883,7 @@ class CreateDBInstanceRequest(TeaModel):
         self.serverless_resource = serverless_resource  # type: int
         # The ID of the source instance.
         # 
-        # >  You can call the [DescribeDBInstances](~~86911~~) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
         self.src_db_instance_name = src_db_instance_name  # type: str
         # The storage capacity of the instance. Unit: GB. Valid values: 50 to 6000.
         # 
@@ -1039,7 +1926,9 @@ class CreateDBInstanceRequest(TeaModel):
         # 
         # *   We recommend that you **enable** vector search engine optimization in AI-generated content (AIGC) and vector retrieval scenarios that require the vector analysis engine.
         self.vector_configuration_status = vector_configuration_status  # type: str
-        # The zone ID of the read-only instance. You can call the [DescribeRegions](~~86912~~) operation to query the most recent zone list.
+        # The zone ID of the read-only instance. You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent zone list.
+        # 
+        # This parameter is required.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -1230,7 +2119,7 @@ class CreateDBInstanceResponseBody(TeaModel):
     def __init__(self, connection_string=None, dbinstance_id=None, order_id=None, port=None, request_id=None):
         # An invalid parameter. It is no longer returned when you call this operation.
         # 
-        # You can call the [DescribeDBInstanceAttribute](~~86910~~) operation to query the endpoint that is used to connect to the instance.
+        # You can call the [DescribeDBInstanceAttribute](https://help.aliyun.com/document_detail/86910.html) operation to query the endpoint that is used to connect to the instance.
         self.connection_string = connection_string  # type: str
         # The instance ID.
         self.dbinstance_id = dbinstance_id  # type: str
@@ -1238,7 +2127,7 @@ class CreateDBInstanceResponseBody(TeaModel):
         self.order_id = order_id  # type: str
         # An invalid parameter. It is no longer returned when you call this operation.
         # 
-        # You can call the [DescribeDBInstanceAttribute](~~86910~~) operation to query the port number that is used to connect to the instance.
+        # You can call the [DescribeDBInstanceAttribute](https://help.aliyun.com/document_detail/86910.html) operation to query the port number that is used to connect to the instance.
         self.port = port  # type: str
         # The request ID.
         self.request_id = request_id  # type: str
@@ -1320,35 +2209,43 @@ class CreateDBInstancePlanRequest(TeaModel):
                  plan_name=None, plan_schedule_type=None, plan_start_date=None, plan_type=None):
         # The instance ID.
         # 
-        # > You can call the [DescribeDBInstances](~~86911~~) operation to query the IDs of all AnalyticDB for PostgreSQL instances within a region.
+        # > You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the IDs of all AnalyticDB for PostgreSQL instances within a region.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         self.owner_id = owner_id  # type: long
         # The execution information of the plan. Specify the parameter in the JSON format. The parameter value varies based on the values of **PlanType** and **PlanScheduleType**. The following section describes the PlanConfig parameter.
+        # 
+        # This parameter is required.
         self.plan_config = plan_config  # type: str
         # The description of the plan.
         self.plan_desc = plan_desc  # type: str
-        # The end time of the plan. Specify the time in the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm*Z format. The time must be in UTC. The end time must be later than the start time.
+        # The end time of the plan. Specify the time in the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time must be in UTC. The end time must be later than the start time.
         # 
         # > 
         # 
         # *   This parameter must be specified only when **PlanScheduleType** is set to **Regular**.
         # 
-        # *   If you do not specify this parameter, the plan does not end.
+        # *   If you do not specify this parameter, the plan stops until the plan is deleted.
         self.plan_end_date = plan_end_date  # type: str
         # The name of the plan.
+        # 
+        # This parameter is required.
         self.plan_name = plan_name  # type: str
         # The execution mode of the plan. Valid values:
         # 
         # *   **Postpone**: The plan is executed later.
         # *   **Regular**: The plan is executed periodically.
+        # 
+        # This parameter is required.
         self.plan_schedule_type = plan_schedule_type  # type: str
-        # The start time of the plan. Specify the time in the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm*Z format. The time must be in UTC.
+        # The start time of the plan. Specify the time in the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time must be in UTC.
         # 
         # > 
         # 
         # *   This parameter must be specified only when **PlanScheduleType** is set to **Regular**.
         # 
-        # *   If you do not specify this parameter, the plan is executed immediately.
+        # *   If you do not specify this parameter, the current time is used.
         self.plan_start_date = plan_start_date  # type: str
         # The type of the plan. Valid values:
         # 
@@ -1356,11 +2253,10 @@ class CreateDBInstancePlanRequest(TeaModel):
         # *   **Resize**: changes the number of compute nodes.
         # *   **ModifySpec**: changes compute node specifications.
         # 
-        # > 
+        # > - You can specify the value to ModifySpec only for instances in elastic storage mode.
+        # >- You can specify the value to ModifySpec only for instances in elastic storage mode.
         # 
-        # *   You can specify the value to Resize only for instances in Serverless mode.
-        # 
-        # *   You can specify the value to ModifySpec only for instances in elastic storage mode.
+        # This parameter is required.
         self.plan_type = plan_type  # type: str
 
     def validate(self):
@@ -1504,24 +2400,219 @@ class CreateDBInstancePlanResponse(TeaModel):
         return self
 
 
+class CreateDBResourceGroupRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, owner_id=None, resource_group_config=None, resource_group_name=None):
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.owner_id = owner_id  # type: long
+        # The configurations of the resource group.
+        # 
+        # > 
+        # 
+        # *   CpuRateLimit: the percentage of CPU resources that are available for the resource group. Unit: %.
+        # 
+        # *   MemoryLimit: the percentage of memory resources that are available for the resource group. Unit: %.
+        # 
+        # *   MemorySharedQuota: the percentage of memory resources shared among transactions that are submitted to the resource group. Unit: %. Default value: 80.
+        # 
+        # *   MemorySpillRatio: the memory spill ratio for memory-intensive transactions. When the memory that is used by memory-intensive transactions reaches this value, data is spilled to disks. Unit: %. Default value: 0.
+        # 
+        # *   Concurrency: the maximum number of concurrent transactions or parallel queries that are allowed for a resource group. Default value: 20.
+        # 
+        # This parameter is required.
+        self.resource_group_config = resource_group_config  # type: str
+        # The name of the resource group.
+        # 
+        # This parameter is required.
+        self.resource_group_name = resource_group_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDBResourceGroupRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_group_config is not None:
+            result['ResourceGroupConfig'] = self.resource_group_config
+        if self.resource_group_name is not None:
+            result['ResourceGroupName'] = self.resource_group_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceGroupConfig') is not None:
+            self.resource_group_config = m.get('ResourceGroupConfig')
+        if m.get('ResourceGroupName') is not None:
+            self.resource_group_name = m.get('ResourceGroupName')
+        return self
+
+
+class CreateDBResourceGroupResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        # The request ID.
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDBResourceGroupResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CreateDBResourceGroupResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateDBResourceGroupResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateDBResourceGroupResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateDBResourceGroupResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateDocumentCollectionRequest(TeaModel):
     def __init__(self, collection=None, dbinstance_id=None, embedding_model=None, external_storage=None,
                  full_text_retrieval_fields=None, hnsw_m=None, manager_account=None, manager_account_password=None, metadata=None,
                  metrics=None, namespace=None, owner_id=None, parser=None, pq_enable=None, region_id=None):
+        # This parameter is required.
         self.collection = collection  # type: str
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
+        # The vectorization algorithm.
+        # 
+        # >  Valid values:
+        # 
+        # *   text-embedding-v1: the algorithm that produces 1536-dimensional vectors.
+        # 
+        # *   text-embedding-v2: the algorithm that produces 1536-dimensional vectors.
+        # 
+        # *   text2vec: the algorithm that produces 1024-dimensional vectors.
+        # 
+        # *   m3e-base: the algorithm that produces 768-dimensional vectors.
+        # 
+        # *   m3e-small: the algorithm that produces 512-dimensional vectors.
+        # 
+        # *   multimodal-embedding-one-peace-v1: the image vectorization algorithm that produces 1536-dimensional vectors.
+        # 
+        # *   clip-vit-b-32: the image vectorization algorithm that uses the Contrastive Language-Image Pre-Training (CLIP) ViT-B/32 model and produces 512-dimensional vectors.
+        # 
+        # *   clip-vit-b-16: the image vectorization algorithm that uses the CLIP ViT-B/16 model and produces 512-dimensional vectors.
+        # 
+        # *   clip-vit-l-14: the image vectorization algorithm that uses the CLIP ViT-L/14 model and produces 768-dimensional vectors.
+        # 
+        # *   clip-vit-l-14-336px: the image vectorization algorithm that uses the CLIP ViT-L/14@336px model and produces 768-dimensional vectors.
+        # 
+        # *   clip-rn50: the image vectorization algorithm that uses the CLIP RN50 model and produces 1024-dimensional vectors.
+        # 
+        # *   clip-rn101: the image vectorization algorithm that uses the CLIP RN101 model and produces 512-dimensional vectors.
+        # 
+        # *   clip-rn50x4: the image vectorization algorithm that uses the CLIP RN50x4 model and produces 640-dimensional vectors.
+        # 
+        # *   clip-rn50x16: the image vectorization algorithm that uses the CLIP RN50x16 model and produces 768-dimensional vectors.
+        # 
+        # *   clip-rn50x64: the image vectorization algorithm that uses the CLIP RN50x64 model and produces 1024-dimensional vectors.
         self.embedding_model = embedding_model  # type: str
+        # Specifies whether to use the memory mapping technology to create HNSW indexes. Valid values: 0 and 1. Default value: 0. We recommend that you set the value to 1 in scenarios that require upload speed but not data deletion.
+        # 
+        # > 
+        # 
+        # *   0: uses segmented paging storage to create indexes. This method uses the shared buffer of PostgreSQL for caching and supports the delete and update operations.
+        # 
+        # *   1: uses the memory mapping technology to create indexes. This method does not support the delete or update operation.
         self.external_storage = external_storage  # type: int
         self.full_text_retrieval_fields = full_text_retrieval_fields  # type: str
+        # The maximum number of neighbors for the Hierarchical Navigable Small World (HNSW) algorithm. Valid values: 1 to 1000. In most cases, this parameter is automatically configured based on the value of the Dimension parameter. You do not need to configure this parameter.
+        # 
+        # >  We recommend that you configure this parameter based on the value of the Dimension parameter.
+        # 
+        # *   If you set Dimension to a value less than or equal to 384, set the value of HnswM to 16.
+        # 
+        # *   If you set Dimension to a value greater than 384 and less than or equal to 768, set the value of HnswM to 32.
+        # 
+        # *   If you set Dimension to a value greater than 768 and less than or equal to 1024, set the value of HnswM to 64.
+        # 
+        # *   If you set Dimension to a value greater than 1024, set the value of HnswM to 128.
         self.hnsw_m = hnsw_m  # type: int
+        # This parameter is required.
         self.manager_account = manager_account  # type: str
+        # This parameter is required.
         self.manager_account_password = manager_account_password  # type: str
+        # The metadata of the vector data, which is a JSON string in the MAP format. The key specifies the field name, and the value specifies the data type.
+        # 
+        # > 
+        # 
+        # *   For information about the supported data types, see [Data types](https://help.aliyun.com/zh/analyticdb-for-postgresql/developer-reference/data-types-1/?spm=a2c4g.11186623.0.0.43e567a1C35QRD).
+        # 
+        # *   The money data type is not supported.
+        # 
+        # **\
+        # 
+        # **Warning**\
+        # Reserved fields such as id, vector, doc_name, content, loader_metadata, source, and to_tsvector cannot be used.
         self.metadata = metadata  # type: str
         self.metrics = metrics  # type: str
         self.namespace = namespace  # type: str
         self.owner_id = owner_id  # type: long
         self.parser = parser  # type: str
+        # Specifies whether to enable the product quantization (PQ) feature for index acceleration. We recommend that you enable this feature for more than 500,000 rows of data. Valid values:
+        # 
+        # *   0: no.
+        # *   1 (default): yes.
         self.pq_enable = pq_enable  # type: int
+        # This parameter is required.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -1670,26 +2761,566 @@ class CreateDocumentCollectionResponse(TeaModel):
         return self
 
 
-class CreateNamespaceRequest(TeaModel):
-    def __init__(self, dbinstance_id=None, manager_account=None, manager_account_password=None, namespace=None,
-                 namespace_password=None, owner_id=None, region_id=None):
+class CreateExtensionsRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, dbnames=None, extensions=None, region_id=None):
         # The instance ID.
         # 
-        # > You can call the [DescribeDBInstances](~~196830~~) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the IDs of all AnalyticDB for PostgreSQL instances in a specific region.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        # The name of the database.
+        # 
+        # This parameter is required.
+        self.dbnames = dbnames  # type: str
+        # The name of the extension that you want to install. Separate multiple extension names with commas (,).
+        # 
+        # This parameter is required.
+        self.extensions = extensions  # type: str
+        # The region ID.
+        # 
+        # >  You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateExtensionsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.dbnames is not None:
+            result['DBNames'] = self.dbnames
+        if self.extensions is not None:
+            result['Extensions'] = self.extensions
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('DBNames') is not None:
+            self.dbnames = m.get('DBNames')
+        if m.get('Extensions') is not None:
+            self.extensions = m.get('Extensions')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class CreateExtensionsResponseBody(TeaModel):
+    def __init__(self, extensions=None, request_id=None):
+        # The name of the extension that you want to install. Multiple extension names are separated with commas (,).
+        self.extensions = extensions  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateExtensionsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.extensions is not None:
+            result['Extensions'] = self.extensions
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Extensions') is not None:
+            self.extensions = m.get('Extensions')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CreateExtensionsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateExtensionsResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateExtensionsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateExtensionsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateExternalDataServiceRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, region_id=None, service_description=None, service_name=None,
+                 service_spec=None):
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        # The region ID. You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        # The description of the service.
+        self.service_description = service_description  # type: str
+        # This parameter is required.
+        self.service_name = service_name  # type: str
+        # The specifications of the service. Unit: compute units (CUs). Valid values:
+        # 
+        # *   8
+        # 
+        # This parameter is required.
+        self.service_spec = service_spec  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateExternalDataServiceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.service_description is not None:
+            result['ServiceDescription'] = self.service_description
+        if self.service_name is not None:
+            result['ServiceName'] = self.service_name
+        if self.service_spec is not None:
+            result['ServiceSpec'] = self.service_spec
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ServiceDescription') is not None:
+            self.service_description = m.get('ServiceDescription')
+        if m.get('ServiceName') is not None:
+            self.service_name = m.get('ServiceName')
+        if m.get('ServiceSpec') is not None:
+            self.service_spec = m.get('ServiceSpec')
+        return self
+
+
+class CreateExternalDataServiceResponseBody(TeaModel):
+    def __init__(self, request_id=None, service_id=None):
+        self.request_id = request_id  # type: str
+        self.service_id = service_id  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateExternalDataServiceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.service_id is not None:
+            result['ServiceId'] = self.service_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('ServiceId') is not None:
+            self.service_id = m.get('ServiceId')
+        return self
+
+
+class CreateExternalDataServiceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateExternalDataServiceResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateExternalDataServiceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateExternalDataServiceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateHadoopDataSourceRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, data_source_description=None, data_source_name=None,
+                 data_source_type=None, emr_instance_id=None, hdfsconf=None, hadoop_core_conf=None, hadoop_create_type=None,
+                 hadoop_hosts_address=None, hive_conf=None, map_reduce_conf=None, region_id=None, yarn_conf=None):
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.data_source_description = data_source_description  # type: str
+        self.data_source_name = data_source_name  # type: str
+        self.data_source_type = data_source_type  # type: str
+        self.emr_instance_id = emr_instance_id  # type: str
+        # The string that specifies the content of the Hadoop hdfs-site.xml file. This parameter must be specified when DataSourceType is set to HDFS.
+        self.hdfsconf = hdfsconf  # type: str
+        # The string that specifies the content of the Hadoop core-site.xml file.
+        self.hadoop_core_conf = hadoop_core_conf  # type: str
+        self.hadoop_create_type = hadoop_create_type  # type: str
+        # The IP address and hostname of the Hadoop cluster (data source) in the /etc/hosts file.
+        self.hadoop_hosts_address = hadoop_hosts_address  # type: str
+        # The string that specifies the content of the Hadoop hive-site.xml file. This parameter must be specified when DataSourceType is set to Hive.
+        self.hive_conf = hive_conf  # type: str
+        self.map_reduce_conf = map_reduce_conf  # type: str
+        # The region ID.
+        # 
+        # >  You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        # The string that specifies the content of the Hadoop yarn-site.xml file. This parameter must be specified when DataSourceType is set to HDFS.
+        self.yarn_conf = yarn_conf  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateHadoopDataSourceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.data_source_description is not None:
+            result['DataSourceDescription'] = self.data_source_description
+        if self.data_source_name is not None:
+            result['DataSourceName'] = self.data_source_name
+        if self.data_source_type is not None:
+            result['DataSourceType'] = self.data_source_type
+        if self.emr_instance_id is not None:
+            result['EmrInstanceId'] = self.emr_instance_id
+        if self.hdfsconf is not None:
+            result['HDFSConf'] = self.hdfsconf
+        if self.hadoop_core_conf is not None:
+            result['HadoopCoreConf'] = self.hadoop_core_conf
+        if self.hadoop_create_type is not None:
+            result['HadoopCreateType'] = self.hadoop_create_type
+        if self.hadoop_hosts_address is not None:
+            result['HadoopHostsAddress'] = self.hadoop_hosts_address
+        if self.hive_conf is not None:
+            result['HiveConf'] = self.hive_conf
+        if self.map_reduce_conf is not None:
+            result['MapReduceConf'] = self.map_reduce_conf
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.yarn_conf is not None:
+            result['YarnConf'] = self.yarn_conf
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('DataSourceDescription') is not None:
+            self.data_source_description = m.get('DataSourceDescription')
+        if m.get('DataSourceName') is not None:
+            self.data_source_name = m.get('DataSourceName')
+        if m.get('DataSourceType') is not None:
+            self.data_source_type = m.get('DataSourceType')
+        if m.get('EmrInstanceId') is not None:
+            self.emr_instance_id = m.get('EmrInstanceId')
+        if m.get('HDFSConf') is not None:
+            self.hdfsconf = m.get('HDFSConf')
+        if m.get('HadoopCoreConf') is not None:
+            self.hadoop_core_conf = m.get('HadoopCoreConf')
+        if m.get('HadoopCreateType') is not None:
+            self.hadoop_create_type = m.get('HadoopCreateType')
+        if m.get('HadoopHostsAddress') is not None:
+            self.hadoop_hosts_address = m.get('HadoopHostsAddress')
+        if m.get('HiveConf') is not None:
+            self.hive_conf = m.get('HiveConf')
+        if m.get('MapReduceConf') is not None:
+            self.map_reduce_conf = m.get('MapReduceConf')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('YarnConf') is not None:
+            self.yarn_conf = m.get('YarnConf')
+        return self
+
+
+class CreateHadoopDataSourceResponseBody(TeaModel):
+    def __init__(self, data_source_id=None, request_id=None):
+        self.data_source_id = data_source_id  # type: int
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateHadoopDataSourceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data_source_id is not None:
+            result['DataSourceId'] = self.data_source_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DataSourceId') is not None:
+            self.data_source_id = m.get('DataSourceId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CreateHadoopDataSourceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateHadoopDataSourceResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateHadoopDataSourceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateHadoopDataSourceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateJDBCDataSourceRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, data_source_description=None, data_source_name=None,
+                 data_source_type=None, jdbcconnection_string=None, jdbcpassword=None, jdbcuser_name=None, region_id=None):
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.data_source_description = data_source_description  # type: str
+        self.data_source_name = data_source_name  # type: str
+        self.data_source_type = data_source_type  # type: str
+        # The JDBC connection string.
+        self.jdbcconnection_string = jdbcconnection_string  # type: str
+        # The password of the database account.
+        self.jdbcpassword = jdbcpassword  # type: str
+        # The name of the database account.
+        self.jdbcuser_name = jdbcuser_name  # type: str
+        # The region ID of the instance.
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateJDBCDataSourceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.data_source_description is not None:
+            result['DataSourceDescription'] = self.data_source_description
+        if self.data_source_name is not None:
+            result['DataSourceName'] = self.data_source_name
+        if self.data_source_type is not None:
+            result['DataSourceType'] = self.data_source_type
+        if self.jdbcconnection_string is not None:
+            result['JDBCConnectionString'] = self.jdbcconnection_string
+        if self.jdbcpassword is not None:
+            result['JDBCPassword'] = self.jdbcpassword
+        if self.jdbcuser_name is not None:
+            result['JDBCUserName'] = self.jdbcuser_name
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('DataSourceDescription') is not None:
+            self.data_source_description = m.get('DataSourceDescription')
+        if m.get('DataSourceName') is not None:
+            self.data_source_name = m.get('DataSourceName')
+        if m.get('DataSourceType') is not None:
+            self.data_source_type = m.get('DataSourceType')
+        if m.get('JDBCConnectionString') is not None:
+            self.jdbcconnection_string = m.get('JDBCConnectionString')
+        if m.get('JDBCPassword') is not None:
+            self.jdbcpassword = m.get('JDBCPassword')
+        if m.get('JDBCUserName') is not None:
+            self.jdbcuser_name = m.get('JDBCUserName')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class CreateJDBCDataSourceResponseBody(TeaModel):
+    def __init__(self, data_source_id=None, request_id=None):
+        self.data_source_id = data_source_id  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateJDBCDataSourceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data_source_id is not None:
+            result['DataSourceId'] = self.data_source_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DataSourceId') is not None:
+            self.data_source_id = m.get('DataSourceId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CreateJDBCDataSourceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateJDBCDataSourceResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateJDBCDataSourceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateJDBCDataSourceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateNamespaceRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, manager_account=None, manager_account_password=None, namespace=None,
+                 namespace_password=None, owner_id=None, region_id=None, workspace_id=None):
+        # The instance ID.
+        # 
+        # > You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/196830.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
         self.dbinstance_id = dbinstance_id  # type: str
         # The name of the manager account that has the rds_superuser permission.
+        # 
+        # >  You can create an account on the Account Management page of the AnalyticDB for PostgreSQL console or by calling the [CreateAccount](https://help.aliyun.com/document_detail/2361789.html) operation.
+        # 
+        # This parameter is required.
         self.manager_account = manager_account  # type: str
         # The password of the manager account.
+        # 
+        # This parameter is required.
         self.manager_account_password = manager_account_password  # type: str
-        # The name of the namespace.
+        # The name of the namespace. After the namespace is created, the system automatically creates an account that has the same name.
+        # 
+        # >  The name must comply with the naming conventions of PostgreSQL objects.
         self.namespace = namespace  # type: str
         # The password of the namespace.
+        # 
+        # This parameter is required.
         self.namespace_password = namespace_password  # type: str
         self.owner_id = owner_id  # type: long
         # The region ID of the instance.
         # 
-        # > You can call the [DescribeRegions](~~86912~~) operation to query the most recent region list.
+        # This parameter is required.
         self.region_id = region_id  # type: str
+        self.workspace_id = workspace_id  # type: str
 
     def validate(self):
         pass
@@ -1714,6 +3345,8 @@ class CreateNamespaceRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.workspace_id is not None:
+            result['WorkspaceId'] = self.workspace_id
         return result
 
     def from_map(self, m=None):
@@ -1732,6 +3365,8 @@ class CreateNamespaceRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('WorkspaceId') is not None:
+            self.workspace_id = m.get('WorkspaceId')
         return self
 
 
@@ -1815,7 +3450,9 @@ class CreateSampleDataRequest(TeaModel):
     def __init__(self, dbinstance_id=None, owner_id=None):
         # The ID of the instance.
         # 
-        # >  You can call the [DescribeDBInstances](~~86911~~) operation to query the IDs of all AnalyticDB for PostgreSQL instances in a specific region.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the IDs of all AnalyticDB for PostgreSQL instances in a specific region.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         self.owner_id = owner_id  # type: long
 
@@ -1925,10 +3562,177 @@ class CreateSampleDataResponse(TeaModel):
         return self
 
 
+class CreateSecretRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, description=None, owner_id=None, password=None, region_id=None,
+                 secret_name=None, test_connection=None, username=None):
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        # The description of the access credential.
+        self.description = description  # type: str
+        self.owner_id = owner_id  # type: long
+        # The password of the database account that is used to access the instance.
+        # 
+        # This parameter is required.
+        self.password = password  # type: str
+        # The region ID of the instance.
+        # 
+        # This parameter is required.
+        self.region_id = region_id  # type: str
+        # The name of the access credential. The name must be 1 to 16 characters in length and can contain letters, digits, and underscores (_). If you leave this parameter empty, the value of the Username parameter is used.
+        self.secret_name = secret_name  # type: str
+        # Specifies whether to check the connectivity to the instance by using the name and password of the database account.
+        self.test_connection = test_connection  # type: bool
+        # The name of the database account that is used to access the instance.
+        # 
+        # This parameter is required.
+        self.username = username  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateSecretRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.password is not None:
+            result['Password'] = self.password
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.secret_name is not None:
+            result['SecretName'] = self.secret_name
+        if self.test_connection is not None:
+            result['TestConnection'] = self.test_connection
+        if self.username is not None:
+            result['Username'] = self.username
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('Password') is not None:
+            self.password = m.get('Password')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('SecretName') is not None:
+            self.secret_name = m.get('SecretName')
+        if m.get('TestConnection') is not None:
+            self.test_connection = m.get('TestConnection')
+        if m.get('Username') is not None:
+            self.username = m.get('Username')
+        return self
+
+
+class CreateSecretResponseBody(TeaModel):
+    def __init__(self, message=None, request_id=None, secret_arn=None, secret_name=None, status=None):
+        # The returned message.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # The Alibaba Cloud Resource Name (ARN) of the access credential for the created Data API account. Format: `acs:gpdb:{{region}}:{{accountId}}:secret/{{secretName}}-{{32 digits random string}`.
+        self.secret_arn = secret_arn  # type: str
+        # The name of the access credential.
+        self.secret_name = secret_name  # type: str
+        # The status of the operation. Valid values:
+        # 
+        # *   **success**\
+        # *   **fail**\
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateSecretResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.secret_arn is not None:
+            result['SecretArn'] = self.secret_arn
+        if self.secret_name is not None:
+            result['SecretName'] = self.secret_name
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('SecretArn') is not None:
+            self.secret_arn = m.get('SecretArn')
+        if m.get('SecretName') is not None:
+            self.secret_name = m.get('SecretName')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class CreateSecretResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateSecretResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateSecretResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateSecretResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateServiceLinkedRoleRequest(TeaModel):
     def __init__(self, owner_id=None, region_id=None):
         self.owner_id = owner_id  # type: long
         # The ID of the region.
+        # 
+        # This parameter is required.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -2016,22 +3820,716 @@ class CreateServiceLinkedRoleResponse(TeaModel):
         return self
 
 
+class CreateStreamingDataServiceRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, region_id=None, service_description=None, service_name=None,
+                 service_spec=None):
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        # The region ID.
+        # 
+        # >  You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        self.service_description = service_description  # type: str
+        # This parameter is required.
+        self.service_name = service_name  # type: str
+        # This parameter is required.
+        self.service_spec = service_spec  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateStreamingDataServiceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.service_description is not None:
+            result['ServiceDescription'] = self.service_description
+        if self.service_name is not None:
+            result['ServiceName'] = self.service_name
+        if self.service_spec is not None:
+            result['ServiceSpec'] = self.service_spec
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ServiceDescription') is not None:
+            self.service_description = m.get('ServiceDescription')
+        if m.get('ServiceName') is not None:
+            self.service_name = m.get('ServiceName')
+        if m.get('ServiceSpec') is not None:
+            self.service_spec = m.get('ServiceSpec')
+        return self
+
+
+class CreateStreamingDataServiceResponseBody(TeaModel):
+    def __init__(self, request_id=None, service_id=None):
+        self.request_id = request_id  # type: str
+        # The real-time data service ID.
+        self.service_id = service_id  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateStreamingDataServiceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.service_id is not None:
+            result['ServiceId'] = self.service_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('ServiceId') is not None:
+            self.service_id = m.get('ServiceId')
+        return self
+
+
+class CreateStreamingDataServiceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateStreamingDataServiceResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateStreamingDataServiceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateStreamingDataServiceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateStreamingDataSourceRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, data_source_config=None, data_source_description=None,
+                 data_source_name=None, data_source_type=None, region_id=None, service_id=None):
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        # This parameter is required.
+        self.data_source_config = data_source_config  # type: str
+        self.data_source_description = data_source_description  # type: str
+        # This parameter is required.
+        self.data_source_name = data_source_name  # type: str
+        # This parameter is required.
+        self.data_source_type = data_source_type  # type: str
+        self.region_id = region_id  # type: str
+        # The real-time data service ID.
+        # 
+        # This parameter is required.
+        self.service_id = service_id  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateStreamingDataSourceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.data_source_config is not None:
+            result['DataSourceConfig'] = self.data_source_config
+        if self.data_source_description is not None:
+            result['DataSourceDescription'] = self.data_source_description
+        if self.data_source_name is not None:
+            result['DataSourceName'] = self.data_source_name
+        if self.data_source_type is not None:
+            result['DataSourceType'] = self.data_source_type
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.service_id is not None:
+            result['ServiceId'] = self.service_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('DataSourceConfig') is not None:
+            self.data_source_config = m.get('DataSourceConfig')
+        if m.get('DataSourceDescription') is not None:
+            self.data_source_description = m.get('DataSourceDescription')
+        if m.get('DataSourceName') is not None:
+            self.data_source_name = m.get('DataSourceName')
+        if m.get('DataSourceType') is not None:
+            self.data_source_type = m.get('DataSourceType')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ServiceId') is not None:
+            self.service_id = m.get('ServiceId')
+        return self
+
+
+class CreateStreamingDataSourceResponseBody(TeaModel):
+    def __init__(self, data_source_id=None, request_id=None):
+        self.data_source_id = data_source_id  # type: int
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateStreamingDataSourceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data_source_id is not None:
+            result['DataSourceId'] = self.data_source_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DataSourceId') is not None:
+            self.data_source_id = m.get('DataSourceId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CreateStreamingDataSourceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateStreamingDataSourceResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateStreamingDataSourceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateStreamingDataSourceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateStreamingJobRequest(TeaModel):
+    def __init__(self, account=None, consistency=None, dbinstance_id=None, data_source_id=None, dest_columns=None,
+                 dest_database=None, dest_schema=None, dest_table=None, error_limit_count=None, fallback_offset=None,
+                 group_name=None, job_config=None, job_description=None, job_name=None, match_columns=None, mode=None,
+                 password=None, region_id=None, src_columns=None, try_run=None, update_columns=None, write_mode=None):
+        # The name of the database account.
+        self.account = account  # type: str
+        # The delivery guarantee setting.
+        # 
+        # Valid values:
+        # 
+        # *   ATLEAST
+        # *   EXACTLY
+        self.consistency = consistency  # type: str
+        # The instance ID.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        # The data source ID.
+        # 
+        # This parameter is required.
+        self.data_source_id = data_source_id  # type: str
+        # The destination fields.
+        self.dest_columns = dest_columns  # type: list[str]
+        # The name of the destination database.
+        self.dest_database = dest_database  # type: str
+        self.dest_schema = dest_schema  # type: str
+        # The name of the destination table.
+        self.dest_table = dest_table  # type: str
+        # The number of allowed error rows. Write failures occur when Kafka data does not match the destination table in AnalyticDB for PostgreSQL. If the specified value is exceeded, the job fails.
+        self.error_limit_count = error_limit_count  # type: long
+        self.fallback_offset = fallback_offset  # type: str
+        self.group_name = group_name  # type: str
+        # The YAML configuration file of the job. This parameter must be specified when Mode is set to professional.
+        self.job_config = job_config  # type: str
+        # The description of the job.
+        self.job_description = job_description  # type: str
+        # The name of the job.
+        # 
+        # This parameter is required.
+        self.job_name = job_name  # type: str
+        # The update condition columns that are used to join the source data and the destination table. Typically, the columns are all the primary key columns of the destination table. If the values of all columns specified by this parameter in different rows are the same, the rows are considered duplicates.
+        self.match_columns = match_columns  # type: list[str]
+        # The configuration mode. Valid values:
+        # 
+        # 1.  basic: In basic mode, you must configure the configuration parameters.
+        # 2.  professional: In professional mode, you can submit a YAML configuration file.
+        self.mode = mode  # type: str
+        # The password of the database account.
+        self.password = password  # type: str
+        self.region_id = region_id  # type: str
+        # The source fields.
+        self.src_columns = src_columns  # type: list[str]
+        # Specifies whether to test the real-time job. Valid values:
+        # 
+        # *   true
+        # *   false
+        # 
+        # Default value: false.
+        self.try_run = try_run  # type: bool
+        # The columns to be updated if a row of data meets the update condition. Typically, the columns are all non-primary key columns of the destination table. When the columns specified by the MatchColumns parameter are used as conditions to join the source data and the destination table, data in columns of the UpdateColumns type is updated if data is matched.
+        self.update_columns = update_columns  # type: list[str]
+        # The write mode.
+        # 
+        # Valid values:
+        # 
+        # *   insert
+        # *   update
+        # *   merge
+        self.write_mode = write_mode  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateStreamingJobRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account is not None:
+            result['Account'] = self.account
+        if self.consistency is not None:
+            result['Consistency'] = self.consistency
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.data_source_id is not None:
+            result['DataSourceId'] = self.data_source_id
+        if self.dest_columns is not None:
+            result['DestColumns'] = self.dest_columns
+        if self.dest_database is not None:
+            result['DestDatabase'] = self.dest_database
+        if self.dest_schema is not None:
+            result['DestSchema'] = self.dest_schema
+        if self.dest_table is not None:
+            result['DestTable'] = self.dest_table
+        if self.error_limit_count is not None:
+            result['ErrorLimitCount'] = self.error_limit_count
+        if self.fallback_offset is not None:
+            result['FallbackOffset'] = self.fallback_offset
+        if self.group_name is not None:
+            result['GroupName'] = self.group_name
+        if self.job_config is not None:
+            result['JobConfig'] = self.job_config
+        if self.job_description is not None:
+            result['JobDescription'] = self.job_description
+        if self.job_name is not None:
+            result['JobName'] = self.job_name
+        if self.match_columns is not None:
+            result['MatchColumns'] = self.match_columns
+        if self.mode is not None:
+            result['Mode'] = self.mode
+        if self.password is not None:
+            result['Password'] = self.password
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.src_columns is not None:
+            result['SrcColumns'] = self.src_columns
+        if self.try_run is not None:
+            result['TryRun'] = self.try_run
+        if self.update_columns is not None:
+            result['UpdateColumns'] = self.update_columns
+        if self.write_mode is not None:
+            result['WriteMode'] = self.write_mode
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Account') is not None:
+            self.account = m.get('Account')
+        if m.get('Consistency') is not None:
+            self.consistency = m.get('Consistency')
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('DataSourceId') is not None:
+            self.data_source_id = m.get('DataSourceId')
+        if m.get('DestColumns') is not None:
+            self.dest_columns = m.get('DestColumns')
+        if m.get('DestDatabase') is not None:
+            self.dest_database = m.get('DestDatabase')
+        if m.get('DestSchema') is not None:
+            self.dest_schema = m.get('DestSchema')
+        if m.get('DestTable') is not None:
+            self.dest_table = m.get('DestTable')
+        if m.get('ErrorLimitCount') is not None:
+            self.error_limit_count = m.get('ErrorLimitCount')
+        if m.get('FallbackOffset') is not None:
+            self.fallback_offset = m.get('FallbackOffset')
+        if m.get('GroupName') is not None:
+            self.group_name = m.get('GroupName')
+        if m.get('JobConfig') is not None:
+            self.job_config = m.get('JobConfig')
+        if m.get('JobDescription') is not None:
+            self.job_description = m.get('JobDescription')
+        if m.get('JobName') is not None:
+            self.job_name = m.get('JobName')
+        if m.get('MatchColumns') is not None:
+            self.match_columns = m.get('MatchColumns')
+        if m.get('Mode') is not None:
+            self.mode = m.get('Mode')
+        if m.get('Password') is not None:
+            self.password = m.get('Password')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('SrcColumns') is not None:
+            self.src_columns = m.get('SrcColumns')
+        if m.get('TryRun') is not None:
+            self.try_run = m.get('TryRun')
+        if m.get('UpdateColumns') is not None:
+            self.update_columns = m.get('UpdateColumns')
+        if m.get('WriteMode') is not None:
+            self.write_mode = m.get('WriteMode')
+        return self
+
+
+class CreateStreamingJobShrinkRequest(TeaModel):
+    def __init__(self, account=None, consistency=None, dbinstance_id=None, data_source_id=None,
+                 dest_columns_shrink=None, dest_database=None, dest_schema=None, dest_table=None, error_limit_count=None,
+                 fallback_offset=None, group_name=None, job_config=None, job_description=None, job_name=None,
+                 match_columns_shrink=None, mode=None, password=None, region_id=None, src_columns_shrink=None, try_run=None,
+                 update_columns_shrink=None, write_mode=None):
+        # The name of the database account.
+        self.account = account  # type: str
+        # The delivery guarantee setting.
+        # 
+        # Valid values:
+        # 
+        # *   ATLEAST
+        # *   EXACTLY
+        self.consistency = consistency  # type: str
+        # The instance ID.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        # The data source ID.
+        # 
+        # This parameter is required.
+        self.data_source_id = data_source_id  # type: str
+        # The destination fields.
+        self.dest_columns_shrink = dest_columns_shrink  # type: str
+        # The name of the destination database.
+        self.dest_database = dest_database  # type: str
+        self.dest_schema = dest_schema  # type: str
+        # The name of the destination table.
+        self.dest_table = dest_table  # type: str
+        # The number of allowed error rows. Write failures occur when Kafka data does not match the destination table in AnalyticDB for PostgreSQL. If the specified value is exceeded, the job fails.
+        self.error_limit_count = error_limit_count  # type: long
+        self.fallback_offset = fallback_offset  # type: str
+        self.group_name = group_name  # type: str
+        # The YAML configuration file of the job. This parameter must be specified when Mode is set to professional.
+        self.job_config = job_config  # type: str
+        # The description of the job.
+        self.job_description = job_description  # type: str
+        # The name of the job.
+        # 
+        # This parameter is required.
+        self.job_name = job_name  # type: str
+        # The update condition columns that are used to join the source data and the destination table. Typically, the columns are all the primary key columns of the destination table. If the values of all columns specified by this parameter in different rows are the same, the rows are considered duplicates.
+        self.match_columns_shrink = match_columns_shrink  # type: str
+        # The configuration mode. Valid values:
+        # 
+        # 1.  basic: In basic mode, you must configure the configuration parameters.
+        # 2.  professional: In professional mode, you can submit a YAML configuration file.
+        self.mode = mode  # type: str
+        # The password of the database account.
+        self.password = password  # type: str
+        self.region_id = region_id  # type: str
+        # The source fields.
+        self.src_columns_shrink = src_columns_shrink  # type: str
+        # Specifies whether to test the real-time job. Valid values:
+        # 
+        # *   true
+        # *   false
+        # 
+        # Default value: false.
+        self.try_run = try_run  # type: bool
+        # The columns to be updated if a row of data meets the update condition. Typically, the columns are all non-primary key columns of the destination table. When the columns specified by the MatchColumns parameter are used as conditions to join the source data and the destination table, data in columns of the UpdateColumns type is updated if data is matched.
+        self.update_columns_shrink = update_columns_shrink  # type: str
+        # The write mode.
+        # 
+        # Valid values:
+        # 
+        # *   insert
+        # *   update
+        # *   merge
+        self.write_mode = write_mode  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateStreamingJobShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account is not None:
+            result['Account'] = self.account
+        if self.consistency is not None:
+            result['Consistency'] = self.consistency
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.data_source_id is not None:
+            result['DataSourceId'] = self.data_source_id
+        if self.dest_columns_shrink is not None:
+            result['DestColumns'] = self.dest_columns_shrink
+        if self.dest_database is not None:
+            result['DestDatabase'] = self.dest_database
+        if self.dest_schema is not None:
+            result['DestSchema'] = self.dest_schema
+        if self.dest_table is not None:
+            result['DestTable'] = self.dest_table
+        if self.error_limit_count is not None:
+            result['ErrorLimitCount'] = self.error_limit_count
+        if self.fallback_offset is not None:
+            result['FallbackOffset'] = self.fallback_offset
+        if self.group_name is not None:
+            result['GroupName'] = self.group_name
+        if self.job_config is not None:
+            result['JobConfig'] = self.job_config
+        if self.job_description is not None:
+            result['JobDescription'] = self.job_description
+        if self.job_name is not None:
+            result['JobName'] = self.job_name
+        if self.match_columns_shrink is not None:
+            result['MatchColumns'] = self.match_columns_shrink
+        if self.mode is not None:
+            result['Mode'] = self.mode
+        if self.password is not None:
+            result['Password'] = self.password
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.src_columns_shrink is not None:
+            result['SrcColumns'] = self.src_columns_shrink
+        if self.try_run is not None:
+            result['TryRun'] = self.try_run
+        if self.update_columns_shrink is not None:
+            result['UpdateColumns'] = self.update_columns_shrink
+        if self.write_mode is not None:
+            result['WriteMode'] = self.write_mode
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Account') is not None:
+            self.account = m.get('Account')
+        if m.get('Consistency') is not None:
+            self.consistency = m.get('Consistency')
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('DataSourceId') is not None:
+            self.data_source_id = m.get('DataSourceId')
+        if m.get('DestColumns') is not None:
+            self.dest_columns_shrink = m.get('DestColumns')
+        if m.get('DestDatabase') is not None:
+            self.dest_database = m.get('DestDatabase')
+        if m.get('DestSchema') is not None:
+            self.dest_schema = m.get('DestSchema')
+        if m.get('DestTable') is not None:
+            self.dest_table = m.get('DestTable')
+        if m.get('ErrorLimitCount') is not None:
+            self.error_limit_count = m.get('ErrorLimitCount')
+        if m.get('FallbackOffset') is not None:
+            self.fallback_offset = m.get('FallbackOffset')
+        if m.get('GroupName') is not None:
+            self.group_name = m.get('GroupName')
+        if m.get('JobConfig') is not None:
+            self.job_config = m.get('JobConfig')
+        if m.get('JobDescription') is not None:
+            self.job_description = m.get('JobDescription')
+        if m.get('JobName') is not None:
+            self.job_name = m.get('JobName')
+        if m.get('MatchColumns') is not None:
+            self.match_columns_shrink = m.get('MatchColumns')
+        if m.get('Mode') is not None:
+            self.mode = m.get('Mode')
+        if m.get('Password') is not None:
+            self.password = m.get('Password')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('SrcColumns') is not None:
+            self.src_columns_shrink = m.get('SrcColumns')
+        if m.get('TryRun') is not None:
+            self.try_run = m.get('TryRun')
+        if m.get('UpdateColumns') is not None:
+            self.update_columns_shrink = m.get('UpdateColumns')
+        if m.get('WriteMode') is not None:
+            self.write_mode = m.get('WriteMode')
+        return self
+
+
+class CreateStreamingJobResponseBody(TeaModel):
+    def __init__(self, job_id=None, request_id=None):
+        # The job ID.
+        self.job_id = job_id  # type: int
+        # The request ID.
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateStreamingJobResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CreateStreamingJobResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateStreamingJobResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateStreamingJobResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateStreamingJobResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateVectorIndexRequest(TeaModel):
     def __init__(self, collection=None, dbinstance_id=None, dimension=None, external_storage=None, hnsw_m=None,
                  manager_account=None, manager_account_password=None, metrics=None, namespace=None, owner_id=None, pq_enable=None,
                  region_id=None):
+        # This parameter is required.
         self.collection = collection  # type: str
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
+        # This parameter is required.
         self.dimension = dimension  # type: int
+        # Specifies whether to use the memory mapping technology to create HNSW indexes. Valid values: 0 and 1. Default value: 0. We recommend that you set the value to 1 in scenarios that require upload speed but not data deletion.
+        # 
+        # *   0: uses segmented paging storage to create indexes. This method uses the shared buffer of PostgreSQL for caching and supports the delete and update operations.
+        # 
+        # *   1: uses the memory mapping technology to create indexes. This method does not support the delete or update operation.
         self.external_storage = external_storage  # type: int
+        # The maximum number of neighbors for the Hierarchical Navigable Small World (HNSW) algorithm. Valid values: 1 to 1000. In most cases, this parameter is automatically configured based on the value of the Dimension parameter. You do not need to configure this parameter.
+        # 
+        # >  We recommend that you configure this parameter based on the value of the Dimension parameter.
+        # 
+        # *   If you set Dimension to a value less than or equal to 384, set the value of HnswM to 16.
+        # 
+        # *   If you set Dimension to a value greater than 384 and less than or equal to 768, set the value of HnswM to 32.
+        # 
+        # *   If you set Dimension to a value greater than 768 and less than or equal to 1024, set the value of HnswM to 64.
+        # 
+        # *   If you set Dimension to a value greater than 1024, set the value of HnswM to 128.
         self.hnsw_m = hnsw_m  # type: int
+        # This parameter is required.
         self.manager_account = manager_account  # type: str
+        # This parameter is required.
         self.manager_account_password = manager_account_password  # type: str
-        # Distance Metrics。
+        # The method that is used to create vector indexes.Valid values:
+        # 
+        # - l2: Euclidean distance.
+        # 
+        # - ip: inner product distance.
+        # 
+        # - cosine: cosine similarity.
         self.metrics = metrics  # type: str
         self.namespace = namespace  # type: str
         self.owner_id = owner_id  # type: long
+        # Specifies whether to enable the product quantization (PQ) feature for index acceleration. We recommend that you enable this feature for more than 500,000 rows of data. Valid values:
+        # 
+        # *   0: no.
+        # *   1 (default): yes.
         self.pq_enable = pq_enable  # type: int
+        # This parameter is required.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -2170,22 +4668,29 @@ class CreateVectorIndexResponse(TeaModel):
 
 class DeleteCollectionRequest(TeaModel):
     def __init__(self, collection=None, dbinstance_id=None, namespace=None, namespace_password=None, owner_id=None,
-                 region_id=None):
+                 region_id=None, workspace_id=None):
         # The name of the collection.
+        # 
+        # This parameter is required.
         self.collection = collection  # type: str
         # The instance ID.
         # 
-        # > You can call the [DescribeDBInstances](~~86911~~) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # > You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
         self.dbinstance_id = dbinstance_id  # type: str
         # The name of the namespace.
         self.namespace = namespace  # type: str
         # The password of the namespace.
+        # 
+        # This parameter is required.
         self.namespace_password = namespace_password  # type: str
         self.owner_id = owner_id  # type: long
         # The region ID of the instance.
         # 
-        # > You can call the [DescribeRegions](~~86912~~) operation to query the most recent region list.
+        # >  You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list.
+        # 
+        # This parameter is required.
         self.region_id = region_id  # type: str
+        self.workspace_id = workspace_id  # type: str
 
     def validate(self):
         pass
@@ -2208,6 +4713,8 @@ class DeleteCollectionRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.workspace_id is not None:
+            result['WorkspaceId'] = self.workspace_id
         return result
 
     def from_map(self, m=None):
@@ -2224,6 +4731,8 @@ class DeleteCollectionRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('WorkspaceId') is not None:
+            self.workspace_id = m.get('WorkspaceId')
         return self
 
 
@@ -2305,26 +4814,33 @@ class DeleteCollectionResponse(TeaModel):
 
 class DeleteCollectionDataRequest(TeaModel):
     def __init__(self, collection=None, collection_data=None, collection_data_filter=None, dbinstance_id=None,
-                 namespace=None, namespace_password=None, owner_id=None, region_id=None):
+                 namespace=None, namespace_password=None, owner_id=None, region_id=None, workspace_id=None):
         # The name of the collection.
+        # 
+        # This parameter is required.
         self.collection = collection  # type: str
         # The data that you want to delete.
         self.collection_data = collection_data  # type: str
-        # The data filter to delete.
+        # The filter conditions for the data to be deleted.
         self.collection_data_filter = collection_data_filter  # type: str
         # The instance ID.
         # 
-        # > You can call the [DescribeDBInstances](~~86911~~) operation to query the IDs of all AnalyticDB for PostgreSQL instances within a region.
+        # > You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the IDs of all AnalyticDB for PostgreSQL instances within a region.
         self.dbinstance_id = dbinstance_id  # type: str
         # The name of the namespace.
         self.namespace = namespace  # type: str
         # The password of the namespace.
+        # 
+        # This parameter is required.
         self.namespace_password = namespace_password  # type: str
         self.owner_id = owner_id  # type: long
         # The region ID of the instance.
         # 
-        # > You can call the [DescribeRegions](~~86912~~) operation to query the most recent region list.
+        # >  You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list.
+        # 
+        # This parameter is required.
         self.region_id = region_id  # type: str
+        self.workspace_id = workspace_id  # type: str
 
     def validate(self):
         pass
@@ -2351,6 +4867,8 @@ class DeleteCollectionDataRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.workspace_id is not None:
+            result['WorkspaceId'] = self.workspace_id
         return result
 
     def from_map(self, m=None):
@@ -2371,6 +4889,8 @@ class DeleteCollectionDataRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('WorkspaceId') is not None:
+            self.workspace_id = m.get('WorkspaceId')
         return self
 
 
@@ -2458,11 +4978,13 @@ class DeleteCollectionDataResponse(TeaModel):
 
 class DeleteDBInstanceRequest(TeaModel):
     def __init__(self, client_token=None, dbinstance_id=None, owner_id=None, resource_group_id=None):
-        # The client token that is used to ensure the idempotence of the request. For more information, see [How to ensure idempotence](~~327176~~).
+        # The client token that is used to ensure the idempotence of the request. For more information, see [How to ensure idempotence](https://help.aliyun.com/document_detail/327176.html).
         self.client_token = client_token  # type: str
         # The ID of the instance.
         # 
-        # >  You can call the [DescribeDBInstances](~~86911~~) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         self.owner_id = owner_id  # type: long
         # This parameter is no longer used.
@@ -2565,12 +5087,16 @@ class DeleteDBInstancePlanRequest(TeaModel):
     def __init__(self, dbinstance_id=None, owner_id=None, plan_id=None):
         # The ID of the instance.
         # 
-        # >  You can call the [DescribeDBInstances](~~86911~~) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         self.owner_id = owner_id  # type: long
         # The ID of the plan.
         # 
-        # >  You can call the [DescribeDBInstancePlans](~~449398~~) operation to query the details of plans, including plan IDs.
+        # >  You can call the [DescribeDBInstancePlans](https://help.aliyun.com/document_detail/449398.html) operation to query the details of plans, including plan IDs.
+        # 
+        # This parameter is required.
         self.plan_id = plan_id  # type: str
 
     def validate(self):
@@ -2690,15 +5216,138 @@ class DeleteDBInstancePlanResponse(TeaModel):
         return self
 
 
+class DeleteDBResourceGroupRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, owner_id=None, resource_group_name=None):
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/196830.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.owner_id = owner_id  # type: long
+        # The name of the resource group.
+        # 
+        # This parameter is required.
+        self.resource_group_name = resource_group_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteDBResourceGroupRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_group_name is not None:
+            result['ResourceGroupName'] = self.resource_group_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceGroupName') is not None:
+            self.resource_group_name = m.get('ResourceGroupName')
+        return self
+
+
+class DeleteDBResourceGroupResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        # The request ID.
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteDBResourceGroupResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteDBResourceGroupResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteDBResourceGroupResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteDBResourceGroupResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteDBResourceGroupResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DeleteDocumentRequest(TeaModel):
     def __init__(self, collection=None, dbinstance_id=None, file_name=None, namespace=None, namespace_password=None,
                  owner_id=None, region_id=None):
+        # The name of the document collection.
+        # 
+        # >  You can call the [CreateDocumentCollection](https://help.aliyun.com/document_detail/2618448.html) operation to create a document collection and call the [ListDocumentCollections](https://help.aliyun.com/document_detail/2618452.html) operation to query a list of document collections.
+        # 
+        # This parameter is required.
         self.collection = collection  # type: str
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
+        # The name of the document.
+        # 
+        # >  You can call the [ListDocuments](https://help.aliyun.com/document_detail/2618453.html) operation to query a list of documents.
+        # 
+        # This parameter is required.
         self.file_name = file_name  # type: str
+        # The name of the namespace. Default value: public.
+        # 
+        # >  You can call the [CreateNamespace](https://help.aliyun.com/document_detail/2401495.html) operation to create a namespace and call the [ListNamespaces](https://help.aliyun.com/document_detail/2401502.html) operation to query a list of namespaces.
         self.namespace = namespace  # type: str
+        # The password of the namespace.
+        # 
+        # >  This value is specified when you call the [CreateNamespace](https://help.aliyun.com/document_detail/2401495.html) operation.
+        # 
+        # This parameter is required.
         self.namespace_password = namespace_password  # type: str
         self.owner_id = owner_id  # type: long
+        # This parameter is required.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -2818,11 +5467,24 @@ class DeleteDocumentResponse(TeaModel):
 class DeleteDocumentCollectionRequest(TeaModel):
     def __init__(self, collection=None, dbinstance_id=None, namespace=None, namespace_password=None, owner_id=None,
                  region_id=None):
+        # This parameter is required.
         self.collection = collection  # type: str
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
+        # The name of the namespace. Default value: public.
+        # 
+        # >  You can call the [CreateNamespace](https://help.aliyun.com/document_detail/2401495.html) operation to create a namespace and call the [ListNamespaces](https://help.aliyun.com/document_detail/2401502.html) operation to query a list of namespaces.
         self.namespace = namespace  # type: str
+        # The password of the namespace.
+        # 
+        # >  This value is specified when you call the [CreateNamespace](https://help.aliyun.com/document_detail/2401495.html) operation.
+        # 
+        # This parameter is required.
         self.namespace_password = namespace_password  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the instance.
+        # 
+        # This parameter is required.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -2869,6 +5531,10 @@ class DeleteDocumentCollectionResponseBody(TeaModel):
     def __init__(self, message=None, request_id=None, status=None):
         self.message = message  # type: str
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **success**\
+        # *   **fail**\
         self.status = status  # type: str
 
     def validate(self):
@@ -2935,24 +5601,450 @@ class DeleteDocumentCollectionResponse(TeaModel):
         return self
 
 
-class DeleteNamespaceRequest(TeaModel):
-    def __init__(self, dbinstance_id=None, manager_account=None, manager_account_password=None, namespace=None,
-                 owner_id=None, region_id=None):
+class DeleteExtensionRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, dbnames=None, extension=None, region_id=None):
         # The instance ID.
         # 
-        # > You can call the [DescribeDBInstances](~~86911~~) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the IDs of all AnalyticDB for PostgreSQL instances in a specific region.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        # The name of the database.
+        # 
+        # This parameter is required.
+        self.dbnames = dbnames  # type: str
+        # The name of the extension.
+        # 
+        # This parameter is required.
+        self.extension = extension  # type: str
+        # The region ID of the instance.
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteExtensionRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.dbnames is not None:
+            result['DBNames'] = self.dbnames
+        if self.extension is not None:
+            result['Extension'] = self.extension
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('DBNames') is not None:
+            self.dbnames = m.get('DBNames')
+        if m.get('Extension') is not None:
+            self.extension = m.get('Extension')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DeleteExtensionResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        # The request ID.
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteExtensionResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteExtensionResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteExtensionResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteExtensionResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteExtensionResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteExternalDataServiceRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, region_id=None, service_id=None):
+        # The instance ID.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        # The region ID.
+        # 
+        # >  You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        # This parameter is required.
+        self.service_id = service_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteExternalDataServiceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.service_id is not None:
+            result['ServiceId'] = self.service_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ServiceId') is not None:
+            self.service_id = m.get('ServiceId')
+        return self
+
+
+class DeleteExternalDataServiceResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteExternalDataServiceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteExternalDataServiceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteExternalDataServiceResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteExternalDataServiceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteExternalDataServiceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteHadoopDataSourceRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, data_source_id=None, region_id=None):
+        # The instance ID.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        # The service ID.
+        # 
+        # This parameter is required.
+        self.data_source_id = data_source_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteHadoopDataSourceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.data_source_id is not None:
+            result['DataSourceId'] = self.data_source_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('DataSourceId') is not None:
+            self.data_source_id = m.get('DataSourceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DeleteHadoopDataSourceResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        # The request ID.
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteHadoopDataSourceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteHadoopDataSourceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteHadoopDataSourceResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteHadoopDataSourceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteHadoopDataSourceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteJDBCDataSourceRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, data_source_id=None, region_id=None):
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        # The data source ID.
+        # 
+        # This parameter is required.
+        self.data_source_id = data_source_id  # type: str
+        # The region ID.
+        # 
+        # >  You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteJDBCDataSourceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.data_source_id is not None:
+            result['DataSourceId'] = self.data_source_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('DataSourceId') is not None:
+            self.data_source_id = m.get('DataSourceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DeleteJDBCDataSourceResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteJDBCDataSourceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteJDBCDataSourceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteJDBCDataSourceResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteJDBCDataSourceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteJDBCDataSourceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteNamespaceRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, manager_account=None, manager_account_password=None, namespace=None,
+                 owner_id=None, region_id=None, workspace_id=None):
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
         self.dbinstance_id = dbinstance_id  # type: str
         # The name of the manager account that has the rds_superuser permission.
+        # 
+        # >  You can create an account on the Account Management page of the AnalyticDB for PostgreSQL console or by calling the [CreateAccount](https://help.aliyun.com/document_detail/2361789.html) operation.
+        # 
+        # This parameter is required.
         self.manager_account = manager_account  # type: str
         # The password of the manager account.
+        # 
+        # This parameter is required.
         self.manager_account_password = manager_account_password  # type: str
         # The name of the namespace.
+        # 
+        # >  You can call the [ListNamespaces](https://help.aliyun.com/document_detail/2401502.html) operation to query a list of namespaces.
+        # 
+        # This parameter is required.
         self.namespace = namespace  # type: str
         self.owner_id = owner_id  # type: long
         # The region ID of the instance.
         # 
-        # > You can call the [DescribeRegions](~~86912~~) operation to query the most recent region list.
+        # This parameter is required.
         self.region_id = region_id  # type: str
+        self.workspace_id = workspace_id  # type: str
 
     def validate(self):
         pass
@@ -2975,6 +6067,8 @@ class DeleteNamespaceRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.workspace_id is not None:
+            result['WorkspaceId'] = self.workspace_id
         return result
 
     def from_map(self, m=None):
@@ -2991,6 +6085,8 @@ class DeleteNamespaceRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('WorkspaceId') is not None:
+            self.workspace_id = m.get('WorkspaceId')
         return self
 
 
@@ -3070,25 +6166,499 @@ class DeleteNamespaceResponse(TeaModel):
         return self
 
 
+class DeleteSecretRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, owner_id=None, region_id=None, secret_arn=None, secret_name=None):
+        # The instance ID. You can call the DescribeDBInstances operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # >
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.owner_id = owner_id  # type: long
+        # The region ID of the instance.
+        # 
+        # This parameter is required.
+        self.region_id = region_id  # type: str
+        # The Alibaba Cloud Resource Name (ARN) of the access credential for the created Data API account. Format: `acs:gpdb:{{region}}:{{accountId}}:secret/{{secretName}}-{{32 digits random string}`.
+        # 
+        # >  You must specify one of the SecretArn and SecretName parameters.
+        self.secret_arn = secret_arn  # type: str
+        # The name of the access credential.
+        # 
+        # >  You must specify one of the SecretArn and SecretName parameters.
+        self.secret_name = secret_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteSecretRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.secret_arn is not None:
+            result['SecretArn'] = self.secret_arn
+        if self.secret_name is not None:
+            result['SecretName'] = self.secret_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('SecretArn') is not None:
+            self.secret_arn = m.get('SecretArn')
+        if m.get('SecretName') is not None:
+            self.secret_name = m.get('SecretName')
+        return self
+
+
+class DeleteSecretResponseBody(TeaModel):
+    def __init__(self, message=None, request_id=None, secret_arn=None, status=None):
+        # The returned message.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # The ARN of the access credential for the created Data API account. Format: `acs:gpdb:{{region}}:{{accountId}}:secret/{{secretName}}-{{32 digits random string}`.
+        self.secret_arn = secret_arn  # type: str
+        # The status of the operation. Valid values:
+        # 
+        # *   **fail**\
+        # *   **success**\
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteSecretResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.secret_arn is not None:
+            result['SecretArn'] = self.secret_arn
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('SecretArn') is not None:
+            self.secret_arn = m.get('SecretArn')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class DeleteSecretResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteSecretResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteSecretResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteSecretResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteStreamingDataServiceRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, region_id=None, service_id=None):
+        # The instance ID.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.region_id = region_id  # type: str
+        # The service ID.
+        # 
+        # This parameter is required.
+        self.service_id = service_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteStreamingDataServiceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.service_id is not None:
+            result['ServiceId'] = self.service_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ServiceId') is not None:
+            self.service_id = m.get('ServiceId')
+        return self
+
+
+class DeleteStreamingDataServiceResponseBody(TeaModel):
+    def __init__(self, error_message=None, request_id=None, status=None):
+        # The error message returned if the operation fails.
+        # 
+        # This parameter is returned only when the return value of **Status** is **false**.
+        self.error_message = error_message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # The status of the operation. Valid values:
+        # 
+        # *   **false**: The operation fails.
+        # *   **true**: The operation is successful.
+        self.status = status  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteStreamingDataServiceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class DeleteStreamingDataServiceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteStreamingDataServiceResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteStreamingDataServiceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteStreamingDataServiceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteStreamingDataSourceRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, data_source_id=None, region_id=None):
+        # The instance ID.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        # The data source ID.
+        # 
+        # This parameter is required.
+        self.data_source_id = data_source_id  # type: int
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteStreamingDataSourceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.data_source_id is not None:
+            result['DataSourceId'] = self.data_source_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('DataSourceId') is not None:
+            self.data_source_id = m.get('DataSourceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DeleteStreamingDataSourceResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        # The request ID.
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteStreamingDataSourceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteStreamingDataSourceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteStreamingDataSourceResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteStreamingDataSourceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteStreamingDataSourceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteStreamingJobRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, job_id=None, region_id=None):
+        # The instance ID.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        # The job ID.
+        # 
+        # This parameter is required.
+        self.job_id = job_id  # type: int
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteStreamingJobRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DeleteStreamingJobResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        # The request ID.
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteStreamingJobResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteStreamingJobResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteStreamingJobResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteStreamingJobResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteStreamingJobResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DeleteVectorIndexRequest(TeaModel):
     def __init__(self, collection=None, dbinstance_id=None, manager_account=None, manager_account_password=None,
                  namespace=None, owner_id=None, region_id=None):
         # The name of the collection.
+        # 
+        # >  You can call the [ListCollections](https://help.aliyun.com/document_detail/2401503.html) operation to query a list of collections.
+        # 
+        # This parameter is required.
         self.collection = collection  # type: str
         # The instance ID.
         # 
-        # > You can call the [DescribeDBInstances](~~86911~~) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # > You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         # The name of the manager account that has the rds_superuser permission.
+        # 
+        # >  You can create an account on the **Account Management** page of the AnalyticDB for PostgreSQL console or by calling the [CreateAccount](https://help.aliyun.com/document_detail/2361789.html) operation.
+        # 
+        # This parameter is required.
         self.manager_account = manager_account  # type: str
         # The password of the manager account.
+        # 
+        # This parameter is required.
         self.manager_account_password = manager_account_password  # type: str
-        # The name of the namespace.
+        # The name of the namespace. Default value: public.
+        # 
+        # >  You can call the [ListNamespaces](https://help.aliyun.com/document_detail/2401502.html) operation to query a list of namespaces.
         self.namespace = namespace  # type: str
         self.owner_id = owner_id  # type: long
         # The region ID of the instance.
         # 
-        # > You can call the [DescribeRegions](~~86912~~) operation to query the most recent region list.
+        # This parameter is required.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -3212,12 +6782,15 @@ class DeleteVectorIndexResponse(TeaModel):
 
 
 class DescribeAccountsRequest(TeaModel):
-    def __init__(self, account_name=None, dbinstance_id=None):
+    def __init__(self, account_name=None, account_type=None, dbinstance_id=None):
         # The name of the database account.
         self.account_name = account_name  # type: str
+        self.account_type = account_type  # type: str
         # The instance ID.
         # 
-        # > You can call the [DescribeDBInstances](~~86911~~) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # > You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
 
     def validate(self):
@@ -3231,6 +6804,8 @@ class DescribeAccountsRequest(TeaModel):
         result = dict()
         if self.account_name is not None:
             result['AccountName'] = self.account_name
+        if self.account_type is not None:
+            result['AccountType'] = self.account_type
         if self.dbinstance_id is not None:
             result['DBInstanceId'] = self.dbinstance_id
         return result
@@ -3239,13 +6814,16 @@ class DescribeAccountsRequest(TeaModel):
         m = m or dict()
         if m.get('AccountName') is not None:
             self.account_name = m.get('AccountName')
+        if m.get('AccountType') is not None:
+            self.account_type = m.get('AccountType')
         if m.get('DBInstanceId') is not None:
             self.dbinstance_id = m.get('DBInstanceId')
         return self
 
 
 class DescribeAccountsResponseBodyAccountsDBInstanceAccount(TeaModel):
-    def __init__(self, account_description=None, account_name=None, account_status=None, dbinstance_id=None):
+    def __init__(self, account_description=None, account_name=None, account_status=None, account_type=None,
+                 dbinstance_id=None):
         # The description of the account.
         self.account_description = account_description  # type: str
         # The name of the account.
@@ -3256,6 +6834,7 @@ class DescribeAccountsResponseBodyAccountsDBInstanceAccount(TeaModel):
         # *   **1**: The account is in use.
         # *   **3**: The account is being deleted.
         self.account_status = account_status  # type: str
+        self.account_type = account_type  # type: str
         # The ID of the instance.
         self.dbinstance_id = dbinstance_id  # type: str
 
@@ -3274,6 +6853,8 @@ class DescribeAccountsResponseBodyAccountsDBInstanceAccount(TeaModel):
             result['AccountName'] = self.account_name
         if self.account_status is not None:
             result['AccountStatus'] = self.account_status
+        if self.account_type is not None:
+            result['AccountType'] = self.account_type
         if self.dbinstance_id is not None:
             result['DBInstanceId'] = self.dbinstance_id
         return result
@@ -3286,6 +6867,8 @@ class DescribeAccountsResponseBodyAccountsDBInstanceAccount(TeaModel):
             self.account_name = m.get('AccountName')
         if m.get('AccountStatus') is not None:
             self.account_status = m.get('AccountStatus')
+        if m.get('AccountType') is not None:
+            self.account_type = m.get('AccountType')
         if m.get('DBInstanceId') is not None:
             self.dbinstance_id = m.get('DBInstanceId')
         return self
@@ -3395,6 +6978,11 @@ class DescribeAccountsResponse(TeaModel):
 class DescribeActiveSQLRecordsRequest(TeaModel):
     def __init__(self, dbinstance_id=None, database=None, end_time=None, keyword=None, max_duration=None,
                  min_duration=None, order=None, start_time=None, user=None):
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         self.database = database  # type: str
         self.end_time = end_time  # type: str
@@ -3403,6 +6991,7 @@ class DescribeActiveSQLRecordsRequest(TeaModel):
         self.min_duration = min_duration  # type: str
         self.order = order  # type: str
         self.start_time = start_time  # type: str
+        # The name of the database account.
         self.user = user  # type: str
 
     def validate(self):
@@ -3460,16 +7049,33 @@ class DescribeActiveSQLRecordsRequest(TeaModel):
 class DescribeActiveSQLRecordsResponseBodyQueries(TeaModel):
     def __init__(self, client_addr=None, database=None, pid=None, query=None, query_duration=None, query_start=None,
                  session_id=None, sql_truncated=None, sql_truncated_threshold=None, state=None, user=None):
+        # The IP address of the client.
         self.client_addr = client_addr  # type: str
+        # The name of the database.
         self.database = database  # type: str
+        # The progress ID.
         self.pid = pid  # type: str
+        # The SQL statement of the query.
         self.query = query  # type: str
+        # The execution duration of the query. Unit: seconds.
         self.query_duration = query_duration  # type: str
+        # The start time of the query.
         self.query_start = query_start  # type: str
+        # The session ID.
         self.session_id = session_id  # type: str
+        # Indicates whether the SQL statement is truncated. Valid values:
+        # 
+        # *   true
+        # *   false
         self.sql_truncated = sql_truncated  # type: str
+        # The threshold that is used to truncate the SQL statement.
         self.sql_truncated_threshold = sql_truncated_threshold  # type: str
+        # The status of the asynchronous request. Valid values:
+        # 
+        # *   **running**\
+        # *   **block**\
         self.state = state  # type: str
+        # The name of the database account.
         self.user = user  # type: str
 
     def validate(self):
@@ -3534,7 +7140,9 @@ class DescribeActiveSQLRecordsResponseBodyQueries(TeaModel):
 
 class DescribeActiveSQLRecordsResponseBody(TeaModel):
     def __init__(self, dbinstance_id=None, queries=None, request_id=None):
+        # The instance ID.
         self.dbinstance_id = dbinstance_id  # type: str
+        # The queried SQL records.
         self.queries = queries  # type: list[DescribeActiveSQLRecordsResponseBodyQueries]
         self.request_id = request_id  # type: str
 
@@ -3619,11 +7227,15 @@ class DescribeAvailableResourcesRequest(TeaModel):
         self.charge_type = charge_type  # type: str
         # The region ID.
         # 
-        # > You can call the [DescribeRegions](~~86912~~) operation to query the most recent region list.
+        # > You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list.
+        # 
+        # This parameter is required.
         self.region = region  # type: str
         # The zone ID.
         # 
-        # > You can call the [DescribeRegions](~~86912~~) operation to query the most recent zone list.
+        # > You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent zone list.
+        # 
+        # This parameter is required.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -3976,7 +7588,9 @@ class DescribeBackupPolicyRequest(TeaModel):
     def __init__(self, dbinstance_id=None):
         # The ID of the instance.
         # 
-        # >  You can call the [DescribeDBInstances](~~86911~~) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
 
     def validate(self):
@@ -4109,22 +7723,31 @@ class DescribeBackupPolicyResponse(TeaModel):
 
 class DescribeCollectionRequest(TeaModel):
     def __init__(self, collection=None, dbinstance_id=None, namespace=None, namespace_password=None, owner_id=None,
-                 region_id=None):
+                 region_id=None, workspace_id=None):
         # The name of the collection.
+        # 
+        # >  You can call the [ListCollections](https://help.aliyun.com/document_detail/2401503.html) operation to query a list of collections.
+        # 
+        # This parameter is required.
         self.collection = collection  # type: str
         # The instance ID.
         # 
-        # > You can call the [DescribeDBInstances](~~86911~~) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
         self.dbinstance_id = dbinstance_id  # type: str
         # The name of the namespace.
+        # 
+        # >  You can call the [ListNamespaces](https://help.aliyun.com/document_detail/2401502.html) operation to query a list of namespaces.
         self.namespace = namespace  # type: str
         # The password of the namespace.
+        # 
+        # This parameter is required.
         self.namespace_password = namespace_password  # type: str
         self.owner_id = owner_id  # type: long
         # The region ID of the instance.
         # 
-        # > You can call the [DescribeRegions](~~86912~~) operation to query the most recent region list.
+        # This parameter is required.
         self.region_id = region_id  # type: str
+        self.workspace_id = workspace_id  # type: str
 
     def validate(self):
         pass
@@ -4147,6 +7770,8 @@ class DescribeCollectionRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.workspace_id is not None:
+            result['WorkspaceId'] = self.workspace_id
         return result
 
     def from_map(self, m=None):
@@ -4163,6 +7788,8 @@ class DescribeCollectionRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('WorkspaceId') is not None:
+            self.workspace_id = m.get('WorkspaceId')
         return self
 
 
@@ -4299,7 +7926,9 @@ class DescribeDBClusterNodeRequest(TeaModel):
     def __init__(self, dbinstance_id=None, node_type=None):
         # The instance ID.
         # 
-        # > You can call the [DescribeDBInstances](~~86911~~) operation to query details about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # > You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query details about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         # The node type. Valid values:
         # 
@@ -4444,13 +8073,19 @@ class DescribeDBClusterPerformanceRequest(TeaModel):
                  resource_group_name=None, start_time=None):
         # The instance ID.
         # 
-        # > You can call the [DescribeDBInstances](~~86911~~) operation to query details about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # > You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query details about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         # The end of the time range to query. Specify the time in the ISO 8601 standard in the `YYYY-MM-DDTHH:mmZ` format.
         # 
         # > The end time must be later than the start time. The maximum time range that can be specified is seven days.
+        # 
+        # This parameter is required.
         self.end_time = end_time  # type: str
-        # The performance metric that you want to query. Separate multiple values with commas (,). For more information, see [Performance parameters](~~86943~~).
+        # The performance metric that you want to query. Separate multiple values with commas (,). For more information, see [Performance parameters](https://help.aliyun.com/document_detail/86943.html).
+        # 
+        # This parameter is required.
         self.key = key  # type: str
         # The node type. Valid values:
         # 
@@ -4459,7 +8094,7 @@ class DescribeDBClusterPerformanceRequest(TeaModel):
         # 
         # > If you do not specify this parameter, the performance metrics of all nodes are returned.
         self.node_type = node_type  # type: str
-        # The nodes for which you want to query performance metrics. Separate multiple values with commas (,). Example: `master-10******1,master-10******2`. You can call the [DescribeDBClusterNode](~~390136~~) operation to query the names of nodes.
+        # The nodes for which you want to query performance metrics. Separate multiple values with commas (,). Example: `master-10******1,master-10******2`. You can call the [DescribeDBClusterNode](https://help.aliyun.com/document_detail/390136.html) operation to query the names of nodes.
         # 
         # You can also filter the nodes based on their metric values. Valid values:
         # 
@@ -4468,10 +8103,13 @@ class DescribeDBClusterPerformanceRequest(TeaModel):
         # *   **bottom10**: the 10 nodes that have the lowest metric values.
         # *   **bottom20**: the 20 nodes that have the lowest metric values.
         self.nodes = nodes  # type: str
+        # The name of the resource group.
         self.resource_group_name = resource_group_name  # type: str
         # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the `YYYY-MM-DDTHH:mmZ` format.
         # 
         # > You can query monitoring information only within the last 30 days.
+        # 
+        # This parameter is required.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -4594,7 +8232,7 @@ class DescribeDBClusterPerformanceResponseBodyPerformanceKeysSeries(TeaModel):
 
 class DescribeDBClusterPerformanceResponseBodyPerformanceKeys(TeaModel):
     def __init__(self, name=None, series=None, unit=None):
-        # The name of the performance metric. For more information, see [Performance parameters](~~86943~~).
+        # The name of the performance metric. For more information, see [Performance parameters](https://help.aliyun.com/document_detail/86943.html).
         self.name = name  # type: str
         # Details of the performance metric of a node.
         self.series = series  # type: list[DescribeDBClusterPerformanceResponseBodyPerformanceKeysSeries]
@@ -4643,7 +8281,7 @@ class DescribeDBClusterPerformanceResponseBody(TeaModel):
         self.dbcluster_id = dbcluster_id  # type: str
         # The end time of the query. The time follows the ISO 8601 standard in the `YYYY-MM-DDTHH:mmZ` format. The time is displayed in UTC.
         self.end_time = end_time  # type: str
-        # The name of the performance metric. For more information, see [Performance parameters](~~86943~~).
+        # The name of the performance metric. For more information, see [Performance parameters](https://help.aliyun.com/document_detail/86943.html).
         self.performance_keys = performance_keys  # type: list[DescribeDBClusterPerformanceResponseBodyPerformanceKeys]
         # The request ID.
         self.request_id = request_id  # type: str
@@ -4734,7 +8372,9 @@ class DescribeDBInstanceAttributeRequest(TeaModel):
     def __init__(self, dbinstance_id=None, owner_id=None, resource_group_id=None):
         # The instance ID.
         # 
-        # > You can call the [DescribeDBInstances](~~86911~~) operation to query the IDs of all AnalyticDB for PostgreSQL instances within a region.
+        # > You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the IDs of all AnalyticDB for PostgreSQL instances within a region.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         self.owner_id = owner_id  # type: long
         # This parameter is no longer used.
@@ -4925,7 +8565,7 @@ class DescribeDBInstanceAttributeResponseBodyItemsDBInstanceAttribute(TeaModel):
         self.encryption_type = encryption_type  # type: str
         # The database engine of the instance.
         self.engine = engine  # type: str
-        # The version of the database engine.
+        # The database engine version of the instance.
         self.engine_version = engine_version  # type: str
         # The expiration time of the instance. The time is displayed in UTC.
         # 
@@ -4953,13 +8593,13 @@ class DescribeDBInstanceAttributeResponseBodyItemsDBInstanceAttribute(TeaModel):
         # *   **ManualLock**: The instance is manually locked.
         # *   **LockByExpiration**: The instance is automatically locked due to instance expiration.
         # *   **LockByRestoration**: The instance is automatically locked due to instance restoration.
-        # *   **LockByDiskQuota**: The instance is automatically locked due to exhausted storage.
+        # *   **LockByDiskQuota**: The instance is a read-only instance and is automatically locked when the disk space is full.
         self.lock_mode = lock_mode  # type: str
         # An invalid parameter. It is no longer returned when you call this operation.
         self.lock_reason = lock_reason  # type: str
-        # The end time of the maintenance window of the instance.
+        # The end time of the maintenance window.
         self.maintain_end_time = maintain_end_time  # type: str
-        # The start time of the maintenance window of the instance.
+        # The start time of the maintenance window.
         self.maintain_start_time = maintain_start_time  # type: str
         # The amount of coordinator node resources.
         self.master_cu = master_cu  # type: int
@@ -5050,7 +8690,7 @@ class DescribeDBInstanceAttributeResponseBodyItemsDBInstanceAttribute(TeaModel):
         # *   **true**\
         # *   **false**\
         self.support_restore = support_restore  # type: bool
-        # The tags of the instance. Each tag is a key-value pair.
+        # The tags that are added to the instance.
         self.tags = tags  # type: DescribeDBInstanceAttributeResponseBodyItemsDBInstanceAttributeTags
         # The vSwitch ID of the instance.
         self.v_switch_id = v_switch_id  # type: str
@@ -5436,11 +9076,15 @@ class DescribeDBInstanceAttributeResponse(TeaModel):
 
 
 class DescribeDBInstanceDataBloatRequest(TeaModel):
-    def __init__(self, dbinstance_id=None, page_number=None, page_size=None):
+    def __init__(self, dbinstance_id=None, database=None, order_by=None, page_number=None, page_size=None):
         # The ID of the instance.
         # 
-        # >  You can call the [DescribeDBInstances](~~86911~~) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
+        self.database = database  # type: str
+        self.order_by = order_by  # type: str
         # The number of the page to return. The value must be an integer that is greater than 0. Default value: **1**.
         self.page_number = page_number  # type: int
         # The number of entries to return on each page. Valid values:
@@ -5463,6 +9107,10 @@ class DescribeDBInstanceDataBloatRequest(TeaModel):
         result = dict()
         if self.dbinstance_id is not None:
             result['DBInstanceId'] = self.dbinstance_id
+        if self.database is not None:
+            result['Database'] = self.database
+        if self.order_by is not None:
+            result['OrderBy'] = self.order_by
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
@@ -5473,6 +9121,10 @@ class DescribeDBInstanceDataBloatRequest(TeaModel):
         m = m or dict()
         if m.get('DBInstanceId') is not None:
             self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('Database') is not None:
+            self.database = m.get('Database')
+        if m.get('OrderBy') is not None:
+            self.order_by = m.get('OrderBy')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
@@ -5583,7 +9235,7 @@ class DescribeDBInstanceDataBloatResponseBodyItems(TeaModel):
 
 class DescribeDBInstanceDataBloatResponseBody(TeaModel):
     def __init__(self, items=None, page_number=None, request_id=None, total_count=None):
-        # Details of data bloat.
+        # The queried data bloat.
         self.items = items  # type: list[DescribeDBInstanceDataBloatResponseBodyItems]
         # The page number of the returned page.
         self.page_number = page_number  # type: int
@@ -5669,20 +9321,24 @@ class DescribeDBInstanceDataBloatResponse(TeaModel):
 
 
 class DescribeDBInstanceDataSkewRequest(TeaModel):
-    def __init__(self, dbinstance_id=None, page_number=None, page_size=None):
+    def __init__(self, dbinstance_id=None, database=None, order_by=None, page_number=None, page_size=None):
         # The ID of the instance.
         # 
-        # >  You can call the [DescribeDBInstances](~~86911~~) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
+        self.database = database  # type: str
+        self.order_by = order_by  # type: str
         # The number of the page to return. The value must be an integer that is greater than 0. Default value: **1**.
         self.page_number = page_number  # type: int
-        # The number of entries to return on each page. Valid values:
+        # The number of entries per page. Valid values:
         # 
-        # *   **20**\
+        # *   **30**\
         # *   **50**\
         # *   **100**\
         # 
-        # Default value: **20**.
+        # Default value: **30**.
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -5696,6 +9352,10 @@ class DescribeDBInstanceDataSkewRequest(TeaModel):
         result = dict()
         if self.dbinstance_id is not None:
             result['DBInstanceId'] = self.dbinstance_id
+        if self.database is not None:
+            result['Database'] = self.database
+        if self.order_by is not None:
+            result['OrderBy'] = self.order_by
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
@@ -5706,6 +9366,10 @@ class DescribeDBInstanceDataSkewRequest(TeaModel):
         m = m or dict()
         if m.get('DBInstanceId') is not None:
             self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('Database') is not None:
+            self.database = m.get('Database')
+        if m.get('OrderBy') is not None:
+            self.order_by = m.get('OrderBy')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
@@ -5879,7 +9543,9 @@ class DescribeDBInstanceDiagnosisSummaryRequest(TeaModel):
                  sync_mode=None):
         # The instance ID.
         # 
-        # > You can call the [DescribeDBInstances](~~86911~~) operation to query details about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # > You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query details about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         # The page number. Pages start from page 1. Default value: **1**.
         self.page_number = page_number  # type: int
@@ -6279,7 +9945,9 @@ class DescribeDBInstanceErrorLogRequest(TeaModel):
                  page_number=None, page_size=None, start_time=None, user=None):
         # The instance ID.
         # 
-        # > You can call the [DescribeDBInstances](~~86911~~) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # > You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         # The name of the database.
         self.database = database  # type: str
@@ -6517,9 +10185,11 @@ class DescribeDBInstanceIPArrayListRequest(TeaModel):
         self.dbinstance_iparray_name = dbinstance_iparray_name  # type: str
         # The instance ID.
         # 
-        # > You can call the [DescribeDBInstances](~~86911~~) operation to query details about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # > You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query details about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
-        # The ID of the resource group to which the instance belongs. For information about how to obtain the ID of a resource group, see [View basic information of a resource group](~~151181~~).
+        # The ID of the resource group to which the instance belongs. For information about how to obtain the ID of a resource group, see [View basic information of a resource group](https://help.aliyun.com/document_detail/151181.html).
         self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
@@ -6693,11 +10363,15 @@ class DescribeDBInstanceIPArrayListResponse(TeaModel):
 
 
 class DescribeDBInstanceIndexUsageRequest(TeaModel):
-    def __init__(self, dbinstance_id=None, page_number=None, page_size=None):
+    def __init__(self, dbinstance_id=None, database=None, order_by=None, page_number=None, page_size=None):
         # The instance ID.
         # 
-        # > You can call the [DescribeDBInstances](~~86911~~) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # > You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
+        self.database = database  # type: str
+        self.order_by = order_by  # type: str
         # The page number. Pages start from page 1. Default value: **1**.
         self.page_number = page_number  # type: int
         # The number of entries per page. Valid values:
@@ -6720,6 +10394,10 @@ class DescribeDBInstanceIndexUsageRequest(TeaModel):
         result = dict()
         if self.dbinstance_id is not None:
             result['DBInstanceId'] = self.dbinstance_id
+        if self.database is not None:
+            result['Database'] = self.database
+        if self.order_by is not None:
+            result['OrderBy'] = self.order_by
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
@@ -6730,6 +10408,10 @@ class DescribeDBInstanceIndexUsageRequest(TeaModel):
         m = m or dict()
         if m.get('DBInstanceId') is not None:
             self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('Database') is not None:
+            self.database = m.get('Database')
+        if m.get('OrderBy') is not None:
+            self.order_by = m.get('OrderBy')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
@@ -6747,7 +10429,7 @@ class DescribeDBInstanceIndexUsageResponseBodyItems(TeaModel):
         # The name of the index.
         self.index_name = index_name  # type: str
         # The number of index scans.
-        self.index_scan_times = index_scan_times  # type: int
+        self.index_scan_times = index_scan_times  # type: long
         # The size of the index. Unit: bytes.
         self.index_size = index_size  # type: str
         # Indicates whether the table is a partitioned table. Valid values:
@@ -6822,7 +10504,7 @@ class DescribeDBInstanceIndexUsageResponseBodyItems(TeaModel):
 
 class DescribeDBInstanceIndexUsageResponseBody(TeaModel):
     def __init__(self, items=None, page_number=None, request_id=None, total_count=None):
-        # The time when the table was last deleted, inserted, or updated.
+        # The queried index usage.
         self.items = items  # type: list[DescribeDBInstanceIndexUsageResponseBodyItems]
         # The page number.
         self.page_number = page_number  # type: int
@@ -6915,7 +10597,9 @@ class DescribeDBInstanceNetInfoRequest(TeaModel):
         self.connection_string = connection_string  # type: str
         # The instance ID.
         # 
-        # >  You can call the [DescribeDBInstances](~~86911~~) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
 
     def validate(self):
@@ -7127,15 +10811,23 @@ class DescribeDBInstancePerformanceRequest(TeaModel):
     def __init__(self, dbinstance_id=None, end_time=None, key=None, resource_group_id=None, start_time=None):
         # The instance ID.
         # 
-        # > You can call the [DescribeDBInstances](~~86911~~) operation to query the IDs of all AnalyticDB for PostgreSQL instances within a region.
+        # > You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the IDs of all AnalyticDB for PostgreSQL instances within a region.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         # The end of the time range to query. Specify the time in the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm*Z format. The time must be in UTC. The end time must be later than the start time.
+        # 
+        # This parameter is required.
         self.end_time = end_time  # type: str
-        # The performance metric. Separate multiple values with commas (,). For more information, see [Performance parameters](~~86943~~).
+        # The performance metric. Separate multiple values with commas (,). For more information, see [Performance parameters](https://help.aliyun.com/document_detail/86943.html).
+        # 
+        # This parameter is required.
         self.key = key  # type: str
         # This parameter is no longer used.
         self.resource_group_id = resource_group_id  # type: str
         # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm*Z format. The time must be in UTC.
+        # 
+        # This parameter is required.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -7271,16 +10963,18 @@ class DescribeDBInstancePlansRequest(TeaModel):
                  plan_schedule_type=None, plan_type=None):
         # The instance ID.
         # 
-        # > You can call the [DescribeDBInstances](~~86911~~) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # > You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         self.owner_id = owner_id  # type: long
-        # The time used to filter plans. If you specify the time in the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm*Z format, the plans created before this time are returned. The time must be in UTC. If you do not specify this parameter, all plans are returned.
+        # The time that is used to filter plans. If you specify the time in the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format, the plans that are created before this time are returned. The time must be in UTC. If you do not specify this parameter, all plans are returned.
         self.plan_create_date = plan_create_date  # type: str
         # The description of the plan.
         self.plan_desc = plan_desc  # type: str
         # The plan ID.
         # 
-        # > You can call the [DescribeDBInstancePlans](~~449398~~) operation to query the information about plans, including plan IDs.
+        # > You can call the [DescribeDBInstancePlans](https://help.aliyun.com/document_detail/449398.html) operation to query the information about plans, including plan IDs.
         self.plan_id = plan_id  # type: str
         # The execution mode of the plan. Valid values:
         # 
@@ -7291,6 +10985,7 @@ class DescribeDBInstancePlansRequest(TeaModel):
         # 
         # *   **PauseResume**: pauses and resumes an instance.
         # *   **Resize**: scales an instance.
+        # *   **ModifySpec**: changes compute node specifications.
         self.plan_type = plan_type  # type: str
 
     def validate(self):
@@ -7340,17 +11035,21 @@ class DescribeDBInstancePlansRequest(TeaModel):
 class DescribeDBInstancePlansResponseBodyItemsPlanList(TeaModel):
     def __init__(self, dbinstance_id=None, plan_config=None, plan_desc=None, plan_end_date=None, plan_id=None,
                  plan_name=None, plan_schedule_type=None, plan_start_date=None, plan_status=None, plan_type=None):
-        # The ID of the instance.
+        # The instance ID.
         self.dbinstance_id = dbinstance_id  # type: str
         # The execution information of the plan.
         self.plan_config = plan_config  # type: str
         # The description of the plan.
         self.plan_desc = plan_desc  # type: str
-        # The end time of the plan. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm*Z format. The time is displayed in UTC.
+        # The end time of the plan. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
         # 
-        # >  This parameter is returned only for periodically executed plans.
+        # > 
+        # 
+        # *   This parameter is returned only for the plans that are periodically executed.
+        # 
+        # *   If you did not specify the end time when you created the plan, this parameter is not returned.
         self.plan_end_date = plan_end_date  # type: str
-        # The ID of the plan.
+        # The plan ID.
         self.plan_id = plan_id  # type: str
         # The name of the plan.
         self.plan_name = plan_name  # type: str
@@ -7359,16 +11058,20 @@ class DescribeDBInstancePlansResponseBodyItemsPlanList(TeaModel):
         # *   **Postpone**: The plan is executed later.
         # *   **Regular**: The plan is executed periodically.
         self.plan_schedule_type = plan_schedule_type  # type: str
-        # The start time of the plan. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm*Z format. The time is displayed in UTC.
+        # The start time of the plan. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
         # 
-        # >  This parameter is returned only for periodically executed plans.
+        # > 
+        # 
+        # *   This parameter is returned only for the plans that are periodically executed.
+        # 
+        # *   If you did not specify the start time when you created the plan, the current time is returned.
         self.plan_start_date = plan_start_date  # type: str
-        # The state of the plan. Valid values:
+        # The status of the plan. Valid values:
         # 
-        # *   **active**: The plan is running.
-        # *   **cancel**: The plan is canceled.
-        # *   **deleted**: The plan is deleted.
-        # *   **finished**: The plan execution is complete.
+        # *   **active**\
+        # *   **cancel**\
+        # *   **deleted**\
+        # *   **finished**\
         self.plan_status = plan_status  # type: str
         # The type of the plan. Valid values:
         # 
@@ -7471,7 +11174,7 @@ class DescribeDBInstancePlansResponseBody(TeaModel):
         # 
         # This parameter is returned only if the request fails.
         self.error_message = error_message  # type: str
-        # The instance ID.
+        # The queried plans.
         self.items = items  # type: DescribeDBInstancePlansResponseBodyItems
         # The page number.
         self.page_number = page_number  # type: int
@@ -7571,6 +11274,8 @@ class DescribeDBInstancePlansResponse(TeaModel):
 class DescribeDBInstanceSSLRequest(TeaModel):
     def __init__(self, dbinstance_id=None):
         # The ID of the instance.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
 
     def validate(self):
@@ -7687,6 +11392,9 @@ class DescribeDBInstanceSSLResponse(TeaModel):
 
 class DescribeDBInstanceSupportMaxPerformanceRequest(TeaModel):
     def __init__(self, dbinstance_id=None, owner_id=None):
+        # The instance ID.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         self.owner_id = owner_id  # type: long
 
@@ -7716,9 +11424,13 @@ class DescribeDBInstanceSupportMaxPerformanceRequest(TeaModel):
 
 class DescribeDBInstanceSupportMaxPerformanceResponseBodyPerformancesPerformance(TeaModel):
     def __init__(self, bottleneck=None, key=None, unit=None, value=None):
+        # The performance bottleneck type.
         self.bottleneck = bottleneck  # type: str
+        # The name of the performance metric.
         self.key = key  # type: str
+        # The unit of the performance metric.
         self.unit = unit  # type: str
+        # The value of the performance metric.
         self.value = value  # type: str
 
     def validate(self):
@@ -7787,8 +11499,10 @@ class DescribeDBInstanceSupportMaxPerformanceResponseBodyPerformances(TeaModel):
 
 class DescribeDBInstanceSupportMaxPerformanceResponseBody(TeaModel):
     def __init__(self, dbinstance_id=None, performances=None, request_id=None):
+        # The instance ID.
         self.dbinstance_id = dbinstance_id  # type: str
         self.performances = performances  # type: DescribeDBInstanceSupportMaxPerformanceResponseBodyPerformances
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -7925,12 +11639,15 @@ class DescribeDBInstancesRequest(TeaModel):
         self.page_size = page_size  # type: int
         # The region ID.
         # 
-        # > You can call the [DescribeRegions](~~86912~~) operation to query the most recent region list.
+        # > You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list.
+        # 
+        # This parameter is required.
         self.region_id = region_id  # type: str
         # The ID of the resource group to which the instance belongs.
         self.resource_group_id = resource_group_id  # type: str
-        # The tag value.
+        # The tags.
         self.tag = tag  # type: list[DescribeDBInstancesRequestTag]
+        # The VPC ID. You can use this parameter to filter instances that reside in the specified VPC.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -8081,12 +11798,15 @@ class DescribeDBInstancesShrinkRequest(TeaModel):
         self.page_size = page_size  # type: int
         # The region ID.
         # 
-        # > You can call the [DescribeRegions](~~86912~~) operation to query the most recent region list.
+        # > You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list.
+        # 
+        # This parameter is required.
         self.region_id = region_id  # type: str
         # The ID of the resource group to which the instance belongs.
         self.resource_group_id = resource_group_id  # type: str
-        # The tag value.
+        # The tags.
         self.tag = tag  # type: list[DescribeDBInstancesShrinkRequestTag]
+        # The VPC ID. You can use this parameter to filter instances that reside in the specified VPC.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -8241,7 +11961,7 @@ class DescribeDBInstancesResponseBodyItemsDBInstance(TeaModel):
                  storage_type=None, tags=None, v_switch_id=None, vpc_id=None, zone_id=None):
         # An invalid parameter. It is no longer returned when you call this operation.
         # 
-        # You can call the [DescribeDBInstanceAttribute](~~86910~~) operation to query the access mode of an instance.
+        # You can call the [DescribeDBInstanceAttribute](https://help.aliyun.com/document_detail/86910.html) operation to query the access mode of an instance.
         self.connection_mode = connection_mode  # type: str
         # The time when the instance was created. The time is displayed in UTC.
         self.create_time = create_time  # type: str
@@ -8267,15 +11987,15 @@ class DescribeDBInstancesResponseBodyItemsDBInstance(TeaModel):
         # *   **1**: internal network.
         # *   **2**: VPC.
         self.dbinstance_net_type = dbinstance_net_type  # type: str
-        # The state of the instance. For more information, see [Instance statuses](~~86944~~).
+        # The status of the instance. For more information, see [Instance statuses](https://help.aliyun.com/document_detail/86944.html).
         self.dbinstance_status = dbinstance_status  # type: str
         # The database engine of the instance.
         self.engine = engine  # type: str
-        # The version of the database engine.
+        # The database engine version of the instance.
         self.engine_version = engine_version  # type: str
         # The expiration time of the instance. The time is displayed in UTC.
         # 
-        # > The expiration time of a pay-as-you-go instance is `2999-09-08T16:00:00Z`.
+        # >  The expiration time of a pay-as-you-go instance is `2999-09-08T16:00:00Z`.
         self.expire_time = expire_time  # type: str
         # The resource type of the instance. Valid values:
         # 
@@ -8294,7 +12014,7 @@ class DescribeDBInstancesResponseBodyItemsDBInstance(TeaModel):
         # *   **LockByExpiration**: The instance is automatically locked due to instance expiration.
         # *   **LockByRestoration**: The instance is automatically locked due to instance restoration.
         # *   **LockByDiskQuota**: The instance is automatically locked due to exhausted storage.
-        # *   **LockReadInstanceByDiskQuota**: The instance is a read-only instance and is automatically locked due to exhausted storage.
+        # *   **LockReadInstanceByDiskQuota**: The instance is a read-only instance and is automatically locked when the disk space is full.
         self.lock_mode = lock_mode  # type: str
         # The reason why the instance is locked. Valid values:
         # 
@@ -8304,7 +12024,7 @@ class DescribeDBInstancesResponseBodyItemsDBInstance(TeaModel):
         # *   **3**: The instance is automatically locked due to instance restoration.
         # *   **4**: The instance is automatically locked due to exhausted storage.
         # 
-        # > If the instance is in reserved storage mode and unlocked, null is returned.
+        # >  If the instance is in reserved storage mode and is not locked, null is returned.
         self.lock_reason = lock_reason  # type: str
         # The number of coordinator nodes.
         self.master_node_num = master_node_num  # type: int
@@ -8325,7 +12045,7 @@ class DescribeDBInstancesResponseBodyItemsDBInstance(TeaModel):
         # *   **Manual**: manual scheduling.
         # *   **Auto**: automatic scheduling.
         # 
-        # > This parameter is returned only for instances in Serverless mode.
+        # >  This parameter is returned only for instances in Serverless mode.
         self.serverless_mode = serverless_mode  # type: str
         # The storage capacity of the instance. Unit: GB.
         self.storage_size = storage_size  # type: str
@@ -8338,7 +12058,7 @@ class DescribeDBInstancesResponseBodyItemsDBInstance(TeaModel):
         self.tags = tags  # type: DescribeDBInstancesResponseBodyItemsDBInstanceTags
         # The vSwitch ID.
         self.v_switch_id = v_switch_id  # type: str
-        # The VPC ID.
+        # The VPC ID of the instance.
         self.vpc_id = vpc_id  # type: str
         # The zone ID.
         self.zone_id = zone_id  # type: str
@@ -8593,6 +12313,328 @@ class DescribeDBInstancesResponse(TeaModel):
         return self
 
 
+class DescribeDBResourceGroupRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, owner_id=None, resource_group_name=None):
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.owner_id = owner_id  # type: long
+        # The name of the resource group.
+        # 
+        # >  If you specify this parameter, the information about the specified resource group is returned. If you do not specify this parameter, the information about all resource groups is returned.
+        self.resource_group_name = resource_group_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDBResourceGroupRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_group_name is not None:
+            result['ResourceGroupName'] = self.resource_group_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceGroupName') is not None:
+            self.resource_group_name = m.get('ResourceGroupName')
+        return self
+
+
+class DescribeDBResourceGroupResponseBodyResourceGroupItemsResourceGroupItemRoleList(TeaModel):
+    def __init__(self, role=None):
+        self.role = role  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDBResourceGroupResponseBodyResourceGroupItemsResourceGroupItemRoleList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.role is not None:
+            result['Role'] = self.role
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Role') is not None:
+            self.role = m.get('Role')
+        return self
+
+
+class DescribeDBResourceGroupResponseBodyResourceGroupItemsResourceGroupItem(TeaModel):
+    def __init__(self, resource_group_config=None, resource_group_name=None, role_list=None):
+        # The configurations of the resource group.
+        # 
+        # > 
+        # 
+        # *   CpuRateLimit: the percentage of CPU resources that are available for the resource group. Unit: %.
+        # 
+        # *   MemoryLimit: the percentage of memory resources that are available for the resource group. Unit: %.
+        # 
+        # *   MemorySharedQuota: the percentage of memory resources shared among transactions that are submitted to the resource group. Unit: %. Default value: 80.
+        # 
+        # *   MemorySpillRatio: the memory spill ratio for memory-intensive transactions. When the memory that is used by memory-intensive transactions reaches this value, data is spilled to disks. Unit: %. Default value: 0.
+        # 
+        # *   Concurrency: the maximum number of concurrent transactions or parallel queries that are allowed for a resource group. Default value: 20.
+        self.resource_group_config = resource_group_config  # type: str
+        # The name of the resource group.
+        self.resource_group_name = resource_group_name  # type: str
+        # The roles.
+        self.role_list = role_list  # type: DescribeDBResourceGroupResponseBodyResourceGroupItemsResourceGroupItemRoleList
+
+    def validate(self):
+        if self.role_list:
+            self.role_list.validate()
+
+    def to_map(self):
+        _map = super(DescribeDBResourceGroupResponseBodyResourceGroupItemsResourceGroupItem, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.resource_group_config is not None:
+            result['ResourceGroupConfig'] = self.resource_group_config
+        if self.resource_group_name is not None:
+            result['ResourceGroupName'] = self.resource_group_name
+        if self.role_list is not None:
+            result['RoleList'] = self.role_list.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ResourceGroupConfig') is not None:
+            self.resource_group_config = m.get('ResourceGroupConfig')
+        if m.get('ResourceGroupName') is not None:
+            self.resource_group_name = m.get('ResourceGroupName')
+        if m.get('RoleList') is not None:
+            temp_model = DescribeDBResourceGroupResponseBodyResourceGroupItemsResourceGroupItemRoleList()
+            self.role_list = temp_model.from_map(m['RoleList'])
+        return self
+
+
+class DescribeDBResourceGroupResponseBodyResourceGroupItems(TeaModel):
+    def __init__(self, resource_group_item=None):
+        self.resource_group_item = resource_group_item  # type: list[DescribeDBResourceGroupResponseBodyResourceGroupItemsResourceGroupItem]
+
+    def validate(self):
+        if self.resource_group_item:
+            for k in self.resource_group_item:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDBResourceGroupResponseBodyResourceGroupItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['ResourceGroupItem'] = []
+        if self.resource_group_item is not None:
+            for k in self.resource_group_item:
+                result['ResourceGroupItem'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.resource_group_item = []
+        if m.get('ResourceGroupItem') is not None:
+            for k in m.get('ResourceGroupItem'):
+                temp_model = DescribeDBResourceGroupResponseBodyResourceGroupItemsResourceGroupItem()
+                self.resource_group_item.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeDBResourceGroupResponseBody(TeaModel):
+    def __init__(self, request_id=None, resource_group_items=None):
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # The queried resource group information.
+        self.resource_group_items = resource_group_items  # type: DescribeDBResourceGroupResponseBodyResourceGroupItems
+
+    def validate(self):
+        if self.resource_group_items:
+            self.resource_group_items.validate()
+
+    def to_map(self):
+        _map = super(DescribeDBResourceGroupResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.resource_group_items is not None:
+            result['ResourceGroupItems'] = self.resource_group_items.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('ResourceGroupItems') is not None:
+            temp_model = DescribeDBResourceGroupResponseBodyResourceGroupItems()
+            self.resource_group_items = temp_model.from_map(m['ResourceGroupItems'])
+        return self
+
+
+class DescribeDBResourceGroupResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeDBResourceGroupResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDBResourceGroupResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeDBResourceGroupResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeDBResourceManagementModeRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, owner_id=None):
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.owner_id = owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDBResourceManagementModeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        return self
+
+
+class DescribeDBResourceManagementModeResponseBody(TeaModel):
+    def __init__(self, request_id=None, resource_management_mode=None):
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # The resource management mode. Valid values:
+        # 
+        # *   resourceGroup: resource group management.
+        # *   resourceQueue: resource queue management.
+        self.resource_management_mode = resource_management_mode  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDBResourceManagementModeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.resource_management_mode is not None:
+            result['ResourceManagementMode'] = self.resource_management_mode
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('ResourceManagementMode') is not None:
+            self.resource_management_mode = m.get('ResourceManagementMode')
+        return self
+
+
+class DescribeDBResourceManagementModeResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeDBResourceManagementModeResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDBResourceManagementModeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeDBResourceManagementModeResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeDBVersionInfosRequest(TeaModel):
     def __init__(self, dbinstance_mode=None, dbversion=None, owner_id=None, region_id=None, resource_group_id=None):
         # The resource type of the instance. Valid values:
@@ -8605,9 +12647,11 @@ class DescribeDBVersionInfosRequest(TeaModel):
         self.owner_id = owner_id  # type: long
         # The region ID of the instance.
         # 
-        # >  You can call the [DescribeRegions](~~86912~~) operation to query the most recent region list.
+        # >  You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list.
+        # 
+        # This parameter is required.
         self.region_id = region_id  # type: str
-        # The ID of the resource group to which the instance belongs. For information about how to obtain the ID of a resource group, see [View basic information of a resource group](~~151181~~).
+        # The ID of the resource group to which the instance belongs. For information about how to obtain the ID of a resource group, see [View basic information of a resource group](https://help.aliyun.com/document_detail/151181.html).
         self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
@@ -8751,7 +12795,7 @@ class DescribeDataBackupsRequest(TeaModel):
                  end_time=None, page_number=None, page_size=None, start_time=None):
         # The ID of the backup set. If you specify BackupId, the details of the backup set are returned.
         # 
-        # > You can call the [DescribeDataBackups](~~210093~~) operation to query the information about all backup sets of an instance, including backup set IDs.
+        # > You can call the [DescribeDataBackups](https://help.aliyun.com/document_detail/210093.html) operation to query the information about all backup sets of an instance, including backup set IDs.
         self.backup_id = backup_id  # type: str
         # The backup mode. Valid values:
         # 
@@ -8769,7 +12813,9 @@ class DescribeDataBackupsRequest(TeaModel):
         self.backup_status = backup_status  # type: str
         # The instance ID.
         # 
-        # > You can call the [DescribeDBInstances](~~86911~~) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # > You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         # The backup type. Valid values:
         # 
@@ -9070,7 +13116,9 @@ class DescribeDataReDistributeInfoRequest(TeaModel):
     def __init__(self, dbinstance_id=None, owner_id=None):
         # The instance ID.
         # 
-        # > You can call the [DescribeDBInstances](~~86911~~) operation to query the IDs of all AnalyticDB for PostgreSQL instances within a region.
+        # > You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the IDs of all AnalyticDB for PostgreSQL instances within a region.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         self.owner_id = owner_id  # type: long
 
@@ -9226,7 +13274,7 @@ class DescribeDataShareInstancesRequest(TeaModel):
     def __init__(self, owner_id=None, page_number=None, page_size=None, region_id=None, resource_group_id=None,
                  search_value=None):
         self.owner_id = owner_id  # type: long
-        # The page number. Pages start from page 1. Default value: 1
+        # The page number. Pages start from page 1. Default value: 1.
         self.page_number = page_number  # type: int
         # The number of entries per page. Valid values:
         # 
@@ -9238,13 +13286,15 @@ class DescribeDataShareInstancesRequest(TeaModel):
         self.page_size = page_size  # type: int
         # The region ID of the instance.
         # 
-        # > You can call the [DescribeRegions](~~86912~~) operation to query the most recent region list.
+        # > You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list.
+        # 
+        # This parameter is required.
         self.region_id = region_id  # type: str
-        # The ID of the resource group to which the instance belongs. For information about how to obtain the ID of a resource group, see [View basic information of a resource group](~~151181~~).
+        # The ID of the resource group to which the instance belongs. For information about how to obtain the ID of a resource group, see [View basic information of a resource group](https://help.aliyun.com/document_detail/151181.html).
         self.resource_group_id = resource_group_id  # type: str
         # The keyword used to filter instances, which can be an instance ID or instance description.
         # 
-        # > You can call the [DescribeDBInstances](~~86911~~) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs and instance descriptions.
+        # > You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs and instance descriptions.
         self.search_value = search_value  # type: str
 
     def validate(self):
@@ -9485,10 +13535,14 @@ class DescribeDataSharePerformanceRequest(TeaModel):
         # 
         # *   **adbpg_datashare_topic_count**: the number of shared topics.
         # *   **adbpg_datashare_data_size_mb**: the amount of data shared.
+        # 
+        # This parameter is required.
         self.key = key  # type: str
         # The region ID of the instance.
         # 
-        # >  You can call the [DescribeRegions](~~86912~~) operation to query the most recent region list.
+        # >  You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list.
+        # 
+        # This parameter is required.
         self.region_id = region_id  # type: str
         # This parameter is no longer used.
         self.resource_group_id = resource_group_id  # type: str
@@ -9737,7 +13791,9 @@ class DescribeDiagnosisDimensionsRequest(TeaModel):
     def __init__(self, dbinstance_id=None):
         # The instance ID.
         # 
-        # > You can call the [DescribeDBInstances](~~86911~~) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # > You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
 
     def validate(self):
@@ -9838,9 +13894,13 @@ class DescribeDiagnosisMonitorPerformanceRequest(TeaModel):
                  user=None):
         # The ID of the instance.
         # 
-        # >  You can call the [DescribeDBInstances](~~86911~~) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         # The name of the database.
+        # 
+        # This parameter is required.
         self.database = database  # type: str
         # The end of the time range to query. Specify the time in the *yyyy-MM-dd*T*HH:mm*Z format. The time must be in UTC. The end time must be later than the start time.
         self.end_time = end_time  # type: str
@@ -10057,9 +14117,13 @@ class DescribeDiagnosisRecordsRequest(TeaModel):
                  page_size=None, query_condition=None, start_time=None, user=None):
         # The instance ID.
         # 
-        # > You can call the [DescribeDBInstances](~~86911~~) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # > You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         # The name of the database.
+        # 
+        # This parameter is required.
         self.database = database  # type: str
         # The end of the time range to query. Specify the time in the *yyyy-MM-dd*T*HH:mm*Z format. The time must be in UTC. The end time must be later than the start time.
         self.end_time = end_time  # type: str
@@ -10329,13 +14393,19 @@ class DescribeDiagnosisSQLInfoRequest(TeaModel):
     def __init__(self, dbinstance_id=None, database=None, query_id=None):
         # The instance ID.
         # 
-        # > You can call the [DescribeDBInstances](~~86911~~) operation to query details about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # > You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query details about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         # The name of the database.
+        # 
+        # This parameter is required.
         self.database = database  # type: str
         # The query ID. It is a unique identifier of the query.
         # 
-        # > You can call the [DescribeDiagnosisRecords](~~450511~~) operation to obtain query IDs.
+        # > You can call the [DescribeDiagnosisRecords](https://help.aliyun.com/document_detail/450511.html) operation to obtain query IDs.
+        # 
+        # This parameter is required.
         self.query_id = query_id  # type: str
 
     def validate(self):
@@ -10507,12 +14577,32 @@ class DescribeDiagnosisSQLInfoResponse(TeaModel):
 class DescribeDocumentRequest(TeaModel):
     def __init__(self, collection=None, dbinstance_id=None, file_name=None, namespace=None, namespace_password=None,
                  owner_id=None, region_id=None):
+        # The name of the document collection.
+        # 
+        # >  You can call the [CreateDocumentCollection](https://help.aliyun.com/document_detail/2618448.html) operation to create a document collection and call the [ListDocumentCollections](https://help.aliyun.com/document_detail/2618452.html) operation to query a list of document collections.
+        # 
+        # This parameter is required.
         self.collection = collection  # type: str
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
+        # The name of the document.
+        # 
+        # >  You can call the [ListDocuments](https://help.aliyun.com/document_detail/2618453.html) operation to query a list of documents.
+        # 
+        # This parameter is required.
         self.file_name = file_name  # type: str
+        # The name of the namespace. Default value: public.
+        # 
+        # >  You can call the [CreateNamespace](https://help.aliyun.com/document_detail/2401495.html) operation to create a namespace and call the [ListNamespaces](https://help.aliyun.com/document_detail/2401502.html) operation to query a list of namespaces.
         self.namespace = namespace  # type: str
+        # The password of the namespace.
+        # 
+        # >  This value is specified when you call the [CreateNamespace](https://help.aliyun.com/document_detail/2401495.html) operation.
+        # 
+        # This parameter is required.
         self.namespace_password = namespace_password  # type: str
         self.owner_id = owner_id  # type: long
+        # This parameter is required.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -10560,9 +14650,10 @@ class DescribeDocumentRequest(TeaModel):
 
 
 class DescribeDocumentResponseBody(TeaModel):
-    def __init__(self, docs_count=None, document_loader=None, file_ext=None, file_md_5=None, file_mtime=None,
-                 file_name=None, file_size=None, file_version=None, message=None, request_id=None, source=None, status=None,
-                 text_splitter=None):
+    def __init__(self, chunk_file_url=None, docs_count=None, document_loader=None, file_ext=None, file_md_5=None,
+                 file_mtime=None, file_name=None, file_size=None, file_url=None, file_version=None, message=None,
+                 plain_chunk_file_url=None, request_id=None, source=None, status=None, text_splitter=None):
+        self.chunk_file_url = chunk_file_url  # type: str
         self.docs_count = docs_count  # type: int
         self.document_loader = document_loader  # type: str
         self.file_ext = file_ext  # type: str
@@ -10570,8 +14661,10 @@ class DescribeDocumentResponseBody(TeaModel):
         self.file_mtime = file_mtime  # type: str
         self.file_name = file_name  # type: str
         self.file_size = file_size  # type: long
+        self.file_url = file_url  # type: str
         self.file_version = file_version  # type: int
         self.message = message  # type: str
+        self.plain_chunk_file_url = plain_chunk_file_url  # type: str
         self.request_id = request_id  # type: str
         self.source = source  # type: str
         self.status = status  # type: str
@@ -10586,6 +14679,8 @@ class DescribeDocumentResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.chunk_file_url is not None:
+            result['ChunkFileUrl'] = self.chunk_file_url
         if self.docs_count is not None:
             result['DocsCount'] = self.docs_count
         if self.document_loader is not None:
@@ -10600,10 +14695,14 @@ class DescribeDocumentResponseBody(TeaModel):
             result['FileName'] = self.file_name
         if self.file_size is not None:
             result['FileSize'] = self.file_size
+        if self.file_url is not None:
+            result['FileUrl'] = self.file_url
         if self.file_version is not None:
             result['FileVersion'] = self.file_version
         if self.message is not None:
             result['Message'] = self.message
+        if self.plain_chunk_file_url is not None:
+            result['PlainChunkFileUrl'] = self.plain_chunk_file_url
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.source is not None:
@@ -10616,6 +14715,8 @@ class DescribeDocumentResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ChunkFileUrl') is not None:
+            self.chunk_file_url = m.get('ChunkFileUrl')
         if m.get('DocsCount') is not None:
             self.docs_count = m.get('DocsCount')
         if m.get('DocumentLoader') is not None:
@@ -10630,10 +14731,14 @@ class DescribeDocumentResponseBody(TeaModel):
             self.file_name = m.get('FileName')
         if m.get('FileSize') is not None:
             self.file_size = m.get('FileSize')
+        if m.get('FileUrl') is not None:
+            self.file_url = m.get('FileUrl')
         if m.get('FileVersion') is not None:
             self.file_version = m.get('FileVersion')
         if m.get('Message') is not None:
             self.message = m.get('Message')
+        if m.get('PlainChunkFileUrl') is not None:
+            self.plain_chunk_file_url = m.get('PlainChunkFileUrl')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         if m.get('Source') is not None:
@@ -10685,7 +14790,9 @@ class DescribeDownloadRecordsRequest(TeaModel):
     def __init__(self, dbinstance_id=None):
         # The instance ID.
         # 
-        # > You can call the [DescribeDBInstances](~~86911~~) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # > You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
 
     def validate(self):
@@ -10840,7 +14947,9 @@ class DescribeDownloadSQLLogsRequest(TeaModel):
     def __init__(self, dbinstance_id=None):
         # The instance ID.
         # 
-        # > You can call the [DescribeDBInstances](~~86911~~) operation to query details about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # > You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query details about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
 
     def validate(self):
@@ -10982,13 +15091,603 @@ class DescribeDownloadSQLLogsResponse(TeaModel):
         return self
 
 
+class DescribeExternalDataServiceRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, region_id=None, service_id=None):
+        # The instance ID.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        # The region ID.
+        # 
+        # >  You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        # This parameter is required.
+        self.service_id = service_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeExternalDataServiceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.service_id is not None:
+            result['ServiceId'] = self.service_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ServiceId') is not None:
+            self.service_id = m.get('ServiceId')
+        return self
+
+
+class DescribeExternalDataServiceResponseBody(TeaModel):
+    def __init__(self, create_time=None, modify_time=None, request_id=None, service_description=None,
+                 service_id=None, service_name=None, service_spec=None, status=None):
+        self.create_time = create_time  # type: str
+        self.modify_time = modify_time  # type: str
+        self.request_id = request_id  # type: str
+        # The description of the service.
+        self.service_description = service_description  # type: str
+        self.service_id = service_id  # type: str
+        # The name of the service.
+        self.service_name = service_name  # type: str
+        # The specifications of the service. Unit: compute units (CUs).
+        self.service_spec = service_spec  # type: str
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeExternalDataServiceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.modify_time is not None:
+            result['ModifyTime'] = self.modify_time
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.service_description is not None:
+            result['ServiceDescription'] = self.service_description
+        if self.service_id is not None:
+            result['ServiceId'] = self.service_id
+        if self.service_name is not None:
+            result['ServiceName'] = self.service_name
+        if self.service_spec is not None:
+            result['ServiceSpec'] = self.service_spec
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('ModifyTime') is not None:
+            self.modify_time = m.get('ModifyTime')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('ServiceDescription') is not None:
+            self.service_description = m.get('ServiceDescription')
+        if m.get('ServiceId') is not None:
+            self.service_id = m.get('ServiceId')
+        if m.get('ServiceName') is not None:
+            self.service_name = m.get('ServiceName')
+        if m.get('ServiceSpec') is not None:
+            self.service_spec = m.get('ServiceSpec')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class DescribeExternalDataServiceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeExternalDataServiceResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeExternalDataServiceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeExternalDataServiceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeHadoopClustersInSameNetRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, region_id=None):
+        # The instance ID.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        # The region ID.
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeHadoopClustersInSameNetRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DescribeHadoopClustersInSameNetResponseBody(TeaModel):
+    def __init__(self, clusters=None, request_id=None):
+        self.clusters = clusters  # type: list[str]
+        # The request ID.
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeHadoopClustersInSameNetResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.clusters is not None:
+            result['Clusters'] = self.clusters
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Clusters') is not None:
+            self.clusters = m.get('Clusters')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeHadoopClustersInSameNetResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeHadoopClustersInSameNetResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeHadoopClustersInSameNetResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeHadoopClustersInSameNetResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeHadoopConfigsRequest(TeaModel):
+    def __init__(self, config_name=None, dbinstance_id=None, emr_instance_id=None, region_id=None):
+        # The name of the configuration file. Valid values:
+        # 
+        # *   hdfs-site
+        # *   core-site
+        # *   yarn-site
+        # *   mapred-site
+        # *   hive-site
+        # 
+        # This parameter is required.
+        self.config_name = config_name  # type: str
+        # The instance ID.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        # The E-MapReduce (EMR) Hadoop cluster ID.
+        # 
+        # This parameter is required.
+        self.emr_instance_id = emr_instance_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeHadoopConfigsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.config_name is not None:
+            result['ConfigName'] = self.config_name
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.emr_instance_id is not None:
+            result['EmrInstanceId'] = self.emr_instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConfigName') is not None:
+            self.config_name = m.get('ConfigName')
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('EmrInstanceId') is not None:
+            self.emr_instance_id = m.get('EmrInstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DescribeHadoopConfigsResponseBody(TeaModel):
+    def __init__(self, config_name=None, config_value=None, request_id=None):
+        # The name of the configuration file. Valid values:
+        # 
+        # *   hdfs-site
+        # *   core-site
+        # *   yarn-site
+        # *   mapred-site
+        # *   hive-site
+        self.config_name = config_name  # type: str
+        self.config_value = config_value  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeHadoopConfigsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.config_name is not None:
+            result['ConfigName'] = self.config_name
+        if self.config_value is not None:
+            result['ConfigValue'] = self.config_value
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConfigName') is not None:
+            self.config_name = m.get('ConfigName')
+        if m.get('ConfigValue') is not None:
+            self.config_value = m.get('ConfigValue')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeHadoopConfigsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeHadoopConfigsResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeHadoopConfigsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeHadoopConfigsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeHadoopDataSourceRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, data_source_id=None, region_id=None):
+        # The instance ID.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        # The data source ID.
+        self.data_source_id = data_source_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeHadoopDataSourceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.data_source_id is not None:
+            result['DataSourceId'] = self.data_source_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('DataSourceId') is not None:
+            self.data_source_id = m.get('DataSourceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DescribeHadoopDataSourceResponseBody(TeaModel):
+    def __init__(self, create_time=None, data_source_description=None, data_source_dir=None, data_source_id=None,
+                 data_source_name=None, data_source_status=None, data_source_type=None, emr_instance_id=None,
+                 external_data_service_id=None, hdfsconf=None, hadoop_core_conf=None, hadoop_create_type=None, hadoop_hosts_address=None,
+                 hive_conf=None, map_reduce_conf=None, modify_time=None, request_id=None, status_message=None, yarn_conf=None):
+        # The time when the service was created.
+        self.create_time = create_time  # type: str
+        # The description of the service. The description can be up to 256 characters in length.
+        self.data_source_description = data_source_description  # type: str
+        # The service directory in which Hadoop-related configuration files are stored.
+        self.data_source_dir = data_source_dir  # type: str
+        # The data source ID.
+        self.data_source_id = data_source_id  # type: str
+        # The name of the service.
+        self.data_source_name = data_source_name  # type: str
+        # The status of the service. Valid values:
+        # 
+        # *   init
+        # *   running
+        # *   exception
+        self.data_source_status = data_source_status  # type: str
+        self.data_source_type = data_source_type  # type: str
+        # The E-MapReduce (EMR) Hadoop cluster ID.
+        self.emr_instance_id = emr_instance_id  # type: str
+        self.external_data_service_id = external_data_service_id  # type: str
+        # The content of the Hadoop hdfs-site.xml file.
+        self.hdfsconf = hdfsconf  # type: str
+        # The content of the Hadoop core-site.xml file.
+        self.hadoop_core_conf = hadoop_core_conf  # type: str
+        # The type of the external service. Valid values:
+        # 
+        # *   HDFS
+        # *   HIVE
+        self.hadoop_create_type = hadoop_create_type  # type: str
+        # *   The address and hostname of the Hadoop cluster (data source) in the /etc/hosts directory.
+        # *\
+        self.hadoop_hosts_address = hadoop_hosts_address  # type: str
+        # The content of the Hadoop hive-site.xml file.
+        self.hive_conf = hive_conf  # type: str
+        # The content of the Hadoop MapReduceConf file.
+        self.map_reduce_conf = map_reduce_conf  # type: str
+        self.modify_time = modify_time  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # The information about the service status. For example, if the service is in the exception state, the cause of the exception is displayed. If the service is in the running state, this parameter is left empty.
+        self.status_message = status_message  # type: str
+        # The content of the Hadoop yarn-site.xml file.
+        self.yarn_conf = yarn_conf  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeHadoopDataSourceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.data_source_description is not None:
+            result['DataSourceDescription'] = self.data_source_description
+        if self.data_source_dir is not None:
+            result['DataSourceDir'] = self.data_source_dir
+        if self.data_source_id is not None:
+            result['DataSourceId'] = self.data_source_id
+        if self.data_source_name is not None:
+            result['DataSourceName'] = self.data_source_name
+        if self.data_source_status is not None:
+            result['DataSourceStatus'] = self.data_source_status
+        if self.data_source_type is not None:
+            result['DataSourceType'] = self.data_source_type
+        if self.emr_instance_id is not None:
+            result['EmrInstanceId'] = self.emr_instance_id
+        if self.external_data_service_id is not None:
+            result['ExternalDataServiceId'] = self.external_data_service_id
+        if self.hdfsconf is not None:
+            result['HDFSConf'] = self.hdfsconf
+        if self.hadoop_core_conf is not None:
+            result['HadoopCoreConf'] = self.hadoop_core_conf
+        if self.hadoop_create_type is not None:
+            result['HadoopCreateType'] = self.hadoop_create_type
+        if self.hadoop_hosts_address is not None:
+            result['HadoopHostsAddress'] = self.hadoop_hosts_address
+        if self.hive_conf is not None:
+            result['HiveConf'] = self.hive_conf
+        if self.map_reduce_conf is not None:
+            result['MapReduceConf'] = self.map_reduce_conf
+        if self.modify_time is not None:
+            result['ModifyTime'] = self.modify_time
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.status_message is not None:
+            result['StatusMessage'] = self.status_message
+        if self.yarn_conf is not None:
+            result['YarnConf'] = self.yarn_conf
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('DataSourceDescription') is not None:
+            self.data_source_description = m.get('DataSourceDescription')
+        if m.get('DataSourceDir') is not None:
+            self.data_source_dir = m.get('DataSourceDir')
+        if m.get('DataSourceId') is not None:
+            self.data_source_id = m.get('DataSourceId')
+        if m.get('DataSourceName') is not None:
+            self.data_source_name = m.get('DataSourceName')
+        if m.get('DataSourceStatus') is not None:
+            self.data_source_status = m.get('DataSourceStatus')
+        if m.get('DataSourceType') is not None:
+            self.data_source_type = m.get('DataSourceType')
+        if m.get('EmrInstanceId') is not None:
+            self.emr_instance_id = m.get('EmrInstanceId')
+        if m.get('ExternalDataServiceId') is not None:
+            self.external_data_service_id = m.get('ExternalDataServiceId')
+        if m.get('HDFSConf') is not None:
+            self.hdfsconf = m.get('HDFSConf')
+        if m.get('HadoopCoreConf') is not None:
+            self.hadoop_core_conf = m.get('HadoopCoreConf')
+        if m.get('HadoopCreateType') is not None:
+            self.hadoop_create_type = m.get('HadoopCreateType')
+        if m.get('HadoopHostsAddress') is not None:
+            self.hadoop_hosts_address = m.get('HadoopHostsAddress')
+        if m.get('HiveConf') is not None:
+            self.hive_conf = m.get('HiveConf')
+        if m.get('MapReduceConf') is not None:
+            self.map_reduce_conf = m.get('MapReduceConf')
+        if m.get('ModifyTime') is not None:
+            self.modify_time = m.get('ModifyTime')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('StatusMessage') is not None:
+            self.status_message = m.get('StatusMessage')
+        if m.get('YarnConf') is not None:
+            self.yarn_conf = m.get('YarnConf')
+        return self
+
+
+class DescribeHadoopDataSourceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeHadoopDataSourceResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeHadoopDataSourceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeHadoopDataSourceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeHealthStatusRequest(TeaModel):
     def __init__(self, dbinstance_id=None, key=None):
         # The ID of the instance.
         # 
-        # >  You can call the [DescribeDBInstances](~~86911~~) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
-        # The performance metric that you want to query. Separate multiple values with commas (,). For more information, see [Performance parameters](~~86943~~).
+        # The performance metric that you want to query. Separate multiple values with commas (,). For more information, see [Performance parameters](https://help.aliyun.com/document_detail/86943.html).
+        # 
+        # This parameter is required.
         self.key = key  # type: str
 
     def validate(self):
@@ -11171,6 +15870,7 @@ class DescribeHealthStatusResponseBodyStatusAdbpgDiskUsagePercent(TeaModel):
 
 class DescribeHealthStatusResponseBodyStatusAdbpgInstanceColdDataGb(TeaModel):
     def __init__(self, value=None):
+        # The total amount of cold data storage. Unit: GB.
         self.value = value  # type: float
 
     def validate(self):
@@ -11195,6 +15895,7 @@ class DescribeHealthStatusResponseBodyStatusAdbpgInstanceColdDataGb(TeaModel):
 
 class DescribeHealthStatusResponseBodyStatusAdbpgInstanceHotDataGb(TeaModel):
     def __init__(self, value=None):
+        # The total amount of hot data storage. Unit: GB.
         self.value = value  # type: float
 
     def validate(self):
@@ -11219,6 +15920,7 @@ class DescribeHealthStatusResponseBodyStatusAdbpgInstanceHotDataGb(TeaModel):
 
 class DescribeHealthStatusResponseBodyStatusAdbpgInstanceTotalDataGb(TeaModel):
     def __init__(self, value=None):
+        # The total amount of data storage of the instance. Unit: GB.
         self.value = value  # type: float
 
     def validate(self):
@@ -11559,8 +16261,11 @@ class DescribeHealthStatusResponseBodyStatus(TeaModel):
         # 
         # >  This parameter value is returned only for instances in elastic storage mode.
         self.adbpg_disk_usage_percent = adbpg_disk_usage_percent  # type: DescribeHealthStatusResponseBodyStatusAdbpgDiskUsagePercent
+        # The total amount of cold data storage.
         self.adbpg_instance_cold_data_gb = adbpg_instance_cold_data_gb  # type: DescribeHealthStatusResponseBodyStatusAdbpgInstanceColdDataGb
+        # The total amount of hot data storage.
         self.adbpg_instance_hot_data_gb = adbpg_instance_hot_data_gb  # type: DescribeHealthStatusResponseBodyStatusAdbpgInstanceHotDataGb
+        # The total amount of data storage of the instance.
         self.adbpg_instance_total_data_gb = adbpg_instance_total_data_gb  # type: DescribeHealthStatusResponseBodyStatusAdbpgInstanceTotalDataGb
         # The information of maximum coordinator node storage usage.
         # 
@@ -11711,7 +16416,7 @@ class DescribeHealthStatusResponseBody(TeaModel):
         self.request_id = request_id  # type: str
         # The queried performance metrics. Each performance metric consists of the parameter name, status, and metric value. The metric information is returned only for the performance parameters specified by **Key**. For example, if you set **Key** to **adbpg_status**, only the metric information of **adbpg_status** is returned.
         # 
-        # For more information about performance parameters, see [Performance parameters](~~86943~~).
+        # For more information about performance parameters, see [Performance parameters](https://help.aliyun.com/document_detail/86943.html).
         self.status = status  # type: DescribeHealthStatusResponseBodyStatus
 
     def validate(self):
@@ -11782,7 +16487,9 @@ class DescribeHealthStatusResponse(TeaModel):
 
 class DescribeIMVInfosRequest(TeaModel):
     def __init__(self, dbinstance_id=None, database=None, mvname=None):
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
+        # This parameter is required.
         self.database = database  # type: str
         self.mvname = mvname  # type: str
 
@@ -11816,8 +16523,11 @@ class DescribeIMVInfosRequest(TeaModel):
 
 class DescribeIMVInfosResponseBodyImvInfos(TeaModel):
     def __init__(self, base=None, detail_info=None, mv=None):
+        # The name of the table based on which the materialized view is created.
         self.base = base  # type: str
+        # The dependency between the materialized view and the base table and all metric values, which can be used to build a lineage graph.
         self.detail_info = detail_info  # type: str
+        # The name of the materialized view.
         self.mv = mv  # type: str
 
     def validate(self):
@@ -11851,6 +16561,7 @@ class DescribeIMVInfosResponseBodyImvInfos(TeaModel):
 class DescribeIMVInfosResponseBody(TeaModel):
     def __init__(self, dbinstance_id=None, imv_infos=None, request_id=None):
         self.dbinstance_id = dbinstance_id  # type: str
+        # The queried materialized views.
         self.imv_infos = imv_infos  # type: list[DescribeIMVInfosResponseBodyImvInfos]
         self.request_id = request_id  # type: str
 
@@ -11926,13 +16637,182 @@ class DescribeIMVInfosResponse(TeaModel):
         return self
 
 
+class DescribeJDBCDataSourceRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, data_source_id=None):
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        # The data source ID.
+        # 
+        # This parameter is required.
+        self.data_source_id = data_source_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeJDBCDataSourceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.data_source_id is not None:
+            result['DataSourceId'] = self.data_source_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('DataSourceId') is not None:
+            self.data_source_id = m.get('DataSourceId')
+        return self
+
+
+class DescribeJDBCDataSourceResponseBody(TeaModel):
+    def __init__(self, create_time=None, data_source_description=None, data_source_id=None, data_source_name=None,
+                 data_source_status=None, data_source_type=None, external_data_service_id=None, jdbcconnection_string=None,
+                 jdbcpassword=None, jdbcuser_name=None, modify_time=None, request_id=None, status_message=None):
+        self.create_time = create_time  # type: str
+        # The description of the service. The description can be up to 256 characters in length.
+        self.data_source_description = data_source_description  # type: str
+        self.data_source_id = data_source_id  # type: str
+        self.data_source_name = data_source_name  # type: str
+        # The status of the service. Valid values:
+        # 
+        # *   Init
+        # *   Running
+        # *   Exception
+        self.data_source_status = data_source_status  # type: str
+        # The type of the data source.
+        self.data_source_type = data_source_type  # type: str
+        self.external_data_service_id = external_data_service_id  # type: str
+        # The JDBC connection string.
+        self.jdbcconnection_string = jdbcconnection_string  # type: str
+        # The password of the database account.
+        self.jdbcpassword = jdbcpassword  # type: str
+        # The name of the database account.
+        self.jdbcuser_name = jdbcuser_name  # type: str
+        self.modify_time = modify_time  # type: str
+        self.request_id = request_id  # type: str
+        self.status_message = status_message  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeJDBCDataSourceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.data_source_description is not None:
+            result['DataSourceDescription'] = self.data_source_description
+        if self.data_source_id is not None:
+            result['DataSourceId'] = self.data_source_id
+        if self.data_source_name is not None:
+            result['DataSourceName'] = self.data_source_name
+        if self.data_source_status is not None:
+            result['DataSourceStatus'] = self.data_source_status
+        if self.data_source_type is not None:
+            result['DataSourceType'] = self.data_source_type
+        if self.external_data_service_id is not None:
+            result['ExternalDataServiceId'] = self.external_data_service_id
+        if self.jdbcconnection_string is not None:
+            result['JDBCConnectionString'] = self.jdbcconnection_string
+        if self.jdbcpassword is not None:
+            result['JDBCPassword'] = self.jdbcpassword
+        if self.jdbcuser_name is not None:
+            result['JDBCUserName'] = self.jdbcuser_name
+        if self.modify_time is not None:
+            result['ModifyTime'] = self.modify_time
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.status_message is not None:
+            result['StatusMessage'] = self.status_message
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('DataSourceDescription') is not None:
+            self.data_source_description = m.get('DataSourceDescription')
+        if m.get('DataSourceId') is not None:
+            self.data_source_id = m.get('DataSourceId')
+        if m.get('DataSourceName') is not None:
+            self.data_source_name = m.get('DataSourceName')
+        if m.get('DataSourceStatus') is not None:
+            self.data_source_status = m.get('DataSourceStatus')
+        if m.get('DataSourceType') is not None:
+            self.data_source_type = m.get('DataSourceType')
+        if m.get('ExternalDataServiceId') is not None:
+            self.external_data_service_id = m.get('ExternalDataServiceId')
+        if m.get('JDBCConnectionString') is not None:
+            self.jdbcconnection_string = m.get('JDBCConnectionString')
+        if m.get('JDBCPassword') is not None:
+            self.jdbcpassword = m.get('JDBCPassword')
+        if m.get('JDBCUserName') is not None:
+            self.jdbcuser_name = m.get('JDBCUserName')
+        if m.get('ModifyTime') is not None:
+            self.modify_time = m.get('ModifyTime')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('StatusMessage') is not None:
+            self.status_message = m.get('StatusMessage')
+        return self
+
+
+class DescribeJDBCDataSourceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeJDBCDataSourceResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeJDBCDataSourceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeJDBCDataSourceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeLogBackupsRequest(TeaModel):
     def __init__(self, dbinstance_id=None, end_time=None, page_number=None, page_size=None, start_time=None):
         # The ID of the instance.
         # 
-        # >  You can call the [DescribeDBInstances](~~86911~~) operation to query the IDs of all AnalyticDB for PostgreSQL instances in a specific region.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the IDs of all AnalyticDB for PostgreSQL instances in a specific region.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         # The end of the time range to query. The end time must be later than the start time. Specify the time in the yyyy-MM-ddTHH:mmZ format. The time must be in UTC.
+        # 
+        # This parameter is required.
         self.end_time = end_time  # type: str
         # The number of the page to return. The value must be an integer that is greater than 0. Default value: **1**.
         self.page_number = page_number  # type: int
@@ -11945,6 +16825,8 @@ class DescribeLogBackupsRequest(TeaModel):
         # Default value: **30**.
         self.page_size = page_size  # type: int
         # The beginning of the time range to query. Specify the time in the yyyy-MM-ddTHH:mmZ format. The time must be in UTC.
+        # 
+        # This parameter is required.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -12143,7 +17025,9 @@ class DescribeModifyParameterLogRequest(TeaModel):
     def __init__(self, dbinstance_id=None, end_time=None, start_time=None):
         # The instance ID.
         # 
-        # > You can call the [DescribeDBInstances](~~196830~~) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # > You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/196830.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         # The end of the time range to query. Specify the time in the ISO 8601 standard in the *yyyy-MM-ddTHH:mmZ* format. The time must be in UTC. The end time must be later than the start time.
         self.end_time = end_time  # type: str
@@ -12305,22 +17189,33 @@ class DescribeModifyParameterLogResponse(TeaModel):
 
 class DescribeNamespaceRequest(TeaModel):
     def __init__(self, dbinstance_id=None, manager_account=None, manager_account_password=None, namespace=None,
-                 owner_id=None, region_id=None):
+                 owner_id=None, region_id=None, workspace_id=None):
         # The instance ID.
         # 
-        # > You can call the [DescribeDBInstances](~~86911~~) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
         self.dbinstance_id = dbinstance_id  # type: str
         # The name of the manager account that has the rds_superuser permission.
+        # 
+        # >  You can create an account on the Account Management page of the AnalyticDB for PostgreSQL console or by calling the [CreateAccount](https://help.aliyun.com/document_detail/2361789.html) operation.
+        # 
+        # This parameter is required.
         self.manager_account = manager_account  # type: str
         # The password of the manager account.
+        # 
+        # This parameter is required.
         self.manager_account_password = manager_account_password  # type: str
-        # The name of the namespace.
+        # The name of the namespace. Default value: public.
+        # 
+        # >  You can call the [ListNamespaces](https://help.aliyun.com/document_detail/2401502.html) operation to query a list of namespaces.
+        # 
+        # This parameter is required.
         self.namespace = namespace  # type: str
         self.owner_id = owner_id  # type: long
         # The region ID of the instance.
         # 
-        # > You can call the [DescribeRegions](~~86912~~) operation to query the most recent region list.
+        # This parameter is required.
         self.region_id = region_id  # type: str
+        self.workspace_id = workspace_id  # type: str
 
     def validate(self):
         pass
@@ -12343,6 +17238,8 @@ class DescribeNamespaceRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.workspace_id is not None:
+            result['WorkspaceId'] = self.workspace_id
         return result
 
     def from_map(self, m=None):
@@ -12359,6 +17256,8 @@ class DescribeNamespaceRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('WorkspaceId') is not None:
+            self.workspace_id = m.get('WorkspaceId')
         return self
 
 
@@ -12467,7 +17366,9 @@ class DescribeParametersRequest(TeaModel):
     def __init__(self, dbinstance_id=None):
         # The ID of the instance.
         # 
-        # >  You can call the [DescribeDBInstances](~~86911~~) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
 
     def validate(self):
@@ -12640,7 +17541,7 @@ class DescribeRdsVSwitchsRequest(TeaModel):
         self.owner_id = owner_id  # type: long
         # The ID of the region.
         # 
-        # >  You can call the [DescribeRegions](~~86912~~) operation to query the most recent region list and zone list.
+        # >  You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list and zone list.
         self.region_id = region_id  # type: str
         # This parameter is no longer used.
         self.resource_group_id = resource_group_id  # type: str
@@ -12651,13 +17552,13 @@ class DescribeRdsVSwitchsRequest(TeaModel):
         # 
         # > 
         # 
-        # *   You can call the [DescribeRdsVpcs](~~208327~~) operation to query the available VPC IDs.
+        # *   You can call the [DescribeRdsVpcs](https://help.aliyun.com/document_detail/208327.html) operation to query the available VPC IDs.
         # 
         # *   This parameter must be specified.
         self.vpc_id = vpc_id  # type: str
         # The ID of the zone.
         # 
-        # >  You can call the [DescribeRegions](~~86912~~) operation to query the most recent region list and zone list.
+        # >  You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list and zone list.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -12910,9 +17811,9 @@ class DescribeRdsVpcsRequest(TeaModel):
         self.owner_id = owner_id  # type: long
         # The ID of the region.
         # 
-        # >  You can call the [DescribeRegions](~~86912~~) operation to query the most recent region list.
+        # >  You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list.
         self.region_id = region_id  # type: str
-        # The ID of the resource group to which the instance belongs.
+        # This parameter is no longer used.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -12986,7 +17887,7 @@ class DescribeRdsVpcsResponseBodyVpcsVpcVSwitchs(TeaModel):
         self.iz_no = iz_no  # type: str
         # The state of the vSwitch. If **Available** is returned, the vSwitch is available.
         self.status = status  # type: str
-        # The ID of the vSwitch.
+        # The vSwitch ID.
         self.v_switch_id = v_switch_id  # type: str
         # The name of the vSwitch.
         self.v_switch_name = v_switch_name  # type: str
@@ -13057,13 +17958,13 @@ class DescribeRdsVpcsResponseBodyVpcsVpc(TeaModel):
         # *   **true**\
         # *   **false**\
         self.is_default = is_default  # type: bool
-        # The ID of the region.
+        # The region ID of the instance.
         self.region_no = region_no  # type: str
         # The state of the VPC. If **Available** is returned, the VPC is available.
         self.status = status  # type: str
-        # Details of the vSwitches.
+        # The queried vSwitches.
         self.v_switchs = v_switchs  # type: list[DescribeRdsVpcsResponseBodyVpcsVpcVSwitchs]
-        # The ID of VPC.
+        # The VPC ID.
         self.vpc_id = vpc_id  # type: str
         # The name of the VPC.
         self.vpc_name = vpc_name  # type: str
@@ -13138,7 +18039,7 @@ class DescribeRdsVpcsResponseBodyVpcsVpc(TeaModel):
 
 class DescribeRdsVpcsResponseBodyVpcs(TeaModel):
     def __init__(self, vpc=None):
-        # Details of the VPC.
+        # The queried VPC.
         self.vpc = vpc  # type: list[DescribeRdsVpcsResponseBodyVpcsVpc]
 
     def validate(self):
@@ -13173,7 +18074,7 @@ class DescribeRdsVpcsResponseBody(TeaModel):
     def __init__(self, request_id=None, vpcs=None):
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # Details of the VPCs.
+        # The queried VPCs.
         self.vpcs = vpcs  # type: DescribeRdsVpcsResponseBodyVpcs
 
     def validate(self):
@@ -13242,7 +18143,7 @@ class DescribeRegionsRequest(TeaModel):
     def __init__(self, region=None):
         # The ID of the region.
         # 
-        # >  You can call the [DescribeRegions](~~86912~~) operation to query the most recent region list.
+        # >  You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list.
         self.region = region  # type: str
 
     def validate(self):
@@ -13465,26 +18366,158 @@ class DescribeRegionsResponse(TeaModel):
         return self
 
 
+class DescribeRolesRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, owner_id=None):
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.owner_id = owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeRolesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        return self
+
+
+class DescribeRolesResponseBodyRoleList(TeaModel):
+    def __init__(self, role=None):
+        self.role = role  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeRolesResponseBodyRoleList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.role is not None:
+            result['Role'] = self.role
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Role') is not None:
+            self.role = m.get('Role')
+        return self
+
+
+class DescribeRolesResponseBody(TeaModel):
+    def __init__(self, request_id=None, role_list=None):
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # The roles.
+        self.role_list = role_list  # type: DescribeRolesResponseBodyRoleList
+
+    def validate(self):
+        if self.role_list:
+            self.role_list.validate()
+
+    def to_map(self):
+        _map = super(DescribeRolesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.role_list is not None:
+            result['RoleList'] = self.role_list.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('RoleList') is not None:
+            temp_model = DescribeRolesResponseBodyRoleList()
+            self.role_list = temp_model.from_map(m['RoleList'])
+        return self
+
+
+class DescribeRolesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeRolesResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeRolesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeRolesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeSQLLogCountRequest(TeaModel):
     def __init__(self, dbinstance_id=None, database=None, end_time=None, execute_cost=None, execute_state=None,
                  max_execute_cost=None, min_execute_cost=None, operation_class=None, operation_type=None, query_keywords=None,
                  source_ip=None, start_time=None, user=None):
         # The instance ID.
         # 
-        # > You can call the [DescribeDBInstances](~~86911~~) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # > You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         # The name of the database.
         self.database = database  # type: str
         # The end of the time range to query. Specify the time in the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm*Z format. The time must be in UTC.
         # 
         # > The end time must be later than the start time. The maximum time range that can be specified is seven days.
+        # 
+        # This parameter is required.
         self.end_time = end_time  # type: str
         # The execution duration of the SQL statement. Unit: seconds.
         self.execute_cost = execute_cost  # type: str
-        # The execution state of the SQL statement. Valid values:
+        # The execution status of the query. Valid values:
         # 
-        # *   **success**\
-        # *   **fail**\
+        # *   1: successful.
+        # *   0: failed.
+        # *   0,1 or 1,0: all.
         self.execute_state = execute_state  # type: str
         # The maximum amount of time consumed by a slow query. Unit: seconds. Minimum value: 0.
         self.max_execute_cost = max_execute_cost  # type: str
@@ -13502,16 +18535,19 @@ class DescribeSQLLogCountRequest(TeaModel):
         # 
         # > 
         # 
-        # *   If **OperationClass** is specified, the value of **OperationType** must belong to the corresponding query language. For example, if **OperationClass** is set to **DQL**, the value of **OperationType** must be a **DQL** statement such as **SELECT**.
+        # *   If you specify **OperationClass**, the value of **OperationType** must be of the corresponding query language. For example, if you set **OperationClass** to **DQL**, the value of **OperationType** must be a **DQL** statement such as **SELECT**.
         # 
-        # *   If **OperationClass** is not specified, the value of **OperationType** can be an SQL statement of any query language.
-        # *   If **OperationClass** and **OperationType** are not specified, all types of SQL statements are returned.
+        # *   If you leave **OperationClass** empty, the value of **OperationType** can be an SQL statement of any query language.
+        # 
+        # *   If you leave **OperationClass** and **OperationType** empty, all types of SQL statements are returned.
         self.operation_type = operation_type  # type: str
         # The keywords that are used to query audit logs.
         self.query_keywords = query_keywords  # type: str
         # The source IP address.
         self.source_ip = source_ip  # type: str
         # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm*Z format. The time must be in UTC.
+        # 
+        # This parameter is required.
         self.start_time = start_time  # type: str
         # The name of the database account that is used to connect to the database.
         self.user = user  # type: str
@@ -13780,13 +18816,17 @@ class DescribeSQLLogsRequest(TeaModel):
                  page_size=None, query_keywords=None, source_ip=None, start_time=None, user=None):
         # The instance ID.
         # 
-        # > You can call the [DescribeDBInstances](~~86911~~) operation to query the IDs of all AnalyticDB for PostgreSQL instances within a region.
+        # > You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the IDs of all AnalyticDB for PostgreSQL instances within a region.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         # The name of the database.
         self.database = database  # type: str
         # The end of the time range to query. Specify the time in the ISO 8601 standard in the *yyyy-MM-ddTHH:mmZ* format. The time must be in UTC.
         # 
         # > The end time must be later than the start time. The maximum time range that can be specified is seven days.
+        # 
+        # This parameter is required.
         self.end_time = end_time  # type: str
         # The execution duration of the SQL statement. Unit: seconds.
         self.execute_cost = execute_cost  # type: str
@@ -13831,6 +18871,8 @@ class DescribeSQLLogsRequest(TeaModel):
         # The source IP address.
         self.source_ip = source_ip  # type: str
         # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the *yyyy-MM-ddTHH:mmZ* format. The time must be in UTC.
+        # 
+        # This parameter is required.
         self.start_time = start_time  # type: str
         # The name of the database account.
         self.user = user  # type: str
@@ -14113,7 +19155,9 @@ class DescribeSQLLogsV2Request(TeaModel):
                  user=None):
         # The ID of instance.
         # 
-        # >  You can call the [DescribeDBInstances](~~86911~~) operation to query details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         # The name of the database.
         self.database = database  # type: str
@@ -14154,7 +19198,9 @@ class DescribeSQLLogsV2Request(TeaModel):
         self.query_keywords = query_keywords  # type: str
         # The region ID of the instance.
         # 
-        # > You can call the [DescribeRegions](~~86912~~) operation to query the most recent region list.
+        # > You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list.
+        # 
+        # This parameter is required.
         self.region_id = region_id  # type: str
         # The ID of the resource group to which the instance belongs.
         self.resource_group_id = resource_group_id  # type: str
@@ -14442,7 +19488,9 @@ class DescribeSampleDataRequest(TeaModel):
     def __init__(self, dbinstance_id=None, owner_id=None):
         # The ID of the instance.
         # 
-        # >  You can call the [DescribeDBInstances](~~86911~~) operation to query the IDs of all AnalyticDB for PostgreSQL instances in a specific region.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the IDs of all AnalyticDB for PostgreSQL instances in a specific region.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         self.owner_id = owner_id  # type: long
 
@@ -14484,6 +19532,11 @@ class DescribeSampleDataResponseBody(TeaModel):
         self.has_sample_data = has_sample_data  # type: bool
         # The ID of the request.
         self.request_id = request_id  # type: str
+        # The loading status of the sample dataset. Valid values:
+        # 
+        # *   **loaded**\
+        # *   **loading**\
+        # *   **unload**\
         self.sample_data_status = sample_data_status  # type: str
 
     def validate(self):
@@ -14558,11 +19611,587 @@ class DescribeSampleDataResponse(TeaModel):
         return self
 
 
+class DescribeStreamingDataServiceRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, region_id=None, service_id=None):
+        # The instance ID.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.region_id = region_id  # type: str
+        # The service ID.
+        # 
+        # This parameter is required.
+        self.service_id = service_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeStreamingDataServiceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.service_id is not None:
+            result['ServiceId'] = self.service_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ServiceId') is not None:
+            self.service_id = m.get('ServiceId')
+        return self
+
+
+class DescribeStreamingDataServiceResponseBody(TeaModel):
+    def __init__(self, create_time=None, modify_time=None, request_id=None, service_description=None,
+                 service_id=None, service_ip=None, service_managed=None, service_name=None, service_owner_id=None,
+                 service_port=None, service_spec=None, status=None):
+        # The time when the service was created.
+        self.create_time = create_time  # type: str
+        # The time when the service was last modified.
+        self.modify_time = modify_time  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # The description of the service.
+        self.service_description = service_description  # type: str
+        # The service ID.
+        self.service_id = service_id  # type: str
+        # The IP address of the service.
+        self.service_ip = service_ip  # type: str
+        self.service_managed = service_managed  # type: bool
+        # The name of the service.
+        self.service_name = service_name  # type: str
+        self.service_owner_id = service_owner_id  # type: str
+        # The port number of the service.
+        self.service_port = service_port  # type: int
+        # The specifications of the service.
+        self.service_spec = service_spec  # type: str
+        # The status of the service. Valid values:
+        # 
+        # *   Init
+        # *   Running
+        # *   Exception
+        # *   Paused
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeStreamingDataServiceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.modify_time is not None:
+            result['ModifyTime'] = self.modify_time
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.service_description is not None:
+            result['ServiceDescription'] = self.service_description
+        if self.service_id is not None:
+            result['ServiceId'] = self.service_id
+        if self.service_ip is not None:
+            result['ServiceIp'] = self.service_ip
+        if self.service_managed is not None:
+            result['ServiceManaged'] = self.service_managed
+        if self.service_name is not None:
+            result['ServiceName'] = self.service_name
+        if self.service_owner_id is not None:
+            result['ServiceOwnerId'] = self.service_owner_id
+        if self.service_port is not None:
+            result['ServicePort'] = self.service_port
+        if self.service_spec is not None:
+            result['ServiceSpec'] = self.service_spec
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('ModifyTime') is not None:
+            self.modify_time = m.get('ModifyTime')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('ServiceDescription') is not None:
+            self.service_description = m.get('ServiceDescription')
+        if m.get('ServiceId') is not None:
+            self.service_id = m.get('ServiceId')
+        if m.get('ServiceIp') is not None:
+            self.service_ip = m.get('ServiceIp')
+        if m.get('ServiceManaged') is not None:
+            self.service_managed = m.get('ServiceManaged')
+        if m.get('ServiceName') is not None:
+            self.service_name = m.get('ServiceName')
+        if m.get('ServiceOwnerId') is not None:
+            self.service_owner_id = m.get('ServiceOwnerId')
+        if m.get('ServicePort') is not None:
+            self.service_port = m.get('ServicePort')
+        if m.get('ServiceSpec') is not None:
+            self.service_spec = m.get('ServiceSpec')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class DescribeStreamingDataServiceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeStreamingDataServiceResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeStreamingDataServiceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeStreamingDataServiceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeStreamingDataSourceRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, data_source_id=None, region_id=None):
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        # This parameter is required.
+        self.data_source_id = data_source_id  # type: int
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeStreamingDataSourceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.data_source_id is not None:
+            result['DataSourceId'] = self.data_source_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('DataSourceId') is not None:
+            self.data_source_id = m.get('DataSourceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DescribeStreamingDataSourceResponseBody(TeaModel):
+    def __init__(self, create_time=None, data_source_config=None, data_source_description=None,
+                 data_source_id=None, data_source_name=None, data_source_type=None, error_message=None, request_id=None,
+                 service_id=None, status=None):
+        self.create_time = create_time  # type: str
+        self.data_source_config = data_source_config  # type: str
+        self.data_source_description = data_source_description  # type: str
+        self.data_source_id = data_source_id  # type: str
+        self.data_source_name = data_source_name  # type: str
+        self.data_source_type = data_source_type  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.service_id = service_id  # type: int
+        # The status of the service. Valid values:
+        # 
+        # *   init
+        # *   running
+        # *   exception
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeStreamingDataSourceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.data_source_config is not None:
+            result['DataSourceConfig'] = self.data_source_config
+        if self.data_source_description is not None:
+            result['DataSourceDescription'] = self.data_source_description
+        if self.data_source_id is not None:
+            result['DataSourceId'] = self.data_source_id
+        if self.data_source_name is not None:
+            result['DataSourceName'] = self.data_source_name
+        if self.data_source_type is not None:
+            result['DataSourceType'] = self.data_source_type
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.service_id is not None:
+            result['ServiceId'] = self.service_id
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('DataSourceConfig') is not None:
+            self.data_source_config = m.get('DataSourceConfig')
+        if m.get('DataSourceDescription') is not None:
+            self.data_source_description = m.get('DataSourceDescription')
+        if m.get('DataSourceId') is not None:
+            self.data_source_id = m.get('DataSourceId')
+        if m.get('DataSourceName') is not None:
+            self.data_source_name = m.get('DataSourceName')
+        if m.get('DataSourceType') is not None:
+            self.data_source_type = m.get('DataSourceType')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('ServiceId') is not None:
+            self.service_id = m.get('ServiceId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class DescribeStreamingDataSourceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeStreamingDataSourceResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeStreamingDataSourceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeStreamingDataSourceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeStreamingJobRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, job_id=None, region_id=None):
+        # The instance ID.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        # The job ID.
+        # 
+        # This parameter is required.
+        self.job_id = job_id  # type: int
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeStreamingJobRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DescribeStreamingJobResponseBody(TeaModel):
+    def __init__(self, account=None, consistency=None, create_time=None, data_source_id=None, data_source_name=None,
+                 dest_columns=None, dest_database=None, dest_schema=None, dest_table=None, error_limit_count=None,
+                 error_message=None, fallback_offset=None, group_name=None, job_config=None, job_description=None, job_id=None,
+                 job_name=None, match_columns=None, mode=None, modify_time=None, password=None, request_id=None,
+                 src_columns=None, status=None, update_columns=None, write_mode=None):
+        # The username of the account.
+        self.account = account  # type: str
+        self.consistency = consistency  # type: str
+        # The time when the job was created.
+        # 
+        # Use the UTC time format: yyyy-MM-ddTHH:mm:ssZ
+        self.create_time = create_time  # type: str
+        # The name of the data source.
+        self.data_source_id = data_source_id  # type: str
+        self.data_source_name = data_source_name  # type: str
+        # The destination fields.
+        self.dest_columns = dest_columns  # type: list[str]
+        # The name of the destination database.
+        self.dest_database = dest_database  # type: str
+        self.dest_schema = dest_schema  # type: str
+        # The name of the destination table.
+        self.dest_table = dest_table  # type: str
+        self.error_limit_count = error_limit_count  # type: int
+        # The information about the job status. For example, if the job is in the Exception state, the cause of the exception is displayed. If the job is in the Running state, this parameter is left empty.
+        self.error_message = error_message  # type: str
+        self.fallback_offset = fallback_offset  # type: str
+        self.group_name = group_name  # type: str
+        self.job_config = job_config  # type: str
+        # The description of the job.
+        self.job_description = job_description  # type: str
+        # The job ID.
+        self.job_id = job_id  # type: str
+        # The name of the job.
+        self.job_name = job_name  # type: str
+        self.match_columns = match_columns  # type: list[str]
+        self.mode = mode  # type: str
+        # The time when the job was last modified.
+        # 
+        # Use the UTC time format: yyyy-MM-ddTHH:mm:ssZ
+        self.modify_time = modify_time  # type: str
+        # The password of the account.
+        self.password = password  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # The source fields.
+        self.src_columns = src_columns  # type: list[str]
+        # The status of the job. Valid values:
+        # 
+        # *   Init: The job is being initialized.
+        # *   Running: The job is running.
+        # *   Exception: The job encounters an exception.
+        # *   Paused: The job is paused.
+        self.status = status  # type: str
+        self.update_columns = update_columns  # type: list[str]
+        # The write mode.
+        self.write_mode = write_mode  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeStreamingJobResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account is not None:
+            result['Account'] = self.account
+        if self.consistency is not None:
+            result['Consistency'] = self.consistency
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.data_source_id is not None:
+            result['DataSourceId'] = self.data_source_id
+        if self.data_source_name is not None:
+            result['DataSourceName'] = self.data_source_name
+        if self.dest_columns is not None:
+            result['DestColumns'] = self.dest_columns
+        if self.dest_database is not None:
+            result['DestDatabase'] = self.dest_database
+        if self.dest_schema is not None:
+            result['DestSchema'] = self.dest_schema
+        if self.dest_table is not None:
+            result['DestTable'] = self.dest_table
+        if self.error_limit_count is not None:
+            result['ErrorLimitCount'] = self.error_limit_count
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.fallback_offset is not None:
+            result['FallbackOffset'] = self.fallback_offset
+        if self.group_name is not None:
+            result['GroupName'] = self.group_name
+        if self.job_config is not None:
+            result['JobConfig'] = self.job_config
+        if self.job_description is not None:
+            result['JobDescription'] = self.job_description
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        if self.job_name is not None:
+            result['JobName'] = self.job_name
+        if self.match_columns is not None:
+            result['MatchColumns'] = self.match_columns
+        if self.mode is not None:
+            result['Mode'] = self.mode
+        if self.modify_time is not None:
+            result['ModifyTime'] = self.modify_time
+        if self.password is not None:
+            result['Password'] = self.password
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.src_columns is not None:
+            result['SrcColumns'] = self.src_columns
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.update_columns is not None:
+            result['UpdateColumns'] = self.update_columns
+        if self.write_mode is not None:
+            result['WriteMode'] = self.write_mode
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Account') is not None:
+            self.account = m.get('Account')
+        if m.get('Consistency') is not None:
+            self.consistency = m.get('Consistency')
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('DataSourceId') is not None:
+            self.data_source_id = m.get('DataSourceId')
+        if m.get('DataSourceName') is not None:
+            self.data_source_name = m.get('DataSourceName')
+        if m.get('DestColumns') is not None:
+            self.dest_columns = m.get('DestColumns')
+        if m.get('DestDatabase') is not None:
+            self.dest_database = m.get('DestDatabase')
+        if m.get('DestSchema') is not None:
+            self.dest_schema = m.get('DestSchema')
+        if m.get('DestTable') is not None:
+            self.dest_table = m.get('DestTable')
+        if m.get('ErrorLimitCount') is not None:
+            self.error_limit_count = m.get('ErrorLimitCount')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('FallbackOffset') is not None:
+            self.fallback_offset = m.get('FallbackOffset')
+        if m.get('GroupName') is not None:
+            self.group_name = m.get('GroupName')
+        if m.get('JobConfig') is not None:
+            self.job_config = m.get('JobConfig')
+        if m.get('JobDescription') is not None:
+            self.job_description = m.get('JobDescription')
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        if m.get('JobName') is not None:
+            self.job_name = m.get('JobName')
+        if m.get('MatchColumns') is not None:
+            self.match_columns = m.get('MatchColumns')
+        if m.get('Mode') is not None:
+            self.mode = m.get('Mode')
+        if m.get('ModifyTime') is not None:
+            self.modify_time = m.get('ModifyTime')
+        if m.get('Password') is not None:
+            self.password = m.get('Password')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('SrcColumns') is not None:
+            self.src_columns = m.get('SrcColumns')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('UpdateColumns') is not None:
+            self.update_columns = m.get('UpdateColumns')
+        if m.get('WriteMode') is not None:
+            self.write_mode = m.get('WriteMode')
+        return self
+
+
+class DescribeStreamingJobResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeStreamingJobResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeStreamingJobResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeStreamingJobResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeSupportFeaturesRequest(TeaModel):
     def __init__(self, dbinstance_id=None, owner_id=None):
         # The ID of the instance.
         # 
-        # >  You can call the [DescribeDBInstances](~~86911~~) operation to query the instance IDs of all AnalyticDB for PostgreSQL instances in a specific region.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the instance IDs of all AnalyticDB for PostgreSQL instances in a specific region.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         self.owner_id = owner_id  # type: long
 
@@ -14598,8 +20227,8 @@ class DescribeSupportFeaturesResponseBody(TeaModel):
         self.request_id = request_id  # type: str
         # The features supported by the instance. Valid values:
         # 
-        # *   sample_data: sample dataset. For more information, see [Sample dataset](~~452278~~).
-        # *   diagnose_and_optimize: diagnostics and optimization. For more information, see [Diagnostics and optimization](~~323453~~).
+        # *   sample_data: sample dataset. For more information, see [Sample dataset](https://help.aliyun.com/document_detail/452278.html).
+        # *   diagnose_and_optimize: diagnostics and optimization. For more information, see [Diagnostics and optimization](https://help.aliyun.com/document_detail/323453.html).
         self.support_feature_list = support_feature_list  # type: str
 
     def validate(self):
@@ -14666,6 +20295,199 @@ class DescribeSupportFeaturesResponse(TeaModel):
         return self
 
 
+class DescribeTableRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, database=None, owner_id=None, region_id=None, schema=None,
+                 secret_arn=None, table=None):
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        # The name of the database.
+        # 
+        # This parameter is required.
+        self.database = database  # type: str
+        self.owner_id = owner_id  # type: long
+        # The region ID of the instance.
+        # 
+        # This parameter is required.
+        self.region_id = region_id  # type: str
+        # The name of the schema to which the table belongs.
+        # 
+        # This parameter is required.
+        self.schema = schema  # type: str
+        # The Alibaba Cloud Resource Name (ARN) of the access credential for the created Data API account. You can call the CreateSecret operation to create an access credential.
+        # 
+        # >  To call the DescribeTable operation as a Resource Access Management (RAM) user, the RAM user must have the permissions to call the UseSecret or GetSecretValue operation on the ARN of the access credential.
+        # 
+        # This parameter is required.
+        self.secret_arn = secret_arn  # type: str
+        # The name of the table.
+        # 
+        # This parameter is required.
+        self.table = table  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeTableRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.database is not None:
+            result['Database'] = self.database
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.schema is not None:
+            result['Schema'] = self.schema
+        if self.secret_arn is not None:
+            result['SecretArn'] = self.secret_arn
+        if self.table is not None:
+            result['Table'] = self.table
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('Database') is not None:
+            self.database = m.get('Database')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Schema') is not None:
+            self.schema = m.get('Schema')
+        if m.get('SecretArn') is not None:
+            self.secret_arn = m.get('SecretArn')
+        if m.get('Table') is not None:
+            self.table = m.get('Table')
+        return self
+
+
+class DescribeTableResponseBodyColumnList(TeaModel):
+    def __init__(self, column_list=None):
+        self.column_list = column_list  # type: list[ColumnMetadata]
+
+    def validate(self):
+        if self.column_list:
+            for k in self.column_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeTableResponseBodyColumnList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['ColumnList'] = []
+        if self.column_list is not None:
+            for k in self.column_list:
+                result['ColumnList'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.column_list = []
+        if m.get('ColumnList') is not None:
+            for k in m.get('ColumnList'):
+                temp_model = ColumnMetadata()
+                self.column_list.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeTableResponseBody(TeaModel):
+    def __init__(self, column_list=None, message=None, request_id=None, status=None):
+        # The columns of the table.
+        self.column_list = column_list  # type: DescribeTableResponseBodyColumnList
+        # The returned message.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # The status of the operation. Valid values:
+        # 
+        # *   **success**\
+        # *   **fail**\
+        self.status = status  # type: str
+
+    def validate(self):
+        if self.column_list:
+            self.column_list.validate()
+
+    def to_map(self):
+        _map = super(DescribeTableResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.column_list is not None:
+            result['ColumnList'] = self.column_list.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ColumnList') is not None:
+            temp_model = DescribeTableResponseBodyColumnList()
+            self.column_list = temp_model.from_map(m['ColumnList'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class DescribeTableResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeTableResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeTableResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeTableResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeTagsRequest(TeaModel):
     def __init__(self, owner_account=None, owner_id=None, region_id=None, resource_group_id=None,
                  resource_owner_account=None, resource_owner_id=None, resource_type=None):
@@ -14673,13 +20495,17 @@ class DescribeTagsRequest(TeaModel):
         self.owner_id = owner_id  # type: long
         # The ID of the region.
         # 
-        # >  You can call the [DescribeRegions](~~86912~~) operation to query the most recent region list.
+        # >  You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list.
+        # 
+        # This parameter is required.
         self.region_id = region_id  # type: str
         # This parameter is no longer used.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         # The type of the resource. Set the value to **instance**.
+        # 
+        # This parameter is required.
         self.resource_type = resource_type  # type: str
 
     def validate(self):
@@ -14839,6 +20665,8 @@ class DescribeUserEncryptionKeyListRequest(TeaModel):
         # The number of KMS keys to return on each page. Default value: 10.
         self.page_size = page_size  # type: str
         # The ID of the region.
+        # 
+        # This parameter is required.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -14973,13 +20801,19 @@ class DescribeWaitingSQLInfoRequest(TeaModel):
     def __init__(self, dbinstance_id=None, database=None, pid=None):
         # The ID of the instance.
         # 
-        # >  You can call the [DescribeDBInstances](~~86911~~) operation to query the instance IDs of all AnalyticDB for PostgreSQL instances in a specific region.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the instance IDs of all AnalyticDB for PostgreSQL instances in a specific region.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         # The name of the database.
+        # 
+        # This parameter is required.
         self.database = database  # type: str
         # The ID of the process that uniquely identifies the query.
         # 
-        # >  You can call the [DescribeWaitingSQLRecords](~~461735~~) operation to obtain the process IDs of lock-waiting queries.
+        # >  You can call the [DescribeWaitingSQLRecords](https://help.aliyun.com/document_detail/461735.html) operation to obtain the process IDs of lock-waiting queries.
+        # 
+        # This parameter is required.
         self.pid = pid  # type: str
 
     def validate(self):
@@ -15176,9 +21010,13 @@ class DescribeWaitingSQLRecordsRequest(TeaModel):
                  page_size=None, query_condition=None, start_time=None, user=None):
         # The ID of the instance.
         # 
-        # >  You can call the [DescribeDBInstances](~~86911~~) operation to query the instance IDs of all AnalyticDB for PostgreSQL instances in a specific region.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the instance IDs of all AnalyticDB for PostgreSQL instances in a specific region.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         # The name of the database.
+        # 
+        # This parameter is required.
         self.database = database  # type: str
         # The end of the time range to query. Specify the time in the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm*Z format. The time must be in UTC. The end time must be later than the start time.
         # 
@@ -15205,6 +21043,8 @@ class DescribeWaitingSQLRecordsRequest(TeaModel):
         # *   `{"Type":"maxCost","Value":"10"}`: filters the top 10 longest-waiting queries.
         # *   `{"Type":"status","Value":"LockWaiting"}`: filters lock-waiting queries.
         # *   `{"Type":"status","Value":"ResourceWaiting"}`: filters resource-waiting queries.
+        # 
+        # This parameter is required.
         self.query_condition = query_condition  # type: str
         # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm*Z format. The time must be in UTC.
         # 
@@ -15427,14 +21267,113 @@ class DescribeWaitingSQLRecordsResponse(TeaModel):
         return self
 
 
+class DisableDBResourceGroupRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, owner_id=None):
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.owner_id = owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DisableDBResourceGroupRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        return self
+
+
+class DisableDBResourceGroupResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        # The request ID.
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DisableDBResourceGroupResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DisableDBResourceGroupResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DisableDBResourceGroupResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DisableDBResourceGroupResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DisableDBResourceGroupResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DownloadDiagnosisRecordsRequest(TeaModel):
     def __init__(self, dbinstance_id=None, database=None, end_time=None, lang=None, query_condition=None,
                  resource_group_id=None, start_time=None, user=None):
         # The ID of the instance.
         # 
-        # >  You can call the [DescribeDBInstances](~~86911~~) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         # The name of the database.
+        # 
+        # This parameter is required.
         self.database = database  # type: str
         # The end of the time range to query. Specify the time in the *yyyy-MM-dd*T*HH:mm*Z format. The time must be in UTC.
         self.end_time = end_time  # type: str
@@ -15455,7 +21394,7 @@ class DownloadDiagnosisRecordsRequest(TeaModel):
         # *   `{"Type":"cost","Min":"60000"}`: filters the queries that consume 1 minute or more.
         # *   `{"Type":"cost","Min":"30","Max":"50"}`: filters the queries that consume 30 milliseconds or more and less than 50 milliseconds. You can customize a filter condition by setting **Min** and **Max**.
         self.query_condition = query_condition  # type: str
-        # The ID of the resource group to which the instance belongs. For more information about how to obtain the ID of a resource group, see [View basic information of a resource group](~~151181~~).
+        # The ID of the resource group to which the instance belongs. For more information about how to obtain the ID of a resource group, see [View basic information of a resource group](https://help.aliyun.com/document_detail/151181.html).
         self.resource_group_id = resource_group_id  # type: str
         # The beginning of the time range to query. Specify the time in the *yyyy-MM-dd*T*HH:mm*Z format. The time must be in UTC.
         self.start_time = start_time  # type: str
@@ -15589,11 +21528,15 @@ class DownloadSQLLogsRecordsRequest(TeaModel):
                  page_number=None, page_size=None, query_keywords=None, source_ip=None, start_time=None, user=None):
         # The instance ID.
         # 
-        # > You can call the [DescribeDBInstances](~~86911~~) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # > You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         # The name of the database.
         self.database = database  # type: str
         # The end of the time range to query. Specify the time in the yyyy-MM-ddTHH:mm:ssZ format. The end time must be later than the start time.
+        # 
+        # This parameter is required.
         self.end_time = end_time  # type: str
         # The execution duration of the SQL statement. Unit: seconds.
         self.execute_cost = execute_cost  # type: str
@@ -15632,6 +21575,8 @@ class DownloadSQLLogsRecordsRequest(TeaModel):
         # The source IP address.
         self.source_ip = source_ip  # type: str
         # The beginning of the time range to query. Specify the time in the yyyy-MM-ddTHH:mmZ format. The time must be in UTC.
+        # 
+        # This parameter is required.
         self.start_time = start_time  # type: str
         # The name of the database account.
         self.user = user  # type: str
@@ -15783,15 +21728,752 @@ class DownloadSQLLogsRecordsResponse(TeaModel):
         return self
 
 
+class EnableDBResourceGroupRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, owner_id=None):
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.owner_id = owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(EnableDBResourceGroupRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        return self
+
+
+class EnableDBResourceGroupResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        # The request ID.
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(EnableDBResourceGroupResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class EnableDBResourceGroupResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: EnableDBResourceGroupResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(EnableDBResourceGroupResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = EnableDBResourceGroupResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ExecuteStatementRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, database=None, owner_id=None, parameters=None, region_id=None,
+                 run_type=None, secret_arn=None, sql=None, sqls=None, statement_name=None):
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        # The name of the database.
+        # 
+        # This parameter is required.
+        self.database = database  # type: str
+        self.owner_id = owner_id  # type: long
+        # The configuration parameters.
+        self.parameters = parameters  # type: list[any]
+        # The region ID of the instance.
+        # 
+        # This parameter is required.
+        self.region_id = region_id  # type: str
+        # The execution type. Valid values:
+        # 
+        # *   synchronous
+        # *   asynchronous (not supported)
+        self.run_type = run_type  # type: str
+        # The Alibaba Cloud Resource Name (ARN) of the access credential for the created Data API account. You can call the CreateSecret operation to create an access credential.
+        # 
+        # >  To call the ExecuteStatement operation as a Resource Access Management (RAM) user, the RAM user must have the permissions to call the UseSecret or GetSecretValue operation on the ARN of the access credential.
+        # 
+        # This parameter is required.
+        self.secret_arn = secret_arn  # type: str
+        # The SQL statements that you want to execute.
+        self.sql = sql  # type: str
+        # The SQL statements.
+        self.sqls = sqls  # type: list[str]
+        # The name of the set of SQL statements that you want to execute. This parameter takes effect when the RunType parameter is set to asynchronous.
+        self.statement_name = statement_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ExecuteStatementRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.database is not None:
+            result['Database'] = self.database
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.parameters is not None:
+            result['Parameters'] = self.parameters
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.run_type is not None:
+            result['RunType'] = self.run_type
+        if self.secret_arn is not None:
+            result['SecretArn'] = self.secret_arn
+        if self.sql is not None:
+            result['Sql'] = self.sql
+        if self.sqls is not None:
+            result['Sqls'] = self.sqls
+        if self.statement_name is not None:
+            result['StatementName'] = self.statement_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('Database') is not None:
+            self.database = m.get('Database')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('Parameters') is not None:
+            self.parameters = m.get('Parameters')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('RunType') is not None:
+            self.run_type = m.get('RunType')
+        if m.get('SecretArn') is not None:
+            self.secret_arn = m.get('SecretArn')
+        if m.get('Sql') is not None:
+            self.sql = m.get('Sql')
+        if m.get('Sqls') is not None:
+            self.sqls = m.get('Sqls')
+        if m.get('StatementName') is not None:
+            self.statement_name = m.get('StatementName')
+        return self
+
+
+class ExecuteStatementShrinkRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, database=None, owner_id=None, parameters_shrink=None, region_id=None,
+                 run_type=None, secret_arn=None, sql=None, sqls_shrink=None, statement_name=None):
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        # The name of the database.
+        # 
+        # This parameter is required.
+        self.database = database  # type: str
+        self.owner_id = owner_id  # type: long
+        # The configuration parameters.
+        self.parameters_shrink = parameters_shrink  # type: str
+        # The region ID of the instance.
+        # 
+        # This parameter is required.
+        self.region_id = region_id  # type: str
+        # The execution type. Valid values:
+        # 
+        # *   synchronous
+        # *   asynchronous (not supported)
+        self.run_type = run_type  # type: str
+        # The Alibaba Cloud Resource Name (ARN) of the access credential for the created Data API account. You can call the CreateSecret operation to create an access credential.
+        # 
+        # >  To call the ExecuteStatement operation as a Resource Access Management (RAM) user, the RAM user must have the permissions to call the UseSecret or GetSecretValue operation on the ARN of the access credential.
+        # 
+        # This parameter is required.
+        self.secret_arn = secret_arn  # type: str
+        # The SQL statements that you want to execute.
+        self.sql = sql  # type: str
+        # The SQL statements.
+        self.sqls_shrink = sqls_shrink  # type: str
+        # The name of the set of SQL statements that you want to execute. This parameter takes effect when the RunType parameter is set to asynchronous.
+        self.statement_name = statement_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ExecuteStatementShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.database is not None:
+            result['Database'] = self.database
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.parameters_shrink is not None:
+            result['Parameters'] = self.parameters_shrink
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.run_type is not None:
+            result['RunType'] = self.run_type
+        if self.secret_arn is not None:
+            result['SecretArn'] = self.secret_arn
+        if self.sql is not None:
+            result['Sql'] = self.sql
+        if self.sqls_shrink is not None:
+            result['Sqls'] = self.sqls_shrink
+        if self.statement_name is not None:
+            result['StatementName'] = self.statement_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('Database') is not None:
+            self.database = m.get('Database')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('Parameters') is not None:
+            self.parameters_shrink = m.get('Parameters')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('RunType') is not None:
+            self.run_type = m.get('RunType')
+        if m.get('SecretArn') is not None:
+            self.secret_arn = m.get('SecretArn')
+        if m.get('Sql') is not None:
+            self.sql = m.get('Sql')
+        if m.get('Sqls') is not None:
+            self.sqls_shrink = m.get('Sqls')
+        if m.get('StatementName') is not None:
+            self.statement_name = m.get('StatementName')
+        return self
+
+
+class ExecuteStatementResponseBodyDataColumnMetadata(TeaModel):
+    def __init__(self, column_metadata=None):
+        self.column_metadata = column_metadata  # type: list[ColumnMetadata]
+
+    def validate(self):
+        if self.column_metadata:
+            for k in self.column_metadata:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ExecuteStatementResponseBodyDataColumnMetadata, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['ColumnMetadata'] = []
+        if self.column_metadata is not None:
+            for k in self.column_metadata:
+                result['ColumnMetadata'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.column_metadata = []
+        if m.get('ColumnMetadata') is not None:
+            for k in m.get('ColumnMetadata'):
+                temp_model = ColumnMetadata()
+                self.column_metadata.append(temp_model.from_map(k))
+        return self
+
+
+class ExecuteStatementResponseBodyDataRecordsRecords(TeaModel):
+    def __init__(self, record=None):
+        self.record = record  # type: list[Field]
+
+    def validate(self):
+        if self.record:
+            for k in self.record:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ExecuteStatementResponseBodyDataRecordsRecords, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Record'] = []
+        if self.record is not None:
+            for k in self.record:
+                result['Record'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.record = []
+        if m.get('Record') is not None:
+            for k in m.get('Record'):
+                temp_model = Field()
+                self.record.append(temp_model.from_map(k))
+        return self
+
+
+class ExecuteStatementResponseBodyDataRecords(TeaModel):
+    def __init__(self, records=None):
+        self.records = records  # type: list[ExecuteStatementResponseBodyDataRecordsRecords]
+
+    def validate(self):
+        if self.records:
+            for k in self.records:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ExecuteStatementResponseBodyDataRecords, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Records'] = []
+        if self.records is not None:
+            for k in self.records:
+                result['Records'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.records = []
+        if m.get('Records') is not None:
+            for k in m.get('Records'):
+                temp_model = ExecuteStatementResponseBodyDataRecordsRecords()
+                self.records.append(temp_model.from_map(k))
+        return self
+
+
+class ExecuteStatementResponseBodyData(TeaModel):
+    def __init__(self, column_metadata=None, records=None, total_num_rows=None):
+        # The metadata of the columns.
+        self.column_metadata = column_metadata  # type: ExecuteStatementResponseBodyDataColumnMetadata
+        # The rows of data.
+        self.records = records  # type: ExecuteStatementResponseBodyDataRecords
+        # The total number of entries returned.
+        self.total_num_rows = total_num_rows  # type: long
+
+    def validate(self):
+        if self.column_metadata:
+            self.column_metadata.validate()
+        if self.records:
+            self.records.validate()
+
+    def to_map(self):
+        _map = super(ExecuteStatementResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.column_metadata is not None:
+            result['ColumnMetadata'] = self.column_metadata.to_map()
+        if self.records is not None:
+            result['Records'] = self.records.to_map()
+        if self.total_num_rows is not None:
+            result['TotalNumRows'] = self.total_num_rows
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ColumnMetadata') is not None:
+            temp_model = ExecuteStatementResponseBodyDataColumnMetadata()
+            self.column_metadata = temp_model.from_map(m['ColumnMetadata'])
+        if m.get('Records') is not None:
+            temp_model = ExecuteStatementResponseBodyDataRecords()
+            self.records = temp_model.from_map(m['Records'])
+        if m.get('TotalNumRows') is not None:
+            self.total_num_rows = m.get('TotalNumRows')
+        return self
+
+
+class ExecuteStatementResponseBody(TeaModel):
+    def __init__(self, created_at=None, dbinstance_id=None, data=None, database=None, id=None, message=None,
+                 request_id=None, secret_arn=None, status=None):
+        # The time when the SQL statements were created.
+        self.created_at = created_at  # type: str
+        # The instance ID.
+        self.dbinstance_id = dbinstance_id  # type: str
+        # The returned results of the synchronous call.
+        self.data = data  # type: ExecuteStatementResponseBodyData
+        # The name of the database.
+        self.database = database  # type: str
+        # The ID of the job for asynchronously executing the SQL statements.
+        self.id = id  # type: str
+        # The returned message.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # The ARN of the access credential for the created Data API account.
+        self.secret_arn = secret_arn  # type: str
+        # The status of the operation. Valid values:
+        # 
+        # *   **success**\
+        # *   **fail**\
+        self.status = status  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(ExecuteStatementResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.created_at is not None:
+            result['CreatedAt'] = self.created_at
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.database is not None:
+            result['Database'] = self.database
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.secret_arn is not None:
+            result['SecretArn'] = self.secret_arn
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CreatedAt') is not None:
+            self.created_at = m.get('CreatedAt')
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('Data') is not None:
+            temp_model = ExecuteStatementResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Database') is not None:
+            self.database = m.get('Database')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('SecretArn') is not None:
+            self.secret_arn = m.get('SecretArn')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class ExecuteStatementResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ExecuteStatementResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ExecuteStatementResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ExecuteStatementResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetSecretValueRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, owner_id=None, region_id=None, secret_arn=None, secret_name=None):
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.owner_id = owner_id  # type: long
+        # The region ID of the instance.
+        # 
+        # This parameter is required.
+        self.region_id = region_id  # type: str
+        # The Alibaba Cloud Resource Name (ARN) of the access credential for the created Data API account. Format: `acs:gpdb:{{region}}:{{accountId}}:secret/{{secretName}}-{{32 digits random string}`.
+        # 
+        # >  You must specify one of the SecretArn and SecretName parameters.
+        self.secret_arn = secret_arn  # type: str
+        # The name of the access credential.
+        # 
+        # >  You must specify one of the SecretArn and SecretName parameters.
+        self.secret_name = secret_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetSecretValueRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.secret_arn is not None:
+            result['SecretArn'] = self.secret_arn
+        if self.secret_name is not None:
+            result['SecretName'] = self.secret_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('SecretArn') is not None:
+            self.secret_arn = m.get('SecretArn')
+        if m.get('SecretName') is not None:
+            self.secret_name = m.get('SecretName')
+        return self
+
+
+class GetSecretValueResponseBody(TeaModel):
+    def __init__(self, code=None, dbinstance_id=None, description=None, message=None, password=None, request_id=None,
+                 secret_arn=None, secret_name=None, status=None, username=None):
+        # The error code.
+        self.code = code  # type: str
+        # The instance ID.
+        self.dbinstance_id = dbinstance_id  # type: str
+        # The description of the access credential.
+        self.description = description  # type: str
+        # The returned message.
+        self.message = message  # type: str
+        # The password of the database account.
+        self.password = password  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # The ARN of the access credential for the created Data API account. Format: `acs:gpdb:{{region}}:{{accountId}}:secret/{{secretName}}-{{32 digits random string}`.
+        self.secret_arn = secret_arn  # type: str
+        # The name of the access credential.
+        self.secret_name = secret_name  # type: str
+        # The status of the operation. Valid values:
+        # 
+        # *   **success**\
+        # *   **fail**\
+        self.status = status  # type: str
+        # The name of the database account.
+        self.username = username  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetSecretValueResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.password is not None:
+            result['Password'] = self.password
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.secret_arn is not None:
+            result['SecretArn'] = self.secret_arn
+        if self.secret_name is not None:
+            result['SecretName'] = self.secret_name
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.username is not None:
+            result['Username'] = self.username
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('Password') is not None:
+            self.password = m.get('Password')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('SecretArn') is not None:
+            self.secret_arn = m.get('SecretArn')
+        if m.get('SecretName') is not None:
+            self.secret_name = m.get('SecretName')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Username') is not None:
+            self.username = m.get('Username')
+        return self
+
+
+class GetSecretValueResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetSecretValueResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetSecretValueResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetSecretValueResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetUploadDocumentJobRequest(TeaModel):
     def __init__(self, collection=None, dbinstance_id=None, job_id=None, namespace=None, namespace_password=None,
                  owner_id=None, region_id=None):
+        # The name of the document collection.
+        # 
+        # >  You can call the [CreateDocumentCollection](https://help.aliyun.com/document_detail/2618448.html) operation to create a document collection and call the [ListDocumentCollections](https://help.aliyun.com/document_detail/2618452.html) operation to query a list of document collections.
+        # 
+        # This parameter is required.
         self.collection = collection  # type: str
+        # The ID of the instance for which vector engine optimization is enabled.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
+        # The ID of the document upload job. You can call the `UploadDocumentAsync` operation to query the job ID.
+        # 
+        # This parameter is required.
         self.job_id = job_id  # type: str
+        # The name of the namespace. Default value: public.
+        # 
+        # >  You can call the [CreateNamespace](https://help.aliyun.com/document_detail/2401495.html) operation to create a namespace and call the [ListNamespaces](https://help.aliyun.com/document_detail/2401502.html) operation to query a list of namespaces.
         self.namespace = namespace  # type: str
+        # The password of the namespace.
+        # 
+        # >  The value of this parameter is specified when you call the CreateNamespace operation.
+        # 
+        # This parameter is required.
         self.namespace_password = namespace_password  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the instance.
+        # 
+        # This parameter is required.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -15840,7 +22522,9 @@ class GetUploadDocumentJobRequest(TeaModel):
 
 class GetUploadDocumentJobResponseBodyChunkResult(TeaModel):
     def __init__(self, chunk_file_url=None, plain_chunk_file_url=None):
+        # The URL of the file after chunking. The validity period of the URL is 2 hours. The file is in the JSONL format. Each line is in the `{"page_content":"*****", "metadata": {"**":"***","**":"***"}` format.
         self.chunk_file_url = chunk_file_url  # type: str
+        # The URL of the file that does not contain metadata after chunking. The validity period of the URL is 2 hours. The file is in the TXT format. Each line is a chunk. The file can be easily used for embedding.
         self.plain_chunk_file_url = plain_chunk_file_url  # type: str
 
     def validate(self):
@@ -15870,13 +22554,27 @@ class GetUploadDocumentJobResponseBodyChunkResult(TeaModel):
 class GetUploadDocumentJobResponseBodyJob(TeaModel):
     def __init__(self, completed=None, create_time=None, error=None, id=None, progress=None, status=None,
                  update_time=None):
+        # Indicates whether the operation is complete.
         self.completed = completed  # type: bool
+        # The time when the job was created.
         self.create_time = create_time  # type: str
+        # The error message.
         self.error = error  # type: str
-        # Job ID。
+        # The job ID.
         self.id = id  # type: str
+        # The progress of the document upload job. Unit: %. A value of 100 indicates that the job is complete.
         self.progress = progress  # type: int
+        # The status of the job. Valid values: Valid values:
+        # 
+        # *   Success
+        # *   Failed (See the Error parameter for failure reasons.)
+        # *   Cancelling
+        # *   Cancelled
+        # *   Start
+        # *   Running
+        # *   Pending
         self.status = status  # type: str
+        # The time when the job was updated.
         self.update_time = update_time  # type: str
 
     def validate(self):
@@ -15926,6 +22624,9 @@ class GetUploadDocumentJobResponseBodyJob(TeaModel):
 class GetUploadDocumentJobResponseBodyUsage(TeaModel):
     def __init__(self, embedding_entries=None, embedding_tokens=None):
         self.embedding_entries = embedding_entries  # type: int
+        # The number of tokens that are used for vectorization.
+        # 
+        # >  A token is the minimum unit for splitting text. A token can be a word, phrase, punctuation, or character.
         self.embedding_tokens = embedding_tokens  # type: int
 
     def validate(self):
@@ -15954,11 +22655,20 @@ class GetUploadDocumentJobResponseBodyUsage(TeaModel):
 
 class GetUploadDocumentJobResponseBody(TeaModel):
     def __init__(self, chunk_result=None, job=None, message=None, request_id=None, status=None, usage=None):
+        # The chunking result.
         self.chunk_result = chunk_result  # type: GetUploadDocumentJobResponseBodyChunkResult
+        # The information about the document upload job.
         self.job = job  # type: GetUploadDocumentJobResponseBodyJob
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The status of the operation. Valid values:
+        # 
+        # *   **success**\
+        # *   **fail**\
         self.status = status  # type: str
+        # The number of tokens that are used for document understanding or embedding.
         self.usage = usage  # type: GetUploadDocumentJobResponseBodyUsage
 
     def validate(self):
@@ -16047,14 +22757,37 @@ class GetUploadDocumentJobResponse(TeaModel):
 
 class GetUpsertCollectionDataJobRequest(TeaModel):
     def __init__(self, collection=None, dbinstance_id=None, job_id=None, namespace=None, namespace_password=None,
-                 owner_id=None, region_id=None):
+                 owner_id=None, region_id=None, workspace_id=None):
+        # The name of the collection.
+        # 
+        # >  You can call the [ListCollections](https://help.aliyun.com/document_detail/2401503.html) operation to query a list of collections.
+        # 
+        # This parameter is required.
         self.collection = collection  # type: str
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
         self.dbinstance_id = dbinstance_id  # type: str
+        # The ID of the vector data upload job. You can call the `UpsertCollectionDataAsync` operation to query the job ID.
+        # 
+        # This parameter is required.
         self.job_id = job_id  # type: str
+        # The name of the namespace. Default value: public.
+        # 
+        # >  You can call the CreateNamespace operation to create a namespace and call the ListNamespaces operation to query a list of namespaces.
         self.namespace = namespace  # type: str
+        # The password of the namespace.
+        # 
+        # >  The value of this parameter is specified when you call the CreateNamespace operation.
+        # 
+        # This parameter is required.
         self.namespace_password = namespace_password  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the instance.
+        # 
+        # This parameter is required.
         self.region_id = region_id  # type: str
+        self.workspace_id = workspace_id  # type: str
 
     def validate(self):
         pass
@@ -16079,6 +22812,8 @@ class GetUpsertCollectionDataJobRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.workspace_id is not None:
+            result['WorkspaceId'] = self.workspace_id
         return result
 
     def from_map(self, m=None):
@@ -16097,19 +22832,41 @@ class GetUpsertCollectionDataJobRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('WorkspaceId') is not None:
+            self.workspace_id = m.get('WorkspaceId')
         return self
 
 
 class GetUpsertCollectionDataJobResponseBodyJob(TeaModel):
     def __init__(self, completed=None, create_time=None, error=None, id=None, progress=None, status=None,
                  update_time=None):
+        # Indicates whether the operation is complete.
         self.completed = completed  # type: bool
+        # The time when the job was created.
         self.create_time = create_time  # type: str
+        # The error message.
         self.error = error  # type: str
-        # Job ID。
+        # The job ID.
         self.id = id  # type: str
+        # The progress of the vector data upload job. The value of this parameter indicates the number of data entries that have been uploaded.
         self.progress = progress  # type: int
+        # The status of the job.
+        # 
+        # >  Valid values:
+        # 
+        # *   Success
+        # 
+        # *   Failed (See the Error parameter for failure reasons.)
+        # 
+        # *   Cancelling
+        # 
+        # *   Cancelled
+        # 
+        # *   Start
+        # 
+        # *   Running
         self.status = status  # type: str
+        # The time when the job was updated.
         self.update_time = update_time  # type: str
 
     def validate(self):
@@ -16158,9 +22915,16 @@ class GetUpsertCollectionDataJobResponseBodyJob(TeaModel):
 
 class GetUpsertCollectionDataJobResponseBody(TeaModel):
     def __init__(self, job=None, message=None, request_id=None, status=None):
+        # The information about the vector data upload job.
         self.job = job  # type: GetUpsertCollectionDataJobResponseBodyJob
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The status of the operation. Valid values:
+        # 
+        # *   **success**\
+        # *   **fail**\
         self.status = status  # type: str
 
     def validate(self):
@@ -16237,29 +23001,47 @@ class GrantCollectionRequest(TeaModel):
     def __init__(self, collection=None, dbinstance_id=None, grant_to_namespace=None, grant_type=None,
                  manager_account=None, manager_account_password=None, namespace=None, owner_id=None, region_id=None):
         # The name of the collection.
+        # 
+        # >  You can call the [CreateCollection](https://help.aliyun.com/document_detail/2401497.html) operation to create a vector collection and call the [ListCollections](https://help.aliyun.com/document_detail/2401503.html) operation to query a list of vector collections.
+        # 
+        # This parameter is required.
         self.collection = collection  # type: str
         # The ID of the instance in reserved storage mode.
         # 
-        # > You can call the [DescribeDBInstances](~~86911~~) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # > You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         # The name of the namespace to which you want to grant the vector collection permissions.
+        # 
+        # This parameter is required.
         self.grant_to_namespace = grant_to_namespace  # type: str
         # The type of the permissions that you want to grant. Valid values:
         # 
         # *   rw: the read and write permissions.
         # *   ro: the read-only permission.
         # *   none: the delete permission.
+        # 
+        # This parameter is required.
         self.grant_type = grant_type  # type: str
         # The name of the manager account that has the rds_superuser permission.
+        # 
+        # >  You can create an account on the Account Management page of the AnalyticDB for PostgreSQL console or by calling the [CreateAccount](https://help.aliyun.com/document_detail/2361789.html) operation.
+        # 
+        # This parameter is required.
         self.manager_account = manager_account  # type: str
         # The password of the manager account.
+        # 
+        # This parameter is required.
         self.manager_account_password = manager_account_password  # type: str
         # The name of the namespace.
+        # 
+        # >  You can call the [ListNamespaces](https://help.aliyun.com/document_detail/2401502.html) operation to query a list of namespaces.
         self.namespace = namespace  # type: str
         self.owner_id = owner_id  # type: long
         # The region ID of the instance.
         # 
-        # > You can call the [DescribeRegions](~~86912~~) operation to query the most recent region list.
+        # This parameter is required.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -16392,8 +23174,19 @@ class GrantCollectionResponse(TeaModel):
 
 class HandleActiveSQLRecordRequest(TeaModel):
     def __init__(self, dbinstance_id=None, operate_type=None, pids=None):
+        # The instance ID.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
+        # The type of the operation on the process ID. Valid values:
+        # 
+        # *   **0**: cancel.
+        # *   **1**: terminate.
+        # *   **2**: forcefully terminate.
         self.operate_type = operate_type  # type: int
+        # The process IDs. A process ID is a unique identifier of a query.
+        # 
+        # This parameter is required.
         self.pids = pids  # type: str
 
     def validate(self):
@@ -16426,7 +23219,12 @@ class HandleActiveSQLRecordRequest(TeaModel):
 
 class HandleActiveSQLRecordResponseBodyResults(TeaModel):
     def __init__(self, pid=None, status=None):
+        # The process ID, which is a unique identifier of the query.
         self.pid = pid  # type: str
+        # Indicates whether the processing was successful. Valid values:
+        # 
+        # *   **false**\
+        # *   **true**\
         self.status = status  # type: str
 
     def validate(self):
@@ -16455,9 +23253,16 @@ class HandleActiveSQLRecordResponseBodyResults(TeaModel):
 
 class HandleActiveSQLRecordResponseBody(TeaModel):
     def __init__(self, dbinstance_id=None, request_id=None, results=None, status=None):
+        # The instance ID.
         self.dbinstance_id = dbinstance_id  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The processing result of the active query.
         self.results = results  # type: list[HandleActiveSQLRecordResponseBodyResults]
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **false**\
+        # *   **true**\
         self.status = status  # type: str
 
     def validate(self):
@@ -16538,20 +23343,29 @@ class HandleActiveSQLRecordResponse(TeaModel):
 
 class InitVectorDatabaseRequest(TeaModel):
     def __init__(self, dbinstance_id=None, manager_account=None, manager_account_password=None, owner_id=None,
-                 region_id=None):
+                 region_id=None, workspace_id=None):
         # The instance ID.
         # 
-        # > You can call the [DescribeDBInstances](~~86911~~) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
         self.dbinstance_id = dbinstance_id  # type: str
-        # The name of the database account that has the rds_superuser permission.
+        # The name of the manager account that has the rds_superuser permission.
+        # 
+        # >  You can create an account on the Account Management page of the AnalyticDB for PostgreSQL console or by calling the [CreateAccount](https://help.aliyun.com/document_detail/2361789.html) operation.
+        # 
+        # This parameter is required.
         self.manager_account = manager_account  # type: str
         # The password of the database account.
+        # 
+        # This parameter is required.
         self.manager_account_password = manager_account_password  # type: str
         self.owner_id = owner_id  # type: long
-        # The region ID.
+        # The region ID of the instance.
         # 
-        # > You can call the [DescribeRegions](~~86912~~) operation to query the most recent region list.
+        # >  You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list.
+        # 
+        # This parameter is required.
         self.region_id = region_id  # type: str
+        self.workspace_id = workspace_id  # type: str
 
     def validate(self):
         pass
@@ -16572,6 +23386,8 @@ class InitVectorDatabaseRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.workspace_id is not None:
+            result['WorkspaceId'] = self.workspace_id
         return result
 
     def from_map(self, m=None):
@@ -16586,6 +23402,8 @@ class InitVectorDatabaseRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('WorkspaceId') is not None:
+            self.workspace_id = m.get('WorkspaceId')
         return self
 
 
@@ -16666,20 +23484,26 @@ class InitVectorDatabaseResponse(TeaModel):
 
 
 class ListCollectionsRequest(TeaModel):
-    def __init__(self, dbinstance_id=None, namespace=None, namespace_password=None, owner_id=None, region_id=None):
+    def __init__(self, dbinstance_id=None, namespace=None, namespace_password=None, owner_id=None, region_id=None,
+                 workspace_id=None):
         # The instance ID.
         # 
-        # > You can call the [DescribeDBInstances](~~86911~~) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
         self.dbinstance_id = dbinstance_id  # type: str
         # The name of the namespace.
         self.namespace = namespace  # type: str
         # The password of the namespace.
+        # 
+        # This parameter is required.
         self.namespace_password = namespace_password  # type: str
         self.owner_id = owner_id  # type: long
         # The region ID of the instance.
         # 
-        # > You can call the [DescribeRegions](~~86912~~) operation to query the most recent region list.
+        # >  You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list.
+        # 
+        # This parameter is required.
         self.region_id = region_id  # type: str
+        self.workspace_id = workspace_id  # type: str
 
     def validate(self):
         pass
@@ -16700,6 +23524,8 @@ class ListCollectionsRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.workspace_id is not None:
+            result['WorkspaceId'] = self.workspace_id
         return result
 
     def from_map(self, m=None):
@@ -16714,6 +23540,8 @@ class ListCollectionsRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('WorkspaceId') is not None:
+            self.workspace_id = m.get('WorkspaceId')
         return self
 
 
@@ -16850,12 +23678,215 @@ class ListCollectionsResponse(TeaModel):
         return self
 
 
+class ListDatabasesRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, database=None, max_results=None, next_token=None, owner_id=None,
+                 region_id=None, secret_arn=None):
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        # The name of the database.
+        # 
+        # This parameter is required.
+        self.database = database  # type: str
+        # The maximum number of entries per page. Valid values: 1 to 100.
+        self.max_results = max_results  # type: int
+        # The pagination token that is used in the next request to retrieve a new page of results. You do not need to specify this parameter for the first request. You must specify the token that is obtained from the previous query as the value of NextToken.
+        self.next_token = next_token  # type: str
+        self.owner_id = owner_id  # type: long
+        # The region ID of the instance.
+        # 
+        # This parameter is required.
+        self.region_id = region_id  # type: str
+        # The Alibaba Cloud Resource Name (ARN) of the access credential for the created Data API account. You can call the CreateSecret operation to create an access credential.
+        # 
+        # >  To call the DescribeTable operation as a Resource Access Management (RAM) user, the RAM user must have the permissions to call the UseSecret or GetSecretValue operation on the ARN of the access credential.
+        # 
+        # This parameter is required.
+        self.secret_arn = secret_arn  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListDatabasesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.database is not None:
+            result['Database'] = self.database
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.secret_arn is not None:
+            result['SecretArn'] = self.secret_arn
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('Database') is not None:
+            self.database = m.get('Database')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('SecretArn') is not None:
+            self.secret_arn = m.get('SecretArn')
+        return self
+
+
+class ListDatabasesResponseBodyDatabases(TeaModel):
+    def __init__(self, databases=None):
+        self.databases = databases  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListDatabasesResponseBodyDatabases, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.databases is not None:
+            result['Databases'] = self.databases
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Databases') is not None:
+            self.databases = m.get('Databases')
+        return self
+
+
+class ListDatabasesResponseBody(TeaModel):
+    def __init__(self, databases=None, message=None, next_token=None, request_id=None, status=None):
+        # The queried databases.
+        self.databases = databases  # type: ListDatabasesResponseBodyDatabases
+        # The returned message.
+        self.message = message  # type: str
+        # A pagination token. It can be used in the next request to retrieve a new page of results. If NextToken is empty, no next page exists.
+        self.next_token = next_token  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # The status of the operation. Valid values:
+        # 
+        # *   **success**\
+        # *   **fail**\
+        self.status = status  # type: str
+
+    def validate(self):
+        if self.databases:
+            self.databases.validate()
+
+    def to_map(self):
+        _map = super(ListDatabasesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.databases is not None:
+            result['Databases'] = self.databases.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Databases') is not None:
+            temp_model = ListDatabasesResponseBodyDatabases()
+            self.databases = temp_model.from_map(m['Databases'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class ListDatabasesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListDatabasesResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListDatabasesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListDatabasesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListDocumentCollectionsRequest(TeaModel):
     def __init__(self, dbinstance_id=None, namespace=None, namespace_password=None, owner_id=None, region_id=None):
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
+        # The name of the namespace. Default value: public.
+        # 
+        # >  You can call the CreateNamespace operation to create a namespace and call the ListNamespaces operation to query a list of namespaces.
         self.namespace = namespace  # type: str
+        # The password of the namespace.
+        # 
+        # >  This value is specified when you call the CreateNamespace operation.
+        # 
+        # This parameter is required.
         self.namespace_password = namespace_password  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the instance.
+        # 
+        # This parameter is required.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -16897,12 +23928,19 @@ class ListDocumentCollectionsRequest(TeaModel):
 class ListDocumentCollectionsResponseBodyItemsCollectionList(TeaModel):
     def __init__(self, collection_name=None, dimension=None, embedding_model=None, full_text_retrieval_fields=None,
                  metadata=None, metrics=None, parser=None):
+        # The name of the document collection.
         self.collection_name = collection_name  # type: str
+        # The number of vector dimensions.
         self.dimension = dimension  # type: int
+        # The name of the vector algorithm.
         self.embedding_model = embedding_model  # type: str
+        # The fields that are used for full-text search. Multiple fields are separated by commas (,).
         self.full_text_retrieval_fields = full_text_retrieval_fields  # type: str
+        # The metadata.
         self.metadata = metadata  # type: str
+        # The vector similarity algorithm.
         self.metrics = metrics  # type: str
+        # The analyzer that is used for full-text search.
         self.parser = parser  # type: str
 
     def validate(self):
@@ -16983,10 +24021,18 @@ class ListDocumentCollectionsResponseBodyItems(TeaModel):
 
 class ListDocumentCollectionsResponseBody(TeaModel):
     def __init__(self, count=None, items=None, message=None, request_id=None, status=None):
+        # The total number of entries returned.
         self.count = count  # type: int
+        # The queried document collections.
         self.items = items  # type: ListDocumentCollectionsResponseBodyItems
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **success**\
+        # *   **fail**\
         self.status = status  # type: str
 
     def validate(self):
@@ -17064,13 +24110,34 @@ class ListDocumentCollectionsResponse(TeaModel):
 
 
 class ListDocumentsRequest(TeaModel):
-    def __init__(self, collection=None, dbinstance_id=None, namespace=None, namespace_password=None, owner_id=None,
-                 region_id=None):
+    def __init__(self, collection=None, dbinstance_id=None, max_results=None, namespace=None,
+                 namespace_password=None, next_token=None, owner_id=None, region_id=None):
+        # The name of the document collection.
+        # 
+        # >  You can call the [CreateDocumentCollection](https://help.aliyun.com/document_detail/2618448.html) operation to create a document collection and call the [ListDocumentCollections](https://help.aliyun.com/document_detail/2618452.html) operation to query a list of document collections.
+        # 
+        # This parameter is required.
         self.collection = collection  # type: str
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
+        # The maximum number of entries per page. Valid values: 1 to 100.
+        self.max_results = max_results  # type: int
+        # The name of the namespace. Default value: public.
+        # 
+        # >  You can call the [CreateNamespace](https://help.aliyun.com/document_detail/2401495.html) operation to create a namespace and call the [ListNamespaces](https://help.aliyun.com/document_detail/2401502.html) operation to query a list of namespaces.
         self.namespace = namespace  # type: str
+        # The password of the namespace.
+        # 
+        # >  This value is specified when you call the [CreateNamespace](https://help.aliyun.com/document_detail/2401495.html) operation.
+        # 
+        # This parameter is required.
         self.namespace_password = namespace_password  # type: str
+        # The pagination token that is used in the next request to retrieve a new page of results. You do not need to specify this parameter for the first request. You must specify the token that is obtained from the previous query as the value of NextToken.
+        self.next_token = next_token  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the instance.
+        # 
+        # This parameter is required.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -17086,10 +24153,14 @@ class ListDocumentsRequest(TeaModel):
             result['Collection'] = self.collection
         if self.dbinstance_id is not None:
             result['DBInstanceId'] = self.dbinstance_id
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
         if self.namespace is not None:
             result['Namespace'] = self.namespace
         if self.namespace_password is not None:
             result['NamespacePassword'] = self.namespace_password
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
@@ -17102,10 +24173,14 @@ class ListDocumentsRequest(TeaModel):
             self.collection = m.get('Collection')
         if m.get('DBInstanceId') is not None:
             self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
         if m.get('Namespace') is not None:
             self.namespace = m.get('Namespace')
         if m.get('NamespacePassword') is not None:
             self.namespace_password = m.get('NamespacePassword')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
@@ -17115,7 +24190,9 @@ class ListDocumentsRequest(TeaModel):
 
 class ListDocumentsResponseBodyItemsDocumentList(TeaModel):
     def __init__(self, file_name=None, source=None):
+        # The name of the document.
         self.file_name = file_name  # type: str
+        # The source of the document.
         self.source = source  # type: str
 
     def validate(self):
@@ -17175,10 +24252,19 @@ class ListDocumentsResponseBodyItems(TeaModel):
 
 
 class ListDocumentsResponseBody(TeaModel):
-    def __init__(self, items=None, message=None, request_id=None, status=None):
+    def __init__(self, count=None, items=None, message=None, next_token=None, request_id=None, status=None):
+        # The total number of entries returned.
+        self.count = count  # type: int
+        # The queried documents.
         self.items = items  # type: ListDocumentsResponseBodyItems
         self.message = message  # type: str
+        # A pagination token. It can be used in the next request to retrieve a new page of results. If NextToken is empty, no next page exists.
+        self.next_token = next_token  # type: str
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **success**\
+        # *   **fail**\
         self.status = status  # type: str
 
     def validate(self):
@@ -17191,10 +24277,14 @@ class ListDocumentsResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.count is not None:
+            result['Count'] = self.count
         if self.items is not None:
             result['Items'] = self.items.to_map()
         if self.message is not None:
             result['Message'] = self.message
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.status is not None:
@@ -17203,11 +24293,15 @@ class ListDocumentsResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
         if m.get('Items') is not None:
             temp_model = ListDocumentsResponseBodyItems()
             self.items = temp_model.from_map(m['Items'])
         if m.get('Message') is not None:
             self.message = m.get('Message')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         if m.get('Status') is not None:
@@ -17251,22 +24345,681 @@ class ListDocumentsResponse(TeaModel):
         return self
 
 
-class ListNamespacesRequest(TeaModel):
-    def __init__(self, dbinstance_id=None, manager_account=None, manager_account_password=None, owner_id=None,
+class ListExternalDataServicesRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, page_number=None, page_size=None, region_id=None):
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        # The region ID. You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListExternalDataServicesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ListExternalDataServicesResponseBodyServiceItems(TeaModel):
+    def __init__(self, create_time=None, modify_time=None, service_description=None, service_id=None,
+                 service_name=None, service_spec=None, service_type=None, status=None):
+        # The time when the service was created.
+        self.create_time = create_time  # type: str
+        # The time when the service was last modified.
+        self.modify_time = modify_time  # type: str
+        # The description of the service.
+        self.service_description = service_description  # type: str
+        # The service ID.
+        self.service_id = service_id  # type: str
+        # The name of the service.
+        self.service_name = service_name  # type: str
+        # The specifications of the service. Unit: compute units (CUs).
+        self.service_spec = service_spec  # type: str
+        # The type of the service. Valid values:
+        # 
+        # *   pxf
+        self.service_type = service_type  # type: str
+        # The status of the service. Valid values:
+        # 
+        # *   Init
+        # *   Running
+        # *   Exception
+        # *   Paused
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListExternalDataServicesResponseBodyServiceItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.modify_time is not None:
+            result['ModifyTime'] = self.modify_time
+        if self.service_description is not None:
+            result['ServiceDescription'] = self.service_description
+        if self.service_id is not None:
+            result['ServiceId'] = self.service_id
+        if self.service_name is not None:
+            result['ServiceName'] = self.service_name
+        if self.service_spec is not None:
+            result['ServiceSpec'] = self.service_spec
+        if self.service_type is not None:
+            result['ServiceType'] = self.service_type
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('ModifyTime') is not None:
+            self.modify_time = m.get('ModifyTime')
+        if m.get('ServiceDescription') is not None:
+            self.service_description = m.get('ServiceDescription')
+        if m.get('ServiceId') is not None:
+            self.service_id = m.get('ServiceId')
+        if m.get('ServiceName') is not None:
+            self.service_name = m.get('ServiceName')
+        if m.get('ServiceSpec') is not None:
+            self.service_spec = m.get('ServiceSpec')
+        if m.get('ServiceType') is not None:
+            self.service_type = m.get('ServiceType')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class ListExternalDataServicesResponseBody(TeaModel):
+    def __init__(self, page_number=None, request_id=None, service_items=None, total_record_count=None):
+        self.page_number = page_number  # type: int
+        self.request_id = request_id  # type: str
+        # The queried services.
+        self.service_items = service_items  # type: list[ListExternalDataServicesResponseBodyServiceItems]
+        self.total_record_count = total_record_count  # type: int
+
+    def validate(self):
+        if self.service_items:
+            for k in self.service_items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListExternalDataServicesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        result['ServiceItems'] = []
+        if self.service_items is not None:
+            for k in self.service_items:
+                result['ServiceItems'].append(k.to_map() if k else None)
+        if self.total_record_count is not None:
+            result['TotalRecordCount'] = self.total_record_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        self.service_items = []
+        if m.get('ServiceItems') is not None:
+            for k in m.get('ServiceItems'):
+                temp_model = ListExternalDataServicesResponseBodyServiceItems()
+                self.service_items.append(temp_model.from_map(k))
+        if m.get('TotalRecordCount') is not None:
+            self.total_record_count = m.get('TotalRecordCount')
+        return self
+
+
+class ListExternalDataServicesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListExternalDataServicesResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListExternalDataServicesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListExternalDataServicesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListExternalDataSourcesRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, page_number=None, page_size=None, region_id=None):
+        # The instance ID.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        # The page number. Pages start from page 1. Default value: **1**.
+        self.page_number = page_number  # type: int
+        # The number of entries per page. Valid values:
+        # 
+        # *   **30**\
+        # *   **50**\
+        # *   **100**\
+        # 
+        # Default value: 30.
+        self.page_size = page_size  # type: int
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListExternalDataSourcesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ListExternalDataSourcesResponseBodyItems(TeaModel):
+    def __init__(self, create_time=None, data_source_description=None, data_source_dir=None, data_source_id=None,
+                 data_source_name=None, data_source_status=None, data_source_type=None, external_data_service_id=None,
+                 modify_time=None, status_message=None):
+        # The time when the service was created.
+        self.create_time = create_time  # type: str
+        # The description of the data source.
+        self.data_source_description = data_source_description  # type: str
+        # The service directory in which Hadoop-related configuration files are stored.
+        self.data_source_dir = data_source_dir  # type: str
+        # The service ID.
+        self.data_source_id = data_source_id  # type: int
+        # The name of the service.
+        self.data_source_name = data_source_name  # type: str
+        # The status of the service. Valid values:
+        # 
+        # *   init
+        # *   running
+        # *   exception
+        self.data_source_status = data_source_status  # type: str
+        # The type of the data source.
+        self.data_source_type = data_source_type  # type: str
+        self.external_data_service_id = external_data_service_id  # type: int
+        # The time when the service was last modified.
+        self.modify_time = modify_time  # type: str
+        # The information about the service status. For example, if the service is in the exception state, the cause of the exception is displayed. If the service is in the running state, this parameter is left empty.
+        self.status_message = status_message  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListExternalDataSourcesResponseBodyItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.data_source_description is not None:
+            result['DataSourceDescription'] = self.data_source_description
+        if self.data_source_dir is not None:
+            result['DataSourceDir'] = self.data_source_dir
+        if self.data_source_id is not None:
+            result['DataSourceId'] = self.data_source_id
+        if self.data_source_name is not None:
+            result['DataSourceName'] = self.data_source_name
+        if self.data_source_status is not None:
+            result['DataSourceStatus'] = self.data_source_status
+        if self.data_source_type is not None:
+            result['DataSourceType'] = self.data_source_type
+        if self.external_data_service_id is not None:
+            result['ExternalDataServiceId'] = self.external_data_service_id
+        if self.modify_time is not None:
+            result['ModifyTime'] = self.modify_time
+        if self.status_message is not None:
+            result['StatusMessage'] = self.status_message
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('DataSourceDescription') is not None:
+            self.data_source_description = m.get('DataSourceDescription')
+        if m.get('DataSourceDir') is not None:
+            self.data_source_dir = m.get('DataSourceDir')
+        if m.get('DataSourceId') is not None:
+            self.data_source_id = m.get('DataSourceId')
+        if m.get('DataSourceName') is not None:
+            self.data_source_name = m.get('DataSourceName')
+        if m.get('DataSourceStatus') is not None:
+            self.data_source_status = m.get('DataSourceStatus')
+        if m.get('DataSourceType') is not None:
+            self.data_source_type = m.get('DataSourceType')
+        if m.get('ExternalDataServiceId') is not None:
+            self.external_data_service_id = m.get('ExternalDataServiceId')
+        if m.get('ModifyTime') is not None:
+            self.modify_time = m.get('ModifyTime')
+        if m.get('StatusMessage') is not None:
+            self.status_message = m.get('StatusMessage')
+        return self
+
+
+class ListExternalDataSourcesResponseBody(TeaModel):
+    def __init__(self, items=None, page_number=None, request_id=None, total_record_count=None):
+        # The Hadoop external table services.
+        self.items = items  # type: list[ListExternalDataSourcesResponseBodyItems]
+        # The page number.
+        self.page_number = page_number  # type: int
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # The total number of entries returned.
+        self.total_record_count = total_record_count  # type: int
+
+    def validate(self):
+        if self.items:
+            for k in self.items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListExternalDataSourcesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Items'] = []
+        if self.items is not None:
+            for k in self.items:
+                result['Items'].append(k.to_map() if k else None)
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_record_count is not None:
+            result['TotalRecordCount'] = self.total_record_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.items = []
+        if m.get('Items') is not None:
+            for k in m.get('Items'):
+                temp_model = ListExternalDataSourcesResponseBodyItems()
+                self.items.append(temp_model.from_map(k))
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalRecordCount') is not None:
+            self.total_record_count = m.get('TotalRecordCount')
+        return self
+
+
+class ListExternalDataSourcesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListExternalDataSourcesResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListExternalDataSourcesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListExternalDataSourcesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListInstanceExtensionsRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, extension=None, install_status=None, page_number=None, page_size=None,
                  region_id=None):
         # The instance ID.
         # 
-        # > You can call the [DescribeDBInstances](~~86911~~) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        # The name of the extension.
+        self.extension = extension  # type: str
+        # The installation status of the extension. Valid values:
+        # 
+        # *   installed
+        # *   installing
+        # *   uninstalled
+        self.install_status = install_status  # type: str
+        # The page number. Pages start from page 1. Default value: 1.
+        self.page_number = page_number  # type: int
+        # The number of entries per page. Valid values:
+        # 
+        # *   **30**\
+        # *   **50**\
+        # *   **100**\
+        # 
+        # Default value: **30**.
+        self.page_size = page_size  # type: int
+        # The region ID of the instance.
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListInstanceExtensionsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.extension is not None:
+            result['Extension'] = self.extension
+        if self.install_status is not None:
+            result['InstallStatus'] = self.install_status
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('Extension') is not None:
+            self.extension = m.get('Extension')
+        if m.get('InstallStatus') is not None:
+            self.install_status = m.get('InstallStatus')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ListInstanceExtensionsResponseBodyItems(TeaModel):
+    def __init__(self, current_version=None, description=None, extension_id=None, installed_databases=None,
+                 is_install_need_restart=None, latest_version=None, name=None, status=None):
+        # The current version.
+        self.current_version = current_version  # type: str
+        # The description of the extension.
+        self.description = description  # type: str
+        # The extension ID.
+        self.extension_id = extension_id  # type: str
+        # The names of the databases in which the extension is installed.
+        self.installed_databases = installed_databases  # type: str
+        # Indicates whether an instance restart is required after you install the extension for the extension to take effect.
+        self.is_install_need_restart = is_install_need_restart  # type: bool
+        # The latest version.
+        self.latest_version = latest_version  # type: str
+        # The name of the extension.
+        self.name = name  # type: str
+        # The status of the extension.
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListInstanceExtensionsResponseBodyItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.current_version is not None:
+            result['CurrentVersion'] = self.current_version
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.extension_id is not None:
+            result['ExtensionId'] = self.extension_id
+        if self.installed_databases is not None:
+            result['InstalledDatabases'] = self.installed_databases
+        if self.is_install_need_restart is not None:
+            result['IsInstallNeedRestart'] = self.is_install_need_restart
+        if self.latest_version is not None:
+            result['LatestVersion'] = self.latest_version
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CurrentVersion') is not None:
+            self.current_version = m.get('CurrentVersion')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('ExtensionId') is not None:
+            self.extension_id = m.get('ExtensionId')
+        if m.get('InstalledDatabases') is not None:
+            self.installed_databases = m.get('InstalledDatabases')
+        if m.get('IsInstallNeedRestart') is not None:
+            self.is_install_need_restart = m.get('IsInstallNeedRestart')
+        if m.get('LatestVersion') is not None:
+            self.latest_version = m.get('LatestVersion')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class ListInstanceExtensionsResponseBody(TeaModel):
+    def __init__(self, items=None, page_number=None, page_record_count=None, request_id=None,
+                 total_record_count=None):
+        self.items = items  # type: list[ListInstanceExtensionsResponseBodyItems]
+        # The page number.
+        self.page_number = page_number  # type: int
+        # The number of entries per page.
+        self.page_record_count = page_record_count  # type: int
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # The total number of entries returned.
+        self.total_record_count = total_record_count  # type: int
+
+    def validate(self):
+        if self.items:
+            for k in self.items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListInstanceExtensionsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Items'] = []
+        if self.items is not None:
+            for k in self.items:
+                result['Items'].append(k.to_map() if k else None)
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_record_count is not None:
+            result['PageRecordCount'] = self.page_record_count
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_record_count is not None:
+            result['TotalRecordCount'] = self.total_record_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.items = []
+        if m.get('Items') is not None:
+            for k in m.get('Items'):
+                temp_model = ListInstanceExtensionsResponseBodyItems()
+                self.items.append(temp_model.from_map(k))
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageRecordCount') is not None:
+            self.page_record_count = m.get('PageRecordCount')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalRecordCount') is not None:
+            self.total_record_count = m.get('TotalRecordCount')
+        return self
+
+
+class ListInstanceExtensionsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListInstanceExtensionsResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListInstanceExtensionsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListInstanceExtensionsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListNamespacesRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, manager_account=None, manager_account_password=None, owner_id=None,
+                 region_id=None, workspace_id=None):
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
         self.dbinstance_id = dbinstance_id  # type: str
         # The name of the manager account that has the rds_superuser permission.
+        # 
+        # >  You can create an account on the Account Management page of the AnalyticDB for PostgreSQL console or by calling the [CreateAccount](https://help.aliyun.com/document_detail/2361789.html) operation.
+        # 
+        # This parameter is required.
         self.manager_account = manager_account  # type: str
         # The password of the manager account.
+        # 
+        # This parameter is required.
         self.manager_account_password = manager_account_password  # type: str
         self.owner_id = owner_id  # type: long
         # The region ID of the instance.
         # 
-        # > You can call the [DescribeRegions](~~86912~~) operation to query the most recent region list.
+        # This parameter is required.
         self.region_id = region_id  # type: str
+        self.workspace_id = workspace_id  # type: str
 
     def validate(self):
         pass
@@ -17287,6 +25040,8 @@ class ListNamespacesRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.workspace_id is not None:
+            result['WorkspaceId'] = self.workspace_id
         return result
 
     def from_map(self, m=None):
@@ -17301,6 +25056,8 @@ class ListNamespacesRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('WorkspaceId') is not None:
+            self.workspace_id = m.get('WorkspaceId')
         return self
 
 
@@ -17431,16 +25188,1362 @@ class ListNamespacesResponse(TeaModel):
         return self
 
 
+class ListSchemasRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, database=None, max_results=None, next_token=None, owner_id=None,
+                 region_id=None, schema_pattern=None, secret_arn=None):
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        # The name of the database.
+        # 
+        # This parameter is required.
+        self.database = database  # type: str
+        # The maximum number of entries per page. Valid values: 1 to 100.
+        self.max_results = max_results  # type: int
+        # The pagination token that is used in the next request to retrieve a new page of results. You do not need to specify this parameter for the first request. You must specify the token that is obtained from the previous query as the value of NextToken.
+        self.next_token = next_token  # type: str
+        self.owner_id = owner_id  # type: long
+        # The region ID of the instance.
+        # 
+        # This parameter is required.
+        self.region_id = region_id  # type: str
+        # The schema name pattern for matching. For example, `ab%` specifies to match schema names that start with ab.
+        self.schema_pattern = schema_pattern  # type: str
+        # The Alibaba Cloud Resource Name (ARN) of the access credential for the created Data API account. You can call the CreateSecret operation to create an access credential.
+        # 
+        # >  To call the ListSchemas operation as a Resource Access Management (RAM) user, the RAM user must have the permissions to call the UseSecret or GetSecretValue operation on the ARN of the access credential.
+        # 
+        # This parameter is required.
+        self.secret_arn = secret_arn  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListSchemasRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.database is not None:
+            result['Database'] = self.database
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.schema_pattern is not None:
+            result['SchemaPattern'] = self.schema_pattern
+        if self.secret_arn is not None:
+            result['SecretArn'] = self.secret_arn
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('Database') is not None:
+            self.database = m.get('Database')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('SchemaPattern') is not None:
+            self.schema_pattern = m.get('SchemaPattern')
+        if m.get('SecretArn') is not None:
+            self.secret_arn = m.get('SecretArn')
+        return self
+
+
+class ListSchemasResponseBodySchemas(TeaModel):
+    def __init__(self, schemas=None):
+        self.schemas = schemas  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListSchemasResponseBodySchemas, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.schemas is not None:
+            result['Schemas'] = self.schemas
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Schemas') is not None:
+            self.schemas = m.get('Schemas')
+        return self
+
+
+class ListSchemasResponseBody(TeaModel):
+    def __init__(self, message=None, next_token=None, request_id=None, schemas=None, status=None):
+        # The returned message.
+        self.message = message  # type: str
+        # A pagination token. It can be used in the next request to retrieve a new page of results. If NextToken is empty, no next page exists.
+        self.next_token = next_token  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # The queried schemas.
+        self.schemas = schemas  # type: ListSchemasResponseBodySchemas
+        # The status of the operation. Valid values:
+        # 
+        # *   **success**\
+        # *   **fail**\
+        self.status = status  # type: str
+
+    def validate(self):
+        if self.schemas:
+            self.schemas.validate()
+
+    def to_map(self):
+        _map = super(ListSchemasResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.schemas is not None:
+            result['Schemas'] = self.schemas.to_map()
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Schemas') is not None:
+            temp_model = ListSchemasResponseBodySchemas()
+            self.schemas = temp_model.from_map(m['Schemas'])
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class ListSchemasResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListSchemasResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListSchemasResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListSchemasResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListSecretsRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, owner_id=None, region_id=None):
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.owner_id = owner_id  # type: long
+        # The region ID of the instance.
+        # 
+        # This parameter is required.
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListSecretsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ListSecretsResponseBodySecretsSecrets(TeaModel):
+    def __init__(self, account_id=None, dbinstance_id=None, description=None, region_id=None, secret_arn=None,
+                 secret_name=None, username=None):
+        # The ID of the Alibaba Cloud account.
+        self.account_id = account_id  # type: str
+        # The instance ID.
+        self.dbinstance_id = dbinstance_id  # type: str
+        # The description of the access credential.
+        self.description = description  # type: str
+        # The region ID of the instance.
+        self.region_id = region_id  # type: str
+        # The Alibaba Cloud Resource Name (ARN) of the access credential for the created Data API account. Format: `acs:gpdb:{{region}}:{{accountId}}:secret/{{secretName}}-{{32 digits random string}`.
+        self.secret_arn = secret_arn  # type: str
+        # The name of the access credential.
+        self.secret_name = secret_name  # type: str
+        # The name of the database account.
+        self.username = username  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListSecretsResponseBodySecretsSecrets, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_id is not None:
+            result['AccountId'] = self.account_id
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.secret_arn is not None:
+            result['SecretArn'] = self.secret_arn
+        if self.secret_name is not None:
+            result['SecretName'] = self.secret_name
+        if self.username is not None:
+            result['Username'] = self.username
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccountId') is not None:
+            self.account_id = m.get('AccountId')
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('SecretArn') is not None:
+            self.secret_arn = m.get('SecretArn')
+        if m.get('SecretName') is not None:
+            self.secret_name = m.get('SecretName')
+        if m.get('Username') is not None:
+            self.username = m.get('Username')
+        return self
+
+
+class ListSecretsResponseBodySecrets(TeaModel):
+    def __init__(self, secrets=None):
+        self.secrets = secrets  # type: list[ListSecretsResponseBodySecretsSecrets]
+
+    def validate(self):
+        if self.secrets:
+            for k in self.secrets:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListSecretsResponseBodySecrets, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Secrets'] = []
+        if self.secrets is not None:
+            for k in self.secrets:
+                result['Secrets'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.secrets = []
+        if m.get('Secrets') is not None:
+            for k in m.get('Secrets'):
+                temp_model = ListSecretsResponseBodySecretsSecrets()
+                self.secrets.append(temp_model.from_map(k))
+        return self
+
+
+class ListSecretsResponseBody(TeaModel):
+    def __init__(self, count=None, message=None, request_id=None, secrets=None, status=None):
+        # The number of access credentials.
+        self.count = count  # type: long
+        # The returned message.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # The queried access credentials.
+        self.secrets = secrets  # type: ListSecretsResponseBodySecrets
+        # The status of the operation. Valid values:
+        # 
+        # *   **success**\
+        # *   **fail**\
+        self.status = status  # type: str
+
+    def validate(self):
+        if self.secrets:
+            self.secrets.validate()
+
+    def to_map(self):
+        _map = super(ListSecretsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.count is not None:
+            result['Count'] = self.count
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.secrets is not None:
+            result['Secrets'] = self.secrets.to_map()
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Secrets') is not None:
+            temp_model = ListSecretsResponseBodySecrets()
+            self.secrets = temp_model.from_map(m['Secrets'])
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class ListSecretsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListSecretsResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListSecretsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListSecretsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListStreamingDataServicesRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, page_number=None, page_size=None, region_id=None):
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        # The region ID.
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListStreamingDataServicesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ListStreamingDataServicesResponseBodyServiceItems(TeaModel):
+    def __init__(self, create_time=None, modify_time=None, service_description=None, service_id=None,
+                 service_ip=None, service_managed=None, service_name=None, service_owner_id=None, service_port=None,
+                 service_spec=None, service_type=None, status=None):
+        self.create_time = create_time  # type: str
+        self.modify_time = modify_time  # type: str
+        self.service_description = service_description  # type: str
+        self.service_id = service_id  # type: str
+        self.service_ip = service_ip  # type: str
+        self.service_managed = service_managed  # type: bool
+        self.service_name = service_name  # type: str
+        self.service_owner_id = service_owner_id  # type: str
+        self.service_port = service_port  # type: str
+        self.service_spec = service_spec  # type: str
+        self.service_type = service_type  # type: str
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListStreamingDataServicesResponseBodyServiceItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.modify_time is not None:
+            result['ModifyTime'] = self.modify_time
+        if self.service_description is not None:
+            result['ServiceDescription'] = self.service_description
+        if self.service_id is not None:
+            result['ServiceId'] = self.service_id
+        if self.service_ip is not None:
+            result['ServiceIp'] = self.service_ip
+        if self.service_managed is not None:
+            result['ServiceManaged'] = self.service_managed
+        if self.service_name is not None:
+            result['ServiceName'] = self.service_name
+        if self.service_owner_id is not None:
+            result['ServiceOwnerId'] = self.service_owner_id
+        if self.service_port is not None:
+            result['ServicePort'] = self.service_port
+        if self.service_spec is not None:
+            result['ServiceSpec'] = self.service_spec
+        if self.service_type is not None:
+            result['ServiceType'] = self.service_type
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('ModifyTime') is not None:
+            self.modify_time = m.get('ModifyTime')
+        if m.get('ServiceDescription') is not None:
+            self.service_description = m.get('ServiceDescription')
+        if m.get('ServiceId') is not None:
+            self.service_id = m.get('ServiceId')
+        if m.get('ServiceIp') is not None:
+            self.service_ip = m.get('ServiceIp')
+        if m.get('ServiceManaged') is not None:
+            self.service_managed = m.get('ServiceManaged')
+        if m.get('ServiceName') is not None:
+            self.service_name = m.get('ServiceName')
+        if m.get('ServiceOwnerId') is not None:
+            self.service_owner_id = m.get('ServiceOwnerId')
+        if m.get('ServicePort') is not None:
+            self.service_port = m.get('ServicePort')
+        if m.get('ServiceSpec') is not None:
+            self.service_spec = m.get('ServiceSpec')
+        if m.get('ServiceType') is not None:
+            self.service_type = m.get('ServiceType')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class ListStreamingDataServicesResponseBody(TeaModel):
+    def __init__(self, request_id=None, service_items=None, total_record_count=None):
+        self.request_id = request_id  # type: str
+        self.service_items = service_items  # type: list[ListStreamingDataServicesResponseBodyServiceItems]
+        self.total_record_count = total_record_count  # type: int
+
+    def validate(self):
+        if self.service_items:
+            for k in self.service_items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListStreamingDataServicesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        result['ServiceItems'] = []
+        if self.service_items is not None:
+            for k in self.service_items:
+                result['ServiceItems'].append(k.to_map() if k else None)
+        if self.total_record_count is not None:
+            result['TotalRecordCount'] = self.total_record_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        self.service_items = []
+        if m.get('ServiceItems') is not None:
+            for k in m.get('ServiceItems'):
+                temp_model = ListStreamingDataServicesResponseBodyServiceItems()
+                self.service_items.append(temp_model.from_map(k))
+        if m.get('TotalRecordCount') is not None:
+            self.total_record_count = m.get('TotalRecordCount')
+        return self
+
+
+class ListStreamingDataServicesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListStreamingDataServicesResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListStreamingDataServicesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListStreamingDataServicesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListStreamingDataSourcesRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, page_number=None, page_size=None, region_id=None):
+        # The instance ID.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        # The page number. Pages start from page 1. Default value: **1**.
+        self.page_number = page_number  # type: int
+        # The number of entries per page. Valid values:
+        # 
+        # *   **30**\
+        # *   **50**\
+        # *   **100**\
+        # 
+        # Default value: **30**.
+        self.page_size = page_size  # type: int
+        # The region ID.
+        # 
+        # >  You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListStreamingDataSourcesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ListStreamingDataSourcesResponseBodyDataSourceItems(TeaModel):
+    def __init__(self, create_time=None, data_source_config=None, data_source_description=None,
+                 data_source_id=None, data_source_name=None, data_source_type=None, error_message=None, modify_time=None,
+                 service_id=None, status=None):
+        # The time when the data source was created.
+        self.create_time = create_time  # type: str
+        # The configurations of the data source.
+        self.data_source_config = data_source_config  # type: str
+        # The description of the data source.
+        self.data_source_description = data_source_description  # type: str
+        # The data source ID.
+        self.data_source_id = data_source_id  # type: int
+        # The name of the data source.
+        self.data_source_name = data_source_name  # type: str
+        # The type of the data source. Valid values:
+        # 
+        # *   kafka
+        self.data_source_type = data_source_type  # type: str
+        # The information about the service status. For example, if the service is in the exception state, the cause of the exception is displayed. If the service is in the running state, this parameter is left empty.
+        self.error_message = error_message  # type: str
+        # The time when the data source was last modified.
+        self.modify_time = modify_time  # type: str
+        # The service ID.
+        self.service_id = service_id  # type: int
+        # The status of the service. Valid values:
+        # 
+        # *   init
+        # *   running
+        # *   exception
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListStreamingDataSourcesResponseBodyDataSourceItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.data_source_config is not None:
+            result['DataSourceConfig'] = self.data_source_config
+        if self.data_source_description is not None:
+            result['DataSourceDescription'] = self.data_source_description
+        if self.data_source_id is not None:
+            result['DataSourceId'] = self.data_source_id
+        if self.data_source_name is not None:
+            result['DataSourceName'] = self.data_source_name
+        if self.data_source_type is not None:
+            result['DataSourceType'] = self.data_source_type
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.modify_time is not None:
+            result['ModifyTime'] = self.modify_time
+        if self.service_id is not None:
+            result['ServiceId'] = self.service_id
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('DataSourceConfig') is not None:
+            self.data_source_config = m.get('DataSourceConfig')
+        if m.get('DataSourceDescription') is not None:
+            self.data_source_description = m.get('DataSourceDescription')
+        if m.get('DataSourceId') is not None:
+            self.data_source_id = m.get('DataSourceId')
+        if m.get('DataSourceName') is not None:
+            self.data_source_name = m.get('DataSourceName')
+        if m.get('DataSourceType') is not None:
+            self.data_source_type = m.get('DataSourceType')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('ModifyTime') is not None:
+            self.modify_time = m.get('ModifyTime')
+        if m.get('ServiceId') is not None:
+            self.service_id = m.get('ServiceId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class ListStreamingDataSourcesResponseBody(TeaModel):
+    def __init__(self, data_source_items=None, page_number=None, request_id=None, total_record_count=None):
+        # The queried data sources.
+        self.data_source_items = data_source_items  # type: list[ListStreamingDataSourcesResponseBodyDataSourceItems]
+        # The page number.
+        self.page_number = page_number  # type: int
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # The total number of entries returned.
+        self.total_record_count = total_record_count  # type: int
+
+    def validate(self):
+        if self.data_source_items:
+            for k in self.data_source_items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListStreamingDataSourcesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['DataSourceItems'] = []
+        if self.data_source_items is not None:
+            for k in self.data_source_items:
+                result['DataSourceItems'].append(k.to_map() if k else None)
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_record_count is not None:
+            result['TotalRecordCount'] = self.total_record_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.data_source_items = []
+        if m.get('DataSourceItems') is not None:
+            for k in m.get('DataSourceItems'):
+                temp_model = ListStreamingDataSourcesResponseBodyDataSourceItems()
+                self.data_source_items.append(temp_model.from_map(k))
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalRecordCount') is not None:
+            self.total_record_count = m.get('TotalRecordCount')
+        return self
+
+
+class ListStreamingDataSourcesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListStreamingDataSourcesResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListStreamingDataSourcesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListStreamingDataSourcesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListStreamingJobsRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, page_number=None, page_size=None, region_id=None):
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        # The region ID.
+        # 
+        # >  You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListStreamingJobsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ListStreamingJobsResponseBodyJobItems(TeaModel):
+    def __init__(self, account=None, consistency=None, create_time=None, data_source_id=None, data_source_name=None,
+                 dest_columns=None, dest_database=None, dest_schema=None, dest_table=None, error_message=None,
+                 fallback_offset=None, job_description=None, job_id=None, job_name=None, match_columns=None, mode=None,
+                 modify_time=None, password=None, src_columns=None, status=None, update_columns=None, write_mode=None):
+        # The name of the database account.
+        self.account = account  # type: str
+        # The delivery guarantee setting.
+        self.consistency = consistency  # type: str
+        # The time when the job was created.
+        self.create_time = create_time  # type: str
+        # The data source ID.
+        self.data_source_id = data_source_id  # type: str
+        # The name of the data source.
+        self.data_source_name = data_source_name  # type: str
+        # The mapped fields in the destination table.
+        self.dest_columns = dest_columns  # type: list[str]
+        # The name of the destination database.
+        self.dest_database = dest_database  # type: str
+        # The name of the destination namespace.
+        self.dest_schema = dest_schema  # type: str
+        # The name of the destination table.
+        self.dest_table = dest_table  # type: str
+        # The error message returned.
+        # 
+        # This parameter is returned only when the return value of **Status** is **false**.
+        self.error_message = error_message  # type: str
+        # The fallback offset for data consumption.
+        # 
+        # *   This parameter indicates the starting offset from which data consumption resumes when a consumer does not request a consumption offset or requests a consumption offset that is beyond the range of the offset information recorded in the current Kafka cluster. Valid values: EARLIEST and LATEST.
+        self.fallback_offset = fallback_offset  # type: str
+        # The description of the job.
+        self.job_description = job_description  # type: str
+        # The job ID.
+        self.job_id = job_id  # type: str
+        # The name of the job.
+        self.job_name = job_name  # type: str
+        # The update condition columns that are used to join the source data and the destination table. Typically, the columns are all the primary key columns of the destination table. If the values of all columns specified by this parameter in different rows are the same, the rows are considered duplicates.
+        self.match_columns = match_columns  # type: list[str]
+        # The configuration mode. Valid values:
+        # 
+        # 1.  basic: In basic mode, you must configure the configuration parameters.
+        # 2.  professional: In professional mode, you can submit a YAML configuration file.
+        self.mode = mode  # type: str
+        # The time when the job was last modified.
+        self.modify_time = modify_time  # type: str
+        # The password of the database account.
+        self.password = password  # type: str
+        # The source fields.
+        self.src_columns = src_columns  # type: list[str]
+        # The status of the job. Valid values:
+        # 
+        # *   Init
+        # *   Running
+        # *   Exception
+        # *   Paused
+        self.status = status  # type: str
+        # The columns to be updated if a row of data meets the update condition. Typically, the columns are all non-primary key columns of the destination table. When the columns specified by the MatchColumns parameter are used as conditions to join the source data and the destination table, data in columns of the UpdateColumns type is updated if data is matched.
+        self.update_columns = update_columns  # type: list[str]
+        # The write mode.
+        self.write_mode = write_mode  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListStreamingJobsResponseBodyJobItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account is not None:
+            result['Account'] = self.account
+        if self.consistency is not None:
+            result['Consistency'] = self.consistency
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.data_source_id is not None:
+            result['DataSourceId'] = self.data_source_id
+        if self.data_source_name is not None:
+            result['DataSourceName'] = self.data_source_name
+        if self.dest_columns is not None:
+            result['DestColumns'] = self.dest_columns
+        if self.dest_database is not None:
+            result['DestDatabase'] = self.dest_database
+        if self.dest_schema is not None:
+            result['DestSchema'] = self.dest_schema
+        if self.dest_table is not None:
+            result['DestTable'] = self.dest_table
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.fallback_offset is not None:
+            result['FallbackOffset'] = self.fallback_offset
+        if self.job_description is not None:
+            result['JobDescription'] = self.job_description
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        if self.job_name is not None:
+            result['JobName'] = self.job_name
+        if self.match_columns is not None:
+            result['MatchColumns'] = self.match_columns
+        if self.mode is not None:
+            result['Mode'] = self.mode
+        if self.modify_time is not None:
+            result['ModifyTime'] = self.modify_time
+        if self.password is not None:
+            result['Password'] = self.password
+        if self.src_columns is not None:
+            result['SrcColumns'] = self.src_columns
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.update_columns is not None:
+            result['UpdateColumns'] = self.update_columns
+        if self.write_mode is not None:
+            result['WriteMode'] = self.write_mode
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Account') is not None:
+            self.account = m.get('Account')
+        if m.get('Consistency') is not None:
+            self.consistency = m.get('Consistency')
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('DataSourceId') is not None:
+            self.data_source_id = m.get('DataSourceId')
+        if m.get('DataSourceName') is not None:
+            self.data_source_name = m.get('DataSourceName')
+        if m.get('DestColumns') is not None:
+            self.dest_columns = m.get('DestColumns')
+        if m.get('DestDatabase') is not None:
+            self.dest_database = m.get('DestDatabase')
+        if m.get('DestSchema') is not None:
+            self.dest_schema = m.get('DestSchema')
+        if m.get('DestTable') is not None:
+            self.dest_table = m.get('DestTable')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('FallbackOffset') is not None:
+            self.fallback_offset = m.get('FallbackOffset')
+        if m.get('JobDescription') is not None:
+            self.job_description = m.get('JobDescription')
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        if m.get('JobName') is not None:
+            self.job_name = m.get('JobName')
+        if m.get('MatchColumns') is not None:
+            self.match_columns = m.get('MatchColumns')
+        if m.get('Mode') is not None:
+            self.mode = m.get('Mode')
+        if m.get('ModifyTime') is not None:
+            self.modify_time = m.get('ModifyTime')
+        if m.get('Password') is not None:
+            self.password = m.get('Password')
+        if m.get('SrcColumns') is not None:
+            self.src_columns = m.get('SrcColumns')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('UpdateColumns') is not None:
+            self.update_columns = m.get('UpdateColumns')
+        if m.get('WriteMode') is not None:
+            self.write_mode = m.get('WriteMode')
+        return self
+
+
+class ListStreamingJobsResponseBody(TeaModel):
+    def __init__(self, job_items=None, page_number=None, page_record_count=None, request_id=None,
+                 total_record_count=None):
+        # The queried jobs.
+        self.job_items = job_items  # type: list[ListStreamingJobsResponseBodyJobItems]
+        self.page_number = page_number  # type: int
+        self.page_record_count = page_record_count  # type: int
+        self.request_id = request_id  # type: str
+        self.total_record_count = total_record_count  # type: int
+
+    def validate(self):
+        if self.job_items:
+            for k in self.job_items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListStreamingJobsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['JobItems'] = []
+        if self.job_items is not None:
+            for k in self.job_items:
+                result['JobItems'].append(k.to_map() if k else None)
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_record_count is not None:
+            result['PageRecordCount'] = self.page_record_count
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_record_count is not None:
+            result['TotalRecordCount'] = self.total_record_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.job_items = []
+        if m.get('JobItems') is not None:
+            for k in m.get('JobItems'):
+                temp_model = ListStreamingJobsResponseBodyJobItems()
+                self.job_items.append(temp_model.from_map(k))
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageRecordCount') is not None:
+            self.page_record_count = m.get('PageRecordCount')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalRecordCount') is not None:
+            self.total_record_count = m.get('TotalRecordCount')
+        return self
+
+
+class ListStreamingJobsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListStreamingJobsResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListStreamingJobsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListStreamingJobsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListTablesRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, database=None, max_results=None, next_token=None, owner_id=None,
+                 region_id=None, schema=None, secret_arn=None, table_pattern=None):
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/196830.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        # The name of the database.
+        # 
+        # This parameter is required.
+        self.database = database  # type: str
+        # The maximum number of entries per page. Valid values: 1 to 100.
+        self.max_results = max_results  # type: int
+        # The pagination token that is used in the next request to retrieve a new page of results. You do not need to specify this parameter for the first request. You must specify the token that is obtained from the previous query as the value of NextToken.
+        self.next_token = next_token  # type: str
+        self.owner_id = owner_id  # type: long
+        # The region ID of the instance.
+        # 
+        # This parameter is required.
+        self.region_id = region_id  # type: str
+        # The name of the schema to which the table belongs.
+        # 
+        # This parameter is required.
+        self.schema = schema  # type: str
+        # The Alibaba Cloud Resource Name (ARN) of the access credential for the created Data API account. You can call the CreateSecret operation to create an access credential.
+        # 
+        # >  To call the ListTables operation as a Resource Access Management (RAM) user, the RAM user must have the permissions to call the UseSecret or GetSecretValue operation on the ARN of the access credential.
+        # 
+        # This parameter is required.
+        self.secret_arn = secret_arn  # type: str
+        # The table name pattern for matching. For example, `ab%` specifies to match table names that start with ab.
+        self.table_pattern = table_pattern  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListTablesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.database is not None:
+            result['Database'] = self.database
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.schema is not None:
+            result['Schema'] = self.schema
+        if self.secret_arn is not None:
+            result['SecretArn'] = self.secret_arn
+        if self.table_pattern is not None:
+            result['TablePattern'] = self.table_pattern
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('Database') is not None:
+            self.database = m.get('Database')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Schema') is not None:
+            self.schema = m.get('Schema')
+        if m.get('SecretArn') is not None:
+            self.secret_arn = m.get('SecretArn')
+        if m.get('TablePattern') is not None:
+            self.table_pattern = m.get('TablePattern')
+        return self
+
+
+class ListTablesResponseBodyTables(TeaModel):
+    def __init__(self, tables=None):
+        self.tables = tables  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListTablesResponseBodyTables, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.tables is not None:
+            result['Tables'] = self.tables
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Tables') is not None:
+            self.tables = m.get('Tables')
+        return self
+
+
+class ListTablesResponseBody(TeaModel):
+    def __init__(self, message=None, next_token=None, request_id=None, status=None, tables=None):
+        # The returned message.
+        self.message = message  # type: str
+        # A pagination token. It can be used in the next request to retrieve a new page of results. If NextToken is empty, no next page exists.
+        self.next_token = next_token  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # The status of the operation. Valid values:
+        # 
+        # *   **success**\
+        # *   **fail**\
+        self.status = status  # type: str
+        # The queried tables.
+        self.tables = tables  # type: ListTablesResponseBodyTables
+
+    def validate(self):
+        if self.tables:
+            self.tables.validate()
+
+    def to_map(self):
+        _map = super(ListTablesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.tables is not None:
+            result['Tables'] = self.tables.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Tables') is not None:
+            temp_model = ListTablesResponseBodyTables()
+            self.tables = temp_model.from_map(m['Tables'])
+        return self
+
+
+class ListTablesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListTablesResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListTablesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListTablesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListTagResourcesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # The key of tag N. The key must be 1 to 128 characters in length.
+        # The key of tag N. The key must be 1 to 64 characters in length.
         # 
-        # You can use `Tag.N` to query instances that have specific tags added. Tag.N consists of Tag.N.Key and Tag.N.Value.
+        # You can use `Tag.N` to query AnalyticDB for PostgreSQL instances that have specific tags added. Tag.N consists of Tag.N.Key and Tag.N.Value.
         # 
         # Valid values of N: 1 to 20.
         # 
         # *   If you specify only `Tag.N.Key`, all instances that have the tag key added are returned.
-        # *   If you specify only `Tag.N.Value`, the `InvalidParameter.TagValue` error is returned.
+        # *   If you specify only `Tag.N.Value`, the `InvalidParameter.TagValue` error message is returned.
         # *   If you specify multiple tag key-value pairs at a time, the instances that match all the specified tag key-value pairs are returned.
         self.key = key  # type: str
         # The value of tag N. The value must be 1 to 128 characters in length.
@@ -17479,18 +26582,21 @@ class ListTagResourcesRequest(TeaModel):
         self.next_token = next_token  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The region ID of the instance. You can call the [DescribeRegions](~~86912~~) operation to query the most recent region list.
+        # The region ID of the instance. You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list.
+        # 
+        # This parameter is required.
         self.region_id = region_id  # type: str
         # The ID of instance N. Valid values of N: 1 to 50.
         self.resource_id = resource_id  # type: list[str]
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The storage mode of the instance. Valid values:
+        # The resource type. Set the value to instance.
         # 
-        # *   `instance`: reserved storage mode
-        # *   `ALIYUN::GPDB::INSTANCE`: elastic storage mode
+        # This parameter is required.
         self.resource_type = resource_type  # type: str
-        # The queried tags.
+        # The tags that are added to instances.
+        # 
+        # >  You must specify at least one of the ResourceId and Tag parameters.
         self.tag = tag  # type: list[ListTagResourcesRequestTag]
 
     def validate(self):
@@ -17709,14 +26815,20 @@ class ModifyAccountDescriptionRequest(TeaModel):
         # 
         # *   The description must start with a letter.
         # *   The description cannot start with `http://` or `https://`.
-        # *   The description can contain letters, underscores (\_), hyphens (-), and digits.
+        # *   The description can contain letters, underscores (_), hyphens (-), and digits.
         # *   The description must be 2 to 256 characters in length.
+        # 
+        # This parameter is required.
         self.account_description = account_description  # type: str
         # The name of the database account.
+        # 
+        # This parameter is required.
         self.account_name = account_name  # type: str
         # The instance ID.
         # 
-        # > You can call the [DescribeDBInstances](~~86911~~) operation to query the IDs of all AnalyticDB for PostgreSQL instances within a region.
+        # > You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the IDs of all AnalyticDB for PostgreSQL instances within a region.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
 
     def validate(self):
@@ -17814,6 +26926,8 @@ class ModifyBackupPolicyRequest(TeaModel):
         # The number of days for which data backup files are retained. Default value: 7. Maximum value: 7. Valid values: 1 to 7.
         self.backup_retention_period = backup_retention_period  # type: int
         # The ID of the instance.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         # Specifies whether to enable automatic point-in-time backup.
         # 
@@ -17822,7 +26936,7 @@ class ModifyBackupPolicyRequest(TeaModel):
         # 
         # Default value: true.
         self.enable_recovery_point = enable_recovery_point  # type: bool
-        # The cycle based on which you want to perform a backup. Separate multiple values with commas (,). Valid values:
+        # The cycle based on which backups are performed. If more than one day of the week is specified, the days of the week are separated by commas (,). Valid values:
         # 
         # *   Monday
         # *   Tuesday
@@ -17831,8 +26945,12 @@ class ModifyBackupPolicyRequest(TeaModel):
         # *   Friday
         # *   Saturday
         # *   Sunday
+        # 
+        # This parameter is required.
         self.preferred_backup_period = preferred_backup_period  # type: str
         # The backup window. Specify the backup window in the HH:mmZ-HH:mmZ format. The backup window must be in UTC. Default value: 00:00-01:00.
+        # 
+        # This parameter is required.
         self.preferred_backup_time = preferred_backup_time  # type: str
         # The frequency of point-in-time backup.
         # 
@@ -17952,11 +27070,13 @@ class ModifyDBInstanceConfigRequest(TeaModel):
         self.dbinstance_description = dbinstance_description  # type: str
         # The ID of the instance.
         # 
-        # >  You can call the [DescribeDBInstances](~~86911~~) operation to query the instance IDs of all AnalyticDB for PostgreSQL instances in a specific region.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the instance IDs of all AnalyticDB for PostgreSQL instances in a specific region.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         # The wait period for the instance that has no traffic to become idle. Minimum value: 60. Default value: 600. Unit: seconds.
         self.idle_time = idle_time  # type: int
-        # The ID of the resource group to which the instance belongs. For more information about how to obtain the ID of a resource group, see [View basic information of a resource group](~~151181~~).
+        # The ID of the resource group to which the instance belongs. For more information about how to obtain the ID of a resource group, see [View basic information of a resource group](https://help.aliyun.com/document_detail/151181.html).
         self.resource_group_id = resource_group_id  # type: str
         # The threshold of computing resources. Valid values: 8 to 32. Unit: AnalyticDB Compute Units (ACUs).
         self.serverless_resource = serverless_resource  # type: int
@@ -18083,12 +27203,20 @@ class ModifyDBInstanceConnectionStringRequest(TeaModel):
     def __init__(self, connection_string_prefix=None, current_connection_string=None, dbinstance_id=None,
                  port=None):
         # The endpoint prefix of the instance.
+        # 
+        # This parameter is required.
         self.connection_string_prefix = connection_string_prefix  # type: str
         # The current endpoint of the instance.
+        # 
+        # This parameter is required.
         self.current_connection_string = current_connection_string  # type: str
         # The instance ID.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         # The port number. Example: 5432.
+        # 
+        # This parameter is required.
         self.port = port  # type: str
 
     def validate(self):
@@ -18189,10 +27317,14 @@ class ModifyDBInstanceDescriptionRequest(TeaModel):
         # The description of the instance.
         # 
         # The description must be 2 to 256 characters in length. It cannot start with http:// or https://.
+        # 
+        # This parameter is required.
         self.dbinstance_description = dbinstance_description  # type: str
         # The ID of the instance.
         # 
-        # >  You can call the [DescribeDBInstances](~~86911~~) operation to query the instance IDs of all AnalyticDB for PostgreSQL instances in a specific region.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the instance IDs of all AnalyticDB for PostgreSQL instances in a specific region.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         # This parameter is no longer used.
         self.resource_group_id = resource_group_id  # type: str
@@ -18290,13 +27422,19 @@ class ModifyDBInstanceMaintainTimeRequest(TeaModel):
     def __init__(self, dbinstance_id=None, end_time=None, resource_group_id=None, start_time=None):
         # The ID of the instance.
         # 
-        # >  You can call the [DescribeDBInstances](~~86911~~) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         # The end time of the maintenance window. The end time must be later than the start time. Specify the time in the HH:mmZ format. The time must be in UTC.
+        # 
+        # This parameter is required.
         self.end_time = end_time  # type: str
         # This parameter is no longer used.
         self.resource_group_id = resource_group_id  # type: str
         # The start time of the maintenance window. Specify the time in the HH:mmZ format. The time must be in UTC.
+        # 
+        # This parameter is required.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -18397,13 +27535,17 @@ class ModifyDBInstanceResourceGroupRequest(TeaModel):
                  resource_group_id=None, resource_owner_account=None, resource_owner_id=None):
         # The ID of the instance.
         # 
-        # >  You can call the [DescribeDBInstances](~~86911~~) operation to query the instance IDs of all AnalyticDB for PostgreSQL instances in a specific region.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the instance IDs of all AnalyticDB for PostgreSQL instances in a specific region.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
-        # The ID of the resource group to which you want to move the instance. For more information about how to obtain the ID of a resource group, see [View basic information of a resource group](~~151181~~).
+        # The ID of the resource group to which you want to move the instance. For more information about how to obtain the ID of a resource group, see [View basic information of a resource group](https://help.aliyun.com/document_detail/151181.html).
+        # 
+        # This parameter is required.
         self.new_resource_group_id = new_resource_group_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The ID of the resource group to which the instance belongs. For more information about how to obtain the ID of a resource group, see [View basic information of a resource group](~~151181~~).
+        # The ID of the resource group to which the instance belongs. For more information about how to obtain the ID of a resource group, see [View basic information of a resource group](https://help.aliyun.com/document_detail/151181.html).
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -18518,12 +27660,16 @@ class ModifyDBInstanceSSLRequest(TeaModel):
         # The encrypted endpoint. By default, the wildcards are used for instances that are hosted on ECS instances. This way, the endpoints that can be resolved to the same IP address are encrypted.
         self.connection_string = connection_string  # type: str
         # The ID of the instance.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         # The status of SSL encryption. Valid values:
         # 
         # *   0: disables SSL encryption.
         # *   1: enables SSL encryption.
         # *   2: updates SSL encryption.
+        # 
+        # This parameter is required.
         self.sslenabled = sslenabled  # type: int
 
     def validate(self):
@@ -18615,11 +27761,641 @@ class ModifyDBInstanceSSLResponse(TeaModel):
         return self
 
 
+class ModifyDBResourceGroupRequestResourceGroupItems(TeaModel):
+    def __init__(self, resource_group_config=None, resource_group_name=None):
+        # The configurations of the resource group to which you want to modify.
+        # 
+        # > 
+        # 
+        # *   CpuRateLimit: the percentage of CPU resources that are available for the resource group. Unit: %.
+        # 
+        # *   MemoryLimit: the percentage of memory resources that are available for the resource group. Unit: %.
+        # 
+        # *   MemorySharedQuota: the percentage of memory resources shared among transactions that are submitted to the resource group. Unit: %. Default value: 80.
+        # 
+        # *   MemorySpillRatio: the memory spill ratio for memory-intensive transactions. When the memory that is used by memory-intensive transactions reaches this value, data is spilled to disks. Unit: %. Default value: 0.
+        # 
+        # *   Concurrency: the maximum number of concurrent transactions or parallel queries that are allowed for a resource group. Default value: 20.
+        # 
+        # This parameter is required.
+        self.resource_group_config = resource_group_config  # type: str
+        # The name of the resource group.
+        # 
+        # This parameter is required.
+        self.resource_group_name = resource_group_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyDBResourceGroupRequestResourceGroupItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.resource_group_config is not None:
+            result['ResourceGroupConfig'] = self.resource_group_config
+        if self.resource_group_name is not None:
+            result['ResourceGroupName'] = self.resource_group_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ResourceGroupConfig') is not None:
+            self.resource_group_config = m.get('ResourceGroupConfig')
+        if m.get('ResourceGroupName') is not None:
+            self.resource_group_name = m.get('ResourceGroupName')
+        return self
+
+
+class ModifyDBResourceGroupRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, owner_id=None, resource_group_items=None):
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.owner_id = owner_id  # type: long
+        # The information about the resource group.
+        # 
+        # This parameter is required.
+        self.resource_group_items = resource_group_items  # type: list[ModifyDBResourceGroupRequestResourceGroupItems]
+
+    def validate(self):
+        if self.resource_group_items:
+            for k in self.resource_group_items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ModifyDBResourceGroupRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        result['ResourceGroupItems'] = []
+        if self.resource_group_items is not None:
+            for k in self.resource_group_items:
+                result['ResourceGroupItems'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        self.resource_group_items = []
+        if m.get('ResourceGroupItems') is not None:
+            for k in m.get('ResourceGroupItems'):
+                temp_model = ModifyDBResourceGroupRequestResourceGroupItems()
+                self.resource_group_items.append(temp_model.from_map(k))
+        return self
+
+
+class ModifyDBResourceGroupShrinkRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, owner_id=None, resource_group_items_shrink=None):
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.owner_id = owner_id  # type: long
+        # The information about the resource group.
+        # 
+        # This parameter is required.
+        self.resource_group_items_shrink = resource_group_items_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyDBResourceGroupShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_group_items_shrink is not None:
+            result['ResourceGroupItems'] = self.resource_group_items_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceGroupItems') is not None:
+            self.resource_group_items_shrink = m.get('ResourceGroupItems')
+        return self
+
+
+class ModifyDBResourceGroupResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        # The request ID.
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyDBResourceGroupResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ModifyDBResourceGroupResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ModifyDBResourceGroupResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyDBResourceGroupResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ModifyDBResourceGroupResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ModifyExternalDataServiceRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, region_id=None, service_description=None, service_id=None,
+                 service_spec=None):
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        # The region ID.
+        # 
+        # >  You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        # The description of the service.
+        self.service_description = service_description  # type: str
+        # This parameter is required.
+        self.service_id = service_id  # type: str
+        # The specifications of the service. Unit: compute units (CUs). Valid values:
+        # 
+        # *   8
+        # 
+        # This parameter is required.
+        self.service_spec = service_spec  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyExternalDataServiceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.service_description is not None:
+            result['ServiceDescription'] = self.service_description
+        if self.service_id is not None:
+            result['ServiceId'] = self.service_id
+        if self.service_spec is not None:
+            result['ServiceSpec'] = self.service_spec
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ServiceDescription') is not None:
+            self.service_description = m.get('ServiceDescription')
+        if m.get('ServiceId') is not None:
+            self.service_id = m.get('ServiceId')
+        if m.get('ServiceSpec') is not None:
+            self.service_spec = m.get('ServiceSpec')
+        return self
+
+
+class ModifyExternalDataServiceResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyExternalDataServiceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ModifyExternalDataServiceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ModifyExternalDataServiceResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyExternalDataServiceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ModifyExternalDataServiceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ModifyHadoopDataSourceRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, data_source_description=None, data_source_id=None,
+                 data_source_type=None, emr_instance_id=None, hdfsconf=None, hadoop_core_conf=None, hadoop_create_type=None,
+                 hadoop_hosts_address=None, hive_conf=None, map_reduce_conf=None, region_id=None, yarn_conf=None):
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.data_source_description = data_source_description  # type: str
+        # The data source ID.
+        self.data_source_id = data_source_id  # type: str
+        # The type of the data source. Valid values:
+        # 
+        # *   mysql
+        # 
+        # - postgresql
+        # 
+        # *   hdfs
+        # 
+        # - hive
+        self.data_source_type = data_source_type  # type: str
+        self.emr_instance_id = emr_instance_id  # type: str
+        # The content of the Hadoop hdfs-site.xml file. This parameter must be specified when DataSourceType is set to HDFS.
+        self.hdfsconf = hdfsconf  # type: str
+        # The content of the Hadoop core-site.xml file.
+        self.hadoop_core_conf = hadoop_core_conf  # type: str
+        # The type of the external service. Valid values:
+        # 
+        # *   emr: E-MapReduce (EMR) Hadoop cluster.
+        # *   selfCreate: self-managed Hadoop cluster.
+        self.hadoop_create_type = hadoop_create_type  # type: str
+        # The IP address and hostname of the Hadoop cluster (data source) in the /etc/hosts file.
+        self.hadoop_hosts_address = hadoop_hosts_address  # type: str
+        # The content of the Hadoop hive-site.xml file. This parameter must be specified when DataSourceType is set to Hive.
+        self.hive_conf = hive_conf  # type: str
+        # The content of the Hadoop mapred-site.xml file. This parameter must be specified when DataSourceType is set to HDFS.
+        self.map_reduce_conf = map_reduce_conf  # type: str
+        # The region ID.
+        # 
+        # >  You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        # The content of the Hadoop yarn-site.xml file. This parameter must be specified when DataSourceType is set to HDFS.
+        self.yarn_conf = yarn_conf  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyHadoopDataSourceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.data_source_description is not None:
+            result['DataSourceDescription'] = self.data_source_description
+        if self.data_source_id is not None:
+            result['DataSourceId'] = self.data_source_id
+        if self.data_source_type is not None:
+            result['DataSourceType'] = self.data_source_type
+        if self.emr_instance_id is not None:
+            result['EmrInstanceId'] = self.emr_instance_id
+        if self.hdfsconf is not None:
+            result['HDFSConf'] = self.hdfsconf
+        if self.hadoop_core_conf is not None:
+            result['HadoopCoreConf'] = self.hadoop_core_conf
+        if self.hadoop_create_type is not None:
+            result['HadoopCreateType'] = self.hadoop_create_type
+        if self.hadoop_hosts_address is not None:
+            result['HadoopHostsAddress'] = self.hadoop_hosts_address
+        if self.hive_conf is not None:
+            result['HiveConf'] = self.hive_conf
+        if self.map_reduce_conf is not None:
+            result['MapReduceConf'] = self.map_reduce_conf
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.yarn_conf is not None:
+            result['YarnConf'] = self.yarn_conf
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('DataSourceDescription') is not None:
+            self.data_source_description = m.get('DataSourceDescription')
+        if m.get('DataSourceId') is not None:
+            self.data_source_id = m.get('DataSourceId')
+        if m.get('DataSourceType') is not None:
+            self.data_source_type = m.get('DataSourceType')
+        if m.get('EmrInstanceId') is not None:
+            self.emr_instance_id = m.get('EmrInstanceId')
+        if m.get('HDFSConf') is not None:
+            self.hdfsconf = m.get('HDFSConf')
+        if m.get('HadoopCoreConf') is not None:
+            self.hadoop_core_conf = m.get('HadoopCoreConf')
+        if m.get('HadoopCreateType') is not None:
+            self.hadoop_create_type = m.get('HadoopCreateType')
+        if m.get('HadoopHostsAddress') is not None:
+            self.hadoop_hosts_address = m.get('HadoopHostsAddress')
+        if m.get('HiveConf') is not None:
+            self.hive_conf = m.get('HiveConf')
+        if m.get('MapReduceConf') is not None:
+            self.map_reduce_conf = m.get('MapReduceConf')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('YarnConf') is not None:
+            self.yarn_conf = m.get('YarnConf')
+        return self
+
+
+class ModifyHadoopDataSourceResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyHadoopDataSourceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ModifyHadoopDataSourceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ModifyHadoopDataSourceResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyHadoopDataSourceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ModifyHadoopDataSourceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ModifyJDBCDataSourceRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, data_source_description=None, data_source_id=None,
+                 data_source_type=None, jdbcconnection_string=None, jdbcpassword=None, jdbcuser_name=None, region_id=None):
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.data_source_description = data_source_description  # type: str
+        # This parameter is required.
+        self.data_source_id = data_source_id  # type: str
+        self.data_source_type = data_source_type  # type: str
+        # The JDBC connection string.
+        self.jdbcconnection_string = jdbcconnection_string  # type: str
+        # The password of the database account.
+        self.jdbcpassword = jdbcpassword  # type: str
+        # The name of the database account.
+        self.jdbcuser_name = jdbcuser_name  # type: str
+        # The region ID of the instance.
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyJDBCDataSourceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.data_source_description is not None:
+            result['DataSourceDescription'] = self.data_source_description
+        if self.data_source_id is not None:
+            result['DataSourceId'] = self.data_source_id
+        if self.data_source_type is not None:
+            result['DataSourceType'] = self.data_source_type
+        if self.jdbcconnection_string is not None:
+            result['JDBCConnectionString'] = self.jdbcconnection_string
+        if self.jdbcpassword is not None:
+            result['JDBCPassword'] = self.jdbcpassword
+        if self.jdbcuser_name is not None:
+            result['JDBCUserName'] = self.jdbcuser_name
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('DataSourceDescription') is not None:
+            self.data_source_description = m.get('DataSourceDescription')
+        if m.get('DataSourceId') is not None:
+            self.data_source_id = m.get('DataSourceId')
+        if m.get('DataSourceType') is not None:
+            self.data_source_type = m.get('DataSourceType')
+        if m.get('JDBCConnectionString') is not None:
+            self.jdbcconnection_string = m.get('JDBCConnectionString')
+        if m.get('JDBCPassword') is not None:
+            self.jdbcpassword = m.get('JDBCPassword')
+        if m.get('JDBCUserName') is not None:
+            self.jdbcuser_name = m.get('JDBCUserName')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ModifyJDBCDataSourceResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyJDBCDataSourceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ModifyJDBCDataSourceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ModifyJDBCDataSourceResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyJDBCDataSourceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ModifyJDBCDataSourceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ModifyMasterSpecRequest(TeaModel):
     def __init__(self, dbinstance_description=None, dbinstance_id=None, master_cu=None, resource_group_id=None):
+        # The description of the instance.
         self.dbinstance_description = dbinstance_description  # type: str
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the IDs of all AnalyticDB for PostgreSQL instances in a region.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
+        # The specifications of coordinator node resources. Valid values:
+        # 
+        # *   2 CU
+        # *   4 CU
+        # *   8 CU
+        # *   16 CU
+        # *   32 CU
+        # 
+        # >  You are charged for coordinator node resources of more than 8 compute units (CUs).
+        # 
+        # This parameter is required.
         self.master_cu = master_cu  # type: int
+        # The ID of the resource group to which the instance belongs. For information about how to obtain the ID of a resource group, see [View basic information of a resource group](https://help.aliyun.com/document_detail/151181.html).
         self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
@@ -18656,9 +28432,18 @@ class ModifyMasterSpecRequest(TeaModel):
 
 class ModifyMasterSpecResponseBody(TeaModel):
     def __init__(self, db_instance_id=None, error_message=None, request_id=None, status=None):
+        # The instance ID.
         self.db_instance_id = db_instance_id  # type: str
+        # The returned message.
+        # 
+        # This parameter is returned only if the request fails.
         self.error_message = error_message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **false**\
+        # *   **true**\
         self.status = status  # type: bool
 
     def validate(self):
@@ -18733,7 +28518,9 @@ class ModifyParametersRequest(TeaModel):
     def __init__(self, dbinstance_id=None, force_restart_instance=None, parameters=None):
         # The ID of the instance.
         # 
-        # >  You can call the [DescribeDBInstances](~~86911~~) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         # Specifies whether to forcibly restart the instance. Valid values:
         # 
@@ -18742,7 +28529,9 @@ class ModifyParametersRequest(TeaModel):
         self.force_restart_instance = force_restart_instance  # type: bool
         # The name and value of the parameter to be modified. Specify the parameter in the `<Parameter name>:<Parameter value>` format.
         # 
-        # You can call the [DescribeParameters](~~208310~~) operation to query the parameters that can be modified.
+        # You can call the [DescribeParameters](https://help.aliyun.com/document_detail/208310.html) operation to query the parameters that can be modified.
+        # 
+        # This parameter is required.
         self.parameters = parameters  # type: str
 
     def validate(self):
@@ -18837,11 +28626,15 @@ class ModifyParametersResponse(TeaModel):
 class ModifySQLCollectorPolicyRequest(TeaModel):
     def __init__(self, dbinstance_id=None, sqlcollector_status=None):
         # The ID of the instance.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         # Specifies whether to enable or disable SQL collection.
         # 
         # *   Enable: enables SQL collection.
         # *   Disabled: disables SQL collection.
+        # 
+        # This parameter is required.
         self.sqlcollector_status = sqlcollector_status  # type: str
 
     def validate(self):
@@ -18940,7 +28733,9 @@ class ModifySecurityIpsRequest(TeaModel):
         self.dbinstance_iparray_name = dbinstance_iparray_name  # type: str
         # The ID of the instance.
         # 
-        # >  You can call the [DescribeDBInstances](~~86911~~) operation to query the instance IDs of all AnalyticDB for PostgreSQL instances in a specific region.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the instance IDs of all AnalyticDB for PostgreSQL instances in a specific region.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         # The method of modification. Valid values:
         # 
@@ -18948,13 +28743,15 @@ class ModifySecurityIpsRequest(TeaModel):
         # *   **Append**: appends data to the whitelist.
         # *   **Delete**: deletes the whitelist.
         self.modify_mode = modify_mode  # type: str
-        # The ID of the resource group to which the instance belongs. For more information about how to obtain the ID of a resource group, see [View basic information of a resource group](~~151181~~).
+        # The ID of the resource group to which the instance belongs. For more information about how to obtain the ID of a resource group, see [View basic information of a resource group](https://help.aliyun.com/document_detail/151181.html).
         self.resource_group_id = resource_group_id  # type: str
         # The IP addresses listed in the whitelist. You can add up to 1,000 IP addresses to the whitelist. Separate multiple IP addresses with commas (,). The IP addresses must use one of the following formats:
         # 
         # *   0.0.0.0/0
         # *   10.23.12.24. This is a standard IP address.
         # *   10.23.12.24/24. This is a CIDR block. The value `/24` indicates that the prefix of the CIDR block is 24-bit long. You can replace 24 with a value in the range of `1 to 32`.
+        # 
+        # This parameter is required.
         self.security_iplist = security_iplist  # type: str
 
     def validate(self):
@@ -19058,11 +28855,624 @@ class ModifySecurityIpsResponse(TeaModel):
         return self
 
 
+class ModifyStreamingDataServiceRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, region_id=None, service_description=None, service_id=None,
+                 service_spec=None):
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/196830.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.region_id = region_id  # type: str
+        # The description of the service.
+        self.service_description = service_description  # type: str
+        # The service ID.
+        # 
+        # This parameter is required.
+        self.service_id = service_id  # type: str
+        # The specifications of the service. Unit: capacity units (CUs). Valid values:
+        # 
+        # *   2
+        # *   4
+        # *   8
+        # *   16
+        # 
+        # This parameter is required.
+        self.service_spec = service_spec  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyStreamingDataServiceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.service_description is not None:
+            result['ServiceDescription'] = self.service_description
+        if self.service_id is not None:
+            result['ServiceId'] = self.service_id
+        if self.service_spec is not None:
+            result['ServiceSpec'] = self.service_spec
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ServiceDescription') is not None:
+            self.service_description = m.get('ServiceDescription')
+        if m.get('ServiceId') is not None:
+            self.service_id = m.get('ServiceId')
+        if m.get('ServiceSpec') is not None:
+            self.service_spec = m.get('ServiceSpec')
+        return self
+
+
+class ModifyStreamingDataServiceResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        # The request ID.
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyStreamingDataServiceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ModifyStreamingDataServiceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ModifyStreamingDataServiceResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyStreamingDataServiceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ModifyStreamingDataServiceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ModifyStreamingDataSourceRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, data_source_config=None, data_source_description=None,
+                 data_source_id=None, region_id=None):
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/196830.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        # The configurations of the data source.
+        self.data_source_config = data_source_config  # type: str
+        # The description of the data source.
+        self.data_source_description = data_source_description  # type: str
+        # The data source ID.
+        # 
+        # This parameter is required.
+        self.data_source_id = data_source_id  # type: str
+        # The region ID.
+        # 
+        # >  You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyStreamingDataSourceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.data_source_config is not None:
+            result['DataSourceConfig'] = self.data_source_config
+        if self.data_source_description is not None:
+            result['DataSourceDescription'] = self.data_source_description
+        if self.data_source_id is not None:
+            result['DataSourceId'] = self.data_source_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('DataSourceConfig') is not None:
+            self.data_source_config = m.get('DataSourceConfig')
+        if m.get('DataSourceDescription') is not None:
+            self.data_source_description = m.get('DataSourceDescription')
+        if m.get('DataSourceId') is not None:
+            self.data_source_id = m.get('DataSourceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ModifyStreamingDataSourceResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        # The request ID.
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyStreamingDataSourceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ModifyStreamingDataSourceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ModifyStreamingDataSourceResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyStreamingDataSourceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ModifyStreamingDataSourceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ModifyStreamingJobRequest(TeaModel):
+    def __init__(self, account=None, consistency=None, dbinstance_id=None, dest_columns=None, dest_database=None,
+                 dest_schema=None, dest_table=None, error_limit_count=None, fallback_offset=None, group_name=None,
+                 job_config=None, job_description=None, job_id=None, match_columns=None, password=None, region_id=None,
+                 src_columns=None, try_run=None, update_columns=None, write_mode=None):
+        # The name of the database account.
+        self.account = account  # type: str
+        # The delivery guarantee setting.
+        # 
+        # Valid values:
+        # 
+        # *   ATLEAST
+        # *   EXACTLY
+        self.consistency = consistency  # type: str
+        # The instance ID.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        # The destination fields.
+        self.dest_columns = dest_columns  # type: list[str]
+        # The name of the destination database.
+        self.dest_database = dest_database  # type: str
+        self.dest_schema = dest_schema  # type: str
+        # The name of the destination table.
+        self.dest_table = dest_table  # type: str
+        self.error_limit_count = error_limit_count  # type: long
+        self.fallback_offset = fallback_offset  # type: str
+        self.group_name = group_name  # type: str
+        # The YAML configuration file of the job. This parameter must be specified when Mode is set to professional.
+        self.job_config = job_config  # type: str
+        # The description of the job.
+        self.job_description = job_description  # type: str
+        # The job ID.
+        # 
+        # This parameter is required.
+        self.job_id = job_id  # type: long
+        self.match_columns = match_columns  # type: list[str]
+        # The password of the database account.
+        self.password = password  # type: str
+        self.region_id = region_id  # type: str
+        # The source fields.
+        self.src_columns = src_columns  # type: list[str]
+        # Specifies whether to test the real-time job. Valid values:
+        # 
+        # *   true
+        # *   false
+        # 
+        # Default value: false.
+        self.try_run = try_run  # type: bool
+        self.update_columns = update_columns  # type: list[str]
+        # The write mode.
+        # 
+        # Valid values:
+        # 
+        # *   insert
+        # *   update
+        # *   merge
+        self.write_mode = write_mode  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyStreamingJobRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account is not None:
+            result['Account'] = self.account
+        if self.consistency is not None:
+            result['Consistency'] = self.consistency
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.dest_columns is not None:
+            result['DestColumns'] = self.dest_columns
+        if self.dest_database is not None:
+            result['DestDatabase'] = self.dest_database
+        if self.dest_schema is not None:
+            result['DestSchema'] = self.dest_schema
+        if self.dest_table is not None:
+            result['DestTable'] = self.dest_table
+        if self.error_limit_count is not None:
+            result['ErrorLimitCount'] = self.error_limit_count
+        if self.fallback_offset is not None:
+            result['FallbackOffset'] = self.fallback_offset
+        if self.group_name is not None:
+            result['GroupName'] = self.group_name
+        if self.job_config is not None:
+            result['JobConfig'] = self.job_config
+        if self.job_description is not None:
+            result['JobDescription'] = self.job_description
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        if self.match_columns is not None:
+            result['MatchColumns'] = self.match_columns
+        if self.password is not None:
+            result['Password'] = self.password
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.src_columns is not None:
+            result['SrcColumns'] = self.src_columns
+        if self.try_run is not None:
+            result['TryRun'] = self.try_run
+        if self.update_columns is not None:
+            result['UpdateColumns'] = self.update_columns
+        if self.write_mode is not None:
+            result['WriteMode'] = self.write_mode
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Account') is not None:
+            self.account = m.get('Account')
+        if m.get('Consistency') is not None:
+            self.consistency = m.get('Consistency')
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('DestColumns') is not None:
+            self.dest_columns = m.get('DestColumns')
+        if m.get('DestDatabase') is not None:
+            self.dest_database = m.get('DestDatabase')
+        if m.get('DestSchema') is not None:
+            self.dest_schema = m.get('DestSchema')
+        if m.get('DestTable') is not None:
+            self.dest_table = m.get('DestTable')
+        if m.get('ErrorLimitCount') is not None:
+            self.error_limit_count = m.get('ErrorLimitCount')
+        if m.get('FallbackOffset') is not None:
+            self.fallback_offset = m.get('FallbackOffset')
+        if m.get('GroupName') is not None:
+            self.group_name = m.get('GroupName')
+        if m.get('JobConfig') is not None:
+            self.job_config = m.get('JobConfig')
+        if m.get('JobDescription') is not None:
+            self.job_description = m.get('JobDescription')
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        if m.get('MatchColumns') is not None:
+            self.match_columns = m.get('MatchColumns')
+        if m.get('Password') is not None:
+            self.password = m.get('Password')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('SrcColumns') is not None:
+            self.src_columns = m.get('SrcColumns')
+        if m.get('TryRun') is not None:
+            self.try_run = m.get('TryRun')
+        if m.get('UpdateColumns') is not None:
+            self.update_columns = m.get('UpdateColumns')
+        if m.get('WriteMode') is not None:
+            self.write_mode = m.get('WriteMode')
+        return self
+
+
+class ModifyStreamingJobShrinkRequest(TeaModel):
+    def __init__(self, account=None, consistency=None, dbinstance_id=None, dest_columns_shrink=None,
+                 dest_database=None, dest_schema=None, dest_table=None, error_limit_count=None, fallback_offset=None,
+                 group_name=None, job_config=None, job_description=None, job_id=None, match_columns_shrink=None, password=None,
+                 region_id=None, src_columns_shrink=None, try_run=None, update_columns_shrink=None, write_mode=None):
+        # The name of the database account.
+        self.account = account  # type: str
+        # The delivery guarantee setting.
+        # 
+        # Valid values:
+        # 
+        # *   ATLEAST
+        # *   EXACTLY
+        self.consistency = consistency  # type: str
+        # The instance ID.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        # The destination fields.
+        self.dest_columns_shrink = dest_columns_shrink  # type: str
+        # The name of the destination database.
+        self.dest_database = dest_database  # type: str
+        self.dest_schema = dest_schema  # type: str
+        # The name of the destination table.
+        self.dest_table = dest_table  # type: str
+        self.error_limit_count = error_limit_count  # type: long
+        self.fallback_offset = fallback_offset  # type: str
+        self.group_name = group_name  # type: str
+        # The YAML configuration file of the job. This parameter must be specified when Mode is set to professional.
+        self.job_config = job_config  # type: str
+        # The description of the job.
+        self.job_description = job_description  # type: str
+        # The job ID.
+        # 
+        # This parameter is required.
+        self.job_id = job_id  # type: long
+        self.match_columns_shrink = match_columns_shrink  # type: str
+        # The password of the database account.
+        self.password = password  # type: str
+        self.region_id = region_id  # type: str
+        # The source fields.
+        self.src_columns_shrink = src_columns_shrink  # type: str
+        # Specifies whether to test the real-time job. Valid values:
+        # 
+        # *   true
+        # *   false
+        # 
+        # Default value: false.
+        self.try_run = try_run  # type: bool
+        self.update_columns_shrink = update_columns_shrink  # type: str
+        # The write mode.
+        # 
+        # Valid values:
+        # 
+        # *   insert
+        # *   update
+        # *   merge
+        self.write_mode = write_mode  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyStreamingJobShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account is not None:
+            result['Account'] = self.account
+        if self.consistency is not None:
+            result['Consistency'] = self.consistency
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.dest_columns_shrink is not None:
+            result['DestColumns'] = self.dest_columns_shrink
+        if self.dest_database is not None:
+            result['DestDatabase'] = self.dest_database
+        if self.dest_schema is not None:
+            result['DestSchema'] = self.dest_schema
+        if self.dest_table is not None:
+            result['DestTable'] = self.dest_table
+        if self.error_limit_count is not None:
+            result['ErrorLimitCount'] = self.error_limit_count
+        if self.fallback_offset is not None:
+            result['FallbackOffset'] = self.fallback_offset
+        if self.group_name is not None:
+            result['GroupName'] = self.group_name
+        if self.job_config is not None:
+            result['JobConfig'] = self.job_config
+        if self.job_description is not None:
+            result['JobDescription'] = self.job_description
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        if self.match_columns_shrink is not None:
+            result['MatchColumns'] = self.match_columns_shrink
+        if self.password is not None:
+            result['Password'] = self.password
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.src_columns_shrink is not None:
+            result['SrcColumns'] = self.src_columns_shrink
+        if self.try_run is not None:
+            result['TryRun'] = self.try_run
+        if self.update_columns_shrink is not None:
+            result['UpdateColumns'] = self.update_columns_shrink
+        if self.write_mode is not None:
+            result['WriteMode'] = self.write_mode
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Account') is not None:
+            self.account = m.get('Account')
+        if m.get('Consistency') is not None:
+            self.consistency = m.get('Consistency')
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('DestColumns') is not None:
+            self.dest_columns_shrink = m.get('DestColumns')
+        if m.get('DestDatabase') is not None:
+            self.dest_database = m.get('DestDatabase')
+        if m.get('DestSchema') is not None:
+            self.dest_schema = m.get('DestSchema')
+        if m.get('DestTable') is not None:
+            self.dest_table = m.get('DestTable')
+        if m.get('ErrorLimitCount') is not None:
+            self.error_limit_count = m.get('ErrorLimitCount')
+        if m.get('FallbackOffset') is not None:
+            self.fallback_offset = m.get('FallbackOffset')
+        if m.get('GroupName') is not None:
+            self.group_name = m.get('GroupName')
+        if m.get('JobConfig') is not None:
+            self.job_config = m.get('JobConfig')
+        if m.get('JobDescription') is not None:
+            self.job_description = m.get('JobDescription')
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        if m.get('MatchColumns') is not None:
+            self.match_columns_shrink = m.get('MatchColumns')
+        if m.get('Password') is not None:
+            self.password = m.get('Password')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('SrcColumns') is not None:
+            self.src_columns_shrink = m.get('SrcColumns')
+        if m.get('TryRun') is not None:
+            self.try_run = m.get('TryRun')
+        if m.get('UpdateColumns') is not None:
+            self.update_columns_shrink = m.get('UpdateColumns')
+        if m.get('WriteMode') is not None:
+            self.write_mode = m.get('WriteMode')
+        return self
+
+
+class ModifyStreamingJobResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        # The request ID.
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyStreamingJobResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ModifyStreamingJobResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ModifyStreamingJobResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyStreamingJobResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ModifyStreamingJobResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ModifyVectorConfigurationRequest(TeaModel):
     def __init__(self, dbinstance_id=None, owner_id=None, vector_configuration_status=None):
         # The instance ID.
         # 
-        # >  You can call the [DescribeDBInstances](~~86911~~) operation to query the IDs of all AnalyticDB for PostgreSQL instances in a region.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the IDs of all AnalyticDB for PostgreSQL instances in a region.
         self.dbinstance_id = dbinstance_id  # type: str
         self.owner_id = owner_id  # type: long
         # Specifies whether to enable vector engine optimization. Valid values:
@@ -19186,11 +29596,108 @@ class ModifyVectorConfigurationResponse(TeaModel):
         return self
 
 
+class PauseDataRedistributeRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, owner_id=None):
+        # The cluster ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.owner_id = owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PauseDataRedistributeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        return self
+
+
+class PauseDataRedistributeResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        # The request ID.
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PauseDataRedistributeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class PauseDataRedistributeResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: PauseDataRedistributeResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(PauseDataRedistributeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = PauseDataRedistributeResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class PauseInstanceRequest(TeaModel):
     def __init__(self, dbinstance_id=None, owner_id=None):
         # The ID of the instance.
         # 
-        # >  You can call the [DescribeDBInstances](~~86911~~) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         self.owner_id = owner_id  # type: long
 
@@ -19302,30 +29809,154 @@ class PauseInstanceResponse(TeaModel):
         return self
 
 
-class QueryCollectionDataRequest(TeaModel):
-    def __init__(self, collection=None, content=None, dbinstance_id=None, filter=None, hybrid_search=None,
-                 hybrid_search_args=None, include_metadata_fields=None, include_values=None, metrics=None, namespace=None,
-                 namespace_password=None, offset=None, order_by=None, owner_id=None, region_id=None, top_k=None, vector=None):
-        self.collection = collection  # type: str
-        self.content = content  # type: str
-        self.dbinstance_id = dbinstance_id  # type: str
-        self.filter = filter  # type: str
-        self.hybrid_search = hybrid_search  # type: str
-        self.hybrid_search_args = hybrid_search_args  # type: dict[str, dict]
-        self.include_metadata_fields = include_metadata_fields  # type: str
-        self.include_values = include_values  # type: bool
-        self.metrics = metrics  # type: str
-        self.namespace = namespace  # type: str
-        self.namespace_password = namespace_password  # type: str
-        self.offset = offset  # type: int
-        self.order_by = order_by  # type: str
-        self.owner_id = owner_id  # type: long
-        self.region_id = region_id  # type: str
-        self.top_k = top_k  # type: long
-        self.vector = vector  # type: list[float]
+class QueryCollectionDataRequestRelationalTableFilter(TeaModel):
+    def __init__(self, collection_metadata_field=None, condition=None, table_field=None, table_name=None):
+        self.collection_metadata_field = collection_metadata_field  # type: str
+        self.condition = condition  # type: str
+        self.table_field = table_field  # type: str
+        self.table_name = table_name  # type: str
 
     def validate(self):
         pass
+
+    def to_map(self):
+        _map = super(QueryCollectionDataRequestRelationalTableFilter, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.collection_metadata_field is not None:
+            result['CollectionMetadataField'] = self.collection_metadata_field
+        if self.condition is not None:
+            result['Condition'] = self.condition
+        if self.table_field is not None:
+            result['TableField'] = self.table_field
+        if self.table_name is not None:
+            result['TableName'] = self.table_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CollectionMetadataField') is not None:
+            self.collection_metadata_field = m.get('CollectionMetadataField')
+        if m.get('Condition') is not None:
+            self.condition = m.get('Condition')
+        if m.get('TableField') is not None:
+            self.table_field = m.get('TableField')
+        if m.get('TableName') is not None:
+            self.table_name = m.get('TableName')
+        return self
+
+
+class QueryCollectionDataRequest(TeaModel):
+    def __init__(self, collection=None, content=None, dbinstance_id=None, filter=None, hybrid_search=None,
+                 hybrid_search_args=None, include_metadata_fields=None, include_values=None, metrics=None, namespace=None,
+                 namespace_password=None, offset=None, order_by=None, owner_id=None, region_id=None, relational_table_filter=None,
+                 top_k=None, vector=None, workspace_id=None):
+        # The name of the collection.
+        # 
+        # >  You can call the [ListCollections](https://help.aliyun.com/document_detail/2401503.html) operation to query a list of collections.
+        # 
+        # This parameter is required.
+        self.collection = collection  # type: str
+        # The content that is used for full-text search. If you leave this parameter empty, only vector search is used. If you do not leave this parameter empty, two-way retrieval based on vector search and full-text search is used.
+        # 
+        # >  You must specify at least one of the Content and Vector parameters.
+        self.content = content  # type: str
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        self.dbinstance_id = dbinstance_id  # type: str
+        # The filter condition that is used to query data. Specify the parameter in the WHERE clause format. The parameter is an expression that returns a Boolean value of TRUE or FALSE. The parameter can contain comparison operators, such as Equal To (=), Not Equal To (<> or !=), Greater Than (>), Less Than (<), Greater Than or Equal To (>=), and Less Than or Equal To (<=), logical operators, such as AND, OR, and NOT, and keywords, such as IN, BETWEEN, and LIKE.
+        # 
+        # > 
+        # 
+        # *   For more information, see https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-where/.
+        self.filter = filter  # type: str
+        # The two-way retrieval algorithm. This parameter is empty by default, which specifies that scores of vector search and full-text search are directly compared and sorted without additional weighting or adjustments.
+        # 
+        # Valid values:
+        # 
+        # *   RRF: The reciprocal rank fusion (RRF) algorithm uses a constant k to control the fusion effect. For more information, see the description of the HybridSearchArgs parameter.
+        # *   Weight: This algorithm uses the alpha parameter to specify the proportion of the vector search score and the full-text search score and then sorts by weight. For more information, see the description of the HybridSearchArgs parameter.
+        # *   Cascaded: This algorithm performs first full-text search and then vector search.
+        self.hybrid_search = hybrid_search  # type: str
+        # The parameters of the two-way retrieval algorithm. The following parameters are supported:
+        # 
+        # *   When HybridSearch is set to RRF, the scores are calculated by using the `1/(k+rank_i)` formula. The constant k is a positive integer that is greater than 1.
+        # 
+        # <!---->
+        # 
+        #     { 
+        #        "RRF": {
+        #         "k": 60
+        #        }
+        #     }
+        # 
+        # *   When HybridSearch is set to Weight, the scores are calculated by using the `alpha * vector_score + (1-alpha) * text_score` formula. The alpha parameter specifies the proportion of the vector search score and the full-text search score and ranges from 0 to 1. A value of 0 specifies full-text search and a value of 1 specifies vector search.
+        # 
+        # <!---->
+        # 
+        #     { 
+        #        "Weight": {
+        #         "alpha": 0.5
+        #        }
+        #     }
+        self.hybrid_search_args = hybrid_search_args  # type: dict[str, dict]
+        # The metadata fields to be returned. Separate multiple fields with commas (,). This parameter is empty by default.
+        self.include_metadata_fields = include_metadata_fields  # type: str
+        # Specifies whether to return vector data. Valid values:
+        # 
+        # *   **true**: returns vector data.
+        # *   **false**: does not return vector data. In full-text search scenarios, set this parameter to false.
+        self.include_values = include_values  # type: bool
+        # The similarity algorithm for search. Valid values:
+        # 
+        # *   **l2**: Euclidean distance.
+        # *   **ip**: inner product distance.
+        # *   **cosine**: cosine similarity.
+        # 
+        # >  If you leave this parameter empty, the l2, ip, or cosine algorithm that is specified when you create an index is used.
+        self.metrics = metrics  # type: str
+        # The name of the namespace.
+        # 
+        # >  You can call the [ListNamespaces](https://help.aliyun.com/document_detail/2401502.html) operation to query a list of namespaces.
+        self.namespace = namespace  # type: str
+        # This parameter is required.
+        self.namespace_password = namespace_password  # type: str
+        # The starting point for paginated queries. This parameter is empty by default. This parameter does not support two-way retrieval scenarios.
+        # 
+        # The value must be greater than or equal to 0. If you do not leave this parameter empty, the Total parameter is returned to indicate the total number of matched entries. You must specify this parameter and the TopK parameter in pairs. For example, to paginate 20 chunks at a time for a total of 45 chunks whose chunk_id values are 0 to 44, three requests are involved:
+        # 
+        # *   First request: Set the Offset value to 0 and the TopK value to 20. The chunks whose chunk_id values are 0 to 19 are returned.
+        # *   Second request: Set the Offset value to 20 and the TopK value to 20. The chunks whose chunk_id values are 20 to 39 are returned.
+        # *   Third request: Set the Offset value to 30 and the TopK value to 20. The chunks whose chunk_id values are 40 to 44 are returned.
+        self.offset = offset  # type: int
+        # The fields by which to sort the results. This parameter is empty by default. This parameter does not support two-way retrieval scenarios.
+        # 
+        # You must specify the default fields in the metadata or the table, such as id. You can specify the following number of fields:
+        # 
+        # *   One field, such as chunk_id.
+        # *   Multiple fields that are sorted in ascending order and separated by commas (,), such as block_id and chunk_id.
+        # *   Multiple fields that are sorted in descending order and separated by commas (,), such as block_id DESC, chunk_id DESC.
+        self.order_by = order_by  # type: str
+        self.owner_id = owner_id  # type: long
+        # The region ID of the instance.
+        # 
+        # This parameter is required.
+        self.region_id = region_id  # type: str
+        self.relational_table_filter = relational_table_filter  # type: QueryCollectionDataRequestRelationalTableFilter
+        # This parameter is required.
+        self.top_k = top_k  # type: long
+        # The vector data. The length of the value must be the same as that of the Dimension parameter in the [CreateCollection](https://help.aliyun.com/document_detail/2401497.html) operation.
+        # 
+        # >  If you leave this parameter empty, only full-text search results are returned.
+        self.vector = vector  # type: list[float]
+        self.workspace_id = workspace_id  # type: str
+
+    def validate(self):
+        if self.relational_table_filter:
+            self.relational_table_filter.validate()
 
     def to_map(self):
         _map = super(QueryCollectionDataRequest, self).to_map()
@@ -19363,10 +29994,14 @@ class QueryCollectionDataRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.relational_table_filter is not None:
+            result['RelationalTableFilter'] = self.relational_table_filter.to_map()
         if self.top_k is not None:
             result['TopK'] = self.top_k
         if self.vector is not None:
             result['Vector'] = self.vector
+        if self.workspace_id is not None:
+            result['WorkspaceId'] = self.workspace_id
         return result
 
     def from_map(self, m=None):
@@ -19401,34 +30036,123 @@ class QueryCollectionDataRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RelationalTableFilter') is not None:
+            temp_model = QueryCollectionDataRequestRelationalTableFilter()
+            self.relational_table_filter = temp_model.from_map(m['RelationalTableFilter'])
         if m.get('TopK') is not None:
             self.top_k = m.get('TopK')
         if m.get('Vector') is not None:
             self.vector = m.get('Vector')
+        if m.get('WorkspaceId') is not None:
+            self.workspace_id = m.get('WorkspaceId')
         return self
 
 
 class QueryCollectionDataShrinkRequest(TeaModel):
     def __init__(self, collection=None, content=None, dbinstance_id=None, filter=None, hybrid_search=None,
                  hybrid_search_args_shrink=None, include_metadata_fields=None, include_values=None, metrics=None, namespace=None,
-                 namespace_password=None, offset=None, order_by=None, owner_id=None, region_id=None, top_k=None, vector_shrink=None):
+                 namespace_password=None, offset=None, order_by=None, owner_id=None, region_id=None,
+                 relational_table_filter_shrink=None, top_k=None, vector_shrink=None, workspace_id=None):
+        # The name of the collection.
+        # 
+        # >  You can call the [ListCollections](https://help.aliyun.com/document_detail/2401503.html) operation to query a list of collections.
+        # 
+        # This parameter is required.
         self.collection = collection  # type: str
+        # The content that is used for full-text search. If you leave this parameter empty, only vector search is used. If you do not leave this parameter empty, two-way retrieval based on vector search and full-text search is used.
+        # 
+        # >  You must specify at least one of the Content and Vector parameters.
         self.content = content  # type: str
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
         self.dbinstance_id = dbinstance_id  # type: str
+        # The filter condition that is used to query data. Specify the parameter in the WHERE clause format. The parameter is an expression that returns a Boolean value of TRUE or FALSE. The parameter can contain comparison operators, such as Equal To (=), Not Equal To (<> or !=), Greater Than (>), Less Than (<), Greater Than or Equal To (>=), and Less Than or Equal To (<=), logical operators, such as AND, OR, and NOT, and keywords, such as IN, BETWEEN, and LIKE.
+        # 
+        # > 
+        # 
+        # *   For more information, see https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-where/.
         self.filter = filter  # type: str
+        # The two-way retrieval algorithm. This parameter is empty by default, which specifies that scores of vector search and full-text search are directly compared and sorted without additional weighting or adjustments.
+        # 
+        # Valid values:
+        # 
+        # *   RRF: The reciprocal rank fusion (RRF) algorithm uses a constant k to control the fusion effect. For more information, see the description of the HybridSearchArgs parameter.
+        # *   Weight: This algorithm uses the alpha parameter to specify the proportion of the vector search score and the full-text search score and then sorts by weight. For more information, see the description of the HybridSearchArgs parameter.
+        # *   Cascaded: This algorithm performs first full-text search and then vector search.
         self.hybrid_search = hybrid_search  # type: str
+        # The parameters of the two-way retrieval algorithm. The following parameters are supported:
+        # 
+        # *   When HybridSearch is set to RRF, the scores are calculated by using the `1/(k+rank_i)` formula. The constant k is a positive integer that is greater than 1.
+        # 
+        # <!---->
+        # 
+        #     { 
+        #        "RRF": {
+        #         "k": 60
+        #        }
+        #     }
+        # 
+        # *   When HybridSearch is set to Weight, the scores are calculated by using the `alpha * vector_score + (1-alpha) * text_score` formula. The alpha parameter specifies the proportion of the vector search score and the full-text search score and ranges from 0 to 1. A value of 0 specifies full-text search and a value of 1 specifies vector search.
+        # 
+        # <!---->
+        # 
+        #     { 
+        #        "Weight": {
+        #         "alpha": 0.5
+        #        }
+        #     }
         self.hybrid_search_args_shrink = hybrid_search_args_shrink  # type: str
+        # The metadata fields to be returned. Separate multiple fields with commas (,). This parameter is empty by default.
         self.include_metadata_fields = include_metadata_fields  # type: str
+        # Specifies whether to return vector data. Valid values:
+        # 
+        # *   **true**: returns vector data.
+        # *   **false**: does not return vector data. In full-text search scenarios, set this parameter to false.
         self.include_values = include_values  # type: bool
+        # The similarity algorithm for search. Valid values:
+        # 
+        # *   **l2**: Euclidean distance.
+        # *   **ip**: inner product distance.
+        # *   **cosine**: cosine similarity.
+        # 
+        # >  If you leave this parameter empty, the l2, ip, or cosine algorithm that is specified when you create an index is used.
         self.metrics = metrics  # type: str
+        # The name of the namespace.
+        # 
+        # >  You can call the [ListNamespaces](https://help.aliyun.com/document_detail/2401502.html) operation to query a list of namespaces.
         self.namespace = namespace  # type: str
+        # This parameter is required.
         self.namespace_password = namespace_password  # type: str
+        # The starting point for paginated queries. This parameter is empty by default. This parameter does not support two-way retrieval scenarios.
+        # 
+        # The value must be greater than or equal to 0. If you do not leave this parameter empty, the Total parameter is returned to indicate the total number of matched entries. You must specify this parameter and the TopK parameter in pairs. For example, to paginate 20 chunks at a time for a total of 45 chunks whose chunk_id values are 0 to 44, three requests are involved:
+        # 
+        # *   First request: Set the Offset value to 0 and the TopK value to 20. The chunks whose chunk_id values are 0 to 19 are returned.
+        # *   Second request: Set the Offset value to 20 and the TopK value to 20. The chunks whose chunk_id values are 20 to 39 are returned.
+        # *   Third request: Set the Offset value to 30 and the TopK value to 20. The chunks whose chunk_id values are 40 to 44 are returned.
         self.offset = offset  # type: int
+        # The fields by which to sort the results. This parameter is empty by default. This parameter does not support two-way retrieval scenarios.
+        # 
+        # You must specify the default fields in the metadata or the table, such as id. You can specify the following number of fields:
+        # 
+        # *   One field, such as chunk_id.
+        # *   Multiple fields that are sorted in ascending order and separated by commas (,), such as block_id and chunk_id.
+        # *   Multiple fields that are sorted in descending order and separated by commas (,), such as block_id DESC, chunk_id DESC.
         self.order_by = order_by  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the instance.
+        # 
+        # This parameter is required.
         self.region_id = region_id  # type: str
+        self.relational_table_filter_shrink = relational_table_filter_shrink  # type: str
+        # This parameter is required.
         self.top_k = top_k  # type: long
+        # The vector data. The length of the value must be the same as that of the Dimension parameter in the [CreateCollection](https://help.aliyun.com/document_detail/2401497.html) operation.
+        # 
+        # >  If you leave this parameter empty, only full-text search results are returned.
         self.vector_shrink = vector_shrink  # type: str
+        self.workspace_id = workspace_id  # type: str
 
     def validate(self):
         pass
@@ -19469,10 +30193,14 @@ class QueryCollectionDataShrinkRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.relational_table_filter_shrink is not None:
+            result['RelationalTableFilter'] = self.relational_table_filter_shrink
         if self.top_k is not None:
             result['TopK'] = self.top_k
         if self.vector_shrink is not None:
             result['Vector'] = self.vector_shrink
+        if self.workspace_id is not None:
+            result['WorkspaceId'] = self.workspace_id
         return result
 
     def from_map(self, m=None):
@@ -19507,10 +30235,14 @@ class QueryCollectionDataShrinkRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RelationalTableFilter') is not None:
+            self.relational_table_filter_shrink = m.get('RelationalTableFilter')
         if m.get('TopK') is not None:
             self.top_k = m.get('TopK')
         if m.get('Vector') is not None:
             self.vector_shrink = m.get('Vector')
+        if m.get('WorkspaceId') is not None:
+            self.workspace_id = m.get('WorkspaceId')
         return self
 
 
@@ -19540,9 +30272,13 @@ class QueryCollectionDataResponseBodyMatchesMatchValues(TeaModel):
 
 class QueryCollectionDataResponseBodyMatchesMatch(TeaModel):
     def __init__(self, id=None, metadata=None, score=None, values=None):
+        # The unique ID of the vector data.
         self.id = id  # type: str
+        # The metadata.
         self.metadata = metadata  # type: dict[str, str]
+        # The similarity score of the data. It is related to the `l2, ip, or cosine` algorithm that is specified when you create an index.
         self.score = score  # type: float
+        # The retrieved vector data.
         self.values = values  # type: QueryCollectionDataResponseBodyMatchesMatchValues
 
     def validate(self):
@@ -19613,10 +30349,12 @@ class QueryCollectionDataResponseBodyMatches(TeaModel):
 
 class QueryCollectionDataResponseBody(TeaModel):
     def __init__(self, matches=None, message=None, request_id=None, status=None, total=None):
+        # The retrieved data.
         self.matches = matches  # type: QueryCollectionDataResponseBodyMatches
         self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.status = status  # type: str
+        # The total number of entries that match the search conditions. This parameter is returned only when the Offset parameter is not 0.
         self.total = total  # type: int
 
     def validate(self):
@@ -19695,27 +30433,78 @@ class QueryCollectionDataResponse(TeaModel):
 
 class QueryContentRequest(TeaModel):
     def __init__(self, collection=None, content=None, dbinstance_id=None, file_name=None, file_url=None, filter=None,
-                 hybrid_search=None, hybrid_search_args=None, include_metadata_fields=None, include_vector=None, metrics=None,
-                 namespace=None, namespace_password=None, owner_id=None, recall_window=None, region_id=None,
-                 rerank_factor=None, top_k=None, use_full_text_retrieval=None):
+                 hybrid_search=None, hybrid_search_args=None, include_file_url=None, include_metadata_fields=None,
+                 include_vector=None, metrics=None, namespace=None, namespace_password=None, owner_id=None, recall_window=None,
+                 region_id=None, rerank_factor=None, top_k=None, use_full_text_retrieval=None):
+        # This parameter is required.
         self.collection = collection  # type: str
         self.content = content  # type: str
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         self.file_name = file_name  # type: str
         self.file_url = file_url  # type: str
+        # The filter condition that is used to query data. Specify the parameter in the WHERE clause format. The parameter is an expression that returns a Boolean value of TRUE or FALSE. The parameter can contain comparison operators, such as Equal To (=), Not Equal To (<> or !=), Greater Than (>), Less Than (<), Greater Than or Equal To (>=), and Less Than or Equal To (<=), logical operators, such as AND, OR, and NOT, and keywords, such as IN, BETWEEN, and LIKE.
+        # 
+        # > 
+        # 
+        # *   For more information, see https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-where/.
         self.filter = filter  # type: str
+        # The two-way retrieval algorithm. This parameter is empty by default, which specifies that scores of vector search and full-text search are directly compared and sorted without additional weighting or adjustments.
+        # 
+        # Valid values:
+        # 
+        # *   RRF: The reciprocal rank fusion (RRF) algorithm uses a constant k to control the fusion effect. For more information, see the description of the HybridSearchArgs parameter.
+        # *   Weight: This algorithm uses the alpha parameter to specify the proportion of the vector search score and the full-text search score and then sorts by weight. For more information, see the description of the HybridSearchArgs parameter.
+        # *   Cascaded: This algorithm performs first full-text search and then vector search.
         self.hybrid_search = hybrid_search  # type: str
+        # The parameters of the two-way retrieval algorithm. The following parameters are supported:
+        # 
+        # *   When HybridSearch is set to RRF, the scores are calculated by using the `1/(k+rank_i)` formula. The constant k is a positive integer that is greater than 1.
+        # 
+        # <!---->
+        # 
+        #     { 
+        #        "RRF": {
+        #         "k": 60
+        #        }
+        #     }
+        # 
+        # *   When HybridSearch is set to Weight, the scores are calculated by using the `alpha * vector_score + (1-alpha) * text_score` formula. The alpha parameter specifies the proportion of the vector search score and the full-text search score and ranges from 0 to 1. A value of 0 specifies full-text search and a value of 1 specifies vector search.
+        # 
+        # <!---->
+        # 
+        #     { 
+        #        "Weight": {
+        #         "alpha": 0.5
+        #        }
+        #     }
         self.hybrid_search_args = hybrid_search_args  # type: dict[str, dict]
+        # Specifies whether to return the URL of the document. Default value: false.
+        self.include_file_url = include_file_url  # type: bool
+        # The metadata fields to be returned. Separate multiple fields with commas (,). This parameter is empty by default.
         self.include_metadata_fields = include_metadata_fields  # type: str
         self.include_vector = include_vector  # type: bool
         self.metrics = metrics  # type: str
+        # The name of the namespace. Default value: public.
+        # 
+        # >  You can call the [CreateNamespace](https://help.aliyun.com/document_detail/2401495.html) operation to create a namespace and call the [ListNamespaces](https://help.aliyun.com/document_detail/2401502.html) operation to query a list of namespaces.
         self.namespace = namespace  # type: str
+        # This parameter is required.
         self.namespace_password = namespace_password  # type: str
         self.owner_id = owner_id  # type: long
+        # The recall window. If you specify this parameter, the context of the search result is returned. Format: List\\<A, B>. Valid values: -10<=A<=0 and 0<=B<=10.
+        # 
+        # > 
+        # 
+        # *   We recommend that you specify this parameter if the source document is segmented into large numbers of pieces and you may fail to obtain the context.
+        # 
+        # *   The context of the search result is retrieved based on the recall window after the search result is reranked.
         self.recall_window = recall_window  # type: list[int]
+        # This parameter is required.
         self.region_id = region_id  # type: str
         self.rerank_factor = rerank_factor  # type: float
         self.top_k = top_k  # type: int
+        # Specifies whether to use full-text search to implement two-way retrieval. The default value is false, which specifies that only vector search is used.
         self.use_full_text_retrieval = use_full_text_retrieval  # type: bool
 
     def validate(self):
@@ -19743,6 +30532,8 @@ class QueryContentRequest(TeaModel):
             result['HybridSearch'] = self.hybrid_search
         if self.hybrid_search_args is not None:
             result['HybridSearchArgs'] = self.hybrid_search_args
+        if self.include_file_url is not None:
+            result['IncludeFileUrl'] = self.include_file_url
         if self.include_metadata_fields is not None:
             result['IncludeMetadataFields'] = self.include_metadata_fields
         if self.include_vector is not None:
@@ -19785,6 +30576,8 @@ class QueryContentRequest(TeaModel):
             self.hybrid_search = m.get('HybridSearch')
         if m.get('HybridSearchArgs') is not None:
             self.hybrid_search_args = m.get('HybridSearchArgs')
+        if m.get('IncludeFileUrl') is not None:
+            self.include_file_url = m.get('IncludeFileUrl')
         if m.get('IncludeMetadataFields') is not None:
             self.include_metadata_fields = m.get('IncludeMetadataFields')
         if m.get('IncludeVector') is not None:
@@ -19812,27 +30605,78 @@ class QueryContentRequest(TeaModel):
 
 class QueryContentAdvanceRequest(TeaModel):
     def __init__(self, collection=None, content=None, dbinstance_id=None, file_name=None, file_url_object=None,
-                 filter=None, hybrid_search=None, hybrid_search_args=None, include_metadata_fields=None,
-                 include_vector=None, metrics=None, namespace=None, namespace_password=None, owner_id=None, recall_window=None,
-                 region_id=None, rerank_factor=None, top_k=None, use_full_text_retrieval=None):
+                 filter=None, hybrid_search=None, hybrid_search_args=None, include_file_url=None,
+                 include_metadata_fields=None, include_vector=None, metrics=None, namespace=None, namespace_password=None, owner_id=None,
+                 recall_window=None, region_id=None, rerank_factor=None, top_k=None, use_full_text_retrieval=None):
+        # This parameter is required.
         self.collection = collection  # type: str
         self.content = content  # type: str
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         self.file_name = file_name  # type: str
         self.file_url_object = file_url_object  # type: READABLE
+        # The filter condition that is used to query data. Specify the parameter in the WHERE clause format. The parameter is an expression that returns a Boolean value of TRUE or FALSE. The parameter can contain comparison operators, such as Equal To (=), Not Equal To (<> or !=), Greater Than (>), Less Than (<), Greater Than or Equal To (>=), and Less Than or Equal To (<=), logical operators, such as AND, OR, and NOT, and keywords, such as IN, BETWEEN, and LIKE.
+        # 
+        # > 
+        # 
+        # *   For more information, see https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-where/.
         self.filter = filter  # type: str
+        # The two-way retrieval algorithm. This parameter is empty by default, which specifies that scores of vector search and full-text search are directly compared and sorted without additional weighting or adjustments.
+        # 
+        # Valid values:
+        # 
+        # *   RRF: The reciprocal rank fusion (RRF) algorithm uses a constant k to control the fusion effect. For more information, see the description of the HybridSearchArgs parameter.
+        # *   Weight: This algorithm uses the alpha parameter to specify the proportion of the vector search score and the full-text search score and then sorts by weight. For more information, see the description of the HybridSearchArgs parameter.
+        # *   Cascaded: This algorithm performs first full-text search and then vector search.
         self.hybrid_search = hybrid_search  # type: str
+        # The parameters of the two-way retrieval algorithm. The following parameters are supported:
+        # 
+        # *   When HybridSearch is set to RRF, the scores are calculated by using the `1/(k+rank_i)` formula. The constant k is a positive integer that is greater than 1.
+        # 
+        # <!---->
+        # 
+        #     { 
+        #        "RRF": {
+        #         "k": 60
+        #        }
+        #     }
+        # 
+        # *   When HybridSearch is set to Weight, the scores are calculated by using the `alpha * vector_score + (1-alpha) * text_score` formula. The alpha parameter specifies the proportion of the vector search score and the full-text search score and ranges from 0 to 1. A value of 0 specifies full-text search and a value of 1 specifies vector search.
+        # 
+        # <!---->
+        # 
+        #     { 
+        #        "Weight": {
+        #         "alpha": 0.5
+        #        }
+        #     }
         self.hybrid_search_args = hybrid_search_args  # type: dict[str, dict]
+        # Specifies whether to return the URL of the document. Default value: false.
+        self.include_file_url = include_file_url  # type: bool
+        # The metadata fields to be returned. Separate multiple fields with commas (,). This parameter is empty by default.
         self.include_metadata_fields = include_metadata_fields  # type: str
         self.include_vector = include_vector  # type: bool
         self.metrics = metrics  # type: str
+        # The name of the namespace. Default value: public.
+        # 
+        # >  You can call the [CreateNamespace](https://help.aliyun.com/document_detail/2401495.html) operation to create a namespace and call the [ListNamespaces](https://help.aliyun.com/document_detail/2401502.html) operation to query a list of namespaces.
         self.namespace = namespace  # type: str
+        # This parameter is required.
         self.namespace_password = namespace_password  # type: str
         self.owner_id = owner_id  # type: long
+        # The recall window. If you specify this parameter, the context of the search result is returned. Format: List\\<A, B>. Valid values: -10<=A<=0 and 0<=B<=10.
+        # 
+        # > 
+        # 
+        # *   We recommend that you specify this parameter if the source document is segmented into large numbers of pieces and you may fail to obtain the context.
+        # 
+        # *   The context of the search result is retrieved based on the recall window after the search result is reranked.
         self.recall_window = recall_window  # type: list[int]
+        # This parameter is required.
         self.region_id = region_id  # type: str
         self.rerank_factor = rerank_factor  # type: float
         self.top_k = top_k  # type: int
+        # Specifies whether to use full-text search to implement two-way retrieval. The default value is false, which specifies that only vector search is used.
         self.use_full_text_retrieval = use_full_text_retrieval  # type: bool
 
     def validate(self):
@@ -19860,6 +30704,8 @@ class QueryContentAdvanceRequest(TeaModel):
             result['HybridSearch'] = self.hybrid_search
         if self.hybrid_search_args is not None:
             result['HybridSearchArgs'] = self.hybrid_search_args
+        if self.include_file_url is not None:
+            result['IncludeFileUrl'] = self.include_file_url
         if self.include_metadata_fields is not None:
             result['IncludeMetadataFields'] = self.include_metadata_fields
         if self.include_vector is not None:
@@ -19902,6 +30748,8 @@ class QueryContentAdvanceRequest(TeaModel):
             self.hybrid_search = m.get('HybridSearch')
         if m.get('HybridSearchArgs') is not None:
             self.hybrid_search_args = m.get('HybridSearchArgs')
+        if m.get('IncludeFileUrl') is not None:
+            self.include_file_url = m.get('IncludeFileUrl')
         if m.get('IncludeMetadataFields') is not None:
             self.include_metadata_fields = m.get('IncludeMetadataFields')
         if m.get('IncludeVector') is not None:
@@ -19929,27 +30777,78 @@ class QueryContentAdvanceRequest(TeaModel):
 
 class QueryContentShrinkRequest(TeaModel):
     def __init__(self, collection=None, content=None, dbinstance_id=None, file_name=None, file_url=None, filter=None,
-                 hybrid_search=None, hybrid_search_args_shrink=None, include_metadata_fields=None, include_vector=None,
-                 metrics=None, namespace=None, namespace_password=None, owner_id=None, recall_window_shrink=None,
-                 region_id=None, rerank_factor=None, top_k=None, use_full_text_retrieval=None):
+                 hybrid_search=None, hybrid_search_args_shrink=None, include_file_url=None, include_metadata_fields=None,
+                 include_vector=None, metrics=None, namespace=None, namespace_password=None, owner_id=None,
+                 recall_window_shrink=None, region_id=None, rerank_factor=None, top_k=None, use_full_text_retrieval=None):
+        # This parameter is required.
         self.collection = collection  # type: str
         self.content = content  # type: str
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         self.file_name = file_name  # type: str
         self.file_url = file_url  # type: str
+        # The filter condition that is used to query data. Specify the parameter in the WHERE clause format. The parameter is an expression that returns a Boolean value of TRUE or FALSE. The parameter can contain comparison operators, such as Equal To (=), Not Equal To (<> or !=), Greater Than (>), Less Than (<), Greater Than or Equal To (>=), and Less Than or Equal To (<=), logical operators, such as AND, OR, and NOT, and keywords, such as IN, BETWEEN, and LIKE.
+        # 
+        # > 
+        # 
+        # *   For more information, see https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-where/.
         self.filter = filter  # type: str
+        # The two-way retrieval algorithm. This parameter is empty by default, which specifies that scores of vector search and full-text search are directly compared and sorted without additional weighting or adjustments.
+        # 
+        # Valid values:
+        # 
+        # *   RRF: The reciprocal rank fusion (RRF) algorithm uses a constant k to control the fusion effect. For more information, see the description of the HybridSearchArgs parameter.
+        # *   Weight: This algorithm uses the alpha parameter to specify the proportion of the vector search score and the full-text search score and then sorts by weight. For more information, see the description of the HybridSearchArgs parameter.
+        # *   Cascaded: This algorithm performs first full-text search and then vector search.
         self.hybrid_search = hybrid_search  # type: str
+        # The parameters of the two-way retrieval algorithm. The following parameters are supported:
+        # 
+        # *   When HybridSearch is set to RRF, the scores are calculated by using the `1/(k+rank_i)` formula. The constant k is a positive integer that is greater than 1.
+        # 
+        # <!---->
+        # 
+        #     { 
+        #        "RRF": {
+        #         "k": 60
+        #        }
+        #     }
+        # 
+        # *   When HybridSearch is set to Weight, the scores are calculated by using the `alpha * vector_score + (1-alpha) * text_score` formula. The alpha parameter specifies the proportion of the vector search score and the full-text search score and ranges from 0 to 1. A value of 0 specifies full-text search and a value of 1 specifies vector search.
+        # 
+        # <!---->
+        # 
+        #     { 
+        #        "Weight": {
+        #         "alpha": 0.5
+        #        }
+        #     }
         self.hybrid_search_args_shrink = hybrid_search_args_shrink  # type: str
+        # Specifies whether to return the URL of the document. Default value: false.
+        self.include_file_url = include_file_url  # type: bool
+        # The metadata fields to be returned. Separate multiple fields with commas (,). This parameter is empty by default.
         self.include_metadata_fields = include_metadata_fields  # type: str
         self.include_vector = include_vector  # type: bool
         self.metrics = metrics  # type: str
+        # The name of the namespace. Default value: public.
+        # 
+        # >  You can call the [CreateNamespace](https://help.aliyun.com/document_detail/2401495.html) operation to create a namespace and call the [ListNamespaces](https://help.aliyun.com/document_detail/2401502.html) operation to query a list of namespaces.
         self.namespace = namespace  # type: str
+        # This parameter is required.
         self.namespace_password = namespace_password  # type: str
         self.owner_id = owner_id  # type: long
+        # The recall window. If you specify this parameter, the context of the search result is returned. Format: List\\<A, B>. Valid values: -10<=A<=0 and 0<=B<=10.
+        # 
+        # > 
+        # 
+        # *   We recommend that you specify this parameter if the source document is segmented into large numbers of pieces and you may fail to obtain the context.
+        # 
+        # *   The context of the search result is retrieved based on the recall window after the search result is reranked.
         self.recall_window_shrink = recall_window_shrink  # type: str
+        # This parameter is required.
         self.region_id = region_id  # type: str
         self.rerank_factor = rerank_factor  # type: float
         self.top_k = top_k  # type: int
+        # Specifies whether to use full-text search to implement two-way retrieval. The default value is false, which specifies that only vector search is used.
         self.use_full_text_retrieval = use_full_text_retrieval  # type: bool
 
     def validate(self):
@@ -19977,6 +30876,8 @@ class QueryContentShrinkRequest(TeaModel):
             result['HybridSearch'] = self.hybrid_search
         if self.hybrid_search_args_shrink is not None:
             result['HybridSearchArgs'] = self.hybrid_search_args_shrink
+        if self.include_file_url is not None:
+            result['IncludeFileUrl'] = self.include_file_url
         if self.include_metadata_fields is not None:
             result['IncludeMetadataFields'] = self.include_metadata_fields
         if self.include_vector is not None:
@@ -20019,6 +30920,8 @@ class QueryContentShrinkRequest(TeaModel):
             self.hybrid_search = m.get('HybridSearch')
         if m.get('HybridSearchArgs') is not None:
             self.hybrid_search_args_shrink = m.get('HybridSearchArgs')
+        if m.get('IncludeFileUrl') is not None:
+            self.include_file_url = m.get('IncludeFileUrl')
         if m.get('IncludeMetadataFields') is not None:
             self.include_metadata_fields = m.get('IncludeMetadataFields')
         if m.get('IncludeVector') is not None:
@@ -20438,11 +31341,13 @@ class RebalanceDBInstanceRequest(TeaModel):
     def __init__(self, client_token=None, dbinstance_id=None):
         # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must make sure that it is unique among different requests.
         # 
-        # The token can be up to 64 characters in length and can contain letters, digits, hyphens (-), and underscores (\_).
+        # The token can be up to 64 characters in length and can contain letters, digits, hyphens (-), and underscores (_).
         # 
-        # For more information, see [How to ensure idempotence](~~134212~~).
+        # For more information, see [How to ensure idempotence](https://help.aliyun.com/document_detail/134212.html).
         self.client_token = client_token  # type: str
         # The instance ID.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
 
     def validate(self):
@@ -20540,10 +31445,14 @@ class ReleaseInstancePublicConnectionRequest(TeaModel):
         # The public endpoint of the instance.
         # 
         # You can log on to the AnalyticDB for PostgreSQL console and go to the **Basic Information** page of the instance to view the **public endpoint** in the **Database Connection** section.
+        # 
+        # This parameter is required.
         self.current_connection_string = current_connection_string  # type: str
         # The ID of the instance.
         # 
-        # >  You can call the [DescribeDBInstances](~~86911~~) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
 
     def validate(self):
@@ -20635,16 +31544,304 @@ class ReleaseInstancePublicConnectionResponse(TeaModel):
         return self
 
 
+class RerankRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, documents=None, max_chunks_per_doc=None, model=None, owner_id=None,
+                 query=None, region_id=None, return_documents=None, top_k=None):
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.documents = documents  # type: list[str]
+        self.max_chunks_per_doc = max_chunks_per_doc  # type: int
+        self.model = model  # type: str
+        self.owner_id = owner_id  # type: long
+        self.query = query  # type: str
+        # This parameter is required.
+        self.region_id = region_id  # type: str
+        self.return_documents = return_documents  # type: bool
+        self.top_k = top_k  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RerankRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.documents is not None:
+            result['Documents'] = self.documents
+        if self.max_chunks_per_doc is not None:
+            result['MaxChunksPerDoc'] = self.max_chunks_per_doc
+        if self.model is not None:
+            result['Model'] = self.model
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.query is not None:
+            result['Query'] = self.query
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.return_documents is not None:
+            result['ReturnDocuments'] = self.return_documents
+        if self.top_k is not None:
+            result['TopK'] = self.top_k
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('Documents') is not None:
+            self.documents = m.get('Documents')
+        if m.get('MaxChunksPerDoc') is not None:
+            self.max_chunks_per_doc = m.get('MaxChunksPerDoc')
+        if m.get('Model') is not None:
+            self.model = m.get('Model')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('Query') is not None:
+            self.query = m.get('Query')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ReturnDocuments') is not None:
+            self.return_documents = m.get('ReturnDocuments')
+        if m.get('TopK') is not None:
+            self.top_k = m.get('TopK')
+        return self
+
+
+class RerankShrinkRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, documents_shrink=None, max_chunks_per_doc=None, model=None,
+                 owner_id=None, query=None, region_id=None, return_documents=None, top_k=None):
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.documents_shrink = documents_shrink  # type: str
+        self.max_chunks_per_doc = max_chunks_per_doc  # type: int
+        self.model = model  # type: str
+        self.owner_id = owner_id  # type: long
+        self.query = query  # type: str
+        # This parameter is required.
+        self.region_id = region_id  # type: str
+        self.return_documents = return_documents  # type: bool
+        self.top_k = top_k  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RerankShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.documents_shrink is not None:
+            result['Documents'] = self.documents_shrink
+        if self.max_chunks_per_doc is not None:
+            result['MaxChunksPerDoc'] = self.max_chunks_per_doc
+        if self.model is not None:
+            result['Model'] = self.model
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.query is not None:
+            result['Query'] = self.query
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.return_documents is not None:
+            result['ReturnDocuments'] = self.return_documents
+        if self.top_k is not None:
+            result['TopK'] = self.top_k
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('Documents') is not None:
+            self.documents_shrink = m.get('Documents')
+        if m.get('MaxChunksPerDoc') is not None:
+            self.max_chunks_per_doc = m.get('MaxChunksPerDoc')
+        if m.get('Model') is not None:
+            self.model = m.get('Model')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('Query') is not None:
+            self.query = m.get('Query')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ReturnDocuments') is not None:
+            self.return_documents = m.get('ReturnDocuments')
+        if m.get('TopK') is not None:
+            self.top_k = m.get('TopK')
+        return self
+
+
+class RerankResponseBodyResultsResults(TeaModel):
+    def __init__(self, document=None, index=None, relevance_score=None):
+        self.document = document  # type: str
+        self.index = index  # type: int
+        self.relevance_score = relevance_score  # type: float
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RerankResponseBodyResultsResults, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.document is not None:
+            result['Document'] = self.document
+        if self.index is not None:
+            result['Index'] = self.index
+        if self.relevance_score is not None:
+            result['RelevanceScore'] = self.relevance_score
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Document') is not None:
+            self.document = m.get('Document')
+        if m.get('Index') is not None:
+            self.index = m.get('Index')
+        if m.get('RelevanceScore') is not None:
+            self.relevance_score = m.get('RelevanceScore')
+        return self
+
+
+class RerankResponseBodyResults(TeaModel):
+    def __init__(self, results=None):
+        self.results = results  # type: list[RerankResponseBodyResultsResults]
+
+    def validate(self):
+        if self.results:
+            for k in self.results:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(RerankResponseBodyResults, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Results'] = []
+        if self.results is not None:
+            for k in self.results:
+                result['Results'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.results = []
+        if m.get('Results') is not None:
+            for k in m.get('Results'):
+                temp_model = RerankResponseBodyResultsResults()
+                self.results.append(temp_model.from_map(k))
+        return self
+
+
+class RerankResponseBody(TeaModel):
+    def __init__(self, message=None, request_id=None, results=None, status=None, tokens=None):
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.results = results  # type: RerankResponseBodyResults
+        self.status = status  # type: str
+        self.tokens = tokens  # type: int
+
+    def validate(self):
+        if self.results:
+            self.results.validate()
+
+    def to_map(self):
+        _map = super(RerankResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.results is not None:
+            result['Results'] = self.results.to_map()
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.tokens is not None:
+            result['Tokens'] = self.tokens
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Results') is not None:
+            temp_model = RerankResponseBodyResults()
+            self.results = temp_model.from_map(m['Results'])
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Tokens') is not None:
+            self.tokens = m.get('Tokens')
+        return self
+
+
+class RerankResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: RerankResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(RerankResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = RerankResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ResetAccountPasswordRequest(TeaModel):
     def __init__(self, account_name=None, account_password=None, dbinstance_id=None):
         # The ID of the instance.
+        # 
+        # This parameter is required.
         self.account_name = account_name  # type: str
         # The name of the account.
+        # 
+        # This parameter is required.
         self.account_password = account_password  # type: str
         # Before you call this operation, make sure that the following requirements are met:
         # 
         # *   The instance is in the running state.
         # *   The instance is not locked.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
 
     def validate(self):
@@ -20738,7 +31935,15 @@ class ResetAccountPasswordResponse(TeaModel):
 
 class ResetIMVMonitorDataRequest(TeaModel):
     def __init__(self, dbinstance_id=None, database=None):
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
+        # The name of the database.
+        # 
+        # This parameter is required.
         self.database = database  # type: str
 
     def validate(self):
@@ -20767,7 +31972,12 @@ class ResetIMVMonitorDataRequest(TeaModel):
 
 class ResetIMVMonitorDataResponseBody(TeaModel):
     def __init__(self, request_id=None, status=None):
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **false**\
+        # *   **true**\
         self.status = status  # type: bool
 
     def validate(self):
@@ -20832,11 +32042,13 @@ class ResetIMVMonitorDataResponse(TeaModel):
 
 class RestartDBInstanceRequest(TeaModel):
     def __init__(self, client_token=None, dbinstance_id=None):
-        # The client token that is used to ensure the idempotence of the request. For more information, see [How to ensure idempotence](~~327176~~).
+        # The client token that is used to ensure the idempotence of the request. For more information, see [How to ensure idempotence](https://help.aliyun.com/document_detail/327176.html).
         self.client_token = client_token  # type: str
         # The ID of the instance.
         # 
-        # >  You can call the [DescribeDBInstances](~~86911~~) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
 
     def validate(self):
@@ -20924,11 +32136,108 @@ class RestartDBInstanceResponse(TeaModel):
         return self
 
 
+class ResumeDataRedistributeRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, owner_id=None):
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.owner_id = owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ResumeDataRedistributeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        return self
+
+
+class ResumeDataRedistributeResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        # The request ID.
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ResumeDataRedistributeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ResumeDataRedistributeResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ResumeDataRedistributeResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ResumeDataRedistributeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ResumeDataRedistributeResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ResumeInstanceRequest(TeaModel):
     def __init__(self, dbinstance_id=None, owner_id=None):
         # The ID of the instance.
         # 
-        # >  You can call the [DescribeDBInstances](~~86911~~) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         self.owner_id = owner_id  # type: long
 
@@ -21044,17 +32353,23 @@ class SetDBInstancePlanStatusRequest(TeaModel):
     def __init__(self, dbinstance_id=None, owner_id=None, plan_id=None, plan_status=None):
         # The ID of the instance.
         # 
-        # >  You can call the [DescribeDBInstances](~~86911~~) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         self.owner_id = owner_id  # type: long
         # The ID of the plan.
         # 
-        # >  You can call the [DescribeDBInstancePlans](~~449398~~) operation to query the details of plans, including plan IDs.
+        # >  You can call the [DescribeDBInstancePlans](https://help.aliyun.com/document_detail/449398.html) operation to query the details of plans, including plan IDs.
+        # 
+        # This parameter is required.
         self.plan_id = plan_id  # type: str
         # Specifies whether to enable or disable the plan. Valid values:
         # 
         # *   **disable**: disables the plan.
         # *   **enable**: enables the plan.
+        # 
+        # This parameter is required.
         self.plan_status = plan_status  # type: str
 
     def validate(self):
@@ -21176,17 +32491,23 @@ class SetDataShareInstanceRequest(TeaModel):
     def __init__(self, instance_list=None, operation_type=None, owner_id=None, region_id=None):
         # The ID of the AnalyticDB for PostgreSQL instance in Serverless mode.
         # 
-        # >  You can call the [DescribeDBInstances](~~86911~~) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # 
+        # This parameter is required.
         self.instance_list = instance_list  # type: list[str]
         # Specifies whether to enable or disable data sharing. Valid values:
         # 
         # *   **add**: enables data sharing.
         # *   **remove**: disables data sharing.
+        # 
+        # This parameter is required.
         self.operation_type = operation_type  # type: str
         self.owner_id = owner_id  # type: long
         # The ID of the region.
         # 
-        # >  You can call the [DescribeRegions](~~86912~~) operation to query the most recent region list.
+        # >  You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list.
+        # 
+        # This parameter is required.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -21225,17 +32546,23 @@ class SetDataShareInstanceShrinkRequest(TeaModel):
     def __init__(self, instance_list_shrink=None, operation_type=None, owner_id=None, region_id=None):
         # The ID of the AnalyticDB for PostgreSQL instance in Serverless mode.
         # 
-        # >  You can call the [DescribeDBInstances](~~86911~~) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # 
+        # This parameter is required.
         self.instance_list_shrink = instance_list_shrink  # type: str
         # Specifies whether to enable or disable data sharing. Valid values:
         # 
         # *   **add**: enables data sharing.
         # *   **remove**: disables data sharing.
+        # 
+        # This parameter is required.
         self.operation_type = operation_type  # type: str
         self.owner_id = owner_id  # type: long
         # The ID of the region.
         # 
-        # >  You can call the [DescribeRegions](~~86912~~) operation to query the most recent region list.
+        # >  You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list.
+        # 
+        # This parameter is required.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -21352,12 +32679,18 @@ class SwitchDBInstanceNetTypeRequest(TeaModel):
         # 
         # *   The prefix can contain lowercase letters, digits, and hyphens (-) and must start with a lowercase letter.
         # *   The prefix can be up to 30 characters in length.
+        # 
+        # This parameter is required.
         self.connection_string_prefix = connection_string_prefix  # type: str
         # The instance ID.
         # 
-        # > You can call the [DescribeDBInstances](~~86911~~) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # > You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         # The port number.
+        # 
+        # This parameter is required.
         self.port = port  # type: str
 
     def validate(self):
@@ -21452,8 +32785,12 @@ class SwitchDBInstanceNetTypeResponse(TeaModel):
 class TagResourcesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
         # The key of a tag. Valid values of N: 1 to 20. This parameter value cannot be an empty string. A tag key can contain a maximum of 128 characters. It cannot start with `aliyun` or`  acs: ` and cannot contain `http://` or`  https:// `.
+        # 
+        # This parameter is required.
         self.key = key  # type: str
         # The value of a tag. Valid values of N: 1 to 20. This parameter value can be an empty string. A tag value can contain a maximum of 128 characters. It cannot start with `acs:` and cannot contain `http://` or `https://`.
+        # 
+        # This parameter is required.
         self.value = value  # type: str
 
     def validate(self):
@@ -21485,9 +32822,13 @@ class TagResourcesRequest(TeaModel):
                  resource_owner_account=None, resource_owner_id=None, resource_type=None, tag=None):
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The ID of the region. You can call the [DescribeRegions](~~86912~~) operation to query region IDs.
+        # The ID of the region. You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query region IDs.
+        # 
+        # This parameter is required.
         self.region_id = region_id  # type: str
         # The ID of an instance. Valid values of N: 1 to 50.
+        # 
+        # This parameter is required.
         self.resource_id = resource_id  # type: list[str]
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -21495,8 +32836,12 @@ class TagResourcesRequest(TeaModel):
         # 
         # *   `instance`: reserved storage mode
         # *   `ALIYUN::GPDB::INSTANCE`: elastic storage mode
+        # 
+        # This parameter is required.
         self.resource_type = resource_type  # type: str
         # The list of tags.
+        # 
+        # This parameter is required.
         self.tag = tag  # type: list[TagResourcesRequestTag]
 
     def validate(self):
@@ -21616,11 +32961,174 @@ class TagResourcesResponse(TeaModel):
         return self
 
 
+class UnbindDBResourceGroupWithRoleRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, owner_id=None, resource_group_name=None, role_list=None):
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.owner_id = owner_id  # type: long
+        # The name of the resource group.
+        # 
+        # This parameter is required.
+        self.resource_group_name = resource_group_name  # type: str
+        # The roles.
+        # 
+        # This parameter is required.
+        self.role_list = role_list  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UnbindDBResourceGroupWithRoleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_group_name is not None:
+            result['ResourceGroupName'] = self.resource_group_name
+        if self.role_list is not None:
+            result['RoleList'] = self.role_list
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceGroupName') is not None:
+            self.resource_group_name = m.get('ResourceGroupName')
+        if m.get('RoleList') is not None:
+            self.role_list = m.get('RoleList')
+        return self
+
+
+class UnbindDBResourceGroupWithRoleShrinkRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, owner_id=None, resource_group_name=None, role_list_shrink=None):
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.owner_id = owner_id  # type: long
+        # The name of the resource group.
+        # 
+        # This parameter is required.
+        self.resource_group_name = resource_group_name  # type: str
+        # The roles.
+        # 
+        # This parameter is required.
+        self.role_list_shrink = role_list_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UnbindDBResourceGroupWithRoleShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_group_name is not None:
+            result['ResourceGroupName'] = self.resource_group_name
+        if self.role_list_shrink is not None:
+            result['RoleList'] = self.role_list_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceGroupName') is not None:
+            self.resource_group_name = m.get('ResourceGroupName')
+        if m.get('RoleList') is not None:
+            self.role_list_shrink = m.get('RoleList')
+        return self
+
+
+class UnbindDBResourceGroupWithRoleResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        # The request ID.
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UnbindDBResourceGroupWithRoleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UnbindDBResourceGroupWithRoleResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UnbindDBResourceGroupWithRoleResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UnbindDBResourceGroupWithRoleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UnbindDBResourceGroupWithRoleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class UnloadSampleDataRequest(TeaModel):
     def __init__(self, dbinstance_id=None, owner_id=None):
         # The ID of the instance.
         # 
-        # >  You can call the [DescribeDBInstances](~~86911~~) operation to query the IDs of all AnalyticDB for PostgreSQL instances in a specific region.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the IDs of all AnalyticDB for PostgreSQL instances in a specific region.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         self.owner_id = owner_id  # type: long
 
@@ -21742,8 +33250,11 @@ class UntagResourcesRequest(TeaModel):
         self.all = all  # type: bool
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The region ID of the instance. You can call the [DescribeRegions](~~86912~~) operation to query the most recent region list.
+        # The region ID of the instance. You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list.
+        # 
+        # This parameter is required.
         self.region_id = region_id  # type: str
+        # This parameter is required.
         self.resource_id = resource_id  # type: list[str]
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -21751,6 +33262,8 @@ class UntagResourcesRequest(TeaModel):
         # 
         # *   `instance`: reserved storage mode
         # *   `ALIYUN::GPDB::INSTANCE`: elastic storage mode
+        # 
+        # This parameter is required.
         self.resource_type = resource_type  # type: str
         self.tag_key = tag_key  # type: list[str]
 
@@ -21869,19 +33382,37 @@ class UntagResourcesResponse(TeaModel):
 
 class UpdateCollectionDataMetadataRequest(TeaModel):
     def __init__(self, collection=None, dbinstance_id=None, filter=None, ids=None, metadata=None, namespace=None,
-                 namespace_password=None, owner_id=None, region_id=None):
+                 namespace_password=None, owner_id=None, region_id=None, workspace_id=None):
+        # The name of the collection.
+        # 
+        # This parameter is required.
         self.collection = collection  # type: str
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
         self.dbinstance_id = dbinstance_id  # type: str
+        # The condition that is used to filter the data to be updated. Specify this parameter in a format that is the same as the WHERE clause. You cannot leave both this parameter and Ids empty.
         self.filter = filter  # type: str
-        # The row IDs of the data that you want to update. You must specify one of the Ids and Filter parameters.
+        # The row IDs of the data to be updated. You cannot leave both this parameter and Filter empty.
         self.ids = ids  # type: list[str]
-        # The data that you want to update, which is a JSON string in the MAP format. In the JSON string, key specifies the field name and value specifies the new data value.
+        # The data to be updated, which is a JSON string in the MAP format. In the JSON string, key specifies the field name and value specifies the new data value.
+        # 
+        # This parameter is required.
         self.metadata = metadata  # type: dict[str, any]
+        # The name of the namespace.
         self.namespace = namespace  # type: str
+        # The password of the namespace.
+        # 
+        # This parameter is required.
         self.namespace_password = namespace_password  # type: str
         self.owner_id = owner_id  # type: long
-        # The region ID of the instance.
+        # The region ID.
+        # 
+        # >  You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list.
+        # 
+        # This parameter is required.
         self.region_id = region_id  # type: str
+        self.workspace_id = workspace_id  # type: str
 
     def validate(self):
         pass
@@ -21910,6 +33441,8 @@ class UpdateCollectionDataMetadataRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.workspace_id is not None:
+            result['WorkspaceId'] = self.workspace_id
         return result
 
     def from_map(self, m=None):
@@ -21932,24 +33465,44 @@ class UpdateCollectionDataMetadataRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('WorkspaceId') is not None:
+            self.workspace_id = m.get('WorkspaceId')
         return self
 
 
 class UpdateCollectionDataMetadataShrinkRequest(TeaModel):
     def __init__(self, collection=None, dbinstance_id=None, filter=None, ids_shrink=None, metadata_shrink=None,
-                 namespace=None, namespace_password=None, owner_id=None, region_id=None):
+                 namespace=None, namespace_password=None, owner_id=None, region_id=None, workspace_id=None):
+        # The name of the collection.
+        # 
+        # This parameter is required.
         self.collection = collection  # type: str
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
         self.dbinstance_id = dbinstance_id  # type: str
+        # The condition that is used to filter the data to be updated. Specify this parameter in a format that is the same as the WHERE clause. You cannot leave both this parameter and Ids empty.
         self.filter = filter  # type: str
-        # The row IDs of the data that you want to update. You must specify one of the Ids and Filter parameters.
+        # The row IDs of the data to be updated. You cannot leave both this parameter and Filter empty.
         self.ids_shrink = ids_shrink  # type: str
-        # The data that you want to update, which is a JSON string in the MAP format. In the JSON string, key specifies the field name and value specifies the new data value.
+        # The data to be updated, which is a JSON string in the MAP format. In the JSON string, key specifies the field name and value specifies the new data value.
+        # 
+        # This parameter is required.
         self.metadata_shrink = metadata_shrink  # type: str
+        # The name of the namespace.
         self.namespace = namespace  # type: str
+        # The password of the namespace.
+        # 
+        # This parameter is required.
         self.namespace_password = namespace_password  # type: str
         self.owner_id = owner_id  # type: long
-        # The region ID of the instance.
+        # The region ID.
+        # 
+        # >  You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list.
+        # 
+        # This parameter is required.
         self.region_id = region_id  # type: str
+        self.workspace_id = workspace_id  # type: str
 
     def validate(self):
         pass
@@ -21978,6 +33531,8 @@ class UpdateCollectionDataMetadataShrinkRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.workspace_id is not None:
+            result['WorkspaceId'] = self.workspace_id
         return result
 
     def from_map(self, m=None):
@@ -22000,14 +33555,23 @@ class UpdateCollectionDataMetadataShrinkRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('WorkspaceId') is not None:
+            self.workspace_id = m.get('WorkspaceId')
         return self
 
 
 class UpdateCollectionDataMetadataResponseBody(TeaModel):
     def __init__(self, applied_rows=None, message=None, request_id=None, status=None):
+        # The number of effective rows.
         self.applied_rows = applied_rows  # type: long
+        # The error message returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **success**\
+        # *   **fail**\
         self.status = status  # type: str
 
     def validate(self):
@@ -22083,26 +33647,38 @@ class UpdateDBInstancePlanRequest(TeaModel):
                  plan_id=None, plan_name=None, plan_start_date=None):
         # The ID of the instance.
         # 
-        # >  You can call the [DescribeDBInstances](~~86911~~) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the details of all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         self.owner_id = owner_id  # type: long
         # The execution information of the plan. Specify the parameter in the JSON format. The parameter value varies based on the values of **PlanType** and **PlanScheduleType**. The following section describes the PlanConfig parameter.
         self.plan_config = plan_config  # type: str
         # The description of the plan.
         self.plan_desc = plan_desc  # type: str
-        # The end time of the plan. Specify the time in the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm*Z format. The time must be in UTC. The end time must be later than the start time.
+        # The end time of the plan. Specify the time in the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time must be in UTC. The end time must be later than the start time.
         # 
-        # >  This parameter is required only for **periodically executed** plans.
+        # > 
+        # 
+        # *   This parameter must be specified only for **periodically executed** plans.
+        # 
+        # *   If you do not specify this parameter, the plan stops until the plan is deleted.
         self.plan_end_date = plan_end_date  # type: str
         # The ID of the plan.
         # 
-        # >  You can call the [DescribeDBInstancePlans](~~449398~~) operation to query the details of plans, including plan IDs.
+        # >  You can call the [DescribeDBInstancePlans](https://help.aliyun.com/document_detail/449398.html) operation to query the details of plans, including plan IDs.
+        # 
+        # This parameter is required.
         self.plan_id = plan_id  # type: str
         # The name of the plan.
         self.plan_name = plan_name  # type: str
-        # The start time of the plan. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm*Z format. The time is displayed in UTC.
+        # The start time of the plan. Specify the time in the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time must be in UTC.
         # 
-        # >  This parameter is required only for **periodically executed** plans.
+        # > 
+        # 
+        # *   This parameter must be specified only for **periodically executed** plans.
+        # 
+        # *   If you do not specify this parameter, the current time is used.
         self.plan_start_date = plan_start_date  # type: str
 
     def validate(self):
@@ -22252,9 +33828,11 @@ class UpgradeDBInstanceRequest(TeaModel):
         self.dbinstance_group_count = dbinstance_group_count  # type: str
         # The instance ID.
         # 
-        # > You can call the [DescribeDBInstances](~~86911~~) operation to query the IDs of all AnalyticDB for PostgreSQL instances within a region.
+        # > You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the IDs of all AnalyticDB for PostgreSQL instances within a region.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
-        # The specifications of each compute node. For information about the supported specifications, see [Instance specifications](~~35406~~).
+        # The specifications of each compute node. For information about the supported specifications, see [Instance specifications](https://help.aliyun.com/document_detail/35406.html).
         # 
         # > This parameter is available only for instances in elastic storage mode.
         self.instance_spec = instance_spec  # type: str
@@ -22265,9 +33843,9 @@ class UpgradeDBInstanceRequest(TeaModel):
         self.pay_type = pay_type  # type: str
         # The region ID of the instance.
         # 
-        # > You can call the [DescribeRegions](~~86912~~) operation to query the most recent region list.
+        # > You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list.
         self.region_id = region_id  # type: str
-        # The ID of the resource group to which the instance belongs. For information about how to obtain the ID of a resource group, see [View basic information of a resource group](~~151181~~).
+        # The ID of the resource group to which the instance belongs. For information about how to obtain the ID of a resource group, see [View basic information of a resource group](https://help.aliyun.com/document_detail/151181.html).
         self.resource_group_id = resource_group_id  # type: str
         # The performance level of enhanced SSDs (ESSDs). Valid values:
         # 
@@ -22285,7 +33863,7 @@ class UpgradeDBInstanceRequest(TeaModel):
         self.seg_storage_type = seg_storage_type  # type: str
         # The storage capacity of each compute node. Unit: GB. Valid values: 50 to 6000, in 50 increments.
         # 
-        # > This parameter is available only for instances in elastic storage mode.
+        # >  This parameter is available only for instances in elastic storage mode.
         self.storage_size = storage_size  # type: str
         # The type of the instance configuration change. Valid values:
         # 
@@ -22296,7 +33874,7 @@ class UpgradeDBInstanceRequest(TeaModel):
         # 
         # > 
         # 
-        # *   The supported changes to compute node configurations vary based on the instance resource type. For more information, see the "[Usage notes](~~50956~~)" section of the Change compute node configurations topic.
+        # *   The supported changes to compute node configurations vary based on the instance resource type. For more information, see the "[Usage notes](https://help.aliyun.com/document_detail/50956.html)" section of the Change compute node configurations topic.
         # 
         # *   After you specify a change type, only the corresponding parameters take effect. For example, if you set **UpgradeType** to 0, the parameter that is used to change the number of compute nodes takes effect, but the parameter that is used to change the number of coordinator nodes does not.
         # *   The number of coordinator nodes can be changed only on the China site (aliyun.com).
@@ -22452,6 +34030,8 @@ class UpgradeDBVersionRequest(TeaModel):
     def __init__(self, dbinstance_id=None, major_version=None, minor_version=None, owner_id=None, region_id=None,
                  switch_time=None, switch_time_mode=None):
         # The ID of the instance.
+        # 
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         # This parameter is no longer used and does not need to be specified.
         self.major_version = major_version  # type: str
@@ -22588,26 +34168,183 @@ class UpgradeDBVersionResponse(TeaModel):
         return self
 
 
+class UpgradeExtensionsRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, extensions=None, region_id=None):
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # 
+        # This parameter is required.
+        self.dbinstance_id = dbinstance_id  # type: str
+        # The extensions that you want to update. Separate multiple extensions with commas (,).
+        # 
+        # This parameter is required.
+        self.extensions = extensions  # type: str
+        # The region ID of the instance.
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpgradeExtensionsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.extensions is not None:
+            result['Extensions'] = self.extensions
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('Extensions') is not None:
+            self.extensions = m.get('Extensions')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class UpgradeExtensionsResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        # The request ID.
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpgradeExtensionsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UpgradeExtensionsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpgradeExtensionsResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpgradeExtensionsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpgradeExtensionsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class UploadDocumentAsyncRequest(TeaModel):
     def __init__(self, chunk_overlap=None, chunk_size=None, collection=None, dbinstance_id=None,
                  document_loader_name=None, dry_run=None, file_name=None, file_url=None, metadata=None, namespace=None,
                  namespace_password=None, owner_id=None, region_id=None, separators=None, text_splitter_name=None,
                  zh_title_enhance=None):
+        # The size of data that is overlapped between consecutive chunks. The maximum value of this parameter cannot be greater than the value of the ChunkSize parameter.
+        # 
+        # >  This parameter is used to prevent context missing that may occur due to data truncation. For example, when you upload a long text, you can retain specific overlapped text content between consecutive chunks to better understand the context.
         self.chunk_overlap = chunk_overlap  # type: int
         self.chunk_size = chunk_size  # type: int
+        # This parameter is required.
         self.collection = collection  # type: str
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
+        # The name of the document loader. You do not need to specify this parameter. A document loader is automatically specified based on the file extension. Valid values:
+        # 
+        # *   UnstructuredHTMLLoader: `.html`
+        # *   UnstructuredMarkdownLoader: `.md`
+        # *   PyMuPDFLoader: `.pdf`
+        # *   PyPDFLoader: `.pdf`
+        # *   RapidOCRPDFLoader: `.pdf`
+        # *   PDFWithImageRefLoader: `.pdf` (with the text-image association feature)
+        # *   JSONLoader: `.json`
+        # *   CSVLoader: `.csv`
+        # *   RapidOCRLoader: `.png`, `.jpg`, `.jpeg`, and `.bmp`
+        # *   UnstructuredFileLoader: `.eml`, `.msg`, `.rst`, `.txt`, `.docx`, `.epub`, `.odt`, `.pptx`, and `.tsv`
         self.document_loader_name = document_loader_name  # type: str
+        # Specifies whether to perform only document understanding and chunking, but not vectorization and storage. Default value: false.
+        # 
+        # >  You can set this parameter to true, check the chunking effect, and then perform optimization if needed.
         self.dry_run = dry_run  # type: bool
+        # The file name of the document.
+        # 
+        # > 
+        # 
+        # *   We recommend that you add an extension to the file name. Examples: `.json`, `.md`, and `.pdf`. If you do not add an extension, the default loader designed for unstructured data is used.
+        # 
+        # *   If an image file is involved, the file name must contain an extension. The following extensions are supported: `.bmp`, `.jpg`, `.jpeg`, `.png`, and `.tiff`.
+        # 
+        # *   You can use a compressed package to upload images. The package file name must contain an extension. Supported package file extensions: `.tar`, `.gz`, and `.zip`.
+        # 
+        # This parameter is required.
         self.file_name = file_name  # type: str
+        # This parameter is required.
         self.file_url = file_url  # type: str
+        # The metadata. The value of this parameter must be the same as the Metadata parameter that is specified when you call the CreateDocumentCollection operation.
         self.metadata = metadata  # type: dict[str, any]
         self.namespace = namespace  # type: str
+        # This parameter is required.
         self.namespace_password = namespace_password  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the instance.
+        # 
+        # This parameter is required.
         self.region_id = region_id  # type: str
+        # The separators that are used to split large amounts of data.
+        # 
+        # > 
+        # 
+        # *   This is an important parameter that determines the chunking effect. This parameter is related to the splitter that is specified by the TextSplitterName parameter.
+        # 
+        # *   In most cases, you do not need to specify this parameter. The server assigns separators based on the value of the TextSplitterName parameter.
         self.separators = separators  # type: list[str]
+        # The name of the splitter. Valid values:
+        # 
+        # *   **ChineseRecursiveTextSplitter**: inherits from RecursiveCharacterTextSplitter, uses `["\\n\\n","\\n", "。|!|?", "\\.\\s|\\!\\s|\\?\\s", ";|;\\s", ",|,\\s"]` as separators by default, and uses regular expressions to match text.
+        # *   **RecursiveCharacterTextSplitter**: uses `["\\n\\n", "\\n", " ", ""]` as separators by default. The splitter supports splitting code in languages such as `C++, Go, Java, JS, PHP, Proto, Python, RST, Ruby, Rust, Scala, Swift, Markdown, LaTeX, HTML, Sol, and C Sharp`.
+        # *   **SpacyTextSplitter**: uses `\\n\\n` as separators by default and uses the en_core_web_sm model of spaCy. The splitter can obtain better splitting effect.
+        # *   **MarkdownHeaderTextSplitter**: splits text in the `[("#", "head1"), ("##", "head2"), ("###", "head3"), ("####", "head4")]` format. The splitter is suitable for Markdown text.
         self.text_splitter_name = text_splitter_name  # type: str
+        # Specifies whether to enable title enhancement.
+        # 
+        # >  You can determine the title text, mark the text in the metadata, and then combine the text with the upper-level title to implement text enhancement.
         self.zh_title_enhance = zh_title_enhance  # type: bool
 
     def validate(self):
@@ -22695,21 +34432,74 @@ class UploadDocumentAsyncAdvanceRequest(TeaModel):
                  document_loader_name=None, dry_run=None, file_name=None, file_url_object=None, metadata=None, namespace=None,
                  namespace_password=None, owner_id=None, region_id=None, separators=None, text_splitter_name=None,
                  zh_title_enhance=None):
+        # The size of data that is overlapped between consecutive chunks. The maximum value of this parameter cannot be greater than the value of the ChunkSize parameter.
+        # 
+        # >  This parameter is used to prevent context missing that may occur due to data truncation. For example, when you upload a long text, you can retain specific overlapped text content between consecutive chunks to better understand the context.
         self.chunk_overlap = chunk_overlap  # type: int
         self.chunk_size = chunk_size  # type: int
+        # This parameter is required.
         self.collection = collection  # type: str
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
+        # The name of the document loader. You do not need to specify this parameter. A document loader is automatically specified based on the file extension. Valid values:
+        # 
+        # *   UnstructuredHTMLLoader: `.html`
+        # *   UnstructuredMarkdownLoader: `.md`
+        # *   PyMuPDFLoader: `.pdf`
+        # *   PyPDFLoader: `.pdf`
+        # *   RapidOCRPDFLoader: `.pdf`
+        # *   PDFWithImageRefLoader: `.pdf` (with the text-image association feature)
+        # *   JSONLoader: `.json`
+        # *   CSVLoader: `.csv`
+        # *   RapidOCRLoader: `.png`, `.jpg`, `.jpeg`, and `.bmp`
+        # *   UnstructuredFileLoader: `.eml`, `.msg`, `.rst`, `.txt`, `.docx`, `.epub`, `.odt`, `.pptx`, and `.tsv`
         self.document_loader_name = document_loader_name  # type: str
+        # Specifies whether to perform only document understanding and chunking, but not vectorization and storage. Default value: false.
+        # 
+        # >  You can set this parameter to true, check the chunking effect, and then perform optimization if needed.
         self.dry_run = dry_run  # type: bool
+        # The file name of the document.
+        # 
+        # > 
+        # 
+        # *   We recommend that you add an extension to the file name. Examples: `.json`, `.md`, and `.pdf`. If you do not add an extension, the default loader designed for unstructured data is used.
+        # 
+        # *   If an image file is involved, the file name must contain an extension. The following extensions are supported: `.bmp`, `.jpg`, `.jpeg`, `.png`, and `.tiff`.
+        # 
+        # *   You can use a compressed package to upload images. The package file name must contain an extension. Supported package file extensions: `.tar`, `.gz`, and `.zip`.
+        # 
+        # This parameter is required.
         self.file_name = file_name  # type: str
+        # This parameter is required.
         self.file_url_object = file_url_object  # type: READABLE
+        # The metadata. The value of this parameter must be the same as the Metadata parameter that is specified when you call the CreateDocumentCollection operation.
         self.metadata = metadata  # type: dict[str, any]
         self.namespace = namespace  # type: str
+        # This parameter is required.
         self.namespace_password = namespace_password  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the instance.
+        # 
+        # This parameter is required.
         self.region_id = region_id  # type: str
+        # The separators that are used to split large amounts of data.
+        # 
+        # > 
+        # 
+        # *   This is an important parameter that determines the chunking effect. This parameter is related to the splitter that is specified by the TextSplitterName parameter.
+        # 
+        # *   In most cases, you do not need to specify this parameter. The server assigns separators based on the value of the TextSplitterName parameter.
         self.separators = separators  # type: list[str]
+        # The name of the splitter. Valid values:
+        # 
+        # *   **ChineseRecursiveTextSplitter**: inherits from RecursiveCharacterTextSplitter, uses `["\\n\\n","\\n", "。|!|?", "\\.\\s|\\!\\s|\\?\\s", ";|;\\s", ",|,\\s"]` as separators by default, and uses regular expressions to match text.
+        # *   **RecursiveCharacterTextSplitter**: uses `["\\n\\n", "\\n", " ", ""]` as separators by default. The splitter supports splitting code in languages such as `C++, Go, Java, JS, PHP, Proto, Python, RST, Ruby, Rust, Scala, Swift, Markdown, LaTeX, HTML, Sol, and C Sharp`.
+        # *   **SpacyTextSplitter**: uses `\\n\\n` as separators by default and uses the en_core_web_sm model of spaCy. The splitter can obtain better splitting effect.
+        # *   **MarkdownHeaderTextSplitter**: splits text in the `[("#", "head1"), ("##", "head2"), ("###", "head3"), ("####", "head4")]` format. The splitter is suitable for Markdown text.
         self.text_splitter_name = text_splitter_name  # type: str
+        # Specifies whether to enable title enhancement.
+        # 
+        # >  You can determine the title text, mark the text in the metadata, and then combine the text with the upper-level title to implement text enhancement.
         self.zh_title_enhance = zh_title_enhance  # type: bool
 
     def validate(self):
@@ -22797,21 +34587,74 @@ class UploadDocumentAsyncShrinkRequest(TeaModel):
                  document_loader_name=None, dry_run=None, file_name=None, file_url=None, metadata_shrink=None, namespace=None,
                  namespace_password=None, owner_id=None, region_id=None, separators_shrink=None, text_splitter_name=None,
                  zh_title_enhance=None):
+        # The size of data that is overlapped between consecutive chunks. The maximum value of this parameter cannot be greater than the value of the ChunkSize parameter.
+        # 
+        # >  This parameter is used to prevent context missing that may occur due to data truncation. For example, when you upload a long text, you can retain specific overlapped text content between consecutive chunks to better understand the context.
         self.chunk_overlap = chunk_overlap  # type: int
         self.chunk_size = chunk_size  # type: int
+        # This parameter is required.
         self.collection = collection  # type: str
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
+        # The name of the document loader. You do not need to specify this parameter. A document loader is automatically specified based on the file extension. Valid values:
+        # 
+        # *   UnstructuredHTMLLoader: `.html`
+        # *   UnstructuredMarkdownLoader: `.md`
+        # *   PyMuPDFLoader: `.pdf`
+        # *   PyPDFLoader: `.pdf`
+        # *   RapidOCRPDFLoader: `.pdf`
+        # *   PDFWithImageRefLoader: `.pdf` (with the text-image association feature)
+        # *   JSONLoader: `.json`
+        # *   CSVLoader: `.csv`
+        # *   RapidOCRLoader: `.png`, `.jpg`, `.jpeg`, and `.bmp`
+        # *   UnstructuredFileLoader: `.eml`, `.msg`, `.rst`, `.txt`, `.docx`, `.epub`, `.odt`, `.pptx`, and `.tsv`
         self.document_loader_name = document_loader_name  # type: str
+        # Specifies whether to perform only document understanding and chunking, but not vectorization and storage. Default value: false.
+        # 
+        # >  You can set this parameter to true, check the chunking effect, and then perform optimization if needed.
         self.dry_run = dry_run  # type: bool
+        # The file name of the document.
+        # 
+        # > 
+        # 
+        # *   We recommend that you add an extension to the file name. Examples: `.json`, `.md`, and `.pdf`. If you do not add an extension, the default loader designed for unstructured data is used.
+        # 
+        # *   If an image file is involved, the file name must contain an extension. The following extensions are supported: `.bmp`, `.jpg`, `.jpeg`, `.png`, and `.tiff`.
+        # 
+        # *   You can use a compressed package to upload images. The package file name must contain an extension. Supported package file extensions: `.tar`, `.gz`, and `.zip`.
+        # 
+        # This parameter is required.
         self.file_name = file_name  # type: str
+        # This parameter is required.
         self.file_url = file_url  # type: str
+        # The metadata. The value of this parameter must be the same as the Metadata parameter that is specified when you call the CreateDocumentCollection operation.
         self.metadata_shrink = metadata_shrink  # type: str
         self.namespace = namespace  # type: str
+        # This parameter is required.
         self.namespace_password = namespace_password  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the instance.
+        # 
+        # This parameter is required.
         self.region_id = region_id  # type: str
+        # The separators that are used to split large amounts of data.
+        # 
+        # > 
+        # 
+        # *   This is an important parameter that determines the chunking effect. This parameter is related to the splitter that is specified by the TextSplitterName parameter.
+        # 
+        # *   In most cases, you do not need to specify this parameter. The server assigns separators based on the value of the TextSplitterName parameter.
         self.separators_shrink = separators_shrink  # type: str
+        # The name of the splitter. Valid values:
+        # 
+        # *   **ChineseRecursiveTextSplitter**: inherits from RecursiveCharacterTextSplitter, uses `["\\n\\n","\\n", "。|!|?", "\\.\\s|\\!\\s|\\?\\s", ";|;\\s", ",|,\\s"]` as separators by default, and uses regular expressions to match text.
+        # *   **RecursiveCharacterTextSplitter**: uses `["\\n\\n", "\\n", " ", ""]` as separators by default. The splitter supports splitting code in languages such as `C++, Go, Java, JS, PHP, Proto, Python, RST, Ruby, Rust, Scala, Swift, Markdown, LaTeX, HTML, Sol, and C Sharp`.
+        # *   **SpacyTextSplitter**: uses `\\n\\n` as separators by default and uses the en_core_web_sm model of spaCy. The splitter can obtain better splitting effect.
+        # *   **MarkdownHeaderTextSplitter**: splits text in the `[("#", "head1"), ("##", "head2"), ("###", "head3"), ("####", "head4")]` format. The splitter is suitable for Markdown text.
         self.text_splitter_name = text_splitter_name  # type: str
+        # Specifies whether to enable title enhancement.
+        # 
+        # >  You can determine the title text, mark the text in the metadata, and then combine the text with the upper-level title to implement text enhancement.
         self.zh_title_enhance = zh_title_enhance  # type: bool
 
     def validate(self):
@@ -22971,6 +34814,7 @@ class UploadDocumentAsyncResponse(TeaModel):
 
 class UpsertChunksRequestTextChunks(TeaModel):
     def __init__(self, content=None, metadata=None):
+        # This parameter is required.
         self.content = content  # type: str
         self.metadata = metadata  # type: dict[str, any]
 
@@ -23001,12 +34845,27 @@ class UpsertChunksRequestTextChunks(TeaModel):
 class UpsertChunksRequest(TeaModel):
     def __init__(self, collection=None, dbinstance_id=None, file_name=None, namespace=None, namespace_password=None,
                  owner_id=None, region_id=None, text_chunks=None):
+        # The name of the document collection.
+        # 
+        # >  You can call the [CreateDocumentCollection](https://help.aliyun.com/document_detail/2618448.html) operation to create a document collection and call the [ListDocumentCollections](https://help.aliyun.com/document_detail/2618452.html) operation to query a list of document collections.
+        # 
+        # This parameter is required.
         self.collection = collection  # type: str
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         self.file_name = file_name  # type: str
+        # The name of the namespace. Default value: public.
+        # 
+        # >  You can call the [CreateNamespace](https://help.aliyun.com/document_detail/2401495.html) operation to create a namespace and call the [ListNamespaces](https://help.aliyun.com/document_detail/2401502.html) operation to query a list of namespaces.
         self.namespace = namespace  # type: str
+        # The password of the namespace.
+        # 
+        # >  This value is specified when you call the [CreateNamespace](https://help.aliyun.com/document_detail/2401495.html) operation.
+        # 
+        # This parameter is required.
         self.namespace_password = namespace_password  # type: str
         self.owner_id = owner_id  # type: long
+        # This parameter is required.
         self.region_id = region_id  # type: str
         self.text_chunks = text_chunks  # type: list[UpsertChunksRequestTextChunks]
 
@@ -23069,12 +34928,27 @@ class UpsertChunksRequest(TeaModel):
 class UpsertChunksShrinkRequest(TeaModel):
     def __init__(self, collection=None, dbinstance_id=None, file_name=None, namespace=None, namespace_password=None,
                  owner_id=None, region_id=None, text_chunks_shrink=None):
+        # The name of the document collection.
+        # 
+        # >  You can call the [CreateDocumentCollection](https://help.aliyun.com/document_detail/2618448.html) operation to create a document collection and call the [ListDocumentCollections](https://help.aliyun.com/document_detail/2618452.html) operation to query a list of document collections.
+        # 
+        # This parameter is required.
         self.collection = collection  # type: str
+        # This parameter is required.
         self.dbinstance_id = dbinstance_id  # type: str
         self.file_name = file_name  # type: str
+        # The name of the namespace. Default value: public.
+        # 
+        # >  You can call the [CreateNamespace](https://help.aliyun.com/document_detail/2401495.html) operation to create a namespace and call the [ListNamespaces](https://help.aliyun.com/document_detail/2401502.html) operation to query a list of namespaces.
         self.namespace = namespace  # type: str
+        # The password of the namespace.
+        # 
+        # >  This value is specified when you call the [CreateNamespace](https://help.aliyun.com/document_detail/2401495.html) operation.
+        # 
+        # This parameter is required.
         self.namespace_password = namespace_password  # type: str
         self.owner_id = owner_id  # type: long
+        # This parameter is required.
         self.region_id = region_id  # type: str
         self.text_chunks_shrink = text_chunks_shrink  # type: str
 
@@ -23205,6 +35079,7 @@ class UpsertCollectionDataRequestRows(TeaModel):
     def __init__(self, id=None, metadata=None, vector=None):
         self.id = id  # type: str
         self.metadata = metadata  # type: dict[str, str]
+        # This parameter is required.
         self.vector = vector  # type: list[float]
 
     def validate(self):
@@ -23237,23 +35112,30 @@ class UpsertCollectionDataRequestRows(TeaModel):
 
 class UpsertCollectionDataRequest(TeaModel):
     def __init__(self, collection=None, dbinstance_id=None, namespace=None, namespace_password=None, owner_id=None,
-                 region_id=None, rows=None):
+                 region_id=None, rows=None, workspace_id=None):
         # The name of the collection.
+        # 
+        # This parameter is required.
         self.collection = collection  # type: str
         # The instance ID.
         # 
-        # > You can call the [DescribeDBInstances](~~86911~~) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # > You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
         self.dbinstance_id = dbinstance_id  # type: str
         # The name of the namespace.
         self.namespace = namespace  # type: str
         # The password of the namespace.
+        # 
+        # This parameter is required.
         self.namespace_password = namespace_password  # type: str
         self.owner_id = owner_id  # type: long
         # The region ID of the instance.
         # 
-        # > You can call the [DescribeRegions](~~86912~~) operation to query the most recent region list.
+        # >  You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list.
+        # 
+        # This parameter is required.
         self.region_id = region_id  # type: str
         self.rows = rows  # type: list[UpsertCollectionDataRequestRows]
+        self.workspace_id = workspace_id  # type: str
 
     def validate(self):
         if self.rows:
@@ -23283,6 +35165,8 @@ class UpsertCollectionDataRequest(TeaModel):
         if self.rows is not None:
             for k in self.rows:
                 result['Rows'].append(k.to_map() if k else None)
+        if self.workspace_id is not None:
+            result['WorkspaceId'] = self.workspace_id
         return result
 
     def from_map(self, m=None):
@@ -23304,28 +35188,37 @@ class UpsertCollectionDataRequest(TeaModel):
             for k in m.get('Rows'):
                 temp_model = UpsertCollectionDataRequestRows()
                 self.rows.append(temp_model.from_map(k))
+        if m.get('WorkspaceId') is not None:
+            self.workspace_id = m.get('WorkspaceId')
         return self
 
 
 class UpsertCollectionDataShrinkRequest(TeaModel):
     def __init__(self, collection=None, dbinstance_id=None, namespace=None, namespace_password=None, owner_id=None,
-                 region_id=None, rows_shrink=None):
+                 region_id=None, rows_shrink=None, workspace_id=None):
         # The name of the collection.
+        # 
+        # This parameter is required.
         self.collection = collection  # type: str
         # The instance ID.
         # 
-        # > You can call the [DescribeDBInstances](~~86911~~) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
+        # > You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
         self.dbinstance_id = dbinstance_id  # type: str
         # The name of the namespace.
         self.namespace = namespace  # type: str
         # The password of the namespace.
+        # 
+        # This parameter is required.
         self.namespace_password = namespace_password  # type: str
         self.owner_id = owner_id  # type: long
         # The region ID of the instance.
         # 
-        # > You can call the [DescribeRegions](~~86912~~) operation to query the most recent region list.
+        # >  You can call the [DescribeRegions](https://help.aliyun.com/document_detail/86912.html) operation to query the most recent region list.
+        # 
+        # This parameter is required.
         self.region_id = region_id  # type: str
         self.rows_shrink = rows_shrink  # type: str
+        self.workspace_id = workspace_id  # type: str
 
     def validate(self):
         pass
@@ -23350,6 +35243,8 @@ class UpsertCollectionDataShrinkRequest(TeaModel):
             result['RegionId'] = self.region_id
         if self.rows_shrink is not None:
             result['Rows'] = self.rows_shrink
+        if self.workspace_id is not None:
+            result['WorkspaceId'] = self.workspace_id
         return result
 
     def from_map(self, m=None):
@@ -23368,6 +35263,8 @@ class UpsertCollectionDataShrinkRequest(TeaModel):
             self.region_id = m.get('RegionId')
         if m.get('Rows') is not None:
             self.rows_shrink = m.get('Rows')
+        if m.get('WorkspaceId') is not None:
+            self.workspace_id = m.get('WorkspaceId')
         return self
 
 
@@ -23449,14 +35346,45 @@ class UpsertCollectionDataResponse(TeaModel):
 
 class UpsertCollectionDataAsyncRequest(TeaModel):
     def __init__(self, collection=None, dbinstance_id=None, file_url=None, namespace=None, namespace_password=None,
-                 owner_id=None, region_id=None):
+                 owner_id=None, region_id=None, workspace_id=None):
+        # The name of the collection.
+        # 
+        # >  You can call the [ListCollections](https://help.aliyun.com/document_detail/2401503.html) operation to query a list of collections.
+        # 
+        # This parameter is required.
         self.collection = collection  # type: str
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
         self.dbinstance_id = dbinstance_id  # type: str
+        # The Internet-accessible vector data file URL.
+        # 
+        # > 
+        # 
+        # *   The file content must be in the JSONL format. Each line consists of a list of JSON data, which specifies a set of vector data.
+        # 
+        # *   Data format of each line: `{String Id; Map<String, Object> Metadata; List<Double> Vector}`. Example: `{"Id":"myid", "Metadata": {"my_meta_key": "my_meta_value"}, "Vector": [1.234, -0.123]}`.
+        # 
+        # *   We recommend that you SDKs to call this operation. SDKs encapsulate the UpsertCollectionDataAsyncAdvance method to upload on-premises files as data sources.
+        # 
+        # This parameter is required.
         self.file_url = file_url  # type: str
+        # The name of the namespace. Default value: public.
+        # 
+        # >  You can call the CreateNamespace operation to create a namespace and call the ListNamespaces operation to query a list of namespaces.
         self.namespace = namespace  # type: str
+        # The password of the namespace.
+        # 
+        # >  The value of this parameter is specified when you call the CreateNamespace operation.
+        # 
+        # This parameter is required.
         self.namespace_password = namespace_password  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the instance.
+        # 
+        # This parameter is required.
         self.region_id = region_id  # type: str
+        self.workspace_id = workspace_id  # type: str
 
     def validate(self):
         pass
@@ -23481,6 +35409,8 @@ class UpsertCollectionDataAsyncRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.workspace_id is not None:
+            result['WorkspaceId'] = self.workspace_id
         return result
 
     def from_map(self, m=None):
@@ -23499,19 +35429,52 @@ class UpsertCollectionDataAsyncRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('WorkspaceId') is not None:
+            self.workspace_id = m.get('WorkspaceId')
         return self
 
 
 class UpsertCollectionDataAsyncAdvanceRequest(TeaModel):
     def __init__(self, collection=None, dbinstance_id=None, file_url_object=None, namespace=None,
-                 namespace_password=None, owner_id=None, region_id=None):
+                 namespace_password=None, owner_id=None, region_id=None, workspace_id=None):
+        # The name of the collection.
+        # 
+        # >  You can call the [ListCollections](https://help.aliyun.com/document_detail/2401503.html) operation to query a list of collections.
+        # 
+        # This parameter is required.
         self.collection = collection  # type: str
+        # The instance ID.
+        # 
+        # >  You can call the [DescribeDBInstances](https://help.aliyun.com/document_detail/86911.html) operation to query the information about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
         self.dbinstance_id = dbinstance_id  # type: str
+        # The Internet-accessible vector data file URL.
+        # 
+        # > 
+        # 
+        # *   The file content must be in the JSONL format. Each line consists of a list of JSON data, which specifies a set of vector data.
+        # 
+        # *   Data format of each line: `{String Id; Map<String, Object> Metadata; List<Double> Vector}`. Example: `{"Id":"myid", "Metadata": {"my_meta_key": "my_meta_value"}, "Vector": [1.234, -0.123]}`.
+        # 
+        # *   We recommend that you SDKs to call this operation. SDKs encapsulate the UpsertCollectionDataAsyncAdvance method to upload on-premises files as data sources.
+        # 
+        # This parameter is required.
         self.file_url_object = file_url_object  # type: READABLE
+        # The name of the namespace. Default value: public.
+        # 
+        # >  You can call the CreateNamespace operation to create a namespace and call the ListNamespaces operation to query a list of namespaces.
         self.namespace = namespace  # type: str
+        # The password of the namespace.
+        # 
+        # >  The value of this parameter is specified when you call the CreateNamespace operation.
+        # 
+        # This parameter is required.
         self.namespace_password = namespace_password  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the instance.
+        # 
+        # This parameter is required.
         self.region_id = region_id  # type: str
+        self.workspace_id = workspace_id  # type: str
 
     def validate(self):
         pass
@@ -23536,6 +35499,8 @@ class UpsertCollectionDataAsyncAdvanceRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.workspace_id is not None:
+            result['WorkspaceId'] = self.workspace_id
         return result
 
     def from_map(self, m=None):
@@ -23554,14 +35519,23 @@ class UpsertCollectionDataAsyncAdvanceRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('WorkspaceId') is not None:
+            self.workspace_id = m.get('WorkspaceId')
         return self
 
 
 class UpsertCollectionDataAsyncResponseBody(TeaModel):
     def __init__(self, job_id=None, message=None, request_id=None, status=None):
+        # The job ID. It can be used to query the job status or cancel the job.
         self.job_id = job_id  # type: str
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The status of the operation. Valid values:
+        # 
+        # *   **success**\
+        # *   **fail**\
         self.status = status  # type: str
 
     def validate(self):

@@ -15,9 +15,9 @@ from alibabacloud_openapi_util.client import Client as OpenApiUtilClient
 from alibabacloud_openplatform20191219.client import Client as OpenPlatformClient
 from alibabacloud_openplatform20191219 import models as open_platform_models
 from alibabacloud_oss_sdk import models as oss_models
+from alibabacloud_oss_sdk.client import Client as OSSClient
 from alibabacloud_tea_fileform import models as file_form_models
 from alibabacloud_oss_util import models as ossutil_models
-from alibabacloud_oss_sdk.client import Client as OSSClient
 
 
 class Client(OpenApiClient):
@@ -54,7 +54,9 @@ class Client(OpenApiClient):
 
     def allocate_instance_public_connection_with_options(self, request, runtime):
         """
-        You can call this operation to apply for a public endpoint for an AnalyticDB for PostgreSQL instance. Both the primary and instance endpoints of an AnalyticDB for PostgreSQL instance can be public endpoints. For more information, see [Endpoints of an instance and its primary coordinator node](~~204879~~).
+        @summary Allocates a public endpoint for an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation to apply for a public endpoint for an AnalyticDB for PostgreSQL instance. Both the primary and instance endpoints of an AnalyticDB for PostgreSQL instance can be public endpoints. For more information, see [Endpoints of an instance and its primary coordinator node](https://help.aliyun.com/document_detail/204879.html).
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -102,7 +104,9 @@ class Client(OpenApiClient):
 
     def allocate_instance_public_connection(self, request):
         """
-        You can call this operation to apply for a public endpoint for an AnalyticDB for PostgreSQL instance. Both the primary and instance endpoints of an AnalyticDB for PostgreSQL instance can be public endpoints. For more information, see [Endpoints of an instance and its primary coordinator node](~~204879~~).
+        @summary Allocates a public endpoint for an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation to apply for a public endpoint for an AnalyticDB for PostgreSQL instance. Both the primary and instance endpoints of an AnalyticDB for PostgreSQL instance can be public endpoints. For more information, see [Endpoints of an instance and its primary coordinator node](https://help.aliyun.com/document_detail/204879.html).
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -114,7 +118,76 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.allocate_instance_public_connection_with_options(request, runtime)
 
+    def bind_dbresource_group_with_role_with_options(self, tmp_req, runtime):
+        """
+        @summary Binds a resource group to a database role.
+        
+
+        @param tmp_req: BindDBResourceGroupWithRoleRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: BindDBResourceGroupWithRoleResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = gpdb_20160503_models.BindDBResourceGroupWithRoleShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.role_list):
+            request.role_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.role_list, 'RoleList', 'simple')
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_group_name):
+            query['ResourceGroupName'] = request.resource_group_name
+        if not UtilClient.is_unset(request.role_list_shrink):
+            query['RoleList'] = request.role_list_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='BindDBResourceGroupWithRole',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.BindDBResourceGroupWithRoleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def bind_dbresource_group_with_role(self, request):
+        """
+        @summary Binds a resource group to a database role.
+        
+
+        @param request: BindDBResourceGroupWithRoleRequest
+
+        @return: BindDBResourceGroupWithRoleResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.bind_dbresource_group_with_role_with_options(request, runtime)
+
     def cancel_upload_document_job_with_options(self, request, runtime):
+        """
+        @summary Cancels an asynchronous document upload job based on the job ID.
+        
+        @description This operation is related to the UploadDocumentAsync operation. You can call this operation to cancel a document upload job.
+        >  If the canceling operation is complete, failed, or is canceled, you cannot call the operation again. The canceling operation only interrupts the document upload job. To remove the uploaded data, you must manually remove it or call the DeleteCollectionData operation. You can also call the document upload operation to overwrite the data by using the same FileName parameter.
+        
+
+        @param request: CancelUploadDocumentJobRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CancelUploadDocumentJobResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbinstance_id):
@@ -153,10 +226,34 @@ class Client(OpenApiClient):
         )
 
     def cancel_upload_document_job(self, request):
+        """
+        @summary Cancels an asynchronous document upload job based on the job ID.
+        
+        @description This operation is related to the UploadDocumentAsync operation. You can call this operation to cancel a document upload job.
+        >  If the canceling operation is complete, failed, or is canceled, you cannot call the operation again. The canceling operation only interrupts the document upload job. To remove the uploaded data, you must manually remove it or call the DeleteCollectionData operation. You can also call the document upload operation to overwrite the data by using the same FileName parameter.
+        
+
+        @param request: CancelUploadDocumentJobRequest
+
+        @return: CancelUploadDocumentJobResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.cancel_upload_document_job_with_options(request, runtime)
 
     def cancel_upsert_collection_data_job_with_options(self, request, runtime):
+        """
+        @summary Cancels an asynchronous vector data upload job by using a job ID.
+        
+        @description This operation is related to the `UpsertCollectionDataAsync` operation. You can call this operation to cancel an upload job.
+        >  If the canceling operation is complete, failed, or is canceled, you cannot call the operation again. The canceling operation only interrupts the upload job. To remove the uploaded data, you must manually remove it or call the DeleteCollectionData operation.
+        
+
+        @param request: CancelUpsertCollectionDataJobRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CancelUpsertCollectionDataJobResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbinstance_id):
@@ -165,6 +262,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.workspace_id):
+            query['WorkspaceId'] = request.workspace_id
         body = {}
         if not UtilClient.is_unset(request.collection):
             body['Collection'] = request.collection
@@ -195,10 +294,187 @@ class Client(OpenApiClient):
         )
 
     def cancel_upsert_collection_data_job(self, request):
+        """
+        @summary Cancels an asynchronous vector data upload job by using a job ID.
+        
+        @description This operation is related to the `UpsertCollectionDataAsync` operation. You can call this operation to cancel an upload job.
+        >  If the canceling operation is complete, failed, or is canceled, you cannot call the operation again. The canceling operation only interrupts the upload job. To remove the uploaded data, you must manually remove it or call the DeleteCollectionData operation.
+        
+
+        @param request: CancelUpsertCollectionDataJobRequest
+
+        @return: CancelUpsertCollectionDataJobResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.cancel_upsert_collection_data_job_with_options(request, runtime)
 
+    def check_hadoop_data_source_with_options(self, request, runtime):
+        """
+        @summary Checks the configurations of a Hadoop data source.
+        
+
+        @param request: CheckHadoopDataSourceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CheckHadoopDataSourceResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.check_dir):
+            query['CheckDir'] = request.check_dir
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.data_source_id):
+            query['DataSourceId'] = request.data_source_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CheckHadoopDataSource',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.CheckHadoopDataSourceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def check_hadoop_data_source(self, request):
+        """
+        @summary Checks the configurations of a Hadoop data source.
+        
+
+        @param request: CheckHadoopDataSourceRequest
+
+        @return: CheckHadoopDataSourceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.check_hadoop_data_source_with_options(request, runtime)
+
+    def check_hadoop_net_connection_with_options(self, request, runtime):
+        """
+        @summary 检查hadoop集群网络连通性
+        
+
+        @param request: CheckHadoopNetConnectionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CheckHadoopNetConnectionResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.data_source_id):
+            query['DataSourceId'] = request.data_source_id
+        if not UtilClient.is_unset(request.emr_instance_id):
+            query['EmrInstanceId'] = request.emr_instance_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CheckHadoopNetConnection',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.CheckHadoopNetConnectionResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def check_hadoop_net_connection(self, request):
+        """
+        @summary 检查hadoop集群网络连通性
+        
+
+        @param request: CheckHadoopNetConnectionRequest
+
+        @return: CheckHadoopNetConnectionResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.check_hadoop_net_connection_with_options(request, runtime)
+
+    def check_jdbcsource_net_connection_with_options(self, request, runtime):
+        """
+        @summary Checks the network connectivity of a connection specified by a Java Database Connectivity (JDBC) connection string.
+        
+
+        @param request: CheckJDBCSourceNetConnectionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CheckJDBCSourceNetConnectionResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.data_source_id):
+            query['DataSourceId'] = request.data_source_id
+        if not UtilClient.is_unset(request.jdbc_connection_string):
+            query['JdbcConnectionString'] = request.jdbc_connection_string
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CheckJDBCSourceNetConnection',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.CheckJDBCSourceNetConnectionResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def check_jdbcsource_net_connection(self, request):
+        """
+        @summary Checks the network connectivity of a connection specified by a Java Database Connectivity (JDBC) connection string.
+        
+
+        @param request: CheckJDBCSourceNetConnectionRequest
+
+        @return: CheckJDBCSourceNetConnectionResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.check_jdbcsource_net_connection_with_options(request, runtime)
+
     def check_service_linked_role_with_options(self, request, runtime):
+        """
+        @summary Queries whether a service-linked role is created.
+        
+
+        @param request: CheckServiceLinkedRoleRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CheckServiceLinkedRoleResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.region_id):
@@ -223,13 +499,23 @@ class Client(OpenApiClient):
         )
 
     def check_service_linked_role(self, request):
+        """
+        @summary Queries whether a service-linked role is created.
+        
+
+        @param request: CheckServiceLinkedRoleRequest
+
+        @return: CheckServiceLinkedRoleResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.check_service_linked_role_with_options(request, runtime)
 
     def create_account_with_options(self, request, runtime):
         """
-        Before you can use an AnalyticDB for PostgreSQL instance, you must create a privileged account for the instance.
-        *   You can call this operation to create only privileged accounts. For information about how to create other types of accounts, see [Create a database account](~~50206~~).
+        @summary Creates an initial account for an AnalyticDB for PostgreSQL instance.
+        
+        @description    Before you can use an AnalyticDB for PostgreSQL instance, you must create an initial account for the instance.
+        You can call this operation to create only initial accounts. For information about how to create other types of accounts, see [Create a database account](https://help.aliyun.com/document_detail/50206.html).
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -248,6 +534,8 @@ class Client(OpenApiClient):
             query['AccountName'] = request.account_name
         if not UtilClient.is_unset(request.account_password):
             query['AccountPassword'] = request.account_password
+        if not UtilClient.is_unset(request.account_type):
+            query['AccountType'] = request.account_type
         if not UtilClient.is_unset(request.dbinstance_id):
             query['DBInstanceId'] = request.dbinstance_id
         if not UtilClient.is_unset(request.database_name):
@@ -277,8 +565,10 @@ class Client(OpenApiClient):
 
     def create_account(self, request):
         """
-        Before you can use an AnalyticDB for PostgreSQL instance, you must create a privileged account for the instance.
-        *   You can call this operation to create only privileged accounts. For information about how to create other types of accounts, see [Create a database account](~~50206~~).
+        @summary Creates an initial account for an AnalyticDB for PostgreSQL instance.
+        
+        @description    Before you can use an AnalyticDB for PostgreSQL instance, you must create an initial account for the instance.
+        You can call this operation to create only initial accounts. For information about how to create other types of accounts, see [Create a database account](https://help.aliyun.com/document_detail/50206.html).
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -291,6 +581,16 @@ class Client(OpenApiClient):
         return self.create_account_with_options(request, runtime)
 
     def create_collection_with_options(self, request, runtime):
+        """
+        @summary Creates a vector collection.
+        
+
+        @param request: CreateCollectionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateCollectionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.collection):
@@ -323,6 +623,8 @@ class Client(OpenApiClient):
             query['PqEnable'] = request.pq_enable
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.workspace_id):
+            query['WorkspaceId'] = request.workspace_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -343,13 +645,23 @@ class Client(OpenApiClient):
         )
 
     def create_collection(self, request):
+        """
+        @summary Creates a vector collection.
+        
+
+        @param request: CreateCollectionRequest
+
+        @return: CreateCollectionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_collection_with_options(request, runtime)
 
     def create_dbinstance_with_options(self, request, runtime):
         """
-        You can call this operation when you need to create AnalyticDB for PostgreSQL instances to meet the requirements of new applications or services.
-        Before you call this operation, make sure that you are familiar with the billing of AnalyticDB for PostgreSQL instances. For more information, see [Billing methods](~~35406~~) and [AnalyticDB for PostgreSQL pricing](https://www.alibabacloud.com/zh/product/hybriddb-postgresql/pricing).
+        @summary Creates an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation when you need to create AnalyticDB for PostgreSQL instances to meet the requirements of new applications or services.
+        Before you call this operation, make sure that you are familiar with the billing of AnalyticDB for PostgreSQL instances. For more information, see [Billing methods](https://help.aliyun.com/document_detail/35406.html) and [AnalyticDB for PostgreSQL pricing](https://www.alibabacloud.com/zh/product/hybriddb-postgresql/pricing).
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
@@ -463,8 +775,10 @@ class Client(OpenApiClient):
 
     def create_dbinstance(self, request):
         """
-        You can call this operation when you need to create AnalyticDB for PostgreSQL instances to meet the requirements of new applications or services.
-        Before you call this operation, make sure that you are familiar with the billing of AnalyticDB for PostgreSQL instances. For more information, see [Billing methods](~~35406~~) and [AnalyticDB for PostgreSQL pricing](https://www.alibabacloud.com/zh/product/hybriddb-postgresql/pricing).
+        @summary Creates an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation when you need to create AnalyticDB for PostgreSQL instances to meet the requirements of new applications or services.
+        Before you call this operation, make sure that you are familiar with the billing of AnalyticDB for PostgreSQL instances. For more information, see [Billing methods](https://help.aliyun.com/document_detail/35406.html) and [AnalyticDB for PostgreSQL pricing](https://www.alibabacloud.com/zh/product/hybriddb-postgresql/pricing).
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
@@ -478,9 +792,11 @@ class Client(OpenApiClient):
 
     def create_dbinstance_plan_with_options(self, request, runtime):
         """
-        The plan management feature is supported only for pay-as-you-go instances.
-        *   When you change the compute node specifications or change the number of compute nodes, transient connections may occur. We recommend that you perform these operations during off-peak hours.
-        Before you call this operation, make sure that you are familiar with the billing of AnalyticDB for PostgreSQL. For more information, see [Billing methods](~~35406~~) and [AnalyticDB for PostgreSQL pricing](https://www.alibabacloud.com/zh/product/hybriddb-postgresql/pricing).
+        @summary Creates a plan for an AnalyticDB for PostgreSQL instance.
+        
+        @description    The plan management feature is supported only for pay-as-you-go instances.
+        When you change the compute node specifications or change the number of compute nodes, transient connections may occur. We recommend that you perform these operations during off-peak hours.
+        Before you call this operation, make sure that you are familiar with the billing of AnalyticDB for PostgreSQL. For more information, see [Billing methods](https://help.aliyun.com/document_detail/35406.html) and [AnalyticDB for PostgreSQL pricing](https://www.alibabacloud.com/zh/product/hybriddb-postgresql/pricing).
         
 
         @param request: CreateDBInstancePlanRequest
@@ -530,9 +846,11 @@ class Client(OpenApiClient):
 
     def create_dbinstance_plan(self, request):
         """
-        The plan management feature is supported only for pay-as-you-go instances.
-        *   When you change the compute node specifications or change the number of compute nodes, transient connections may occur. We recommend that you perform these operations during off-peak hours.
-        Before you call this operation, make sure that you are familiar with the billing of AnalyticDB for PostgreSQL. For more information, see [Billing methods](~~35406~~) and [AnalyticDB for PostgreSQL pricing](https://www.alibabacloud.com/zh/product/hybriddb-postgresql/pricing).
+        @summary Creates a plan for an AnalyticDB for PostgreSQL instance.
+        
+        @description    The plan management feature is supported only for pay-as-you-go instances.
+        When you change the compute node specifications or change the number of compute nodes, transient connections may occur. We recommend that you perform these operations during off-peak hours.
+        Before you call this operation, make sure that you are familiar with the billing of AnalyticDB for PostgreSQL. For more information, see [Billing methods](https://help.aliyun.com/document_detail/35406.html) and [AnalyticDB for PostgreSQL pricing](https://www.alibabacloud.com/zh/product/hybriddb-postgresql/pricing).
         
 
         @param request: CreateDBInstancePlanRequest
@@ -542,7 +860,69 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_dbinstance_plan_with_options(request, runtime)
 
+    def create_dbresource_group_with_options(self, request, runtime):
+        """
+        @summary Creates a resource group.
+        
+
+        @param request: CreateDBResourceGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateDBResourceGroupResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_group_config):
+            query['ResourceGroupConfig'] = request.resource_group_config
+        if not UtilClient.is_unset(request.resource_group_name):
+            query['ResourceGroupName'] = request.resource_group_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDBResourceGroup',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.CreateDBResourceGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_dbresource_group(self, request):
+        """
+        @summary Creates a resource group.
+        
+
+        @param request: CreateDBResourceGroupRequest
+
+        @return: CreateDBResourceGroupResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_dbresource_group_with_options(request, runtime)
+
     def create_document_collection_with_options(self, request, runtime):
+        """
+        @summary Creates a document collection.
+        
+
+        @param request: CreateDocumentCollectionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateDocumentCollectionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.collection):
@@ -595,10 +975,264 @@ class Client(OpenApiClient):
         )
 
     def create_document_collection(self, request):
+        """
+        @summary Creates a document collection.
+        
+
+        @param request: CreateDocumentCollectionRequest
+
+        @return: CreateDocumentCollectionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_document_collection_with_options(request, runtime)
 
+    def create_extensions_with_options(self, request, runtime):
+        """
+        @summary Install extensions.
+        
+
+        @param request: CreateExtensionsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateExtensionsResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbnames):
+            query['DBNames'] = request.dbnames
+        if not UtilClient.is_unset(request.extensions):
+            query['Extensions'] = request.extensions
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateExtensions',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.CreateExtensionsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_extensions(self, request):
+        """
+        @summary Install extensions.
+        
+
+        @param request: CreateExtensionsRequest
+
+        @return: CreateExtensionsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_extensions_with_options(request, runtime)
+
+    def create_external_data_service_with_options(self, request, runtime):
+        """
+        @summary Creates an external data service.
+        
+
+        @param request: CreateExternalDataServiceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateExternalDataServiceResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.service_description):
+            query['ServiceDescription'] = request.service_description
+        if not UtilClient.is_unset(request.service_name):
+            query['ServiceName'] = request.service_name
+        if not UtilClient.is_unset(request.service_spec):
+            query['ServiceSpec'] = request.service_spec
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateExternalDataService',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.CreateExternalDataServiceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_external_data_service(self, request):
+        """
+        @summary Creates an external data service.
+        
+
+        @param request: CreateExternalDataServiceRequest
+
+        @return: CreateExternalDataServiceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_external_data_service_with_options(request, runtime)
+
+    def create_hadoop_data_source_with_options(self, request, runtime):
+        """
+        @summary Creates the configurations for a Hadoop data source.
+        
+
+        @param request: CreateHadoopDataSourceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateHadoopDataSourceResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.data_source_description):
+            query['DataSourceDescription'] = request.data_source_description
+        if not UtilClient.is_unset(request.data_source_name):
+            query['DataSourceName'] = request.data_source_name
+        if not UtilClient.is_unset(request.data_source_type):
+            query['DataSourceType'] = request.data_source_type
+        if not UtilClient.is_unset(request.emr_instance_id):
+            query['EmrInstanceId'] = request.emr_instance_id
+        if not UtilClient.is_unset(request.hdfsconf):
+            query['HDFSConf'] = request.hdfsconf
+        if not UtilClient.is_unset(request.hadoop_core_conf):
+            query['HadoopCoreConf'] = request.hadoop_core_conf
+        if not UtilClient.is_unset(request.hadoop_create_type):
+            query['HadoopCreateType'] = request.hadoop_create_type
+        if not UtilClient.is_unset(request.hadoop_hosts_address):
+            query['HadoopHostsAddress'] = request.hadoop_hosts_address
+        if not UtilClient.is_unset(request.hive_conf):
+            query['HiveConf'] = request.hive_conf
+        if not UtilClient.is_unset(request.map_reduce_conf):
+            query['MapReduceConf'] = request.map_reduce_conf
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.yarn_conf):
+            query['YarnConf'] = request.yarn_conf
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateHadoopDataSource',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.CreateHadoopDataSourceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_hadoop_data_source(self, request):
+        """
+        @summary Creates the configurations for a Hadoop data source.
+        
+
+        @param request: CreateHadoopDataSourceRequest
+
+        @return: CreateHadoopDataSourceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_hadoop_data_source_with_options(request, runtime)
+
+    def create_jdbcdata_source_with_options(self, request, runtime):
+        """
+        @summary Creates a Java Database Connectivity (JDBC) data source.
+        
+
+        @param request: CreateJDBCDataSourceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateJDBCDataSourceResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.data_source_description):
+            query['DataSourceDescription'] = request.data_source_description
+        if not UtilClient.is_unset(request.data_source_name):
+            query['DataSourceName'] = request.data_source_name
+        if not UtilClient.is_unset(request.data_source_type):
+            query['DataSourceType'] = request.data_source_type
+        if not UtilClient.is_unset(request.jdbcconnection_string):
+            query['JDBCConnectionString'] = request.jdbcconnection_string
+        if not UtilClient.is_unset(request.jdbcpassword):
+            query['JDBCPassword'] = request.jdbcpassword
+        if not UtilClient.is_unset(request.jdbcuser_name):
+            query['JDBCUserName'] = request.jdbcuser_name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateJDBCDataSource',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.CreateJDBCDataSourceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_jdbcdata_source(self, request):
+        """
+        @summary Creates a Java Database Connectivity (JDBC) data source.
+        
+
+        @param request: CreateJDBCDataSourceRequest
+
+        @return: CreateJDBCDataSourceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_jdbcdata_source_with_options(request, runtime)
+
     def create_namespace_with_options(self, request, runtime):
+        """
+        @summary Creates a vector namespace.
+        
+
+        @param request: CreateNamespaceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateNamespaceResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbinstance_id):
@@ -615,6 +1249,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.workspace_id):
+            query['WorkspaceId'] = request.workspace_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -635,19 +1271,23 @@ class Client(OpenApiClient):
         )
 
     def create_namespace(self, request):
+        """
+        @summary Creates a vector namespace.
+        
+
+        @param request: CreateNamespaceRequest
+
+        @return: CreateNamespaceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_namespace_with_options(request, runtime)
 
     def create_sample_data_with_options(self, request, runtime):
         """
-        You can call this operation to load a sample dataset to an AnalyticDB for PostgreSQL instance. Then, you can execute query statements on the sample dataset to experience or test your instance. For more information about query statements, see [Dataset information and query examples](~~452277~~).
-        ## Precautions
-        - If your instance is in elastic storage mode, the sample dataset is supported only for V6.3.10.3 or later. If your instance is in Serverless mode, the sample dataset is supported only for V1.0.4.0 or later. For more information about how to update the minor engine version of an instance, see [Update the minor engine version](/help/en/analyticdb-for-postgresql/latest/upgrade-the-engine-version).
-        - The sample dataset is about 10 GB in size. Make sure that your instance has sufficient storage space.
-        - The sample dataset contains a database named `ADB_SampleData_TPCH`. Make sure that your instance does not have a database with the same name. Otherwise, the dataset may fail to be loaded.
-        - It may take 6 to 8 minutes to load the sample dataset. During this period, operations on your instance such as adding nodes or changing node specifications may be affected.
-        ## Limits
-        You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        @summary Creates a sample dataset for an AnalyticDB for PostgreSQL instance.
+        
+        @description    You can call this operation to create a sample dataset for an AnalyticDB for PostgreSQL instance. Then, you can execute query statements on the sample dataset to use or test your instance. For more information about query statements, see [Dataset information and query examples](https://help.aliyun.com/document_detail/452277.html).
+        This operation is supported only for AnalyticDB for PostgreSQL V6.3.8.8 and V6.3.10.3 or later, excluding the versions from V6.3.9.0 to V6.3.10.2.
         
 
         @param request: CreateSampleDataRequest
@@ -683,14 +1323,10 @@ class Client(OpenApiClient):
 
     def create_sample_data(self, request):
         """
-        You can call this operation to load a sample dataset to an AnalyticDB for PostgreSQL instance. Then, you can execute query statements on the sample dataset to experience or test your instance. For more information about query statements, see [Dataset information and query examples](~~452277~~).
-        ## Precautions
-        - If your instance is in elastic storage mode, the sample dataset is supported only for V6.3.10.3 or later. If your instance is in Serverless mode, the sample dataset is supported only for V1.0.4.0 or later. For more information about how to update the minor engine version of an instance, see [Update the minor engine version](/help/en/analyticdb-for-postgresql/latest/upgrade-the-engine-version).
-        - The sample dataset is about 10 GB in size. Make sure that your instance has sufficient storage space.
-        - The sample dataset contains a database named `ADB_SampleData_TPCH`. Make sure that your instance does not have a database with the same name. Otherwise, the dataset may fail to be loaded.
-        - It may take 6 to 8 minutes to load the sample dataset. During this period, operations on your instance such as adding nodes or changing node specifications may be affected.
-        ## Limits
-        You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        @summary Creates a sample dataset for an AnalyticDB for PostgreSQL instance.
+        
+        @description    You can call this operation to create a sample dataset for an AnalyticDB for PostgreSQL instance. Then, you can execute query statements on the sample dataset to use or test your instance. For more information about query statements, see [Dataset information and query examples](https://help.aliyun.com/document_detail/452277.html).
+        This operation is supported only for AnalyticDB for PostgreSQL V6.3.8.8 and V6.3.10.3 or later, excluding the versions from V6.3.9.0 to V6.3.10.2.
         
 
         @param request: CreateSampleDataRequest
@@ -700,7 +1336,77 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_sample_data_with_options(request, runtime)
 
+    def create_secret_with_options(self, request, runtime):
+        """
+        @summary Creates an access credential for an AnalyticDB for PostgreSQL instance by using the name and password of a database account.
+        
+
+        @param request: CreateSecretRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateSecretResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.password):
+            query['Password'] = request.password
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.secret_name):
+            query['SecretName'] = request.secret_name
+        if not UtilClient.is_unset(request.test_connection):
+            query['TestConnection'] = request.test_connection
+        if not UtilClient.is_unset(request.username):
+            query['Username'] = request.username
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateSecret',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.CreateSecretResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_secret(self, request):
+        """
+        @summary Creates an access credential for an AnalyticDB for PostgreSQL instance by using the name and password of a database account.
+        
+
+        @param request: CreateSecretRequest
+
+        @return: CreateSecretResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_secret_with_options(request, runtime)
+
     def create_service_linked_role_with_options(self, request, runtime):
+        """
+        @summary Creates a service-linked role.
+        
+
+        @param request: CreateServiceLinkedRoleRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateServiceLinkedRoleResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.owner_id):
@@ -727,10 +1433,238 @@ class Client(OpenApiClient):
         )
 
     def create_service_linked_role(self, request):
+        """
+        @summary Creates a service-linked role.
+        
+
+        @param request: CreateServiceLinkedRoleRequest
+
+        @return: CreateServiceLinkedRoleResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_service_linked_role_with_options(request, runtime)
 
+    def create_streaming_data_service_with_options(self, request, runtime):
+        """
+        @summary Creates a real-time data service.
+        
+
+        @param request: CreateStreamingDataServiceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateStreamingDataServiceResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.service_description):
+            query['ServiceDescription'] = request.service_description
+        if not UtilClient.is_unset(request.service_name):
+            query['ServiceName'] = request.service_name
+        if not UtilClient.is_unset(request.service_spec):
+            query['ServiceSpec'] = request.service_spec
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateStreamingDataService',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.CreateStreamingDataServiceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_streaming_data_service(self, request):
+        """
+        @summary Creates a real-time data service.
+        
+
+        @param request: CreateStreamingDataServiceRequest
+
+        @return: CreateStreamingDataServiceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_streaming_data_service_with_options(request, runtime)
+
+    def create_streaming_data_source_with_options(self, request, runtime):
+        """
+        @summary Creates a real-time data source.
+        
+
+        @param request: CreateStreamingDataSourceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateStreamingDataSourceResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.data_source_config):
+            query['DataSourceConfig'] = request.data_source_config
+        if not UtilClient.is_unset(request.data_source_description):
+            query['DataSourceDescription'] = request.data_source_description
+        if not UtilClient.is_unset(request.data_source_name):
+            query['DataSourceName'] = request.data_source_name
+        if not UtilClient.is_unset(request.data_source_type):
+            query['DataSourceType'] = request.data_source_type
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.service_id):
+            query['ServiceId'] = request.service_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateStreamingDataSource',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.CreateStreamingDataSourceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_streaming_data_source(self, request):
+        """
+        @summary Creates a real-time data source.
+        
+
+        @param request: CreateStreamingDataSourceRequest
+
+        @return: CreateStreamingDataSourceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_streaming_data_source_with_options(request, runtime)
+
+    def create_streaming_job_with_options(self, tmp_req, runtime):
+        """
+        @summary Creates the configurations for an external data source.
+        
+
+        @param tmp_req: CreateStreamingJobRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateStreamingJobResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = gpdb_20160503_models.CreateStreamingJobShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.dest_columns):
+            request.dest_columns_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.dest_columns, 'DestColumns', 'json')
+        if not UtilClient.is_unset(tmp_req.match_columns):
+            request.match_columns_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.match_columns, 'MatchColumns', 'json')
+        if not UtilClient.is_unset(tmp_req.src_columns):
+            request.src_columns_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.src_columns, 'SrcColumns', 'json')
+        if not UtilClient.is_unset(tmp_req.update_columns):
+            request.update_columns_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.update_columns, 'UpdateColumns', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.account):
+            query['Account'] = request.account
+        if not UtilClient.is_unset(request.consistency):
+            query['Consistency'] = request.consistency
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.data_source_id):
+            query['DataSourceId'] = request.data_source_id
+        if not UtilClient.is_unset(request.dest_columns_shrink):
+            query['DestColumns'] = request.dest_columns_shrink
+        if not UtilClient.is_unset(request.dest_database):
+            query['DestDatabase'] = request.dest_database
+        if not UtilClient.is_unset(request.dest_schema):
+            query['DestSchema'] = request.dest_schema
+        if not UtilClient.is_unset(request.dest_table):
+            query['DestTable'] = request.dest_table
+        if not UtilClient.is_unset(request.error_limit_count):
+            query['ErrorLimitCount'] = request.error_limit_count
+        if not UtilClient.is_unset(request.fallback_offset):
+            query['FallbackOffset'] = request.fallback_offset
+        if not UtilClient.is_unset(request.group_name):
+            query['GroupName'] = request.group_name
+        if not UtilClient.is_unset(request.job_config):
+            query['JobConfig'] = request.job_config
+        if not UtilClient.is_unset(request.job_description):
+            query['JobDescription'] = request.job_description
+        if not UtilClient.is_unset(request.job_name):
+            query['JobName'] = request.job_name
+        if not UtilClient.is_unset(request.match_columns_shrink):
+            query['MatchColumns'] = request.match_columns_shrink
+        if not UtilClient.is_unset(request.mode):
+            query['Mode'] = request.mode
+        if not UtilClient.is_unset(request.password):
+            query['Password'] = request.password
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.src_columns_shrink):
+            query['SrcColumns'] = request.src_columns_shrink
+        if not UtilClient.is_unset(request.try_run):
+            query['TryRun'] = request.try_run
+        if not UtilClient.is_unset(request.update_columns_shrink):
+            query['UpdateColumns'] = request.update_columns_shrink
+        if not UtilClient.is_unset(request.write_mode):
+            query['WriteMode'] = request.write_mode
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateStreamingJob',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.CreateStreamingJobResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_streaming_job(self, request):
+        """
+        @summary Creates the configurations for an external data source.
+        
+
+        @param request: CreateStreamingJobRequest
+
+        @return: CreateStreamingJobResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_streaming_job_with_options(request, runtime)
+
     def create_vector_index_with_options(self, request, runtime):
+        """
+        @summary Creates a vector index.
+        
+
+        @param request: CreateVectorIndexRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateVectorIndexResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.collection):
@@ -777,10 +1711,28 @@ class Client(OpenApiClient):
         )
 
     def create_vector_index(self, request):
+        """
+        @summary Creates a vector index.
+        
+
+        @param request: CreateVectorIndexRequest
+
+        @return: CreateVectorIndexResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_vector_index_with_options(request, runtime)
 
     def delete_collection_with_options(self, request, runtime):
+        """
+        @summary Deletes a vector collection.
+        
+
+        @param request: DeleteCollectionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteCollectionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.collection):
@@ -795,6 +1747,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.workspace_id):
+            query['WorkspaceId'] = request.workspace_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -815,10 +1769,28 @@ class Client(OpenApiClient):
         )
 
     def delete_collection(self, request):
+        """
+        @summary Deletes a vector collection.
+        
+
+        @param request: DeleteCollectionRequest
+
+        @return: DeleteCollectionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_collection_with_options(request, runtime)
 
     def delete_collection_data_with_options(self, request, runtime):
+        """
+        @summary Deletes vector data.
+        
+
+        @param request: DeleteCollectionDataRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteCollectionDataResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.collection):
@@ -837,6 +1809,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.workspace_id):
+            query['WorkspaceId'] = request.workspace_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -857,13 +1831,23 @@ class Client(OpenApiClient):
         )
 
     def delete_collection_data(self, request):
+        """
+        @summary Deletes vector data.
+        
+
+        @param request: DeleteCollectionDataRequest
+
+        @return: DeleteCollectionDataResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_collection_data_with_options(request, runtime)
 
     def delete_dbinstance_with_options(self, request, runtime):
         """
-        Subscription instances cannot be manually released. They are automatically released when they expire.
-        *   You can call this operation to release pay-as-you-go instances only when they are in the **Running** state.
+        @summary Releases a pay-as-you-go AnalyticDB for PostgreSQL instance.
+        
+        @description    Subscription instances cannot be manually released. They are automatically released when they expire.
+        You can call this operation to release pay-as-you-go instances only when they are in the **Running** state.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -905,8 +1889,10 @@ class Client(OpenApiClient):
 
     def delete_dbinstance(self, request):
         """
-        Subscription instances cannot be manually released. They are automatically released when they expire.
-        *   You can call this operation to release pay-as-you-go instances only when they are in the **Running** state.
+        @summary Releases a pay-as-you-go AnalyticDB for PostgreSQL instance.
+        
+        @description    Subscription instances cannot be manually released. They are automatically released when they expire.
+        You can call this operation to release pay-as-you-go instances only when they are in the **Running** state.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -920,7 +1906,9 @@ class Client(OpenApiClient):
 
     def delete_dbinstance_plan_with_options(self, request, runtime):
         """
-        If you no longer need a plan, you can call this operation to delete the plan. The plan management feature is supported only for AnalyticDB for PostgreSQL instances in Serverless mode.
+        @summary Deletes a plan from an AnalyticDB for PostgreSQL instance.
+        
+        @description If you no longer need a plan, you can call this operation to delete the plan. The plan management feature is supported only for AnalyticDB for PostgreSQL instances in Serverless mode.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -960,7 +1948,9 @@ class Client(OpenApiClient):
 
     def delete_dbinstance_plan(self, request):
         """
-        If you no longer need a plan, you can call this operation to delete the plan. The plan management feature is supported only for AnalyticDB for PostgreSQL instances in Serverless mode.
+        @summary Deletes a plan from an AnalyticDB for PostgreSQL instance.
+        
+        @description If you no longer need a plan, you can call this operation to delete the plan. The plan management feature is supported only for AnalyticDB for PostgreSQL instances in Serverless mode.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -972,7 +1962,67 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_dbinstance_plan_with_options(request, runtime)
 
+    def delete_dbresource_group_with_options(self, request, runtime):
+        """
+        @summary Deletes a resource group.
+        
+
+        @param request: DeleteDBResourceGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteDBResourceGroupResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_group_name):
+            query['ResourceGroupName'] = request.resource_group_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDBResourceGroup',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.DeleteDBResourceGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_dbresource_group(self, request):
+        """
+        @summary Deletes a resource group.
+        
+
+        @param request: DeleteDBResourceGroupRequest
+
+        @return: DeleteDBResourceGroupResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.delete_dbresource_group_with_options(request, runtime)
+
     def delete_document_with_options(self, request, runtime):
+        """
+        @summary Deletes a document from a document collection.
+        
+
+        @param request: DeleteDocumentRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteDocumentResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.collection):
@@ -1009,10 +2059,28 @@ class Client(OpenApiClient):
         )
 
     def delete_document(self, request):
+        """
+        @summary Deletes a document from a document collection.
+        
+
+        @param request: DeleteDocumentRequest
+
+        @return: DeleteDocumentResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_document_with_options(request, runtime)
 
     def delete_document_collection_with_options(self, request, runtime):
+        """
+        @summary Deletes a document collection.
+        
+
+        @param request: DeleteDocumentCollectionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteDocumentCollectionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.collection):
@@ -1047,10 +2115,230 @@ class Client(OpenApiClient):
         )
 
     def delete_document_collection(self, request):
+        """
+        @summary Deletes a document collection.
+        
+
+        @param request: DeleteDocumentCollectionRequest
+
+        @return: DeleteDocumentCollectionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_document_collection_with_options(request, runtime)
 
+    def delete_extension_with_options(self, request, runtime):
+        """
+        @summary Uninstall an extension.
+        
+
+        @param request: DeleteExtensionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteExtensionResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbnames):
+            query['DBNames'] = request.dbnames
+        if not UtilClient.is_unset(request.extension):
+            query['Extension'] = request.extension
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteExtension',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.DeleteExtensionResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_extension(self, request):
+        """
+        @summary Uninstall an extension.
+        
+
+        @param request: DeleteExtensionRequest
+
+        @return: DeleteExtensionResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.delete_extension_with_options(request, runtime)
+
+    def delete_external_data_service_with_options(self, request, runtime):
+        """
+        @summary Deletes an external data service.
+        
+
+        @param request: DeleteExternalDataServiceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteExternalDataServiceResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.service_id):
+            query['ServiceId'] = request.service_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteExternalDataService',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.DeleteExternalDataServiceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_external_data_service(self, request):
+        """
+        @summary Deletes an external data service.
+        
+
+        @param request: DeleteExternalDataServiceRequest
+
+        @return: DeleteExternalDataServiceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.delete_external_data_service_with_options(request, runtime)
+
+    def delete_hadoop_data_source_with_options(self, request, runtime):
+        """
+        @summary 删除hadoop数据源
+        
+
+        @param request: DeleteHadoopDataSourceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteHadoopDataSourceResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.data_source_id):
+            query['DataSourceId'] = request.data_source_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteHadoopDataSource',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.DeleteHadoopDataSourceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_hadoop_data_source(self, request):
+        """
+        @summary 删除hadoop数据源
+        
+
+        @param request: DeleteHadoopDataSourceRequest
+
+        @return: DeleteHadoopDataSourceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.delete_hadoop_data_source_with_options(request, runtime)
+
+    def delete_jdbcdata_source_with_options(self, request, runtime):
+        """
+        @summary Deletes a Java Database Connectivity (JDBC) data source.
+        
+
+        @param request: DeleteJDBCDataSourceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteJDBCDataSourceResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.data_source_id):
+            query['DataSourceId'] = request.data_source_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteJDBCDataSource',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.DeleteJDBCDataSourceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_jdbcdata_source(self, request):
+        """
+        @summary Deletes a Java Database Connectivity (JDBC) data source.
+        
+
+        @param request: DeleteJDBCDataSourceRequest
+
+        @return: DeleteJDBCDataSourceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.delete_jdbcdata_source_with_options(request, runtime)
+
     def delete_namespace_with_options(self, request, runtime):
+        """
+        @summary Deletes a namespace.
+        
+
+        @param request: DeleteNamespaceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteNamespaceResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbinstance_id):
@@ -1065,6 +2353,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.workspace_id):
+            query['WorkspaceId'] = request.workspace_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1085,10 +2375,232 @@ class Client(OpenApiClient):
         )
 
     def delete_namespace(self, request):
+        """
+        @summary Deletes a namespace.
+        
+
+        @param request: DeleteNamespaceRequest
+
+        @return: DeleteNamespaceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_namespace_with_options(request, runtime)
 
+    def delete_secret_with_options(self, request, runtime):
+        """
+        @summary Deletes the access credentials of an AnalyticDB for PostgreSQL instance.
+        
+
+        @param request: DeleteSecretRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteSecretResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.secret_arn):
+            query['SecretArn'] = request.secret_arn
+        if not UtilClient.is_unset(request.secret_name):
+            query['SecretName'] = request.secret_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteSecret',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.DeleteSecretResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_secret(self, request):
+        """
+        @summary Deletes the access credentials of an AnalyticDB for PostgreSQL instance.
+        
+
+        @param request: DeleteSecretRequest
+
+        @return: DeleteSecretResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.delete_secret_with_options(request, runtime)
+
+    def delete_streaming_data_service_with_options(self, request, runtime):
+        """
+        @summary Deletes a real-time data service.
+        
+
+        @param request: DeleteStreamingDataServiceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteStreamingDataServiceResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.service_id):
+            query['ServiceId'] = request.service_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteStreamingDataService',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.DeleteStreamingDataServiceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_streaming_data_service(self, request):
+        """
+        @summary Deletes a real-time data service.
+        
+
+        @param request: DeleteStreamingDataServiceRequest
+
+        @return: DeleteStreamingDataServiceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.delete_streaming_data_service_with_options(request, runtime)
+
+    def delete_streaming_data_source_with_options(self, request, runtime):
+        """
+        @summary Deletes a real-time data source.
+        
+
+        @param request: DeleteStreamingDataSourceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteStreamingDataSourceResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.data_source_id):
+            query['DataSourceId'] = request.data_source_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteStreamingDataSource',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.DeleteStreamingDataSourceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_streaming_data_source(self, request):
+        """
+        @summary Deletes a real-time data source.
+        
+
+        @param request: DeleteStreamingDataSourceRequest
+
+        @return: DeleteStreamingDataSourceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.delete_streaming_data_source_with_options(request, runtime)
+
+    def delete_streaming_job_with_options(self, request, runtime):
+        """
+        @summary Deletes a real-time data service job.
+        
+
+        @param request: DeleteStreamingJobRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteStreamingJobResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.job_id):
+            query['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteStreamingJob',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.DeleteStreamingJobResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_streaming_job(self, request):
+        """
+        @summary Deletes a real-time data service job.
+        
+
+        @param request: DeleteStreamingJobRequest
+
+        @return: DeleteStreamingJobResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.delete_streaming_job_with_options(request, runtime)
+
     def delete_vector_index_with_options(self, request, runtime):
+        """
+        @summary Deletes a vector index.
+        
+
+        @param request: DeleteVectorIndexRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteVectorIndexResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.collection):
@@ -1125,12 +2637,22 @@ class Client(OpenApiClient):
         )
 
     def delete_vector_index(self, request):
+        """
+        @summary Deletes a vector index.
+        
+
+        @param request: DeleteVectorIndexRequest
+
+        @return: DeleteVectorIndexResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_vector_index_with_options(request, runtime)
 
     def describe_accounts_with_options(self, request, runtime):
         """
-        This operation is called to query the information of the privileged account in an AnalyticDB for PostgreSQL instance, such as its state, description, and the instance.
+        @summary Queries the information about database accounts for an AnalyticDB for PostgreSQL instance.
+        
+        @description This operation is called to query the information of the privileged account in an AnalyticDB for PostgreSQL instance, such as its state, description, and the instance.
         ## Limit
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered and may affect your business. We recommend that you take note of the limit when you call this operation.
         
@@ -1145,6 +2667,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.account_name):
             query['AccountName'] = request.account_name
+        if not UtilClient.is_unset(request.account_type):
+            query['AccountType'] = request.account_type
         if not UtilClient.is_unset(request.dbinstance_id):
             query['DBInstanceId'] = request.dbinstance_id
         req = open_api_models.OpenApiRequest(
@@ -1168,7 +2692,9 @@ class Client(OpenApiClient):
 
     def describe_accounts(self, request):
         """
-        This operation is called to query the information of the privileged account in an AnalyticDB for PostgreSQL instance, such as its state, description, and the instance.
+        @summary Queries the information about database accounts for an AnalyticDB for PostgreSQL instance.
+        
+        @description This operation is called to query the information of the privileged account in an AnalyticDB for PostgreSQL instance, such as its state, description, and the instance.
         ## Limit
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered and may affect your business. We recommend that you take note of the limit when you call this operation.
         
@@ -1181,6 +2707,16 @@ class Client(OpenApiClient):
         return self.describe_accounts_with_options(request, runtime)
 
     def describe_active_sqlrecords_with_options(self, request, runtime):
+        """
+        @summary Queries active SQL records.
+        
+
+        @param request: DescribeActiveSQLRecordsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeActiveSQLRecordsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbinstance_id):
@@ -1221,12 +2757,22 @@ class Client(OpenApiClient):
         )
 
     def describe_active_sqlrecords(self, request):
+        """
+        @summary Queries active SQL records.
+        
+
+        @param request: DescribeActiveSQLRecordsRequest
+
+        @return: DescribeActiveSQLRecordsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_active_sqlrecords_with_options(request, runtime)
 
     def describe_available_resources_with_options(self, request, runtime):
         """
-        When you create an AnalyticDB for PostgreSQL instance, you can call this operation to query the available resources within a zone.
+        @summary Queries the information about available resources of AnalyticDB for PostgreSQL.
+        
+        @description When you create an AnalyticDB for PostgreSQL instance, you can call this operation to query the available resources within a zone.
         
 
         @param request: DescribeAvailableResourcesRequest
@@ -1264,7 +2810,9 @@ class Client(OpenApiClient):
 
     def describe_available_resources(self, request):
         """
-        When you create an AnalyticDB for PostgreSQL instance, you can call this operation to query the available resources within a zone.
+        @summary Queries the information about available resources of AnalyticDB for PostgreSQL.
+        
+        @description When you create an AnalyticDB for PostgreSQL instance, you can call this operation to query the available resources within a zone.
         
 
         @param request: DescribeAvailableResourcesRequest
@@ -1276,7 +2824,9 @@ class Client(OpenApiClient):
 
     def describe_backup_policy_with_options(self, request, runtime):
         """
-        You can call this operation to query the backup settings of an AnalyticDB for PostgreSQL instance in elastic storage mode. Periodically backing data can prevent data loss. For more information about how to modify backup policies, see [ModifyBackupPolicy](~~210095~~).
+        @summary Queries the backup policy of an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation to query the backup settings of an AnalyticDB for PostgreSQL instance in elastic storage mode. Periodically backing data can prevent data loss. For more information about how to modify backup policies, see [ModifyBackupPolicy](https://help.aliyun.com/document_detail/210095.html).
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -1312,7 +2862,9 @@ class Client(OpenApiClient):
 
     def describe_backup_policy(self, request):
         """
-        You can call this operation to query the backup settings of an AnalyticDB for PostgreSQL instance in elastic storage mode. Periodically backing data can prevent data loss. For more information about how to modify backup policies, see [ModifyBackupPolicy](~~210095~~).
+        @summary Queries the backup policy of an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation to query the backup settings of an AnalyticDB for PostgreSQL instance in elastic storage mode. Periodically backing data can prevent data loss. For more information about how to modify backup policies, see [ModifyBackupPolicy](https://help.aliyun.com/document_detail/210095.html).
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -1325,6 +2877,16 @@ class Client(OpenApiClient):
         return self.describe_backup_policy_with_options(request, runtime)
 
     def describe_collection_with_options(self, request, runtime):
+        """
+        @summary Queries the information about a vector collection.
+        
+
+        @param request: DescribeCollectionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeCollectionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.collection):
@@ -1339,6 +2901,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.workspace_id):
+            query['WorkspaceId'] = request.workspace_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1359,12 +2923,22 @@ class Client(OpenApiClient):
         )
 
     def describe_collection(self, request):
+        """
+        @summary Queries the information about a vector collection.
+        
+
+        @param request: DescribeCollectionRequest
+
+        @return: DescribeCollectionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_collection_with_options(request, runtime)
 
     def describe_dbcluster_node_with_options(self, request, runtime):
         """
-        ##
+        @summary Queries a list of nodes in an AnalyticDB for PostgreSQL instance.
+        
+        @description ##
         You can call this operation to query the information about coordinator and compute nodes in an AnalyticDB for PostgreSQL instance in elastic storage mode or Serverless mode.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
@@ -1403,7 +2977,9 @@ class Client(OpenApiClient):
 
     def describe_dbcluster_node(self, request):
         """
-        ##
+        @summary Queries a list of nodes in an AnalyticDB for PostgreSQL instance.
+        
+        @description ##
         You can call this operation to query the information about coordinator and compute nodes in an AnalyticDB for PostgreSQL instance in elastic storage mode or Serverless mode.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
@@ -1418,7 +2994,9 @@ class Client(OpenApiClient):
 
     def describe_dbcluster_performance_with_options(self, request, runtime):
         """
-        You can query monitoring information only within the last 30 days.
+        @summary Queries the information about performance metrics of an AnalyticDB for PostgreSQL instance within a time range.
+        
+        @description You can query monitoring information only within the last 30 days.
         
 
         @param request: DescribeDBClusterPerformanceRequest
@@ -1464,7 +3042,9 @@ class Client(OpenApiClient):
 
     def describe_dbcluster_performance(self, request):
         """
-        You can query monitoring information only within the last 30 days.
+        @summary Queries the information about performance metrics of an AnalyticDB for PostgreSQL instance within a time range.
+        
+        @description You can query monitoring information only within the last 30 days.
         
 
         @param request: DescribeDBClusterPerformanceRequest
@@ -1476,7 +3056,9 @@ class Client(OpenApiClient):
 
     def describe_dbinstance_attribute_with_options(self, request, runtime):
         """
-        ##
+        @summary Queries the information about an AnalyticDB for PostgreSQL instance.
+        
+        @description ##
         You can call this operation to query the information about an AnalyticDB for PostgreSQL instance, such as the instance type, network type, and instance state.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
@@ -1517,7 +3099,9 @@ class Client(OpenApiClient):
 
     def describe_dbinstance_attribute(self, request):
         """
-        ##
+        @summary Queries the information about an AnalyticDB for PostgreSQL instance.
+        
+        @description ##
         You can call this operation to query the information about an AnalyticDB for PostgreSQL instance, such as the instance type, network type, and instance state.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
@@ -1532,7 +3116,9 @@ class Client(OpenApiClient):
 
     def describe_dbinstance_data_bloat_with_options(self, request, runtime):
         """
-        You can call this operation to query the details of data bloat on an AnalyticDB for PostgreSQL instance in elastic storage mode. The minor version of the instance must be V6.3.10.1 or later. For more information about how to view and update the minor version of an instance, see [View the minor engine version](~~277424~~) and [Update the minor engine version](~~139271~~).
+        @summary Queries the information about data bloat for an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation to query the details of data bloat on an AnalyticDB for PostgreSQL instance in elastic storage mode. The minor version of the instance must be V6.3.10.1 or later. For more information about how to view and update the minor version of an instance, see [View the minor engine version](https://help.aliyun.com/document_detail/277424.html) and [Update the minor engine version](https://help.aliyun.com/document_detail/139271.html).
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -1547,6 +3133,10 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.dbinstance_id):
             query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.database):
+            query['Database'] = request.database
+        if not UtilClient.is_unset(request.order_by):
+            query['OrderBy'] = request.order_by
         if not UtilClient.is_unset(request.page_number):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
@@ -1572,7 +3162,9 @@ class Client(OpenApiClient):
 
     def describe_dbinstance_data_bloat(self, request):
         """
-        You can call this operation to query the details of data bloat on an AnalyticDB for PostgreSQL instance in elastic storage mode. The minor version of the instance must be V6.3.10.1 or later. For more information about how to view and update the minor version of an instance, see [View the minor engine version](~~277424~~) and [Update the minor engine version](~~139271~~).
+        @summary Queries the information about data bloat for an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation to query the details of data bloat on an AnalyticDB for PostgreSQL instance in elastic storage mode. The minor version of the instance must be V6.3.10.1 or later. For more information about how to view and update the minor version of an instance, see [View the minor engine version](https://help.aliyun.com/document_detail/277424.html) and [Update the minor engine version](https://help.aliyun.com/document_detail/139271.html).
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -1586,7 +3178,9 @@ class Client(OpenApiClient):
 
     def describe_dbinstance_data_skew_with_options(self, request, runtime):
         """
-        To prevent data skew from affecting your database service, you can call this operation to query the details about data skew on an AnalyticDB for PostgreSQL instance.
+        @summary Queries the information about data skew for an AnalyticDB for PostgreSQL instance.
+        
+        @description To prevent data skew from affecting your database service, you can call this operation to query the details about data skew on an AnalyticDB for PostgreSQL instance.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -1601,6 +3195,10 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.dbinstance_id):
             query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.database):
+            query['Database'] = request.database
+        if not UtilClient.is_unset(request.order_by):
+            query['OrderBy'] = request.order_by
         if not UtilClient.is_unset(request.page_number):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
@@ -1626,7 +3224,9 @@ class Client(OpenApiClient):
 
     def describe_dbinstance_data_skew(self, request):
         """
-        To prevent data skew from affecting your database service, you can call this operation to query the details about data skew on an AnalyticDB for PostgreSQL instance.
+        @summary Queries the information about data skew for an AnalyticDB for PostgreSQL instance.
+        
+        @description To prevent data skew from affecting your database service, you can call this operation to query the details about data skew on an AnalyticDB for PostgreSQL instance.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -1640,7 +3240,9 @@ class Client(OpenApiClient):
 
     def describe_dbinstance_diagnosis_summary_with_options(self, request, runtime):
         """
-        You can call this operation to query the distribution and states of coordinator and compute nodes in an AnalyticDB for PostgreSQL instance.
+        @summary Queries the information about nodes in an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation to query the distribution and states of coordinator and compute nodes in an AnalyticDB for PostgreSQL instance.
         
 
         @param request: DescribeDBInstanceDiagnosisSummaryRequest
@@ -1684,7 +3286,9 @@ class Client(OpenApiClient):
 
     def describe_dbinstance_diagnosis_summary(self, request):
         """
-        You can call this operation to query the distribution and states of coordinator and compute nodes in an AnalyticDB for PostgreSQL instance.
+        @summary Queries the information about nodes in an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation to query the distribution and states of coordinator and compute nodes in an AnalyticDB for PostgreSQL instance.
         
 
         @param request: DescribeDBInstanceDiagnosisSummaryRequest
@@ -1696,7 +3300,9 @@ class Client(OpenApiClient):
 
     def describe_dbinstance_error_log_with_options(self, request, runtime):
         """
-        You can call this operation to query the error logs of an AnalyticDB for PostgreSQL instance.
+        @summary Queries the error logs of an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation to query the error logs of an AnalyticDB for PostgreSQL instance.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -1750,7 +3356,9 @@ class Client(OpenApiClient):
 
     def describe_dbinstance_error_log(self, request):
         """
-        You can call this operation to query the error logs of an AnalyticDB for PostgreSQL instance.
+        @summary Queries the error logs of an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation to query the error logs of an AnalyticDB for PostgreSQL instance.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -1764,7 +3372,9 @@ class Client(OpenApiClient):
 
     def describe_dbinstance_iparray_list_with_options(self, request, runtime):
         """
-        You can call this operation to query the whitelists of IP addresses that are allowed to access an AnalyticDB for PostgreSQL instance.
+        @summary Queries the whitelists of IP addresses that are allowed to access an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation to query the whitelists of IP addresses that are allowed to access an AnalyticDB for PostgreSQL instance.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -1804,7 +3414,9 @@ class Client(OpenApiClient):
 
     def describe_dbinstance_iparray_list(self, request):
         """
-        You can call this operation to query the whitelists of IP addresses that are allowed to access an AnalyticDB for PostgreSQL instance.
+        @summary Queries the whitelists of IP addresses that are allowed to access an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation to query the whitelists of IP addresses that are allowed to access an AnalyticDB for PostgreSQL instance.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -1818,8 +3430,10 @@ class Client(OpenApiClient):
 
     def describe_dbinstance_index_usage_with_options(self, request, runtime):
         """
-        Appropriate indexes can accelerate database queries. You can call this operation to query the index usage of an AnalyticDB for PostgreSQL instance.
-        This operation is available only for instances of V6.3.10.1 or later in elastic storage mode. For information about how to view and update the minor version of an instance, see [View the minor engine version](~~277424~~) and [Update the minor engine version](~~139271~~).
+        @summary Queries the index usage of an AnalyticDB for PostgreSQL instance.
+        
+        @description Appropriate indexes can accelerate database queries. You can call this operation to query the index usage of an AnalyticDB for PostgreSQL instance.
+        This operation is available only for instances of V6.3.10.1 or later in elastic storage mode. For information about how to view and update the minor version of an instance, see [View the minor engine version](https://help.aliyun.com/document_detail/277424.html) and [Update the minor engine version](https://help.aliyun.com/document_detail/139271.html).
         
 
         @param request: DescribeDBInstanceIndexUsageRequest
@@ -1832,6 +3446,10 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.dbinstance_id):
             query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.database):
+            query['Database'] = request.database
+        if not UtilClient.is_unset(request.order_by):
+            query['OrderBy'] = request.order_by
         if not UtilClient.is_unset(request.page_number):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
@@ -1857,8 +3475,10 @@ class Client(OpenApiClient):
 
     def describe_dbinstance_index_usage(self, request):
         """
-        Appropriate indexes can accelerate database queries. You can call this operation to query the index usage of an AnalyticDB for PostgreSQL instance.
-        This operation is available only for instances of V6.3.10.1 or later in elastic storage mode. For information about how to view and update the minor version of an instance, see [View the minor engine version](~~277424~~) and [Update the minor engine version](~~139271~~).
+        @summary Queries the index usage of an AnalyticDB for PostgreSQL instance.
+        
+        @description Appropriate indexes can accelerate database queries. You can call this operation to query the index usage of an AnalyticDB for PostgreSQL instance.
+        This operation is available only for instances of V6.3.10.1 or later in elastic storage mode. For information about how to view and update the minor version of an instance, see [View the minor engine version](https://help.aliyun.com/document_detail/277424.html) and [Update the minor engine version](https://help.aliyun.com/document_detail/139271.html).
         
 
         @param request: DescribeDBInstanceIndexUsageRequest
@@ -1869,6 +3489,16 @@ class Client(OpenApiClient):
         return self.describe_dbinstance_index_usage_with_options(request, runtime)
 
     def describe_dbinstance_net_info_with_options(self, request, runtime):
+        """
+        @summary Queries the connection information of an instance.
+        
+
+        @param request: DescribeDBInstanceNetInfoRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDBInstanceNetInfoResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.connection_string):
@@ -1895,10 +3525,28 @@ class Client(OpenApiClient):
         )
 
     def describe_dbinstance_net_info(self, request):
+        """
+        @summary Queries the connection information of an instance.
+        
+
+        @param request: DescribeDBInstanceNetInfoRequest
+
+        @return: DescribeDBInstanceNetInfoResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_dbinstance_net_info_with_options(request, runtime)
 
     def describe_dbinstance_performance_with_options(self, request, runtime):
+        """
+        @summary Queries the information about performance metrics of an AnalyticDB for PostgreSQL instance within a time range.
+        
+
+        @param request: DescribeDBInstancePerformanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDBInstancePerformanceResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbinstance_id):
@@ -1931,12 +3579,22 @@ class Client(OpenApiClient):
         )
 
     def describe_dbinstance_performance(self, request):
+        """
+        @summary Queries the information about performance metrics of an AnalyticDB for PostgreSQL instance within a time range.
+        
+
+        @param request: DescribeDBInstancePerformanceRequest
+
+        @return: DescribeDBInstancePerformanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_dbinstance_performance_with_options(request, runtime)
 
     def describe_dbinstance_plans_with_options(self, request, runtime):
         """
-        You can call this operation to query the details of plans for an AnalyticDB for PostgreSQL instance in Serverless mode.
+        @summary Queries the information about plans for an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation to query the details of plans for an AnalyticDB for PostgreSQL instance in Serverless mode.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -1984,7 +3642,9 @@ class Client(OpenApiClient):
 
     def describe_dbinstance_plans(self, request):
         """
-        You can call this operation to query the details of plans for an AnalyticDB for PostgreSQL instance in Serverless mode.
+        @summary Queries the information about plans for an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation to query the details of plans for an AnalyticDB for PostgreSQL instance in Serverless mode.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -1997,6 +3657,16 @@ class Client(OpenApiClient):
         return self.describe_dbinstance_plans_with_options(request, runtime)
 
     def describe_dbinstance_sslwith_options(self, request, runtime):
+        """
+        @summary Queries the SSL information about an AnalyticDB for PostgreSQL instance.
+        
+
+        @param request: DescribeDBInstanceSSLRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDBInstanceSSLResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbinstance_id):
@@ -2021,10 +3691,28 @@ class Client(OpenApiClient):
         )
 
     def describe_dbinstance_ssl(self, request):
+        """
+        @summary Queries the SSL information about an AnalyticDB for PostgreSQL instance.
+        
+
+        @param request: DescribeDBInstanceSSLRequest
+
+        @return: DescribeDBInstanceSSLResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_dbinstance_sslwith_options(request, runtime)
 
     def describe_dbinstance_support_max_performance_with_options(self, request, runtime):
+        """
+        @summary Queries the maximum performance of an AnalyticDB for PostgreSQL instance.
+        
+
+        @param request: DescribeDBInstanceSupportMaxPerformanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDBInstanceSupportMaxPerformanceResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbinstance_id):
@@ -2051,12 +3739,22 @@ class Client(OpenApiClient):
         )
 
     def describe_dbinstance_support_max_performance(self, request):
+        """
+        @summary Queries the maximum performance of an AnalyticDB for PostgreSQL instance.
+        
+
+        @param request: DescribeDBInstanceSupportMaxPerformanceRequest
+
+        @return: DescribeDBInstanceSupportMaxPerformanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_dbinstance_support_max_performance_with_options(request, runtime)
 
     def describe_dbinstances_with_options(self, tmp_req, runtime):
         """
-        ##
+        @summary Queries a list of AnalyticDB for PostgreSQL instances.
+        
+        @description ##
         You can call this operation to query the instance types, network types, and states of AnalyticDB for PostgreSQL instances within a region.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
@@ -2129,7 +3827,9 @@ class Client(OpenApiClient):
 
     def describe_dbinstances(self, request):
         """
-        ##
+        @summary Queries a list of AnalyticDB for PostgreSQL instances.
+        
+        @description ##
         You can call this operation to query the instance types, network types, and states of AnalyticDB for PostgreSQL instances within a region.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
@@ -2142,7 +3842,115 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_dbinstances_with_options(request, runtime)
 
+    def describe_dbresource_group_with_options(self, request, runtime):
+        """
+        @summary Queries the information about resource groups.
+        
+
+        @param request: DescribeDBResourceGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDBResourceGroupResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_group_name):
+            query['ResourceGroupName'] = request.resource_group_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBResourceGroup',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.DescribeDBResourceGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dbresource_group(self, request):
+        """
+        @summary Queries the information about resource groups.
+        
+
+        @param request: DescribeDBResourceGroupRequest
+
+        @return: DescribeDBResourceGroupResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dbresource_group_with_options(request, runtime)
+
+    def describe_dbresource_management_mode_with_options(self, request, runtime):
+        """
+        @summary Queries the resource management mode of an AnalyticDB for PostgreSQL instance.
+        
+
+        @param request: DescribeDBResourceManagementModeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDBResourceManagementModeResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBResourceManagementMode',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.DescribeDBResourceManagementModeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dbresource_management_mode(self, request):
+        """
+        @summary Queries the resource management mode of an AnalyticDB for PostgreSQL instance.
+        
+
+        @param request: DescribeDBResourceManagementModeRequest
+
+        @return: DescribeDBResourceManagementModeResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dbresource_management_mode_with_options(request, runtime)
+
     def describe_dbversion_infos_with_options(self, request, runtime):
+        """
+        @summary Queries the information about minor versions of AnalyticDB for PostgreSQL instances.
+        
+
+        @param request: DescribeDBVersionInfosRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDBVersionInfosResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbinstance_mode):
@@ -2175,12 +3983,22 @@ class Client(OpenApiClient):
         )
 
     def describe_dbversion_infos(self, request):
+        """
+        @summary Queries the information about minor versions of AnalyticDB for PostgreSQL instances.
+        
+
+        @param request: DescribeDBVersionInfosRequest
+
+        @return: DescribeDBVersionInfosResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_dbversion_infos_with_options(request, runtime)
 
     def describe_data_backups_with_options(self, request, runtime):
         """
-        You can call this operation to query a list of backup sets and backup details only for instances in elastic storage mode.
+        @summary Queries a list of backup sets of full backup or point-in-time backup for an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation to query a list of backup sets and backup details only for instances in elastic storage mode.
         
 
         @param request: DescribeDataBackupsRequest
@@ -2230,7 +4048,9 @@ class Client(OpenApiClient):
 
     def describe_data_backups(self, request):
         """
-        You can call this operation to query a list of backup sets and backup details only for instances in elastic storage mode.
+        @summary Queries a list of backup sets of full backup or point-in-time backup for an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation to query a list of backup sets and backup details only for instances in elastic storage mode.
         
 
         @param request: DescribeDataBackupsRequest
@@ -2241,6 +4061,16 @@ class Client(OpenApiClient):
         return self.describe_data_backups_with_options(request, runtime)
 
     def describe_data_re_distribute_info_with_options(self, request, runtime):
+        """
+        @summary Queries the data redistribution information about an AnalyticDB for PostgreSQL V6.0 instance in elastic storage mode.
+        
+
+        @param request: DescribeDataReDistributeInfoRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDataReDistributeInfoResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbinstance_id):
@@ -2267,12 +4097,22 @@ class Client(OpenApiClient):
         )
 
     def describe_data_re_distribute_info(self, request):
+        """
+        @summary Queries the data redistribution information about an AnalyticDB for PostgreSQL V6.0 instance in elastic storage mode.
+        
+
+        @param request: DescribeDataReDistributeInfoRequest
+
+        @return: DescribeDataReDistributeInfoResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_data_re_distribute_info_with_options(request, runtime)
 
     def describe_data_share_instances_with_options(self, request, runtime):
         """
-        Data sharing is supported only for instances in Serverless mode.
+        @summary Queries the state of data sharing for AnalyticDB for PostgreSQL instances.
+        
+        @description Data sharing is supported only for instances in Serverless mode.
         
 
         @param request: DescribeDataShareInstancesRequest
@@ -2316,7 +4156,9 @@ class Client(OpenApiClient):
 
     def describe_data_share_instances(self, request):
         """
-        Data sharing is supported only for instances in Serverless mode.
+        @summary Queries the state of data sharing for AnalyticDB for PostgreSQL instances.
+        
+        @description Data sharing is supported only for instances in Serverless mode.
         
 
         @param request: DescribeDataShareInstancesRequest
@@ -2328,7 +4170,9 @@ class Client(OpenApiClient):
 
     def describe_data_share_performance_with_options(self, request, runtime):
         """
-        You can call this operation to query the details of data sharing performance metrics for an AnalyticDB for PostgreSQL instance in Serverless mode, such as the number of shared topics and the amount of data shared.
+        @summary Queries the information about data sharing performance metrics.
+        
+        @description You can call this operation to query the details of data sharing performance metrics for an AnalyticDB for PostgreSQL instance in Serverless mode, such as the number of shared topics and the amount of data shared.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -2372,7 +4216,9 @@ class Client(OpenApiClient):
 
     def describe_data_share_performance(self, request):
         """
-        You can call this operation to query the details of data sharing performance metrics for an AnalyticDB for PostgreSQL instance in Serverless mode, such as the number of shared topics and the amount of data shared.
+        @summary Queries the information about data sharing performance metrics.
+        
+        @description You can call this operation to query the details of data sharing performance metrics for an AnalyticDB for PostgreSQL instance in Serverless mode, such as the number of shared topics and the amount of data shared.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -2386,7 +4232,9 @@ class Client(OpenApiClient):
 
     def describe_diagnosis_dimensions_with_options(self, request, runtime):
         """
-        To facilitate management, you can call this operation to query all databases and database accounts on an AnalyticDB for PostgreSQL instance.
+        @summary Queries all databases and database accounts for an AnalyticDB for PostgreSQL instance.
+        
+        @description To facilitate management, you can call this operation to query all databases and database accounts on an AnalyticDB for PostgreSQL instance.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -2422,7 +4270,9 @@ class Client(OpenApiClient):
 
     def describe_diagnosis_dimensions(self, request):
         """
-        To facilitate management, you can call this operation to query all databases and database accounts on an AnalyticDB for PostgreSQL instance.
+        @summary Queries all databases and database accounts for an AnalyticDB for PostgreSQL instance.
+        
+        @description To facilitate management, you can call this operation to query all databases and database accounts on an AnalyticDB for PostgreSQL instance.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -2436,7 +4286,9 @@ class Client(OpenApiClient):
 
     def describe_diagnosis_monitor_performance_with_options(self, request, runtime):
         """
-        You can call this operation to query the details of query execution on an AnalyticDB for PostgreSQL instance in elastic storage mode within a specified time range.
+        @summary Queries the details of query execution on an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation to query the details of query execution on an AnalyticDB for PostgreSQL instance in elastic storage mode within a specified time range.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -2482,7 +4334,9 @@ class Client(OpenApiClient):
 
     def describe_diagnosis_monitor_performance(self, request):
         """
-        You can call this operation to query the details of query execution on an AnalyticDB for PostgreSQL instance in elastic storage mode within a specified time range.
+        @summary Queries the details of query execution on an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation to query the details of query execution on an AnalyticDB for PostgreSQL instance in elastic storage mode within a specified time range.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -2496,7 +4350,9 @@ class Client(OpenApiClient):
 
     def describe_diagnosis_records_with_options(self, request, runtime):
         """
-        You can call this operation to query the details of SQL queries on an AnalyticDB for PostgreSQL instance within a specified time range.
+        @summary Queries the information about SQL queries for an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation to query the details of SQL queries on an AnalyticDB for PostgreSQL instance within a specified time range.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -2550,7 +4406,9 @@ class Client(OpenApiClient):
 
     def describe_diagnosis_records(self, request):
         """
-        You can call this operation to query the details of SQL queries on an AnalyticDB for PostgreSQL instance within a specified time range.
+        @summary Queries the information about SQL queries for an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation to query the details of SQL queries on an AnalyticDB for PostgreSQL instance within a specified time range.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -2564,8 +4422,10 @@ class Client(OpenApiClient):
 
     def describe_diagnosis_sqlinfo_with_options(self, request, runtime):
         """
-        You can call this operation to query the information about a query for an AnalyticDB for PostgreSQL instance, including the SQL statement, execution plan text, and execution plan tree.
-        This operation is available only for instances of V6.3.10.1 or later in elastic storage mode. For information about how to view and update the minor version of an instance, see [View the minor engine version](~~277424~~) and [Update the minor engine version](~~139271~~).
+        @summary Queries the information about a query for an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation to query the information about a query for an AnalyticDB for PostgreSQL instance, including the SQL statement, execution plan text, and execution plan tree.
+        This operation is available only for instances of V6.3.10.1 or later in elastic storage mode. For information about how to view and update the minor version of an instance, see [View the minor engine version](https://help.aliyun.com/document_detail/277424.html) and [Update the minor engine version](https://help.aliyun.com/document_detail/139271.html).
         
 
         @param request: DescribeDiagnosisSQLInfoRequest
@@ -2603,8 +4463,10 @@ class Client(OpenApiClient):
 
     def describe_diagnosis_sqlinfo(self, request):
         """
-        You can call this operation to query the information about a query for an AnalyticDB for PostgreSQL instance, including the SQL statement, execution plan text, and execution plan tree.
-        This operation is available only for instances of V6.3.10.1 or later in elastic storage mode. For information about how to view and update the minor version of an instance, see [View the minor engine version](~~277424~~) and [Update the minor engine version](~~139271~~).
+        @summary Queries the information about a query for an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation to query the information about a query for an AnalyticDB for PostgreSQL instance, including the SQL statement, execution plan text, and execution plan tree.
+        This operation is available only for instances of V6.3.10.1 or later in elastic storage mode. For information about how to view and update the minor version of an instance, see [View the minor engine version](https://help.aliyun.com/document_detail/277424.html) and [Update the minor engine version](https://help.aliyun.com/document_detail/139271.html).
         
 
         @param request: DescribeDiagnosisSQLInfoRequest
@@ -2615,6 +4477,16 @@ class Client(OpenApiClient):
         return self.describe_diagnosis_sqlinfo_with_options(request, runtime)
 
     def describe_document_with_options(self, request, runtime):
+        """
+        @summary Queries the information about a document.
+        
+
+        @param request: DescribeDocumentRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDocumentResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.collection):
@@ -2651,13 +4523,23 @@ class Client(OpenApiClient):
         )
 
     def describe_document(self, request):
+        """
+        @summary Queries the information about a document.
+        
+
+        @param request: DescribeDocumentRequest
+
+        @return: DescribeDocumentResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_document_with_options(request, runtime)
 
     def describe_download_records_with_options(self, request, runtime):
         """
-        You must call the [DownloadDiagnosisRecords](~~447700~~) operation to download the query diagnostic information before you can call this operation to query the download records and download URLs.
-        This operation is available only for instances of V6.3.10.1 or later in elastic storage mode. For information about how to view and update the minor version of an instance, see [View the minor engine version](~~277424~~) and [Update the minor engine version](~~139271~~).
+        @summary Queries the download records of query diagnostic information for an AnalyticDB for PostgreSQL instance.
+        
+        @description You must call the [DownloadDiagnosisRecords](https://help.aliyun.com/document_detail/447700.html) operation to download the query diagnostic information before you can call this operation to query the download records and download URLs.
+        This operation is available only for instances of V6.3.10.1 or later in elastic storage mode. For information about how to view and update the minor version of an instance, see [View the minor engine version](https://help.aliyun.com/document_detail/277424.html) and [Update the minor engine version](https://help.aliyun.com/document_detail/139271.html).
         
 
         @param request: DescribeDownloadRecordsRequest
@@ -2691,8 +4573,10 @@ class Client(OpenApiClient):
 
     def describe_download_records(self, request):
         """
-        You must call the [DownloadDiagnosisRecords](~~447700~~) operation to download the query diagnostic information before you can call this operation to query the download records and download URLs.
-        This operation is available only for instances of V6.3.10.1 or later in elastic storage mode. For information about how to view and update the minor version of an instance, see [View the minor engine version](~~277424~~) and [Update the minor engine version](~~139271~~).
+        @summary Queries the download records of query diagnostic information for an AnalyticDB for PostgreSQL instance.
+        
+        @description You must call the [DownloadDiagnosisRecords](https://help.aliyun.com/document_detail/447700.html) operation to download the query diagnostic information before you can call this operation to query the download records and download URLs.
+        This operation is available only for instances of V6.3.10.1 or later in elastic storage mode. For information about how to view and update the minor version of an instance, see [View the minor engine version](https://help.aliyun.com/document_detail/277424.html) and [Update the minor engine version](https://help.aliyun.com/document_detail/139271.html).
         
 
         @param request: DescribeDownloadRecordsRequest
@@ -2703,6 +4587,16 @@ class Client(OpenApiClient):
         return self.describe_download_records_with_options(request, runtime)
 
     def describe_download_sqllogs_with_options(self, request, runtime):
+        """
+        @summary Queries the last five download records of slow query logs for an AnalyticDB for PostgreSQL instance.
+        
+
+        @param request: DescribeDownloadSQLLogsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDownloadSQLLogsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbinstance_id):
@@ -2727,12 +4621,222 @@ class Client(OpenApiClient):
         )
 
     def describe_download_sqllogs(self, request):
+        """
+        @summary Queries the last five download records of slow query logs for an AnalyticDB for PostgreSQL instance.
+        
+
+        @param request: DescribeDownloadSQLLogsRequest
+
+        @return: DescribeDownloadSQLLogsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_download_sqllogs_with_options(request, runtime)
 
+    def describe_external_data_service_with_options(self, request, runtime):
+        """
+        @summary Queries the information about an external data service.
+        
+
+        @param request: DescribeExternalDataServiceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeExternalDataServiceResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.service_id):
+            query['ServiceId'] = request.service_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeExternalDataService',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.DescribeExternalDataServiceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_external_data_service(self, request):
+        """
+        @summary Queries the information about an external data service.
+        
+
+        @param request: DescribeExternalDataServiceRequest
+
+        @return: DescribeExternalDataServiceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.describe_external_data_service_with_options(request, runtime)
+
+    def describe_hadoop_clusters_in_same_net_with_options(self, request, runtime):
+        """
+        @summary Queries E-MapReduce (EMR) Hadoop clusters in a specific virtual private cloud (VPC).
+        
+
+        @param request: DescribeHadoopClustersInSameNetRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeHadoopClustersInSameNetResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeHadoopClustersInSameNet',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.DescribeHadoopClustersInSameNetResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_hadoop_clusters_in_same_net(self, request):
+        """
+        @summary Queries E-MapReduce (EMR) Hadoop clusters in a specific virtual private cloud (VPC).
+        
+
+        @param request: DescribeHadoopClustersInSameNetRequest
+
+        @return: DescribeHadoopClustersInSameNetResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.describe_hadoop_clusters_in_same_net_with_options(request, runtime)
+
+    def describe_hadoop_configs_with_options(self, request, runtime):
+        """
+        @summary 获取hadoop配置信息
+        
+
+        @param request: DescribeHadoopConfigsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeHadoopConfigsResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.config_name):
+            query['ConfigName'] = request.config_name
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.emr_instance_id):
+            query['EmrInstanceId'] = request.emr_instance_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeHadoopConfigs',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.DescribeHadoopConfigsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_hadoop_configs(self, request):
+        """
+        @summary 获取hadoop配置信息
+        
+
+        @param request: DescribeHadoopConfigsRequest
+
+        @return: DescribeHadoopConfigsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.describe_hadoop_configs_with_options(request, runtime)
+
+    def describe_hadoop_data_source_with_options(self, request, runtime):
+        """
+        @summary Obtains the configurations of a Hadoop data source.
+        
+
+        @param request: DescribeHadoopDataSourceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeHadoopDataSourceResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.data_source_id):
+            query['DataSourceId'] = request.data_source_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeHadoopDataSource',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.DescribeHadoopDataSourceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_hadoop_data_source(self, request):
+        """
+        @summary Obtains the configurations of a Hadoop data source.
+        
+
+        @param request: DescribeHadoopDataSourceRequest
+
+        @return: DescribeHadoopDataSourceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.describe_hadoop_data_source_with_options(request, runtime)
+
     def describe_health_status_with_options(self, request, runtime):
         """
-        This operation is called to query the health status of an AnalyticDB for PostgreSQL instance in elastic storage mode or Serverless mode and its coordinator and compute nodes.
+        @summary Queries the health status of an AnalyticDB for PostgreSQL instance and its nodes.
+        
+        @description This operation is called to query the health status of an AnalyticDB for PostgreSQL instance in elastic storage mode or Serverless mode and its coordinator and compute nodes.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -2770,7 +4874,9 @@ class Client(OpenApiClient):
 
     def describe_health_status(self, request):
         """
-        This operation is called to query the health status of an AnalyticDB for PostgreSQL instance in elastic storage mode or Serverless mode and its coordinator and compute nodes.
+        @summary Queries the health status of an AnalyticDB for PostgreSQL instance and its nodes.
+        
+        @description This operation is called to query the health status of an AnalyticDB for PostgreSQL instance in elastic storage mode or Serverless mode and its coordinator and compute nodes.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -2783,6 +4889,16 @@ class Client(OpenApiClient):
         return self.describe_health_status_with_options(request, runtime)
 
     def describe_imvinfos_with_options(self, request, runtime):
+        """
+        @summary Queries the information about real-time materialized views of an AnalyticDB for PostgreSQL instance.
+        
+
+        @param request: DescribeIMVInfosRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeIMVInfosResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbinstance_id):
@@ -2811,10 +4927,76 @@ class Client(OpenApiClient):
         )
 
     def describe_imvinfos(self, request):
+        """
+        @summary Queries the information about real-time materialized views of an AnalyticDB for PostgreSQL instance.
+        
+
+        @param request: DescribeIMVInfosRequest
+
+        @return: DescribeIMVInfosResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_imvinfos_with_options(request, runtime)
 
+    def describe_jdbcdata_source_with_options(self, request, runtime):
+        """
+        @summary Queries the configurations of a Java Database Connectivity (JDBC) data source.
+        
+
+        @param request: DescribeJDBCDataSourceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeJDBCDataSourceResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.data_source_id):
+            query['DataSourceId'] = request.data_source_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeJDBCDataSource',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.DescribeJDBCDataSourceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_jdbcdata_source(self, request):
+        """
+        @summary Queries the configurations of a Java Database Connectivity (JDBC) data source.
+        
+
+        @param request: DescribeJDBCDataSourceRequest
+
+        @return: DescribeJDBCDataSourceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.describe_jdbcdata_source_with_options(request, runtime)
+
     def describe_log_backups_with_options(self, request, runtime):
+        """
+        @summary Queries a list of log backups.
+        
+
+        @param request: DescribeLogBackupsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeLogBackupsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbinstance_id):
@@ -2847,10 +5029,28 @@ class Client(OpenApiClient):
         )
 
     def describe_log_backups(self, request):
+        """
+        @summary Queries a list of log backups.
+        
+
+        @param request: DescribeLogBackupsRequest
+
+        @return: DescribeLogBackupsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_log_backups_with_options(request, runtime)
 
     def describe_modify_parameter_log_with_options(self, request, runtime):
+        """
+        @summary Queries the parameter modification logs of an AnalyticDB for PostgreSQL instance.
+        
+
+        @param request: DescribeModifyParameterLogRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeModifyParameterLogResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbinstance_id):
@@ -2879,10 +5079,28 @@ class Client(OpenApiClient):
         )
 
     def describe_modify_parameter_log(self, request):
+        """
+        @summary Queries the parameter modification logs of an AnalyticDB for PostgreSQL instance.
+        
+
+        @param request: DescribeModifyParameterLogRequest
+
+        @return: DescribeModifyParameterLogResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_modify_parameter_log_with_options(request, runtime)
 
     def describe_namespace_with_options(self, request, runtime):
+        """
+        @summary Queries the information about a namespace.
+        
+
+        @param request: DescribeNamespaceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeNamespaceResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbinstance_id):
@@ -2897,6 +5115,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.workspace_id):
+            query['WorkspaceId'] = request.workspace_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2917,12 +5137,22 @@ class Client(OpenApiClient):
         )
 
     def describe_namespace(self, request):
+        """
+        @summary Queries the information about a namespace.
+        
+
+        @param request: DescribeNamespaceRequest
+
+        @return: DescribeNamespaceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_namespace_with_options(request, runtime)
 
     def describe_parameters_with_options(self, request, runtime):
         """
-        This operation can be called to query the details of parameters in an AnalyticDB for PostgreSQL instance in elastic storage mode or Serverless mode.
+        @summary Queries the information about configuration parameters for an AnalyticDB for PostgreSQL instance.
+        
+        @description This operation can be called to query the details of parameters in an AnalyticDB for PostgreSQL instance in elastic storage mode or Serverless mode.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered and may affect your business. We recommend that you take note of the limit when you call this operation.
         
@@ -2958,7 +5188,9 @@ class Client(OpenApiClient):
 
     def describe_parameters(self, request):
         """
-        This operation can be called to query the details of parameters in an AnalyticDB for PostgreSQL instance in elastic storage mode or Serverless mode.
+        @summary Queries the information about configuration parameters for an AnalyticDB for PostgreSQL instance.
+        
+        @description This operation can be called to query the details of parameters in an AnalyticDB for PostgreSQL instance in elastic storage mode or Serverless mode.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered and may affect your business. We recommend that you take note of the limit when you call this operation.
         
@@ -2972,7 +5204,9 @@ class Client(OpenApiClient):
 
     def describe_rds_vswitchs_with_options(self, request, runtime):
         """
-        When you create AnalyticDB for PostgreSQL instances, you can call this operation to query the details of vSwitches within a specified region or zone.
+        @summary Queries a list of vSwitches.
+        
+        @description When you create AnalyticDB for PostgreSQL instances, you can call this operation to query the details of vSwitches within a specified region or zone.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -3024,7 +5258,9 @@ class Client(OpenApiClient):
 
     def describe_rds_vswitchs(self, request):
         """
-        When you create AnalyticDB for PostgreSQL instances, you can call this operation to query the details of vSwitches within a specified region or zone.
+        @summary Queries a list of vSwitches.
+        
+        @description When you create AnalyticDB for PostgreSQL instances, you can call this operation to query the details of vSwitches within a specified region or zone.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -3038,7 +5274,9 @@ class Client(OpenApiClient):
 
     def describe_rds_vpcs_with_options(self, request, runtime):
         """
-        When you create an AnalyticDB for PostgreSQL instance, you can call this operation to query the available VPCs within a specified region or zone.
+        @summary Queries a list of VPCs.
+        
+        @description When you create an AnalyticDB for PostgreSQL instance, you can call this operation to query the available VPCs within a specified region or zone.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -3088,7 +5326,9 @@ class Client(OpenApiClient):
 
     def describe_rds_vpcs(self, request):
         """
-        When you create an AnalyticDB for PostgreSQL instance, you can call this operation to query the available VPCs within a specified region or zone.
+        @summary Queries a list of VPCs.
+        
+        @description When you create an AnalyticDB for PostgreSQL instance, you can call this operation to query the available VPCs within a specified region or zone.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -3102,7 +5342,9 @@ class Client(OpenApiClient):
 
     def describe_regions_with_options(self, request, runtime):
         """
-        Before you create an AnalyticDB for PostgreSQL instance, you must call this operation to query available regions and zones.
+        @summary Queries a list of regions and zones where AnalyticDB for PostgreSQL is available.
+        
+        @description Before you create an AnalyticDB for PostgreSQL instance, you must call this operation to query available regions and zones.
         ## Limit
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered and may affect your business. We recommend that you take note of the limit when you call this operation.
         
@@ -3138,7 +5380,9 @@ class Client(OpenApiClient):
 
     def describe_regions(self, request):
         """
-        Before you create an AnalyticDB for PostgreSQL instance, you must call this operation to query available regions and zones.
+        @summary Queries a list of regions and zones where AnalyticDB for PostgreSQL is available.
+        
+        @description Before you create an AnalyticDB for PostgreSQL instance, you must call this operation to query available regions and zones.
         ## Limit
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered and may affect your business. We recommend that you take note of the limit when you call this operation.
         
@@ -3150,9 +5394,59 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_regions_with_options(request, runtime)
 
+    def describe_roles_with_options(self, request, runtime):
+        """
+        @summary Queries a list of roles.
+        
+
+        @param request: DescribeRolesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeRolesResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeRoles',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.DescribeRolesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_roles(self, request):
+        """
+        @summary Queries a list of roles.
+        
+
+        @param request: DescribeRolesRequest
+
+        @return: DescribeRolesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.describe_roles_with_options(request, runtime)
+
     def describe_sqllog_count_with_options(self, request, runtime):
         """
-        This operation is not available for instances in reserved storage mode.
+        @summary Queries the number of audit logs for an AnalyticDB for PostgreSQL instance.
+        
+        @description This operation is not available for instances in reserved storage mode.
         
 
         @param request: DescribeSQLLogCountRequest
@@ -3210,7 +5504,9 @@ class Client(OpenApiClient):
 
     def describe_sqllog_count(self, request):
         """
-        This operation is not available for instances in reserved storage mode.
+        @summary Queries the number of audit logs for an AnalyticDB for PostgreSQL instance.
+        
+        @description This operation is not available for instances in reserved storage mode.
         
 
         @param request: DescribeSQLLogCountRequest
@@ -3222,7 +5518,9 @@ class Client(OpenApiClient):
 
     def describe_sqllogs_with_options(self, request, runtime):
         """
-        > This operation is no longer used. To query SQL execution logs, call the [DescribeSQLLogsV2](~~453722~~) operation.
+        @summary Queries the SQL execution logs of an AnalyticDB for PostgreSQL instance.
+        
+        @description > This operation is no longer used. To query SQL execution logs, call the [DescribeSQLLogsV2](https://help.aliyun.com/document_detail/453722.html) operation.
         
 
         @param request: DescribeSQLLogsRequest
@@ -3284,7 +5582,9 @@ class Client(OpenApiClient):
 
     def describe_sqllogs(self, request):
         """
-        > This operation is no longer used. To query SQL execution logs, call the [DescribeSQLLogsV2](~~453722~~) operation.
+        @summary Queries the SQL execution logs of an AnalyticDB for PostgreSQL instance.
+        
+        @description > This operation is no longer used. To query SQL execution logs, call the [DescribeSQLLogsV2](https://help.aliyun.com/document_detail/453722.html) operation.
         
 
         @param request: DescribeSQLLogsRequest
@@ -3296,7 +5596,9 @@ class Client(OpenApiClient):
 
     def describe_sqllogs_v2with_options(self, request, runtime):
         """
-        You can call this operation to query SQL logs of an AnalyticDB for PostgreSQL instance within a specific time range.
+        @summary Queries SQL logs within a specific time range.
+        
+        @description You can call this operation to query SQL logs of an AnalyticDB for PostgreSQL instance within a specific time range.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -3364,7 +5666,9 @@ class Client(OpenApiClient):
 
     def describe_sqllogs_v2(self, request):
         """
-        You can call this operation to query SQL logs of an AnalyticDB for PostgreSQL instance within a specific time range.
+        @summary Queries SQL logs within a specific time range.
+        
+        @description You can call this operation to query SQL logs of an AnalyticDB for PostgreSQL instance within a specific time range.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -3378,7 +5682,9 @@ class Client(OpenApiClient):
 
     def describe_sample_data_with_options(self, request, runtime):
         """
-        You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        @summary Queries whether a sample dataset is loaded to an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
 
         @param request: DescribeSampleDataRequest
@@ -3414,7 +5720,9 @@ class Client(OpenApiClient):
 
     def describe_sample_data(self, request):
         """
-        You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        @summary Queries whether a sample dataset is loaded to an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
 
         @param request: DescribeSampleDataRequest
@@ -3424,7 +5732,167 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_sample_data_with_options(request, runtime)
 
+    def describe_streaming_data_service_with_options(self, request, runtime):
+        """
+        @summary Queries a real-time data service.
+        
+
+        @param request: DescribeStreamingDataServiceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeStreamingDataServiceResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.service_id):
+            query['ServiceId'] = request.service_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeStreamingDataService',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.DescribeStreamingDataServiceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_streaming_data_service(self, request):
+        """
+        @summary Queries a real-time data service.
+        
+
+        @param request: DescribeStreamingDataServiceRequest
+
+        @return: DescribeStreamingDataServiceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.describe_streaming_data_service_with_options(request, runtime)
+
+    def describe_streaming_data_source_with_options(self, request, runtime):
+        """
+        @summary Queries a real-time data source.
+        
+
+        @param request: DescribeStreamingDataSourceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeStreamingDataSourceResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.data_source_id):
+            query['DataSourceId'] = request.data_source_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeStreamingDataSource',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.DescribeStreamingDataSourceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_streaming_data_source(self, request):
+        """
+        @summary Queries a real-time data source.
+        
+
+        @param request: DescribeStreamingDataSourceRequest
+
+        @return: DescribeStreamingDataSourceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.describe_streaming_data_source_with_options(request, runtime)
+
+    def describe_streaming_job_with_options(self, request, runtime):
+        """
+        @summary Queries a real-time data service.
+        
+
+        @param request: DescribeStreamingJobRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeStreamingJobResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.job_id):
+            query['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeStreamingJob',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.DescribeStreamingJobResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_streaming_job(self, request):
+        """
+        @summary Queries a real-time data service.
+        
+
+        @param request: DescribeStreamingJobRequest
+
+        @return: DescribeStreamingJobResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.describe_streaming_job_with_options(request, runtime)
+
     def describe_support_features_with_options(self, request, runtime):
+        """
+        @summary Queries the features that are supported by an AnalyticDB for PostgreSQL instance.
+        
+
+        @param request: DescribeSupportFeaturesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeSupportFeaturesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbinstance_id):
@@ -3451,10 +5919,86 @@ class Client(OpenApiClient):
         )
 
     def describe_support_features(self, request):
+        """
+        @summary Queries the features that are supported by an AnalyticDB for PostgreSQL instance.
+        
+
+        @param request: DescribeSupportFeaturesRequest
+
+        @return: DescribeSupportFeaturesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_support_features_with_options(request, runtime)
 
+    def describe_table_with_options(self, request, runtime):
+        """
+        @summary Queries the information about a table.
+        
+
+        @param request: DescribeTableRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeTableResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.database):
+            query['Database'] = request.database
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.schema):
+            query['Schema'] = request.schema
+        if not UtilClient.is_unset(request.secret_arn):
+            query['SecretArn'] = request.secret_arn
+        if not UtilClient.is_unset(request.table):
+            query['Table'] = request.table
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeTable',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.DescribeTableResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_table(self, request):
+        """
+        @summary Queries the information about a table.
+        
+
+        @param request: DescribeTableRequest
+
+        @return: DescribeTableResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.describe_table_with_options(request, runtime)
+
     def describe_tags_with_options(self, request, runtime):
+        """
+        @summary Queries a list of tags for AnalyticDB for PostgreSQL instances.
+        
+
+        @param request: DescribeTagsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeTagsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.owner_account):
@@ -3491,10 +6035,28 @@ class Client(OpenApiClient):
         )
 
     def describe_tags(self, request):
+        """
+        @summary Queries a list of tags for AnalyticDB for PostgreSQL instances.
+        
+
+        @param request: DescribeTagsRequest
+
+        @return: DescribeTagsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_tags_with_options(request, runtime)
 
     def describe_user_encryption_key_list_with_options(self, request, runtime):
+        """
+        @summary Queries a list of Key Management Service (KMS) keys.
+        
+
+        @param request: DescribeUserEncryptionKeyListRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeUserEncryptionKeyListResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.page_number):
@@ -3523,12 +6085,22 @@ class Client(OpenApiClient):
         )
 
     def describe_user_encryption_key_list(self, request):
+        """
+        @summary Queries a list of Key Management Service (KMS) keys.
+        
+
+        @param request: DescribeUserEncryptionKeyListRequest
+
+        @return: DescribeUserEncryptionKeyListResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_user_encryption_key_list_with_options(request, runtime)
 
     def describe_waiting_sqlinfo_with_options(self, request, runtime):
         """
-        You can call this operation to query the details of a lock-waiting query only for an AnalyticDB for PostgreSQL V6.0 instance in elastic storage mode.
+        @summary Queries the information about a lock-waiting query for an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation to query the details of a lock-waiting query only for an AnalyticDB for PostgreSQL V6.0 instance in elastic storage mode.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -3568,7 +6140,9 @@ class Client(OpenApiClient):
 
     def describe_waiting_sqlinfo(self, request):
         """
-        You can call this operation to query the details of a lock-waiting query only for an AnalyticDB for PostgreSQL V6.0 instance in elastic storage mode.
+        @summary Queries the information about a lock-waiting query for an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation to query the details of a lock-waiting query only for an AnalyticDB for PostgreSQL V6.0 instance in elastic storage mode.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -3582,7 +6156,9 @@ class Client(OpenApiClient):
 
     def describe_waiting_sqlrecords_with_options(self, request, runtime):
         """
-        You can call this operation to query the lock diagnostics records only for an AnalyticDB for PostgreSQL V6.0 instance in elastic storage mode.
+        @summary Queries the lock diagnostic records of an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation to query the lock diagnostics records only for an AnalyticDB for PostgreSQL V6.0 instance in elastic storage mode.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -3636,7 +6212,9 @@ class Client(OpenApiClient):
 
     def describe_waiting_sqlrecords(self, request):
         """
-        You can call this operation to query the lock diagnostics records only for an AnalyticDB for PostgreSQL V6.0 instance in elastic storage mode.
+        @summary Queries the lock diagnostic records of an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation to query the lock diagnostics records only for an AnalyticDB for PostgreSQL V6.0 instance in elastic storage mode.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -3648,10 +6226,68 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_waiting_sqlrecords_with_options(request, runtime)
 
+    def disable_dbresource_group_with_options(self, request, runtime):
+        """
+        @summary Disables resource group management for an AnalyticDB for PostgreSQL V6.0 instance in elastic storage mode. After you disable resource group management, the resource management method of the instance switches from resource group management to resource queue management.
+        
+        @description    You can call this operation only for AnalyticDB for PostgreSQL V6.0 instances in elastic storage mode whose minor version is V6.6.1.0 or later.
+        You can call this operation to disable resource group management only for AnalyticDB for PostgreSQL instances that are in the **Running** state.
+        **Note: When the resource management method is switched, your AnalyticDB for PostgreSQL instance restarts and becomes unavailable for approximately 5 minutes. To prevent your business from being affected, call this operation during off-peak hours.
+        
+
+        @param request: DisableDBResourceGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DisableDBResourceGroupResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DisableDBResourceGroup',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.DisableDBResourceGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def disable_dbresource_group(self, request):
+        """
+        @summary Disables resource group management for an AnalyticDB for PostgreSQL V6.0 instance in elastic storage mode. After you disable resource group management, the resource management method of the instance switches from resource group management to resource queue management.
+        
+        @description    You can call this operation only for AnalyticDB for PostgreSQL V6.0 instances in elastic storage mode whose minor version is V6.6.1.0 or later.
+        You can call this operation to disable resource group management only for AnalyticDB for PostgreSQL instances that are in the **Running** state.
+        **Note: When the resource management method is switched, your AnalyticDB for PostgreSQL instance restarts and becomes unavailable for approximately 5 minutes. To prevent your business from being affected, call this operation during off-peak hours.
+        
+
+        @param request: DisableDBResourceGroupRequest
+
+        @return: DisableDBResourceGroupResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.disable_dbresource_group_with_options(request, runtime)
+
     def download_diagnosis_records_with_options(self, request, runtime):
         """
-        You can call this operation to download the query diagnostic information of an AnalyticDB for PostgreSQL instance. After the download is complete, you can call the [DescribeDownloadRecords](~~447712~~) operation to query download records and download URLs.
-        This operation is available only for instances of V6.3.10.1 or later in elastic storage mode. For more information about how to view and update the minor engine version of an instance, see [View the minor engine version](~~277424~~) and [Update the minor engine version](~~139271~~).
+        @summary Downloads the query diagnostic information of an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation to download the query diagnostic information of an AnalyticDB for PostgreSQL instance. After the download is complete, you can call the [DescribeDownloadRecords](https://help.aliyun.com/document_detail/447712.html) operation to query download records and download URLs.
+        This operation is available only for instances of V6.3.10.1 or later in elastic storage mode. For more information about how to view and update the minor engine version of an instance, see [View the minor engine version](https://help.aliyun.com/document_detail/277424.html) and [Update the minor engine version](https://help.aliyun.com/document_detail/139271.html).
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -3701,8 +6337,10 @@ class Client(OpenApiClient):
 
     def download_diagnosis_records(self, request):
         """
-        You can call this operation to download the query diagnostic information of an AnalyticDB for PostgreSQL instance. After the download is complete, you can call the [DescribeDownloadRecords](~~447712~~) operation to query download records and download URLs.
-        This operation is available only for instances of V6.3.10.1 or later in elastic storage mode. For more information about how to view and update the minor engine version of an instance, see [View the minor engine version](~~277424~~) and [Update the minor engine version](~~139271~~).
+        @summary Downloads the query diagnostic information of an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation to download the query diagnostic information of an AnalyticDB for PostgreSQL instance. After the download is complete, you can call the [DescribeDownloadRecords](https://help.aliyun.com/document_detail/447712.html) operation to query download records and download URLs.
+        This operation is available only for instances of V6.3.10.1 or later in elastic storage mode. For more information about how to view and update the minor engine version of an instance, see [View the minor engine version](https://help.aliyun.com/document_detail/277424.html) and [Update the minor engine version](https://help.aliyun.com/document_detail/139271.html).
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -3715,6 +6353,16 @@ class Client(OpenApiClient):
         return self.download_diagnosis_records_with_options(request, runtime)
 
     def download_sqllogs_records_with_options(self, request, runtime):
+        """
+        @summary Download the slow query logs of an AnalyticDB for PostgreSQL instance.
+        
+
+        @param request: DownloadSQLLogsRecordsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DownloadSQLLogsRecordsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbinstance_id):
@@ -3769,10 +6417,214 @@ class Client(OpenApiClient):
         )
 
     def download_sqllogs_records(self, request):
+        """
+        @summary Download the slow query logs of an AnalyticDB for PostgreSQL instance.
+        
+
+        @param request: DownloadSQLLogsRecordsRequest
+
+        @return: DownloadSQLLogsRecordsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.download_sqllogs_records_with_options(request, runtime)
 
+    def enable_dbresource_group_with_options(self, request, runtime):
+        """
+        @summary Enables resource group management for an AnalyticDB for PostgreSQL V6.0 instance in elastic storage mode. After resource group management is enabled, the resource management mode of the instance is changed from resource queue to resource group.
+        
+        @description    You can call this operation only for AnalyticDB for PostgreSQL V6.0 instances in elastic storage mode whose minor version is V6.6.1.0 or later.
+        You can call this operation to enable resource group management only for AnalyticDB for PostgreSQL instances that are in the **Running** state.
+        **Note: When the resource management mode is changed, your AnalyticDB for PostgreSQL instance is restarted and remains unavailable within 5 minutes. To prevent your business from being affected, call this operation during off-peak hours.
+        
+
+        @param request: EnableDBResourceGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: EnableDBResourceGroupResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='EnableDBResourceGroup',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.EnableDBResourceGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def enable_dbresource_group(self, request):
+        """
+        @summary Enables resource group management for an AnalyticDB for PostgreSQL V6.0 instance in elastic storage mode. After resource group management is enabled, the resource management mode of the instance is changed from resource queue to resource group.
+        
+        @description    You can call this operation only for AnalyticDB for PostgreSQL V6.0 instances in elastic storage mode whose minor version is V6.6.1.0 or later.
+        You can call this operation to enable resource group management only for AnalyticDB for PostgreSQL instances that are in the **Running** state.
+        **Note: When the resource management mode is changed, your AnalyticDB for PostgreSQL instance is restarted and remains unavailable within 5 minutes. To prevent your business from being affected, call this operation during off-peak hours.
+        
+
+        @param request: EnableDBResourceGroupRequest
+
+        @return: EnableDBResourceGroupResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.enable_dbresource_group_with_options(request, runtime)
+
+    def execute_statement_with_options(self, tmp_req, runtime):
+        """
+        @summary Executes SQL statements.
+        
+
+        @param tmp_req: ExecuteStatementRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ExecuteStatementResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = gpdb_20160503_models.ExecuteStatementShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.parameters):
+            request.parameters_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.parameters, 'Parameters', 'json')
+        if not UtilClient.is_unset(tmp_req.sqls):
+            request.sqls_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.sqls, 'Sqls', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.database):
+            query['Database'] = request.database
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.run_type):
+            query['RunType'] = request.run_type
+        if not UtilClient.is_unset(request.secret_arn):
+            query['SecretArn'] = request.secret_arn
+        if not UtilClient.is_unset(request.statement_name):
+            query['StatementName'] = request.statement_name
+        body = {}
+        if not UtilClient.is_unset(request.parameters_shrink):
+            body['Parameters'] = request.parameters_shrink
+        if not UtilClient.is_unset(request.sql):
+            body['Sql'] = request.sql
+        if not UtilClient.is_unset(request.sqls_shrink):
+            body['Sqls'] = request.sqls_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ExecuteStatement',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.ExecuteStatementResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def execute_statement(self, request):
+        """
+        @summary Executes SQL statements.
+        
+
+        @param request: ExecuteStatementRequest
+
+        @return: ExecuteStatementResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.execute_statement_with_options(request, runtime)
+
+    def get_secret_value_with_options(self, request, runtime):
+        """
+        @summary Queries the information about an access credential.
+        
+
+        @param request: GetSecretValueRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetSecretValueResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.secret_arn):
+            query['SecretArn'] = request.secret_arn
+        if not UtilClient.is_unset(request.secret_name):
+            query['SecretName'] = request.secret_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetSecretValue',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.GetSecretValueResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_secret_value(self, request):
+        """
+        @summary Queries the information about an access credential.
+        
+
+        @param request: GetSecretValueRequest
+
+        @return: GetSecretValueResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.get_secret_value_with_options(request, runtime)
+
     def get_upload_document_job_with_options(self, request, runtime):
+        """
+        @summary Queries the progress and result of an asynchronous document upload job based on the job ID.
+        
+        @description This operation is related to the UploadDocumentAsync operation. You can call the UploadDocumentAsync operation to create an upload job and obtain the job ID, and then call the GetUploadDocumentJob operation to query the execution information of the job.
+        >  Suggestions:
+        Determine whether the document upload job times out based on the document complexity and the number of tokens after chunking. In most cases, a job that lasts more than 2 hours is considered timeout.
+        
+
+        @param request: GetUploadDocumentJobRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetUploadDocumentJobResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbinstance_id):
@@ -3811,10 +6663,35 @@ class Client(OpenApiClient):
         )
 
     def get_upload_document_job(self, request):
+        """
+        @summary Queries the progress and result of an asynchronous document upload job based on the job ID.
+        
+        @description This operation is related to the UploadDocumentAsync operation. You can call the UploadDocumentAsync operation to create an upload job and obtain the job ID, and then call the GetUploadDocumentJob operation to query the execution information of the job.
+        >  Suggestions:
+        Determine whether the document upload job times out based on the document complexity and the number of tokens after chunking. In most cases, a job that lasts more than 2 hours is considered timeout.
+        
+
+        @param request: GetUploadDocumentJobRequest
+
+        @return: GetUploadDocumentJobResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_upload_document_job_with_options(request, runtime)
 
     def get_upsert_collection_data_job_with_options(self, request, runtime):
+        """
+        @summary Queries the progress and result of an asynchronous vector data upload job by using a job ID.
+        
+        @description This operation is related to the `UpsertCollectionDataAsync` operation. You can call the `UpsertCollectionDataAsync` operation to create an upload job and obtain a job ID, and then call the GetUpsertCollectionDataJob operation to query the execution information of the job.
+        >  We recommend that you evaluate the amount of time required for the upload job based on 1,000 data entries every second, and then query the job progress every 5 seconds. The timeout period can be set to 30 minutes after the evaluated amount of time.
+        
+
+        @param request: GetUpsertCollectionDataJobRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetUpsertCollectionDataJobResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbinstance_id):
@@ -3823,6 +6700,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.workspace_id):
+            query['WorkspaceId'] = request.workspace_id
         body = {}
         if not UtilClient.is_unset(request.collection):
             body['Collection'] = request.collection
@@ -3853,10 +6732,31 @@ class Client(OpenApiClient):
         )
 
     def get_upsert_collection_data_job(self, request):
+        """
+        @summary Queries the progress and result of an asynchronous vector data upload job by using a job ID.
+        
+        @description This operation is related to the `UpsertCollectionDataAsync` operation. You can call the `UpsertCollectionDataAsync` operation to create an upload job and obtain a job ID, and then call the GetUpsertCollectionDataJob operation to query the execution information of the job.
+        >  We recommend that you evaluate the amount of time required for the upload job based on 1,000 data entries every second, and then query the job progress every 5 seconds. The timeout period can be set to 30 minutes after the evaluated amount of time.
+        
+
+        @param request: GetUpsertCollectionDataJobRequest
+
+        @return: GetUpsertCollectionDataJobResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_upsert_collection_data_job_with_options(request, runtime)
 
     def grant_collection_with_options(self, request, runtime):
+        """
+        @summary Grants vector collection permissions to a namespace.
+        
+
+        @param request: GrantCollectionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GrantCollectionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.collection):
@@ -3897,10 +6797,28 @@ class Client(OpenApiClient):
         )
 
     def grant_collection(self, request):
+        """
+        @summary Grants vector collection permissions to a namespace.
+        
+
+        @param request: GrantCollectionRequest
+
+        @return: GrantCollectionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.grant_collection_with_options(request, runtime)
 
     def handle_active_sqlrecord_with_options(self, request, runtime):
+        """
+        @summary Processes active queries.
+        
+
+        @param request: HandleActiveSQLRecordRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: HandleActiveSQLRecordResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbinstance_id):
@@ -3929,10 +6847,28 @@ class Client(OpenApiClient):
         )
 
     def handle_active_sqlrecord(self, request):
+        """
+        @summary Processes active queries.
+        
+
+        @param request: HandleActiveSQLRecordRequest
+
+        @return: HandleActiveSQLRecordResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.handle_active_sqlrecord_with_options(request, runtime)
 
     def init_vector_database_with_options(self, request, runtime):
+        """
+        @summary Initializes vector databases.
+        
+
+        @param request: InitVectorDatabaseRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: InitVectorDatabaseResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbinstance_id):
@@ -3945,6 +6881,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.workspace_id):
+            query['WorkspaceId'] = request.workspace_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3965,10 +6903,28 @@ class Client(OpenApiClient):
         )
 
     def init_vector_database(self, request):
+        """
+        @summary Initializes vector databases.
+        
+
+        @param request: InitVectorDatabaseRequest
+
+        @return: InitVectorDatabaseResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.init_vector_database_with_options(request, runtime)
 
     def list_collections_with_options(self, request, runtime):
+        """
+        @summary Queries a list of vector collections.
+        
+
+        @param request: ListCollectionsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListCollectionsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbinstance_id):
@@ -3981,6 +6937,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.workspace_id):
+            query['WorkspaceId'] = request.workspace_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -4001,10 +6959,86 @@ class Client(OpenApiClient):
         )
 
     def list_collections(self, request):
+        """
+        @summary Queries a list of vector collections.
+        
+
+        @param request: ListCollectionsRequest
+
+        @return: ListCollectionsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_collections_with_options(request, runtime)
 
+    def list_databases_with_options(self, request, runtime):
+        """
+        @summary Queries a list of databases.
+        
+
+        @param request: ListDatabasesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListDatabasesResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.database):
+            query['Database'] = request.database
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.secret_arn):
+            query['SecretArn'] = request.secret_arn
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDatabases',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.ListDatabasesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_databases(self, request):
+        """
+        @summary Queries a list of databases.
+        
+
+        @param request: ListDatabasesRequest
+
+        @return: ListDatabasesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_databases_with_options(request, runtime)
+
     def list_document_collections_with_options(self, request, runtime):
+        """
+        @summary Queries a list of document collections.
+        
+
+        @param request: ListDocumentCollectionsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListDocumentCollectionsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbinstance_id):
@@ -4037,20 +7071,42 @@ class Client(OpenApiClient):
         )
 
     def list_document_collections(self, request):
+        """
+        @summary Queries a list of document collections.
+        
+
+        @param request: ListDocumentCollectionsRequest
+
+        @return: ListDocumentCollectionsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_document_collections_with_options(request, runtime)
 
     def list_documents_with_options(self, request, runtime):
+        """
+        @summary Queries a list of documents in a collection.
+        
+
+        @param request: ListDocumentsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListDocumentsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.collection):
             query['Collection'] = request.collection
         if not UtilClient.is_unset(request.dbinstance_id):
             query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
         if not UtilClient.is_unset(request.namespace):
             query['Namespace'] = request.namespace
         if not UtilClient.is_unset(request.namespace_password):
             query['NamespacePassword'] = request.namespace_password
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
         if not UtilClient.is_unset(request.owner_id):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
@@ -4075,10 +7131,188 @@ class Client(OpenApiClient):
         )
 
     def list_documents(self, request):
+        """
+        @summary Queries a list of documents in a collection.
+        
+
+        @param request: ListDocumentsRequest
+
+        @return: ListDocumentsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_documents_with_options(request, runtime)
 
+    def list_external_data_services_with_options(self, request, runtime):
+        """
+        @summary Queries a list of external data sources.
+        
+
+        @param request: ListExternalDataServicesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListExternalDataServicesResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListExternalDataServices',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.ListExternalDataServicesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_external_data_services(self, request):
+        """
+        @summary Queries a list of external data sources.
+        
+
+        @param request: ListExternalDataServicesRequest
+
+        @return: ListExternalDataServicesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_external_data_services_with_options(request, runtime)
+
+    def list_external_data_sources_with_options(self, request, runtime):
+        """
+        @summary 获取实例外表配置列表
+        
+
+        @param request: ListExternalDataSourcesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListExternalDataSourcesResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListExternalDataSources',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.ListExternalDataSourcesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_external_data_sources(self, request):
+        """
+        @summary 获取实例外表配置列表
+        
+
+        @param request: ListExternalDataSourcesRequest
+
+        @return: ListExternalDataSourcesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_external_data_sources_with_options(request, runtime)
+
+    def list_instance_extensions_with_options(self, request, runtime):
+        """
+        @summary Queries a list of extensions.
+        
+
+        @param request: ListInstanceExtensionsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListInstanceExtensionsResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.extension):
+            query['Extension'] = request.extension
+        if not UtilClient.is_unset(request.install_status):
+            query['InstallStatus'] = request.install_status
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListInstanceExtensions',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.ListInstanceExtensionsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_instance_extensions(self, request):
+        """
+        @summary Queries a list of extensions.
+        
+
+        @param request: ListInstanceExtensionsRequest
+
+        @return: ListInstanceExtensionsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_instance_extensions_with_options(request, runtime)
+
     def list_namespaces_with_options(self, request, runtime):
+        """
+        @summary Queries a list of namespaces.
+        
+
+        @param request: ListNamespacesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListNamespacesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbinstance_id):
@@ -4091,6 +7325,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.workspace_id):
+            query['WorkspaceId'] = request.workspace_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -4111,10 +7347,356 @@ class Client(OpenApiClient):
         )
 
     def list_namespaces(self, request):
+        """
+        @summary Queries a list of namespaces.
+        
+
+        @param request: ListNamespacesRequest
+
+        @return: ListNamespacesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_namespaces_with_options(request, runtime)
 
+    def list_schemas_with_options(self, request, runtime):
+        """
+        @summary Queries a list of schemas.
+        
+
+        @param request: ListSchemasRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListSchemasResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.database):
+            query['Database'] = request.database
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.schema_pattern):
+            query['SchemaPattern'] = request.schema_pattern
+        if not UtilClient.is_unset(request.secret_arn):
+            query['SecretArn'] = request.secret_arn
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListSchemas',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.ListSchemasResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_schemas(self, request):
+        """
+        @summary Queries a list of schemas.
+        
+
+        @param request: ListSchemasRequest
+
+        @return: ListSchemasResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_schemas_with_options(request, runtime)
+
+    def list_secrets_with_options(self, request, runtime):
+        """
+        @summary Queries a list of access credentials.
+        
+
+        @param request: ListSecretsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListSecretsResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListSecrets',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.ListSecretsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_secrets(self, request):
+        """
+        @summary Queries a list of access credentials.
+        
+
+        @param request: ListSecretsRequest
+
+        @return: ListSecretsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_secrets_with_options(request, runtime)
+
+    def list_streaming_data_services_with_options(self, request, runtime):
+        """
+        @summary Queries the information about real-time data services.
+        
+
+        @param request: ListStreamingDataServicesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListStreamingDataServicesResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListStreamingDataServices',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.ListStreamingDataServicesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_streaming_data_services(self, request):
+        """
+        @summary Queries the information about real-time data services.
+        
+
+        @param request: ListStreamingDataServicesRequest
+
+        @return: ListStreamingDataServicesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_streaming_data_services_with_options(request, runtime)
+
+    def list_streaming_data_sources_with_options(self, request, runtime):
+        """
+        @summary Queries real-time service data sources.
+        
+
+        @param request: ListStreamingDataSourcesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListStreamingDataSourcesResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListStreamingDataSources',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.ListStreamingDataSourcesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_streaming_data_sources(self, request):
+        """
+        @summary Queries real-time service data sources.
+        
+
+        @param request: ListStreamingDataSourcesRequest
+
+        @return: ListStreamingDataSourcesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_streaming_data_sources_with_options(request, runtime)
+
+    def list_streaming_jobs_with_options(self, request, runtime):
+        """
+        @summary Queries real-time data service jobs.
+        
+
+        @param request: ListStreamingJobsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListStreamingJobsResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListStreamingJobs',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.ListStreamingJobsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_streaming_jobs(self, request):
+        """
+        @summary Queries real-time data service jobs.
+        
+
+        @param request: ListStreamingJobsRequest
+
+        @return: ListStreamingJobsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_streaming_jobs_with_options(request, runtime)
+
+    def list_tables_with_options(self, request, runtime):
+        """
+        @summary Queries a list of tables in a database.
+        
+
+        @param request: ListTablesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListTablesResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.database):
+            query['Database'] = request.database
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.schema):
+            query['Schema'] = request.schema
+        if not UtilClient.is_unset(request.secret_arn):
+            query['SecretArn'] = request.secret_arn
+        if not UtilClient.is_unset(request.table_pattern):
+            query['TablePattern'] = request.table_pattern
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListTables',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.ListTablesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_tables(self, request):
+        """
+        @summary Queries a list of tables in a database.
+        
+
+        @param request: ListTablesRequest
+
+        @return: ListTablesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_tables_with_options(request, runtime)
+
     def list_tag_resources_with_options(self, request, runtime):
+        """
+        @summary Queries a list of tags that are added to AnalyticDB for PostgreSQL instances.
+        
+
+        @param request: ListTagResourcesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListTagResourcesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.next_token):
@@ -4155,10 +7737,28 @@ class Client(OpenApiClient):
         )
 
     def list_tag_resources(self, request):
+        """
+        @summary Queries a list of tags that are added to AnalyticDB for PostgreSQL instances.
+        
+
+        @param request: ListTagResourcesRequest
+
+        @return: ListTagResourcesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_tag_resources_with_options(request, runtime)
 
     def modify_account_description_with_options(self, request, runtime):
+        """
+        @summary Modifies the description of a database account for an AnalyticDB for PostgreSQL instance.
+        
+
+        @param request: ModifyAccountDescriptionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyAccountDescriptionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.account_description):
@@ -4187,10 +7787,28 @@ class Client(OpenApiClient):
         )
 
     def modify_account_description(self, request):
+        """
+        @summary Modifies the description of a database account for an AnalyticDB for PostgreSQL instance.
+        
+
+        @param request: ModifyAccountDescriptionRequest
+
+        @return: ModifyAccountDescriptionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_account_description_with_options(request, runtime)
 
     def modify_backup_policy_with_options(self, request, runtime):
+        """
+        @summary Configures the backup policy of an AnalyticDB for PostgreSQL instance.
+        
+
+        @param request: ModifyBackupPolicyRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyBackupPolicyResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.backup_retention_period):
@@ -4225,10 +7843,28 @@ class Client(OpenApiClient):
         )
 
     def modify_backup_policy(self, request):
+        """
+        @summary Configures the backup policy of an AnalyticDB for PostgreSQL instance.
+        
+
+        @param request: ModifyBackupPolicyRequest
+
+        @return: ModifyBackupPolicyResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_backup_policy_with_options(request, runtime)
 
     def modify_dbinstance_config_with_options(self, request, runtime):
+        """
+        @summary Changes the threshold of computing resources and the wait period of idle resources for an AnalyticDB for PostgreSQL instance in Serverless automatic scheduling mode.
+        
+
+        @param request: ModifyDBInstanceConfigRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyDBInstanceConfigResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbinstance_description):
@@ -4261,10 +7897,28 @@ class Client(OpenApiClient):
         )
 
     def modify_dbinstance_config(self, request):
+        """
+        @summary Changes the threshold of computing resources and the wait period of idle resources for an AnalyticDB for PostgreSQL instance in Serverless automatic scheduling mode.
+        
+
+        @param request: ModifyDBInstanceConfigRequest
+
+        @return: ModifyDBInstanceConfigResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_dbinstance_config_with_options(request, runtime)
 
     def modify_dbinstance_connection_string_with_options(self, request, runtime):
+        """
+        @summary Changes the endpoint of an AnalyticDB for PostgreSQL instance.
+        
+
+        @param request: ModifyDBInstanceConnectionStringRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyDBInstanceConnectionStringResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.connection_string_prefix):
@@ -4295,12 +7949,22 @@ class Client(OpenApiClient):
         )
 
     def modify_dbinstance_connection_string(self, request):
+        """
+        @summary Changes the endpoint of an AnalyticDB for PostgreSQL instance.
+        
+
+        @param request: ModifyDBInstanceConnectionStringRequest
+
+        @return: ModifyDBInstanceConnectionStringResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_dbinstance_connection_string_with_options(request, runtime)
 
     def modify_dbinstance_description_with_options(self, request, runtime):
         """
-        To make it easy to identify AnalyticDB for PostgreSQL instances, you can call this operation to modify the description of instances.
+        @summary Changes the description of an AnalyticDB for PostgreSQL instance.
+        
+        @description To make it easy to identify AnalyticDB for PostgreSQL instances, you can call this operation to modify the description of instances.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -4340,7 +8004,9 @@ class Client(OpenApiClient):
 
     def modify_dbinstance_description(self, request):
         """
-        To make it easy to identify AnalyticDB for PostgreSQL instances, you can call this operation to modify the description of instances.
+        @summary Changes the description of an AnalyticDB for PostgreSQL instance.
+        
+        @description To make it easy to identify AnalyticDB for PostgreSQL instances, you can call this operation to modify the description of instances.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -4354,7 +8020,9 @@ class Client(OpenApiClient):
 
     def modify_dbinstance_maintain_time_with_options(self, request, runtime):
         """
-        The system maintains AnalyticDB for PostgreSQL instances during the maintenance window that you specify. We recommend that you set the maintenance window to off-peak hours to minimize the impact on your business.
+        @summary Modifies the maintenance window of an AnalyticDB for PostgreSQL instance.
+        
+        @description The system maintains AnalyticDB for PostgreSQL instances during the maintenance window that you specify. We recommend that you set the maintenance window to off-peak hours to minimize the impact on your business.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -4396,7 +8064,9 @@ class Client(OpenApiClient):
 
     def modify_dbinstance_maintain_time(self, request):
         """
-        The system maintains AnalyticDB for PostgreSQL instances during the maintenance window that you specify. We recommend that you set the maintenance window to off-peak hours to minimize the impact on your business.
+        @summary Modifies the maintenance window of an AnalyticDB for PostgreSQL instance.
+        
+        @description The system maintains AnalyticDB for PostgreSQL instances during the maintenance window that you specify. We recommend that you set the maintenance window to off-peak hours to minimize the impact on your business.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -4410,7 +8080,9 @@ class Client(OpenApiClient):
 
     def modify_dbinstance_resource_group_with_options(self, request, runtime):
         """
-        Resource Management allows you to build an organizational structure for resources based on your business requirements. You can use resource directories, folders, accounts, and resource groups to hierarchically organize and manage resources. For more information, see [What is Resource Management?](~~94475~~)
+        @summary Moves an AnalyticDB for PostgreSQL instance to a resource group.
+        
+        @description Resource Management allows you to build an organizational structure for resources based on your business requirements. You can use resource directories, folders, accounts, and resource groups to hierarchically organize and manage resources. For more information, see [What is Resource Management?](https://help.aliyun.com/document_detail/94475.html)
         
 
         @param request: ModifyDBInstanceResourceGroupRequest
@@ -4456,7 +8128,9 @@ class Client(OpenApiClient):
 
     def modify_dbinstance_resource_group(self, request):
         """
-        Resource Management allows you to build an organizational structure for resources based on your business requirements. You can use resource directories, folders, accounts, and resource groups to hierarchically organize and manage resources. For more information, see [What is Resource Management?](~~94475~~)
+        @summary Moves an AnalyticDB for PostgreSQL instance to a resource group.
+        
+        @description Resource Management allows you to build an organizational structure for resources based on your business requirements. You can use resource directories, folders, accounts, and resource groups to hierarchically organize and manage resources. For more information, see [What is Resource Management?](https://help.aliyun.com/document_detail/94475.html)
         
 
         @param request: ModifyDBInstanceResourceGroupRequest
@@ -4467,6 +8141,16 @@ class Client(OpenApiClient):
         return self.modify_dbinstance_resource_group_with_options(request, runtime)
 
     def modify_dbinstance_sslwith_options(self, request, runtime):
+        """
+        @summary Enables, disables, or updates SSL encryption for an AnalyticDB for PostgreSQL instance.
+        
+
+        @param request: ModifyDBInstanceSSLRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyDBInstanceSSLResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.connection_string):
@@ -4495,10 +8179,269 @@ class Client(OpenApiClient):
         )
 
     def modify_dbinstance_ssl(self, request):
+        """
+        @summary Enables, disables, or updates SSL encryption for an AnalyticDB for PostgreSQL instance.
+        
+
+        @param request: ModifyDBInstanceSSLRequest
+
+        @return: ModifyDBInstanceSSLResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_dbinstance_sslwith_options(request, runtime)
 
+    def modify_dbresource_group_with_options(self, tmp_req, runtime):
+        """
+        @summary Modifies the configurations of a resource group.
+        
+
+        @param tmp_req: ModifyDBResourceGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyDBResourceGroupResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = gpdb_20160503_models.ModifyDBResourceGroupShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.resource_group_items):
+            request.resource_group_items_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.resource_group_items, 'ResourceGroupItems', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_group_items_shrink):
+            query['ResourceGroupItems'] = request.resource_group_items_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDBResourceGroup',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.ModifyDBResourceGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_dbresource_group(self, request):
+        """
+        @summary Modifies the configurations of a resource group.
+        
+
+        @param request: ModifyDBResourceGroupRequest
+
+        @return: ModifyDBResourceGroupResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.modify_dbresource_group_with_options(request, runtime)
+
+    def modify_external_data_service_with_options(self, request, runtime):
+        """
+        @summary Modifies an external data service.
+        
+
+        @param request: ModifyExternalDataServiceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyExternalDataServiceResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.service_description):
+            query['ServiceDescription'] = request.service_description
+        if not UtilClient.is_unset(request.service_id):
+            query['ServiceId'] = request.service_id
+        if not UtilClient.is_unset(request.service_spec):
+            query['ServiceSpec'] = request.service_spec
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyExternalDataService',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.ModifyExternalDataServiceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_external_data_service(self, request):
+        """
+        @summary Modifies an external data service.
+        
+
+        @param request: ModifyExternalDataServiceRequest
+
+        @return: ModifyExternalDataServiceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.modify_external_data_service_with_options(request, runtime)
+
+    def modify_hadoop_data_source_with_options(self, request, runtime):
+        """
+        @summary Modifies the configurations of a Hadoop data source.
+        
+
+        @param request: ModifyHadoopDataSourceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyHadoopDataSourceResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.data_source_description):
+            query['DataSourceDescription'] = request.data_source_description
+        if not UtilClient.is_unset(request.data_source_id):
+            query['DataSourceId'] = request.data_source_id
+        if not UtilClient.is_unset(request.data_source_type):
+            query['DataSourceType'] = request.data_source_type
+        if not UtilClient.is_unset(request.emr_instance_id):
+            query['EmrInstanceId'] = request.emr_instance_id
+        if not UtilClient.is_unset(request.hdfsconf):
+            query['HDFSConf'] = request.hdfsconf
+        if not UtilClient.is_unset(request.hadoop_core_conf):
+            query['HadoopCoreConf'] = request.hadoop_core_conf
+        if not UtilClient.is_unset(request.hadoop_create_type):
+            query['HadoopCreateType'] = request.hadoop_create_type
+        if not UtilClient.is_unset(request.hadoop_hosts_address):
+            query['HadoopHostsAddress'] = request.hadoop_hosts_address
+        if not UtilClient.is_unset(request.hive_conf):
+            query['HiveConf'] = request.hive_conf
+        if not UtilClient.is_unset(request.map_reduce_conf):
+            query['MapReduceConf'] = request.map_reduce_conf
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.yarn_conf):
+            query['YarnConf'] = request.yarn_conf
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyHadoopDataSource',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.ModifyHadoopDataSourceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_hadoop_data_source(self, request):
+        """
+        @summary Modifies the configurations of a Hadoop data source.
+        
+
+        @param request: ModifyHadoopDataSourceRequest
+
+        @return: ModifyHadoopDataSourceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.modify_hadoop_data_source_with_options(request, runtime)
+
+    def modify_jdbcdata_source_with_options(self, request, runtime):
+        """
+        @summary Modifies the configurations of a Java Database Connectivity (JDBC) data source.
+        
+
+        @param request: ModifyJDBCDataSourceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyJDBCDataSourceResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.data_source_description):
+            query['DataSourceDescription'] = request.data_source_description
+        if not UtilClient.is_unset(request.data_source_id):
+            query['DataSourceId'] = request.data_source_id
+        if not UtilClient.is_unset(request.data_source_type):
+            query['DataSourceType'] = request.data_source_type
+        if not UtilClient.is_unset(request.jdbcconnection_string):
+            query['JDBCConnectionString'] = request.jdbcconnection_string
+        if not UtilClient.is_unset(request.jdbcpassword):
+            query['JDBCPassword'] = request.jdbcpassword
+        if not UtilClient.is_unset(request.jdbcuser_name):
+            query['JDBCUserName'] = request.jdbcuser_name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyJDBCDataSource',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.ModifyJDBCDataSourceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_jdbcdata_source(self, request):
+        """
+        @summary Modifies the configurations of a Java Database Connectivity (JDBC) data source.
+        
+
+        @param request: ModifyJDBCDataSourceRequest
+
+        @return: ModifyJDBCDataSourceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.modify_jdbcdata_source_with_options(request, runtime)
+
     def modify_master_spec_with_options(self, request, runtime):
+        """
+        @summary Changes the specifications of coordinator node resources for an AnalyticDB for PostgreSQL instance.
+        
+        @description This operation is not available for instances in reserved storage mode.
+        Before you call this operation, make sure that you are familiar with the billing of AnalyticDB for PostgreSQL. For more information, see [Billing methods](https://help.aliyun.com/document_detail/35406.html) and [AnalyticDB for PostgreSQL pricing](https://www.alibabacloud.com/zh/product/hybriddb-postgresql/pricing).
+        
+
+        @param request: ModifyMasterSpecRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyMasterSpecResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbinstance_description):
@@ -4529,12 +8472,25 @@ class Client(OpenApiClient):
         )
 
     def modify_master_spec(self, request):
+        """
+        @summary Changes the specifications of coordinator node resources for an AnalyticDB for PostgreSQL instance.
+        
+        @description This operation is not available for instances in reserved storage mode.
+        Before you call this operation, make sure that you are familiar with the billing of AnalyticDB for PostgreSQL. For more information, see [Billing methods](https://help.aliyun.com/document_detail/35406.html) and [AnalyticDB for PostgreSQL pricing](https://www.alibabacloud.com/zh/product/hybriddb-postgresql/pricing).
+        
+
+        @param request: ModifyMasterSpecRequest
+
+        @return: ModifyMasterSpecResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_master_spec_with_options(request, runtime)
 
     def modify_parameters_with_options(self, request, runtime):
         """
-        This operation can be called to modify parameters of an AnalyticDB for PostgreSQL instance in elastic storage mode or Serverless mode.
+        @summary Modifies the configuration parameters of an AnalyticDB for PostgreSQL instance.
+        
+        @description This operation can be called to modify parameters of an AnalyticDB for PostgreSQL instance in elastic storage mode or Serverless mode.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered and may affect your business. We recommend that you take note of the limit when you call this operation.
         
@@ -4574,7 +8530,9 @@ class Client(OpenApiClient):
 
     def modify_parameters(self, request):
         """
-        This operation can be called to modify parameters of an AnalyticDB for PostgreSQL instance in elastic storage mode or Serverless mode.
+        @summary Modifies the configuration parameters of an AnalyticDB for PostgreSQL instance.
+        
+        @description This operation can be called to modify parameters of an AnalyticDB for PostgreSQL instance in elastic storage mode or Serverless mode.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered and may affect your business. We recommend that you take note of the limit when you call this operation.
         
@@ -4587,6 +8545,16 @@ class Client(OpenApiClient):
         return self.modify_parameters_with_options(request, runtime)
 
     def modify_sqlcollector_policy_with_options(self, request, runtime):
+        """
+        @summary Enables or disables the SQL Explorer feature for an AnalyticDB for PostgreSQL instance.
+        
+
+        @param request: ModifySQLCollectorPolicyRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifySQLCollectorPolicyResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbinstance_id):
@@ -4613,12 +8581,22 @@ class Client(OpenApiClient):
         )
 
     def modify_sqlcollector_policy(self, request):
+        """
+        @summary Enables or disables the SQL Explorer feature for an AnalyticDB for PostgreSQL instance.
+        
+
+        @param request: ModifySQLCollectorPolicyRequest
+
+        @return: ModifySQLCollectorPolicyResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_sqlcollector_policy_with_options(request, runtime)
 
     def modify_security_ips_with_options(self, request, runtime):
         """
-        To ensure the security and stability of AnalyticDB for PostgreSQL instances, the system denies all external IP addresses to access AnalyticDB for PostgreSQL instances by default. Before you can use an AnalyticDB for PostgreSQL instance, you must add the IP address or CIDR block of your client to the IP address whitelist of the instance.
+        @summary Modifies the IP address whitelist of an AnalyticDB for PostgreSQL instance.
+        
+        @description To ensure the security and stability of AnalyticDB for PostgreSQL instances, the system denies all external IP addresses to access AnalyticDB for PostgreSQL instances by default. Before you can use an AnalyticDB for PostgreSQL instance, you must add the IP address or CIDR block of your client to the IP address whitelist of the instance.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -4664,7 +8642,9 @@ class Client(OpenApiClient):
 
     def modify_security_ips(self, request):
         """
-        To ensure the security and stability of AnalyticDB for PostgreSQL instances, the system denies all external IP addresses to access AnalyticDB for PostgreSQL instances by default. Before you can use an AnalyticDB for PostgreSQL instance, you must add the IP address or CIDR block of your client to the IP address whitelist of the instance.
+        @summary Modifies the IP address whitelist of an AnalyticDB for PostgreSQL instance.
+        
+        @description To ensure the security and stability of AnalyticDB for PostgreSQL instances, the system denies all external IP addresses to access AnalyticDB for PostgreSQL instances by default. Before you can use an AnalyticDB for PostgreSQL instance, you must add the IP address or CIDR block of your client to the IP address whitelist of the instance.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -4676,7 +8656,219 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_security_ips_with_options(request, runtime)
 
+    def modify_streaming_data_service_with_options(self, request, runtime):
+        """
+        @summary Modifies a real-time data service.
+        
+
+        @param request: ModifyStreamingDataServiceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyStreamingDataServiceResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.service_description):
+            query['ServiceDescription'] = request.service_description
+        if not UtilClient.is_unset(request.service_id):
+            query['ServiceId'] = request.service_id
+        if not UtilClient.is_unset(request.service_spec):
+            query['ServiceSpec'] = request.service_spec
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyStreamingDataService',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.ModifyStreamingDataServiceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_streaming_data_service(self, request):
+        """
+        @summary Modifies a real-time data service.
+        
+
+        @param request: ModifyStreamingDataServiceRequest
+
+        @return: ModifyStreamingDataServiceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.modify_streaming_data_service_with_options(request, runtime)
+
+    def modify_streaming_data_source_with_options(self, request, runtime):
+        """
+        @summary Modifies a real-time service data source.
+        
+
+        @param request: ModifyStreamingDataSourceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyStreamingDataSourceResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.data_source_config):
+            query['DataSourceConfig'] = request.data_source_config
+        if not UtilClient.is_unset(request.data_source_description):
+            query['DataSourceDescription'] = request.data_source_description
+        if not UtilClient.is_unset(request.data_source_id):
+            query['DataSourceId'] = request.data_source_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyStreamingDataSource',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.ModifyStreamingDataSourceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_streaming_data_source(self, request):
+        """
+        @summary Modifies a real-time service data source.
+        
+
+        @param request: ModifyStreamingDataSourceRequest
+
+        @return: ModifyStreamingDataSourceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.modify_streaming_data_source_with_options(request, runtime)
+
+    def modify_streaming_job_with_options(self, tmp_req, runtime):
+        """
+        @summary 创建外部数据源配置
+        
+
+        @param tmp_req: ModifyStreamingJobRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyStreamingJobResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = gpdb_20160503_models.ModifyStreamingJobShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.dest_columns):
+            request.dest_columns_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.dest_columns, 'DestColumns', 'json')
+        if not UtilClient.is_unset(tmp_req.match_columns):
+            request.match_columns_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.match_columns, 'MatchColumns', 'json')
+        if not UtilClient.is_unset(tmp_req.src_columns):
+            request.src_columns_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.src_columns, 'SrcColumns', 'json')
+        if not UtilClient.is_unset(tmp_req.update_columns):
+            request.update_columns_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.update_columns, 'UpdateColumns', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.account):
+            query['Account'] = request.account
+        if not UtilClient.is_unset(request.consistency):
+            query['Consistency'] = request.consistency
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dest_columns_shrink):
+            query['DestColumns'] = request.dest_columns_shrink
+        if not UtilClient.is_unset(request.dest_database):
+            query['DestDatabase'] = request.dest_database
+        if not UtilClient.is_unset(request.dest_schema):
+            query['DestSchema'] = request.dest_schema
+        if not UtilClient.is_unset(request.dest_table):
+            query['DestTable'] = request.dest_table
+        if not UtilClient.is_unset(request.error_limit_count):
+            query['ErrorLimitCount'] = request.error_limit_count
+        if not UtilClient.is_unset(request.fallback_offset):
+            query['FallbackOffset'] = request.fallback_offset
+        if not UtilClient.is_unset(request.group_name):
+            query['GroupName'] = request.group_name
+        if not UtilClient.is_unset(request.job_config):
+            query['JobConfig'] = request.job_config
+        if not UtilClient.is_unset(request.job_description):
+            query['JobDescription'] = request.job_description
+        if not UtilClient.is_unset(request.job_id):
+            query['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.match_columns_shrink):
+            query['MatchColumns'] = request.match_columns_shrink
+        if not UtilClient.is_unset(request.password):
+            query['Password'] = request.password
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.src_columns_shrink):
+            query['SrcColumns'] = request.src_columns_shrink
+        if not UtilClient.is_unset(request.try_run):
+            query['TryRun'] = request.try_run
+        if not UtilClient.is_unset(request.update_columns_shrink):
+            query['UpdateColumns'] = request.update_columns_shrink
+        if not UtilClient.is_unset(request.write_mode):
+            query['WriteMode'] = request.write_mode
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyStreamingJob',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.ModifyStreamingJobResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_streaming_job(self, request):
+        """
+        @summary 创建外部数据源配置
+        
+
+        @param request: ModifyStreamingJobRequest
+
+        @return: ModifyStreamingJobResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.modify_streaming_job_with_options(request, runtime)
+
     def modify_vector_configuration_with_options(self, request, runtime):
+        """
+        @summary Modifies the vector engine optimization configuration of an AnalyticDB for PostgreSQL instance.
+        
+
+        @param request: ModifyVectorConfigurationRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyVectorConfigurationResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbinstance_id):
@@ -4705,14 +8897,72 @@ class Client(OpenApiClient):
         )
 
     def modify_vector_configuration(self, request):
+        """
+        @summary Modifies the vector engine optimization configuration of an AnalyticDB for PostgreSQL instance.
+        
+
+        @param request: ModifyVectorConfigurationRequest
+
+        @return: ModifyVectorConfigurationResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_vector_configuration_with_options(request, runtime)
 
+    def pause_data_redistribute_with_options(self, request, runtime):
+        """
+        @summary Pauses data redistribution.
+        
+
+        @param request: PauseDataRedistributeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: PauseDataRedistributeResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='PauseDataRedistribute',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.PauseDataRedistributeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def pause_data_redistribute(self, request):
+        """
+        @summary Pauses data redistribution.
+        
+
+        @param request: PauseDataRedistributeRequest
+
+        @return: PauseDataRedistributeResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.pause_data_redistribute_with_options(request, runtime)
+
     def pause_instance_with_options(self, request, runtime):
         """
-        You can call this operation to pause an AnalyticDB for PostgreSQL instance that is in the *Running** state.
-        This operation is available only for AnalyticDB for PostgreSQL instances in Serverless mode that run V1.0.2.1 or later. For more information about how to view and update the minor engine version of an instance, see [View the minor engine version](~~277424~~) and [Update the minor engine version](~~139271~~).
-        >  Before you call this operation, make sure that you are familiar with the billing methods and pricing of AnalyticDB for PostgreSQL instances. For more information, see [Billing methods](~~35406~~) and [AnalyticDB for PostgreSQL pricing](https://www.alibabacloud.com/zh/product/hybriddb-postgresql/pricing).
+        @summary Pauses an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation to pause an AnalyticDB for PostgreSQL instance that is in the *Running** state.
+        This operation is available only for AnalyticDB for PostgreSQL instances in Serverless mode that run V1.0.2.1 or later. For more information about how to view and update the minor engine version of an instance, see [View the minor engine version](https://help.aliyun.com/document_detail/277424.html) and [Update the minor engine version](https://help.aliyun.com/document_detail/139271.html).
+        >  Before you call this operation, make sure that you are familiar with the billing methods and pricing of AnalyticDB for PostgreSQL instances. For more information, see [Billing methods](https://help.aliyun.com/document_detail/35406.html) and [AnalyticDB for PostgreSQL pricing](https://www.alibabacloud.com/zh/product/hybriddb-postgresql/pricing).
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -4750,9 +9000,11 @@ class Client(OpenApiClient):
 
     def pause_instance(self, request):
         """
-        You can call this operation to pause an AnalyticDB for PostgreSQL instance that is in the *Running** state.
-        This operation is available only for AnalyticDB for PostgreSQL instances in Serverless mode that run V1.0.2.1 or later. For more information about how to view and update the minor engine version of an instance, see [View the minor engine version](~~277424~~) and [Update the minor engine version](~~139271~~).
-        >  Before you call this operation, make sure that you are familiar with the billing methods and pricing of AnalyticDB for PostgreSQL instances. For more information, see [Billing methods](~~35406~~) and [AnalyticDB for PostgreSQL pricing](https://www.alibabacloud.com/zh/product/hybriddb-postgresql/pricing).
+        @summary Pauses an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation to pause an AnalyticDB for PostgreSQL instance that is in the *Running** state.
+        This operation is available only for AnalyticDB for PostgreSQL instances in Serverless mode that run V1.0.2.1 or later. For more information about how to view and update the minor engine version of an instance, see [View the minor engine version](https://help.aliyun.com/document_detail/277424.html) and [Update the minor engine version](https://help.aliyun.com/document_detail/139271.html).
+        >  Before you call this operation, make sure that you are familiar with the billing methods and pricing of AnalyticDB for PostgreSQL instances. For more information, see [Billing methods](https://help.aliyun.com/document_detail/35406.html) and [AnalyticDB for PostgreSQL pricing](https://www.alibabacloud.com/zh/product/hybriddb-postgresql/pricing).
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -4765,11 +9017,23 @@ class Client(OpenApiClient):
         return self.pause_instance_with_options(request, runtime)
 
     def query_collection_data_with_options(self, tmp_req, runtime):
+        """
+        @summary Retrieves vector data.
+        
+
+        @param tmp_req: QueryCollectionDataRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: QueryCollectionDataResponse
+        """
         UtilClient.validate_model(tmp_req)
         request = gpdb_20160503_models.QueryCollectionDataShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.hybrid_search_args):
             request.hybrid_search_args_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.hybrid_search_args, 'HybridSearchArgs', 'json')
+        if not UtilClient.is_unset(tmp_req.relational_table_filter):
+            request.relational_table_filter_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.relational_table_filter, 'RelationalTableFilter', 'json')
         if not UtilClient.is_unset(tmp_req.vector):
             request.vector_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.vector, 'Vector', 'json')
         query = {}
@@ -4803,10 +9067,14 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.relational_table_filter_shrink):
+            query['RelationalTableFilter'] = request.relational_table_filter_shrink
         if not UtilClient.is_unset(request.top_k):
             query['TopK'] = request.top_k
         if not UtilClient.is_unset(request.vector_shrink):
             query['Vector'] = request.vector_shrink
+        if not UtilClient.is_unset(request.workspace_id):
+            query['WorkspaceId'] = request.workspace_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -4827,10 +9095,28 @@ class Client(OpenApiClient):
         )
 
     def query_collection_data(self, request):
+        """
+        @summary Retrieves vector data.
+        
+
+        @param request: QueryCollectionDataRequest
+
+        @return: QueryCollectionDataResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.query_collection_data_with_options(request, runtime)
 
     def query_content_with_options(self, tmp_req, runtime):
+        """
+        @summary Retrieves vector data and metadata from a document collection by using natural statements.
+        
+
+        @param tmp_req: QueryContentRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: QueryContentResponse
+        """
         UtilClient.validate_model(tmp_req)
         request = gpdb_20160503_models.QueryContentShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
@@ -4855,6 +9141,8 @@ class Client(OpenApiClient):
             query['HybridSearch'] = request.hybrid_search
         if not UtilClient.is_unset(request.hybrid_search_args_shrink):
             query['HybridSearchArgs'] = request.hybrid_search_args_shrink
+        if not UtilClient.is_unset(request.include_file_url):
+            query['IncludeFileUrl'] = request.include_file_url
         if not UtilClient.is_unset(request.include_metadata_fields):
             query['IncludeMetadataFields'] = request.include_metadata_fields
         if not UtilClient.is_unset(request.include_vector):
@@ -4897,6 +9185,14 @@ class Client(OpenApiClient):
         )
 
     def query_content(self, request):
+        """
+        @summary Retrieves vector data and metadata from a document collection by using natural statements.
+        
+
+        @param request: QueryContentRequest
+
+        @return: QueryContentResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.query_content_with_options(request, runtime)
 
@@ -4907,7 +9203,7 @@ class Client(OpenApiClient):
         security_token = self._credential.get_security_token()
         credential_type = self._credential.get_type()
         open_platform_endpoint = self._open_platform_endpoint
-        if UtilClient.is_unset(open_platform_endpoint):
+        if UtilClient.empty(open_platform_endpoint):
             open_platform_endpoint = 'openplatform.aliyuncs.com'
         if UtilClient.is_unset(credential_type):
             credential_type = 'access_key'
@@ -4927,12 +9223,13 @@ class Client(OpenApiClient):
         )
         auth_response = open_platform_models.AuthorizeFileUploadResponse()
         oss_config = oss_models.Config(
+            access_key_id=access_key_id,
             access_key_secret=access_key_secret,
             type='access_key',
             protocol=self._protocol,
             region_id=self._region_id
         )
-        oss_client = None
+        oss_client = OSSClient(oss_config)
         file_obj = file_form_models.FileField()
         oss_header = oss_models.PostObjectRequestHeader()
         upload_request = oss_models.PostObjectRequest()
@@ -4968,6 +9265,16 @@ class Client(OpenApiClient):
         return query_content_resp
 
     def rebalance_dbinstance_with_options(self, request, runtime):
+        """
+        @summary Rebalances an AnalyticDB for PostgreSQL instance.
+        
+
+        @param request: RebalanceDBInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RebalanceDBInstanceResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -4994,10 +9301,28 @@ class Client(OpenApiClient):
         )
 
     def rebalance_dbinstance(self, request):
+        """
+        @summary Rebalances an AnalyticDB for PostgreSQL instance.
+        
+
+        @param request: RebalanceDBInstanceRequest
+
+        @return: RebalanceDBInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.rebalance_dbinstance_with_options(request, runtime)
 
     def release_instance_public_connection_with_options(self, request, runtime):
+        """
+        @summary Releases the public endpoint of an AnalyticDB for PostgreSQL instance.
+        
+
+        @param request: ReleaseInstancePublicConnectionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ReleaseInstancePublicConnectionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.address_type):
@@ -5026,10 +9351,96 @@ class Client(OpenApiClient):
         )
 
     def release_instance_public_connection(self, request):
+        """
+        @summary Releases the public endpoint of an AnalyticDB for PostgreSQL instance.
+        
+
+        @param request: ReleaseInstancePublicConnectionRequest
+
+        @return: ReleaseInstancePublicConnectionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.release_instance_public_connection_with_options(request, runtime)
 
+    def rerank_with_options(self, tmp_req, runtime):
+        """
+        @summary 通过模型对文档进行打分和重排序
+        
+
+        @param tmp_req: RerankRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RerankResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = gpdb_20160503_models.RerankShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.documents):
+            request.documents_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.documents, 'Documents', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        body = {}
+        if not UtilClient.is_unset(request.documents_shrink):
+            body['Documents'] = request.documents_shrink
+        if not UtilClient.is_unset(request.max_chunks_per_doc):
+            body['MaxChunksPerDoc'] = request.max_chunks_per_doc
+        if not UtilClient.is_unset(request.model):
+            body['Model'] = request.model
+        if not UtilClient.is_unset(request.query):
+            body['Query'] = request.query
+        if not UtilClient.is_unset(request.return_documents):
+            body['ReturnDocuments'] = request.return_documents
+        if not UtilClient.is_unset(request.top_k):
+            body['TopK'] = request.top_k
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='Rerank',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.RerankResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def rerank(self, request):
+        """
+        @summary 通过模型对文档进行打分和重排序
+        
+
+        @param request: RerankRequest
+
+        @return: RerankResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.rerank_with_options(request, runtime)
+
     def reset_account_password_with_options(self, request, runtime):
+        """
+        @summary Resets the password of a database account for an AnalyticDB for PostgreSQL instance.
+        
+
+        @param request: ResetAccountPasswordRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ResetAccountPasswordResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.account_name):
@@ -5058,10 +9469,28 @@ class Client(OpenApiClient):
         )
 
     def reset_account_password(self, request):
+        """
+        @summary Resets the password of a database account for an AnalyticDB for PostgreSQL instance.
+        
+
+        @param request: ResetAccountPasswordRequest
+
+        @return: ResetAccountPasswordResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.reset_account_password_with_options(request, runtime)
 
     def reset_imvmonitor_data_with_options(self, request, runtime):
+        """
+        @summary Resets the IMV statistics.
+        
+
+        @param request: ResetIMVMonitorDataRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ResetIMVMonitorDataResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbinstance_id):
@@ -5088,12 +9517,22 @@ class Client(OpenApiClient):
         )
 
     def reset_imvmonitor_data(self, request):
+        """
+        @summary Resets the IMV statistics.
+        
+
+        @param request: ResetIMVMonitorDataRequest
+
+        @return: ResetIMVMonitorDataResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.reset_imvmonitor_data_with_options(request, runtime)
 
     def restart_dbinstance_with_options(self, request, runtime):
         """
-        A restart takes about 3 to 30 minutes. During the restart, services are unavailable. We recommend that you restart the instance during off-peak hours. After the instance is restarted and enters the running state, you can access the instance.
+        @summary Restarts an AnalyticDB for PostgreSQL instance.
+        
+        @description A restart takes about 3 to 30 minutes. During the restart, services are unavailable. We recommend that you restart the instance during off-peak hours. After the instance is restarted and enters the running state, you can access the instance.
         ## Limit
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered and may affect your business. We recommend that you take note of the limit when you call this operation.
         
@@ -5131,7 +9570,9 @@ class Client(OpenApiClient):
 
     def restart_dbinstance(self, request):
         """
-        A restart takes about 3 to 30 minutes. During the restart, services are unavailable. We recommend that you restart the instance during off-peak hours. After the instance is restarted and enters the running state, you can access the instance.
+        @summary Restarts an AnalyticDB for PostgreSQL instance.
+        
+        @description A restart takes about 3 to 30 minutes. During the restart, services are unavailable. We recommend that you restart the instance during off-peak hours. After the instance is restarted and enters the running state, you can access the instance.
         ## Limit
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered and may affect your business. We recommend that you take note of the limit when you call this operation.
         
@@ -5143,11 +9584,61 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.restart_dbinstance_with_options(request, runtime)
 
+    def resume_data_redistribute_with_options(self, request, runtime):
+        """
+        @summary Resumes data redistribution.
+        
+
+        @param request: ResumeDataRedistributeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ResumeDataRedistributeResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ResumeDataRedistribute',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.ResumeDataRedistributeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def resume_data_redistribute(self, request):
+        """
+        @summary Resumes data redistribution.
+        
+
+        @param request: ResumeDataRedistributeRequest
+
+        @return: ResumeDataRedistributeResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.resume_data_redistribute_with_options(request, runtime)
+
     def resume_instance_with_options(self, request, runtime):
         """
-        You can call this operation to resume an AnalyticDB for PostgreSQL instance that is in the *Paused** state.
-        This operation is available only for AnalyticDB for PostgreSQL instances in Serverless mode that run V1.0.2.1 or later. For more information about how to view and update the minor engine version of an instance, see [View the minor engine version](~~277424~~) and [Update the minor engine version](~~139271~~).
-        >  Before you call this operation, make sure that you are familiar with the billing methods and pricing of AnalyticDB for PostgreSQL instances. For more information, see [Billing methods](~~35406~~) and [AnalyticDB for PostgreSQL pricing](https://www.alibabacloud.com/zh/product/hybriddb-postgresql/pricing).
+        @summary Resumes an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation to resume an AnalyticDB for PostgreSQL instance that is in the *Paused** state.
+        This operation is available only for AnalyticDB for PostgreSQL instances in Serverless mode that run V1.0.2.1 or later. For more information about how to view and update the minor engine version of an instance, see [View the minor engine version](https://help.aliyun.com/document_detail/277424.html) and [Update the minor engine version](https://help.aliyun.com/document_detail/139271.html).
+        >  Before you call this operation, make sure that you are familiar with the billing methods and pricing of AnalyticDB for PostgreSQL instances. For more information, see [Billing methods](https://help.aliyun.com/document_detail/35406.html) and [AnalyticDB for PostgreSQL pricing](https://www.alibabacloud.com/zh/product/hybriddb-postgresql/pricing).
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -5185,9 +9676,11 @@ class Client(OpenApiClient):
 
     def resume_instance(self, request):
         """
-        You can call this operation to resume an AnalyticDB for PostgreSQL instance that is in the *Paused** state.
-        This operation is available only for AnalyticDB for PostgreSQL instances in Serverless mode that run V1.0.2.1 or later. For more information about how to view and update the minor engine version of an instance, see [View the minor engine version](~~277424~~) and [Update the minor engine version](~~139271~~).
-        >  Before you call this operation, make sure that you are familiar with the billing methods and pricing of AnalyticDB for PostgreSQL instances. For more information, see [Billing methods](~~35406~~) and [AnalyticDB for PostgreSQL pricing](https://www.alibabacloud.com/zh/product/hybriddb-postgresql/pricing).
+        @summary Resumes an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation to resume an AnalyticDB for PostgreSQL instance that is in the *Paused** state.
+        This operation is available only for AnalyticDB for PostgreSQL instances in Serverless mode that run V1.0.2.1 or later. For more information about how to view and update the minor engine version of an instance, see [View the minor engine version](https://help.aliyun.com/document_detail/277424.html) and [Update the minor engine version](https://help.aliyun.com/document_detail/139271.html).
+        >  Before you call this operation, make sure that you are familiar with the billing methods and pricing of AnalyticDB for PostgreSQL instances. For more information, see [Billing methods](https://help.aliyun.com/document_detail/35406.html) and [AnalyticDB for PostgreSQL pricing](https://www.alibabacloud.com/zh/product/hybriddb-postgresql/pricing).
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -5201,7 +9694,9 @@ class Client(OpenApiClient):
 
     def set_dbinstance_plan_status_with_options(self, request, runtime):
         """
-        You can call this operation to enable or disable a specified plan. The plan management feature is supported only for AnalyticDB for PostgreSQL instances in Serverless mode.
+        @summary Enables or disables a plan for an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation to enable or disable a specified plan. The plan management feature is supported only for AnalyticDB for PostgreSQL instances in Serverless mode.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -5243,7 +9738,9 @@ class Client(OpenApiClient):
 
     def set_dbinstance_plan_status(self, request):
         """
-        You can call this operation to enable or disable a specified plan. The plan management feature is supported only for AnalyticDB for PostgreSQL instances in Serverless mode.
+        @summary Enables or disables a plan for an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation to enable or disable a specified plan. The plan management feature is supported only for AnalyticDB for PostgreSQL instances in Serverless mode.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -5257,7 +9754,9 @@ class Client(OpenApiClient):
 
     def set_data_share_instance_with_options(self, tmp_req, runtime):
         """
-        This operation is called to enable or disable data sharing for an AnalyticDB for PostgreSQL instance in Serverless mode.
+        @summary Enables or disables data sharing for an AnalyticDB for PostgreSQL instance.
+        
+        @description This operation is called to enable or disable data sharing for an AnalyticDB for PostgreSQL instance in Serverless mode.
         ## Limits
         You can call this operation up to 1,000 times per second per account. Requests that exceed this limit are dropped and you will experience service interruptions. We recommend that you take note of this limit when you call this operation.
         
@@ -5303,7 +9802,9 @@ class Client(OpenApiClient):
 
     def set_data_share_instance(self, request):
         """
-        This operation is called to enable or disable data sharing for an AnalyticDB for PostgreSQL instance in Serverless mode.
+        @summary Enables or disables data sharing for an AnalyticDB for PostgreSQL instance.
+        
+        @description This operation is called to enable or disable data sharing for an AnalyticDB for PostgreSQL instance in Serverless mode.
         ## Limits
         You can call this operation up to 1,000 times per second per account. Requests that exceed this limit are dropped and you will experience service interruptions. We recommend that you take note of this limit when you call this operation.
         
@@ -5316,6 +9817,18 @@ class Client(OpenApiClient):
         return self.set_data_share_instance_with_options(request, runtime)
 
     def switch_dbinstance_net_type_with_options(self, request, runtime):
+        """
+        @summary Switches between the internal and public endpoints of an AnalyticDB for PostgreSQL instance.
+        
+        @description This operation is not supported for AnalyticDB for PostgreSQL instances in elastic storage mode or Serverless mode.
+        
+
+        @param request: SwitchDBInstanceNetTypeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: SwitchDBInstanceNetTypeResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.connection_string_prefix):
@@ -5344,10 +9857,30 @@ class Client(OpenApiClient):
         )
 
     def switch_dbinstance_net_type(self, request):
+        """
+        @summary Switches between the internal and public endpoints of an AnalyticDB for PostgreSQL instance.
+        
+        @description This operation is not supported for AnalyticDB for PostgreSQL instances in elastic storage mode or Serverless mode.
+        
+
+        @param request: SwitchDBInstanceNetTypeRequest
+
+        @return: SwitchDBInstanceNetTypeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.switch_dbinstance_net_type_with_options(request, runtime)
 
     def tag_resources_with_options(self, request, runtime):
+        """
+        @summary Creates and adds tags to AnalyticDB for PostgreSQL instances.
+        
+
+        @param request: TagResourcesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: TagResourcesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.owner_account):
@@ -5386,12 +9919,78 @@ class Client(OpenApiClient):
         )
 
     def tag_resources(self, request):
+        """
+        @summary Creates and adds tags to AnalyticDB for PostgreSQL instances.
+        
+
+        @param request: TagResourcesRequest
+
+        @return: TagResourcesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.tag_resources_with_options(request, runtime)
 
+    def unbind_dbresource_group_with_role_with_options(self, tmp_req, runtime):
+        """
+        @summary Unbinds database roles from a resource group.
+        
+
+        @param tmp_req: UnbindDBResourceGroupWithRoleRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UnbindDBResourceGroupWithRoleResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = gpdb_20160503_models.UnbindDBResourceGroupWithRoleShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.role_list):
+            request.role_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.role_list, 'RoleList', 'simple')
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_group_name):
+            query['ResourceGroupName'] = request.resource_group_name
+        if not UtilClient.is_unset(request.role_list_shrink):
+            query['RoleList'] = request.role_list_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UnbindDBResourceGroupWithRole',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.UnbindDBResourceGroupWithRoleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def unbind_dbresource_group_with_role(self, request):
+        """
+        @summary Unbinds database roles from a resource group.
+        
+
+        @param request: UnbindDBResourceGroupWithRoleRequest
+
+        @return: UnbindDBResourceGroupWithRoleResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.unbind_dbresource_group_with_role_with_options(request, runtime)
+
     def unload_sample_data_with_options(self, request, runtime):
         """
-        You can call this operation to release a sample dataset from an AnalyticDB for PostgreSQL instance. You must have already loaded the sample dataset.
+        @summary Releases a sample dataset from an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation to release a sample dataset from an AnalyticDB for PostgreSQL instance. You must have already loaded the sample dataset.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -5429,7 +10028,9 @@ class Client(OpenApiClient):
 
     def unload_sample_data(self, request):
         """
-        You can call this operation to release a sample dataset from an AnalyticDB for PostgreSQL instance. You must have already loaded the sample dataset.
+        @summary Releases a sample dataset from an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation to release a sample dataset from an AnalyticDB for PostgreSQL instance. You must have already loaded the sample dataset.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -5442,6 +10043,16 @@ class Client(OpenApiClient):
         return self.unload_sample_data_with_options(request, runtime)
 
     def untag_resources_with_options(self, request, runtime):
+        """
+        @summary Removes tags from AnalyticDB for PostgreSQL instances. If the tags that you remove are not added to other instances, the tags are automatically deleted.
+        
+
+        @param request: UntagResourcesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UntagResourcesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.all):
@@ -5482,10 +10093,28 @@ class Client(OpenApiClient):
         )
 
     def untag_resources(self, request):
+        """
+        @summary Removes tags from AnalyticDB for PostgreSQL instances. If the tags that you remove are not added to other instances, the tags are automatically deleted.
+        
+
+        @param request: UntagResourcesRequest
+
+        @return: UntagResourcesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.untag_resources_with_options(request, runtime)
 
     def update_collection_data_metadata_with_options(self, tmp_req, runtime):
+        """
+        @summary Updates metadata in the vector data.
+        
+
+        @param tmp_req: UpdateCollectionDataMetadataRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateCollectionDataMetadataResponse
+        """
         UtilClient.validate_model(tmp_req)
         request = gpdb_20160503_models.UpdateCollectionDataMetadataShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
@@ -5512,6 +10141,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.workspace_id):
+            query['WorkspaceId'] = request.workspace_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -5532,12 +10163,22 @@ class Client(OpenApiClient):
         )
 
     def update_collection_data_metadata(self, request):
+        """
+        @summary Updates metadata in the vector data.
+        
+
+        @param request: UpdateCollectionDataMetadataRequest
+
+        @return: UpdateCollectionDataMetadataResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_collection_data_metadata_with_options(request, runtime)
 
     def update_dbinstance_plan_with_options(self, request, runtime):
         """
-        You can call this operation to modify a plan for an AnalyticDB for PostgreSQL instance in Serverless mode. For example, you can modify a plan for periodically pausing and resuming an instance or scaling an instance.
+        @summary Modifies a plan for an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation to modify a plan for an AnalyticDB for PostgreSQL instance in Serverless mode. For example, you can modify a plan for periodically pausing and resuming an instance or scaling an instance.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -5587,7 +10228,9 @@ class Client(OpenApiClient):
 
     def update_dbinstance_plan(self, request):
         """
-        You can call this operation to modify a plan for an AnalyticDB for PostgreSQL instance in Serverless mode. For example, you can modify a plan for periodically pausing and resuming an instance or scaling an instance.
+        @summary Modifies a plan for an AnalyticDB for PostgreSQL instance.
+        
+        @description You can call this operation to modify a plan for an AnalyticDB for PostgreSQL instance in Serverless mode. For example, you can modify a plan for periodically pausing and resuming an instance or scaling an instance.
         ## Limits
         You can call this operation up to 1,000 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -5601,8 +10244,10 @@ class Client(OpenApiClient):
 
     def upgrade_dbinstance_with_options(self, request, runtime):
         """
-        This operation is not available for instances in reserved storage mode.
-        Before you call this operation, make sure that you are familiar with the billing of AnalyticDB for PostgreSQL. For more information, see [Billing methods](~~35406~~) and [AnalyticDB for PostgreSQL pricing](https://www.alibabacloud.com/zh/product/hybriddb-postgresql/pricing).
+        @summary Changes the configurations of an AnalyticDB for PostgreSQL instance.
+        
+        @description This operation is not available for instances in reserved storage mode.
+        Before you call this operation, make sure that you are familiar with the billing of AnalyticDB for PostgreSQL. For more information, see [Billing methods](https://help.aliyun.com/document_detail/35406.html) and [AnalyticDB for PostgreSQL pricing](https://www.alibabacloud.com/zh/product/hybriddb-postgresql/pricing).
         
 
         @param request: UpgradeDBInstanceRequest
@@ -5662,8 +10307,10 @@ class Client(OpenApiClient):
 
     def upgrade_dbinstance(self, request):
         """
-        This operation is not available for instances in reserved storage mode.
-        Before you call this operation, make sure that you are familiar with the billing of AnalyticDB for PostgreSQL. For more information, see [Billing methods](~~35406~~) and [AnalyticDB for PostgreSQL pricing](https://www.alibabacloud.com/zh/product/hybriddb-postgresql/pricing).
+        @summary Changes the configurations of an AnalyticDB for PostgreSQL instance.
+        
+        @description This operation is not available for instances in reserved storage mode.
+        Before you call this operation, make sure that you are familiar with the billing of AnalyticDB for PostgreSQL. For more information, see [Billing methods](https://help.aliyun.com/document_detail/35406.html) and [AnalyticDB for PostgreSQL pricing](https://www.alibabacloud.com/zh/product/hybriddb-postgresql/pricing).
         
 
         @param request: UpgradeDBInstanceRequest
@@ -5674,6 +10321,16 @@ class Client(OpenApiClient):
         return self.upgrade_dbinstance_with_options(request, runtime)
 
     def upgrade_dbversion_with_options(self, request, runtime):
+        """
+        @summary Upgrades the minor version of an AnalyticDB for PostgreSQL instance.
+        
+
+        @param request: UpgradeDBVersionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpgradeDBVersionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbinstance_id):
@@ -5710,10 +10367,87 @@ class Client(OpenApiClient):
         )
 
     def upgrade_dbversion(self, request):
+        """
+        @summary Upgrades the minor version of an AnalyticDB for PostgreSQL instance.
+        
+
+        @param request: UpgradeDBVersionRequest
+
+        @return: UpgradeDBVersionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.upgrade_dbversion_with_options(request, runtime)
 
+    def upgrade_extensions_with_options(self, request, runtime):
+        """
+        @summary Updates extensions.
+        
+
+        @param request: UpgradeExtensionsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpgradeExtensionsResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.extensions):
+            query['Extensions'] = request.extensions
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpgradeExtensions',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.UpgradeExtensionsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def upgrade_extensions(self, request):
+        """
+        @summary Updates extensions.
+        
+
+        @param request: UpgradeExtensionsRequest
+
+        @return: UpgradeExtensionsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.upgrade_extensions_with_options(request, runtime)
+
     def upload_document_async_with_options(self, tmp_req, runtime):
+        """
+        @summary Uploads a document in an asynchronous manner by using an on-premises file or an Internet-accessible file URL. After a document is uploaded, the server loads, chunks, embeds, and stores the document. A document can be up to 200 MB in size.
+        
+        @description The server loads and chunks a document based on the file extension, performs vectorization by using the embedding model that is specified when you call the CreateDocumentCollection operation, and then writes the document to the specified document collection. This operation supports multi-modal embedding for various formats of text and images.
+        Related operations:
+        You can call the GetUploadDocumentJob operation to query the progress and result of a document upload job.
+        You can call the CancelUploadDocumentJob operation to cancel a document upload job.
+        >
+        After a document upload request is submitted, the request is queued for processing. Up to 20 documents in the Pending and Running states can be processed within a Resource Access Management (RAM) user or Alibaba Cloud account.
+        A text document can be split into up to 100,000 chunks.
+        If a document collection uses the OnePeace model, each RAM user or Alibaba Cloud account can upload and query up to 10,000 images.
+        
+
+        @param tmp_req: UploadDocumentAsyncRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UploadDocumentAsyncResponse
+        """
         UtilClient.validate_model(tmp_req)
         request = gpdb_20160503_models.UploadDocumentAsyncShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
@@ -5776,6 +10510,23 @@ class Client(OpenApiClient):
         )
 
     def upload_document_async(self, request):
+        """
+        @summary Uploads a document in an asynchronous manner by using an on-premises file or an Internet-accessible file URL. After a document is uploaded, the server loads, chunks, embeds, and stores the document. A document can be up to 200 MB in size.
+        
+        @description The server loads and chunks a document based on the file extension, performs vectorization by using the embedding model that is specified when you call the CreateDocumentCollection operation, and then writes the document to the specified document collection. This operation supports multi-modal embedding for various formats of text and images.
+        Related operations:
+        You can call the GetUploadDocumentJob operation to query the progress and result of a document upload job.
+        You can call the CancelUploadDocumentJob operation to cancel a document upload job.
+        >
+        After a document upload request is submitted, the request is queued for processing. Up to 20 documents in the Pending and Running states can be processed within a Resource Access Management (RAM) user or Alibaba Cloud account.
+        A text document can be split into up to 100,000 chunks.
+        If a document collection uses the OnePeace model, each RAM user or Alibaba Cloud account can upload and query up to 10,000 images.
+        
+
+        @param request: UploadDocumentAsyncRequest
+
+        @return: UploadDocumentAsyncResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.upload_document_async_with_options(request, runtime)
 
@@ -5786,7 +10537,7 @@ class Client(OpenApiClient):
         security_token = self._credential.get_security_token()
         credential_type = self._credential.get_type()
         open_platform_endpoint = self._open_platform_endpoint
-        if UtilClient.is_unset(open_platform_endpoint):
+        if UtilClient.empty(open_platform_endpoint):
             open_platform_endpoint = 'openplatform.aliyuncs.com'
         if UtilClient.is_unset(credential_type):
             credential_type = 'access_key'
@@ -5806,12 +10557,13 @@ class Client(OpenApiClient):
         )
         auth_response = open_platform_models.AuthorizeFileUploadResponse()
         oss_config = oss_models.Config(
+            access_key_id=access_key_id,
             access_key_secret=access_key_secret,
             type='access_key',
             protocol=self._protocol,
             region_id=self._region_id
         )
-        oss_client = None
+        oss_client = OSSClient(oss_config)
         file_obj = file_form_models.FileField()
         oss_header = oss_models.PostObjectRequestHeader()
         upload_request = oss_models.PostObjectRequest()
@@ -5847,6 +10599,16 @@ class Client(OpenApiClient):
         return upload_document_async_resp
 
     def upsert_chunks_with_options(self, tmp_req, runtime):
+        """
+        @summary Splits a document into chunks and uploads the vectorized chunks to a document collection.
+        
+
+        @param tmp_req: UpsertChunksRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpsertChunksResponse
+        """
         UtilClient.validate_model(tmp_req)
         request = gpdb_20160503_models.UpsertChunksShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
@@ -5891,10 +10653,28 @@ class Client(OpenApiClient):
         )
 
     def upsert_chunks(self, request):
+        """
+        @summary Splits a document into chunks and uploads the vectorized chunks to a document collection.
+        
+
+        @param request: UpsertChunksRequest
+
+        @return: UpsertChunksResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.upsert_chunks_with_options(request, runtime)
 
     def upsert_collection_data_with_options(self, tmp_req, runtime):
+        """
+        @summary Uploads vector data to a vector collection.
+        
+
+        @param tmp_req: UpsertCollectionDataRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpsertCollectionDataResponse
+        """
         UtilClient.validate_model(tmp_req)
         request = gpdb_20160503_models.UpsertCollectionDataShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
@@ -5913,6 +10693,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.workspace_id):
+            query['WorkspaceId'] = request.workspace_id
         body = {}
         if not UtilClient.is_unset(request.rows_shrink):
             body['Rows'] = request.rows_shrink
@@ -5937,10 +10719,34 @@ class Client(OpenApiClient):
         )
 
     def upsert_collection_data(self, request):
+        """
+        @summary Uploads vector data to a vector collection.
+        
+
+        @param request: UpsertCollectionDataRequest
+
+        @return: UpsertCollectionDataResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.upsert_collection_data_with_options(request, runtime)
 
     def upsert_collection_data_async_with_options(self, request, runtime):
+        """
+        @summary Uploads vector data in an asynchronous manner by using an on-premises file or a password-free Internet-accessible file URL. The vector data can be up to 200 MB in size.
+        
+        @description This operation is the asynchronous operation of `UpsertCollectionData`. The `UpsertCollectionData` operation supports up to 10 MB of data, and this operation supports up to 200 MB of data.
+        >  Related operations:
+        You can call the GetUpsertCollectionDataJob operation to query the progress and result of an upload job.
+        You can call the CancelUpsertCollectionDataJob operation to cancel an upload job.
+        > You can upload data for the same collection only in a serial manner.
+        
+
+        @param request: UpsertCollectionDataAsyncRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpsertCollectionDataAsyncResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbinstance_id):
@@ -5949,6 +10755,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.workspace_id):
+            query['WorkspaceId'] = request.workspace_id
         body = {}
         if not UtilClient.is_unset(request.collection):
             body['Collection'] = request.collection
@@ -5979,6 +10787,20 @@ class Client(OpenApiClient):
         )
 
     def upsert_collection_data_async(self, request):
+        """
+        @summary Uploads vector data in an asynchronous manner by using an on-premises file or a password-free Internet-accessible file URL. The vector data can be up to 200 MB in size.
+        
+        @description This operation is the asynchronous operation of `UpsertCollectionData`. The `UpsertCollectionData` operation supports up to 10 MB of data, and this operation supports up to 200 MB of data.
+        >  Related operations:
+        You can call the GetUpsertCollectionDataJob operation to query the progress and result of an upload job.
+        You can call the CancelUpsertCollectionDataJob operation to cancel an upload job.
+        > You can upload data for the same collection only in a serial manner.
+        
+
+        @param request: UpsertCollectionDataAsyncRequest
+
+        @return: UpsertCollectionDataAsyncResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.upsert_collection_data_async_with_options(request, runtime)
 
@@ -5989,7 +10811,7 @@ class Client(OpenApiClient):
         security_token = self._credential.get_security_token()
         credential_type = self._credential.get_type()
         open_platform_endpoint = self._open_platform_endpoint
-        if UtilClient.is_unset(open_platform_endpoint):
+        if UtilClient.empty(open_platform_endpoint):
             open_platform_endpoint = 'openplatform.aliyuncs.com'
         if UtilClient.is_unset(credential_type):
             credential_type = 'access_key'
@@ -6009,12 +10831,13 @@ class Client(OpenApiClient):
         )
         auth_response = open_platform_models.AuthorizeFileUploadResponse()
         oss_config = oss_models.Config(
+            access_key_id=access_key_id,
             access_key_secret=access_key_secret,
             type='access_key',
             protocol=self._protocol,
             region_id=self._region_id
         )
-        oss_client = None
+        oss_client = OSSClient(oss_config)
         file_obj = file_form_models.FileField()
         oss_header = oss_models.PostObjectRequestHeader()
         upload_request = oss_models.PostObjectRequest()
