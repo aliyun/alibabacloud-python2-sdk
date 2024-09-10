@@ -1,3 +1,12 @@
+2024-09-10 Version: 2.0.3
+- Update API CreateSnapshot: update param InstanceId.
+- Update API CreateSnapshot: update param ClientToken.
+- Update API DescribeInstance: update response param.
+- Update API UpdateLogstash: update param body.
+- Update API UpdatePipelineManagementConfig: update param body.
+- Update API UpgradeEngineVersion: update param body.
+
+
 2024-06-04 Version: 2.0.2
 - Update API DescribeInstance: update response param.
 - Update API ListInstance: update response param.

@@ -8056,11 +8056,12 @@ class DescribeInstanceResponseBodyResult(TeaModel):
                  endtime=None, es_config=None, es_ipblacklist=None, es_ipwhitelist=None, es_version=None,
                  extend_configs=None, have_client_node=None, have_kibana=None, ik_hot_dicts=None, instance_category=None,
                  instance_id=None, is_new_deployment=None, kibana_configuration=None, kibana_domain=None,
-                 kibana_ipwhitelist=None, kibana_port=None, kibana_private_ipwhitelist=None, master_configuration=None,
-                 network_config=None, node_amount=None, node_spec=None, payment_type=None, port=None, postpaid_service_status=None,
-                 private_network_ip_white_list=None, protocol=None, public_domain=None, public_ip_whitelist=None, public_port=None,
-                 resource_group_id=None, service_vpc=None, status=None, synonyms_dicts=None, tags=None, updated_at=None,
-                 vpc_instance_id=None, warm_node=None, warm_node_configuration=None, zone_count=None, zone_infos=None):
+                 kibana_ipwhitelist=None, kibana_port=None, kibana_private_domain=None, kibana_private_ipwhitelist=None,
+                 kibana_private_port=None, master_configuration=None, network_config=None, node_amount=None, node_spec=None,
+                 payment_type=None, port=None, postpaid_service_status=None, private_network_ip_white_list=None, protocol=None,
+                 public_domain=None, public_ip_whitelist=None, public_port=None, resource_group_id=None, service_vpc=None,
+                 status=None, synonyms_dicts=None, tags=None, updated_at=None, vpc_instance_id=None, warm_node=None,
+                 warm_node_configuration=None, zone_count=None, zone_infos=None):
         self.advanced_dedicate_master = advanced_dedicate_master  # type: bool
         self.advanced_setting = advanced_setting  # type: DescribeInstanceResponseBodyResultAdvancedSetting
         self.aliws_dicts = aliws_dicts  # type: list[DescribeInstanceResponseBodyResultAliwsDicts]
@@ -8091,7 +8092,9 @@ class DescribeInstanceResponseBodyResult(TeaModel):
         self.kibana_domain = kibana_domain  # type: str
         self.kibana_ipwhitelist = kibana_ipwhitelist  # type: list[str]
         self.kibana_port = kibana_port  # type: int
+        self.kibana_private_domain = kibana_private_domain  # type: str
         self.kibana_private_ipwhitelist = kibana_private_ipwhitelist  # type: list[str]
+        self.kibana_private_port = kibana_private_port  # type: str
         self.master_configuration = master_configuration  # type: DescribeInstanceResponseBodyResultMasterConfiguration
         self.network_config = network_config  # type: DescribeInstanceResponseBodyResultNetworkConfig
         self.node_amount = node_amount  # type: int
@@ -8230,8 +8233,12 @@ class DescribeInstanceResponseBodyResult(TeaModel):
             result['kibanaIPWhitelist'] = self.kibana_ipwhitelist
         if self.kibana_port is not None:
             result['kibanaPort'] = self.kibana_port
+        if self.kibana_private_domain is not None:
+            result['kibanaPrivateDomain'] = self.kibana_private_domain
         if self.kibana_private_ipwhitelist is not None:
             result['kibanaPrivateIPWhitelist'] = self.kibana_private_ipwhitelist
+        if self.kibana_private_port is not None:
+            result['kibanaPrivatePort'] = self.kibana_private_port
         if self.master_configuration is not None:
             result['masterConfiguration'] = self.master_configuration.to_map()
         if self.network_config is not None:
@@ -8361,8 +8368,12 @@ class DescribeInstanceResponseBodyResult(TeaModel):
             self.kibana_ipwhitelist = m.get('kibanaIPWhitelist')
         if m.get('kibanaPort') is not None:
             self.kibana_port = m.get('kibanaPort')
+        if m.get('kibanaPrivateDomain') is not None:
+            self.kibana_private_domain = m.get('kibanaPrivateDomain')
         if m.get('kibanaPrivateIPWhitelist') is not None:
             self.kibana_private_ipwhitelist = m.get('kibanaPrivateIPWhitelist')
+        if m.get('kibanaPrivatePort') is not None:
+            self.kibana_private_port = m.get('kibanaPrivatePort')
         if m.get('masterConfiguration') is not None:
             temp_model = DescribeInstanceResponseBodyResultMasterConfiguration()
             self.master_configuration = temp_model.from_map(m['masterConfiguration'])
@@ -32240,9 +32251,10 @@ class UpdateLogstashSettingsResponse(TeaModel):
 
 
 class UpdatePipelineManagementConfigRequest(TeaModel):
-    def __init__(self, endpoints=None, password=None, pipeline_ids=None, pipeline_management_type=None,
-                 user_name=None, client_token=None):
+    def __init__(self, endpoints=None, es_instance_id=None, password=None, pipeline_ids=None,
+                 pipeline_management_type=None, user_name=None, client_token=None):
         self.endpoints = endpoints  # type: list[str]
+        self.es_instance_id = es_instance_id  # type: str
         self.password = password  # type: str
         self.pipeline_ids = pipeline_ids  # type: list[str]
         self.pipeline_management_type = pipeline_management_type  # type: str
@@ -32260,6 +32272,8 @@ class UpdatePipelineManagementConfigRequest(TeaModel):
         result = dict()
         if self.endpoints is not None:
             result['endpoints'] = self.endpoints
+        if self.es_instance_id is not None:
+            result['esInstanceId'] = self.es_instance_id
         if self.password is not None:
             result['password'] = self.password
         if self.pipeline_ids is not None:
@@ -32276,6 +32290,8 @@ class UpdatePipelineManagementConfigRequest(TeaModel):
         m = m or dict()
         if m.get('endpoints') is not None:
             self.endpoints = m.get('endpoints')
+        if m.get('esInstanceId') is not None:
+            self.es_instance_id = m.get('esInstanceId')
         if m.get('password') is not None:
             self.password = m.get('password')
         if m.get('pipelineIds') is not None:
@@ -33664,8 +33680,43 @@ class UpdateXpackMonitorConfigResponse(TeaModel):
         return self
 
 
+class UpgradeEngineVersionRequestPlugins(TeaModel):
+    def __init__(self, file_version=None, name=None, version=None):
+        self.file_version = file_version  # type: str
+        self.name = name  # type: str
+        self.version = version  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpgradeEngineVersionRequestPlugins, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.file_version is not None:
+            result['fileVersion'] = self.file_version
+        if self.name is not None:
+            result['name'] = self.name
+        if self.version is not None:
+            result['version'] = self.version
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('fileVersion') is not None:
+            self.file_version = m.get('fileVersion')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('version') is not None:
+            self.version = m.get('version')
+        return self
+
+
 class UpgradeEngineVersionRequest(TeaModel):
-    def __init__(self, type=None, version=None, client_token=None, dry_run=None):
+    def __init__(self, plugins=None, type=None, version=None, client_token=None, dry_run=None):
+        self.plugins = plugins  # type: list[UpgradeEngineVersionRequestPlugins]
         self.type = type  # type: str
         self.version = version  # type: str
         # The moderation results.
@@ -33679,7 +33730,10 @@ class UpgradeEngineVersionRequest(TeaModel):
         self.dry_run = dry_run  # type: bool
 
     def validate(self):
-        pass
+        if self.plugins:
+            for k in self.plugins:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(UpgradeEngineVersionRequest, self).to_map()
@@ -33687,6 +33741,10 @@ class UpgradeEngineVersionRequest(TeaModel):
             return _map
 
         result = dict()
+        result['plugins'] = []
+        if self.plugins is not None:
+            for k in self.plugins:
+                result['plugins'].append(k.to_map() if k else None)
         if self.type is not None:
             result['type'] = self.type
         if self.version is not None:
@@ -33699,6 +33757,11 @@ class UpgradeEngineVersionRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        self.plugins = []
+        if m.get('plugins') is not None:
+            for k in m.get('plugins'):
+                temp_model = UpgradeEngineVersionRequestPlugins()
+                self.plugins.append(temp_model.from_map(k))
         if m.get('type') is not None:
             self.type = m.get('type')
         if m.get('version') is not None:
