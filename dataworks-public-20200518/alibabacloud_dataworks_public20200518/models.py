@@ -38771,6 +38771,35 @@ class GetRemindResponseBodyDataProjects(TeaModel):
         return self
 
 
+class GetRemindResponseBodyDataReceivers(TeaModel):
+    def __init__(self, alert_targets=None, alert_unit=None):
+        self.alert_targets = alert_targets  # type: list[str]
+        self.alert_unit = alert_unit  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetRemindResponseBodyDataReceivers, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alert_targets is not None:
+            result['AlertTargets'] = self.alert_targets
+        if self.alert_unit is not None:
+            result['AlertUnit'] = self.alert_unit
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AlertTargets') is not None:
+            self.alert_targets = m.get('AlertTargets')
+        if m.get('AlertUnit') is not None:
+            self.alert_unit = m.get('AlertUnit')
+        return self
+
+
 class GetRemindResponseBodyDataRobots(TeaModel):
     def __init__(self, at_all=None, web_url=None):
         # Indicates whether all group members are notified when the alert notification is sent to a DingTalk group. Valid values: true and false.
@@ -38803,16 +38832,17 @@ class GetRemindResponseBodyDataRobots(TeaModel):
 
 
 class GetRemindResponseBodyData(TeaModel):
-    def __init__(self, alert_interval=None, alert_methods=None, alert_targets=None, alert_unit=None, baselines=None,
-                 biz_processes=None, detail=None, dnd_end=None, dnd_start=None, founder=None, max_alert_times=None, nodes=None,
-                 projects=None, remind_id=None, remind_name=None, remind_type=None, remind_unit=None, robots=None,
-                 useflag=None, webhooks=None):
+    def __init__(self, alert_interval=None, alert_methods=None, alert_targets=None, alert_unit=None,
+                 allow_nodes=None, baselines=None, biz_processes=None, detail=None, dnd_end=None, dnd_start=None, founder=None,
+                 max_alert_times=None, nodes=None, projects=None, receivers=None, remind_id=None, remind_name=None, remind_type=None,
+                 remind_unit=None, robots=None, useflag=None, webhooks=None):
         # The minimum interval at which alerts are reported. Unit: seconds.
         self.alert_interval = alert_interval  # type: int
         self.alert_methods = alert_methods  # type: list[str]
         self.alert_targets = alert_targets  # type: list[str]
         # The recipient of the alert. Valid values: OWNER and OTHER. The value OWNER indicates the node owner. The value OTHER indicates a specified user.
         self.alert_unit = alert_unit  # type: str
+        self.allow_nodes = allow_nodes  # type: list[long]
         # The baselines to which the custom alert rule is applied. This parameter is returned if the value of the RemindUnit parameter is BASELINE.
         self.baselines = baselines  # type: list[GetRemindResponseBodyDataBaselines]
         # The workflows to which the custom alert rule is applied. This parameter is returned if the value of the RemindUnit parameter is BIZPROCESS.
@@ -38835,6 +38865,7 @@ class GetRemindResponseBodyData(TeaModel):
         self.nodes = nodes  # type: list[GetRemindResponseBodyDataNodes]
         # The workspaces to which the custom alert rule is applied. This parameter is returned if the value of the RemindUnit parameter is PROJECT.
         self.projects = projects  # type: list[GetRemindResponseBodyDataProjects]
+        self.receivers = receivers  # type: list[GetRemindResponseBodyDataReceivers]
         # The custom alert rule ID.
         self.remind_id = remind_id  # type: long
         # The name of the rule.
@@ -38866,6 +38897,10 @@ class GetRemindResponseBodyData(TeaModel):
             for k in self.projects:
                 if k:
                     k.validate()
+        if self.receivers:
+            for k in self.receivers:
+                if k:
+                    k.validate()
         if self.robots:
             for k in self.robots:
                 if k:
@@ -38885,6 +38920,8 @@ class GetRemindResponseBodyData(TeaModel):
             result['AlertTargets'] = self.alert_targets
         if self.alert_unit is not None:
             result['AlertUnit'] = self.alert_unit
+        if self.allow_nodes is not None:
+            result['AllowNodes'] = self.allow_nodes
         result['Baselines'] = []
         if self.baselines is not None:
             for k in self.baselines:
@@ -38911,6 +38948,10 @@ class GetRemindResponseBodyData(TeaModel):
         if self.projects is not None:
             for k in self.projects:
                 result['Projects'].append(k.to_map() if k else None)
+        result['Receivers'] = []
+        if self.receivers is not None:
+            for k in self.receivers:
+                result['Receivers'].append(k.to_map() if k else None)
         if self.remind_id is not None:
             result['RemindId'] = self.remind_id
         if self.remind_name is not None:
@@ -38939,6 +38980,8 @@ class GetRemindResponseBodyData(TeaModel):
             self.alert_targets = m.get('AlertTargets')
         if m.get('AlertUnit') is not None:
             self.alert_unit = m.get('AlertUnit')
+        if m.get('AllowNodes') is not None:
+            self.allow_nodes = m.get('AllowNodes')
         self.baselines = []
         if m.get('Baselines') is not None:
             for k in m.get('Baselines'):
@@ -38969,6 +39012,11 @@ class GetRemindResponseBodyData(TeaModel):
             for k in m.get('Projects'):
                 temp_model = GetRemindResponseBodyDataProjects()
                 self.projects.append(temp_model.from_map(k))
+        self.receivers = []
+        if m.get('Receivers') is not None:
+            for k in m.get('Receivers'):
+                temp_model = GetRemindResponseBodyDataReceivers()
+                self.receivers.append(temp_model.from_map(k))
         if m.get('RemindId') is not None:
             self.remind_id = m.get('RemindId')
         if m.get('RemindName') is not None:
