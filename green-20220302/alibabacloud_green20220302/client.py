@@ -51,6 +51,16 @@ class Client(OpenApiClient):
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
     def describe_file_moderation_result_with_options(self, request, runtime):
+        """
+        @summary 文档审核结果
+        
+
+        @param request: DescribeFileModerationResultRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeFileModerationResultResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.service):
@@ -77,10 +87,31 @@ class Client(OpenApiClient):
         )
 
     def describe_file_moderation_result(self, request):
+        """
+        @summary 文档审核结果
+        
+
+        @param request: DescribeFileModerationResultRequest
+
+        @return: DescribeFileModerationResultResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_file_moderation_result_with_options(request, runtime)
 
     def describe_image_moderation_result_with_options(self, request, runtime):
+        """
+        @summary Obtains the moderation results of an Image Moderation 2.0 task.
+        
+        @description    Billing: This operation is free of charge.
+        QPS limit: You can call this operation up to 100 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: DescribeImageModerationResultRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeImageModerationResultResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.req_id):
@@ -105,10 +136,31 @@ class Client(OpenApiClient):
         )
 
     def describe_image_moderation_result(self, request):
+        """
+        @summary Obtains the moderation results of an Image Moderation 2.0 task.
+        
+        @description    Billing: This operation is free of charge.
+        QPS limit: You can call this operation up to 100 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: DescribeImageModerationResultRequest
+
+        @return: DescribeImageModerationResultResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_image_moderation_result_with_options(request, runtime)
 
     def describe_image_result_ext_with_options(self, request, runtime):
+        """
+        @summary 查询检测结果辅助信息
+        
+
+        @param request: DescribeImageResultExtRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeImageResultExtResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.info_type):
@@ -135,10 +187,28 @@ class Client(OpenApiClient):
         )
 
     def describe_image_result_ext(self, request):
+        """
+        @summary 查询检测结果辅助信息
+        
+
+        @param request: DescribeImageResultExtRequest
+
+        @return: DescribeImageResultExtResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_image_result_ext_with_options(request, runtime)
 
     def describe_upload_token_with_options(self, runtime):
+        """
+        @summary 查询上传token
+        
+
+        @param request: DescribeUploadTokenRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeUploadTokenResponse
+        """
         req = open_api_models.OpenApiRequest()
         params = open_api_models.Params(
             action='DescribeUploadToken',
@@ -157,10 +227,30 @@ class Client(OpenApiClient):
         )
 
     def describe_upload_token(self):
+        """
+        @summary 查询上传token
+        
+
+        @return: DescribeUploadTokenResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_upload_token_with_options(runtime)
 
     def describe_url_moderation_result_with_options(self, request, runtime):
+        """
+        @summary Queries the moderation results based on the ReqId returned by asynchronous URL moderation.
+        
+        @description    Billing: This operation is free of charge.
+        Query timeout: We recommend that you query moderation results at least 480 seconds after you send an asynchronous moderation request. Content Moderation retains moderation results for up to 3 days. After 3 days, the results are deleted.
+        You can call this operation up to 100 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: DescribeUrlModerationResultRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeUrlModerationResultResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.req_id):
@@ -185,10 +275,32 @@ class Client(OpenApiClient):
         )
 
     def describe_url_moderation_result(self, request):
+        """
+        @summary Queries the moderation results based on the ReqId returned by asynchronous URL moderation.
+        
+        @description    Billing: This operation is free of charge.
+        Query timeout: We recommend that you query moderation results at least 480 seconds after you send an asynchronous moderation request. Content Moderation retains moderation results for up to 3 days. After 3 days, the results are deleted.
+        You can call this operation up to 100 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: DescribeUrlModerationResultRequest
+
+        @return: DescribeUrlModerationResultResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_url_moderation_result_with_options(request, runtime)
 
     def file_moderation_with_options(self, request, runtime):
+        """
+        @summary 文档审核
+        
+
+        @param request: FileModerationRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: FileModerationResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.service):
@@ -215,10 +327,28 @@ class Client(OpenApiClient):
         )
 
     def file_moderation(self, request):
+        """
+        @summary 文档审核
+        
+
+        @param request: FileModerationRequest
+
+        @return: FileModerationResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.file_moderation_with_options(request, runtime)
 
     def image_async_moderation_with_options(self, request, runtime):
+        """
+        @summary 图片异步检测
+        
+
+        @param request: ImageAsyncModerationRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ImageAsyncModerationResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.service):
@@ -245,10 +375,30 @@ class Client(OpenApiClient):
         )
 
     def image_async_moderation(self, request):
+        """
+        @summary 图片异步检测
+        
+
+        @param request: ImageAsyncModerationRequest
+
+        @return: ImageAsyncModerationResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.image_async_moderation_with_options(request, runtime)
 
     def image_moderation_with_options(self, request, runtime):
+        """
+        @summary Identifies whether an image contains content or elements that violate relevant regulations on network content dissemination, affect the content order of a specific platform, or affect user experience. Image Moderation 2.0 supports over 90 content risk labels and over 100 risk control items. Image Moderation 2.0 of Content Moderation allows you to develop further moderation or governance measures for specific image content based on business scenarios, platform-specific content governance rules, or rich risk labels and scores of confidence levels returned by API calls.
+        
+        @description *Before you call this operation, make sure that you are familiar with the [billing](https://help.aliyun.com/document_detail/467826.html)[](https://www.aliyun.com/price/product?#/lvwang/detail/cdibag) of Image Moderation 2.0.
+        
+
+        @param request: ImageModerationRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ImageModerationResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.service):
@@ -275,10 +425,30 @@ class Client(OpenApiClient):
         )
 
     def image_moderation(self, request):
+        """
+        @summary Identifies whether an image contains content or elements that violate relevant regulations on network content dissemination, affect the content order of a specific platform, or affect user experience. Image Moderation 2.0 supports over 90 content risk labels and over 100 risk control items. Image Moderation 2.0 of Content Moderation allows you to develop further moderation or governance measures for specific image content based on business scenarios, platform-specific content governance rules, or rich risk labels and scores of confidence levels returned by API calls.
+        
+        @description *Before you call this operation, make sure that you are familiar with the [billing](https://help.aliyun.com/document_detail/467826.html)[](https://www.aliyun.com/price/product?#/lvwang/detail/cdibag) of Image Moderation 2.0.
+        
+
+        @param request: ImageModerationRequest
+
+        @return: ImageModerationResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.image_moderation_with_options(request, runtime)
 
     def text_moderation_with_options(self, request, runtime):
+        """
+        @summary 文本审核
+        
+
+        @param request: TextModerationRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: TextModerationResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.service):
@@ -305,10 +475,30 @@ class Client(OpenApiClient):
         )
 
     def text_moderation(self, request):
+        """
+        @summary 文本审核
+        
+
+        @param request: TextModerationRequest
+
+        @return: TextModerationResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.text_moderation_with_options(request, runtime)
 
     def text_moderation_plus_with_options(self, request, runtime):
+        """
+        @summary Moderates the input command and generated text of large language models (LLMs). Specific model input commands can be used to retrieve standard answers. The feature of enabling and disabling the moderation labels is also available.
+        
+        @description Before you call this operation, make sure that you have [activated the Content Moderation 2.0 service](https://common-buy.aliyun.com/?commodityCode=lvwang_cip_public_cn) and are familiar with the [billing](https://help.aliyun.com/document_detail/2671445.html?#section-6od-32j-99n) of the Text Moderation 2.0 Plus service.
+        
+
+        @param request: TextModerationPlusRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: TextModerationPlusResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.service):
@@ -335,10 +525,30 @@ class Client(OpenApiClient):
         )
 
     def text_moderation_plus(self, request):
+        """
+        @summary Moderates the input command and generated text of large language models (LLMs). Specific model input commands can be used to retrieve standard answers. The feature of enabling and disabling the moderation labels is also available.
+        
+        @description Before you call this operation, make sure that you have [activated the Content Moderation 2.0 service](https://common-buy.aliyun.com/?commodityCode=lvwang_cip_public_cn) and are familiar with the [billing](https://help.aliyun.com/document_detail/2671445.html?#section-6od-32j-99n) of the Text Moderation 2.0 Plus service.
+        
+
+        @param request: TextModerationPlusRequest
+
+        @return: TextModerationPlusResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.text_moderation_plus_with_options(request, runtime)
 
     def url_async_moderation_with_options(self, request, runtime):
+        """
+        @summary url异步检测
+        
+
+        @param request: UrlAsyncModerationRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UrlAsyncModerationResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.service):
@@ -365,10 +575,28 @@ class Client(OpenApiClient):
         )
 
     def url_async_moderation(self, request):
+        """
+        @summary url异步检测
+        
+
+        @param request: UrlAsyncModerationRequest
+
+        @return: UrlAsyncModerationResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.url_async_moderation_with_options(request, runtime)
 
     def video_moderation_with_options(self, request, runtime):
+        """
+        @summary 视频检测任务提交
+        
+
+        @param request: VideoModerationRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: VideoModerationResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.service):
@@ -395,10 +623,28 @@ class Client(OpenApiClient):
         )
 
     def video_moderation(self, request):
+        """
+        @summary 视频检测任务提交
+        
+
+        @param request: VideoModerationRequest
+
+        @return: VideoModerationResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.video_moderation_with_options(request, runtime)
 
     def video_moderation_cancel_with_options(self, request, runtime):
+        """
+        @summary 取消视频直播流检测
+        
+
+        @param request: VideoModerationCancelRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: VideoModerationCancelResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.service):
@@ -425,10 +671,28 @@ class Client(OpenApiClient):
         )
 
     def video_moderation_cancel(self, request):
+        """
+        @summary 取消视频直播流检测
+        
+
+        @param request: VideoModerationCancelRequest
+
+        @return: VideoModerationCancelResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.video_moderation_cancel_with_options(request, runtime)
 
     def video_moderation_result_with_options(self, request, runtime):
+        """
+        @summary 获取视频检测结果
+        
+
+        @param request: VideoModerationResultRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: VideoModerationResultResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.service):
@@ -455,10 +719,28 @@ class Client(OpenApiClient):
         )
 
     def video_moderation_result(self, request):
+        """
+        @summary 获取视频检测结果
+        
+
+        @param request: VideoModerationResultRequest
+
+        @return: VideoModerationResultResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.video_moderation_result_with_options(request, runtime)
 
     def voice_moderation_with_options(self, request, runtime):
+        """
+        @summary 语音审核
+        
+
+        @param request: VoiceModerationRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: VoiceModerationResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.service):
@@ -485,10 +767,28 @@ class Client(OpenApiClient):
         )
 
     def voice_moderation(self, request):
+        """
+        @summary 语音审核
+        
+
+        @param request: VoiceModerationRequest
+
+        @return: VoiceModerationResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.voice_moderation_with_options(request, runtime)
 
     def voice_moderation_cancel_with_options(self, request, runtime):
+        """
+        @summary 取消检测
+        
+
+        @param request: VoiceModerationCancelRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: VoiceModerationCancelResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.service):
@@ -515,10 +815,28 @@ class Client(OpenApiClient):
         )
 
     def voice_moderation_cancel(self, request):
+        """
+        @summary 取消检测
+        
+
+        @param request: VoiceModerationCancelRequest
+
+        @return: VoiceModerationCancelResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.voice_moderation_cancel_with_options(request, runtime)
 
     def voice_moderation_result_with_options(self, request, runtime):
+        """
+        @summary 语音检测结果获取接口
+        
+
+        @param request: VoiceModerationResultRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: VoiceModerationResultResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.service):
@@ -545,5 +863,13 @@ class Client(OpenApiClient):
         )
 
     def voice_moderation_result(self, request):
+        """
+        @summary 语音检测结果获取接口
+        
+
+        @param request: VoiceModerationResultRequest
+
+        @return: VoiceModerationResultResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.voice_moderation_result_with_options(request, runtime)
