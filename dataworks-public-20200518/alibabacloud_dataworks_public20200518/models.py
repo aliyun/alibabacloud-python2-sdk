@@ -3990,8 +3990,6 @@ class CreateDISyncTaskRequest(TeaModel):
         # 
         # This parameter is required.
         self.project_id = project_id  # type: long
-        # The configurations of the batch synchronization task to be created. Calling this API operation to create a batch synchronization task is equivalent to creating a batch synchronization task by using the code editor in the DataWorks console. For more information, see [Create a data synchronization task by using the code editor](https://help.aliyun.com/document_detail/137717.html).
-        # 
         # This parameter is required.
         self.task_content = task_content  # type: str
         # The name of the data synchronization task.
@@ -5580,13 +5578,14 @@ class CreateFileRequest(TeaModel):
         # 
         # The value of this parameter must be in the JSON format.
         self.advanced_settings = advanced_settings  # type: str
+        # Specifies whether scheduling configurations immediately take effect after the node is deployed.
         self.apply_schedule_immediately = apply_schedule_immediately  # type: bool
         # Specifies whether to enable the automatic parsing feature for the file. Valid values:
         # 
         # *   true
         # *   false
         # 
-        # This parameter corresponds to the Analyze Code parameter that is displayed after Same Cycle is selected in the Dependencies section of the Properties tab in the [DataWorks console](https://workbench.data.aliyun.com/console).
+        # This parameter corresponds to the Analyze Code parameter that is displayed after Same Cycle is selected in the Dependencies section of the Properties tab on the DataStudio page in the [DataWorks console](https://workbench.data.aliyun.com/console).
         self.auto_parsing = auto_parsing  # type: bool
         # The interval between automatic reruns after an error occurs. Unit: milliseconds. Maximum value: 1800000 (30 minutes).
         # 
@@ -5603,7 +5602,7 @@ class CreateFileRequest(TeaModel):
         # The code for the file. The code format varies based on the file type. To view the code format for a specific file type, go to Operation Center, right-click a node of the file type, and then select View Code.
         self.content = content  # type: str
         self.create_folder_if_not_exists = create_folder_if_not_exists  # type: bool
-        # The CRON expression that represents the periodic scheduling policy of the node. This parameter corresponds to the Cron Expression parameter in the Schedule section of the Properties tab in the [DataWorks console](https://workbench.data.aliyun.com/console). After you configure the Scheduling Cycle and Scheduled time parameters in the DataWorks console, DataWorks generates the value of the Cron Expression parameter.
+        # The CRON expression that represents the periodic scheduling policy of the node. This parameter corresponds to the Cron Expression parameter in the Schedule section of the Properties tab on the DataStudio page in the [DataWorks console](https://workbench.data.aliyun.com/console). After you configure the Scheduling Cycle and Scheduled time parameters in the DataWorks console, DataWorks generates the value of the Cron Expression parameter.
         # 
         # Examples:
         # 
@@ -5622,7 +5621,7 @@ class CreateFileRequest(TeaModel):
         self.cron_express = cron_express  # type: str
         # The type of the scheduling cycle of the node that corresponds to the file. Valid values: NOT_DAY and DAY. The value NOT_DAY indicates that the node is scheduled to run by minute or hour. The value DAY indicates that the node is scheduled to run by day, week, or month.
         # 
-        # This parameter corresponds to the Scheduling Cycle parameter in the Schedule section of the Properties tab in the [DataWorks console](https://workbench.data.aliyun.com/console).
+        # This parameter corresponds to the Scheduling Cycle parameter in the Schedule section of the Properties tab on the DataStudio page in the [DataWorks console](https://workbench.data.aliyun.com/console).
         self.cycle_type = cycle_type  # type: str
         # The IDs of the nodes that generate instances in the previous cycle on which the current node depends.
         self.dependent_node_id_list = dependent_node_id_list  # type: str
@@ -5688,7 +5687,7 @@ class CreateFileRequest(TeaModel):
         # *   FAILURE_ALLOWED: The node can be rerun only after it fails to run.
         # *   ALL_DENIED: The node cannot be rerun regardless of whether it is successfully run or fails to run.
         # 
-        # This parameter corresponds to the Rerun parameter in the Schedule section of the Properties tab in the [DataWorks console](https://workbench.data.aliyun.com/console).
+        # This parameter corresponds to the Rerun parameter in the Schedule section of the Properties tab on the DataStudio page in the [DataWorks console](https://workbench.data.aliyun.com/console).
         self.rerun_mode = rerun_mode  # type: str
         # This parameter is deprecated. Do not use this parameter.
         # 
@@ -5705,11 +5704,11 @@ class CreateFileRequest(TeaModel):
         # *   NORMAL: The node is an auto triggered node.
         # *   MANUAL: The node is a manually triggered node. Manually triggered nodes cannot be automatically triggered. They correspond to the nodes in the Manually Triggered Workflows pane.
         # *   PAUSE: The node is a paused node.
-        # *   SKIP: The node is a dry-run node. Dry-run nodes are started as scheduled but the scheduling system sets the status of the nodes to successful when the scheduling system starts to run the nodes.
+        # *   SKIP: The node is a dry-run node. Dry-run nodes are started as scheduled, but the system sets the status of the nodes to successful when it starts to run them
         self.scheduler_type = scheduler_type  # type: str
         # The start time of automatic scheduling. Set the value to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         # 
-        # Configuring this parameter is equivalent to specifying a start time for the Validity Period parameter in the Schedule section of the Properties tab in the [DataWorks console](https://workbench.data.aliyun.com/console).
+        # Configuring this parameter is equivalent to specifying a start time for the Validity Period parameter in the Schedule section of the Properties tab on the DataStudio page in the [DataWorks console](https://workbench.data.aliyun.com/console).
         self.start_effect_date = start_effect_date  # type: long
         # Specifies whether to immediately run a node after the node is deployed.
         # 
@@ -5720,7 +5719,7 @@ class CreateFileRequest(TeaModel):
         # *   true
         # *   false
         # 
-        # This parameter corresponds to the Recurrence parameter in the Schedule section of the Properties tab in the [DataWorks console](https://workbench.data.aliyun.com/console).
+        # This parameter corresponds to the Recurrence parameter in the Schedule section of the Properties tab on the DataStudio page in the [DataWorks console](https://workbench.data.aliyun.com/console).
         self.stop = stop  # type: bool
 
     def validate(self):
@@ -27051,6 +27050,7 @@ class GetFileResponseBodyDataNodeConfiguration(TeaModel):
                  input_list=None, input_parameters=None, output_list=None, output_parameters=None, para_value=None,
                  rerun_mode=None, resource_group_id=None, scheduler_type=None, start_effect_date=None, start_immediately=None,
                  stop=None):
+        # Indicates whether scheduling configurations immediately take effect after the deployment.
         self.apply_schedule_immediately = apply_schedule_immediately  # type: str
         # The interval between automatic reruns after an error occurs. Unit: milliseconds.
         # 
@@ -28484,7 +28484,7 @@ class GetIDEEventDetailResponseBodyEventDetailFileExecutionCommand(TeaModel):
         self.data_source_name = data_source_name  # type: str
         # The file ID.
         self.file_id = file_id  # type: long
-        # The type of the code for the file. Valid values: 6 (Shell), 10 (ODPS SQL), 11 (ODPS MR), 23 (Data Integration), 24 (ODPS Script), 99 (zero load), 221 (PyODPS 2), 225 (ODPS Spark), 227 (EMR Hive), 228 (EMR Spark), 229 (EMR Spark SQL), 230 (EMR MR), 239 (OSS object inspection), 257 (EMR Shell), 258 (EMR Spark Shell), 259 (EMR Presto), 260 (EMR Impala), 900 (real-time synchronization), 1089 (cross-tenant collaboration), 1091 (Hologres development), 1093 (Hologres SQL), 1100 (assignment), and 1221 (PyODPS 3).
+        # The type of the code for the file. The code for files varies based on the file type. For more information, see [DataWorks nodes](https://help.aliyun.com/document_detail/600169.html).
         self.file_type = file_type  # type: long
 
     def validate(self):
@@ -35011,7 +35011,7 @@ class GetNodeResponseBodyData(TeaModel):
                  deploy_date=None, description=None, dqc_description=None, dqc_type=None, file_id=None, file_type=None,
                  file_version=None, modify_time=None, node_id=None, node_name=None, owner_id=None, param_values=None,
                  priority=None, program_type=None, project_id=None, related_flow_id=None, repeat_interval=None,
-                 repeatability=None, res_group_identifier=None, res_group_name=None, scheduler_type=None):
+                 repeat_mode=None, repeatability=None, res_group_identifier=None, res_group_name=None, scheduler_type=None):
         # The description of the node.
         self.baseline_id = baseline_id  # type: long
         # The operation that you want to perform. Set the value to **GetNode**.
@@ -35055,6 +35055,7 @@ class GetNodeResponseBodyData(TeaModel):
         self.related_flow_id = related_flow_id  # type: long
         # The ID of the workflow to which the node belongs.
         self.repeat_interval = repeat_interval  # type: long
+        self.repeat_mode = repeat_mode  # type: int
         # The type of the node.
         self.repeatability = repeatability  # type: str
         self.res_group_identifier = res_group_identifier  # type: str
@@ -35116,6 +35117,8 @@ class GetNodeResponseBodyData(TeaModel):
             result['RelatedFlowId'] = self.related_flow_id
         if self.repeat_interval is not None:
             result['RepeatInterval'] = self.repeat_interval
+        if self.repeat_mode is not None:
+            result['RepeatMode'] = self.repeat_mode
         if self.repeatability is not None:
             result['Repeatability'] = self.repeatability
         if self.res_group_identifier is not None:
@@ -35172,6 +35175,8 @@ class GetNodeResponseBodyData(TeaModel):
             self.related_flow_id = m.get('RelatedFlowId')
         if m.get('RepeatInterval') is not None:
             self.repeat_interval = m.get('RepeatInterval')
+        if m.get('RepeatMode') is not None:
+            self.repeat_mode = m.get('RepeatMode')
         if m.get('Repeatability') is not None:
             self.repeatability = m.get('Repeatability')
         if m.get('ResGroupIdentifier') is not None:
@@ -60445,6 +60450,7 @@ class ListTablesResponseBodyData(TeaModel):
 
 class ListTablesResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The returned data.
         self.data = data  # type: ListTablesResponseBodyData
         # Id of the request
         self.request_id = request_id  # type: str
