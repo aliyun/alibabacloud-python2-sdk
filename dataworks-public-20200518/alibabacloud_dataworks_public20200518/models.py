@@ -7533,8 +7533,8 @@ class CreateQualityEntityRequest(TeaModel):
         # 
         # The value 0 indicates that the partition filter expression is at the SQL level, and the system checks data quality after each SQL statement is executed.
         # 
-        # *\
-        # *\
+        # * 0
+        # * 1
         self.entity_level = entity_level  # type: int
         # The type of the compute engine or data source.
         # 
@@ -54251,7 +54251,7 @@ class ListNodesResponseBodyDataNodes(TeaModel):
                  deploy_date=None, description=None, dqc_description=None, dqc_type=None, file_id=None, file_type=None,
                  file_version=None, modify_time=None, node_id=None, node_name=None, owner_id=None, param_values=None,
                  priority=None, program_type=None, project_id=None, related_flow_id=None, repeat_interval=None,
-                 repeatability=None, res_group_identifier=None, res_group_name=None, scheduler_type=None):
+                 repeat_mode=None, repeatability=None, res_group_identifier=None, res_group_name=None, scheduler_type=None):
         # The number of the page to return. Minimum value: 1. Maximum value: 100.
         self.baseline_id = baseline_id  # type: long
         # The operation that you want to perform. Set the value to **ListNodes**.
@@ -54290,6 +54290,7 @@ class ListNodesResponseBodyDataNodes(TeaModel):
         self.related_flow_id = related_flow_id  # type: long
         # The environment of the workspace. Valid values: PROD and DEV.
         self.repeat_interval = repeat_interval  # type: long
+        self.repeat_mode = repeat_mode  # type: int
         # The name of the node.
         self.repeatability = repeatability  # type: bool
         self.res_group_identifier = res_group_identifier  # type: str
@@ -54351,6 +54352,8 @@ class ListNodesResponseBodyDataNodes(TeaModel):
             result['RelatedFlowId'] = self.related_flow_id
         if self.repeat_interval is not None:
             result['RepeatInterval'] = self.repeat_interval
+        if self.repeat_mode is not None:
+            result['RepeatMode'] = self.repeat_mode
         if self.repeatability is not None:
             result['Repeatability'] = self.repeatability
         if self.res_group_identifier is not None:
@@ -54407,6 +54410,8 @@ class ListNodesResponseBodyDataNodes(TeaModel):
             self.related_flow_id = m.get('RelatedFlowId')
         if m.get('RepeatInterval') is not None:
             self.repeat_interval = m.get('RepeatInterval')
+        if m.get('RepeatMode') is not None:
+            self.repeat_mode = m.get('RepeatMode')
         if m.get('Repeatability') is not None:
             self.repeatability = m.get('Repeatability')
         if m.get('ResGroupIdentifier') is not None:
