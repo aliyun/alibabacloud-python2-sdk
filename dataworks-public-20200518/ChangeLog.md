@@ -1,3 +1,9 @@
+2024-11-21 Version: 4.2.0
+- Support API ListCheckProcesses.
+- Update API CreateProject: update param ProjectDescription.
+- Update API UpdateQualityRule: update param Checker.
+
+
 2024-10-17 Version: 4.1.4
 - Update API ListNodes: update response param.
 

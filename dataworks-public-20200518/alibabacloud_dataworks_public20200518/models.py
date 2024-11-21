@@ -281,6 +281,73 @@ class LineageRelationRegisterBulkVO(TeaModel):
         return self
 
 
+class LineageRelationRegisterTaskVO(TeaModel):
+    def __init__(self, attributes=None, create_timestamp=None, input_entities=None, name=None, output_entities=None,
+                 qualified_name=None):
+        self.attributes = attributes  # type: dict[str, str]
+        self.create_timestamp = create_timestamp  # type: long
+        self.input_entities = input_entities  # type: list[LineageEntityVO]
+        self.name = name  # type: str
+        self.output_entities = output_entities  # type: list[LineageEntityVO]
+        self.qualified_name = qualified_name  # type: str
+
+    def validate(self):
+        if self.input_entities:
+            for k in self.input_entities:
+                if k:
+                    k.validate()
+        if self.output_entities:
+            for k in self.output_entities:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(LineageRelationRegisterTaskVO, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.attributes is not None:
+            result['Attributes'] = self.attributes
+        if self.create_timestamp is not None:
+            result['CreateTimestamp'] = self.create_timestamp
+        result['InputEntities'] = []
+        if self.input_entities is not None:
+            for k in self.input_entities:
+                result['InputEntities'].append(k.to_map() if k else None)
+        if self.name is not None:
+            result['Name'] = self.name
+        result['OutputEntities'] = []
+        if self.output_entities is not None:
+            for k in self.output_entities:
+                result['OutputEntities'].append(k.to_map() if k else None)
+        if self.qualified_name is not None:
+            result['QualifiedName'] = self.qualified_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Attributes') is not None:
+            self.attributes = m.get('Attributes')
+        if m.get('CreateTimestamp') is not None:
+            self.create_timestamp = m.get('CreateTimestamp')
+        self.input_entities = []
+        if m.get('InputEntities') is not None:
+            for k in m.get('InputEntities'):
+                temp_model = LineageEntityVO()
+                self.input_entities.append(temp_model.from_map(k))
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        self.output_entities = []
+        if m.get('OutputEntities') is not None:
+            for k in m.get('OutputEntities'):
+                temp_model = LineageEntityVO()
+                self.output_entities.append(temp_model.from_map(k))
+        if m.get('QualifiedName') is not None:
+            self.qualified_name = m.get('QualifiedName')
+        return self
+
+
 class LineageRelationRegisterVO(TeaModel):
     def __init__(self, create_timestamp=None, dest_entity=None, relationship=None, src_entity=None):
         self.create_timestamp = create_timestamp  # type: long
@@ -3994,10 +4061,11 @@ class CreateDISyncTaskRequest(TeaModel):
         self.task_content = task_content  # type: str
         # The name of the data synchronization task.
         self.task_name = task_name  # type: str
-        # The settings that specify the storage path of the data synchronization task and the resource group used by the task. The following parameters are supported:
+        # The configuration parameters of the data synchronization task. The following parameters are supported:
         # 
         # *   FileFolderPath: the storage path of the data synchronization task.
         # *   ResourceGroup: the identifier of the resource group for Data Integration that is used by the data synchronization task. You can call the [ListResourceGroups](https://help.aliyun.com/document_detail/173913.html) operation to query the identifier of the resource group.
+        # *   Cu: the specifications occupied by the data synchronization task in the serverless resource group. The value of this parameter must be a multiple of 0.5.
         self.task_param = task_param  # type: str
         # The type of the data synchronization task. Valid values: DI_OFFLINE, DI_REALTIME, and DI_SOLUTION.
         # 
@@ -7161,8 +7229,6 @@ class CreateProjectRequest(TeaModel):
         # *   **0**: does not allow you to download the query result from DataStudio.
         self.is_allow_download = is_allow_download  # type: int
         # The description of the workspace.
-        # 
-        # This parameter is required.
         self.project_description = project_description  # type: str
         # The name of the workspace. The name can contain only letters, digits, and underscores (_) and must start with a letter or digit.
         # 
@@ -7261,8 +7327,6 @@ class CreateProjectShrinkRequest(TeaModel):
         # *   **0**: does not allow you to download the query result from DataStudio.
         self.is_allow_download = is_allow_download  # type: int
         # The description of the workspace.
-        # 
-        # This parameter is required.
         self.project_description = project_description  # type: str
         # The name of the workspace. The name can contain only letters, digits, and underscores (_) and must start with a letter or digit.
         # 
@@ -38679,7 +38743,7 @@ class GetRemindResponseBodyDataBaselines(TeaModel):
 
 class GetRemindResponseBodyDataBizProcesses(TeaModel):
     def __init__(self, biz_id=None, biz_process_name=None):
-        # The workflow ID.
+        # The ID of the workflow.
         self.biz_id = biz_id  # type: long
         # The name of the workflow.
         self.biz_process_name = biz_process_name  # type: str
@@ -38843,7 +38907,9 @@ class GetRemindResponseBodyData(TeaModel):
                  remind_unit=None, robots=None, useflag=None, webhooks=None):
         # The minimum interval at which alerts are reported. Unit: seconds.
         self.alert_interval = alert_interval  # type: int
+        # The alert notification method.
         self.alert_methods = alert_methods  # type: list[str]
+        # The description of the alert recipient.
         self.alert_targets = alert_targets  # type: list[str]
         # The recipient of the alert. Valid values: OWNER and OTHER. The value OWNER indicates the node owner. The value OTHER indicates a specified user.
         self.alert_unit = alert_unit  # type: str
@@ -38883,6 +38949,7 @@ class GetRemindResponseBodyData(TeaModel):
         self.robots = robots  # type: list[GetRemindResponseBodyDataRobots]
         # Indicates whether the custom alert rule is enabled. Valid values: true and false.
         self.useflag = useflag  # type: bool
+        # The information about the webhook URL.
         self.webhooks = webhooks  # type: list[str]
 
     def validate(self):
@@ -42402,6 +42469,236 @@ class ListCalcEnginesResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListCalcEnginesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListCheckProcessesRequest(TeaModel):
+    def __init__(self, event_code=None, operator=None, page_number=None, page_size=None, project_id=None,
+                 status=None):
+        # This parameter is required.
+        self.event_code = event_code  # type: str
+        self.operator = operator  # type: str
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.project_id = project_id  # type: long
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListCheckProcessesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.event_code is not None:
+            result['EventCode'] = self.event_code
+        if self.operator is not None:
+            result['Operator'] = self.operator
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.project_id is not None:
+            result['ProjectId'] = self.project_id
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EventCode') is not None:
+            self.event_code = m.get('EventCode')
+        if m.get('Operator') is not None:
+            self.operator = m.get('Operator')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('ProjectId') is not None:
+            self.project_id = m.get('ProjectId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class ListCheckProcessesResponseBodyPagingInfoCheckProcesses(TeaModel):
+    def __init__(self, event_code=None, event_name=None, event_name_en=None, message_id=None, operator=None,
+                 process_id=None, process_name=None, project_id=None, status=None):
+        self.event_code = event_code  # type: str
+        self.event_name = event_name  # type: str
+        self.event_name_en = event_name_en  # type: str
+        self.message_id = message_id  # type: str
+        self.operator = operator  # type: str
+        self.process_id = process_id  # type: str
+        self.process_name = process_name  # type: str
+        self.project_id = project_id  # type: long
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListCheckProcessesResponseBodyPagingInfoCheckProcesses, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.event_code is not None:
+            result['EventCode'] = self.event_code
+        if self.event_name is not None:
+            result['EventName'] = self.event_name
+        if self.event_name_en is not None:
+            result['EventNameEn'] = self.event_name_en
+        if self.message_id is not None:
+            result['MessageId'] = self.message_id
+        if self.operator is not None:
+            result['Operator'] = self.operator
+        if self.process_id is not None:
+            result['ProcessId'] = self.process_id
+        if self.process_name is not None:
+            result['ProcessName'] = self.process_name
+        if self.project_id is not None:
+            result['ProjectId'] = self.project_id
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EventCode') is not None:
+            self.event_code = m.get('EventCode')
+        if m.get('EventName') is not None:
+            self.event_name = m.get('EventName')
+        if m.get('EventNameEn') is not None:
+            self.event_name_en = m.get('EventNameEn')
+        if m.get('MessageId') is not None:
+            self.message_id = m.get('MessageId')
+        if m.get('Operator') is not None:
+            self.operator = m.get('Operator')
+        if m.get('ProcessId') is not None:
+            self.process_id = m.get('ProcessId')
+        if m.get('ProcessName') is not None:
+            self.process_name = m.get('ProcessName')
+        if m.get('ProjectId') is not None:
+            self.project_id = m.get('ProjectId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class ListCheckProcessesResponseBodyPagingInfo(TeaModel):
+    def __init__(self, check_processes=None, page_number=None, page_size=None, total_count=None):
+        self.check_processes = check_processes  # type: list[ListCheckProcessesResponseBodyPagingInfoCheckProcesses]
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.check_processes:
+            for k in self.check_processes:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListCheckProcessesResponseBodyPagingInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['CheckProcesses'] = []
+        if self.check_processes is not None:
+            for k in self.check_processes:
+                result['CheckProcesses'].append(k.to_map() if k else None)
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.check_processes = []
+        if m.get('CheckProcesses') is not None:
+            for k in m.get('CheckProcesses'):
+                temp_model = ListCheckProcessesResponseBodyPagingInfoCheckProcesses()
+                self.check_processes.append(temp_model.from_map(k))
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class ListCheckProcessesResponseBody(TeaModel):
+    def __init__(self, paging_info=None, request_id=None):
+        self.paging_info = paging_info  # type: ListCheckProcessesResponseBodyPagingInfo
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.paging_info:
+            self.paging_info.validate()
+
+    def to_map(self):
+        _map = super(ListCheckProcessesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.paging_info is not None:
+            result['PagingInfo'] = self.paging_info.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PagingInfo') is not None:
+            temp_model = ListCheckProcessesResponseBodyPagingInfo()
+            self.paging_info = temp_model.from_map(m['PagingInfo'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ListCheckProcessesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListCheckProcessesResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListCheckProcessesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListCheckProcessesResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -52658,24 +52955,24 @@ class ListManualDagInstancesResponse(TeaModel):
 
 class ListMeasureDataRequest(TeaModel):
     def __init__(self, component_code=None, domain_code=None, end_time=None, start_time=None):
-        # The measurement component.
+        # The measurement component. Valid values:
         # 
-        # *   This parameter is set to Count if the DomainCode parameter is set to DideAlarmPhone or DideAlarmSms. In this case, statistics on the number of phone calls or text messages that are used to send alert notifications are collected.
+        # *   Count: phone call-based alerts and text message-based alerts
         # 
         # This parameter is required.
         self.component_code = component_code  # type: str
-        # The item to be measured. Valid values:
+        # The measurement item. Valid values:
         # 
         # *   DideAlarmPhone: phone call-based alerts
         # *   DideAlarmSms: text message-based alerts
         # 
         # This parameter is required.
         self.domain_code = domain_code  # type: str
-        # The end timestamp of the measurement period, in milliseconds. The measurement period is calculated in days. You can query only the data within the last 30 days.
+        # The end timestamp of the measurement period, in milliseconds. The measurement period is calculated in days. You can query only the data within the previous 30 days.
         # 
         # This parameter is required.
         self.end_time = end_time  # type: long
-        # The start timestamp of the measurement period, in milliseconds. The measurement period is calculated in days. You can query only the data within the last 30 days.
+        # The start timestamp of the measurement period, in milliseconds. The measurement period is calculated in days. You can query only the data within the previous 30 days.
         # 
         # This parameter is required.
         self.start_time = start_time  # type: long
@@ -70008,9 +70305,10 @@ class UpdateDISyncTaskRequest(TeaModel):
         self.project_id = project_id  # type: long
         # The updated configurations of the data synchronization task. Calling this API operation to update a data synchronization task is equivalent to updating a data synchronization task by using the code editor in the DataWorks console. For more information, see [Create a synchronization task by using the code editor](https://help.aliyun.com/document_detail/137717.html). You can call the UpdateDISyncTask operation to update only batch synchronization tasks. If you do not need to update the configurations of the data synchronization task, leave this parameter empty.
         self.task_content = task_content  # type: str
-        # The setting based on which the resource group used by the data synchronization task is updated. You must configure this parameter in the JSON format.
+        # The configuration parameters of the data synchronization task. You must configure this parameter in the JSON format.
         # 
-        # Only the ResourceGroup field is supported. This field specifies the identifier of the resource group for Data Integration that is used by the data synchronization task. You can call the [ListResourceGroups](https://help.aliyun.com/document_detail/173913.html) operation to query the identifier of the resource group. If you do not need to update the resource group for the data synchronization task, leave this parameter empty.
+        # *   ResourceGroup: the identifier of the resource group for Data Integration that is used by the data synchronization task. You can call the [ListResourceGroups](https://help.aliyun.com/document_detail/173913.html) operation to query the identifier of the resource group.
+        # *   Cu: the specifications occupied by the data synchronization task in the serverless resource group. The value of this parameter must be a multiple of 0.5.
         self.task_param = task_param  # type: str
         # The type of the data synchronization task. Set the value to DI_OFFLINE. You can call the UpdateDISyncTask operation to update only batch synchronization tasks.
         # 
@@ -72195,9 +72493,7 @@ class UpdateQualityRuleRequest(TeaModel):
         # *   1: The monitoring rule is a strong rule.
         # *   0: The monitoring rule is a weak rule. You can specify the strength of a monitoring rule based on your business requirements. If a monitoring rule is a strong rule and the critical threshold is exceeded, a critical alert is reported and tasks that are associated with the rule are blocked from running.
         self.block_type = block_type  # type: int
-        # The checker ID. You can call the [ListQualityRules](https://help.aliyun.com/document_detail/173995.html) operation to obtain the ID of the checker.
-        # 
-        # This parameter is required.
+        # The checker ID. Valid values: 2: indicates that the current value is compared with the average value of the previous 7 days. 3: indicates that the current value is compared with the average value of the previous 30 days. 4: indicates that the current value is compared with the value 1 day earlier. 5: indicates that the current value is compared with the value 7 days earlier. 6: indicates that the current value is compared with the value 30 days earlier. 7: indicates the variance between the current value and the value 7 days earlier. 8: indicates the variance between the current value and the value 30 days earlier. 9: indicates that the current value is compared with a fixed value. 10: indicates that the current value is compared with the value 1, 7, or 30 days earlier. 11: indicates that the current value is compared with the value of the previous cycle. You can call the [ListQualityRules](https://help.aliyun.com/document_detail/173995.html) operation to query the ID.
         self.checker = checker  # type: int
         # The description of the monitoring rule.
         self.comment = comment  # type: str
@@ -72221,6 +72517,8 @@ class UpdateQualityRuleRequest(TeaModel):
         # *   false: The monitoring rule is not triggered when the associated auto triggered node that generates the output data starts to run.
         self.open_switch = open_switch  # type: bool
         # The comparison operator, such as >, >=, =, ≠, <, or <=.
+        # 
+        # >  If you set the Checker parameter to 9, you must configure the Operator parameter.
         self.operator = operator  # type: str
         # Specifies whether the threshold is a dynamic threshold. Valid values:
         # 

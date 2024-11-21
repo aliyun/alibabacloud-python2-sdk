@@ -9015,7 +9015,7 @@ class Client(OpenApiClient):
 
     def get_remind_with_options(self, request, runtime):
         """
-        @summary Queries the details of a custom alert rule.
+        @summary Queries the information about a custom alert rule.
         
         @description ## Debugging
         [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=dataworks-public\\&api=GetRemind\\&type=RPC\\&version=2020-05-18)
@@ -9052,7 +9052,7 @@ class Client(OpenApiClient):
 
     def get_remind(self, request):
         """
-        @summary Queries the details of a custom alert rule.
+        @summary Queries the information about a custom alert rule.
         
         @description ## Debugging
         [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=dataworks-public\\&api=GetRemind\\&type=RPC\\&version=2020-05-18)
@@ -9664,6 +9664,62 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.list_calc_engines_with_options(request, runtime)
+
+    def list_check_processes_with_options(self, request, runtime):
+        """
+        @summary 查询扩展事件的检查列表
+        
+
+        @param request: ListCheckProcessesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListCheckProcessesResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.event_code):
+            body['EventCode'] = request.event_code
+        if not UtilClient.is_unset(request.operator):
+            body['Operator'] = request.operator
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.status):
+            body['Status'] = request.status
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListCheckProcesses',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.ListCheckProcessesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_check_processes(self, request):
+        """
+        @summary 查询扩展事件的检查列表
+        
+
+        @param request: ListCheckProcessesRequest
+
+        @return: ListCheckProcessesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_check_processes_with_options(request, runtime)
 
     def list_cluster_configs_with_options(self, request, runtime):
         """
@@ -11341,7 +11397,7 @@ class Client(OpenApiClient):
 
     def list_measure_data_with_options(self, request, runtime):
         """
-        @summary 查询DataWorks计量数据
+        @summary Queries the statistics on the number of phone call-based alerts or text message-based alerts reported within the tenant to which your account belongs during the previous 30 days.
         
 
         @param request: ListMeasureDataRequest
@@ -11381,7 +11437,7 @@ class Client(OpenApiClient):
 
     def list_measure_data(self, request):
         """
-        @summary 查询DataWorks计量数据
+        @summary Queries the statistics on the number of phone call-based alerts or text message-based alerts reported within the tenant to which your account belongs during the previous 30 days.
         
 
         @param request: ListMeasureDataRequest
@@ -12787,7 +12843,7 @@ class Client(OpenApiClient):
 
     def list_tables_with_options(self, request, runtime):
         """
-        @summary 分页获取租户下面的数据源类型粒度的表名称
+        @summary Obtains tables of different data source types within a tenant by page.
         
 
         @param request: ListTablesRequest
@@ -12825,7 +12881,7 @@ class Client(OpenApiClient):
 
     def list_tables(self, request):
         """
-        @summary 分页获取租户下面的数据源类型粒度的表名称
+        @summary Obtains tables of different data source types within a tenant by page.
         
 
         @param request: ListTablesRequest
@@ -16173,7 +16229,7 @@ class Client(OpenApiClient):
 
     def update_meta_table_with_options(self, request, runtime):
         """
-        @summary Updates the metadata information about a table.
+        @summary Updates the metadata information about a table. Only MaxCompute tables are supported.
         
 
         @param request: UpdateMetaTableRequest
@@ -16229,7 +16285,7 @@ class Client(OpenApiClient):
 
     def update_meta_table(self, request):
         """
-        @summary Updates the metadata information about a table.
+        @summary Updates the metadata information about a table. Only MaxCompute tables are supported.
         
 
         @param request: UpdateMetaTableRequest
