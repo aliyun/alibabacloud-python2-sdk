@@ -333,7 +333,7 @@ class Client(OpenApiClient):
 
     def capacity_plan_with_options(self, request, headers, runtime):
         """
-        @summary 容量规划
+        @summary Capacity Planning
         
 
         @param request: CapacityPlanRequest
@@ -377,7 +377,7 @@ class Client(OpenApiClient):
 
     def capacity_plan(self, request):
         """
-        @summary 容量规划
+        @summary Capacity Planning
         
 
         @param request: CapacityPlanRequest
@@ -490,7 +490,7 @@ class Client(OpenApiClient):
 
     def close_managed_index_with_options(self, instance_id, index, request, headers, runtime):
         """
-        @summary 关闭索引托管
+        @summary Disable Managed Index
         
 
         @param request: CloseManagedIndexRequest
@@ -528,7 +528,7 @@ class Client(OpenApiClient):
 
     def close_managed_index(self, instance_id, index, request):
         """
-        @summary 关闭索引托管
+        @summary Disable Managed Index
         
 
         @param request: CloseManagedIndexRequest
@@ -1066,7 +1066,7 @@ class Client(OpenApiClient):
 
     def deactivate_zones_with_options(self, instance_id, request, headers, runtime):
         """
-        @summary Call deactivatezones to offline part of the zone when multiple zones are available. And you need to migrate the nodes in the offline zone to other zones.
+        @summary Invoke DeactivateZones to offline certain zones when there are multiple availability zones, and migrate nodes in the offline zones to other availability zones.
         
 
         @param request: DeactivateZonesRequest
@@ -1105,7 +1105,7 @@ class Client(OpenApiClient):
 
     def deactivate_zones(self, instance_id, request):
         """
-        @summary Call deactivatezones to offline part of the zone when multiple zones are available. And you need to migrate the nodes in the offline zone to other zones.
+        @summary Invoke DeactivateZones to offline certain zones when there are multiple availability zones, and migrate nodes in the offline zones to other availability zones.
         
 
         @param request: DeactivateZonesRequest
@@ -1787,7 +1787,7 @@ class Client(OpenApiClient):
 
     def describe_apm_with_options(self, instance_id, headers, runtime):
         """
-        @summary DescribeApm
+        @summary Describe APM
         
 
         @type headers: dict
@@ -1818,7 +1818,7 @@ class Client(OpenApiClient):
 
     def describe_apm(self, instance_id):
         """
-        @summary DescribeApm
+        @summary Describe APM
         
 
         @return: DescribeApmResponse

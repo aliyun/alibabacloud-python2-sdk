@@ -1,3 +1,9 @@
+2024-12-06 Version: 2.0.4
+- Update API GetRegionConfiguration: update response param.
+- Update API GetRegionalInstanceConfig: update response param.
+- Update API UpgradeEngineVersion: update param body.
+
+
 2024-09-10 Version: 2.0.3
 - Update API CreateSnapshot: update param InstanceId.
 - Update API CreateSnapshot: update param ClientToken.
