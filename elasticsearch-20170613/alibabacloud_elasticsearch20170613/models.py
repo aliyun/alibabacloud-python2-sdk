@@ -19742,10 +19742,10 @@ class ListInstanceResponseBodyResultTags(TeaModel):
 
 class ListInstanceResponseBodyResult(TeaModel):
     def __init__(self, advanced_dedicate_master=None, arch_type=None, client_node_configuration=None,
-                 created_at=None, dedicate_master=None, description=None, elastic_data_node_configuration=None, end_time=None,
-                 es_version=None, extend_configs=None, instance_id=None, is_new_deployment=None, kibana_configuration=None,
-                 kibana_ipwhitelist=None, kibana_private_ipwhitelist=None, master_configuration=None, network_config=None,
-                 node_amount=None, node_spec=None, payment_type=None, postpaid_service_status=None,
+                 created_at=None, dedicate_master=None, description=None, domain=None, elastic_data_node_configuration=None,
+                 end_time=None, es_version=None, extend_configs=None, instance_id=None, is_new_deployment=None,
+                 kibana_configuration=None, kibana_ipwhitelist=None, kibana_private_ipwhitelist=None, master_configuration=None,
+                 network_config=None, node_amount=None, node_spec=None, payment_type=None, postpaid_service_status=None,
                  private_network_ip_white_list=None, public_ip_whitelist=None, resource_group_id=None, service_vpc=None, status=None, tags=None,
                  updated_at=None, vpc_instance_id=None):
         # The billing method of the instance. Valid values:
@@ -19766,6 +19766,7 @@ class ListInstanceResponseBodyResult(TeaModel):
         self.dedicate_master = dedicate_master  # type: bool
         # The key of the tag.
         self.description = description  # type: str
+        self.domain = domain  # type: str
         # The configuration of Kibana nodes.
         self.elastic_data_node_configuration = elastic_data_node_configuration  # type: ListInstanceResponseBodyResultElasticDataNodeConfiguration
         self.end_time = end_time  # type: long
@@ -19843,6 +19844,8 @@ class ListInstanceResponseBodyResult(TeaModel):
             result['dedicateMaster'] = self.dedicate_master
         if self.description is not None:
             result['description'] = self.description
+        if self.domain is not None:
+            result['domain'] = self.domain
         if self.elastic_data_node_configuration is not None:
             result['elasticDataNodeConfiguration'] = self.elastic_data_node_configuration.to_map()
         if self.end_time is not None:
@@ -19908,6 +19911,8 @@ class ListInstanceResponseBodyResult(TeaModel):
             self.dedicate_master = m.get('dedicateMaster')
         if m.get('description') is not None:
             self.description = m.get('description')
+        if m.get('domain') is not None:
+            self.domain = m.get('domain')
         if m.get('elasticDataNodeConfiguration') is not None:
             temp_model = ListInstanceResponseBodyResultElasticDataNodeConfiguration()
             self.elastic_data_node_configuration = temp_model.from_map(m['elasticDataNodeConfiguration'])
