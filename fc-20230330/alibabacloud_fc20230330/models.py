@@ -376,8 +376,11 @@ class CDNTriggerConfig(TeaModel):
 
 class CertConfig(TeaModel):
     def __init__(self, cert_name=None, certificate=None, private_key=None):
+        # This parameter is required.
         self.cert_name = cert_name  # type: str
+        # This parameter is required.
         self.certificate = certificate  # type: str
+        # This parameter is required.
         self.private_key = private_key  # type: str
 
     def validate(self):
@@ -440,8 +443,10 @@ class ConcurrencyConfig(TeaModel):
 class CreateAliasInput(TeaModel):
     def __init__(self, additional_version_weight=None, alias_name=None, description=None, version_id=None):
         self.additional_version_weight = additional_version_weight  # type: dict[str, float]
+        # This parameter is required.
         self.alias_name = alias_name  # type: str
         self.description = description  # type: str
+        # This parameter is required.
         self.version_id = version_id  # type: str
 
     def validate(self):
@@ -481,6 +486,7 @@ class CreateCustomDomainInput(TeaModel):
                  tls_config=None, waf_config=None):
         self.auth_config = auth_config  # type: AuthConfig
         self.cert_config = cert_config  # type: CertConfig
+        # This parameter is required.
         self.domain_name = domain_name  # type: str
         self.protocol = protocol  # type: str
         self.route_config = route_config  # type: RouteConfig
@@ -550,7 +556,7 @@ class CreateFunctionInput(TeaModel):
                  custom_runtime_config=None, description=None, disk_size=None, environment_variables=None, function_name=None,
                  gpu_config=None, handler=None, instance_concurrency=None, instance_lifecycle_config=None,
                  internet_access=None, layers=None, log_config=None, memory_size=None, nas_config=None, oss_mount_config=None,
-                 role=None, runtime=None, timeout=None, tracing_config=None, vpc_config=None):
+                 role=None, runtime=None, tags=None, timeout=None, tracing_config=None, vpc_config=None):
         self.code = code  # type: InputCodeLocation
         self.cpu = cpu  # type: float
         self.custom_container_config = custom_container_config  # type: CustomContainerConfig
@@ -559,8 +565,10 @@ class CreateFunctionInput(TeaModel):
         self.description = description  # type: str
         self.disk_size = disk_size  # type: int
         self.environment_variables = environment_variables  # type: dict[str, str]
+        # This parameter is required.
         self.function_name = function_name  # type: str
         self.gpu_config = gpu_config  # type: GPUConfig
+        # This parameter is required.
         self.handler = handler  # type: str
         self.instance_concurrency = instance_concurrency  # type: int
         self.instance_lifecycle_config = instance_lifecycle_config  # type: InstanceLifecycleConfig
@@ -571,7 +579,9 @@ class CreateFunctionInput(TeaModel):
         self.nas_config = nas_config  # type: NASConfig
         self.oss_mount_config = oss_mount_config  # type: OSSMountConfig
         self.role = role  # type: str
+        # This parameter is required.
         self.runtime = runtime  # type: str
+        self.tags = tags  # type: list[Tag]
         self.timeout = timeout  # type: int
         self.tracing_config = tracing_config  # type: TracingConfig
         self.vpc_config = vpc_config  # type: VPCConfig
@@ -595,6 +605,10 @@ class CreateFunctionInput(TeaModel):
             self.nas_config.validate()
         if self.oss_mount_config:
             self.oss_mount_config.validate()
+        if self.tags:
+            for k in self.tags:
+                if k:
+                    k.validate()
         if self.tracing_config:
             self.tracing_config.validate()
         if self.vpc_config:
@@ -648,6 +662,10 @@ class CreateFunctionInput(TeaModel):
             result['role'] = self.role
         if self.runtime is not None:
             result['runtime'] = self.runtime
+        result['tags'] = []
+        if self.tags is not None:
+            for k in self.tags:
+                result['tags'].append(k.to_map() if k else None)
         if self.timeout is not None:
             result['timeout'] = self.timeout
         if self.tracing_config is not None:
@@ -709,6 +727,11 @@ class CreateFunctionInput(TeaModel):
             self.role = m.get('role')
         if m.get('runtime') is not None:
             self.runtime = m.get('runtime')
+        self.tags = []
+        if m.get('tags') is not None:
+            for k in m.get('tags'):
+                temp_model = Tag()
+                self.tags.append(temp_model.from_map(k))
         if m.get('timeout') is not None:
             self.timeout = m.get('timeout')
         if m.get('tracingConfig') is not None:
@@ -768,8 +791,11 @@ class CreateTriggerInput(TeaModel):
         self.invocation_role = invocation_role  # type: str
         self.qualifier = qualifier  # type: str
         self.source_arn = source_arn  # type: str
+        # This parameter is required.
         self.trigger_config = trigger_config  # type: str
+        # This parameter is required.
         self.trigger_name = trigger_name  # type: str
+        # This parameter is required.
         self.trigger_type = trigger_type  # type: str
 
     def validate(self):
@@ -818,6 +844,7 @@ class CreateTriggerInput(TeaModel):
 
 class CreateVpcBindingInput(TeaModel):
     def __init__(self, vpc_id=None):
+        # This parameter is required.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -842,7 +869,8 @@ class CreateVpcBindingInput(TeaModel):
 
 class CustomContainerConfig(TeaModel):
     def __init__(self, acceleration_info=None, acceleration_type=None, acr_instance_id=None, command=None,
-                 entrypoint=None, health_check_config=None, image=None, port=None, resolved_image_uri=None):
+                 entrypoint=None, health_check_config=None, image=None, port=None, registry_config=None,
+                 resolved_image_uri=None):
         self.acceleration_info = acceleration_info  # type: AccelerationInfo
         self.acceleration_type = acceleration_type  # type: str
         self.acr_instance_id = acr_instance_id  # type: str
@@ -851,6 +879,7 @@ class CustomContainerConfig(TeaModel):
         self.health_check_config = health_check_config  # type: CustomHealthCheckConfig
         self.image = image  # type: str
         self.port = port  # type: int
+        self.registry_config = registry_config  # type: RegistryConfig
         self.resolved_image_uri = resolved_image_uri  # type: str
 
     def validate(self):
@@ -858,6 +887,8 @@ class CustomContainerConfig(TeaModel):
             self.acceleration_info.validate()
         if self.health_check_config:
             self.health_check_config.validate()
+        if self.registry_config:
+            self.registry_config.validate()
 
     def to_map(self):
         _map = super(CustomContainerConfig, self).to_map()
@@ -881,6 +912,8 @@ class CustomContainerConfig(TeaModel):
             result['image'] = self.image
         if self.port is not None:
             result['port'] = self.port
+        if self.registry_config is not None:
+            result['registryConfig'] = self.registry_config.to_map()
         if self.resolved_image_uri is not None:
             result['resolvedImageUri'] = self.resolved_image_uri
         return result
@@ -905,6 +938,9 @@ class CustomContainerConfig(TeaModel):
             self.image = m.get('image')
         if m.get('port') is not None:
             self.port = m.get('port')
+        if m.get('registryConfig') is not None:
+            temp_model = RegistryConfig()
+            self.registry_config = temp_model.from_map(m['registryConfig'])
         if m.get('resolvedImageUri') is not None:
             self.resolved_image_uri = m.get('resolvedImageUri')
         return self
@@ -1280,7 +1316,9 @@ class DestinationConfig(TeaModel):
 
 class EqualRule(TeaModel):
     def __init__(self, match=None, replacement=None):
+        # This parameter is required.
         self.match = match  # type: str
+        # This parameter is required.
         self.replacement = replacement  # type: str
 
     def validate(self):
@@ -1556,7 +1594,7 @@ class Function(TeaModel):
                  instance_concurrency=None, instance_lifecycle_config=None, internet_access=None, last_modified_time=None,
                  last_update_status=None, last_update_status_reason=None, last_update_status_reason_code=None, layers=None,
                  log_config=None, memory_size=None, nas_config=None, oss_mount_config=None, role=None, runtime=None, state=None,
-                 state_reason=None, state_reason_code=None, timeout=None, tracing_config=None, vpc_config=None):
+                 state_reason=None, state_reason_code=None, tags=None, timeout=None, tracing_config=None, vpc_config=None):
         self.code_checksum = code_checksum  # type: str
         self.code_size = code_size  # type: long
         self.cpu = cpu  # type: float
@@ -1589,6 +1627,7 @@ class Function(TeaModel):
         self.state = state  # type: str
         self.state_reason = state_reason  # type: str
         self.state_reason_code = state_reason_code  # type: str
+        self.tags = tags  # type: list[Tag]
         self.timeout = timeout  # type: int
         self.tracing_config = tracing_config  # type: TracingConfig
         self.vpc_config = vpc_config  # type: VPCConfig
@@ -1614,6 +1653,10 @@ class Function(TeaModel):
             self.nas_config.validate()
         if self.oss_mount_config:
             self.oss_mount_config.validate()
+        if self.tags:
+            for k in self.tags:
+                if k:
+                    k.validate()
         if self.tracing_config:
             self.tracing_config.validate()
         if self.vpc_config:
@@ -1691,6 +1734,10 @@ class Function(TeaModel):
             result['stateReason'] = self.state_reason
         if self.state_reason_code is not None:
             result['stateReasonCode'] = self.state_reason_code
+        result['tags'] = []
+        if self.tags is not None:
+            for k in self.tags:
+                result['tags'].append(k.to_map() if k else None)
         if self.timeout is not None:
             result['timeout'] = self.timeout
         if self.tracing_config is not None:
@@ -1776,6 +1823,11 @@ class Function(TeaModel):
             self.state_reason = m.get('stateReason')
         if m.get('stateReasonCode') is not None:
             self.state_reason_code = m.get('stateReasonCode')
+        self.tags = []
+        if m.get('tags') is not None:
+            for k in m.get('tags'):
+                temp_model = Tag()
+                self.tags.append(temp_model.from_map(k))
         if m.get('timeout') is not None:
             self.timeout = m.get('timeout')
         if m.get('tracingConfig') is not None:
@@ -1842,6 +1894,43 @@ class GPUConfig(TeaModel):
             self.gpu_memory_size = m.get('gpuMemorySize')
         if m.get('gpuType') is not None:
             self.gpu_type = m.get('gpuType')
+        return self
+
+
+class GetInstanceLifecycleEventsOutput(TeaModel):
+    def __init__(self, events=None, request_id=None):
+        self.events = events  # type: list[InstanceEventItem]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.events:
+            for k in self.events:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetInstanceLifecycleEventsOutput, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['events'] = []
+        if self.events is not None:
+            for k in self.events:
+                result['events'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.events = []
+        if m.get('events') is not None:
+            for k in m.get('events'):
+                temp_model = InstanceEventItem()
+                self.events.append(temp_model.from_map(k))
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
         return self
 
 
@@ -1986,9 +2075,66 @@ class InputCodeLocation(TeaModel):
         return self
 
 
+class InstanceEventItem(TeaModel):
+    def __init__(self, children=None, level=None, message=None, time=None, type=None):
+        self.children = children  # type: list[InstanceEventItem]
+        self.level = level  # type: str
+        self.message = message  # type: str
+        self.time = time  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        if self.children:
+            for k in self.children:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(InstanceEventItem, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['children'] = []
+        if self.children is not None:
+            for k in self.children:
+                result['children'].append(k.to_map() if k else None)
+        if self.level is not None:
+            result['level'] = self.level
+        if self.message is not None:
+            result['message'] = self.message
+        if self.time is not None:
+            result['time'] = self.time
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.children = []
+        if m.get('children') is not None:
+            for k in m.get('children'):
+                temp_model = InstanceEventItem()
+                self.children.append(temp_model.from_map(k))
+        if m.get('level') is not None:
+            self.level = m.get('level')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('time') is not None:
+            self.time = m.get('time')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
 class InstanceInfo(TeaModel):
-    def __init__(self, instance_id=None, version_id=None):
+    def __init__(self, created_time_ms=None, destroyed_time_ms=None, instance_id=None, qualifier=None, status=None,
+                 version_id=None):
+        self.created_time_ms = created_time_ms  # type: long
+        self.destroyed_time_ms = destroyed_time_ms  # type: long
         self.instance_id = instance_id  # type: str
+        self.qualifier = qualifier  # type: str
+        self.status = status  # type: str
         self.version_id = version_id  # type: str
 
     def validate(self):
@@ -2000,16 +2146,32 @@ class InstanceInfo(TeaModel):
             return _map
 
         result = dict()
+        if self.created_time_ms is not None:
+            result['createdTimeMs'] = self.created_time_ms
+        if self.destroyed_time_ms is not None:
+            result['destroyedTimeMs'] = self.destroyed_time_ms
         if self.instance_id is not None:
             result['instanceId'] = self.instance_id
+        if self.qualifier is not None:
+            result['qualifier'] = self.qualifier
+        if self.status is not None:
+            result['status'] = self.status
         if self.version_id is not None:
             result['versionId'] = self.version_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('createdTimeMs') is not None:
+            self.created_time_ms = m.get('createdTimeMs')
+        if m.get('destroyedTimeMs') is not None:
+            self.destroyed_time_ms = m.get('destroyedTimeMs')
         if m.get('instanceId') is not None:
             self.instance_id = m.get('instanceId')
+        if m.get('qualifier') is not None:
+            self.qualifier = m.get('qualifier')
+        if m.get('status') is not None:
+            self.status = m.get('status')
         if m.get('versionId') is not None:
             self.version_id = m.get('versionId')
         return self
@@ -2117,6 +2279,7 @@ class Layer(TeaModel):
         self.compatible_runtime = compatible_runtime  # type: list[str]
         self.create_time = create_time  # type: str
         self.description = description  # type: str
+        # This parameter is required.
         self.layer_name = layer_name  # type: str
         self.layer_version_arn = layer_version_arn  # type: str
         self.license = license  # type: str
@@ -2436,8 +2599,9 @@ class ListFunctionsOutput(TeaModel):
 
 
 class ListInstancesOutput(TeaModel):
-    def __init__(self, instances=None):
+    def __init__(self, instances=None, request_id=None):
         self.instances = instances  # type: list[InstanceInfo]
+        self.request_id = request_id  # type: str
 
     def validate(self):
         if self.instances:
@@ -2455,6 +2619,8 @@ class ListInstancesOutput(TeaModel):
         if self.instances is not None:
             for k in self.instances:
                 result['instances'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
@@ -2464,6 +2630,8 @@ class ListInstancesOutput(TeaModel):
             for k in m.get('instances'):
                 temp_model = InstanceInfo()
                 self.instances.append(temp_model.from_map(k))
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
         return self
 
 
@@ -3082,8 +3250,10 @@ class OutputFuncCode(TeaModel):
 
 class PathConfig(TeaModel):
     def __init__(self, function_name=None, methods=None, path=None, qualifier=None, rewrite_config=None):
+        # This parameter is required.
         self.function_name = function_name  # type: str
         self.methods = methods  # type: list[str]
+        # This parameter is required.
         self.path = path  # type: str
         self.qualifier = qualifier  # type: str
         self.rewrite_config = rewrite_config  # type: RewriteConfig
@@ -3127,11 +3297,13 @@ class PathConfig(TeaModel):
 
 
 class ProvisionConfig(TeaModel):
-    def __init__(self, always_allocate_cpu=None, current=None, current_error=None, function_arn=None,
-                 scheduled_actions=None, target=None, target_tracking_policies=None):
+    def __init__(self, always_allocate_cpu=None, always_allocate_gpu=None, current=None, current_error=None,
+                 default_target=None, function_arn=None, scheduled_actions=None, target=None, target_tracking_policies=None):
         self.always_allocate_cpu = always_allocate_cpu  # type: bool
+        self.always_allocate_gpu = always_allocate_gpu  # type: bool
         self.current = current  # type: long
         self.current_error = current_error  # type: str
+        self.default_target = default_target  # type: long
         self.function_arn = function_arn  # type: str
         self.scheduled_actions = scheduled_actions  # type: list[ScheduledAction]
         self.target = target  # type: long
@@ -3155,10 +3327,14 @@ class ProvisionConfig(TeaModel):
         result = dict()
         if self.always_allocate_cpu is not None:
             result['alwaysAllocateCPU'] = self.always_allocate_cpu
+        if self.always_allocate_gpu is not None:
+            result['alwaysAllocateGPU'] = self.always_allocate_gpu
         if self.current is not None:
             result['current'] = self.current
         if self.current_error is not None:
             result['currentError'] = self.current_error
+        if self.default_target is not None:
+            result['defaultTarget'] = self.default_target
         if self.function_arn is not None:
             result['functionArn'] = self.function_arn
         result['scheduledActions'] = []
@@ -3177,10 +3353,14 @@ class ProvisionConfig(TeaModel):
         m = m or dict()
         if m.get('alwaysAllocateCPU') is not None:
             self.always_allocate_cpu = m.get('alwaysAllocateCPU')
+        if m.get('alwaysAllocateGPU') is not None:
+            self.always_allocate_gpu = m.get('alwaysAllocateGPU')
         if m.get('current') is not None:
             self.current = m.get('current')
         if m.get('currentError') is not None:
             self.current_error = m.get('currentError')
+        if m.get('defaultTarget') is not None:
+            self.default_target = m.get('defaultTarget')
         if m.get('functionArn') is not None:
             self.function_arn = m.get('functionArn')
         self.scheduled_actions = []
@@ -3266,6 +3446,7 @@ class PutAsyncInvokeConfigInput(TeaModel):
 
 class PutConcurrencyInput(TeaModel):
     def __init__(self, reserved_concurrency=None):
+        # This parameter is required.
         self.reserved_concurrency = reserved_concurrency  # type: long
 
     def validate(self):
@@ -3289,10 +3470,13 @@ class PutConcurrencyInput(TeaModel):
 
 
 class PutProvisionConfigInput(TeaModel):
-    def __init__(self, always_allocate_cpu=None, scheduled_actions=None, target=None,
-                 target_tracking_policies=None):
+    def __init__(self, always_allocate_cpu=None, always_allocate_gpu=None, default_target=None,
+                 scheduled_actions=None, target=None, target_tracking_policies=None):
         self.always_allocate_cpu = always_allocate_cpu  # type: bool
+        self.always_allocate_gpu = always_allocate_gpu  # type: bool
+        self.default_target = default_target  # type: long
         self.scheduled_actions = scheduled_actions  # type: list[ScheduledAction]
+        # This parameter is required.
         self.target = target  # type: long
         self.target_tracking_policies = target_tracking_policies  # type: list[TargetTrackingPolicy]
 
@@ -3314,6 +3498,10 @@ class PutProvisionConfigInput(TeaModel):
         result = dict()
         if self.always_allocate_cpu is not None:
             result['alwaysAllocateCPU'] = self.always_allocate_cpu
+        if self.always_allocate_gpu is not None:
+            result['alwaysAllocateGPU'] = self.always_allocate_gpu
+        if self.default_target is not None:
+            result['defaultTarget'] = self.default_target
         result['scheduledActions'] = []
         if self.scheduled_actions is not None:
             for k in self.scheduled_actions:
@@ -3330,6 +3518,10 @@ class PutProvisionConfigInput(TeaModel):
         m = m or dict()
         if m.get('alwaysAllocateCPU') is not None:
             self.always_allocate_cpu = m.get('alwaysAllocateCPU')
+        if m.get('alwaysAllocateGPU') is not None:
+            self.always_allocate_gpu = m.get('alwaysAllocateGPU')
+        if m.get('defaultTarget') is not None:
+            self.default_target = m.get('defaultTarget')
         self.scheduled_actions = []
         if m.get('scheduledActions') is not None:
             for k in m.get('scheduledActions'):
@@ -3347,7 +3539,9 @@ class PutProvisionConfigInput(TeaModel):
 
 class RegexRule(TeaModel):
     def __init__(self, match=None, replacement=None):
+        # This parameter is required.
         self.match = match  # type: str
+        # This parameter is required.
         self.replacement = replacement  # type: str
 
     def validate(self):
@@ -3371,6 +3565,140 @@ class RegexRule(TeaModel):
             self.match = m.get('match')
         if m.get('replacement') is not None:
             self.replacement = m.get('replacement')
+        return self
+
+
+class RegistryAuthConfig(TeaModel):
+    def __init__(self, password=None, user_name=None):
+        self.password = password  # type: str
+        self.user_name = user_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RegistryAuthConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.password is not None:
+            result['password'] = self.password
+        if self.user_name is not None:
+            result['userName'] = self.user_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('password') is not None:
+            self.password = m.get('password')
+        if m.get('userName') is not None:
+            self.user_name = m.get('userName')
+        return self
+
+
+class RegistryCertConfig(TeaModel):
+    def __init__(self, insecure=None, root_ca_cert_base_64=None):
+        self.insecure = insecure  # type: bool
+        self.root_ca_cert_base_64 = root_ca_cert_base_64  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RegistryCertConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.insecure is not None:
+            result['insecure'] = self.insecure
+        if self.root_ca_cert_base_64 is not None:
+            result['rootCaCertBase64'] = self.root_ca_cert_base_64
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('insecure') is not None:
+            self.insecure = m.get('insecure')
+        if m.get('rootCaCertBase64') is not None:
+            self.root_ca_cert_base_64 = m.get('rootCaCertBase64')
+        return self
+
+
+class RegistryConfig(TeaModel):
+    def __init__(self, auth_config=None, cert_config=None, network_config=None):
+        self.auth_config = auth_config  # type: RegistryAuthConfig
+        self.cert_config = cert_config  # type: RegistryCertConfig
+        self.network_config = network_config  # type: RegistryNetworkConfig
+
+    def validate(self):
+        if self.auth_config:
+            self.auth_config.validate()
+        if self.cert_config:
+            self.cert_config.validate()
+        if self.network_config:
+            self.network_config.validate()
+
+    def to_map(self):
+        _map = super(RegistryConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_config is not None:
+            result['authConfig'] = self.auth_config.to_map()
+        if self.cert_config is not None:
+            result['certConfig'] = self.cert_config.to_map()
+        if self.network_config is not None:
+            result['networkConfig'] = self.network_config.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('authConfig') is not None:
+            temp_model = RegistryAuthConfig()
+            self.auth_config = temp_model.from_map(m['authConfig'])
+        if m.get('certConfig') is not None:
+            temp_model = RegistryCertConfig()
+            self.cert_config = temp_model.from_map(m['certConfig'])
+        if m.get('networkConfig') is not None:
+            temp_model = RegistryNetworkConfig()
+            self.network_config = temp_model.from_map(m['networkConfig'])
+        return self
+
+
+class RegistryNetworkConfig(TeaModel):
+    def __init__(self, security_group_id=None, v_switch_id=None, vpc_id=None):
+        self.security_group_id = security_group_id  # type: str
+        self.v_switch_id = v_switch_id  # type: str
+        self.vpc_id = vpc_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RegistryNetworkConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.security_group_id is not None:
+            result['securityGroupId'] = self.security_group_id
+        if self.v_switch_id is not None:
+            result['vSwitchId'] = self.v_switch_id
+        if self.vpc_id is not None:
+            result['vpcId'] = self.vpc_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('securityGroupId') is not None:
+            self.security_group_id = m.get('securityGroupId')
+        if m.get('vSwitchId') is not None:
+            self.v_switch_id = m.get('vSwitchId')
+        if m.get('vpcId') is not None:
+            self.vpc_id = m.get('vpcId')
         return self
 
 
@@ -3659,12 +3987,17 @@ class SLSTriggerLogConfig(TeaModel):
 
 
 class ScheduledAction(TeaModel):
-    def __init__(self, end_time=None, name=None, schedule_expression=None, start_time=None, target=None):
+    def __init__(self, end_time=None, name=None, schedule_expression=None, start_time=None, target=None,
+                 time_zone=None):
         self.end_time = end_time  # type: str
+        # This parameter is required.
         self.name = name  # type: str
+        # This parameter is required.
         self.schedule_expression = schedule_expression  # type: str
         self.start_time = start_time  # type: str
+        # This parameter is required.
         self.target = target  # type: long
+        self.time_zone = time_zone  # type: str
 
     def validate(self):
         pass
@@ -3685,6 +4018,8 @@ class ScheduledAction(TeaModel):
             result['startTime'] = self.start_time
         if self.target is not None:
             result['target'] = self.target
+        if self.time_zone is not None:
+            result['timeZone'] = self.time_zone
         return result
 
     def from_map(self, m=None):
@@ -3699,6 +4034,8 @@ class ScheduledAction(TeaModel):
             self.start_time = m.get('startTime')
         if m.get('target') is not None:
             self.target = m.get('target')
+        if m.get('timeZone') is not None:
+            self.time_zone = m.get('timeZone')
         return self
 
 
@@ -4072,8 +4409,10 @@ class SourceRocketMQParameters(TeaModel):
 
 class TLSConfig(TeaModel):
     def __init__(self, cipher_suites=None, max_version=None, min_version=None):
+        # This parameter is required.
         self.cipher_suites = cipher_suites  # type: list[str]
         self.max_version = max_version  # type: str
+        # This parameter is required.
         self.min_version = min_version  # type: str
 
     def validate(self):
@@ -4174,7 +4513,9 @@ class TagResource(TeaModel):
 
 class TagResourceInput(TeaModel):
     def __init__(self, resource_arn=None, tags=None):
+        # This parameter is required.
         self.resource_arn = resource_arn  # type: str
+        # This parameter is required.
         self.tags = tags  # type: dict[str, str]
 
     def validate(self):
@@ -4203,8 +4544,10 @@ class TagResourceInput(TeaModel):
 
 class TagResourcesInput(TeaModel):
     def __init__(self, resource_id=None, resource_type=None, tag=None):
+        # This parameter is required.
         self.resource_id = resource_id  # type: list[str]
         self.resource_type = resource_type  # type: str
+        # This parameter is required.
         self.tag = tag  # type: list[Tag]
 
     def validate(self):
@@ -4245,14 +4588,20 @@ class TagResourcesInput(TeaModel):
 
 class TargetTrackingPolicy(TeaModel):
     def __init__(self, end_time=None, max_capacity=None, metric_target=None, metric_type=None, min_capacity=None,
-                 name=None, start_time=None):
+                 name=None, start_time=None, time_zone=None):
         self.end_time = end_time  # type: str
+        # This parameter is required.
         self.max_capacity = max_capacity  # type: long
+        # This parameter is required.
         self.metric_target = metric_target  # type: float
+        # This parameter is required.
         self.metric_type = metric_type  # type: str
+        # This parameter is required.
         self.min_capacity = min_capacity  # type: long
+        # This parameter is required.
         self.name = name  # type: str
         self.start_time = start_time  # type: str
+        self.time_zone = time_zone  # type: str
 
     def validate(self):
         pass
@@ -4277,6 +4626,8 @@ class TargetTrackingPolicy(TeaModel):
             result['name'] = self.name
         if self.start_time is not None:
             result['startTime'] = self.start_time
+        if self.time_zone is not None:
+            result['timeZone'] = self.time_zone
         return result
 
     def from_map(self, m=None):
@@ -4295,6 +4646,8 @@ class TargetTrackingPolicy(TeaModel):
             self.name = m.get('name')
         if m.get('startTime') is not None:
             self.start_time = m.get('startTime')
+        if m.get('timeZone') is not None:
+            self.time_zone = m.get('timeZone')
         return self
 
 
@@ -4757,7 +5110,8 @@ class UpdateTriggerInput(TeaModel):
 
 
 class VPCConfig(TeaModel):
-    def __init__(self, security_group_id=None, v_switch_ids=None, vpc_id=None):
+    def __init__(self, role=None, security_group_id=None, v_switch_ids=None, vpc_id=None):
+        self.role = role  # type: str
         self.security_group_id = security_group_id  # type: str
         self.v_switch_ids = v_switch_ids  # type: list[str]
         self.vpc_id = vpc_id  # type: str
@@ -4771,6 +5125,8 @@ class VPCConfig(TeaModel):
             return _map
 
         result = dict()
+        if self.role is not None:
+            result['role'] = self.role
         if self.security_group_id is not None:
             result['securityGroupId'] = self.security_group_id
         if self.v_switch_ids is not None:
@@ -4781,6 +5137,8 @@ class VPCConfig(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('role') is not None:
+            self.role = m.get('role')
         if m.get('securityGroupId') is not None:
             self.security_group_id = m.get('securityGroupId')
         if m.get('vSwitchIds') is not None:
@@ -4855,7 +5213,9 @@ class WAFConfig(TeaModel):
 
 class WildcardRule(TeaModel):
     def __init__(self, match=None, replacement=None):
+        # This parameter is required.
         self.match = match  # type: str
+        # This parameter is required.
         self.replacement = replacement  # type: str
 
     def validate(self):
@@ -4885,6 +5245,8 @@ class WildcardRule(TeaModel):
 class CreateAliasRequest(TeaModel):
     def __init__(self, body=None):
         # The request parameters for creating an alias.
+        # 
+        # This parameter is required.
         self.body = body  # type: CreateAliasInput
 
     def validate(self):
@@ -4948,6 +5310,8 @@ class CreateAliasResponse(TeaModel):
 class CreateCustomDomainRequest(TeaModel):
     def __init__(self, body=None):
         # The information about the custom domain name.
+        # 
+        # This parameter is required.
         self.body = body  # type: CreateCustomDomainInput
 
     def validate(self):
@@ -5011,6 +5375,8 @@ class CreateCustomDomainResponse(TeaModel):
 class CreateFunctionRequest(TeaModel):
     def __init__(self, body=None):
         # The information about function configurations.
+        # 
+        # This parameter is required.
         self.body = body  # type: CreateFunctionInput
 
     def validate(self):
@@ -5074,6 +5440,8 @@ class CreateFunctionResponse(TeaModel):
 class CreateLayerVersionRequest(TeaModel):
     def __init__(self, body=None):
         # The information about layer configurations.
+        # 
+        # This parameter is required.
         self.body = body  # type: CreateLayerVersionInput
 
     def validate(self):
@@ -5137,6 +5505,8 @@ class CreateLayerVersionResponse(TeaModel):
 class CreateTriggerRequest(TeaModel):
     def __init__(self, body=None):
         # The trigger configurations.
+        # 
+        # This parameter is required.
         self.body = body  # type: CreateTriggerInput
 
     def validate(self):
@@ -5199,7 +5569,9 @@ class CreateTriggerResponse(TeaModel):
 
 class CreateVpcBindingRequest(TeaModel):
     def __init__(self, body=None):
-        # The configurations of the virtual private cloud (VPC) binding.
+        # The VPC binding configurations.
+        # 
+        # This parameter is required.
         self.body = body  # type: CreateVpcBindingInput
 
     def validate(self):
@@ -5692,6 +6064,7 @@ class GetAsyncInvokeConfigResponse(TeaModel):
 
 class GetAsyncTaskRequest(TeaModel):
     def __init__(self, qualifier=None):
+        # The version or alias of the function.
         self.qualifier = qualifier  # type: str
 
     def validate(self):
@@ -5824,7 +6197,7 @@ class GetCustomDomainResponse(TeaModel):
 
 class GetFunctionRequest(TeaModel):
     def __init__(self, qualifier=None):
-        # The version or alias of the function.
+        # 2023-03-10T10:10:10Z
         self.qualifier = qualifier  # type: str
 
     def validate(self):
@@ -6116,6 +6489,9 @@ class GetTriggerResponse(TeaModel):
 class InvokeFunctionHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_async_task_id=None, x_fc_invocation_type=None, x_fc_log_type=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The ID of the asynchronous task. You must enable the asynchronous task feature in advance.
+        # 
+        # >  If you use an SDK to invoke a function, we recommend that you specify a business-related ID to facilitate subsequent operations. For example, a video processing function can use video file names as invocation IDs. This way, you can easily check whether a video is successfully processed or terminated before it is processed. The ID can start only with letters or underscores. An ID can contain *letters, digits (0 - 9), underscores*, and hyphens (-). It can be up to 128 characters in length. If you do not specify the ID of the asynchronous invocation, the system automatically generates an ID.
         self.x_fc_async_task_id = x_fc_async_task_id  # type: str
         # The type of function invocation. Valid values: Sync and Async.
         self.x_fc_invocation_type = x_fc_invocation_type  # type: str
@@ -6368,14 +6744,41 @@ class ListAsyncInvokeConfigsResponse(TeaModel):
 class ListAsyncTasksRequest(TeaModel):
     def __init__(self, include_payload=None, limit=None, next_token=None, prefix=None, qualifier=None,
                  sort_order_by_time=None, started_time_begin=None, started_time_end=None, status=None):
+        # Specifies whether to return input parameters of the asynchronous tasks. Valid values:
+        # 
+        # *   true: returns the `invocationPayload` parameter in the response.
+        # *   false: does not return the `invocationPayload` parameter in the response.
+        # 
+        # >  The `invocationPayload` parameter indicates the input parameters of an asynchronous task.
         self.include_payload = include_payload  # type: bool
+        # The number of asynchronous tasks to return. The default value is 20. Valid values: [1,100].
         self.limit = limit  # type: int
+        # The pagination token that is used in the next request to retrieve a new page of results. You do not need to specify this parameter for the first request. You must specify the token that is obtained from the previous query as the value of NextToken.
         self.next_token = next_token  # type: str
+        # The ID prefix of asynchronous tasks. If this parameter is specified, a list of asynchronous tasks whose IDs match the prefix is returned.
         self.prefix = prefix  # type: str
+        # The version or alias of the function.
         self.qualifier = qualifier  # type: str
+        # The order in which the returned asynchronous tasks are sorted.
+        # 
+        # *   asc: in ascending order.
+        # *   desc: in descending order.
         self.sort_order_by_time = sort_order_by_time  # type: str
+        # The start time of the period during which the asynchronous tasks are initiated.
         self.started_time_begin = started_time_begin  # type: long
+        # The end time of the period during which the asynchronous tasks are initiated.
         self.started_time_end = started_time_end  # type: long
+        # The state of asynchronous tasks. The following items list the states of an asynchronous task:
+        # 
+        # *   Enqueued: The asynchronous invocation is enqueued and is waiting to be executed.
+        # *   Succeeded: The invocation is successful.
+        # *   Failed: The invocation fails.
+        # *   Running: The invocation is being executed.
+        # *   Stopped: The invocation is terminated.
+        # *   Stopping: The invocation is being terminated.
+        # *   Invalid: The invocation is invalid and not executed due to specific reasons. For example, the function is deleted.
+        # *   Expired: The maximum validity period of messages is specified for asynchronous invocation. The invocation is discarded and not executed because the specified maximum validity period has elapsed.
+        # *   Retrying: The asynchronous invocation is being retried due to an execution error.
         self.status = status  # type: str
 
     def validate(self):
@@ -6686,7 +7089,9 @@ class ListFunctionVersionsResponse(TeaModel):
 
 
 class ListFunctionsRequest(TeaModel):
-    def __init__(self, limit=None, next_token=None, prefix=None):
+    def __init__(self, fc_version=None, limit=None, next_token=None, prefix=None):
+        # The version of Function Compute to which the functions belong. Valid values: v3 and v2. v3: only lists functions of Function Compute 3.0. v2: only lists functions of Function Compute 2.0. By default, this parameter is left empty and functions in both Function Compute 2.0 and Function Compute 3.0 are listed.
+        self.fc_version = fc_version  # type: str
         # The number of functions to return. The minimum value is 1 and the maximum value is 100.
         self.limit = limit  # type: int
         # The pagination token.
@@ -6703,6 +7108,8 @@ class ListFunctionsRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.fc_version is not None:
+            result['fcVersion'] = self.fc_version
         if self.limit is not None:
             result['limit'] = self.limit
         if self.next_token is not None:
@@ -6713,6 +7120,8 @@ class ListFunctionsRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('fcVersion') is not None:
+            self.fc_version = m.get('fcVersion')
         if m.get('limit') is not None:
             self.limit = m.get('limit')
         if m.get('nextToken') is not None:
@@ -6759,9 +7168,16 @@ class ListFunctionsResponse(TeaModel):
 
 
 class ListInstancesRequest(TeaModel):
-    def __init__(self, qualifier=None, with_all_active=None):
+    def __init__(self, end_time_ms=None, instance_ids=None, instance_status=None, limit=None, qualifier=None,
+                 start_key=None, start_time_ms=None, with_all_active=None):
+        self.end_time_ms = end_time_ms  # type: long
+        self.instance_ids = instance_ids  # type: list[str]
+        self.instance_status = instance_status  # type: list[str]
+        self.limit = limit  # type: str
         # The function version or alias.
         self.qualifier = qualifier  # type: str
+        self.start_key = start_key  # type: str
+        self.start_time_ms = start_time_ms  # type: long
         # Specifies whether to list all instances. Valid values: true and false.
         self.with_all_active = with_all_active  # type: bool
 
@@ -6774,16 +7190,102 @@ class ListInstancesRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.end_time_ms is not None:
+            result['endTimeMs'] = self.end_time_ms
+        if self.instance_ids is not None:
+            result['instanceIds'] = self.instance_ids
+        if self.instance_status is not None:
+            result['instanceStatus'] = self.instance_status
+        if self.limit is not None:
+            result['limit'] = self.limit
         if self.qualifier is not None:
             result['qualifier'] = self.qualifier
+        if self.start_key is not None:
+            result['startKey'] = self.start_key
+        if self.start_time_ms is not None:
+            result['startTimeMs'] = self.start_time_ms
         if self.with_all_active is not None:
             result['withAllActive'] = self.with_all_active
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('endTimeMs') is not None:
+            self.end_time_ms = m.get('endTimeMs')
+        if m.get('instanceIds') is not None:
+            self.instance_ids = m.get('instanceIds')
+        if m.get('instanceStatus') is not None:
+            self.instance_status = m.get('instanceStatus')
+        if m.get('limit') is not None:
+            self.limit = m.get('limit')
         if m.get('qualifier') is not None:
             self.qualifier = m.get('qualifier')
+        if m.get('startKey') is not None:
+            self.start_key = m.get('startKey')
+        if m.get('startTimeMs') is not None:
+            self.start_time_ms = m.get('startTimeMs')
+        if m.get('withAllActive') is not None:
+            self.with_all_active = m.get('withAllActive')
+        return self
+
+
+class ListInstancesShrinkRequest(TeaModel):
+    def __init__(self, end_time_ms=None, instance_ids_shrink=None, instance_status_shrink=None, limit=None,
+                 qualifier=None, start_key=None, start_time_ms=None, with_all_active=None):
+        self.end_time_ms = end_time_ms  # type: long
+        self.instance_ids_shrink = instance_ids_shrink  # type: str
+        self.instance_status_shrink = instance_status_shrink  # type: str
+        self.limit = limit  # type: str
+        # The function version or alias.
+        self.qualifier = qualifier  # type: str
+        self.start_key = start_key  # type: str
+        self.start_time_ms = start_time_ms  # type: long
+        # Specifies whether to list all instances. Valid values: true and false.
+        self.with_all_active = with_all_active  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListInstancesShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.end_time_ms is not None:
+            result['endTimeMs'] = self.end_time_ms
+        if self.instance_ids_shrink is not None:
+            result['instanceIds'] = self.instance_ids_shrink
+        if self.instance_status_shrink is not None:
+            result['instanceStatus'] = self.instance_status_shrink
+        if self.limit is not None:
+            result['limit'] = self.limit
+        if self.qualifier is not None:
+            result['qualifier'] = self.qualifier
+        if self.start_key is not None:
+            result['startKey'] = self.start_key
+        if self.start_time_ms is not None:
+            result['startTimeMs'] = self.start_time_ms
+        if self.with_all_active is not None:
+            result['withAllActive'] = self.with_all_active
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('endTimeMs') is not None:
+            self.end_time_ms = m.get('endTimeMs')
+        if m.get('instanceIds') is not None:
+            self.instance_ids_shrink = m.get('instanceIds')
+        if m.get('instanceStatus') is not None:
+            self.instance_status_shrink = m.get('instanceStatus')
+        if m.get('limit') is not None:
+            self.limit = m.get('limit')
+        if m.get('qualifier') is not None:
+            self.qualifier = m.get('qualifier')
+        if m.get('startKey') is not None:
+            self.start_key = m.get('startKey')
+        if m.get('startTimeMs') is not None:
+            self.start_time_ms = m.get('startTimeMs')
         if m.get('withAllActive') is not None:
             self.with_all_active = m.get('withAllActive')
         return self
@@ -7094,6 +7596,8 @@ class ListTagResourcesRequest(TeaModel):
         # The resource IDs.
         self.resource_id = resource_id  # type: list[str]
         # The resource type.
+        # 
+        # This parameter is required.
         self.resource_type = resource_type  # type: str
         # The tags.
         # 
@@ -7153,6 +7657,8 @@ class ListTagResourcesShrinkRequest(TeaModel):
         # The resource IDs.
         self.resource_id_shrink = resource_id_shrink  # type: str
         # The resource type.
+        # 
+        # This parameter is required.
         self.resource_type = resource_type  # type: str
         # The tags.
         # 
@@ -7343,6 +7849,8 @@ class ListVpcBindingsResponse(TeaModel):
 class PublishFunctionVersionRequest(TeaModel):
     def __init__(self, body=None):
         # The information about the function version.
+        # 
+        # This parameter is required.
         self.body = body  # type: PublishVersionInput
 
     def validate(self):
@@ -7405,7 +7913,9 @@ class PublishFunctionVersionResponse(TeaModel):
 
 class PutAsyncInvokeConfigRequest(TeaModel):
     def __init__(self, body=None, qualifier=None):
-        # The configurations of asynchronous function invocation.
+        # The asynchronous invocation configurations.
+        # 
+        # This parameter is required.
         self.body = body  # type: PutAsyncInvokeConfigInput
         # The version or alias of the function.
         self.qualifier = qualifier  # type: str
@@ -7475,6 +7985,8 @@ class PutAsyncInvokeConfigResponse(TeaModel):
 class PutConcurrencyConfigRequest(TeaModel):
     def __init__(self, body=None):
         # The concurrency configurations.
+        # 
+        # This parameter is required.
         self.body = body  # type: PutConcurrencyInput
 
     def validate(self):
@@ -7536,8 +8048,10 @@ class PutConcurrencyConfigResponse(TeaModel):
 
 
 class PutLayerACLRequest(TeaModel):
-    def __init__(self, public=None):
-        # Specifies whether the layer is a public layer. Valid values: true and false.
+    def __init__(self, acl=None, public=None):
+        # Specify the access permission of the layer. A value of 1 indicates public and a value of 0 indicates private. The default value is 0.
+        self.acl = acl  # type: str
+        # Specify whether the layer is a public layer. Valid values: true and false.
         self.public = public  # type: str
 
     def validate(self):
@@ -7549,12 +8063,16 @@ class PutLayerACLRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.acl is not None:
+            result['acl'] = self.acl
         if self.public is not None:
             result['public'] = self.public
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('acl') is not None:
+            self.acl = m.get('acl')
         if m.get('public') is not None:
             self.public = m.get('public')
         return self
@@ -7591,7 +8109,9 @@ class PutLayerACLResponse(TeaModel):
 
 class PutProvisionConfigRequest(TeaModel):
     def __init__(self, body=None, qualifier=None):
-        # The information about the provisioned configuration.
+        # The provisioned instance configurations.
+        # 
+        # This parameter is required.
         self.body = body  # type: PutProvisionConfigInput
         # The function alias or LATEST.
         self.qualifier = qualifier  # type: str
@@ -7660,6 +8180,7 @@ class PutProvisionConfigResponse(TeaModel):
 
 class StopAsyncTaskRequest(TeaModel):
     def __init__(self, qualifier=None):
+        # The version or alias of the function.
         self.qualifier = qualifier  # type: str
 
     def validate(self):
@@ -7714,6 +8235,8 @@ class StopAsyncTaskResponse(TeaModel):
 class TagResourcesRequest(TeaModel):
     def __init__(self, body=None):
         # The configuration of the resource tag.
+        # 
+        # This parameter is required.
         self.body = body  # type: TagResourcesInput
 
     def validate(self):
@@ -7772,8 +8295,12 @@ class UntagResourcesRequest(TeaModel):
         # Specifies whether to delete all tags.
         self.all = all  # type: bool
         # The resource identifiers.
+        # 
+        # This parameter is required.
         self.resource_id = resource_id  # type: list[str]
         # The resource type.
+        # 
+        # This parameter is required.
         self.resource_type = resource_type  # type: str
         # The tag to remove. You can specify a maximum of 50 tags.
         self.tag_key = tag_key  # type: list[str]
@@ -7815,8 +8342,12 @@ class UntagResourcesShrinkRequest(TeaModel):
         # Specifies whether to delete all tags.
         self.all = all  # type: bool
         # The resource identifiers.
+        # 
+        # This parameter is required.
         self.resource_id_shrink = resource_id_shrink  # type: str
         # The resource type.
+        # 
+        # This parameter is required.
         self.resource_type = resource_type  # type: str
         # The tag to remove. You can specify a maximum of 50 tags.
         self.tag_key_shrink = tag_key_shrink  # type: str
@@ -7885,6 +8416,8 @@ class UntagResourcesResponse(TeaModel):
 class UpdateAliasRequest(TeaModel):
     def __init__(self, body=None):
         # The alias information to be updated.
+        # 
+        # This parameter is required.
         self.body = body  # type: UpdateAliasInput
 
     def validate(self):
@@ -7948,6 +8481,8 @@ class UpdateAliasResponse(TeaModel):
 class UpdateCustomDomainRequest(TeaModel):
     def __init__(self, body=None):
         # The information about the custom domain name.
+        # 
+        # This parameter is required.
         self.body = body  # type: UpdateCustomDomainInput
 
     def validate(self):
@@ -8011,6 +8546,8 @@ class UpdateCustomDomainResponse(TeaModel):
 class UpdateFunctionRequest(TeaModel):
     def __init__(self, body=None):
         # The function information
+        # 
+        # This parameter is required.
         self.body = body  # type: UpdateFunctionInput
 
     def validate(self):
@@ -8074,6 +8611,8 @@ class UpdateFunctionResponse(TeaModel):
 class UpdateTriggerRequest(TeaModel):
     def __init__(self, body=None):
         # The trigger configurations.
+        # 
+        # This parameter is required.
         self.body = body  # type: UpdateTriggerInput
 
     def validate(self):

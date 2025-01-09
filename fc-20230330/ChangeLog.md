@@ -1,3 +1,21 @@
+2025-01-09 Version: 4.1.1
+- Update API DeleteProvisionConfig: update param qualifier.
+- Update API GetAsyncTask: update response param.
+- Update API GetProvisionConfig: update param qualifier.
+- Update API ListAsyncTasks: update response param.
+- Update API ListFunctions: add param fcVersion.
+- Update API ListInstances: add param endTimeMs.
+- Update API ListInstances: add param instanceIds.
+- Update API ListInstances: add param instanceStatus.
+- Update API ListInstances: add param limit.
+- Update API ListInstances: add param startKey.
+- Update API ListInstances: add param startTimeMs.
+- Update API ListInstances: update param withAllActive.
+- Update API PutLayerACL: add param acl.
+- Update API PutLayerACL: update param public.
+- Update API PutProvisionConfig: update param qualifier.
+
+
 2024-04-23 Version: 4.1.0
 - Support API GetAsyncTask.
 - Support API ListAsyncTasks.
