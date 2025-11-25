@@ -1,3 +1,77 @@
+2025-11-25 Version: 1.1.0
+- Support API AddMembers.
+- Support API CancelKyuubiSparkApplication.
+- Support API CreateKyuubiService.
+- Support API CreateKyuubiToken.
+- Support API CreateLivyCompute.
+- Support API CreateLivyComputeToken.
+- Support API CreateProcessDefinitionWithSchedule.
+- Support API CreateSessionCluster.
+- Support API CreateSqlStatement.
+- Support API CreateWorkspace.
+- Support API DeleteKyuubiService.
+- Support API DeleteKyuubiToken.
+- Support API DeleteLivyCompute.
+- Support API DeleteLivyComputeToken.
+- Support API EditWorkspaceQueue.
+- Support API GenerateTaskCodes.
+- Support API GetCuHours.
+- Support API GetDoctorApplication.
+- Support API GetKyuubiService.
+- Support API GetKyuubiToken.
+- Support API GetLivyCompute.
+- Support API GetLivyComputeToken.
+- Support API GetSessionCluster.
+- Support API GetSqlStatement.
+- Support API GetTemplate.
+- Support API GrantRoleToUsers.
+- Support API ListCatalogs.
+- Support API ListJobExecutors.
+- Support API ListKyuubiServices.
+- Support API ListKyuubiSparkApplications.
+- Support API ListKyuubiToken.
+- Support API ListLivyCompute.
+- Support API ListLivyComputeToken.
+- Support API ListLogContents.
+- Support API ListMembers.
+- Support API ListReleaseVersions.
+- Support API ListSessionClusters.
+- Support API ListSqlStatementContents.
+- Support API ListTemplate.
+- Support API ListWorkspaceQueues.
+- Support API ListWorkspaces.
+- Support API RefreshLivyComputeToken.
+- Support API StartKyuubiService.
+- Support API StartLivyCompute.
+- Support API StartProcessInstance.
+- Support API StartSessionCluster.
+- Support API StopKyuubiService.
+- Support API StopLivyCompute.
+- Support API StopSessionCluster.
+- Support API TerminateSqlStatement.
+- Support API UpdateKyuubiService.
+- Support API UpdateKyuubiToken.
+- Support API UpdateLivyCompute.
+- Support API UpdateProcessDefinitionWithSchedule.
+- Update API GetJobRun: add response parameters Body.jobRun.displayReleaseVersion.
+- Update API GetJobRun: add response parameters Body.jobRun.environmentId.
+- Update API GetJobRun: add response parameters Body.jobRun.fusion.
+- Update API GetJobRun: add response parameters Body.jobRun.notebookAccessUrl.
+- Update API ListJobRuns: add request parameters applicationConfigs.
+- Update API ListJobRuns: add request parameters isWorkflow.
+- Update API ListJobRuns: add request parameters jobRunDeploymentId.
+- Update API ListJobRuns: add request parameters minDuration.
+- Update API ListJobRuns: add request parameters runtimeConfigs.
+- Update API ListJobRuns: add response parameters Body.jobRuns.$.cuHours.
+- Update API ListJobRuns: add response parameters Body.jobRuns.$.displayReleaseVersion.
+- Update API ListJobRuns: add response parameters Body.jobRuns.$.fusion.
+- Update API ListJobRuns: add response parameters Body.jobRuns.$.mbSeconds.
+- Update API ListJobRuns: add response parameters Body.jobRuns.$.resourceQueueId.
+- Update API ListJobRuns: add response parameters Body.jobRuns.$.vcoreSeconds.
+- Update API StartJobRun: add request parameters body.displayReleaseVersion.
+- Update API StartJobRun: add request parameters body.fusion.
+
+
 2024-04-16 Version: 1.0.0
 - Generated python2 2023-08-08 for emr-serverless-spark.
 

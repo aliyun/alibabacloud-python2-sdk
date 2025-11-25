@@ -23,15 +23,15 @@ import sys
 from setuptools import setup, find_packages
 
 """
-setup module for alibabacloud_emr-serverless-spark20230808_py2.
+setup module for alibabacloud_emr_serverless_spark20230808_py2.
 
-Created on 16/04/2024
+Created on 25/11/2025
 
 @author: Alibaba Cloud SDK
 """
 
 PACKAGE = "alibabacloud_emr_serverless_spark20230808"
-NAME = "alibabacloud_emr-serverless-spark20230808_py2" or "alibabacloud-package"
+NAME = "alibabacloud_emr_serverless_spark20230808_py2" or "alibabacloud-package"
 DESCRIPTION = "Alibaba Cloud emr-serverless-spark (20230808) SDK Library for Python2"
 AUTHOR = "Alibaba Cloud SDK"
 AUTHOR_EMAIL = "sdk-team@alibabacloud.com"
@@ -40,7 +40,7 @@ VERSION = __import__(PACKAGE).__version__
 REQUIRES = [
     "alibabacloud_tea_util_py2>=0.0.9, <1.0.0",
     "alibabacloud_tea_openapi_py2>=0.1.8, <1.0.0",
-    "alibabacloud_openapi_util_py2>=0.1.1, <1.0.0",
+    "alibabacloud_openapi_util_py2>=0.1.2, <1.0.0",
     "alibabacloud_endpoint_util_py2>=0.0.2, <1.0.0"
 ]
 
